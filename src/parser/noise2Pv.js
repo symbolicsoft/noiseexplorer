@@ -14,27 +14,6 @@ const util = {
 	abc: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'],
 };
 
-const parseArgs = (args) => {
-	let sendarg = 'notoken';
-	let recvarg = 'notoken';
-	args.forEach((arg) => {
-		if (arg.dir === 'send') {
-			if (arg.tokens === 'e, s') {
-				sendarg = `es_token`;
-			} else {
-				sendarg = `${arg.tokens}_token`;
-			}
-		} else if (arg.dir === 'recv') {
-			if (arg.tokens = 're, rs') {
-				recvarg = `rers_token`;
-			} else {
-				recvarg = `${arg.tokens}_token`;
-			}
-		}
-	});
-	return [sendarg, recvarg];
-};
-
 const preMessagesSendStatic = (pattern) => {
 	let r = false;
 	pattern.preMessages.forEach((preMessage) => {

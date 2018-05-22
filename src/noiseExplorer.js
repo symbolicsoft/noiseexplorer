@@ -34,7 +34,6 @@ if (
 	(ARGV.hasOwnProperty('generate') && (
 		ARGV.hasOwnProperty('render') ||
 		!ARGV.hasOwnProperty('pattern') ||
-		!ARGV.hasOwnProperty('attacker') ||
 		ARGV.hasOwnProperty('activeResults') ||
 		ARGV.hasOwnProperty('passiveResults')
 	)) ||
@@ -54,6 +53,9 @@ if (ARGV.hasOwnProperty('generate')) {
 	if (!(/^(proverif)|(json)$/).test(ARGV.generate)) {
 		throw new Error('You must specify a valid generation output format.');
 		process.exit();
+	}
+	if (!ARGV.hasOwnProperty('attacker')) {
+		ARGV.attacker = 'active';
 	}
 	if (!(/^(active)|(passive)$/).test(ARGV.attacker)) {
 		throw new Error('You must specify a valid attacker type.');

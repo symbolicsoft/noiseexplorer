@@ -21,28 +21,6 @@
 	const check = {
 		preMessages: (pattern) => {
 			pattern.preMessages.forEach((preMessage) => {
-				let arg = '';
-				if (preMessage.dir === 'recv') {
-					arg = 'r';
-				}
-				if (preMessage.tokens === 'e, s') {
-					arg = `${arg}e, `;
-					if (preMessage.dir === 'recv') {
-						arg = `${arg}r`
-					}
-					arg = `${arg}s`;
-				} else {
-					arg = `${arg}${preMessage.tokens}`;
-				}
-				let initialized = false;
-				pattern.args.forEach((i) => {
-					if (i.tokens === arg) {
-						initialized = true;
-					}
-				});
-				if (!initialized) {
-					error(errMsg.keyNotInitialized);
-				}
 				if (preMessage.tokens.indexOf('s') >= 0) {
 					if (preMessage.dir === 'send') {
 						g.s  = g.s + 1;
@@ -154,7 +132,6 @@
 		tooManyTokens: 'Message patterns with a maximum of 8 tokens are currently supported.',
 		tooManyMessages: 'Handshake patterns with a maximum of 8 message patterns are currently supported.',
 		dupTokens: 'Noise pattern must not contain duplicate tokens in the same message flight.',
-		keyNotInitialized: 'Parties can only send a static public key if they were initialized with a static key pair, and can only perform DH between private keys and public keys they possess.',
 		keySentMoreThanOnce: 'Parties must not send their static public key or ephemeral public key more than once per handshake.',
 		wrongPskModifier: 'PSK modifiers must correctly indicate the position of PSK tokens.',
 		wrongPskLocation: 'PSK tokens must appear at the beginning or end of the first handshake message or at the end of any other handshake message.',
@@ -166,16 +143,14 @@
 }
 
 Pattern =
-	Name:Identifier '(' Args:Args? '):' _
+	Name:Identifier ':' _
     PreMessages:PreMessages? _
     Messages:Messages {
 		let pattern = {
 			name: Name,
-			args: [],
 			preMessages: [],
 			messages: Messages
 		};
-		pattern.args = Args? Args : [];
 		pattern.preMessages = PreMessages? PreMessages : [];
 		check.preMessages(pattern);
 		check.messages(pattern);
@@ -225,53 +200,11 @@ PreMessageToken =
 	('e, s' / 'e' / 's') {
 		return text();
 	}
-
-ArgTokenSend =
-	('e, s' / 'e' / 's') {
-		return text();
-	}
-
-ArgTokenRecv =
-	('re, rs' / 're' / 'rs') {
-		return text();
-	}
     
 Tokens =
 	(Token (', ' / ','))* Token {
 		let normalized = text().replace(/\,\s/g, ',');
 		return normalized.split(',');
-	}
-
-Args =
-	Args:(ArgTokenSend _ ','? _ ArgTokenRecv?) {
-		let a = [{
-			type: 'Arg',
-			dir: 'send',
-			tokens: Args[0]
-		}];
-		if (Args[4]) {
-			a.push({
-				type: 'Arg',
-				dir: 'recv',
-				tokens: Args[4]
-			});
-		}
-		return a;
-	} /
-	Args:(ArgTokenRecv _ ','? _ ArgTokenSend?) {
-		let a = [{
-			type: 'Arg',
-			dir: 'recv',
-			tokens: Args[0]
-		}];
-		if (Args[4]) {
-			a.unshift({
-				type: 'Arg',
-				dir: 'send',
-				tokens: Args[4]
-			});
-		}
-		return a;
 	}
     
 PreMessage =

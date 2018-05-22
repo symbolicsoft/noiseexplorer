@@ -1,4 +1,4 @@
-XN(s):
+XN:
 	-> e
 	<- e, ee
 	-> s, se

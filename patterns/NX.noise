@@ -1,4 +1,4 @@
-NX(rs):
+NX:
 	-> e
 	<- e, ee, s, es
 	->
