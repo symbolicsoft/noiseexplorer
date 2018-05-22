@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<title>Noise Explorer: Command-Line Tool</title>
+	<link rel="icon" type="image/png" href="../res/img/logo.png" />
+	<link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono|IBM+Plex+Sans" rel="stylesheet" />
+	<link href="../res/css/style.css" rel="stylesheet" />
+	<script type="application/javascript"></script>
+</head>
+
+<body>
+	<div class="header">
+		<img id="logo" src="../res/img/logo.png" alt="" />
+		<h1>Noise Explorer <span class="beta">beta</span></h1>
+	</div>
+	<div class="nav">
+		<span class="menu">menu</span>
+		<div class="navLinks">
+			<a href="..">Design New Pattern</a>
+			<a href="../patterns">Explore Patterns</a>
+			<a href="#" class="currentNav">Command-Line Tool</a>
+		</div>
+	</div>
+	<div class="results singleColumn">
+		<div class="resultsExplanation">
+			<h2>Noise Explorer Command-Line Tool</h2>
+			<p>The Noise Explorer command-line tool can parse Noise Handshake Patterns according to the original specification. It can generate cryptographic models for formal verification, including security queries, top-level processes and malicious principals, for testing against an active or passive attacker. </p>
+			<p>Noise Explorer can also render results from the ProVerif output into an elegant and easy to read HTML format: the <a href="../patterns">pattern results</a> that can be explored on this very website were generated using the Noise Explorer command-line tool.</p>
+<pre>
+$> node noiseExplorer --help
+Noise Explorer v0.2
+	Noise Explorer can either generate models or render results, and the parameters
+	for either must be invoked exclusively.
+
+	Model generation:
+	--generate=(proverif|json): Specify output format.
+	--pattern=[file]: Specify input pattern file (required).
+	--attacker=(active|passive): Specify attacker type (default: active).
+
+	Results rendering:
+	--render: Render results from ProVerif output files into HTML.
+	--pattern=[file]: Specify input pattern file (required).
+	--activeResults=[file]: Specify active results file for --render (required).
+	--passiveResults=[file]: Specify passive results file for --render (required).
+
+	Help:
+	--help: View this help text.
+</pre>
+			<h2>License</h2>
+			<p>All Noise Explorer software, including this website, is licensed under the <a href="https://www.gnu.org/licenses/gpl-3.0.en.html" target="_blank">GNU General Public License, Version 3.</a></p>
+			<h2>Download Noise Explorer for your Computer</h2>
+			<p>The Noise Explorer command-line tool has the following requirements:</p>
+			<ul>
+				<li><a href="http://prosecco.gforge.inria.fr/personal/bblanche/proverif/" target="_blank">ProVerif</a> must be installed on your computer.</li>
+				<li><a href="https://nodejs.org" target="_blank">Node.js</a> must be installed on your computer.</li>
+			</ul>
+			<p>Note that symbolic verification with ProVerif can be very resource-intensive for more complex Noise Handshake Patterns, and can sometimes takes many hours before producing results.</p>
+			<p><a href="https://github.com/SymbolicSoft/noiseexplorer">Get source code</a></p>
+		</div>
+	</div>
+	<!-- <div class="rawResults"></div> -->
+	<div class="footer">
+		<span class="about">about</span>
+		<span>Noise Explorer is authored by <a href="https://nadim.computer" target="_blank">Nadim Kobeissi</a> (<a href="https://www.gnu.org/licenses/gpl-3.0.en.html" target="_blank">GPLv3</a>)<span> <span style="float:right"><a href="https://symbolic.software" target="_blank">Symbolic Software</a> | <a href="https://inria.fr/" target="_blank">INRIA</a></span>
+	</div>
+</body>
+
+</html>

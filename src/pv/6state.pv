@@ -1,0 +1,88 @@
+(* ---------------------------------------------------------------- *)
+(* STATE MANAGEMENT                                                 *)
+(* ---------------------------------------------------------------- *)
+
+(* CipherState *)
+
+letfun initializeKey(k:key) =
+	cipherstatepack(k, minnonce).
+
+letfun hasKey(cs:cipherstate) =
+	let (k:key, n:nonce) = cipherstateunpack(cs) in
+	(k <> bit2key(empty)).
+
+letfun setNonce(cs:cipherstate, n:nonce) =
+	let (k:key, o:nonce) = cipherstateunpack(cs) in
+	cipherstatepack(k, n).
+
+letfun encryptWithAd(cs:cipherstate, ad:bitstring, plaintext:bitstring) =
+	let (k:key, n:nonce) = cipherstateunpack(cs) in
+	let e = encrypt(k, n, ad, plaintext) in
+	let csi = setNonce(cs, increment_nonce(n)) in
+	(csi, e).
+
+letfun decryptWithAd(cs:cipherstate, ad:bitstring, ciphertext:bitstring) =
+	let (k:key, n:nonce) = cipherstateunpack(cs) in
+	let d = decrypt(k, n, ad, ciphertext) in
+	let (valid:bool, adi:bitstring, plaintext:bitstring) = aeadunpack(d) in
+	let csi = setNonce(cs, increment_nonce(n)) in
+	(csi, plaintext, valid).
+
+letfun reKey(cs:cipherstate) =
+	let (k:key, n:nonce) = cipherstateunpack(cs) in
+	let ki = encrypt(k, maxnonce, empty, zero) in
+	cipherstatepack(bit2key(ki), n).
+
+(* SymmetricState *)
+
+letfun initializeSymmetric(protocol_name:bitstring) =
+	let h = hash(protocol_name, empty) in
+	let ck = bit2key(h) in
+	let cs = initializeKey(bit2key(empty)) in
+	symmetricstatepack(cs, ck, h).
+
+letfun mixKey(ss:symmetricstate, input_key_material:key) =
+	let (cs:cipherstate, ck:key, h:bitstring) = symmetricstateunpack(ss) in
+	let (ck:key, temp_k:key, output_3:key) = hkdf(ck, input_key_material) in
+	symmetricstatepack(initializeKey(temp_k), ck, h).
+
+letfun mixHash(ss:symmetricstate, data:bitstring) =
+	let (cs:cipherstate, ck:key, h:bitstring) = symmetricstateunpack(ss) in
+	symmetricstatepack(cs, ck, hash(h, data)).
+
+letfun mixKeyAndHash(ss:symmetricstate, input_key_material:key) =
+	let (cs:cipherstate, ck:key, h:bitstring) = symmetricstateunpack(ss) in
+	let (ck:key, temp_h:key, temp_k:key) = hkdf(ck, input_key_material) in
+	let (cs:cipherstate, temp_ck:key, h:bitstring) = symmetricstateunpack(mixHash(symmetricstatepack(cs, ck, h), key2bit(temp_h))) in
+	symmetricstatepack(initializeKey(temp_k), ck, h).
+	
+letfun getHandshakeHash(ss:symmetricstate) =
+	let (cs:cipherstate, ck:key, h:bitstring) = symmetricstateunpack(ss) in
+	(ss, h).
+
+letfun encryptAndHash(ss:symmetricstate, plaintext:bitstring) =
+	let (cs:cipherstate, ck:key, h:bitstring) = symmetricstateunpack(ss) in
+	let (cs:cipherstate, ciphertext:bitstring) = encryptWithAd(cs, h, plaintext) in
+	let ss = mixHash(symmetricstatepack(cs, ck, h), ciphertext) in
+	(ss, ciphertext).
+
+letfun decryptAndHash(ss:symmetricstate, ciphertext:bitstring) =
+	let (cs:cipherstate, ck:key, h:bitstring) = symmetricstateunpack(ss) in
+	let (cs:cipherstate, plaintext:bitstring, valid:bool) = decryptWithAd(cs, h, ciphertext) in
+	let ss = mixHash(symmetricstatepack(cs, ck, h), ciphertext) in
+	(ss, plaintext, valid).
+
+letfun split(ss:symmetricstate) =
+	let (cs:cipherstate, ck:key, h:bitstring) = symmetricstateunpack(ss) in
+	let (temp_k1:key, temp_k2:key, temp_k3:key) = hkdf(ck, bit2key(zero)) in
+	let cs1 = initializeKey(temp_k1) in
+	let cs2 = initializeKey(temp_k2) in
+	(ss, cs1, cs2).
+
+(* HandshakeState *)
+
+$NOISE2PV_I$
+
+$NOISE2PV_W$
+
+$NOISE2PV_R$

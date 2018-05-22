@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<title>Noise Explorer: Explore Patterns</title>
+	<link rel="icon" type="image/png" href="../res/img/logo.png" />
+	<link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono|IBM+Plex+Sans" rel="stylesheet" />
+	<link href="../res/css/style.css" rel="stylesheet" />
+	<script type="application/javascript"></script>
+</head>
+
+<body>
+	<div class="header">
+		<img id="logo" src="../res/img/logo.png" alt="" />
+		<h1>Noise Explorer <span class="beta">beta</span></h1>
+	</div>
+	<div class="nav">
+		<span class="menu">menu</span>
+		<div class="navLinks">
+			<a href="..">Design New Pattern</a>
+			<a href="#" class="currentNav">Explore Patterns</a>
+			<a href="../cmd">Command-Line Tool</a>
+		</div>
+	</div>
+	<div class="results singleColumn">
+		<div class="resultsExplanation">
+			<h2>Explore Noise Pattern Analysis Results</h2>
+			<p>Click on a Noise pattern in order to view its full analysis results using the <a href="http://prosecco.gforge.inria.fr/personal/bblanche/proverif/" target="_blank">ProVerif</a> symbolic protocol verifier. Analyses are carried out under both an active and passive attacker with a malicious principal. Security queries include tests for authenticity (key compromise impersonation resistance, etc.) and confidentiality (strong forward secrecy, weak forward secrecy, etc.)</p>
+<a href="IK.noise.html" class="patternEntry">
+IK(s, rs):
+  &lt;- s
+  ...
+  -&gt; e, es, s, ss
+  &lt;- e, ee, se
+  -&gt;
+  &lt;-
+</a>
+<a href="IN.noise.html" class="patternEntry">
+IN(s):
+  -&gt; e, s
+  &lt;- e, ee, se
+  -&gt;
+  &lt;-
+</a>
+<a href="IX.noise.html" class="patternEntry">
+IX(s, rs):
+  -&gt; e, s
+  &lt;- e, ee, se, s, es
+  -&gt;
+  &lt;-
+</a>
+<a href="KK.noise.html" class="patternEntry">
+KK(s, rs):
+  -&gt; s
+  &lt;- s
+  ...
+  -&gt; e, es, ss
+  &lt;- e, ee, se
+  -&gt;
+  &lt;-
+</a>
+<a href="KN.noise.html" class="patternEntry">
+KN(s):
+  -&gt; s
+  ...
+  -&gt; e
+  &lt;- e, ee, se
+  -&gt;
+  &lt;-
+</a>
+<a href="KX.noise.html" class="patternEntry">
+KX(s, rs):
+  -&gt; s
+  ...
+  -&gt; e
+  &lt;- e, ee, se, s, es
+  -&gt;
+  &lt;-
+</a>
+<a href="NK.noise.html" class="patternEntry">
+NK(rs):
+  &lt;- s
+  ...
+  -&gt; e, es 
+  &lt;- e, ee
+  -&gt;
+</a>
+<a href="NN.noise.html" class="patternEntry">
+NN():
+  -&gt; e
+  &lt;- e, ee
+  -&gt;
+</a>
+<a href="NX.noise.html" class="patternEntry">
+NX(rs):
+  -&gt; e
+  &lt;- e, ee, s, es
+  -&gt;
+</a>
+<a href="XK.noise.html" class="patternEntry">
+XK(s, rs):
+  &lt;- s
+  ...
+  -&gt; e, es
+  &lt;- e, ee
+  -&gt; s, se
+  &lt;-
+</a>
+<a href="XN.noise.html" class="patternEntry">
+XN(s):
+  -&gt; e
+  &lt;- e, ee
+  -&gt; s, se
+  &lt;-
+</a>
+<a href="XX.noise.html" class="patternEntry">
+XX(s, rs):
+  -&gt; e
+  &lt;- e, ee, s, es
+  -&gt; s, se
+  &lt;-
+</a>
+		</div>
+	</div>
+	<!-- <div class="rawResults"></div> -->
+	<div class="footer">
+		<span class="about">about</span>
+		<span>Noise Explorer is authored by <a href="https://nadim.computer" target="_blank">Nadim Kobeissi</a> (<a href="https://www.gnu.org/licenses/gpl-3.0.en.html" target="_blank">GPLv3</a>)<span> <span style="float:right"><a href="https://symbolic.software" target="_blank">Symbolic Software</a> | <a href="https://inria.fr/" target="_blank">INRIA</a></span>
+	</div>
+</body>
+
+</html>

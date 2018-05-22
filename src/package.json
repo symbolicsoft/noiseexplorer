@@ -1,0 +1,12 @@
+{
+  "name": "NoiseExplorer",
+  "version": "1.0.0",
+  "description": "Noise Pattern Formal Verification Model Generator.",
+  "author": "Symbolic Software",
+  "main": "noiseExplorer.js",
+  "repository": "https://source.symbolic.software/research/noise",
+  "license": "All rights reserved.",
+  "dependencies": {
+    "minimist": "latest"
+  }
+}

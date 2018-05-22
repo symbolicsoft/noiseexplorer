@@ -1,0 +1,62 @@
+(* ---------------------------------------------------------------- *)
+(* PRIMITIVES                                                       *)
+(* ---------------------------------------------------------------- *)
+
+fun increment_nonce(nonce):nonce.
+fun decrement_nonce(nonce):nonce reduc
+	forall n:nonce;
+		decrement_nonce(increment_nonce(n)) = n.
+
+fun dhexp(key, key):key.
+equation forall a:key, b:key;
+	dhexp(b, dhexp(a, g)) = dhexp(a, dhexp(b, g)).
+
+letfun dh(my_keypair:keypair, pubkey:key) =
+	let (my_public_key:key, my_private_key:key) = keypairunpack(my_keypair) in
+	dhexp(my_private_key, pubkey).
+
+letfun generate_keypair(basis:key) =
+	let public_key = dhexp(basis, g) in
+	keypairpack(public_key, basis).
+
+fun encrypt(key, nonce, bitstring, bitstring):bitstring.
+
+fun decrypt(key, nonce, bitstring, bitstring):aead reduc
+	forall k:key, n:nonce, ad:bitstring, plaintext:bitstring;
+		decrypt(k, n, ad, encrypt(k, n, ad, plaintext)) = aeadpack(true, ad, plaintext).
+		
+fun hash(bitstring, bitstring):bitstring.
+
+(*
+letfun hmac_hash(k:key, data:bitstring) =
+	bit2key(hash(concat2(key2bit(k), data))).
+
+letfun hkdf(chaining_key:key, input_key_material:key) =
+	let ikm_bitstring = key2bit(input_key_material) in
+	let temp_key = hmac_hash(chaining_key, ikm_bitstring) in
+	let output1 = hmac_hash(temp_key, one) in
+	let output2 = hmac_hash(temp_key, concat2(key2bit(output1), two)) in
+	let output3 = hmac_hash(temp_key, concat2(key2bit(output2), three)) in
+  (output1, output2, output3).
+*)
+
+fun hmac_hash1(key, key):key.
+fun hmac_hash2(key, key):key.
+fun hmac_hash3(key, key):key.
+
+letfun hkdf(chaining_key:key, input_key_material:key) =
+	let output1 = hmac_hash1(chaining_key, input_key_material) in
+	let output2 = hmac_hash2(chaining_key, input_key_material) in
+	let output3 = hmac_hash3(chaining_key, input_key_material) in
+  (output1, output2, output3).
+
+(*
+fun sign(key, bitstring): bitstring.
+fun sigpk(key): key.
+	
+fun sigver(key, bitstring, bitstring): bool reduc
+	forall sk:key, m:bitstring;
+		sigver(sigpk(sk), sign(sk, m), m) = true
+	otherwise forall pk:key, s:bitstring, m:bitstring;
+		sigver(pk, s, m) = false.
+*)

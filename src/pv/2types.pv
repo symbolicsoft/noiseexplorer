@@ -1,0 +1,79 @@
+(* ---------------------------------------------------------------- *)
+(* TYPES                                                            *)
+(* ---------------------------------------------------------------- *)
+
+type phasen.
+type principal.
+type state.
+type stage.
+
+type key.
+type nonce.
+type keypair.
+type aead.
+type token.
+
+type cipherstate.
+type symmetricstate.
+type handshakestate.
+
+type handshakepattern.
+
+table statestore(principal, principal, state).
+
+fun statepack_a(handshakestate): state [data].
+fun statepack_b(handshakestate): state [data].
+fun statepack_c(handshakestate): state [data].
+fun statepack_d(handshakestate): state [data].
+fun statepack_e(handshakestate): state [data].
+fun statepack_f(handshakestate): state [data].
+fun statepack_g(handshakestate): state [data].
+fun statepack_h(handshakestate): state [data].
+fun statepack_i(handshakestate): state [data].
+
+fun msg_a(principal, principal):bitstring [private].
+fun msg_b(principal, principal):bitstring [private].
+fun msg_c(principal, principal):bitstring [private].
+fun msg_d(principal, principal):bitstring [private].
+fun msg_e(principal, principal):bitstring [private].
+fun msg_f(principal, principal):bitstring [private].
+fun msg_g(principal, principal):bitstring [private].
+fun msg_h(principal, principal):bitstring [private].
+
+fun key_s(principal):key [private].
+fun key_e(principal, principal):key [private].
+const key_psk:key [private].
+
+fun key2bit(key):bitstring     [typeConverter].
+fun bit2key(bitstring):key     [typeConverter].
+
+fun nonce2bit(nonce):bitstring [typeConverter].
+fun bit2nonce(bitstring):nonce [typeConverter].
+
+fun token2bit(token):bitstring [typeConverter].
+fun bit2token(bitstring):token [typeConverter].
+
+fun keypairpack(key, key):keypair [data].
+reduc forall public_key:key, private_key:key;
+	keypairunpack(keypairpack(public_key, private_key))
+		= (public_key, private_key).
+reduc forall public_key:key, private_key:key;
+	getpublickey(keypairpack(public_key, private_key))
+		= public_key.
+	
+fun aeadpack(bool, bitstring, bitstring):aead [data].
+reduc forall b:bool, ad:bitstring, plaintext:bitstring;
+	aeadunpack(aeadpack(b, ad, plaintext)) = (b, ad, plaintext).
+
+fun cipherstatepack(key, nonce):cipherstate [data].
+reduc forall k:key, n:nonce;
+	cipherstateunpack(cipherstatepack(k, n)) = (k, n).
+
+fun symmetricstatepack(cipherstate, key, bitstring):symmetricstate [data].
+reduc forall cs:cipherstate, k:key, h:bitstring;
+	symmetricstateunpack(symmetricstatepack(cs, k, h)) = (cs, k, h).
+
+fun handshakestatepack(symmetricstate, keypair, keypair, key, key, key, bool):handshakestate [data].
+reduc forall ss:symmetricstate, s:keypair, e:keypair, rs:key, re:key, psk:key, i:bool;
+	handshakestateunpack(handshakestatepack(ss, s, e, rs, re, psk, i)) =
+		(ss, s, e, rs, re, psk, i).
