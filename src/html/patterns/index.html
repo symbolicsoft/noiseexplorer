@@ -31,7 +31,7 @@
 			<h2>Explore Noise Pattern Analysis Results</h2>
 			<p>Click on a Noise pattern in order to view its full analysis results using the <a href="http://prosecco.gforge.inria.fr/personal/bblanche/proverif/" target="_blank">ProVerif</a> symbolic protocol verifier. Analyses are carried out under both an active and passive attacker with a malicious principal. Security queries include tests for authenticity (key compromise impersonation resistance, etc.) and confidentiality (strong forward secrecy, weak forward secrecy, etc.)</p>
 <a href="IK.noise.html" class="patternEntry">
-IK(s, rs):
+IK:
   &lt;- s
   ...
   -&gt; e, es, s, ss
@@ -40,21 +40,21 @@ IK(s, rs):
   &lt;-
 </a>
 <a href="IN.noise.html" class="patternEntry">
-IN(s):
+IN:
   -&gt; e, s
   &lt;- e, ee, se
   -&gt;
   &lt;-
 </a>
 <a href="IX.noise.html" class="patternEntry">
-IX(s, rs):
+IX:
   -&gt; e, s
   &lt;- e, ee, se, s, es
   -&gt;
   &lt;-
 </a>
 <a href="KK.noise.html" class="patternEntry">
-KK(s, rs):
+KK:
   -&gt; s
   &lt;- s
   ...
@@ -64,7 +64,7 @@ KK(s, rs):
   &lt;-
 </a>
 <a href="KN.noise.html" class="patternEntry">
-KN(s):
+KN:
   -&gt; s
   ...
   -&gt; e
@@ -73,7 +73,7 @@ KN(s):
   &lt;-
 </a>
 <a href="KX.noise.html" class="patternEntry">
-KX(s, rs):
+KX:
   -&gt; s
   ...
   -&gt; e
@@ -82,7 +82,7 @@ KX(s, rs):
   &lt;-
 </a>
 <a href="NK.noise.html" class="patternEntry">
-NK(rs):
+NK:
   &lt;- s
   ...
   -&gt; e, es 
@@ -90,19 +90,19 @@ NK(rs):
   -&gt;
 </a>
 <a href="NN.noise.html" class="patternEntry">
-NN():
+NN:
   -&gt; e
   &lt;- e, ee
   -&gt;
 </a>
 <a href="NX.noise.html" class="patternEntry">
-NX(rs):
+NX:
   -&gt; e
   &lt;- e, ee, s, es
   -&gt;
 </a>
 <a href="XK.noise.html" class="patternEntry">
-XK(s, rs):
+XK:
   &lt;- s
   ...
   -&gt; e, es
@@ -111,18 +111,186 @@ XK(s, rs):
   &lt;-
 </a>
 <a href="XN.noise.html" class="patternEntry">
-XN(s):
+XN:
   -&gt; e
   &lt;- e, ee
   -&gt; s, se
   &lt;-
 </a>
 <a href="XX.noise.html" class="patternEntry">
-XX(s, rs):
+XX:
   -&gt; e
   &lt;- e, ee, s, es
   -&gt; s, se
   &lt;-
+</a>
+<a href="NK1.noise.html" class="patternEntry">
+NK1:
+  &lt;- s
+  ...
+  -&gt; e
+  &lt;- e, ee, es
+</a>
+<a href="NX1.noise.html" class="patternEntry">
+NX1:
+  -&gt; e
+  &lt;- e, ee, s
+  -&gt; es
+</a>
+<a href="X1K.noise.html" class="patternEntry">
+X1K:
+  &lt;- s
+  ...
+  -&gt; e, es
+  &lt;- e, ee
+  -&gt; s
+  &lt;- se
+</a>
+<a href="XK1.noise.html" class="patternEntry">
+XK1:
+  &lt;- s
+  ...
+  -&gt; e
+  &lt;- e, ee, es
+  -&gt; s, se
+</a>
+<a href="X1K1.noise.html" class="patternEntry">
+X1K1:
+  &lt;- s
+  ...
+  -&gt; e
+  &lt;- e, ee, es
+  -&gt; s
+  &lt;- se
+</a>
+<a href="X1X.noise.html" class="patternEntry">
+X1X:
+  -&gt; e
+  &lt;- e, ee, s, es
+  -&gt; s
+  &lt;- se
+</a>
+<a href="XX1.noise.html" class="patternEntry">
+XX1:
+  -&gt; e
+  &lt;- e, ee, s
+  -&gt; es, s, se
+</a>
+<a href="X1X1.noise.html" class="patternEntry">
+X1X1:
+  -&gt; e
+  &lt;- e, ee, s
+  -&gt; es, s
+  &lt;- se
+</a>
+<a href="K1N.noise.html" class="patternEntry">
+K1N:
+  -&gt; s
+  ...
+  -&gt; e
+  &lt;- e, ee
+  -&gt; se
+</a>
+<a href="K1K.noise.html" class="patternEntry">
+K1K:
+  -&gt; s
+  &lt;- s
+  ...
+  -&gt; e, es
+  &lt;- e, ee
+  -&gt; se
+</a>
+<!--
+<a href="KK1.noise.html" class="patternEntry">
+KK1:
+  -&gt; s
+  &lt;- s
+  ...
+  -&gt; e
+  &lt;- e, ee, se, es
+</a>
+-->
+<a href="K1K1.noise.html" class="patternEntry">
+K1K1:
+  -&gt; s
+  &lt;- s
+  ...
+  -&gt; e
+  &lt;- e, ee, es
+  -&gt; se
+</a>
+<a href="K1X.noise.html" class="patternEntry">
+K1X:
+  -&gt; s
+  ...
+  -&gt; e
+  &lt;- e, ee, s, es
+  -&gt; se
+</a>
+<a href="KX1.noise.html" class="patternEntry">
+KX1:
+  -&gt; s
+  ...
+  -&gt; e
+  &lt;- e, ee, se, s
+  -&gt; es
+</a>
+<a href="K1X1.noise.html" class="patternEntry">
+K1X1:
+  -&gt; s
+  ...
+  -&gt; e
+  &lt;- e, ee, s
+  -&gt; se, es
+</a>
+<a href="I1N.noise.html" class="patternEntry">
+I1N:
+  -&gt; e, s
+  &lt;- e, ee
+  -&gt; se
+</a>
+<a href="I1K.noise.html" class="patternEntry">
+I1K:
+  &lt;- s
+  ...
+  -&gt; e, es, s
+  &lt;- e, ee
+  -&gt; se
+</a>
+<!--
+<a href="IK1.noise.html" class="patternEntry">
+IK1:
+  &lt;- s
+  ...
+  -&gt; e, s
+  &lt;- e, ee, se, es
+</a>
+-->
+<a href="I1K1.noise.html" class="patternEntry">
+I1K1:
+  &lt;- s
+  ...
+  -&gt; e, s
+  &lt;- e, ee, es
+  -&gt; se
+</a>
+<a href="I1X.noise.html" class="patternEntry">
+I1X:
+  -&gt; e, s
+  &lt;- e, ee, s, es
+  -&gt; se
+</a>
+<a href="IX1.noise.html" class="patternEntry">
+IX1:
+  -&gt; e, s
+  &lt;- e, ee, se, s
+  -&gt; es
+</a>
+<a href="I1X1.noise.html" class="patternEntry">
+I1X1:
+  -&gt; e, s
+  &lt;- e, ee, s
+  -&gt; se, es
 </a>
 		</div>
 	</div>
