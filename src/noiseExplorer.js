@@ -91,7 +91,7 @@ const BUILDMODEL = (pattern, parsedPv) => {
 	pv[5] = pv[5].replace('$NOISE2PV_R$', parsedPv.r);
 	pv[7] = pv[7].replace('$NOISE2PV_E$', parsedPv.e);
 	pv[7] = pv[7].replace('$NOISE2PV_Q$', parsedPv.q);
-	pv[8] = pv[8].replace('$NOISE2PV_P$', pattern);
+	pv[8] = pv[8].replace('$NOISE2PV_N$', pattern);
 	pv[8] = pv[8].replace('$NOISE2PV_G$', parsedPv.g);
 	pv[8] = pv[8].replace('$NOISE2PV_A$', parsedPv.a);
 	pv[8] = pv[8].replace('$NOISE2PV_B$', parsedPv.b);

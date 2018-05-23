@@ -21,7 +21,7 @@ let getArrows = (parsedPattern) => {
 	return renderData.arrowSvg;
 };
 
-let buildModel = (parsedPattern, passive, pv) => {
+let buildModel = (patternInput, parsedPattern, passive, pv) => {
 	let parsedPv = NOISE2PV.parse(parsedPattern, passive);
 	pv[0] = pv[0].replace('$NOISE2PV_T$', parsedPv.t)
 	pv[5] = pv[5].replace('$NOISE2PV_I$', parsedPv.i);
@@ -29,7 +29,7 @@ let buildModel = (parsedPattern, passive, pv) => {
 	pv[5] = pv[5].replace('$NOISE2PV_R$', parsedPv.r);
 	pv[7] = pv[7].replace('$NOISE2PV_E$', parsedPv.e);
 	pv[7] = pv[7].replace('$NOISE2PV_Q$', parsedPv.q);
-	pv[8] = pv[8].replace('$NOISE2PV_P$', parsedPattern.name);
+	pv[8] = pv[8].replace('$NOISE2PV_N$', patternInput);
 	pv[8] = pv[8].replace('$NOISE2PV_G$', parsedPv.g);
 	pv[8] = pv[8].replace('$NOISE2PV_A$', parsedPv.a);
 	pv[8] = pv[8].replace('$NOISE2PV_B$', parsedPv.b);
@@ -37,7 +37,7 @@ let buildModel = (parsedPattern, passive, pv) => {
 	return pv.join('\n');
 }
 
-let getPvModel = (parsedPattern, passive, cb) => {
+let getPvModel = (patternInput, parsedPattern, passive, cb) => {
 	let pvTemplates = [
 		'1params', '2types', '3consts',
 		'4utils', '5prims', '6state',
@@ -60,7 +60,7 @@ let getPvModel = (parsedPattern, passive, cb) => {
 				slot.length ? full++ : full;
 			});
 			if (full === pv.length) {
-				cb(buildModel(parsedPattern, passive, pv));
+				cb(buildModel(patternInput, parsedPattern, passive, pv));
 			}
 		};
 		xhr.send();
@@ -111,7 +111,7 @@ let pvModelGen = (patternInput, attacker, aId) => {
 		alert('Please first ensure that your Noise pattern is valid.');
 		return false;
 	}
-	getPvModel(parsedPattern, false, (pv) => {
+	getPvModel(patternInput, parsedPattern, false, (pv) => {
 		let data = new Blob([pv], { type: 'text/plain' });
 		let pvModel = window.URL.createObjectURL(data);
 		modelsReady[attacker] = true;
