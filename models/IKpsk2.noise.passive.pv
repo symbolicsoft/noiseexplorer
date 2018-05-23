@@ -574,7 +574,7 @@ query a:principal, b:principal, c:principal, s:stage, m:bitstring, p:phasen;
 (* ---------------------------------------------------------------- *)
 
 (*
-IKpsk2(s, rs):
+IKpsk2:
 	<- s
 	...
 	-> e, es, s, ss

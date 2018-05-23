@@ -383,7 +383,7 @@ query a:principal, b:principal, c:principal, s:stage, m:bitstring, p:phasen;
 (* ---------------------------------------------------------------- *)
 
 (*
-K(s, rs):
+K:
 	-> s
 	<- s
 	...

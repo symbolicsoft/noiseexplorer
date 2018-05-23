@@ -504,7 +504,7 @@ query a:principal, b:principal, c:principal, s:stage, m:bitstring, p:phasen;
 (* ---------------------------------------------------------------- *)
 
 (*
-XX(s, rs):
+XX:
 	-> e
 	<- e, ee, s, es
 	-> s, se

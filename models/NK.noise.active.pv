@@ -460,7 +460,7 @@ query a:principal, b:principal, c:principal, s:stage, m:bitstring, p:phasen;
 (* ---------------------------------------------------------------- *)
 
 (*
-NK(rs):
+NK:
 	<- s
 	...
 	-> e, es 

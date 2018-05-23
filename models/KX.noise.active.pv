@@ -502,7 +502,7 @@ query a:principal, b:principal, c:principal, s:stage, m:bitstring, p:phasen;
 (* ---------------------------------------------------------------- *)
 
 (*
-KX(s, rs):
+KX:
 	-> s
 	...
 	-> e
