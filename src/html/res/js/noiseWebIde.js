@@ -4,7 +4,8 @@ let startingPattern = [
 	'...',
 	'-> e, es',
 	'<- e, ee',
-	'->'
+	'->',
+	'<-'
 ].join('\n  ');
 
 let modelsReady = {

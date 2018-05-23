@@ -329,6 +329,14 @@ letfun writeMessage_c(me:principal, them:principal, hs:handshakestate, payload:b
 	let (ss:symmetricstate, ciphertext2:bitstring) = encryptAndHash(ss, payload) in
 	let hs = handshakestatepack(ss, s, e, rs, re, psk, initiator) in
 	let message_buffer = concat3(ne, ciphertext1, ciphertext2) in
+	(hs, re, message_buffer).
+
+letfun writeMessage_d(me:principal, them:principal, hs:handshakestate, payload:bitstring) =
+	let (ss:symmetricstate, s:keypair, e:keypair, rs:key, re:key, psk:key, initiator:bool) = handshakestateunpack(hs) in
+	let (ne:bitstring, ciphertext1:bitstring, ciphertext2:bitstring) = (empty, empty, empty) in
+	let (ss:symmetricstate, ciphertext2:bitstring) = encryptAndHash(ss, payload) in
+	let hs = handshakestatepack(ss, s, e, rs, re, psk, initiator) in
+	let message_buffer = concat3(ne, ciphertext1, ciphertext2) in
 	let (ssi:symmetricstate, cs1:cipherstate, cs2:cipherstate) = split(ss) in
 	(hs, re, message_buffer, cs1, cs2).
 
@@ -363,6 +371,16 @@ letfun readMessage_b(me:principal, them:principal, hs:handshakestate, message:bi
 	).
 
 letfun readMessage_c(me:principal, them:principal, hs:handshakestate, message:bitstring) =
+	let (ss:symmetricstate, s:keypair, e:keypair, rs:key, re:key, psk:key, initiator:bool) = handshakestateunpack(hs) in
+	let (ne:bitstring, ciphertext1:bitstring, ciphertext2:bitstring) = deconcat3(message) in
+	let valid1 = true in
+	let (ss:symmetricstate, plaintext2:bitstring, valid2:bool) = decryptAndHash(ss, ciphertext2) in
+	if ((valid1 && valid2)) then (
+		let hs = handshakestatepack(ss, s, e, rs, re, psk, initiator) in
+		(hs, getpublickey(e), plaintext2, true)
+	).
+
+letfun readMessage_d(me:principal, them:principal, hs:handshakestate, message:bitstring) =
 	let (ss:symmetricstate, s:keypair, e:keypair, rs:key, re:key, psk:key, initiator:bool) = handshakestateunpack(hs) in
 	let (ne:bitstring, ciphertext1:bitstring, ciphertext2:bitstring) = deconcat3(message) in
 	let valid1 = true in
@@ -446,6 +464,24 @@ query a:principal, b:principal, c:principal, s:stage, m:bitstring, p:phasen;
 	attacker(msg_c(alice, bob)) ==> (event(LeakS(phase0, bob))) || ((event(LeakS(phase1, bob)) && event(LeakS(p, alice))));
 (* Message c: Confidentiality 5 *)
 	attacker(msg_c(alice, bob)) ==> (event(LeakS(phase0, bob)));
+(* Message d: Authenticity sanity *)
+	event(RecvMsg(alice, bob, stage_d, m, true)) ==> (event(SendMsg(bob, alice, stage_d, m, true)));
+(* Message d: Authenticity 1 *)
+	event(RecvMsg(alice, bob, stage_d, m, true)) ==> (event(SendMsg(bob, c, stage_d, m, true))) || (event(LeakS(phase0, bob)) || event(LeakS(phase0, alice)));
+(* Message d: Authenticity 2 *)
+	event(RecvMsg(alice, bob, stage_d, m, true)) ==> (event(SendMsg(bob, c, stage_d, m, true))) || (event(LeakS(phase0, bob)));
+(* Message d: Authenticity 3 *)
+	event(RecvMsg(alice, bob, stage_d, m, true)) ==> (event(SendMsg(bob, alice, stage_d, m, true))) || (event(LeakS(phase0, bob)) || event(LeakS(phase0, alice)));
+(* Message d: Authenticity 4 *)
+	event(RecvMsg(alice, bob, stage_d, m, true)) ==> (event(SendMsg(bob, alice, stage_d, m, true))) || (event(LeakS(phase0, bob)));
+(* Message d: Confidentiality sanity *)
+	attacker(msg_d(bob, alice));
+(* Message d: Confidentiality 2 *)
+	attacker(msg_d(bob, alice)) ==> (event(LeakS(phase0, alice))) || (event(LeakS(phase1, alice)));
+(* Message d: Confidentiality 4 *)
+	attacker(msg_d(bob, alice)) ==> (event(LeakS(phase0, alice))) || ((event(LeakS(phase1, alice)) && event(LeakS(p, bob))));
+(* Message d: Confidentiality 5 *)
+	attacker(msg_d(bob, alice)) ==> (event(LeakS(phase0, alice)));
 	event(RecvEnd(true)).
 
 (* ---------------------------------------------------------------- *)
@@ -457,6 +493,7 @@ NX:
 	-> e
 	<- e, ee, s, es
 	->
+	<-
 *)
 
 
@@ -487,10 +524,18 @@ let initiator(me:principal, them:principal) =
 	)
 	| (
 		get statestore(=me, =them, statepack_c(hs)) in
-		let (hs:handshakestate, re:key, message_c:bitstring, cs1:cipherstate, cs2:cipherstate) = writeMessage_c(me, them, hs, msg_c(me, them)) in
+		let (hs:handshakestate, re:key, message_c:bitstring) = writeMessage_c(me, them, hs, msg_c(me, them)) in
 		event SendMsg(me, them, stage_c, msg_c(me, them), true);
 		insert statestore(me, them, statepack_d(hs));
 		out(pub, message_c)
+	)
+	| (
+		get statestore(=me, =them, statepack_d(hs)) in
+		in(pub, message_d:bitstring);
+		let (hs:handshakestate, re:key, plaintext_d:bitstring, valid:bool, cs1:cipherstate, cs2:cipherstate) = readMessage_d(me, them, hs, message_d) in
+		event RecvMsg(me, them, stage_d, plaintext_d, valid);
+		insert statestore(me, them, statepack_e(hs));
+		event RecvEnd(valid)
 	)
 	| (
 		event LeakS(phase0, me);
@@ -530,10 +575,17 @@ let responder(me:principal, them:principal) =
 	| (
 		get statestore(=me, =them, statepack_c(hs)) in
 		in(pub, message_c:bitstring);
-		let (hs:handshakestate, re:key, plaintext_c:bitstring, valid:bool, cs1:cipherstate, cs2:cipherstate) = readMessage_c(me, them, hs, message_c) in
+		let (hs:handshakestate, re:key, plaintext_c:bitstring, valid:bool) = readMessage_c(me, them, hs, message_c) in
 		event RecvMsg(me, them, stage_c, plaintext_c, valid);
 		insert statestore(me, them, statepack_d(hs));
-		event RecvEnd(valid)
+		0
+	)
+	| (
+		get statestore(=me, =them, statepack_d(hs)) in
+		let (hs:handshakestate, re:key, message_d:bitstring, cs1:cipherstate, cs2:cipherstate) = writeMessage_d(me, them, hs, msg_d(me, them)) in
+		event SendMsg(me, them, stage_d, msg_d(me, them), true);
+		insert statestore(me, them, statepack_e(hs));
+		out(pub, message_d)
 	)
 	| (
 		event LeakS(phase0, me);
