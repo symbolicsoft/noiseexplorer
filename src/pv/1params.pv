@@ -2,5 +2,6 @@
 (* PARAMETERS                                                       *)
 (* ---------------------------------------------------------------- *)
 
+set redundancyElim = no.
 set expandIfTermsToTerms = true.
 set attacker = $NOISE2PV_T$.
