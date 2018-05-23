@@ -2,6 +2,7 @@
 (* PARAMETERS                                                       *)
 (* ---------------------------------------------------------------- *)
 
+set redundancyElim = no.
 set expandIfTermsToTerms = true.
 set attacker = active.
 
@@ -437,12 +438,6 @@ query a:principal, b:principal, c:principal, s:stage, m:bitstring, p:phasen;
 	event(RecvMsg(bob, alice, stage_a, m, true)) ==> (event(SendMsg(alice, bob, stage_a, m, true))) || (event(LeakS(phase0, alice)) || event(LeakS(phase0, bob)));
 (* Message a: Authenticity 4 *)
 	event(RecvMsg(bob, alice, stage_a, m, true)) ==> (event(SendMsg(alice, bob, stage_a, m, true))) || (event(LeakS(phase0, alice)));
-(* Message a: Authenticity 1 (PSK) *)
-	event(RecvMsg(bob, alice, stage_a, m, true)) ==> (event(SendMsg(alice, bob, stage_a, m, true))) || (event(LeakS(phase0, alice)) || event(LeakS(phase0, bob))) || event(LeakPsk(phase0, key_psk));
-	event(RecvMsg(bob, alice, stage_a, m, true)) ==> (event(SendMsg(alice, bob, stage_a, m, true))) || (event(LeakS(phase0, alice)) || event(LeakS(phase0, bob))) || event(LeakPsk(p, key_psk));
-(* Message a: Authenticity 2 (PSK) *)
-	event(RecvMsg(bob, alice, stage_a, m, true)) ==> (event(SendMsg(alice, bob, stage_a, m, true))) || ((event(LeakS(phase0, alice)) || event(LeakPsk(phase0, key_psk))));
-	event(RecvMsg(bob, alice, stage_a, m, true)) ==> (event(SendMsg(alice, bob, stage_a, m, true))) || ((event(LeakS(phase0, alice)) || event(LeakPsk(p, key_psk))));
 (* Message a: Confidentiality sanity *)
 	attacker(msg_a(alice, bob));
 (* Message a: Confidentiality 2 *)
@@ -451,17 +446,6 @@ query a:principal, b:principal, c:principal, s:stage, m:bitstring, p:phasen;
 	attacker(msg_a(alice, bob)) ==> (event(LeakS(phase0, bob))) || ((event(LeakS(phase1, bob)) && event(LeakS(p, alice))));
 (* Message a: Confidentiality 5 *)
 	attacker(msg_a(alice, bob)) ==> (event(LeakS(phase0, bob)));
-(* Message a: Confidentiality sanity (PSK) *)
-	attacker(msg_a(alice, bob));
-(* Message a: Confidentiality 2 (PSK) *)
-	attacker(msg_a(alice, bob)) ==> (event(LeakS(phase0, bob))) || (event(LeakS(phase1, bob)) || event(LeakPsk(phase0, key_psk)));
-	attacker(msg_a(alice, bob)) ==> (event(LeakS(phase0, bob))) || (event(LeakS(phase1, bob)) || event(LeakPsk(p, key_psk)));
-(* Message a: Confidentiality 4 (PSK) *)
-	attacker(msg_a(alice, bob)) ==> (event(LeakS(phase0, bob))) || (((event(LeakS(phase1, bob)) && event(LeakS(p, alice)))) || event(LeakPsk(phase0, key_psk)));
-	attacker(msg_a(alice, bob)) ==> (event(LeakS(phase0, bob))) || (((event(LeakS(phase1, bob)) && event(LeakS(p, alice)))) || event(LeakPsk(p, key_psk)));
-(* Message a: Confidentiality 5 (PSK) *)
-	attacker(msg_a(alice, bob)) ==> (event(LeakS(phase0, bob))) || event(LeakPsk(phase0, key_psk));
-	attacker(msg_a(alice, bob)) ==> (event(LeakS(phase0, bob))) || event(LeakPsk(p, key_psk));
 (* Message b: Authenticity sanity *)
 	event(RecvMsg(alice, bob, stage_b, m, true)) ==> (event(SendMsg(bob, alice, stage_b, m, true)));
 (* Message b: Authenticity 1 *)
@@ -472,12 +456,6 @@ query a:principal, b:principal, c:principal, s:stage, m:bitstring, p:phasen;
 	event(RecvMsg(alice, bob, stage_b, m, true)) ==> (event(SendMsg(bob, alice, stage_b, m, true))) || (event(LeakS(phase0, bob)) || event(LeakS(phase0, alice)));
 (* Message b: Authenticity 4 *)
 	event(RecvMsg(alice, bob, stage_b, m, true)) ==> (event(SendMsg(bob, alice, stage_b, m, true))) || (event(LeakS(phase0, bob)));
-(* Message b: Authenticity 1 (PSK) *)
-	event(RecvMsg(alice, bob, stage_b, m, true)) ==> (event(SendMsg(bob, alice, stage_b, m, true))) || (event(LeakS(phase0, bob)) || event(LeakS(phase0, alice))) || event(LeakPsk(phase0, key_psk));
-	event(RecvMsg(alice, bob, stage_b, m, true)) ==> (event(SendMsg(bob, alice, stage_b, m, true))) || (event(LeakS(phase0, bob)) || event(LeakS(phase0, alice))) || event(LeakPsk(p, key_psk));
-(* Message b: Authenticity 2 (PSK) *)
-	event(RecvMsg(alice, bob, stage_b, m, true)) ==> (event(SendMsg(bob, alice, stage_b, m, true))) || ((event(LeakS(phase0, bob)) || event(LeakPsk(phase0, key_psk))));
-	event(RecvMsg(alice, bob, stage_b, m, true)) ==> (event(SendMsg(bob, alice, stage_b, m, true))) || ((event(LeakS(phase0, bob)) || event(LeakPsk(p, key_psk))));
 (* Message b: Confidentiality sanity *)
 	attacker(msg_b(bob, alice));
 (* Message b: Confidentiality 2 *)
@@ -486,17 +464,6 @@ query a:principal, b:principal, c:principal, s:stage, m:bitstring, p:phasen;
 	attacker(msg_b(bob, alice)) ==> (event(LeakS(phase0, alice))) || ((event(LeakS(phase1, alice)) && event(LeakS(p, bob))));
 (* Message b: Confidentiality 5 *)
 	attacker(msg_b(bob, alice)) ==> (event(LeakS(phase0, alice)));
-(* Message b: Confidentiality sanity (PSK) *)
-	attacker(msg_b(bob, alice));
-(* Message b: Confidentiality 2 (PSK) *)
-	attacker(msg_b(bob, alice)) ==> (event(LeakS(phase0, alice))) || (event(LeakS(phase1, alice)) || event(LeakPsk(phase0, key_psk)));
-	attacker(msg_b(bob, alice)) ==> (event(LeakS(phase0, alice))) || (event(LeakS(phase1, alice)) || event(LeakPsk(p, key_psk)));
-(* Message b: Confidentiality 4 (PSK) *)
-	attacker(msg_b(bob, alice)) ==> (event(LeakS(phase0, alice))) || (((event(LeakS(phase1, alice)) && event(LeakS(p, bob)))) || event(LeakPsk(phase0, key_psk)));
-	attacker(msg_b(bob, alice)) ==> (event(LeakS(phase0, alice))) || (((event(LeakS(phase1, alice)) && event(LeakS(p, bob)))) || event(LeakPsk(p, key_psk)));
-(* Message b: Confidentiality 5 (PSK) *)
-	attacker(msg_b(bob, alice)) ==> (event(LeakS(phase0, alice))) || event(LeakPsk(phase0, key_psk));
-	attacker(msg_b(bob, alice)) ==> (event(LeakS(phase0, alice))) || event(LeakPsk(p, key_psk));
 (* Message c: Authenticity sanity *)
 	event(RecvMsg(bob, alice, stage_c, m, true)) ==> (event(SendMsg(alice, bob, stage_c, m, true)));
 (* Message c: Authenticity 1 *)
@@ -507,12 +474,6 @@ query a:principal, b:principal, c:principal, s:stage, m:bitstring, p:phasen;
 	event(RecvMsg(bob, alice, stage_c, m, true)) ==> (event(SendMsg(alice, bob, stage_c, m, true))) || (event(LeakS(phase0, alice)) || event(LeakS(phase0, bob)));
 (* Message c: Authenticity 4 *)
 	event(RecvMsg(bob, alice, stage_c, m, true)) ==> (event(SendMsg(alice, bob, stage_c, m, true))) || (event(LeakS(phase0, alice)));
-(* Message c: Authenticity 1 (PSK) *)
-	event(RecvMsg(bob, alice, stage_c, m, true)) ==> (event(SendMsg(alice, bob, stage_c, m, true))) || (event(LeakS(phase0, alice)) || event(LeakS(phase0, bob))) || event(LeakPsk(phase0, key_psk));
-	event(RecvMsg(bob, alice, stage_c, m, true)) ==> (event(SendMsg(alice, bob, stage_c, m, true))) || (event(LeakS(phase0, alice)) || event(LeakS(phase0, bob))) || event(LeakPsk(p, key_psk));
-(* Message c: Authenticity 2 (PSK) *)
-	event(RecvMsg(bob, alice, stage_c, m, true)) ==> (event(SendMsg(alice, bob, stage_c, m, true))) || ((event(LeakS(phase0, alice)) || event(LeakPsk(phase0, key_psk))));
-	event(RecvMsg(bob, alice, stage_c, m, true)) ==> (event(SendMsg(alice, bob, stage_c, m, true))) || ((event(LeakS(phase0, alice)) || event(LeakPsk(p, key_psk))));
 (* Message c: Confidentiality sanity *)
 	attacker(msg_c(alice, bob));
 (* Message c: Confidentiality 2 *)
@@ -521,17 +482,6 @@ query a:principal, b:principal, c:principal, s:stage, m:bitstring, p:phasen;
 	attacker(msg_c(alice, bob)) ==> (event(LeakS(phase0, bob))) || ((event(LeakS(phase1, bob)) && event(LeakS(p, alice))));
 (* Message c: Confidentiality 5 *)
 	attacker(msg_c(alice, bob)) ==> (event(LeakS(phase0, bob)));
-(* Message c: Confidentiality sanity (PSK) *)
-	attacker(msg_c(alice, bob));
-(* Message c: Confidentiality 2 (PSK) *)
-	attacker(msg_c(alice, bob)) ==> (event(LeakS(phase0, bob))) || (event(LeakS(phase1, bob)) || event(LeakPsk(phase0, key_psk)));
-	attacker(msg_c(alice, bob)) ==> (event(LeakS(phase0, bob))) || (event(LeakS(phase1, bob)) || event(LeakPsk(p, key_psk)));
-(* Message c: Confidentiality 4 (PSK) *)
-	attacker(msg_c(alice, bob)) ==> (event(LeakS(phase0, bob))) || (((event(LeakS(phase1, bob)) && event(LeakS(p, alice)))) || event(LeakPsk(phase0, key_psk)));
-	attacker(msg_c(alice, bob)) ==> (event(LeakS(phase0, bob))) || (((event(LeakS(phase1, bob)) && event(LeakS(p, alice)))) || event(LeakPsk(p, key_psk)));
-(* Message c: Confidentiality 5 (PSK) *)
-	attacker(msg_c(alice, bob)) ==> (event(LeakS(phase0, bob))) || event(LeakPsk(phase0, key_psk));
-	attacker(msg_c(alice, bob)) ==> (event(LeakS(phase0, bob))) || event(LeakPsk(p, key_psk));
 (* Message d: Authenticity sanity *)
 	event(RecvMsg(alice, bob, stage_d, m, true)) ==> (event(SendMsg(bob, alice, stage_d, m, true)));
 (* Message d: Authenticity 1 *)
@@ -542,12 +492,6 @@ query a:principal, b:principal, c:principal, s:stage, m:bitstring, p:phasen;
 	event(RecvMsg(alice, bob, stage_d, m, true)) ==> (event(SendMsg(bob, alice, stage_d, m, true))) || (event(LeakS(phase0, bob)) || event(LeakS(phase0, alice)));
 (* Message d: Authenticity 4 *)
 	event(RecvMsg(alice, bob, stage_d, m, true)) ==> (event(SendMsg(bob, alice, stage_d, m, true))) || (event(LeakS(phase0, bob)));
-(* Message d: Authenticity 1 (PSK) *)
-	event(RecvMsg(alice, bob, stage_d, m, true)) ==> (event(SendMsg(bob, alice, stage_d, m, true))) || (event(LeakS(phase0, bob)) || event(LeakS(phase0, alice))) || event(LeakPsk(phase0, key_psk));
-	event(RecvMsg(alice, bob, stage_d, m, true)) ==> (event(SendMsg(bob, alice, stage_d, m, true))) || (event(LeakS(phase0, bob)) || event(LeakS(phase0, alice))) || event(LeakPsk(p, key_psk));
-(* Message d: Authenticity 2 (PSK) *)
-	event(RecvMsg(alice, bob, stage_d, m, true)) ==> (event(SendMsg(bob, alice, stage_d, m, true))) || ((event(LeakS(phase0, bob)) || event(LeakPsk(phase0, key_psk))));
-	event(RecvMsg(alice, bob, stage_d, m, true)) ==> (event(SendMsg(bob, alice, stage_d, m, true))) || ((event(LeakS(phase0, bob)) || event(LeakPsk(p, key_psk))));
 (* Message d: Confidentiality sanity *)
 	attacker(msg_d(bob, alice));
 (* Message d: Confidentiality 2 *)
@@ -556,17 +500,6 @@ query a:principal, b:principal, c:principal, s:stage, m:bitstring, p:phasen;
 	attacker(msg_d(bob, alice)) ==> (event(LeakS(phase0, alice))) || ((event(LeakS(phase1, alice)) && event(LeakS(p, bob))));
 (* Message d: Confidentiality 5 *)
 	attacker(msg_d(bob, alice)) ==> (event(LeakS(phase0, alice)));
-(* Message d: Confidentiality sanity (PSK) *)
-	attacker(msg_d(bob, alice));
-(* Message d: Confidentiality 2 (PSK) *)
-	attacker(msg_d(bob, alice)) ==> (event(LeakS(phase0, alice))) || (event(LeakS(phase1, alice)) || event(LeakPsk(phase0, key_psk)));
-	attacker(msg_d(bob, alice)) ==> (event(LeakS(phase0, alice))) || (event(LeakS(phase1, alice)) || event(LeakPsk(p, key_psk)));
-(* Message d: Confidentiality 4 (PSK) *)
-	attacker(msg_d(bob, alice)) ==> (event(LeakS(phase0, alice))) || (((event(LeakS(phase1, alice)) && event(LeakS(p, bob)))) || event(LeakPsk(phase0, key_psk)));
-	attacker(msg_d(bob, alice)) ==> (event(LeakS(phase0, alice))) || (((event(LeakS(phase1, alice)) && event(LeakS(p, bob)))) || event(LeakPsk(p, key_psk)));
-(* Message d: Confidentiality 5 (PSK) *)
-	attacker(msg_d(bob, alice)) ==> (event(LeakS(phase0, alice))) || event(LeakPsk(phase0, key_psk));
-	attacker(msg_d(bob, alice)) ==> (event(LeakS(phase0, alice))) || event(LeakPsk(p, key_psk));
 	event(RecvEnd(true)).
 
 (* ---------------------------------------------------------------- *)

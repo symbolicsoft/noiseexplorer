@@ -2,6 +2,7 @@
 (* PARAMETERS                                                       *)
 (* ---------------------------------------------------------------- *)
 
+set redundancyElim = no.
 set expandIfTermsToTerms = true.
 set attacker = active.
 
