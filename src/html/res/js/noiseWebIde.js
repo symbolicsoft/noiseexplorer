@@ -1,5 +1,5 @@
 let startingPattern = [
-	'NK(rs):',
+	'NK:',
 	'<- s',
 	'...',
 	'-> e, es',
