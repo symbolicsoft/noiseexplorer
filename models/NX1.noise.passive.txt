@@ -1,0 +1,1318 @@
+File "NX1.noise.passive.pv", line 261, characters 7-8:
+Warning: identifier ck rebound.
+File "NX1.noise.passive.pv", line 270, characters 7-8:
+Warning: identifier ck rebound.
+File "NX1.noise.passive.pv", line 271, characters 7-8:
+Warning: identifier cs rebound.
+File "NX1.noise.passive.pv", line 271, character 36:
+Warning: identifier h rebound.
+File "NX1.noise.passive.pv", line 280, characters 7-8:
+Warning: identifier cs rebound.
+File "NX1.noise.passive.pv", line 281, characters 6-7:
+Warning: identifier ss rebound.
+File "NX1.noise.passive.pv", line 286, characters 7-8:
+Warning: identifier cs rebound.
+File "NX1.noise.passive.pv", line 287, characters 6-7:
+Warning: identifier ss rebound.
+File "NX1.noise.passive.pv", line 310, character 6:
+Warning: identifier e rebound.
+File "NX1.noise.passive.pv", line 311, characters 6-7:
+Warning: identifier ne rebound.
+File "NX1.noise.passive.pv", line 312, characters 6-7:
+Warning: identifier ss rebound.
+File "NX1.noise.passive.pv", line 314, characters 7-8:
+Warning: identifier ss rebound.
+File "NX1.noise.passive.pv", line 314, characters 26-36:
+Warning: identifier ciphertext2 rebound.
+File "NX1.noise.passive.pv", line 315, characters 6-7:
+Warning: identifier hs rebound.
+File "NX1.noise.passive.pv", line 322, character 6:
+Warning: identifier e rebound.
+File "NX1.noise.passive.pv", line 323, characters 6-7:
+Warning: identifier ne rebound.
+File "NX1.noise.passive.pv", line 324, characters 6-7:
+Warning: identifier ss rebound.
+File "NX1.noise.passive.pv", line 326, characters 6-7:
+Warning: identifier ss rebound.
+File "NX1.noise.passive.pv", line 327, character 6:
+Warning: identifier s rebound.
+File "NX1.noise.passive.pv", line 328, characters 7-8:
+Warning: identifier ss rebound.
+File "NX1.noise.passive.pv", line 328, characters 26-36:
+Warning: identifier ciphertext1 rebound.
+File "NX1.noise.passive.pv", line 329, characters 7-8:
+Warning: identifier ss rebound.
+File "NX1.noise.passive.pv", line 329, characters 26-36:
+Warning: identifier ciphertext2 rebound.
+File "NX1.noise.passive.pv", line 330, characters 6-7:
+Warning: identifier hs rebound.
+File "NX1.noise.passive.pv", line 337, characters 6-7:
+Warning: identifier ss rebound.
+File "NX1.noise.passive.pv", line 338, characters 7-8:
+Warning: identifier ss rebound.
+File "NX1.noise.passive.pv", line 338, characters 26-36:
+Warning: identifier ciphertext2 rebound.
+File "NX1.noise.passive.pv", line 339, characters 6-7:
+Warning: identifier hs rebound.
+File "NX1.noise.passive.pv", line 348, characters 6-7:
+Warning: identifier re rebound.
+File "NX1.noise.passive.pv", line 349, characters 6-7:
+Warning: identifier ss rebound.
+File "NX1.noise.passive.pv", line 351, characters 7-8:
+Warning: identifier ss rebound.
+File "NX1.noise.passive.pv", line 353, characters 7-8:
+Warning: identifier hs rebound.
+File "NX1.noise.passive.pv", line 361, characters 6-7:
+Warning: identifier re rebound.
+File "NX1.noise.passive.pv", line 362, characters 6-7:
+Warning: identifier ss rebound.
+File "NX1.noise.passive.pv", line 364, characters 6-7:
+Warning: identifier ss rebound.
+File "NX1.noise.passive.pv", line 365, characters 7-8:
+Warning: identifier ss rebound.
+File "NX1.noise.passive.pv", line 365, characters 48-53:
+Warning: identifier valid1 rebound.
+File "NX1.noise.passive.pv", line 366, characters 6-7:
+Warning: identifier rs rebound.
+File "NX1.noise.passive.pv", line 367, characters 7-8:
+Warning: identifier ss rebound.
+File "NX1.noise.passive.pv", line 369, characters 7-8:
+Warning: identifier hs rebound.
+File "NX1.noise.passive.pv", line 377, characters 6-7:
+Warning: identifier ss rebound.
+File "NX1.noise.passive.pv", line 378, characters 7-8:
+Warning: identifier ss rebound.
+File "NX1.noise.passive.pv", line 380, characters 7-8:
+Warning: identifier hs rebound.
+File "NX1.noise.passive.pv", line 499, characters 8-9:
+Warning: identifier hs rebound.
+File "NX1.noise.passive.pv", line 337, characters 6-7:
+Warning: identifier ss rebound.
+File "NX1.noise.passive.pv", line 338, characters 7-8:
+Warning: identifier ss rebound.
+File "NX1.noise.passive.pv", line 338, characters 26-36:
+Warning: identifier ciphertext2 rebound.
+File "NX1.noise.passive.pv", line 339, characters 6-7:
+Warning: identifier hs rebound.
+File "NX1.noise.passive.pv", line 261, characters 7-8:
+Warning: identifier ck rebound.
+File "NX1.noise.passive.pv", line 280, characters 7-8:
+Warning: identifier cs rebound.
+File "NX1.noise.passive.pv", line 281, characters 6-7:
+Warning: identifier ss rebound.
+File "NX1.noise.passive.pv", line 492, characters 8-9:
+Warning: identifier hs rebound.
+File "NX1.noise.passive.pv", line 361, characters 6-7:
+Warning: identifier re rebound.
+File "NX1.noise.passive.pv", line 362, characters 6-7:
+Warning: identifier ss rebound.
+File "NX1.noise.passive.pv", line 364, characters 6-7:
+Warning: identifier ss rebound.
+File "NX1.noise.passive.pv", line 365, characters 7-8:
+Warning: identifier ss rebound.
+File "NX1.noise.passive.pv", line 365, characters 48-53:
+Warning: identifier valid1 rebound.
+File "NX1.noise.passive.pv", line 366, characters 6-7:
+Warning: identifier rs rebound.
+File "NX1.noise.passive.pv", line 367, characters 7-8:
+Warning: identifier ss rebound.
+File "NX1.noise.passive.pv", line 369, characters 7-8:
+Warning: identifier hs rebound.
+File "NX1.noise.passive.pv", line 261, characters 7-8:
+Warning: identifier ck rebound.
+File "NX1.noise.passive.pv", line 286, characters 7-8:
+Warning: identifier cs rebound.
+File "NX1.noise.passive.pv", line 287, characters 6-7:
+Warning: identifier ss rebound.
+File "NX1.noise.passive.pv", line 286, characters 7-8:
+Warning: identifier cs rebound.
+File "NX1.noise.passive.pv", line 287, characters 6-7:
+Warning: identifier ss rebound.
+File "NX1.noise.passive.pv", line 484, characters 8-9:
+Warning: identifier hs rebound.
+File "NX1.noise.passive.pv", line 310, character 6:
+Warning: identifier e rebound.
+File "NX1.noise.passive.pv", line 311, characters 6-7:
+Warning: identifier ne rebound.
+File "NX1.noise.passive.pv", line 312, characters 6-7:
+Warning: identifier ss rebound.
+File "NX1.noise.passive.pv", line 314, characters 7-8:
+Warning: identifier ss rebound.
+File "NX1.noise.passive.pv", line 314, characters 26-36:
+Warning: identifier ciphertext2 rebound.
+File "NX1.noise.passive.pv", line 315, characters 6-7:
+Warning: identifier hs rebound.
+File "NX1.noise.passive.pv", line 280, characters 7-8:
+Warning: identifier cs rebound.
+File "NX1.noise.passive.pv", line 281, characters 6-7:
+Warning: identifier ss rebound.
+File "NX1.noise.passive.pv", line 542, characters 8-9:
+Warning: identifier hs rebound.
+File "NX1.noise.passive.pv", line 377, characters 6-7:
+Warning: identifier ss rebound.
+File "NX1.noise.passive.pv", line 378, characters 7-8:
+Warning: identifier ss rebound.
+File "NX1.noise.passive.pv", line 380, characters 7-8:
+Warning: identifier hs rebound.
+File "NX1.noise.passive.pv", line 261, characters 7-8:
+Warning: identifier ck rebound.
+File "NX1.noise.passive.pv", line 286, characters 7-8:
+Warning: identifier cs rebound.
+File "NX1.noise.passive.pv", line 287, characters 6-7:
+Warning: identifier ss rebound.
+File "NX1.noise.passive.pv", line 534, characters 8-9:
+Warning: identifier hs rebound.
+File "NX1.noise.passive.pv", line 322, character 6:
+Warning: identifier e rebound.
+File "NX1.noise.passive.pv", line 323, characters 6-7:
+Warning: identifier ne rebound.
+File "NX1.noise.passive.pv", line 324, characters 6-7:
+Warning: identifier ss rebound.
+File "NX1.noise.passive.pv", line 326, characters 6-7:
+Warning: identifier ss rebound.
+File "NX1.noise.passive.pv", line 327, character 6:
+Warning: identifier s rebound.
+File "NX1.noise.passive.pv", line 328, characters 7-8:
+Warning: identifier ss rebound.
+File "NX1.noise.passive.pv", line 328, characters 26-36:
+Warning: identifier ciphertext1 rebound.
+File "NX1.noise.passive.pv", line 329, characters 7-8:
+Warning: identifier ss rebound.
+File "NX1.noise.passive.pv", line 329, characters 26-36:
+Warning: identifier ciphertext2 rebound.
+File "NX1.noise.passive.pv", line 330, characters 6-7:
+Warning: identifier hs rebound.
+File "NX1.noise.passive.pv", line 261, characters 7-8:
+Warning: identifier ck rebound.
+File "NX1.noise.passive.pv", line 280, characters 7-8:
+Warning: identifier cs rebound.
+File "NX1.noise.passive.pv", line 281, characters 6-7:
+Warning: identifier ss rebound.
+File "NX1.noise.passive.pv", line 280, characters 7-8:
+Warning: identifier cs rebound.
+File "NX1.noise.passive.pv", line 281, characters 6-7:
+Warning: identifier ss rebound.
+File "NX1.noise.passive.pv", line 527, characters 8-9:
+Warning: identifier hs rebound.
+File "NX1.noise.passive.pv", line 348, characters 6-7:
+Warning: identifier re rebound.
+File "NX1.noise.passive.pv", line 349, characters 6-7:
+Warning: identifier ss rebound.
+File "NX1.noise.passive.pv", line 351, characters 7-8:
+Warning: identifier ss rebound.
+File "NX1.noise.passive.pv", line 353, characters 7-8:
+Warning: identifier hs rebound.
+File "NX1.noise.passive.pv", line 286, characters 7-8:
+Warning: identifier cs rebound.
+File "NX1.noise.passive.pv", line 287, characters 6-7:
+Warning: identifier ss rebound.
+Linear part:
+dhexp(b_49,dhexp(a_48,g)) = dhexp(a_48,dhexp(b_49,g))
+Completing equations...
+Completed equations:
+dhexp(b_49,dhexp(a_48,g)) = dhexp(a_48,dhexp(b_49,g))
+Convergent part:
+Completing equations...
+Completed equations:
+Process:
+{1}!
+(
+    {2}let s_431: keypair = keypairpack(empty,empty) in
+    (
+        {3}let e_432: keypair = keypairpack(empty,empty) in
+        {4}let rs_433: key = empty in
+        {5}let re_434: key = empty in
+        {6}let v_435: bitstring = catch-fail(hash(somename,empty)) in
+        {7}let v_436: key = catch-fail(v_435) in
+        {8}let v_437: cipherstate = catch-fail(cipherstatepack(empty,minnonce)) in
+        {9}let v_438: bitstring = catch-fail(symmetricstateunpack((if not-caught-fail(v_435) then (if not-caught-fail(v_436) then (if not-caught-fail(v_437) then symmetricstatepack(v_437,v_436,v_435) else fail-any) else fail-any) else fail-any))) in
+        {10}let v_439: symmetricstate = catch-fail((if success?((if not-caught-fail(v_435) then (if not-caught-fail(v_436) then (if not-caught-fail(v_437) then symmetricstatepack(v_437,v_436,v_435) else fail-any) else fail-any) else fail-any)) then (if (not-caught-fail(v_438) && success?(is-true(success?(1-proj-3-tuple(v_438))))) then symmetricstatepack(1-proj-3-tuple(v_438),2-proj-3-tuple(v_438),hash(3-proj-3-tuple(v_438),empty)) else fail-any) else fail-any)) in
+        {11}let hs: handshakestate = (if not-caught-fail(v_439) then handshakestatepack(v_439,s_431,e_432,rs_433,re_434,empty,true) else fail-any) in
+        {12}insert statestore(alice,bob,statepack_a(hs))
+    ) | (
+        {35}get statestore(=alice,=bob,statepack_a(hs_440: handshakestate)) in
+        {13}let v_441: bitstring = catch-fail(handshakestateunpack(hs_440)) in
+        {14}let v_442: bitstring = catch-fail((empty,empty,empty)) in
+        {15}let v_443: key = catch-fail(dhexp(key_e(alice,bob),g)) in
+        {16}let v_444: keypair = catch-fail((if not-caught-fail(v_443) then keypairpack(v_443,key_e(alice,bob)) else fail-any)) in
+        {17}let v_445: bitstring = catch-fail(getpublickey(v_444)) in
+        {18}let v_446: bitstring = catch-fail(symmetricstateunpack(1-proj-7-tuple(v_441))) in
+        {19}let v_447: symmetricstate = catch-fail((if success?(1-proj-7-tuple(v_441)) then (if (not-caught-fail(v_446) && success?(is-true(success?(1-proj-3-tuple(v_446))))) then symmetricstatepack(1-proj-3-tuple(v_446),2-proj-3-tuple(v_446),hash(3-proj-3-tuple(v_446),v_445)) else fail-any) else fail-any)) in
+        {20}let v_448: bitstring = catch-fail(symmetricstateunpack(v_447)) in
+        {21}let v_449: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_448))) in
+        {22}let v_450: bitstring = catch-fail(encrypt(1-proj-2-tuple(v_449),2-proj-2-tuple(v_449),3-proj-3-tuple(v_448),msg_a(alice,bob))) in
+        {23}let v_451: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_448))) in
+        {24}let v_452: cipherstate = catch-fail((if (success?(increment_nonce(2-proj-2-tuple(v_449))) && success?(1-proj-3-tuple(v_448))) then (if (not-caught-fail(v_451) && success?(is-true(success?(1-proj-2-tuple(v_451))))) then cipherstatepack(1-proj-2-tuple(v_451),increment_nonce(2-proj-2-tuple(v_449))) else fail-any) else fail-any)) in
+        {25}let v_453: bitstring = catch-fail((if (success?(3-proj-3-tuple(v_448)) && success?(1-proj-3-tuple(v_448))) then (if (not-caught-fail(v_449) && success?(is-true(success?(1-proj-2-tuple(v_449))))) then (if not-caught-fail(v_450) then (if not-caught-fail(v_452) then (v_452,v_450) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {26}let v_454: bitstring = catch-fail(symmetricstateunpack(symmetricstatepack(1-proj-2-tuple(v_453),2-proj-3-tuple(v_448),3-proj-3-tuple(v_448)))) in
+        {27}let v_455: symmetricstate = catch-fail((if (success?(2-proj-2-tuple(v_453)) && success?(symmetricstatepack(1-proj-2-tuple(v_453),2-proj-3-tuple(v_448),3-proj-3-tuple(v_448)))) then (if (not-caught-fail(v_454) && success?(is-true(success?(1-proj-3-tuple(v_454))))) then symmetricstatepack(1-proj-3-tuple(v_454),2-proj-3-tuple(v_454),hash(3-proj-3-tuple(v_454),2-proj-2-tuple(v_453))) else fail-any) else fail-any)) in
+        {28}let v_456: bitstring = catch-fail((if (not-caught-fail(v_448) && success?(is-true(success?(1-proj-3-tuple(v_448))))) then (if (not-caught-fail(v_453) && success?(is-true(success?(1-proj-2-tuple(v_453))))) then (if not-caught-fail(v_455) then (v_455,2-proj-2-tuple(v_453)) else fail-any) else fail-any) else fail-any)) in
+        {29}let v_457: handshakestate = catch-fail(handshakestatepack(1-proj-2-tuple(v_456),2-proj-7-tuple(v_441),v_444,4-proj-7-tuple(v_441),5-proj-7-tuple(v_441),6-proj-7-tuple(v_441),7-proj-7-tuple(v_441))) in
+        {30}let v_458: bitstring = catch-fail(concat3(v_445,2-proj-3-tuple(v_442),2-proj-2-tuple(v_456))) in
+        {31}let (hs_459: handshakestate,re_460: key,message_a: bitstring) = (if (not-caught-fail(v_441) && success?(is-true(success?(1-proj-7-tuple(v_441))))) then (if (not-caught-fail(v_442) && success?(is-true(success?(1-proj-3-tuple(v_442))))) then (if not-caught-fail(v_444) then (if not-caught-fail(v_445) then (if not-caught-fail(v_447) then (if (not-caught-fail(v_456) && success?(is-true(success?(1-proj-2-tuple(v_456))))) then (if not-caught-fail(v_457) then (if not-caught-fail(v_458) then (v_457,5-proj-7-tuple(v_441),v_458) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) in
+        {32}event SendMsg(alice,bob,stage_a,msg_a(alice,bob),true);
+        {33}insert statestore(alice,bob,statepack_b(hs_459));
+        {34}out(pub, message_a)
+    ) | (
+        {76}get statestore(=alice,=bob,statepack_b(hs_461: handshakestate)) in
+        {36}in(pub, message_b: bitstring);
+        {37}let v_462: bitstring = catch-fail(handshakestateunpack(hs_461)) in
+        {38}let v_463: bitstring = catch-fail(deconcat3(message_b)) in
+        {39}let v_464: bool = catch-fail(true) in
+        {40}let v_465: key = catch-fail(1-proj-3-tuple(v_463)) in
+        {41}let v_466: bitstring = catch-fail(symmetricstateunpack(1-proj-7-tuple(v_462))) in
+        {42}let v_467: symmetricstate = catch-fail((if success?(1-proj-7-tuple(v_462)) then (if (not-caught-fail(v_466) && success?(is-true(success?(1-proj-3-tuple(v_466))))) then symmetricstatepack(1-proj-3-tuple(v_466),2-proj-3-tuple(v_466),hash(3-proj-3-tuple(v_466),v_465)) else fail-any) else fail-any)) in
+        {43}let v_468: bitstring = catch-fail(keypairunpack(3-proj-7-tuple(v_462))) in
+        {44}let v_469: bitstring = catch-fail(symmetricstateunpack(v_467)) in
+        {45}let v_470: key = catch-fail(hmac_hash1(2-proj-3-tuple(v_469),(if success?(3-proj-7-tuple(v_462)) then (if (not-caught-fail(v_468) && success?(is-true(success?(1-proj-2-tuple(v_468))))) then dhexp(2-proj-2-tuple(v_468),v_465) else fail-any) else fail-any))) in
+        {46}let v_471: key = catch-fail(hmac_hash2(2-proj-3-tuple(v_469),(if success?(3-proj-7-tuple(v_462)) then (if (not-caught-fail(v_468) && success?(is-true(success?(1-proj-2-tuple(v_468))))) then dhexp(2-proj-2-tuple(v_468),v_465) else fail-any) else fail-any))) in
+        {47}let v_472: key = catch-fail(hmac_hash3(2-proj-3-tuple(v_469),(if success?(3-proj-7-tuple(v_462)) then (if (not-caught-fail(v_468) && success?(is-true(success?(1-proj-2-tuple(v_468))))) then dhexp(2-proj-2-tuple(v_468),v_465) else fail-any) else fail-any))) in
+        {48}let v_473: bitstring = catch-fail((if (success?((if success?(3-proj-7-tuple(v_462)) then (if (not-caught-fail(v_468) && success?(is-true(success?(1-proj-2-tuple(v_468))))) then dhexp(2-proj-2-tuple(v_468),v_465) else fail-any) else fail-any)) && success?(2-proj-3-tuple(v_469))) then (if not-caught-fail(v_470) then (if not-caught-fail(v_471) then (if not-caught-fail(v_472) then (v_470,v_471,v_472) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {49}let v_474: symmetricstate = catch-fail((if success?((if success?(3-proj-7-tuple(v_462)) then (if (not-caught-fail(v_468) && success?(is-true(success?(1-proj-2-tuple(v_468))))) then dhexp(2-proj-2-tuple(v_468),v_465) else fail-any) else fail-any)) then (if (not-caught-fail(v_469) && success?(is-true(success?(1-proj-3-tuple(v_469))))) then (if (not-caught-fail(v_473) && success?(is-true(success?(1-proj-3-tuple(v_473))))) then symmetricstatepack((if success?(2-proj-3-tuple(v_473)) then cipherstatepack(2-proj-3-tuple(v_473),minnonce) else fail-any),1-proj-3-tuple(v_473),3-proj-3-tuple(v_469)) else fail-any) else fail-any) else fail-any)) in
+        {50}let v_475: bitstring = catch-fail(symmetricstateunpack(v_474)) in
+        {51}let v_476: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_475))) in
+        {52}let v_477: aead = catch-fail(decrypt(1-proj-2-tuple(v_476),2-proj-2-tuple(v_476),3-proj-3-tuple(v_475),2-proj-3-tuple(v_463))) in
+        {53}let v_478: bitstring = catch-fail(aeadunpack(v_477)) in
+        {54}let v_479: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_475))) in
+        {55}let v_480: cipherstate = catch-fail((if (success?(increment_nonce(2-proj-2-tuple(v_476))) && success?(1-proj-3-tuple(v_475))) then (if (not-caught-fail(v_479) && success?(is-true(success?(1-proj-2-tuple(v_479))))) then cipherstatepack(1-proj-2-tuple(v_479),increment_nonce(2-proj-2-tuple(v_476))) else fail-any) else fail-any)) in
+        {56}let v_481: bitstring = catch-fail((if (success?(2-proj-3-tuple(v_463)) && (success?(3-proj-3-tuple(v_475)) && success?(1-proj-3-tuple(v_475)))) then (if (not-caught-fail(v_476) && success?(is-true(success?(1-proj-2-tuple(v_476))))) then (if not-caught-fail(v_477) then (if (not-caught-fail(v_478) && success?(is-true(success?(1-proj-3-tuple(v_478))))) then (if not-caught-fail(v_480) then (v_480,3-proj-3-tuple(v_478),1-proj-3-tuple(v_478)) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {57}let v_482: bitstring = catch-fail(symmetricstateunpack(symmetricstatepack(1-proj-3-tuple(v_481),2-proj-3-tuple(v_475),3-proj-3-tuple(v_475)))) in
+        {58}let v_483: symmetricstate = catch-fail((if (success?(2-proj-3-tuple(v_463)) && success?(symmetricstatepack(1-proj-3-tuple(v_481),2-proj-3-tuple(v_475),3-proj-3-tuple(v_475)))) then (if (not-caught-fail(v_482) && success?(is-true(success?(1-proj-3-tuple(v_482))))) then symmetricstatepack(1-proj-3-tuple(v_482),2-proj-3-tuple(v_482),hash(3-proj-3-tuple(v_482),2-proj-3-tuple(v_463))) else fail-any) else fail-any)) in
+        {59}let v_484: bitstring = catch-fail((if success?(2-proj-3-tuple(v_463)) then (if (not-caught-fail(v_475) && success?(is-true(success?(1-proj-3-tuple(v_475))))) then (if (not-caught-fail(v_481) && success?(is-true(success?(1-proj-3-tuple(v_481))))) then (if not-caught-fail(v_483) then (v_483,2-proj-3-tuple(v_481),3-proj-3-tuple(v_481)) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {60}let v_485: key = catch-fail(2-proj-3-tuple(v_484)) in
+        {61}let v_486: bitstring = catch-fail(symmetricstateunpack(1-proj-3-tuple(v_484))) in
+        {62}let v_487: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_486))) in
+        {63}let v_488: aead = catch-fail(decrypt(1-proj-2-tuple(v_487),2-proj-2-tuple(v_487),3-proj-3-tuple(v_486),3-proj-3-tuple(v_463))) in
+        {64}let v_489: bitstring = catch-fail(aeadunpack(v_488)) in
+        {65}let v_490: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_486))) in
+        {66}let v_491: cipherstate = catch-fail((if (success?(increment_nonce(2-proj-2-tuple(v_487))) && success?(1-proj-3-tuple(v_486))) then (if (not-caught-fail(v_490) && success?(is-true(success?(1-proj-2-tuple(v_490))))) then cipherstatepack(1-proj-2-tuple(v_490),increment_nonce(2-proj-2-tuple(v_487))) else fail-any) else fail-any)) in
+        {67}let v_492: bitstring = catch-fail((if (success?(3-proj-3-tuple(v_463)) && (success?(3-proj-3-tuple(v_486)) && success?(1-proj-3-tuple(v_486)))) then (if (not-caught-fail(v_487) && success?(is-true(success?(1-proj-2-tuple(v_487))))) then (if not-caught-fail(v_488) then (if (not-caught-fail(v_489) && success?(is-true(success?(1-proj-3-tuple(v_489))))) then (if not-caught-fail(v_491) then (v_491,3-proj-3-tuple(v_489),1-proj-3-tuple(v_489)) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {68}let v_493: bitstring = catch-fail(symmetricstateunpack(symmetricstatepack(1-proj-3-tuple(v_492),2-proj-3-tuple(v_486),3-proj-3-tuple(v_486)))) in
+        {69}let v_494: symmetricstate = catch-fail((if (success?(3-proj-3-tuple(v_463)) && success?(symmetricstatepack(1-proj-3-tuple(v_492),2-proj-3-tuple(v_486),3-proj-3-tuple(v_486)))) then (if (not-caught-fail(v_493) && success?(is-true(success?(1-proj-3-tuple(v_493))))) then symmetricstatepack(1-proj-3-tuple(v_493),2-proj-3-tuple(v_493),hash(3-proj-3-tuple(v_493),3-proj-3-tuple(v_463))) else fail-any) else fail-any)) in
+        {70}let v_495: bitstring = catch-fail((if (success?(3-proj-3-tuple(v_463)) && success?(1-proj-3-tuple(v_484))) then (if (not-caught-fail(v_486) && success?(is-true(success?(1-proj-3-tuple(v_486))))) then (if (not-caught-fail(v_492) && success?(is-true(success?(1-proj-3-tuple(v_492))))) then (if not-caught-fail(v_494) then (v_494,2-proj-3-tuple(v_492),3-proj-3-tuple(v_492)) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {71}let v_496: key = catch-fail(dhexp(key_s(bob),g)) in
+        {72}let v_497: handshakestate = catch-fail(handshakestatepack(1-proj-3-tuple(v_495),2-proj-7-tuple(v_462),3-proj-7-tuple(v_462),v_485,v_465,6-proj-7-tuple(v_462),7-proj-7-tuple(v_462))) in
+        {73}let (hs_498: handshakestate,re_499: key,plaintext_b: bitstring,valid: bool) = (if (not-caught-fail(v_462) && success?(is-true(success?(1-proj-7-tuple(v_462))))) then (if (not-caught-fail(v_463) && success?(is-true(success?(1-proj-3-tuple(v_463))))) then (if not-caught-fail(v_464) then (if not-caught-fail(v_465) then (if not-caught-fail(v_467) then (if not-caught-fail(v_474) then (if (not-caught-fail(v_484) && success?(is-true(success?(1-proj-3-tuple(v_484))))) then (if not-caught-fail(v_485) then (if (not-caught-fail(v_495) && success?(is-true(success?(1-proj-3-tuple(v_495))))) then (if ((3-proj-3-tuple(v_484) && 3-proj-3-tuple(v_495)) && (v_485 = getpublickey((if not-caught-fail(v_496) then keypairpack(v_496,key_s(bob)) else fail-any)))) then (if not-caught-fail(v_497) then (v_497,getpublickey(3-proj-7-tuple(v_462)),2-proj-3-tuple(v_495),true) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) in
+        {74}event RecvMsg(alice,bob,stage_b,plaintext_b,valid);
+        {75}insert statestore(alice,bob,statepack_c(hs_498))
+    ) | (
+        {109}get statestore(=alice,=bob,statepack_c(hs_500: handshakestate)) in
+        {77}let v_501: bitstring = catch-fail(handshakestateunpack(hs_500)) in
+        {78}let v_502: bitstring = catch-fail((empty,empty,empty)) in
+        {79}let v_503: bitstring = catch-fail(keypairunpack(3-proj-7-tuple(v_501))) in
+        {80}let v_504: bitstring = catch-fail(symmetricstateunpack(1-proj-7-tuple(v_501))) in
+        {81}let v_505: key = catch-fail(hmac_hash1(2-proj-3-tuple(v_504),(if (success?(4-proj-7-tuple(v_501)) && success?(3-proj-7-tuple(v_501))) then (if (not-caught-fail(v_503) && success?(is-true(success?(1-proj-2-tuple(v_503))))) then dhexp(2-proj-2-tuple(v_503),4-proj-7-tuple(v_501)) else fail-any) else fail-any))) in
+        {82}let v_506: key = catch-fail(hmac_hash2(2-proj-3-tuple(v_504),(if (success?(4-proj-7-tuple(v_501)) && success?(3-proj-7-tuple(v_501))) then (if (not-caught-fail(v_503) && success?(is-true(success?(1-proj-2-tuple(v_503))))) then dhexp(2-proj-2-tuple(v_503),4-proj-7-tuple(v_501)) else fail-any) else fail-any))) in
+        {83}let v_507: key = catch-fail(hmac_hash3(2-proj-3-tuple(v_504),(if (success?(4-proj-7-tuple(v_501)) && success?(3-proj-7-tuple(v_501))) then (if (not-caught-fail(v_503) && success?(is-true(success?(1-proj-2-tuple(v_503))))) then dhexp(2-proj-2-tuple(v_503),4-proj-7-tuple(v_501)) else fail-any) else fail-any))) in
+        {84}let v_508: bitstring = catch-fail((if (success?((if (success?(4-proj-7-tuple(v_501)) && success?(3-proj-7-tuple(v_501))) then (if (not-caught-fail(v_503) && success?(is-true(success?(1-proj-2-tuple(v_503))))) then dhexp(2-proj-2-tuple(v_503),4-proj-7-tuple(v_501)) else fail-any) else fail-any)) && success?(2-proj-3-tuple(v_504))) then (if not-caught-fail(v_505) then (if not-caught-fail(v_506) then (if not-caught-fail(v_507) then (v_505,v_506,v_507) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {85}let v_509: symmetricstate = catch-fail((if (success?((if (success?(4-proj-7-tuple(v_501)) && success?(3-proj-7-tuple(v_501))) then (if (not-caught-fail(v_503) && success?(is-true(success?(1-proj-2-tuple(v_503))))) then dhexp(2-proj-2-tuple(v_503),4-proj-7-tuple(v_501)) else fail-any) else fail-any)) && success?(1-proj-7-tuple(v_501))) then (if (not-caught-fail(v_504) && success?(is-true(success?(1-proj-3-tuple(v_504))))) then (if (not-caught-fail(v_508) && success?(is-true(success?(1-proj-3-tuple(v_508))))) then symmetricstatepack((if success?(2-proj-3-tuple(v_508)) then cipherstatepack(2-proj-3-tuple(v_508),minnonce) else fail-any),1-proj-3-tuple(v_508),3-proj-3-tuple(v_504)) else fail-any) else fail-any) else fail-any)) in
+        {86}let v_510: bitstring = catch-fail(symmetricstateunpack(v_509)) in
+        {87}let v_511: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_510))) in
+        {88}let v_512: bitstring = catch-fail(encrypt(1-proj-2-tuple(v_511),2-proj-2-tuple(v_511),3-proj-3-tuple(v_510),msg_c(alice,bob))) in
+        {89}let v_513: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_510))) in
+        {90}let v_514: cipherstate = catch-fail((if (success?(increment_nonce(2-proj-2-tuple(v_511))) && success?(1-proj-3-tuple(v_510))) then (if (not-caught-fail(v_513) && success?(is-true(success?(1-proj-2-tuple(v_513))))) then cipherstatepack(1-proj-2-tuple(v_513),increment_nonce(2-proj-2-tuple(v_511))) else fail-any) else fail-any)) in
+        {91}let v_515: bitstring = catch-fail((if (success?(3-proj-3-tuple(v_510)) && success?(1-proj-3-tuple(v_510))) then (if (not-caught-fail(v_511) && success?(is-true(success?(1-proj-2-tuple(v_511))))) then (if not-caught-fail(v_512) then (if not-caught-fail(v_514) then (v_514,v_512) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {92}let v_516: bitstring = catch-fail(symmetricstateunpack(symmetricstatepack(1-proj-2-tuple(v_515),2-proj-3-tuple(v_510),3-proj-3-tuple(v_510)))) in
+        {93}let v_517: symmetricstate = catch-fail((if (success?(2-proj-2-tuple(v_515)) && success?(symmetricstatepack(1-proj-2-tuple(v_515),2-proj-3-tuple(v_510),3-proj-3-tuple(v_510)))) then (if (not-caught-fail(v_516) && success?(is-true(success?(1-proj-3-tuple(v_516))))) then symmetricstatepack(1-proj-3-tuple(v_516),2-proj-3-tuple(v_516),hash(3-proj-3-tuple(v_516),2-proj-2-tuple(v_515))) else fail-any) else fail-any)) in
+        {94}let v_518: bitstring = catch-fail((if (not-caught-fail(v_510) && success?(is-true(success?(1-proj-3-tuple(v_510))))) then (if (not-caught-fail(v_515) && success?(is-true(success?(1-proj-2-tuple(v_515))))) then (if not-caught-fail(v_517) then (v_517,2-proj-2-tuple(v_515)) else fail-any) else fail-any) else fail-any)) in
+        {95}let v_519: handshakestate = catch-fail(handshakestatepack(1-proj-2-tuple(v_518),2-proj-7-tuple(v_501),3-proj-7-tuple(v_501),4-proj-7-tuple(v_501),5-proj-7-tuple(v_501),6-proj-7-tuple(v_501),7-proj-7-tuple(v_501))) in
+        {96}let v_520: bitstring = catch-fail(concat3(1-proj-3-tuple(v_502),2-proj-3-tuple(v_502),2-proj-2-tuple(v_518))) in
+        {97}let v_521: bitstring = catch-fail(symmetricstateunpack(1-proj-2-tuple(v_518))) in
+        {98}let v_522: key = catch-fail(hmac_hash1(2-proj-3-tuple(v_521),zero)) in
+        {99}let v_523: key = catch-fail(hmac_hash2(2-proj-3-tuple(v_521),zero)) in
+        {100}let v_524: key = catch-fail(hmac_hash3(2-proj-3-tuple(v_521),zero)) in
+        {101}let v_525: bitstring = catch-fail((if success?(2-proj-3-tuple(v_521)) then (if not-caught-fail(v_522) then (if not-caught-fail(v_523) then (if not-caught-fail(v_524) then (v_522,v_523,v_524) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {102}let v_526: cipherstate = catch-fail((if success?(1-proj-3-tuple(v_525)) then cipherstatepack(1-proj-3-tuple(v_525),minnonce) else fail-any)) in
+        {103}let v_527: cipherstate = catch-fail((if success?(2-proj-3-tuple(v_525)) then cipherstatepack(2-proj-3-tuple(v_525),minnonce) else fail-any)) in
+        {104}let v_528: bitstring = catch-fail((if success?(1-proj-2-tuple(v_518)) then (if (not-caught-fail(v_521) && success?(is-true(success?(1-proj-3-tuple(v_521))))) then (if (not-caught-fail(v_525) && success?(is-true(success?(1-proj-3-tuple(v_525))))) then (if not-caught-fail(v_526) then (if not-caught-fail(v_527) then (1-proj-2-tuple(v_518),v_526,v_527) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {105}let (hs_529: handshakestate,re_530: key,message_c: bitstring,cs1: cipherstate,cs2: cipherstate) = (if (not-caught-fail(v_501) && success?(is-true(success?(1-proj-7-tuple(v_501))))) then (if (not-caught-fail(v_502) && success?(is-true(success?(1-proj-3-tuple(v_502))))) then (if not-caught-fail(v_509) then (if (not-caught-fail(v_518) && success?(is-true(success?(1-proj-2-tuple(v_518))))) then (if not-caught-fail(v_519) then (if not-caught-fail(v_520) then (if (not-caught-fail(v_528) && success?(is-true(success?(1-proj-3-tuple(v_528))))) then (v_519,5-proj-7-tuple(v_501),v_520,2-proj-3-tuple(v_528),3-proj-3-tuple(v_528)) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) in
+        {106}event SendMsg(alice,bob,stage_c,msg_c(alice,bob),true);
+        {107}insert statestore(alice,bob,statepack_d(hs_529));
+        {108}out(pub, message_c)
+    ) | (
+        {110}event LeakS(phase0,alice);
+        {111}out(pub, key_s(alice))
+    ) | (
+        {112}phase 1;
+        {113}event LeakS(phase1,alice);
+        {114}out(pub, key_s(alice))
+    )
+) | (
+    {115}let s_531: keypair = keypairpack(empty,empty) in
+    (
+        {116}let e_532: keypair = keypairpack(empty,empty) in
+        {117}let rs_533: key = empty in
+        {118}let re_534: key = empty in
+        {119}let v_535: bitstring = catch-fail(hash(somename,empty)) in
+        {120}let v_536: key = catch-fail(v_535) in
+        {121}let v_537: cipherstate = catch-fail(cipherstatepack(empty,minnonce)) in
+        {122}let v_538: bitstring = catch-fail(symmetricstateunpack((if not-caught-fail(v_535) then (if not-caught-fail(v_536) then (if not-caught-fail(v_537) then symmetricstatepack(v_537,v_536,v_535) else fail-any) else fail-any) else fail-any))) in
+        {123}let v_539: symmetricstate = catch-fail((if success?((if not-caught-fail(v_535) then (if not-caught-fail(v_536) then (if not-caught-fail(v_537) then symmetricstatepack(v_537,v_536,v_535) else fail-any) else fail-any) else fail-any)) then (if (not-caught-fail(v_538) && success?(is-true(success?(1-proj-3-tuple(v_538))))) then symmetricstatepack(1-proj-3-tuple(v_538),2-proj-3-tuple(v_538),hash(3-proj-3-tuple(v_538),empty)) else fail-any) else fail-any)) in
+        {124}let hs_540: handshakestate = (if not-caught-fail(v_539) then handshakestatepack(v_539,s_531,e_532,rs_533,re_534,empty,true) else fail-any) in
+        {125}insert statestore(alice,charlie,statepack_a(hs_540))
+    ) | (
+        {148}get statestore(=alice,=charlie,statepack_a(hs_541: handshakestate)) in
+        {126}let v_542: bitstring = catch-fail(handshakestateunpack(hs_541)) in
+        {127}let v_543: bitstring = catch-fail((empty,empty,empty)) in
+        {128}let v_544: key = catch-fail(dhexp(key_e(alice,charlie),g)) in
+        {129}let v_545: keypair = catch-fail((if not-caught-fail(v_544) then keypairpack(v_544,key_e(alice,charlie)) else fail-any)) in
+        {130}let v_546: bitstring = catch-fail(getpublickey(v_545)) in
+        {131}let v_547: bitstring = catch-fail(symmetricstateunpack(1-proj-7-tuple(v_542))) in
+        {132}let v_548: symmetricstate = catch-fail((if success?(1-proj-7-tuple(v_542)) then (if (not-caught-fail(v_547) && success?(is-true(success?(1-proj-3-tuple(v_547))))) then symmetricstatepack(1-proj-3-tuple(v_547),2-proj-3-tuple(v_547),hash(3-proj-3-tuple(v_547),v_546)) else fail-any) else fail-any)) in
+        {133}let v_549: bitstring = catch-fail(symmetricstateunpack(v_548)) in
+        {134}let v_550: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_549))) in
+        {135}let v_551: bitstring = catch-fail(encrypt(1-proj-2-tuple(v_550),2-proj-2-tuple(v_550),3-proj-3-tuple(v_549),msg_a(alice,charlie))) in
+        {136}let v_552: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_549))) in
+        {137}let v_553: cipherstate = catch-fail((if (success?(increment_nonce(2-proj-2-tuple(v_550))) && success?(1-proj-3-tuple(v_549))) then (if (not-caught-fail(v_552) && success?(is-true(success?(1-proj-2-tuple(v_552))))) then cipherstatepack(1-proj-2-tuple(v_552),increment_nonce(2-proj-2-tuple(v_550))) else fail-any) else fail-any)) in
+        {138}let v_554: bitstring = catch-fail((if (success?(3-proj-3-tuple(v_549)) && success?(1-proj-3-tuple(v_549))) then (if (not-caught-fail(v_550) && success?(is-true(success?(1-proj-2-tuple(v_550))))) then (if not-caught-fail(v_551) then (if not-caught-fail(v_553) then (v_553,v_551) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {139}let v_555: bitstring = catch-fail(symmetricstateunpack(symmetricstatepack(1-proj-2-tuple(v_554),2-proj-3-tuple(v_549),3-proj-3-tuple(v_549)))) in
+        {140}let v_556: symmetricstate = catch-fail((if (success?(2-proj-2-tuple(v_554)) && success?(symmetricstatepack(1-proj-2-tuple(v_554),2-proj-3-tuple(v_549),3-proj-3-tuple(v_549)))) then (if (not-caught-fail(v_555) && success?(is-true(success?(1-proj-3-tuple(v_555))))) then symmetricstatepack(1-proj-3-tuple(v_555),2-proj-3-tuple(v_555),hash(3-proj-3-tuple(v_555),2-proj-2-tuple(v_554))) else fail-any) else fail-any)) in
+        {141}let v_557: bitstring = catch-fail((if (not-caught-fail(v_549) && success?(is-true(success?(1-proj-3-tuple(v_549))))) then (if (not-caught-fail(v_554) && success?(is-true(success?(1-proj-2-tuple(v_554))))) then (if not-caught-fail(v_556) then (v_556,2-proj-2-tuple(v_554)) else fail-any) else fail-any) else fail-any)) in
+        {142}let v_558: handshakestate = catch-fail(handshakestatepack(1-proj-2-tuple(v_557),2-proj-7-tuple(v_542),v_545,4-proj-7-tuple(v_542),5-proj-7-tuple(v_542),6-proj-7-tuple(v_542),7-proj-7-tuple(v_542))) in
+        {143}let v_559: bitstring = catch-fail(concat3(v_546,2-proj-3-tuple(v_543),2-proj-2-tuple(v_557))) in
+        {144}let (hs_560: handshakestate,re_561: key,message_a_562: bitstring) = (if (not-caught-fail(v_542) && success?(is-true(success?(1-proj-7-tuple(v_542))))) then (if (not-caught-fail(v_543) && success?(is-true(success?(1-proj-3-tuple(v_543))))) then (if not-caught-fail(v_545) then (if not-caught-fail(v_546) then (if not-caught-fail(v_548) then (if (not-caught-fail(v_557) && success?(is-true(success?(1-proj-2-tuple(v_557))))) then (if not-caught-fail(v_558) then (if not-caught-fail(v_559) then (v_558,5-proj-7-tuple(v_542),v_559) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) in
+        {145}event SendMsg(alice,charlie,stage_a,msg_a(alice,charlie),true);
+        {146}insert statestore(alice,charlie,statepack_b(hs_560));
+        {147}out(pub, message_a_562)
+    ) | (
+        {189}get statestore(=alice,=charlie,statepack_b(hs_563: handshakestate)) in
+        {149}in(pub, message_b_564: bitstring);
+        {150}let v_565: bitstring = catch-fail(handshakestateunpack(hs_563)) in
+        {151}let v_566: bitstring = catch-fail(deconcat3(message_b_564)) in
+        {152}let v_567: bool = catch-fail(true) in
+        {153}let v_568: key = catch-fail(1-proj-3-tuple(v_566)) in
+        {154}let v_569: bitstring = catch-fail(symmetricstateunpack(1-proj-7-tuple(v_565))) in
+        {155}let v_570: symmetricstate = catch-fail((if success?(1-proj-7-tuple(v_565)) then (if (not-caught-fail(v_569) && success?(is-true(success?(1-proj-3-tuple(v_569))))) then symmetricstatepack(1-proj-3-tuple(v_569),2-proj-3-tuple(v_569),hash(3-proj-3-tuple(v_569),v_568)) else fail-any) else fail-any)) in
+        {156}let v_571: bitstring = catch-fail(keypairunpack(3-proj-7-tuple(v_565))) in
+        {157}let v_572: bitstring = catch-fail(symmetricstateunpack(v_570)) in
+        {158}let v_573: key = catch-fail(hmac_hash1(2-proj-3-tuple(v_572),(if success?(3-proj-7-tuple(v_565)) then (if (not-caught-fail(v_571) && success?(is-true(success?(1-proj-2-tuple(v_571))))) then dhexp(2-proj-2-tuple(v_571),v_568) else fail-any) else fail-any))) in
+        {159}let v_574: key = catch-fail(hmac_hash2(2-proj-3-tuple(v_572),(if success?(3-proj-7-tuple(v_565)) then (if (not-caught-fail(v_571) && success?(is-true(success?(1-proj-2-tuple(v_571))))) then dhexp(2-proj-2-tuple(v_571),v_568) else fail-any) else fail-any))) in
+        {160}let v_575: key = catch-fail(hmac_hash3(2-proj-3-tuple(v_572),(if success?(3-proj-7-tuple(v_565)) then (if (not-caught-fail(v_571) && success?(is-true(success?(1-proj-2-tuple(v_571))))) then dhexp(2-proj-2-tuple(v_571),v_568) else fail-any) else fail-any))) in
+        {161}let v_576: bitstring = catch-fail((if (success?((if success?(3-proj-7-tuple(v_565)) then (if (not-caught-fail(v_571) && success?(is-true(success?(1-proj-2-tuple(v_571))))) then dhexp(2-proj-2-tuple(v_571),v_568) else fail-any) else fail-any)) && success?(2-proj-3-tuple(v_572))) then (if not-caught-fail(v_573) then (if not-caught-fail(v_574) then (if not-caught-fail(v_575) then (v_573,v_574,v_575) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {162}let v_577: symmetricstate = catch-fail((if success?((if success?(3-proj-7-tuple(v_565)) then (if (not-caught-fail(v_571) && success?(is-true(success?(1-proj-2-tuple(v_571))))) then dhexp(2-proj-2-tuple(v_571),v_568) else fail-any) else fail-any)) then (if (not-caught-fail(v_572) && success?(is-true(success?(1-proj-3-tuple(v_572))))) then (if (not-caught-fail(v_576) && success?(is-true(success?(1-proj-3-tuple(v_576))))) then symmetricstatepack((if success?(2-proj-3-tuple(v_576)) then cipherstatepack(2-proj-3-tuple(v_576),minnonce) else fail-any),1-proj-3-tuple(v_576),3-proj-3-tuple(v_572)) else fail-any) else fail-any) else fail-any)) in
+        {163}let v_578: bitstring = catch-fail(symmetricstateunpack(v_577)) in
+        {164}let v_579: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_578))) in
+        {165}let v_580: aead = catch-fail(decrypt(1-proj-2-tuple(v_579),2-proj-2-tuple(v_579),3-proj-3-tuple(v_578),2-proj-3-tuple(v_566))) in
+        {166}let v_581: bitstring = catch-fail(aeadunpack(v_580)) in
+        {167}let v_582: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_578))) in
+        {168}let v_583: cipherstate = catch-fail((if (success?(increment_nonce(2-proj-2-tuple(v_579))) && success?(1-proj-3-tuple(v_578))) then (if (not-caught-fail(v_582) && success?(is-true(success?(1-proj-2-tuple(v_582))))) then cipherstatepack(1-proj-2-tuple(v_582),increment_nonce(2-proj-2-tuple(v_579))) else fail-any) else fail-any)) in
+        {169}let v_584: bitstring = catch-fail((if (success?(2-proj-3-tuple(v_566)) && (success?(3-proj-3-tuple(v_578)) && success?(1-proj-3-tuple(v_578)))) then (if (not-caught-fail(v_579) && success?(is-true(success?(1-proj-2-tuple(v_579))))) then (if not-caught-fail(v_580) then (if (not-caught-fail(v_581) && success?(is-true(success?(1-proj-3-tuple(v_581))))) then (if not-caught-fail(v_583) then (v_583,3-proj-3-tuple(v_581),1-proj-3-tuple(v_581)) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {170}let v_585: bitstring = catch-fail(symmetricstateunpack(symmetricstatepack(1-proj-3-tuple(v_584),2-proj-3-tuple(v_578),3-proj-3-tuple(v_578)))) in
+        {171}let v_586: symmetricstate = catch-fail((if (success?(2-proj-3-tuple(v_566)) && success?(symmetricstatepack(1-proj-3-tuple(v_584),2-proj-3-tuple(v_578),3-proj-3-tuple(v_578)))) then (if (not-caught-fail(v_585) && success?(is-true(success?(1-proj-3-tuple(v_585))))) then symmetricstatepack(1-proj-3-tuple(v_585),2-proj-3-tuple(v_585),hash(3-proj-3-tuple(v_585),2-proj-3-tuple(v_566))) else fail-any) else fail-any)) in
+        {172}let v_587: bitstring = catch-fail((if success?(2-proj-3-tuple(v_566)) then (if (not-caught-fail(v_578) && success?(is-true(success?(1-proj-3-tuple(v_578))))) then (if (not-caught-fail(v_584) && success?(is-true(success?(1-proj-3-tuple(v_584))))) then (if not-caught-fail(v_586) then (v_586,2-proj-3-tuple(v_584),3-proj-3-tuple(v_584)) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {173}let v_588: key = catch-fail(2-proj-3-tuple(v_587)) in
+        {174}let v_589: bitstring = catch-fail(symmetricstateunpack(1-proj-3-tuple(v_587))) in
+        {175}let v_590: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_589))) in
+        {176}let v_591: aead = catch-fail(decrypt(1-proj-2-tuple(v_590),2-proj-2-tuple(v_590),3-proj-3-tuple(v_589),3-proj-3-tuple(v_566))) in
+        {177}let v_592: bitstring = catch-fail(aeadunpack(v_591)) in
+        {178}let v_593: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_589))) in
+        {179}let v_594: cipherstate = catch-fail((if (success?(increment_nonce(2-proj-2-tuple(v_590))) && success?(1-proj-3-tuple(v_589))) then (if (not-caught-fail(v_593) && success?(is-true(success?(1-proj-2-tuple(v_593))))) then cipherstatepack(1-proj-2-tuple(v_593),increment_nonce(2-proj-2-tuple(v_590))) else fail-any) else fail-any)) in
+        {180}let v_595: bitstring = catch-fail((if (success?(3-proj-3-tuple(v_566)) && (success?(3-proj-3-tuple(v_589)) && success?(1-proj-3-tuple(v_589)))) then (if (not-caught-fail(v_590) && success?(is-true(success?(1-proj-2-tuple(v_590))))) then (if not-caught-fail(v_591) then (if (not-caught-fail(v_592) && success?(is-true(success?(1-proj-3-tuple(v_592))))) then (if not-caught-fail(v_594) then (v_594,3-proj-3-tuple(v_592),1-proj-3-tuple(v_592)) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {181}let v_596: bitstring = catch-fail(symmetricstateunpack(symmetricstatepack(1-proj-3-tuple(v_595),2-proj-3-tuple(v_589),3-proj-3-tuple(v_589)))) in
+        {182}let v_597: symmetricstate = catch-fail((if (success?(3-proj-3-tuple(v_566)) && success?(symmetricstatepack(1-proj-3-tuple(v_595),2-proj-3-tuple(v_589),3-proj-3-tuple(v_589)))) then (if (not-caught-fail(v_596) && success?(is-true(success?(1-proj-3-tuple(v_596))))) then symmetricstatepack(1-proj-3-tuple(v_596),2-proj-3-tuple(v_596),hash(3-proj-3-tuple(v_596),3-proj-3-tuple(v_566))) else fail-any) else fail-any)) in
+        {183}let v_598: bitstring = catch-fail((if (success?(3-proj-3-tuple(v_566)) && success?(1-proj-3-tuple(v_587))) then (if (not-caught-fail(v_589) && success?(is-true(success?(1-proj-3-tuple(v_589))))) then (if (not-caught-fail(v_595) && success?(is-true(success?(1-proj-3-tuple(v_595))))) then (if not-caught-fail(v_597) then (v_597,2-proj-3-tuple(v_595),3-proj-3-tuple(v_595)) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {184}let v_599: key = catch-fail(dhexp(key_s(charlie),g)) in
+        {185}let v_600: handshakestate = catch-fail(handshakestatepack(1-proj-3-tuple(v_598),2-proj-7-tuple(v_565),3-proj-7-tuple(v_565),v_588,v_568,6-proj-7-tuple(v_565),7-proj-7-tuple(v_565))) in
+        {186}let (hs_601: handshakestate,re_602: key,plaintext_b_603: bitstring,valid_604: bool) = (if (not-caught-fail(v_565) && success?(is-true(success?(1-proj-7-tuple(v_565))))) then (if (not-caught-fail(v_566) && success?(is-true(success?(1-proj-3-tuple(v_566))))) then (if not-caught-fail(v_567) then (if not-caught-fail(v_568) then (if not-caught-fail(v_570) then (if not-caught-fail(v_577) then (if (not-caught-fail(v_587) && success?(is-true(success?(1-proj-3-tuple(v_587))))) then (if not-caught-fail(v_588) then (if (not-caught-fail(v_598) && success?(is-true(success?(1-proj-3-tuple(v_598))))) then (if ((3-proj-3-tuple(v_587) && 3-proj-3-tuple(v_598)) && (v_588 = getpublickey((if not-caught-fail(v_599) then keypairpack(v_599,key_s(charlie)) else fail-any)))) then (if not-caught-fail(v_600) then (v_600,getpublickey(3-proj-7-tuple(v_565)),2-proj-3-tuple(v_598),true) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) in
+        {187}event RecvMsg(alice,charlie,stage_b,plaintext_b_603,valid_604);
+        {188}insert statestore(alice,charlie,statepack_c(hs_601))
+    ) | (
+        {222}get statestore(=alice,=charlie,statepack_c(hs_605: handshakestate)) in
+        {190}let v_606: bitstring = catch-fail(handshakestateunpack(hs_605)) in
+        {191}let v_607: bitstring = catch-fail((empty,empty,empty)) in
+        {192}let v_608: bitstring = catch-fail(keypairunpack(3-proj-7-tuple(v_606))) in
+        {193}let v_609: bitstring = catch-fail(symmetricstateunpack(1-proj-7-tuple(v_606))) in
+        {194}let v_610: key = catch-fail(hmac_hash1(2-proj-3-tuple(v_609),(if (success?(4-proj-7-tuple(v_606)) && success?(3-proj-7-tuple(v_606))) then (if (not-caught-fail(v_608) && success?(is-true(success?(1-proj-2-tuple(v_608))))) then dhexp(2-proj-2-tuple(v_608),4-proj-7-tuple(v_606)) else fail-any) else fail-any))) in
+        {195}let v_611: key = catch-fail(hmac_hash2(2-proj-3-tuple(v_609),(if (success?(4-proj-7-tuple(v_606)) && success?(3-proj-7-tuple(v_606))) then (if (not-caught-fail(v_608) && success?(is-true(success?(1-proj-2-tuple(v_608))))) then dhexp(2-proj-2-tuple(v_608),4-proj-7-tuple(v_606)) else fail-any) else fail-any))) in
+        {196}let v_612: key = catch-fail(hmac_hash3(2-proj-3-tuple(v_609),(if (success?(4-proj-7-tuple(v_606)) && success?(3-proj-7-tuple(v_606))) then (if (not-caught-fail(v_608) && success?(is-true(success?(1-proj-2-tuple(v_608))))) then dhexp(2-proj-2-tuple(v_608),4-proj-7-tuple(v_606)) else fail-any) else fail-any))) in
+        {197}let v_613: bitstring = catch-fail((if (success?((if (success?(4-proj-7-tuple(v_606)) && success?(3-proj-7-tuple(v_606))) then (if (not-caught-fail(v_608) && success?(is-true(success?(1-proj-2-tuple(v_608))))) then dhexp(2-proj-2-tuple(v_608),4-proj-7-tuple(v_606)) else fail-any) else fail-any)) && success?(2-proj-3-tuple(v_609))) then (if not-caught-fail(v_610) then (if not-caught-fail(v_611) then (if not-caught-fail(v_612) then (v_610,v_611,v_612) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {198}let v_614: symmetricstate = catch-fail((if (success?((if (success?(4-proj-7-tuple(v_606)) && success?(3-proj-7-tuple(v_606))) then (if (not-caught-fail(v_608) && success?(is-true(success?(1-proj-2-tuple(v_608))))) then dhexp(2-proj-2-tuple(v_608),4-proj-7-tuple(v_606)) else fail-any) else fail-any)) && success?(1-proj-7-tuple(v_606))) then (if (not-caught-fail(v_609) && success?(is-true(success?(1-proj-3-tuple(v_609))))) then (if (not-caught-fail(v_613) && success?(is-true(success?(1-proj-3-tuple(v_613))))) then symmetricstatepack((if success?(2-proj-3-tuple(v_613)) then cipherstatepack(2-proj-3-tuple(v_613),minnonce) else fail-any),1-proj-3-tuple(v_613),3-proj-3-tuple(v_609)) else fail-any) else fail-any) else fail-any)) in
+        {199}let v_615: bitstring = catch-fail(symmetricstateunpack(v_614)) in
+        {200}let v_616: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_615))) in
+        {201}let v_617: bitstring = catch-fail(encrypt(1-proj-2-tuple(v_616),2-proj-2-tuple(v_616),3-proj-3-tuple(v_615),msg_c(alice,charlie))) in
+        {202}let v_618: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_615))) in
+        {203}let v_619: cipherstate = catch-fail((if (success?(increment_nonce(2-proj-2-tuple(v_616))) && success?(1-proj-3-tuple(v_615))) then (if (not-caught-fail(v_618) && success?(is-true(success?(1-proj-2-tuple(v_618))))) then cipherstatepack(1-proj-2-tuple(v_618),increment_nonce(2-proj-2-tuple(v_616))) else fail-any) else fail-any)) in
+        {204}let v_620: bitstring = catch-fail((if (success?(3-proj-3-tuple(v_615)) && success?(1-proj-3-tuple(v_615))) then (if (not-caught-fail(v_616) && success?(is-true(success?(1-proj-2-tuple(v_616))))) then (if not-caught-fail(v_617) then (if not-caught-fail(v_619) then (v_619,v_617) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {205}let v_621: bitstring = catch-fail(symmetricstateunpack(symmetricstatepack(1-proj-2-tuple(v_620),2-proj-3-tuple(v_615),3-proj-3-tuple(v_615)))) in
+        {206}let v_622: symmetricstate = catch-fail((if (success?(2-proj-2-tuple(v_620)) && success?(symmetricstatepack(1-proj-2-tuple(v_620),2-proj-3-tuple(v_615),3-proj-3-tuple(v_615)))) then (if (not-caught-fail(v_621) && success?(is-true(success?(1-proj-3-tuple(v_621))))) then symmetricstatepack(1-proj-3-tuple(v_621),2-proj-3-tuple(v_621),hash(3-proj-3-tuple(v_621),2-proj-2-tuple(v_620))) else fail-any) else fail-any)) in
+        {207}let v_623: bitstring = catch-fail((if (not-caught-fail(v_615) && success?(is-true(success?(1-proj-3-tuple(v_615))))) then (if (not-caught-fail(v_620) && success?(is-true(success?(1-proj-2-tuple(v_620))))) then (if not-caught-fail(v_622) then (v_622,2-proj-2-tuple(v_620)) else fail-any) else fail-any) else fail-any)) in
+        {208}let v_624: handshakestate = catch-fail(handshakestatepack(1-proj-2-tuple(v_623),2-proj-7-tuple(v_606),3-proj-7-tuple(v_606),4-proj-7-tuple(v_606),5-proj-7-tuple(v_606),6-proj-7-tuple(v_606),7-proj-7-tuple(v_606))) in
+        {209}let v_625: bitstring = catch-fail(concat3(1-proj-3-tuple(v_607),2-proj-3-tuple(v_607),2-proj-2-tuple(v_623))) in
+        {210}let v_626: bitstring = catch-fail(symmetricstateunpack(1-proj-2-tuple(v_623))) in
+        {211}let v_627: key = catch-fail(hmac_hash1(2-proj-3-tuple(v_626),zero)) in
+        {212}let v_628: key = catch-fail(hmac_hash2(2-proj-3-tuple(v_626),zero)) in
+        {213}let v_629: key = catch-fail(hmac_hash3(2-proj-3-tuple(v_626),zero)) in
+        {214}let v_630: bitstring = catch-fail((if success?(2-proj-3-tuple(v_626)) then (if not-caught-fail(v_627) then (if not-caught-fail(v_628) then (if not-caught-fail(v_629) then (v_627,v_628,v_629) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {215}let v_631: cipherstate = catch-fail((if success?(1-proj-3-tuple(v_630)) then cipherstatepack(1-proj-3-tuple(v_630),minnonce) else fail-any)) in
+        {216}let v_632: cipherstate = catch-fail((if success?(2-proj-3-tuple(v_630)) then cipherstatepack(2-proj-3-tuple(v_630),minnonce) else fail-any)) in
+        {217}let v_633: bitstring = catch-fail((if success?(1-proj-2-tuple(v_623)) then (if (not-caught-fail(v_626) && success?(is-true(success?(1-proj-3-tuple(v_626))))) then (if (not-caught-fail(v_630) && success?(is-true(success?(1-proj-3-tuple(v_630))))) then (if not-caught-fail(v_631) then (if not-caught-fail(v_632) then (1-proj-2-tuple(v_623),v_631,v_632) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {218}let (hs_634: handshakestate,re_635: key,message_c_636: bitstring,cs1_637: cipherstate,cs2_638: cipherstate) = (if (not-caught-fail(v_606) && success?(is-true(success?(1-proj-7-tuple(v_606))))) then (if (not-caught-fail(v_607) && success?(is-true(success?(1-proj-3-tuple(v_607))))) then (if not-caught-fail(v_614) then (if (not-caught-fail(v_623) && success?(is-true(success?(1-proj-2-tuple(v_623))))) then (if not-caught-fail(v_624) then (if not-caught-fail(v_625) then (if (not-caught-fail(v_633) && success?(is-true(success?(1-proj-3-tuple(v_633))))) then (v_624,5-proj-7-tuple(v_606),v_625,2-proj-3-tuple(v_633),3-proj-3-tuple(v_633)) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) in
+        {219}event SendMsg(alice,charlie,stage_c,msg_c(alice,charlie),true);
+        {220}insert statestore(alice,charlie,statepack_d(hs_634));
+        {221}out(pub, message_c_636)
+    ) | (
+        {223}event LeakS(phase0,alice);
+        {224}out(pub, key_s(alice))
+    ) | (
+        {225}phase 1;
+        {226}event LeakS(phase1,alice);
+        {227}out(pub, key_s(alice))
+    )
+) | (
+    {228}let s_639: keypair = keypairpack(empty,empty) in
+    {229}out(pub, getpublickey(s_639));
+    (
+        {230}let e_640: keypair = keypairpack(empty,empty) in
+        {231}let rs_641: key = empty in
+        {232}let re_642: key = empty in
+        {233}let v_643: bitstring = catch-fail(hash(somename,empty)) in
+        {234}let v_644: key = catch-fail(v_643) in
+        {235}let v_645: cipherstate = catch-fail(cipherstatepack(empty,minnonce)) in
+        {236}let v_646: bitstring = catch-fail(symmetricstateunpack((if not-caught-fail(v_643) then (if not-caught-fail(v_644) then (if not-caught-fail(v_645) then symmetricstatepack(v_645,v_644,v_643) else fail-any) else fail-any) else fail-any))) in
+        {237}let v_647: symmetricstate = catch-fail((if success?((if not-caught-fail(v_643) then (if not-caught-fail(v_644) then (if not-caught-fail(v_645) then symmetricstatepack(v_645,v_644,v_643) else fail-any) else fail-any) else fail-any)) then (if (not-caught-fail(v_646) && success?(is-true(success?(1-proj-3-tuple(v_646))))) then symmetricstatepack(1-proj-3-tuple(v_646),2-proj-3-tuple(v_646),hash(3-proj-3-tuple(v_646),empty)) else fail-any) else fail-any)) in
+        {238}let hs_648: handshakestate = (if not-caught-fail(v_647) then handshakestatepack(v_647,s_639,e_640,rs_641,re_642,empty,false) else fail-any) in
+        {239}insert statestore(bob,alice,statepack_a(hs_648))
+    ) | (
+        {261}get statestore(=bob,=alice,statepack_a(hs_649: handshakestate)) in
+        {240}in(pub, message_a_650: bitstring);
+        {241}let v_651: bitstring = catch-fail(handshakestateunpack(hs_649)) in
+        {242}let v_652: bitstring = catch-fail(deconcat3(message_a_650)) in
+        {243}let v_653: bool = catch-fail(true) in
+        {244}let v_654: key = catch-fail(1-proj-3-tuple(v_652)) in
+        {245}let v_655: bitstring = catch-fail(symmetricstateunpack(1-proj-7-tuple(v_651))) in
+        {246}let v_656: symmetricstate = catch-fail((if success?(1-proj-7-tuple(v_651)) then (if (not-caught-fail(v_655) && success?(is-true(success?(1-proj-3-tuple(v_655))))) then symmetricstatepack(1-proj-3-tuple(v_655),2-proj-3-tuple(v_655),hash(3-proj-3-tuple(v_655),v_654)) else fail-any) else fail-any)) in
+        {247}let v_657: bitstring = catch-fail(symmetricstateunpack(v_656)) in
+        {248}let v_658: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_657))) in
+        {249}let v_659: aead = catch-fail(decrypt(1-proj-2-tuple(v_658),2-proj-2-tuple(v_658),3-proj-3-tuple(v_657),3-proj-3-tuple(v_652))) in
+        {250}let v_660: bitstring = catch-fail(aeadunpack(v_659)) in
+        {251}let v_661: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_657))) in
+        {252}let v_662: cipherstate = catch-fail((if (success?(increment_nonce(2-proj-2-tuple(v_658))) && success?(1-proj-3-tuple(v_657))) then (if (not-caught-fail(v_661) && success?(is-true(success?(1-proj-2-tuple(v_661))))) then cipherstatepack(1-proj-2-tuple(v_661),increment_nonce(2-proj-2-tuple(v_658))) else fail-any) else fail-any)) in
+        {253}let v_663: bitstring = catch-fail((if (success?(3-proj-3-tuple(v_652)) && (success?(3-proj-3-tuple(v_657)) && success?(1-proj-3-tuple(v_657)))) then (if (not-caught-fail(v_658) && success?(is-true(success?(1-proj-2-tuple(v_658))))) then (if not-caught-fail(v_659) then (if (not-caught-fail(v_660) && success?(is-true(success?(1-proj-3-tuple(v_660))))) then (if not-caught-fail(v_662) then (v_662,3-proj-3-tuple(v_660),1-proj-3-tuple(v_660)) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {254}let v_664: bitstring = catch-fail(symmetricstateunpack(symmetricstatepack(1-proj-3-tuple(v_663),2-proj-3-tuple(v_657),3-proj-3-tuple(v_657)))) in
+        {255}let v_665: symmetricstate = catch-fail((if (success?(3-proj-3-tuple(v_652)) && success?(symmetricstatepack(1-proj-3-tuple(v_663),2-proj-3-tuple(v_657),3-proj-3-tuple(v_657)))) then (if (not-caught-fail(v_664) && success?(is-true(success?(1-proj-3-tuple(v_664))))) then symmetricstatepack(1-proj-3-tuple(v_664),2-proj-3-tuple(v_664),hash(3-proj-3-tuple(v_664),3-proj-3-tuple(v_652))) else fail-any) else fail-any)) in
+        {256}let v_666: bitstring = catch-fail((if success?(3-proj-3-tuple(v_652)) then (if (not-caught-fail(v_657) && success?(is-true(success?(1-proj-3-tuple(v_657))))) then (if (not-caught-fail(v_663) && success?(is-true(success?(1-proj-3-tuple(v_663))))) then (if not-caught-fail(v_665) then (v_665,2-proj-3-tuple(v_663),3-proj-3-tuple(v_663)) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {257}let v_667: handshakestate = catch-fail(handshakestatepack(1-proj-3-tuple(v_666),2-proj-7-tuple(v_651),3-proj-7-tuple(v_651),4-proj-7-tuple(v_651),v_654,6-proj-7-tuple(v_651),7-proj-7-tuple(v_651))) in
+        {258}let (hs_668: handshakestate,re_669: key,plaintext_a: bitstring,valid_670: bool) = (if (not-caught-fail(v_651) && success?(is-true(success?(1-proj-7-tuple(v_651))))) then (if (not-caught-fail(v_652) && success?(is-true(success?(1-proj-3-tuple(v_652))))) then (if not-caught-fail(v_653) then (if not-caught-fail(v_654) then (if not-caught-fail(v_656) then (if (not-caught-fail(v_666) && success?(is-true(success?(1-proj-3-tuple(v_666))))) then (if (v_653 && 3-proj-3-tuple(v_666)) then (if not-caught-fail(v_667) then (v_667,getpublickey(3-proj-7-tuple(v_651)),2-proj-3-tuple(v_666),true) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) in
+        {259}event RecvMsg(bob,alice,stage_a,plaintext_a,valid_670);
+        {260}insert statestore(bob,alice,statepack_b(hs_668))
+    ) | (
+        {302}get statestore(=bob,=alice,statepack_b(hs_671: handshakestate)) in
+        {262}let v_672: bitstring = catch-fail(handshakestateunpack(hs_671)) in
+        {263}let v_673: bitstring = catch-fail((empty,empty,empty)) in
+        {264}let v_674: key = catch-fail(dhexp(key_e(bob,alice),g)) in
+        {265}let v_675: keypair = catch-fail((if not-caught-fail(v_674) then keypairpack(v_674,key_e(bob,alice)) else fail-any)) in
+        {266}let v_676: bitstring = catch-fail(getpublickey(v_675)) in
+        {267}let v_677: bitstring = catch-fail(symmetricstateunpack(1-proj-7-tuple(v_672))) in
+        {268}let v_678: symmetricstate = catch-fail((if success?(1-proj-7-tuple(v_672)) then (if (not-caught-fail(v_677) && success?(is-true(success?(1-proj-3-tuple(v_677))))) then symmetricstatepack(1-proj-3-tuple(v_677),2-proj-3-tuple(v_677),hash(3-proj-3-tuple(v_677),v_676)) else fail-any) else fail-any)) in
+        {269}let v_679: bitstring = catch-fail(keypairunpack(v_675)) in
+        {270}let v_680: bitstring = catch-fail(symmetricstateunpack(v_678)) in
+        {271}let v_681: key = catch-fail(hmac_hash1(2-proj-3-tuple(v_680),(if success?(5-proj-7-tuple(v_672)) then (if (not-caught-fail(v_679) && success?(is-true(success?(1-proj-2-tuple(v_679))))) then dhexp(2-proj-2-tuple(v_679),5-proj-7-tuple(v_672)) else fail-any) else fail-any))) in
+        {272}let v_682: key = catch-fail(hmac_hash2(2-proj-3-tuple(v_680),(if success?(5-proj-7-tuple(v_672)) then (if (not-caught-fail(v_679) && success?(is-true(success?(1-proj-2-tuple(v_679))))) then dhexp(2-proj-2-tuple(v_679),5-proj-7-tuple(v_672)) else fail-any) else fail-any))) in
+        {273}let v_683: key = catch-fail(hmac_hash3(2-proj-3-tuple(v_680),(if success?(5-proj-7-tuple(v_672)) then (if (not-caught-fail(v_679) && success?(is-true(success?(1-proj-2-tuple(v_679))))) then dhexp(2-proj-2-tuple(v_679),5-proj-7-tuple(v_672)) else fail-any) else fail-any))) in
+        {274}let v_684: bitstring = catch-fail((if (success?((if success?(5-proj-7-tuple(v_672)) then (if (not-caught-fail(v_679) && success?(is-true(success?(1-proj-2-tuple(v_679))))) then dhexp(2-proj-2-tuple(v_679),5-proj-7-tuple(v_672)) else fail-any) else fail-any)) && success?(2-proj-3-tuple(v_680))) then (if not-caught-fail(v_681) then (if not-caught-fail(v_682) then (if not-caught-fail(v_683) then (v_681,v_682,v_683) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {275}let v_685: symmetricstate = catch-fail((if success?((if success?(5-proj-7-tuple(v_672)) then (if (not-caught-fail(v_679) && success?(is-true(success?(1-proj-2-tuple(v_679))))) then dhexp(2-proj-2-tuple(v_679),5-proj-7-tuple(v_672)) else fail-any) else fail-any)) then (if (not-caught-fail(v_680) && success?(is-true(success?(1-proj-3-tuple(v_680))))) then (if (not-caught-fail(v_684) && success?(is-true(success?(1-proj-3-tuple(v_684))))) then symmetricstatepack((if success?(2-proj-3-tuple(v_684)) then cipherstatepack(2-proj-3-tuple(v_684),minnonce) else fail-any),1-proj-3-tuple(v_684),3-proj-3-tuple(v_680)) else fail-any) else fail-any) else fail-any)) in
+        {276}let v_686: key = catch-fail(dhexp(key_s(bob),g)) in
+        {277}let v_687: keypair = catch-fail((if not-caught-fail(v_686) then keypairpack(v_686,key_s(bob)) else fail-any)) in
+        {278}let v_688: bitstring = catch-fail(symmetricstateunpack(v_685)) in
+        {279}let v_689: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_688))) in
+        {280}let v_690: bitstring = catch-fail(encrypt(1-proj-2-tuple(v_689),2-proj-2-tuple(v_689),3-proj-3-tuple(v_688),getpublickey(v_687))) in
+        {281}let v_691: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_688))) in
+        {282}let v_692: cipherstate = catch-fail((if (success?(increment_nonce(2-proj-2-tuple(v_689))) && success?(1-proj-3-tuple(v_688))) then (if (not-caught-fail(v_691) && success?(is-true(success?(1-proj-2-tuple(v_691))))) then cipherstatepack(1-proj-2-tuple(v_691),increment_nonce(2-proj-2-tuple(v_689))) else fail-any) else fail-any)) in
+        {283}let v_693: bitstring = catch-fail((if (success?(getpublickey(v_687)) && (success?(3-proj-3-tuple(v_688)) && success?(1-proj-3-tuple(v_688)))) then (if (not-caught-fail(v_689) && success?(is-true(success?(1-proj-2-tuple(v_689))))) then (if not-caught-fail(v_690) then (if not-caught-fail(v_692) then (v_692,v_690) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {284}let v_694: bitstring = catch-fail(symmetricstateunpack(symmetricstatepack(1-proj-2-tuple(v_693),2-proj-3-tuple(v_688),3-proj-3-tuple(v_688)))) in
+        {285}let v_695: symmetricstate = catch-fail((if (success?(2-proj-2-tuple(v_693)) && success?(symmetricstatepack(1-proj-2-tuple(v_693),2-proj-3-tuple(v_688),3-proj-3-tuple(v_688)))) then (if (not-caught-fail(v_694) && success?(is-true(success?(1-proj-3-tuple(v_694))))) then symmetricstatepack(1-proj-3-tuple(v_694),2-proj-3-tuple(v_694),hash(3-proj-3-tuple(v_694),2-proj-2-tuple(v_693))) else fail-any) else fail-any)) in
+        {286}let v_696: bitstring = catch-fail((if success?(getpublickey(v_687)) then (if (not-caught-fail(v_688) && success?(is-true(success?(1-proj-3-tuple(v_688))))) then (if (not-caught-fail(v_693) && success?(is-true(success?(1-proj-2-tuple(v_693))))) then (if not-caught-fail(v_695) then (v_695,2-proj-2-tuple(v_693)) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {287}let v_697: bitstring = catch-fail(symmetricstateunpack(1-proj-2-tuple(v_696))) in
+        {288}let v_698: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_697))) in
+        {289}let v_699: bitstring = catch-fail(encrypt(1-proj-2-tuple(v_698),2-proj-2-tuple(v_698),3-proj-3-tuple(v_697),msg_b(bob,alice))) in
+        {290}let v_700: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_697))) in
+        {291}let v_701: cipherstate = catch-fail((if (success?(increment_nonce(2-proj-2-tuple(v_698))) && success?(1-proj-3-tuple(v_697))) then (if (not-caught-fail(v_700) && success?(is-true(success?(1-proj-2-tuple(v_700))))) then cipherstatepack(1-proj-2-tuple(v_700),increment_nonce(2-proj-2-tuple(v_698))) else fail-any) else fail-any)) in
+        {292}let v_702: bitstring = catch-fail((if (success?(3-proj-3-tuple(v_697)) && success?(1-proj-3-tuple(v_697))) then (if (not-caught-fail(v_698) && success?(is-true(success?(1-proj-2-tuple(v_698))))) then (if not-caught-fail(v_699) then (if not-caught-fail(v_701) then (v_701,v_699) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {293}let v_703: bitstring = catch-fail(symmetricstateunpack(symmetricstatepack(1-proj-2-tuple(v_702),2-proj-3-tuple(v_697),3-proj-3-tuple(v_697)))) in
+        {294}let v_704: symmetricstate = catch-fail((if (success?(2-proj-2-tuple(v_702)) && success?(symmetricstatepack(1-proj-2-tuple(v_702),2-proj-3-tuple(v_697),3-proj-3-tuple(v_697)))) then (if (not-caught-fail(v_703) && success?(is-true(success?(1-proj-3-tuple(v_703))))) then symmetricstatepack(1-proj-3-tuple(v_703),2-proj-3-tuple(v_703),hash(3-proj-3-tuple(v_703),2-proj-2-tuple(v_702))) else fail-any) else fail-any)) in
+        {295}let v_705: bitstring = catch-fail((if success?(1-proj-2-tuple(v_696)) then (if (not-caught-fail(v_697) && success?(is-true(success?(1-proj-3-tuple(v_697))))) then (if (not-caught-fail(v_702) && success?(is-true(success?(1-proj-2-tuple(v_702))))) then (if not-caught-fail(v_704) then (v_704,2-proj-2-tuple(v_702)) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {296}let v_706: handshakestate = catch-fail(handshakestatepack(1-proj-2-tuple(v_705),v_687,v_675,4-proj-7-tuple(v_672),5-proj-7-tuple(v_672),6-proj-7-tuple(v_672),7-proj-7-tuple(v_672))) in
+        {297}let v_707: bitstring = catch-fail(concat3(v_676,2-proj-2-tuple(v_696),2-proj-2-tuple(v_705))) in
+        {298}let (hs_708: handshakestate,re_709: key,message_b_710: bitstring) = (if (not-caught-fail(v_672) && success?(is-true(success?(1-proj-7-tuple(v_672))))) then (if (not-caught-fail(v_673) && success?(is-true(success?(1-proj-3-tuple(v_673))))) then (if not-caught-fail(v_675) then (if not-caught-fail(v_676) then (if not-caught-fail(v_678) then (if not-caught-fail(v_685) then (if not-caught-fail(v_687) then (if (not-caught-fail(v_696) && success?(is-true(success?(1-proj-2-tuple(v_696))))) then (if (not-caught-fail(v_705) && success?(is-true(success?(1-proj-2-tuple(v_705))))) then (if not-caught-fail(v_706) then (if not-caught-fail(v_707) then (v_706,5-proj-7-tuple(v_672),v_707) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) in
+        {299}event SendMsg(bob,alice,stage_b,msg_b(bob,alice),true);
+        {300}insert statestore(bob,alice,statepack_c(hs_708));
+        {301}out(pub, message_b_710)
+    ) | (
+        {337}get statestore(=bob,=alice,statepack_c(hs_711: handshakestate)) in
+        {303}in(pub, message_c_712: bitstring);
+        {304}let v_713: bitstring = catch-fail(handshakestateunpack(hs_711)) in
+        {305}let v_714: bitstring = catch-fail(deconcat3(message_c_712)) in
+        {306}let v_715: bool = catch-fail(true) in
+        {307}let v_716: bitstring = catch-fail(keypairunpack(2-proj-7-tuple(v_713))) in
+        {308}let v_717: bitstring = catch-fail(symmetricstateunpack(1-proj-7-tuple(v_713))) in
+        {309}let v_718: key = catch-fail(hmac_hash1(2-proj-3-tuple(v_717),(if (success?(5-proj-7-tuple(v_713)) && success?(2-proj-7-tuple(v_713))) then (if (not-caught-fail(v_716) && success?(is-true(success?(1-proj-2-tuple(v_716))))) then dhexp(2-proj-2-tuple(v_716),5-proj-7-tuple(v_713)) else fail-any) else fail-any))) in
+        {310}let v_719: key = catch-fail(hmac_hash2(2-proj-3-tuple(v_717),(if (success?(5-proj-7-tuple(v_713)) && success?(2-proj-7-tuple(v_713))) then (if (not-caught-fail(v_716) && success?(is-true(success?(1-proj-2-tuple(v_716))))) then dhexp(2-proj-2-tuple(v_716),5-proj-7-tuple(v_713)) else fail-any) else fail-any))) in
+        {311}let v_720: key = catch-fail(hmac_hash3(2-proj-3-tuple(v_717),(if (success?(5-proj-7-tuple(v_713)) && success?(2-proj-7-tuple(v_713))) then (if (not-caught-fail(v_716) && success?(is-true(success?(1-proj-2-tuple(v_716))))) then dhexp(2-proj-2-tuple(v_716),5-proj-7-tuple(v_713)) else fail-any) else fail-any))) in
+        {312}let v_721: bitstring = catch-fail((if (success?((if (success?(5-proj-7-tuple(v_713)) && success?(2-proj-7-tuple(v_713))) then (if (not-caught-fail(v_716) && success?(is-true(success?(1-proj-2-tuple(v_716))))) then dhexp(2-proj-2-tuple(v_716),5-proj-7-tuple(v_713)) else fail-any) else fail-any)) && success?(2-proj-3-tuple(v_717))) then (if not-caught-fail(v_718) then (if not-caught-fail(v_719) then (if not-caught-fail(v_720) then (v_718,v_719,v_720) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {313}let v_722: symmetricstate = catch-fail((if (success?((if (success?(5-proj-7-tuple(v_713)) && success?(2-proj-7-tuple(v_713))) then (if (not-caught-fail(v_716) && success?(is-true(success?(1-proj-2-tuple(v_716))))) then dhexp(2-proj-2-tuple(v_716),5-proj-7-tuple(v_713)) else fail-any) else fail-any)) && success?(1-proj-7-tuple(v_713))) then (if (not-caught-fail(v_717) && success?(is-true(success?(1-proj-3-tuple(v_717))))) then (if (not-caught-fail(v_721) && success?(is-true(success?(1-proj-3-tuple(v_721))))) then symmetricstatepack((if success?(2-proj-3-tuple(v_721)) then cipherstatepack(2-proj-3-tuple(v_721),minnonce) else fail-any),1-proj-3-tuple(v_721),3-proj-3-tuple(v_717)) else fail-any) else fail-any) else fail-any)) in
+        {314}let v_723: bitstring = catch-fail(symmetricstateunpack(v_722)) in
+        {315}let v_724: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_723))) in
+        {316}let v_725: aead = catch-fail(decrypt(1-proj-2-tuple(v_724),2-proj-2-tuple(v_724),3-proj-3-tuple(v_723),3-proj-3-tuple(v_714))) in
+        {317}let v_726: bitstring = catch-fail(aeadunpack(v_725)) in
+        {318}let v_727: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_723))) in
+        {319}let v_728: cipherstate = catch-fail((if (success?(increment_nonce(2-proj-2-tuple(v_724))) && success?(1-proj-3-tuple(v_723))) then (if (not-caught-fail(v_727) && success?(is-true(success?(1-proj-2-tuple(v_727))))) then cipherstatepack(1-proj-2-tuple(v_727),increment_nonce(2-proj-2-tuple(v_724))) else fail-any) else fail-any)) in
+        {320}let v_729: bitstring = catch-fail((if (success?(3-proj-3-tuple(v_714)) && (success?(3-proj-3-tuple(v_723)) && success?(1-proj-3-tuple(v_723)))) then (if (not-caught-fail(v_724) && success?(is-true(success?(1-proj-2-tuple(v_724))))) then (if not-caught-fail(v_725) then (if (not-caught-fail(v_726) && success?(is-true(success?(1-proj-3-tuple(v_726))))) then (if not-caught-fail(v_728) then (v_728,3-proj-3-tuple(v_726),1-proj-3-tuple(v_726)) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {321}let v_730: bitstring = catch-fail(symmetricstateunpack(symmetricstatepack(1-proj-3-tuple(v_729),2-proj-3-tuple(v_723),3-proj-3-tuple(v_723)))) in
+        {322}let v_731: symmetricstate = catch-fail((if (success?(3-proj-3-tuple(v_714)) && success?(symmetricstatepack(1-proj-3-tuple(v_729),2-proj-3-tuple(v_723),3-proj-3-tuple(v_723)))) then (if (not-caught-fail(v_730) && success?(is-true(success?(1-proj-3-tuple(v_730))))) then symmetricstatepack(1-proj-3-tuple(v_730),2-proj-3-tuple(v_730),hash(3-proj-3-tuple(v_730),3-proj-3-tuple(v_714))) else fail-any) else fail-any)) in
+        {323}let v_732: bitstring = catch-fail((if success?(3-proj-3-tuple(v_714)) then (if (not-caught-fail(v_723) && success?(is-true(success?(1-proj-3-tuple(v_723))))) then (if (not-caught-fail(v_729) && success?(is-true(success?(1-proj-3-tuple(v_729))))) then (if not-caught-fail(v_731) then (v_731,2-proj-3-tuple(v_729),3-proj-3-tuple(v_729)) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {324}let v_733: handshakestate = catch-fail(handshakestatepack(1-proj-3-tuple(v_732),2-proj-7-tuple(v_713),3-proj-7-tuple(v_713),4-proj-7-tuple(v_713),5-proj-7-tuple(v_713),6-proj-7-tuple(v_713),7-proj-7-tuple(v_713))) in
+        {325}let v_734: bitstring = catch-fail(symmetricstateunpack(1-proj-3-tuple(v_732))) in
+        {326}let v_735: key = catch-fail(hmac_hash1(2-proj-3-tuple(v_734),zero)) in
+        {327}let v_736: key = catch-fail(hmac_hash2(2-proj-3-tuple(v_734),zero)) in
+        {328}let v_737: key = catch-fail(hmac_hash3(2-proj-3-tuple(v_734),zero)) in
+        {329}let v_738: bitstring = catch-fail((if success?(2-proj-3-tuple(v_734)) then (if not-caught-fail(v_735) then (if not-caught-fail(v_736) then (if not-caught-fail(v_737) then (v_735,v_736,v_737) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {330}let v_739: cipherstate = catch-fail((if success?(1-proj-3-tuple(v_738)) then cipherstatepack(1-proj-3-tuple(v_738),minnonce) else fail-any)) in
+        {331}let v_740: cipherstate = catch-fail((if success?(2-proj-3-tuple(v_738)) then cipherstatepack(2-proj-3-tuple(v_738),minnonce) else fail-any)) in
+        {332}let v_741: bitstring = catch-fail((if success?(1-proj-3-tuple(v_732)) then (if (not-caught-fail(v_734) && success?(is-true(success?(1-proj-3-tuple(v_734))))) then (if (not-caught-fail(v_738) && success?(is-true(success?(1-proj-3-tuple(v_738))))) then (if not-caught-fail(v_739) then (if not-caught-fail(v_740) then (1-proj-3-tuple(v_732),v_739,v_740) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {333}let (hs_742: handshakestate,re_743: key,plaintext_c: bitstring,valid_744: bool,cs1_745: cipherstate,cs2_746: cipherstate) = (if (not-caught-fail(v_713) && success?(is-true(success?(1-proj-7-tuple(v_713))))) then (if (not-caught-fail(v_714) && success?(is-true(success?(1-proj-3-tuple(v_714))))) then (if not-caught-fail(v_715) then (if not-caught-fail(v_722) then (if (not-caught-fail(v_732) && success?(is-true(success?(1-proj-3-tuple(v_732))))) then (if (v_715 && 3-proj-3-tuple(v_732)) then (if not-caught-fail(v_733) then (if (not-caught-fail(v_741) && success?(is-true(success?(1-proj-3-tuple(v_741))))) then (v_733,getpublickey(3-proj-7-tuple(v_713)),2-proj-3-tuple(v_732),true,2-proj-3-tuple(v_741),3-proj-3-tuple(v_741)) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) in
+        {334}event RecvMsg(bob,alice,stage_c,plaintext_c,valid_744);
+        {335}insert statestore(bob,alice,statepack_d(hs_742));
+        {336}event RecvEnd(valid_744)
+    ) | (
+        {338}event LeakS(phase0,bob);
+        {339}out(pub, key_s(bob))
+    ) | (
+        {340}phase 1;
+        {341}event LeakS(phase1,bob);
+        {342}out(pub, key_s(bob))
+    )
+) | (
+    {343}let s_747: keypair = keypairpack(empty,empty) in
+    {344}out(pub, getpublickey(s_747));
+    (
+        {345}let e_748: keypair = keypairpack(empty,empty) in
+        {346}let rs_749: key = empty in
+        {347}let re_750: key = empty in
+        {348}let v_751: bitstring = catch-fail(hash(somename,empty)) in
+        {349}let v_752: key = catch-fail(v_751) in
+        {350}let v_753: cipherstate = catch-fail(cipherstatepack(empty,minnonce)) in
+        {351}let v_754: bitstring = catch-fail(symmetricstateunpack((if not-caught-fail(v_751) then (if not-caught-fail(v_752) then (if not-caught-fail(v_753) then symmetricstatepack(v_753,v_752,v_751) else fail-any) else fail-any) else fail-any))) in
+        {352}let v_755: symmetricstate = catch-fail((if success?((if not-caught-fail(v_751) then (if not-caught-fail(v_752) then (if not-caught-fail(v_753) then symmetricstatepack(v_753,v_752,v_751) else fail-any) else fail-any) else fail-any)) then (if (not-caught-fail(v_754) && success?(is-true(success?(1-proj-3-tuple(v_754))))) then symmetricstatepack(1-proj-3-tuple(v_754),2-proj-3-tuple(v_754),hash(3-proj-3-tuple(v_754),empty)) else fail-any) else fail-any)) in
+        {353}let hs_756: handshakestate = (if not-caught-fail(v_755) then handshakestatepack(v_755,s_747,e_748,rs_749,re_750,empty,false) else fail-any) in
+        {354}insert statestore(bob,charlie,statepack_a(hs_756))
+    ) | (
+        {376}get statestore(=bob,=charlie,statepack_a(hs_757: handshakestate)) in
+        {355}in(pub, message_a_758: bitstring);
+        {356}let v_759: bitstring = catch-fail(handshakestateunpack(hs_757)) in
+        {357}let v_760: bitstring = catch-fail(deconcat3(message_a_758)) in
+        {358}let v_761: bool = catch-fail(true) in
+        {359}let v_762: key = catch-fail(1-proj-3-tuple(v_760)) in
+        {360}let v_763: bitstring = catch-fail(symmetricstateunpack(1-proj-7-tuple(v_759))) in
+        {361}let v_764: symmetricstate = catch-fail((if success?(1-proj-7-tuple(v_759)) then (if (not-caught-fail(v_763) && success?(is-true(success?(1-proj-3-tuple(v_763))))) then symmetricstatepack(1-proj-3-tuple(v_763),2-proj-3-tuple(v_763),hash(3-proj-3-tuple(v_763),v_762)) else fail-any) else fail-any)) in
+        {362}let v_765: bitstring = catch-fail(symmetricstateunpack(v_764)) in
+        {363}let v_766: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_765))) in
+        {364}let v_767: aead = catch-fail(decrypt(1-proj-2-tuple(v_766),2-proj-2-tuple(v_766),3-proj-3-tuple(v_765),3-proj-3-tuple(v_760))) in
+        {365}let v_768: bitstring = catch-fail(aeadunpack(v_767)) in
+        {366}let v_769: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_765))) in
+        {367}let v_770: cipherstate = catch-fail((if (success?(increment_nonce(2-proj-2-tuple(v_766))) && success?(1-proj-3-tuple(v_765))) then (if (not-caught-fail(v_769) && success?(is-true(success?(1-proj-2-tuple(v_769))))) then cipherstatepack(1-proj-2-tuple(v_769),increment_nonce(2-proj-2-tuple(v_766))) else fail-any) else fail-any)) in
+        {368}let v_771: bitstring = catch-fail((if (success?(3-proj-3-tuple(v_760)) && (success?(3-proj-3-tuple(v_765)) && success?(1-proj-3-tuple(v_765)))) then (if (not-caught-fail(v_766) && success?(is-true(success?(1-proj-2-tuple(v_766))))) then (if not-caught-fail(v_767) then (if (not-caught-fail(v_768) && success?(is-true(success?(1-proj-3-tuple(v_768))))) then (if not-caught-fail(v_770) then (v_770,3-proj-3-tuple(v_768),1-proj-3-tuple(v_768)) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {369}let v_772: bitstring = catch-fail(symmetricstateunpack(symmetricstatepack(1-proj-3-tuple(v_771),2-proj-3-tuple(v_765),3-proj-3-tuple(v_765)))) in
+        {370}let v_773: symmetricstate = catch-fail((if (success?(3-proj-3-tuple(v_760)) && success?(symmetricstatepack(1-proj-3-tuple(v_771),2-proj-3-tuple(v_765),3-proj-3-tuple(v_765)))) then (if (not-caught-fail(v_772) && success?(is-true(success?(1-proj-3-tuple(v_772))))) then symmetricstatepack(1-proj-3-tuple(v_772),2-proj-3-tuple(v_772),hash(3-proj-3-tuple(v_772),3-proj-3-tuple(v_760))) else fail-any) else fail-any)) in
+        {371}let v_774: bitstring = catch-fail((if success?(3-proj-3-tuple(v_760)) then (if (not-caught-fail(v_765) && success?(is-true(success?(1-proj-3-tuple(v_765))))) then (if (not-caught-fail(v_771) && success?(is-true(success?(1-proj-3-tuple(v_771))))) then (if not-caught-fail(v_773) then (v_773,2-proj-3-tuple(v_771),3-proj-3-tuple(v_771)) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {372}let v_775: handshakestate = catch-fail(handshakestatepack(1-proj-3-tuple(v_774),2-proj-7-tuple(v_759),3-proj-7-tuple(v_759),4-proj-7-tuple(v_759),v_762,6-proj-7-tuple(v_759),7-proj-7-tuple(v_759))) in
+        {373}let (hs_776: handshakestate,re_777: key,plaintext_a_778: bitstring,valid_779: bool) = (if (not-caught-fail(v_759) && success?(is-true(success?(1-proj-7-tuple(v_759))))) then (if (not-caught-fail(v_760) && success?(is-true(success?(1-proj-3-tuple(v_760))))) then (if not-caught-fail(v_761) then (if not-caught-fail(v_762) then (if not-caught-fail(v_764) then (if (not-caught-fail(v_774) && success?(is-true(success?(1-proj-3-tuple(v_774))))) then (if (v_761 && 3-proj-3-tuple(v_774)) then (if not-caught-fail(v_775) then (v_775,getpublickey(3-proj-7-tuple(v_759)),2-proj-3-tuple(v_774),true) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) in
+        {374}event RecvMsg(bob,charlie,stage_a,plaintext_a_778,valid_779);
+        {375}insert statestore(bob,charlie,statepack_b(hs_776))
+    ) | (
+        {417}get statestore(=bob,=charlie,statepack_b(hs_780: handshakestate)) in
+        {377}let v_781: bitstring = catch-fail(handshakestateunpack(hs_780)) in
+        {378}let v_782: bitstring = catch-fail((empty,empty,empty)) in
+        {379}let v_783: key = catch-fail(dhexp(key_e(bob,charlie),g)) in
+        {380}let v_784: keypair = catch-fail((if not-caught-fail(v_783) then keypairpack(v_783,key_e(bob,charlie)) else fail-any)) in
+        {381}let v_785: bitstring = catch-fail(getpublickey(v_784)) in
+        {382}let v_786: bitstring = catch-fail(symmetricstateunpack(1-proj-7-tuple(v_781))) in
+        {383}let v_787: symmetricstate = catch-fail((if success?(1-proj-7-tuple(v_781)) then (if (not-caught-fail(v_786) && success?(is-true(success?(1-proj-3-tuple(v_786))))) then symmetricstatepack(1-proj-3-tuple(v_786),2-proj-3-tuple(v_786),hash(3-proj-3-tuple(v_786),v_785)) else fail-any) else fail-any)) in
+        {384}let v_788: bitstring = catch-fail(keypairunpack(v_784)) in
+        {385}let v_789: bitstring = catch-fail(symmetricstateunpack(v_787)) in
+        {386}let v_790: key = catch-fail(hmac_hash1(2-proj-3-tuple(v_789),(if success?(5-proj-7-tuple(v_781)) then (if (not-caught-fail(v_788) && success?(is-true(success?(1-proj-2-tuple(v_788))))) then dhexp(2-proj-2-tuple(v_788),5-proj-7-tuple(v_781)) else fail-any) else fail-any))) in
+        {387}let v_791: key = catch-fail(hmac_hash2(2-proj-3-tuple(v_789),(if success?(5-proj-7-tuple(v_781)) then (if (not-caught-fail(v_788) && success?(is-true(success?(1-proj-2-tuple(v_788))))) then dhexp(2-proj-2-tuple(v_788),5-proj-7-tuple(v_781)) else fail-any) else fail-any))) in
+        {388}let v_792: key = catch-fail(hmac_hash3(2-proj-3-tuple(v_789),(if success?(5-proj-7-tuple(v_781)) then (if (not-caught-fail(v_788) && success?(is-true(success?(1-proj-2-tuple(v_788))))) then dhexp(2-proj-2-tuple(v_788),5-proj-7-tuple(v_781)) else fail-any) else fail-any))) in
+        {389}let v_793: bitstring = catch-fail((if (success?((if success?(5-proj-7-tuple(v_781)) then (if (not-caught-fail(v_788) && success?(is-true(success?(1-proj-2-tuple(v_788))))) then dhexp(2-proj-2-tuple(v_788),5-proj-7-tuple(v_781)) else fail-any) else fail-any)) && success?(2-proj-3-tuple(v_789))) then (if not-caught-fail(v_790) then (if not-caught-fail(v_791) then (if not-caught-fail(v_792) then (v_790,v_791,v_792) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {390}let v_794: symmetricstate = catch-fail((if success?((if success?(5-proj-7-tuple(v_781)) then (if (not-caught-fail(v_788) && success?(is-true(success?(1-proj-2-tuple(v_788))))) then dhexp(2-proj-2-tuple(v_788),5-proj-7-tuple(v_781)) else fail-any) else fail-any)) then (if (not-caught-fail(v_789) && success?(is-true(success?(1-proj-3-tuple(v_789))))) then (if (not-caught-fail(v_793) && success?(is-true(success?(1-proj-3-tuple(v_793))))) then symmetricstatepack((if success?(2-proj-3-tuple(v_793)) then cipherstatepack(2-proj-3-tuple(v_793),minnonce) else fail-any),1-proj-3-tuple(v_793),3-proj-3-tuple(v_789)) else fail-any) else fail-any) else fail-any)) in
+        {391}let v_795: key = catch-fail(dhexp(key_s(bob),g)) in
+        {392}let v_796: keypair = catch-fail((if not-caught-fail(v_795) then keypairpack(v_795,key_s(bob)) else fail-any)) in
+        {393}let v_797: bitstring = catch-fail(symmetricstateunpack(v_794)) in
+        {394}let v_798: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_797))) in
+        {395}let v_799: bitstring = catch-fail(encrypt(1-proj-2-tuple(v_798),2-proj-2-tuple(v_798),3-proj-3-tuple(v_797),getpublickey(v_796))) in
+        {396}let v_800: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_797))) in
+        {397}let v_801: cipherstate = catch-fail((if (success?(increment_nonce(2-proj-2-tuple(v_798))) && success?(1-proj-3-tuple(v_797))) then (if (not-caught-fail(v_800) && success?(is-true(success?(1-proj-2-tuple(v_800))))) then cipherstatepack(1-proj-2-tuple(v_800),increment_nonce(2-proj-2-tuple(v_798))) else fail-any) else fail-any)) in
+        {398}let v_802: bitstring = catch-fail((if (success?(getpublickey(v_796)) && (success?(3-proj-3-tuple(v_797)) && success?(1-proj-3-tuple(v_797)))) then (if (not-caught-fail(v_798) && success?(is-true(success?(1-proj-2-tuple(v_798))))) then (if not-caught-fail(v_799) then (if not-caught-fail(v_801) then (v_801,v_799) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {399}let v_803: bitstring = catch-fail(symmetricstateunpack(symmetricstatepack(1-proj-2-tuple(v_802),2-proj-3-tuple(v_797),3-proj-3-tuple(v_797)))) in
+        {400}let v_804: symmetricstate = catch-fail((if (success?(2-proj-2-tuple(v_802)) && success?(symmetricstatepack(1-proj-2-tuple(v_802),2-proj-3-tuple(v_797),3-proj-3-tuple(v_797)))) then (if (not-caught-fail(v_803) && success?(is-true(success?(1-proj-3-tuple(v_803))))) then symmetricstatepack(1-proj-3-tuple(v_803),2-proj-3-tuple(v_803),hash(3-proj-3-tuple(v_803),2-proj-2-tuple(v_802))) else fail-any) else fail-any)) in
+        {401}let v_805: bitstring = catch-fail((if success?(getpublickey(v_796)) then (if (not-caught-fail(v_797) && success?(is-true(success?(1-proj-3-tuple(v_797))))) then (if (not-caught-fail(v_802) && success?(is-true(success?(1-proj-2-tuple(v_802))))) then (if not-caught-fail(v_804) then (v_804,2-proj-2-tuple(v_802)) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {402}let v_806: bitstring = catch-fail(symmetricstateunpack(1-proj-2-tuple(v_805))) in
+        {403}let v_807: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_806))) in
+        {404}let v_808: bitstring = catch-fail(encrypt(1-proj-2-tuple(v_807),2-proj-2-tuple(v_807),3-proj-3-tuple(v_806),msg_b(bob,charlie))) in
+        {405}let v_809: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_806))) in
+        {406}let v_810: cipherstate = catch-fail((if (success?(increment_nonce(2-proj-2-tuple(v_807))) && success?(1-proj-3-tuple(v_806))) then (if (not-caught-fail(v_809) && success?(is-true(success?(1-proj-2-tuple(v_809))))) then cipherstatepack(1-proj-2-tuple(v_809),increment_nonce(2-proj-2-tuple(v_807))) else fail-any) else fail-any)) in
+        {407}let v_811: bitstring = catch-fail((if (success?(3-proj-3-tuple(v_806)) && success?(1-proj-3-tuple(v_806))) then (if (not-caught-fail(v_807) && success?(is-true(success?(1-proj-2-tuple(v_807))))) then (if not-caught-fail(v_808) then (if not-caught-fail(v_810) then (v_810,v_808) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {408}let v_812: bitstring = catch-fail(symmetricstateunpack(symmetricstatepack(1-proj-2-tuple(v_811),2-proj-3-tuple(v_806),3-proj-3-tuple(v_806)))) in
+        {409}let v_813: symmetricstate = catch-fail((if (success?(2-proj-2-tuple(v_811)) && success?(symmetricstatepack(1-proj-2-tuple(v_811),2-proj-3-tuple(v_806),3-proj-3-tuple(v_806)))) then (if (not-caught-fail(v_812) && success?(is-true(success?(1-proj-3-tuple(v_812))))) then symmetricstatepack(1-proj-3-tuple(v_812),2-proj-3-tuple(v_812),hash(3-proj-3-tuple(v_812),2-proj-2-tuple(v_811))) else fail-any) else fail-any)) in
+        {410}let v_814: bitstring = catch-fail((if success?(1-proj-2-tuple(v_805)) then (if (not-caught-fail(v_806) && success?(is-true(success?(1-proj-3-tuple(v_806))))) then (if (not-caught-fail(v_811) && success?(is-true(success?(1-proj-2-tuple(v_811))))) then (if not-caught-fail(v_813) then (v_813,2-proj-2-tuple(v_811)) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {411}let v_815: handshakestate = catch-fail(handshakestatepack(1-proj-2-tuple(v_814),v_796,v_784,4-proj-7-tuple(v_781),5-proj-7-tuple(v_781),6-proj-7-tuple(v_781),7-proj-7-tuple(v_781))) in
+        {412}let v_816: bitstring = catch-fail(concat3(v_785,2-proj-2-tuple(v_805),2-proj-2-tuple(v_814))) in
+        {413}let (hs_817: handshakestate,re_818: key,message_b_819: bitstring) = (if (not-caught-fail(v_781) && success?(is-true(success?(1-proj-7-tuple(v_781))))) then (if (not-caught-fail(v_782) && success?(is-true(success?(1-proj-3-tuple(v_782))))) then (if not-caught-fail(v_784) then (if not-caught-fail(v_785) then (if not-caught-fail(v_787) then (if not-caught-fail(v_794) then (if not-caught-fail(v_796) then (if (not-caught-fail(v_805) && success?(is-true(success?(1-proj-2-tuple(v_805))))) then (if (not-caught-fail(v_814) && success?(is-true(success?(1-proj-2-tuple(v_814))))) then (if not-caught-fail(v_815) then (if not-caught-fail(v_816) then (v_815,5-proj-7-tuple(v_781),v_816) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) in
+        {414}event SendMsg(bob,charlie,stage_b,msg_b(bob,charlie),true);
+        {415}insert statestore(bob,charlie,statepack_c(hs_817));
+        {416}out(pub, message_b_819)
+    ) | (
+        {452}get statestore(=bob,=charlie,statepack_c(hs_820: handshakestate)) in
+        {418}in(pub, message_c_821: bitstring);
+        {419}let v_822: bitstring = catch-fail(handshakestateunpack(hs_820)) in
+        {420}let v_823: bitstring = catch-fail(deconcat3(message_c_821)) in
+        {421}let v_824: bool = catch-fail(true) in
+        {422}let v_825: bitstring = catch-fail(keypairunpack(2-proj-7-tuple(v_822))) in
+        {423}let v_826: bitstring = catch-fail(symmetricstateunpack(1-proj-7-tuple(v_822))) in
+        {424}let v_827: key = catch-fail(hmac_hash1(2-proj-3-tuple(v_826),(if (success?(5-proj-7-tuple(v_822)) && success?(2-proj-7-tuple(v_822))) then (if (not-caught-fail(v_825) && success?(is-true(success?(1-proj-2-tuple(v_825))))) then dhexp(2-proj-2-tuple(v_825),5-proj-7-tuple(v_822)) else fail-any) else fail-any))) in
+        {425}let v_828: key = catch-fail(hmac_hash2(2-proj-3-tuple(v_826),(if (success?(5-proj-7-tuple(v_822)) && success?(2-proj-7-tuple(v_822))) then (if (not-caught-fail(v_825) && success?(is-true(success?(1-proj-2-tuple(v_825))))) then dhexp(2-proj-2-tuple(v_825),5-proj-7-tuple(v_822)) else fail-any) else fail-any))) in
+        {426}let v_829: key = catch-fail(hmac_hash3(2-proj-3-tuple(v_826),(if (success?(5-proj-7-tuple(v_822)) && success?(2-proj-7-tuple(v_822))) then (if (not-caught-fail(v_825) && success?(is-true(success?(1-proj-2-tuple(v_825))))) then dhexp(2-proj-2-tuple(v_825),5-proj-7-tuple(v_822)) else fail-any) else fail-any))) in
+        {427}let v_830: bitstring = catch-fail((if (success?((if (success?(5-proj-7-tuple(v_822)) && success?(2-proj-7-tuple(v_822))) then (if (not-caught-fail(v_825) && success?(is-true(success?(1-proj-2-tuple(v_825))))) then dhexp(2-proj-2-tuple(v_825),5-proj-7-tuple(v_822)) else fail-any) else fail-any)) && success?(2-proj-3-tuple(v_826))) then (if not-caught-fail(v_827) then (if not-caught-fail(v_828) then (if not-caught-fail(v_829) then (v_827,v_828,v_829) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {428}let v_831: symmetricstate = catch-fail((if (success?((if (success?(5-proj-7-tuple(v_822)) && success?(2-proj-7-tuple(v_822))) then (if (not-caught-fail(v_825) && success?(is-true(success?(1-proj-2-tuple(v_825))))) then dhexp(2-proj-2-tuple(v_825),5-proj-7-tuple(v_822)) else fail-any) else fail-any)) && success?(1-proj-7-tuple(v_822))) then (if (not-caught-fail(v_826) && success?(is-true(success?(1-proj-3-tuple(v_826))))) then (if (not-caught-fail(v_830) && success?(is-true(success?(1-proj-3-tuple(v_830))))) then symmetricstatepack((if success?(2-proj-3-tuple(v_830)) then cipherstatepack(2-proj-3-tuple(v_830),minnonce) else fail-any),1-proj-3-tuple(v_830),3-proj-3-tuple(v_826)) else fail-any) else fail-any) else fail-any)) in
+        {429}let v_832: bitstring = catch-fail(symmetricstateunpack(v_831)) in
+        {430}let v_833: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_832))) in
+        {431}let v_834: aead = catch-fail(decrypt(1-proj-2-tuple(v_833),2-proj-2-tuple(v_833),3-proj-3-tuple(v_832),3-proj-3-tuple(v_823))) in
+        {432}let v_835: bitstring = catch-fail(aeadunpack(v_834)) in
+        {433}let v_836: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_832))) in
+        {434}let v_837: cipherstate = catch-fail((if (success?(increment_nonce(2-proj-2-tuple(v_833))) && success?(1-proj-3-tuple(v_832))) then (if (not-caught-fail(v_836) && success?(is-true(success?(1-proj-2-tuple(v_836))))) then cipherstatepack(1-proj-2-tuple(v_836),increment_nonce(2-proj-2-tuple(v_833))) else fail-any) else fail-any)) in
+        {435}let v_838: bitstring = catch-fail((if (success?(3-proj-3-tuple(v_823)) && (success?(3-proj-3-tuple(v_832)) && success?(1-proj-3-tuple(v_832)))) then (if (not-caught-fail(v_833) && success?(is-true(success?(1-proj-2-tuple(v_833))))) then (if not-caught-fail(v_834) then (if (not-caught-fail(v_835) && success?(is-true(success?(1-proj-3-tuple(v_835))))) then (if not-caught-fail(v_837) then (v_837,3-proj-3-tuple(v_835),1-proj-3-tuple(v_835)) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {436}let v_839: bitstring = catch-fail(symmetricstateunpack(symmetricstatepack(1-proj-3-tuple(v_838),2-proj-3-tuple(v_832),3-proj-3-tuple(v_832)))) in
+        {437}let v_840: symmetricstate = catch-fail((if (success?(3-proj-3-tuple(v_823)) && success?(symmetricstatepack(1-proj-3-tuple(v_838),2-proj-3-tuple(v_832),3-proj-3-tuple(v_832)))) then (if (not-caught-fail(v_839) && success?(is-true(success?(1-proj-3-tuple(v_839))))) then symmetricstatepack(1-proj-3-tuple(v_839),2-proj-3-tuple(v_839),hash(3-proj-3-tuple(v_839),3-proj-3-tuple(v_823))) else fail-any) else fail-any)) in
+        {438}let v_841: bitstring = catch-fail((if success?(3-proj-3-tuple(v_823)) then (if (not-caught-fail(v_832) && success?(is-true(success?(1-proj-3-tuple(v_832))))) then (if (not-caught-fail(v_838) && success?(is-true(success?(1-proj-3-tuple(v_838))))) then (if not-caught-fail(v_840) then (v_840,2-proj-3-tuple(v_838),3-proj-3-tuple(v_838)) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {439}let v_842: handshakestate = catch-fail(handshakestatepack(1-proj-3-tuple(v_841),2-proj-7-tuple(v_822),3-proj-7-tuple(v_822),4-proj-7-tuple(v_822),5-proj-7-tuple(v_822),6-proj-7-tuple(v_822),7-proj-7-tuple(v_822))) in
+        {440}let v_843: bitstring = catch-fail(symmetricstateunpack(1-proj-3-tuple(v_841))) in
+        {441}let v_844: key = catch-fail(hmac_hash1(2-proj-3-tuple(v_843),zero)) in
+        {442}let v_845: key = catch-fail(hmac_hash2(2-proj-3-tuple(v_843),zero)) in
+        {443}let v_846: key = catch-fail(hmac_hash3(2-proj-3-tuple(v_843),zero)) in
+        {444}let v_847: bitstring = catch-fail((if success?(2-proj-3-tuple(v_843)) then (if not-caught-fail(v_844) then (if not-caught-fail(v_845) then (if not-caught-fail(v_846) then (v_844,v_845,v_846) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {445}let v_848: cipherstate = catch-fail((if success?(1-proj-3-tuple(v_847)) then cipherstatepack(1-proj-3-tuple(v_847),minnonce) else fail-any)) in
+        {446}let v_849: cipherstate = catch-fail((if success?(2-proj-3-tuple(v_847)) then cipherstatepack(2-proj-3-tuple(v_847),minnonce) else fail-any)) in
+        {447}let v_850: bitstring = catch-fail((if success?(1-proj-3-tuple(v_841)) then (if (not-caught-fail(v_843) && success?(is-true(success?(1-proj-3-tuple(v_843))))) then (if (not-caught-fail(v_847) && success?(is-true(success?(1-proj-3-tuple(v_847))))) then (if not-caught-fail(v_848) then (if not-caught-fail(v_849) then (1-proj-3-tuple(v_841),v_848,v_849) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {448}let (hs_851: handshakestate,re_852: key,plaintext_c_853: bitstring,valid_854: bool,cs1_855: cipherstate,cs2_856: cipherstate) = (if (not-caught-fail(v_822) && success?(is-true(success?(1-proj-7-tuple(v_822))))) then (if (not-caught-fail(v_823) && success?(is-true(success?(1-proj-3-tuple(v_823))))) then (if not-caught-fail(v_824) then (if not-caught-fail(v_831) then (if (not-caught-fail(v_841) && success?(is-true(success?(1-proj-3-tuple(v_841))))) then (if (v_824 && 3-proj-3-tuple(v_841)) then (if not-caught-fail(v_842) then (if (not-caught-fail(v_850) && success?(is-true(success?(1-proj-3-tuple(v_850))))) then (v_842,getpublickey(3-proj-7-tuple(v_822)),2-proj-3-tuple(v_841),true,2-proj-3-tuple(v_850),3-proj-3-tuple(v_850)) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) in
+        {449}event RecvMsg(bob,charlie,stage_c,plaintext_c_853,valid_854);
+        {450}insert statestore(bob,charlie,statepack_d(hs_851));
+        {451}event RecvEnd(valid_854)
+    ) | (
+        {453}event LeakS(phase0,bob);
+        {454}out(pub, key_s(bob))
+    ) | (
+        {455}phase 1;
+        {456}event LeakS(phase1,bob);
+        {457}out(pub, key_s(bob))
+    )
+) | (
+    {458}out(pub, (key_s(charlie),key_e(charlie,alice),key_e(charlie,bob)))
+)
+
+-- Query event(RecvMsg(bob,alice,stage_a,m,true)) ==> event(SendMsg(alice,bob,stage_a,m,true)); event(RecvMsg(bob,alice,stage_a,m,true)) ==> event(SendMsg(alice,c_937,stage_a,m,true)) || event(LeakS(phase0,alice)) || event(LeakS(phase0,bob)); event(RecvMsg(bob,alice,stage_a,m,true)) ==> event(SendMsg(alice,c_937,stage_a,m,true)) || event(LeakS(phase0,alice)); event(RecvMsg(bob,alice,stage_a,m,true)) ==> event(SendMsg(alice,bob,stage_a,m,true)) || event(LeakS(phase0,alice)) || event(LeakS(phase0,bob)); event(RecvMsg(bob,alice,stage_a,m,true)) ==> event(SendMsg(alice,bob,stage_a,m,true)) || event(LeakS(phase0,alice)); not attacker_p1(msg_a(alice,bob)); attacker_p1(msg_a(alice,bob)) ==> event(LeakS(phase0,bob)) || event(LeakS(phase1,bob)); attacker_p1(msg_a(alice,bob)) ==> event(LeakS(phase0,bob)) || (event(LeakS(phase1,bob)) && event(LeakS(p,alice))); attacker_p1(msg_a(alice,bob)) ==> event(LeakS(phase0,bob)); event(RecvMsg(alice,bob,stage_b,m,true)) ==> event(SendMsg(bob,alice,stage_b,m,true)); event(RecvMsg(alice,bob,stage_b,m,true)) ==> event(SendMsg(bob,c_937,stage_b,m,true)) || event(LeakS(phase0,bob)) || event(LeakS(phase0,alice)); event(RecvMsg(alice,bob,stage_b,m,true)) ==> event(SendMsg(bob,c_937,stage_b,m,true)) || event(LeakS(phase0,bob)); event(RecvMsg(alice,bob,stage_b,m,true)) ==> event(SendMsg(bob,alice,stage_b,m,true)) || event(LeakS(phase0,bob)) || event(LeakS(phase0,alice)); event(RecvMsg(alice,bob,stage_b,m,true)) ==> event(SendMsg(bob,alice,stage_b,m,true)) || event(LeakS(phase0,bob)); not attacker_p1(msg_b(bob,alice)); attacker_p1(msg_b(bob,alice)) ==> event(LeakS(phase0,alice)) || event(LeakS(phase1,alice)); attacker_p1(msg_b(bob,alice)) ==> event(LeakS(phase0,alice)) || (event(LeakS(phase1,alice)) && event(LeakS(p,bob))); attacker_p1(msg_b(bob,alice)) ==> event(LeakS(phase0,alice)); event(RecvMsg(bob,alice,stage_c,m,true)) ==> event(SendMsg(alice,bob,stage_c,m,true)); event(RecvMsg(bob,alice,stage_c,m,true)) ==> event(SendMsg(alice,c_937,stage_c,m,true)) || event(LeakS(phase0,alice)) || event(LeakS(phase0,bob)); event(RecvMsg(bob,alice,stage_c,m,true)) ==> event(SendMsg(alice,c_937,stage_c,m,true)) || event(LeakS(phase0,alice)); event(RecvMsg(bob,alice,stage_c,m,true)) ==> event(SendMsg(alice,bob,stage_c,m,true)) || event(LeakS(phase0,alice)) || event(LeakS(phase0,bob)); event(RecvMsg(bob,alice,stage_c,m,true)) ==> event(SendMsg(alice,bob,stage_c,m,true)) || event(LeakS(phase0,alice)); not attacker_p1(msg_c(alice,bob)); attacker_p1(msg_c(alice,bob)) ==> event(LeakS(phase0,bob)) || event(LeakS(phase1,bob)); attacker_p1(msg_c(alice,bob)) ==> event(LeakS(phase0,bob)) || (event(LeakS(phase1,bob)) && event(LeakS(p,alice))); attacker_p1(msg_c(alice,bob)) ==> event(LeakS(phase0,bob)); not event(RecvEnd(true))
+Completing...
+200 rules inserted. The rule base contains 200 rules. 153 rules in the queue.
+400 rules inserted. The rule base contains 387 rules. 34 rules in the queue.
+600 rules inserted. The rule base contains 567 rules. 54 rules in the queue.
+800 rules inserted. The rule base contains 746 rules. 133 rules in the queue.
+1000 rules inserted. The rule base contains 887 rules. 97 rules in the queue.
+1200 rules inserted. The rule base contains 1026 rules. 151 rules in the queue.
+1400 rules inserted. The rule base contains 1151 rules. 153 rules in the queue.
+1600 rules inserted. The rule base contains 1305 rules. 181 rules in the queue.
+1800 rules inserted. The rule base contains 1399 rules. 148 rules in the queue.
+2000 rules inserted. The rule base contains 1496 rules. 139 rules in the queue.
+2200 rules inserted. The rule base contains 1580 rules. 113 rules in the queue.
+2400 rules inserted. The rule base contains 1658 rules. 94 rules in the queue.
+2600 rules inserted. The rule base contains 1800 rules. 104 rules in the queue.
+2800 rules inserted. The rule base contains 1953 rules. 108 rules in the queue.
+3000 rules inserted. The rule base contains 2044 rules. 28 rules in the queue.
+Starting query event(RecvMsg(bob,alice,stage_a,m,true)) ==> event(SendMsg(alice,bob,stage_a,m,true))
+goal reachable: begin(SendMsg(alice,charlie,stage_a,msg_a(alice,charlie),true)) -> end(RecvMsg(bob,alice,stage_a,msg_a(alice,charlie),true))
+
+1. The entry statestore(bob,alice,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(somename,empty),empty)),keypairpack(empty,empty),keypairpack(empty,empty),empty,empty,empty,false))) may be inserted in a table at insert {239}.
+table(statestore(bob,alice,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(somename,empty),empty)),keypairpack(empty,empty),keypairpack(empty,empty),empty,empty,empty,false)))).
+
+2. The entry statestore(alice,charlie,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(somename,empty),empty)),keypairpack(empty,empty),keypairpack(empty,empty),empty,empty,empty,true))) may be inserted in a table at insert {125}.
+table(statestore(alice,charlie,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(somename,empty),empty)),keypairpack(empty,empty),keypairpack(empty,empty),empty,empty,empty,true)))).
+
+3. The entry statestore(alice,charlie,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(somename,empty),empty)),keypairpack(empty,empty),keypairpack(empty,empty),empty,empty,empty,true))) that may be in a table by 2 may be read at get {148}.
+The event SendMsg(alice,charlie,stage_a,msg_a(alice,charlie),true) may be executed at {145}.
+So the message concat3(dhexp(key_e(alice,charlie),g),empty,encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,charlie),g)),msg_a(alice,charlie))) may be sent on channel pub at output {147}.
+mess(pub,concat3(dhexp(key_e(alice,charlie),g),empty,encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,charlie),g)),msg_a(alice,charlie)))).
+
+4. The entry statestore(bob,alice,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(somename,empty),empty)),keypairpack(empty,empty),keypairpack(empty,empty),empty,empty,empty,false))) that may be in a table by 1 may be read at get {261}.
+The message concat3(dhexp(key_e(alice,charlie),g),empty,encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,charlie),g)),msg_a(alice,charlie))) that may be sent on channel pub by 3 may be received at input {240}.
+We have dhexp(key_e(alice,charlie),g) <> caught-fail.
+So event RecvMsg(bob,alice,stage_a,msg_a(alice,charlie),true) may be executed at {259}.
+end(RecvMsg(bob,alice,stage_a,msg_a(alice,charlie),true)).
+
+
+Could not find a trace corresponding to this derivation.
+RESULT event(RecvMsg(bob,alice,stage_a,m,true)) ==> event(SendMsg(alice,bob,stage_a,m,true)) cannot be proved.
+Starting query event(RecvMsg(bob,alice,stage_a,m,true)) ==> event(SendMsg(alice,c_937,stage_a,m,true)) || event(LeakS(phase0,alice)) || event(LeakS(phase0,bob))
+goal reachable: begin(SendMsg(alice,bob,stage_a,msg_a(alice,bob),true)) -> end(RecvMsg(bob,alice,stage_a,msg_a(alice,bob),true))
+goal reachable: begin(SendMsg(alice,charlie,stage_a,msg_a(alice,charlie),true)) -> end(RecvMsg(bob,alice,stage_a,msg_a(alice,charlie),true))
+RESULT event(RecvMsg(bob,alice,stage_a,m,true)) ==> event(SendMsg(alice,c_937,stage_a,m,true)) || event(LeakS(phase0,alice)) || event(LeakS(phase0,bob)) is true.
+Starting query event(RecvMsg(bob,alice,stage_a,m,true)) ==> event(SendMsg(alice,c_937,stage_a,m,true)) || event(LeakS(phase0,alice))
+goal reachable: begin(SendMsg(alice,bob,stage_a,msg_a(alice,bob),true)) -> end(RecvMsg(bob,alice,stage_a,msg_a(alice,bob),true))
+goal reachable: begin(SendMsg(alice,charlie,stage_a,msg_a(alice,charlie),true)) -> end(RecvMsg(bob,alice,stage_a,msg_a(alice,charlie),true))
+RESULT event(RecvMsg(bob,alice,stage_a,m,true)) ==> event(SendMsg(alice,c_937,stage_a,m,true)) || event(LeakS(phase0,alice)) is true.
+Starting query event(RecvMsg(bob,alice,stage_a,m,true)) ==> event(SendMsg(alice,bob,stage_a,m,true)) || event(LeakS(phase0,alice)) || event(LeakS(phase0,bob))
+goal reachable: begin(SendMsg(alice,charlie,stage_a,msg_a(alice,charlie),true)) -> end(RecvMsg(bob,alice,stage_a,msg_a(alice,charlie),true))
+
+1. The entry statestore(bob,alice,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(somename,empty),empty)),keypairpack(empty,empty),keypairpack(empty,empty),empty,empty,empty,false))) may be inserted in a table at insert {239}.
+table(statestore(bob,alice,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(somename,empty),empty)),keypairpack(empty,empty),keypairpack(empty,empty),empty,empty,empty,false)))).
+
+2. The entry statestore(alice,charlie,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(somename,empty),empty)),keypairpack(empty,empty),keypairpack(empty,empty),empty,empty,empty,true))) may be inserted in a table at insert {125}.
+table(statestore(alice,charlie,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(somename,empty),empty)),keypairpack(empty,empty),keypairpack(empty,empty),empty,empty,empty,true)))).
+
+3. The entry statestore(alice,charlie,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(somename,empty),empty)),keypairpack(empty,empty),keypairpack(empty,empty),empty,empty,empty,true))) that may be in a table by 2 may be read at get {148}.
+The event SendMsg(alice,charlie,stage_a,msg_a(alice,charlie),true) may be executed at {145}.
+So the message concat3(dhexp(key_e(alice,charlie),g),empty,encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,charlie),g)),msg_a(alice,charlie))) may be sent on channel pub at output {147}.
+mess(pub,concat3(dhexp(key_e(alice,charlie),g),empty,encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,charlie),g)),msg_a(alice,charlie)))).
+
+4. The entry statestore(bob,alice,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(somename,empty),empty)),keypairpack(empty,empty),keypairpack(empty,empty),empty,empty,empty,false))) that may be in a table by 1 may be read at get {261}.
+The message concat3(dhexp(key_e(alice,charlie),g),empty,encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,charlie),g)),msg_a(alice,charlie))) that may be sent on channel pub by 3 may be received at input {240}.
+We have dhexp(key_e(alice,charlie),g) <> caught-fail.
+So event RecvMsg(bob,alice,stage_a,msg_a(alice,charlie),true) may be executed at {259}.
+end(RecvMsg(bob,alice,stage_a,msg_a(alice,charlie),true)).
+
+
+Could not find a trace corresponding to this derivation.
+RESULT event(RecvMsg(bob,alice,stage_a,m,true)) ==> event(SendMsg(alice,bob,stage_a,m,true)) || event(LeakS(phase0,alice)) || event(LeakS(phase0,bob)) cannot be proved.
+Starting query event(RecvMsg(bob,alice,stage_a,m,true)) ==> event(SendMsg(alice,bob,stage_a,m,true)) || event(LeakS(phase0,alice))
+goal reachable: begin(SendMsg(alice,charlie,stage_a,msg_a(alice,charlie),true)) -> end(RecvMsg(bob,alice,stage_a,msg_a(alice,charlie),true))
+
+1. The entry statestore(bob,alice,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(somename,empty),empty)),keypairpack(empty,empty),keypairpack(empty,empty),empty,empty,empty,false))) may be inserted in a table at insert {239}.
+table(statestore(bob,alice,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(somename,empty),empty)),keypairpack(empty,empty),keypairpack(empty,empty),empty,empty,empty,false)))).
+
+2. The entry statestore(alice,charlie,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(somename,empty),empty)),keypairpack(empty,empty),keypairpack(empty,empty),empty,empty,empty,true))) may be inserted in a table at insert {125}.
+table(statestore(alice,charlie,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(somename,empty),empty)),keypairpack(empty,empty),keypairpack(empty,empty),empty,empty,empty,true)))).
+
+3. The entry statestore(alice,charlie,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(somename,empty),empty)),keypairpack(empty,empty),keypairpack(empty,empty),empty,empty,empty,true))) that may be in a table by 2 may be read at get {148}.
+The event SendMsg(alice,charlie,stage_a,msg_a(alice,charlie),true) may be executed at {145}.
+So the message concat3(dhexp(key_e(alice,charlie),g),empty,encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,charlie),g)),msg_a(alice,charlie))) may be sent on channel pub at output {147}.
+mess(pub,concat3(dhexp(key_e(alice,charlie),g),empty,encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,charlie),g)),msg_a(alice,charlie)))).
+
+4. The entry statestore(bob,alice,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(somename,empty),empty)),keypairpack(empty,empty),keypairpack(empty,empty),empty,empty,empty,false))) that may be in a table by 1 may be read at get {261}.
+The message concat3(dhexp(key_e(alice,charlie),g),empty,encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,charlie),g)),msg_a(alice,charlie))) that may be sent on channel pub by 3 may be received at input {240}.
+We have dhexp(key_e(alice,charlie),g) <> caught-fail.
+So event RecvMsg(bob,alice,stage_a,msg_a(alice,charlie),true) may be executed at {259}.
+end(RecvMsg(bob,alice,stage_a,msg_a(alice,charlie),true)).
+
+
+Could not find a trace corresponding to this derivation.
+RESULT event(RecvMsg(bob,alice,stage_a,m,true)) ==> event(SendMsg(alice,bob,stage_a,m,true)) || event(LeakS(phase0,alice)) cannot be proved.
+Starting query not attacker_p1(msg_a(alice,bob))
+goal reachable: begin(SendMsg(alice,bob,stage_a,msg_a(alice,bob),true)) -> attacker_p1(msg_a(alice,bob))
+
+1. Using the function pub the attacker may obtain pub.
+attacker(pub).
+
+2. The entry statestore(alice,bob,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(somename,empty),empty)),keypairpack(empty,empty),keypairpack(empty,empty),empty,empty,empty,true))) may be inserted in a table at insert {12}.
+table(statestore(alice,bob,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(somename,empty),empty)),keypairpack(empty,empty),keypairpack(empty,empty),empty,empty,empty,true)))).
+
+3. The entry statestore(alice,bob,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(somename,empty),empty)),keypairpack(empty,empty),keypairpack(empty,empty),empty,empty,empty,true))) that may be in a table by 2 may be read at get {35}.
+The event SendMsg(alice,bob,stage_a,msg_a(alice,bob),true) may be executed at {32}.
+So the message concat3(dhexp(key_e(alice,bob),g),empty,encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))) may be sent on channel pub at output {34}.
+mess(pub,concat3(dhexp(key_e(alice,bob),g),empty,encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)))).
+
+4. By 1, the attacker may have the channel pub.
+By 3, the message concat3(dhexp(key_e(alice,bob),g),empty,encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))) may be sent on this channel.
+So the attacker may obtain the message concat3(dhexp(key_e(alice,bob),g),empty,encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))) by listening on this channel.
+attacker(concat3(dhexp(key_e(alice,bob),g),empty,encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)))).
+
+5. By 4, the attacker may know concat3(dhexp(key_e(alice,bob),g),empty,encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))).
+Using the function 3-proj-concat3 the attacker may obtain encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)).
+attacker(encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))).
+
+6. By 4, the attacker may know concat3(dhexp(key_e(alice,bob),g),empty,encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))).
+Using the function 1-proj-concat3 the attacker may obtain dhexp(key_e(alice,bob),g).
+attacker(dhexp(key_e(alice,bob),g)).
+
+7. Using the function empty the attacker may obtain empty.
+attacker(empty).
+
+8. Using the function somename the attacker may obtain somename.
+attacker(somename).
+
+9. By 8, the attacker may know somename.
+By 7, the attacker may know empty.
+Using the function hash the attacker may obtain hash(somename,empty).
+attacker(hash(somename,empty)).
+
+10. By 9, the attacker may know hash(somename,empty).
+By 7, the attacker may know empty.
+Using the function hash the attacker may obtain hash(hash(somename,empty),empty).
+attacker(hash(hash(somename,empty),empty)).
+
+11. By 10, the attacker may know hash(hash(somename,empty),empty).
+By 6, the attacker may know dhexp(key_e(alice,bob),g).
+Using the function hash the attacker may obtain hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)).
+attacker(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g))).
+
+12. Using the function minnonce the attacker may obtain minnonce.
+attacker(minnonce).
+
+13. By 7, the attacker may know empty.
+By 12, the attacker may know minnonce.
+By 11, the attacker may know hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)).
+By 5, the attacker may know encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)).
+Using the function decrypt the attacker may obtain aeadpack(true,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)).
+attacker(aeadpack(true,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))).
+
+14. By 13, the attacker may know aeadpack(true,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)).
+Using the function 3-proj-aeadpack the attacker may obtain msg_a(alice,bob).
+attacker(msg_a(alice,bob)).
+
+15. By 14, the attacker may know msg_a(alice,bob).
+So the attacker may know msg_a(alice,bob) in phase 1.
+attacker_p1(msg_a(alice,bob)).
+
+
+Could not find a trace corresponding to this derivation.
+RESULT not attacker_p1(msg_a(alice,bob)) cannot be proved.
+Starting query attacker_p1(msg_a(alice,bob)) ==> event(LeakS(phase0,bob)) || event(LeakS(phase1,bob))
+goal reachable: begin(SendMsg(alice,bob,stage_a,msg_a(alice,bob),true)) -> attacker_p1(msg_a(alice,bob))
+
+1. Using the function pub the attacker may obtain pub.
+attacker(pub).
+
+2. The entry statestore(alice,bob,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(somename,empty),empty)),keypairpack(empty,empty),keypairpack(empty,empty),empty,empty,empty,true))) may be inserted in a table at insert {12}.
+table(statestore(alice,bob,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(somename,empty),empty)),keypairpack(empty,empty),keypairpack(empty,empty),empty,empty,empty,true)))).
+
+3. The entry statestore(alice,bob,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(somename,empty),empty)),keypairpack(empty,empty),keypairpack(empty,empty),empty,empty,empty,true))) that may be in a table by 2 may be read at get {35}.
+The event SendMsg(alice,bob,stage_a,msg_a(alice,bob),true) may be executed at {32}.
+So the message concat3(dhexp(key_e(alice,bob),g),empty,encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))) may be sent on channel pub at output {34}.
+mess(pub,concat3(dhexp(key_e(alice,bob),g),empty,encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)))).
+
+4. By 1, the attacker may have the channel pub.
+By 3, the message concat3(dhexp(key_e(alice,bob),g),empty,encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))) may be sent on this channel.
+So the attacker may obtain the message concat3(dhexp(key_e(alice,bob),g),empty,encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))) by listening on this channel.
+attacker(concat3(dhexp(key_e(alice,bob),g),empty,encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)))).
+
+5. By 4, the attacker may know concat3(dhexp(key_e(alice,bob),g),empty,encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))).
+Using the function 3-proj-concat3 the attacker may obtain encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)).
+attacker(encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))).
+
+6. By 4, the attacker may know concat3(dhexp(key_e(alice,bob),g),empty,encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))).
+Using the function 1-proj-concat3 the attacker may obtain dhexp(key_e(alice,bob),g).
+attacker(dhexp(key_e(alice,bob),g)).
+
+7. Using the function empty the attacker may obtain empty.
+attacker(empty).
+
+8. Using the function somename the attacker may obtain somename.
+attacker(somename).
+
+9. By 8, the attacker may know somename.
+By 7, the attacker may know empty.
+Using the function hash the attacker may obtain hash(somename,empty).
+attacker(hash(somename,empty)).
+
+10. By 9, the attacker may know hash(somename,empty).
+By 7, the attacker may know empty.
+Using the function hash the attacker may obtain hash(hash(somename,empty),empty).
+attacker(hash(hash(somename,empty),empty)).
+
+11. By 10, the attacker may know hash(hash(somename,empty),empty).
+By 6, the attacker may know dhexp(key_e(alice,bob),g).
+Using the function hash the attacker may obtain hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)).
+attacker(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g))).
+
+12. Using the function minnonce the attacker may obtain minnonce.
+attacker(minnonce).
+
+13. By 7, the attacker may know empty.
+By 12, the attacker may know minnonce.
+By 11, the attacker may know hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)).
+By 5, the attacker may know encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)).
+Using the function decrypt the attacker may obtain aeadpack(true,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)).
+attacker(aeadpack(true,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))).
+
+14. By 13, the attacker may know aeadpack(true,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)).
+Using the function 3-proj-aeadpack the attacker may obtain msg_a(alice,bob).
+attacker(msg_a(alice,bob)).
+
+15. By 14, the attacker may know msg_a(alice,bob).
+So the attacker may know msg_a(alice,bob) in phase 1.
+attacker_p1(msg_a(alice,bob)).
+
+
+Could not find a trace corresponding to this derivation.
+RESULT attacker_p1(msg_a(alice,bob)) ==> event(LeakS(phase0,bob)) || event(LeakS(phase1,bob)) cannot be proved.
+Starting query attacker_p1(msg_a(alice,bob)) ==> event(LeakS(phase0,bob)) || (event(LeakS(phase1,bob)) && event(LeakS(p,alice)))
+goal reachable: begin(SendMsg(alice,bob,stage_a,msg_a(alice,bob),true)) -> attacker_p1(msg_a(alice,bob))
+
+1. Using the function pub the attacker may obtain pub.
+attacker(pub).
+
+2. The entry statestore(alice,bob,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(somename,empty),empty)),keypairpack(empty,empty),keypairpack(empty,empty),empty,empty,empty,true))) may be inserted in a table at insert {12}.
+table(statestore(alice,bob,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(somename,empty),empty)),keypairpack(empty,empty),keypairpack(empty,empty),empty,empty,empty,true)))).
+
+3. The entry statestore(alice,bob,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(somename,empty),empty)),keypairpack(empty,empty),keypairpack(empty,empty),empty,empty,empty,true))) that may be in a table by 2 may be read at get {35}.
+The event SendMsg(alice,bob,stage_a,msg_a(alice,bob),true) may be executed at {32}.
+So the message concat3(dhexp(key_e(alice,bob),g),empty,encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))) may be sent on channel pub at output {34}.
+mess(pub,concat3(dhexp(key_e(alice,bob),g),empty,encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)))).
+
+4. By 1, the attacker may have the channel pub.
+By 3, the message concat3(dhexp(key_e(alice,bob),g),empty,encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))) may be sent on this channel.
+So the attacker may obtain the message concat3(dhexp(key_e(alice,bob),g),empty,encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))) by listening on this channel.
+attacker(concat3(dhexp(key_e(alice,bob),g),empty,encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)))).
+
+5. By 4, the attacker may know concat3(dhexp(key_e(alice,bob),g),empty,encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))).
+Using the function 3-proj-concat3 the attacker may obtain encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)).
+attacker(encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))).
+
+6. By 4, the attacker may know concat3(dhexp(key_e(alice,bob),g),empty,encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))).
+Using the function 1-proj-concat3 the attacker may obtain dhexp(key_e(alice,bob),g).
+attacker(dhexp(key_e(alice,bob),g)).
+
+7. Using the function empty the attacker may obtain empty.
+attacker(empty).
+
+8. Using the function somename the attacker may obtain somename.
+attacker(somename).
+
+9. By 8, the attacker may know somename.
+By 7, the attacker may know empty.
+Using the function hash the attacker may obtain hash(somename,empty).
+attacker(hash(somename,empty)).
+
+10. By 9, the attacker may know hash(somename,empty).
+By 7, the attacker may know empty.
+Using the function hash the attacker may obtain hash(hash(somename,empty),empty).
+attacker(hash(hash(somename,empty),empty)).
+
+11. By 10, the attacker may know hash(hash(somename,empty),empty).
+By 6, the attacker may know dhexp(key_e(alice,bob),g).
+Using the function hash the attacker may obtain hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)).
+attacker(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g))).
+
+12. Using the function minnonce the attacker may obtain minnonce.
+attacker(minnonce).
+
+13. By 7, the attacker may know empty.
+By 12, the attacker may know minnonce.
+By 11, the attacker may know hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)).
+By 5, the attacker may know encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)).
+Using the function decrypt the attacker may obtain aeadpack(true,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)).
+attacker(aeadpack(true,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))).
+
+14. By 13, the attacker may know aeadpack(true,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)).
+Using the function 3-proj-aeadpack the attacker may obtain msg_a(alice,bob).
+attacker(msg_a(alice,bob)).
+
+15. By 14, the attacker may know msg_a(alice,bob).
+So the attacker may know msg_a(alice,bob) in phase 1.
+attacker_p1(msg_a(alice,bob)).
+
+
+Could not find a trace corresponding to this derivation.
+RESULT attacker_p1(msg_a(alice,bob)) ==> event(LeakS(phase0,bob)) || (event(LeakS(phase1,bob)) && event(LeakS(p,alice))) cannot be proved.
+Starting query attacker_p1(msg_a(alice,bob)) ==> event(LeakS(phase0,bob))
+goal reachable: begin(SendMsg(alice,bob,stage_a,msg_a(alice,bob),true)) -> attacker_p1(msg_a(alice,bob))
+
+1. Using the function pub the attacker may obtain pub.
+attacker(pub).
+
+2. The entry statestore(alice,bob,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(somename,empty),empty)),keypairpack(empty,empty),keypairpack(empty,empty),empty,empty,empty,true))) may be inserted in a table at insert {12}.
+table(statestore(alice,bob,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(somename,empty),empty)),keypairpack(empty,empty),keypairpack(empty,empty),empty,empty,empty,true)))).
+
+3. The entry statestore(alice,bob,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(somename,empty),empty)),keypairpack(empty,empty),keypairpack(empty,empty),empty,empty,empty,true))) that may be in a table by 2 may be read at get {35}.
+The event SendMsg(alice,bob,stage_a,msg_a(alice,bob),true) may be executed at {32}.
+So the message concat3(dhexp(key_e(alice,bob),g),empty,encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))) may be sent on channel pub at output {34}.
+mess(pub,concat3(dhexp(key_e(alice,bob),g),empty,encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)))).
+
+4. By 1, the attacker may have the channel pub.
+By 3, the message concat3(dhexp(key_e(alice,bob),g),empty,encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))) may be sent on this channel.
+So the attacker may obtain the message concat3(dhexp(key_e(alice,bob),g),empty,encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))) by listening on this channel.
+attacker(concat3(dhexp(key_e(alice,bob),g),empty,encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)))).
+
+5. By 4, the attacker may know concat3(dhexp(key_e(alice,bob),g),empty,encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))).
+Using the function 3-proj-concat3 the attacker may obtain encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)).
+attacker(encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))).
+
+6. By 4, the attacker may know concat3(dhexp(key_e(alice,bob),g),empty,encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))).
+Using the function 1-proj-concat3 the attacker may obtain dhexp(key_e(alice,bob),g).
+attacker(dhexp(key_e(alice,bob),g)).
+
+7. Using the function empty the attacker may obtain empty.
+attacker(empty).
+
+8. Using the function somename the attacker may obtain somename.
+attacker(somename).
+
+9. By 8, the attacker may know somename.
+By 7, the attacker may know empty.
+Using the function hash the attacker may obtain hash(somename,empty).
+attacker(hash(somename,empty)).
+
+10. By 9, the attacker may know hash(somename,empty).
+By 7, the attacker may know empty.
+Using the function hash the attacker may obtain hash(hash(somename,empty),empty).
+attacker(hash(hash(somename,empty),empty)).
+
+11. By 10, the attacker may know hash(hash(somename,empty),empty).
+By 6, the attacker may know dhexp(key_e(alice,bob),g).
+Using the function hash the attacker may obtain hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)).
+attacker(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g))).
+
+12. Using the function minnonce the attacker may obtain minnonce.
+attacker(minnonce).
+
+13. By 7, the attacker may know empty.
+By 12, the attacker may know minnonce.
+By 11, the attacker may know hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)).
+By 5, the attacker may know encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)).
+Using the function decrypt the attacker may obtain aeadpack(true,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)).
+attacker(aeadpack(true,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))).
+
+14. By 13, the attacker may know aeadpack(true,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)).
+Using the function 3-proj-aeadpack the attacker may obtain msg_a(alice,bob).
+attacker(msg_a(alice,bob)).
+
+15. By 14, the attacker may know msg_a(alice,bob).
+So the attacker may know msg_a(alice,bob) in phase 1.
+attacker_p1(msg_a(alice,bob)).
+
+
+Could not find a trace corresponding to this derivation.
+RESULT attacker_p1(msg_a(alice,bob)) ==> event(LeakS(phase0,bob)) cannot be proved.
+Starting query event(RecvMsg(alice,bob,stage_b,m,true)) ==> event(SendMsg(bob,alice,stage_b,m,true))
+goal reachable: begin(SendMsg(bob,charlie,stage_b,msg_b(bob,charlie),true)) && begin(SendMsg(alice,bob,stage_a,msg_a(alice,bob),true)) -> end(RecvMsg(alice,bob,stage_b,msg_b(bob,charlie),true))
+
+1. The entry statestore(alice,bob,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(somename,empty),empty)),keypairpack(empty,empty),keypairpack(empty,empty),empty,empty,empty,true))) may be inserted in a table at insert {12}.
+table(statestore(alice,bob,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(somename,empty),empty)),keypairpack(empty,empty),keypairpack(empty,empty),empty,empty,empty,true)))).
+
+2. The entry statestore(alice,bob,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(somename,empty),empty)),keypairpack(empty,empty),keypairpack(empty,empty),empty,empty,empty,true))) that may be in a table by 1 may be read at get {35}.
+The event SendMsg(alice,bob,stage_a,msg_a(alice,bob),true) may be executed at {32}.
+So the entry statestore(alice,bob,statepack_b(handshakestatepack(symmetricstatepack(cipherstatepack(empty,increment_nonce(minnonce)),hash(somename,empty),hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)))),keypairpack(empty,empty),keypairpack(dhexp(key_e(alice,bob),g),key_e(alice,bob)),empty,empty,empty,true))) may be inserted in a table at insert {33}.
+table(statestore(alice,bob,statepack_b(handshakestatepack(symmetricstatepack(cipherstatepack(empty,increment_nonce(minnonce)),hash(somename,empty),hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)))),keypairpack(empty,empty),keypairpack(dhexp(key_e(alice,bob),g),key_e(alice,bob)),empty,empty,empty,true)))).
+
+3. The entry statestore(bob,charlie,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(somename,empty),empty)),keypairpack(empty,empty),keypairpack(empty,empty),empty,empty,empty,false))) may be inserted in a table at insert {354}.
+table(statestore(bob,charlie,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(somename,empty),empty)),keypairpack(empty,empty),keypairpack(empty,empty),empty,empty,empty,false)))).
+
+4. The entry statestore(alice,bob,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(somename,empty),empty)),keypairpack(empty,empty),keypairpack(empty,empty),empty,empty,empty,true))) may be inserted in a table at insert {12}.
+table(statestore(alice,bob,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(somename,empty),empty)),keypairpack(empty,empty),keypairpack(empty,empty),empty,empty,empty,true)))).
+
+5. The entry statestore(alice,bob,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(somename,empty),empty)),keypairpack(empty,empty),keypairpack(empty,empty),empty,empty,empty,true))) that may be in a table by 4 may be read at get {35}.
+The event SendMsg(alice,bob,stage_a,msg_a(alice,bob),true) may be executed at {32}.
+So the message concat3(dhexp(key_e(alice,bob),g),empty,encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))) may be sent on channel pub at output {34}.
+mess(pub,concat3(dhexp(key_e(alice,bob),g),empty,encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)))).
+
+6. The entry statestore(bob,charlie,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(somename,empty),empty)),keypairpack(empty,empty),keypairpack(empty,empty),empty,empty,empty,false))) that may be in a table by 3 may be read at get {376}.
+The message concat3(dhexp(key_e(alice,bob),g),empty,encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))) that may be sent on channel pub by 5 may be received at input {355}.
+We have dhexp(key_e(alice,bob),g) <> caught-fail.
+So the entry statestore(bob,charlie,statepack_b(handshakestatepack(symmetricstatepack(cipherstatepack(empty,increment_nonce(minnonce)),hash(somename,empty),hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)))),keypairpack(empty,empty),keypairpack(empty,empty),empty,dhexp(key_e(alice,bob),g),empty,false))) may be inserted in a table at insert {375}.
+table(statestore(bob,charlie,statepack_b(handshakestatepack(symmetricstatepack(cipherstatepack(empty,increment_nonce(minnonce)),hash(somename,empty),hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)))),keypairpack(empty,empty),keypairpack(empty,empty),empty,dhexp(key_e(alice,bob),g),empty,false)))).
+
+7. The entry statestore(bob,charlie,statepack_b(handshakestatepack(symmetricstatepack(cipherstatepack(empty,increment_nonce(minnonce)),hash(somename,empty),hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)))),keypairpack(empty,empty),keypairpack(empty,empty),empty,dhexp(key_e(alice,bob),g),empty,false))) that may be in a table by 6 may be read at get {417}.
+The event SendMsg(bob,charlie,stage_b,msg_b(bob,charlie),true) may be executed at {414}.
+So the message concat3(dhexp(key_e(bob,charlie),g),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),minnonce,hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),dhexp(key_s(bob),g)),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),increment_nonce(minnonce),hash(hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),minnonce,hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),dhexp(key_s(bob),g))),msg_b(bob,charlie))) may be sent on channel pub at output {416}.
+mess(pub,concat3(dhexp(key_e(bob,charlie),g),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),minnonce,hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),dhexp(key_s(bob),g)),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),increment_nonce(minnonce),hash(hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),minnonce,hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),dhexp(key_s(bob),g))),msg_b(bob,charlie)))).
+
+8. The entry statestore(alice,bob,statepack_b(handshakestatepack(symmetricstatepack(cipherstatepack(empty,increment_nonce(minnonce)),hash(somename,empty),hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)))),keypairpack(empty,empty),keypairpack(dhexp(key_e(alice,bob),g),key_e(alice,bob)),empty,empty,empty,true))) that may be in a table by 2 may be read at get {76}.
+The message concat3(dhexp(key_e(bob,charlie),g),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),minnonce,hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),dhexp(key_s(bob),g)),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),increment_nonce(minnonce),hash(hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),minnonce,hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),dhexp(key_s(bob),g))),msg_b(bob,charlie))) that may be sent on channel pub by 7 may be received at input {36}.
+We have dhexp(key_e(bob,charlie),g) <> caught-fail.
+So event RecvMsg(alice,bob,stage_b,msg_b(bob,charlie),true) may be executed at {74}.
+end(RecvMsg(alice,bob,stage_b,msg_b(bob,charlie),true)).
+
+
+Could not find a trace corresponding to this derivation.
+RESULT event(RecvMsg(alice,bob,stage_b,m,true)) ==> event(SendMsg(bob,alice,stage_b,m,true)) cannot be proved.
+Starting query event(RecvMsg(alice,bob,stage_b,m,true)) ==> event(SendMsg(bob,c_937,stage_b,m,true)) || event(LeakS(phase0,bob)) || event(LeakS(phase0,alice))
+goal reachable: begin(SendMsg(bob,charlie,stage_b,msg_b(bob,charlie),true)) && begin(SendMsg(alice,bob,stage_a,msg_a(alice,bob),true)) -> end(RecvMsg(alice,bob,stage_b,msg_b(bob,charlie),true))
+goal reachable: begin(SendMsg(bob,alice,stage_b,msg_b(bob,alice),true)) && begin(SendMsg(alice,bob,stage_a,msg_a(alice,bob),true)) -> end(RecvMsg(alice,bob,stage_b,msg_b(bob,alice),true))
+RESULT event(RecvMsg(alice,bob,stage_b,m,true)) ==> event(SendMsg(bob,c_937,stage_b,m,true)) || event(LeakS(phase0,bob)) || event(LeakS(phase0,alice)) is true.
+Starting query event(RecvMsg(alice,bob,stage_b,m,true)) ==> event(SendMsg(bob,c_937,stage_b,m,true)) || event(LeakS(phase0,bob))
+goal reachable: begin(SendMsg(bob,charlie,stage_b,msg_b(bob,charlie),true)) && begin(SendMsg(alice,bob,stage_a,msg_a(alice,bob),true)) -> end(RecvMsg(alice,bob,stage_b,msg_b(bob,charlie),true))
+goal reachable: begin(SendMsg(bob,alice,stage_b,msg_b(bob,alice),true)) && begin(SendMsg(alice,bob,stage_a,msg_a(alice,bob),true)) -> end(RecvMsg(alice,bob,stage_b,msg_b(bob,alice),true))
+RESULT event(RecvMsg(alice,bob,stage_b,m,true)) ==> event(SendMsg(bob,c_937,stage_b,m,true)) || event(LeakS(phase0,bob)) is true.
+Starting query event(RecvMsg(alice,bob,stage_b,m,true)) ==> event(SendMsg(bob,alice,stage_b,m,true)) || event(LeakS(phase0,bob)) || event(LeakS(phase0,alice))
+goal reachable: begin(SendMsg(bob,charlie,stage_b,msg_b(bob,charlie),true)) && begin(SendMsg(alice,bob,stage_a,msg_a(alice,bob),true)) -> end(RecvMsg(alice,bob,stage_b,msg_b(bob,charlie),true))
+
+1. The entry statestore(alice,bob,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(somename,empty),empty)),keypairpack(empty,empty),keypairpack(empty,empty),empty,empty,empty,true))) may be inserted in a table at insert {12}.
+table(statestore(alice,bob,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(somename,empty),empty)),keypairpack(empty,empty),keypairpack(empty,empty),empty,empty,empty,true)))).
+
+2. The entry statestore(alice,bob,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(somename,empty),empty)),keypairpack(empty,empty),keypairpack(empty,empty),empty,empty,empty,true))) that may be in a table by 1 may be read at get {35}.
+The event SendMsg(alice,bob,stage_a,msg_a(alice,bob),true) may be executed at {32}.
+So the entry statestore(alice,bob,statepack_b(handshakestatepack(symmetricstatepack(cipherstatepack(empty,increment_nonce(minnonce)),hash(somename,empty),hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)))),keypairpack(empty,empty),keypairpack(dhexp(key_e(alice,bob),g),key_e(alice,bob)),empty,empty,empty,true))) may be inserted in a table at insert {33}.
+table(statestore(alice,bob,statepack_b(handshakestatepack(symmetricstatepack(cipherstatepack(empty,increment_nonce(minnonce)),hash(somename,empty),hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)))),keypairpack(empty,empty),keypairpack(dhexp(key_e(alice,bob),g),key_e(alice,bob)),empty,empty,empty,true)))).
+
+3. The entry statestore(bob,charlie,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(somename,empty),empty)),keypairpack(empty,empty),keypairpack(empty,empty),empty,empty,empty,false))) may be inserted in a table at insert {354}.
+table(statestore(bob,charlie,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(somename,empty),empty)),keypairpack(empty,empty),keypairpack(empty,empty),empty,empty,empty,false)))).
+
+4. The entry statestore(alice,bob,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(somename,empty),empty)),keypairpack(empty,empty),keypairpack(empty,empty),empty,empty,empty,true))) may be inserted in a table at insert {12}.
+table(statestore(alice,bob,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(somename,empty),empty)),keypairpack(empty,empty),keypairpack(empty,empty),empty,empty,empty,true)))).
+
+5. The entry statestore(alice,bob,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(somename,empty),empty)),keypairpack(empty,empty),keypairpack(empty,empty),empty,empty,empty,true))) that may be in a table by 4 may be read at get {35}.
+The event SendMsg(alice,bob,stage_a,msg_a(alice,bob),true) may be executed at {32}.
+So the message concat3(dhexp(key_e(alice,bob),g),empty,encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))) may be sent on channel pub at output {34}.
+mess(pub,concat3(dhexp(key_e(alice,bob),g),empty,encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)))).
+
+6. The entry statestore(bob,charlie,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(somename,empty),empty)),keypairpack(empty,empty),keypairpack(empty,empty),empty,empty,empty,false))) that may be in a table by 3 may be read at get {376}.
+The message concat3(dhexp(key_e(alice,bob),g),empty,encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))) that may be sent on channel pub by 5 may be received at input {355}.
+We have dhexp(key_e(alice,bob),g) <> caught-fail.
+So the entry statestore(bob,charlie,statepack_b(handshakestatepack(symmetricstatepack(cipherstatepack(empty,increment_nonce(minnonce)),hash(somename,empty),hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)))),keypairpack(empty,empty),keypairpack(empty,empty),empty,dhexp(key_e(alice,bob),g),empty,false))) may be inserted in a table at insert {375}.
+table(statestore(bob,charlie,statepack_b(handshakestatepack(symmetricstatepack(cipherstatepack(empty,increment_nonce(minnonce)),hash(somename,empty),hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)))),keypairpack(empty,empty),keypairpack(empty,empty),empty,dhexp(key_e(alice,bob),g),empty,false)))).
+
+7. The entry statestore(bob,charlie,statepack_b(handshakestatepack(symmetricstatepack(cipherstatepack(empty,increment_nonce(minnonce)),hash(somename,empty),hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)))),keypairpack(empty,empty),keypairpack(empty,empty),empty,dhexp(key_e(alice,bob),g),empty,false))) that may be in a table by 6 may be read at get {417}.
+The event SendMsg(bob,charlie,stage_b,msg_b(bob,charlie),true) may be executed at {414}.
+So the message concat3(dhexp(key_e(bob,charlie),g),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),minnonce,hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),dhexp(key_s(bob),g)),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),increment_nonce(minnonce),hash(hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),minnonce,hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),dhexp(key_s(bob),g))),msg_b(bob,charlie))) may be sent on channel pub at output {416}.
+mess(pub,concat3(dhexp(key_e(bob,charlie),g),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),minnonce,hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),dhexp(key_s(bob),g)),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),increment_nonce(minnonce),hash(hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),minnonce,hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),dhexp(key_s(bob),g))),msg_b(bob,charlie)))).
+
+8. The entry statestore(alice,bob,statepack_b(handshakestatepack(symmetricstatepack(cipherstatepack(empty,increment_nonce(minnonce)),hash(somename,empty),hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)))),keypairpack(empty,empty),keypairpack(dhexp(key_e(alice,bob),g),key_e(alice,bob)),empty,empty,empty,true))) that may be in a table by 2 may be read at get {76}.
+The message concat3(dhexp(key_e(bob,charlie),g),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),minnonce,hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),dhexp(key_s(bob),g)),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),increment_nonce(minnonce),hash(hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),minnonce,hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),dhexp(key_s(bob),g))),msg_b(bob,charlie))) that may be sent on channel pub by 7 may be received at input {36}.
+We have dhexp(key_e(bob,charlie),g) <> caught-fail.
+So event RecvMsg(alice,bob,stage_b,msg_b(bob,charlie),true) may be executed at {74}.
+end(RecvMsg(alice,bob,stage_b,msg_b(bob,charlie),true)).
+
+
+Could not find a trace corresponding to this derivation.
+RESULT event(RecvMsg(alice,bob,stage_b,m,true)) ==> event(SendMsg(bob,alice,stage_b,m,true)) || event(LeakS(phase0,bob)) || event(LeakS(phase0,alice)) cannot be proved.
+Starting query event(RecvMsg(alice,bob,stage_b,m,true)) ==> event(SendMsg(bob,alice,stage_b,m,true)) || event(LeakS(phase0,bob))
+goal reachable: begin(SendMsg(bob,charlie,stage_b,msg_b(bob,charlie),true)) && begin(SendMsg(alice,bob,stage_a,msg_a(alice,bob),true)) -> end(RecvMsg(alice,bob,stage_b,msg_b(bob,charlie),true))
+
+1. The entry statestore(alice,bob,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(somename,empty),empty)),keypairpack(empty,empty),keypairpack(empty,empty),empty,empty,empty,true))) may be inserted in a table at insert {12}.
+table(statestore(alice,bob,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(somename,empty),empty)),keypairpack(empty,empty),keypairpack(empty,empty),empty,empty,empty,true)))).
+
+2. The entry statestore(alice,bob,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(somename,empty),empty)),keypairpack(empty,empty),keypairpack(empty,empty),empty,empty,empty,true))) that may be in a table by 1 may be read at get {35}.
+The event SendMsg(alice,bob,stage_a,msg_a(alice,bob),true) may be executed at {32}.
+So the entry statestore(alice,bob,statepack_b(handshakestatepack(symmetricstatepack(cipherstatepack(empty,increment_nonce(minnonce)),hash(somename,empty),hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)))),keypairpack(empty,empty),keypairpack(dhexp(key_e(alice,bob),g),key_e(alice,bob)),empty,empty,empty,true))) may be inserted in a table at insert {33}.
+table(statestore(alice,bob,statepack_b(handshakestatepack(symmetricstatepack(cipherstatepack(empty,increment_nonce(minnonce)),hash(somename,empty),hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)))),keypairpack(empty,empty),keypairpack(dhexp(key_e(alice,bob),g),key_e(alice,bob)),empty,empty,empty,true)))).
+
+3. The entry statestore(bob,charlie,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(somename,empty),empty)),keypairpack(empty,empty),keypairpack(empty,empty),empty,empty,empty,false))) may be inserted in a table at insert {354}.
+table(statestore(bob,charlie,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(somename,empty),empty)),keypairpack(empty,empty),keypairpack(empty,empty),empty,empty,empty,false)))).
+
+4. The entry statestore(alice,bob,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(somename,empty),empty)),keypairpack(empty,empty),keypairpack(empty,empty),empty,empty,empty,true))) may be inserted in a table at insert {12}.
+table(statestore(alice,bob,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(somename,empty),empty)),keypairpack(empty,empty),keypairpack(empty,empty),empty,empty,empty,true)))).
+
+5. The entry statestore(alice,bob,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(somename,empty),empty)),keypairpack(empty,empty),keypairpack(empty,empty),empty,empty,empty,true))) that may be in a table by 4 may be read at get {35}.
+The event SendMsg(alice,bob,stage_a,msg_a(alice,bob),true) may be executed at {32}.
+So the message concat3(dhexp(key_e(alice,bob),g),empty,encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))) may be sent on channel pub at output {34}.
+mess(pub,concat3(dhexp(key_e(alice,bob),g),empty,encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)))).
+
+6. The entry statestore(bob,charlie,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(somename,empty),empty)),keypairpack(empty,empty),keypairpack(empty,empty),empty,empty,empty,false))) that may be in a table by 3 may be read at get {376}.
+The message concat3(dhexp(key_e(alice,bob),g),empty,encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))) that may be sent on channel pub by 5 may be received at input {355}.
+We have dhexp(key_e(alice,bob),g) <> caught-fail.
+So the entry statestore(bob,charlie,statepack_b(handshakestatepack(symmetricstatepack(cipherstatepack(empty,increment_nonce(minnonce)),hash(somename,empty),hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)))),keypairpack(empty,empty),keypairpack(empty,empty),empty,dhexp(key_e(alice,bob),g),empty,false))) may be inserted in a table at insert {375}.
+table(statestore(bob,charlie,statepack_b(handshakestatepack(symmetricstatepack(cipherstatepack(empty,increment_nonce(minnonce)),hash(somename,empty),hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)))),keypairpack(empty,empty),keypairpack(empty,empty),empty,dhexp(key_e(alice,bob),g),empty,false)))).
+
+7. The entry statestore(bob,charlie,statepack_b(handshakestatepack(symmetricstatepack(cipherstatepack(empty,increment_nonce(minnonce)),hash(somename,empty),hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)))),keypairpack(empty,empty),keypairpack(empty,empty),empty,dhexp(key_e(alice,bob),g),empty,false))) that may be in a table by 6 may be read at get {417}.
+The event SendMsg(bob,charlie,stage_b,msg_b(bob,charlie),true) may be executed at {414}.
+So the message concat3(dhexp(key_e(bob,charlie),g),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),minnonce,hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),dhexp(key_s(bob),g)),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),increment_nonce(minnonce),hash(hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),minnonce,hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),dhexp(key_s(bob),g))),msg_b(bob,charlie))) may be sent on channel pub at output {416}.
+mess(pub,concat3(dhexp(key_e(bob,charlie),g),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),minnonce,hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),dhexp(key_s(bob),g)),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),increment_nonce(minnonce),hash(hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),minnonce,hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),dhexp(key_s(bob),g))),msg_b(bob,charlie)))).
+
+8. The entry statestore(alice,bob,statepack_b(handshakestatepack(symmetricstatepack(cipherstatepack(empty,increment_nonce(minnonce)),hash(somename,empty),hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)))),keypairpack(empty,empty),keypairpack(dhexp(key_e(alice,bob),g),key_e(alice,bob)),empty,empty,empty,true))) that may be in a table by 2 may be read at get {76}.
+The message concat3(dhexp(key_e(bob,charlie),g),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),minnonce,hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),dhexp(key_s(bob),g)),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),increment_nonce(minnonce),hash(hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),minnonce,hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),dhexp(key_s(bob),g))),msg_b(bob,charlie))) that may be sent on channel pub by 7 may be received at input {36}.
+We have dhexp(key_e(bob,charlie),g) <> caught-fail.
+So event RecvMsg(alice,bob,stage_b,msg_b(bob,charlie),true) may be executed at {74}.
+end(RecvMsg(alice,bob,stage_b,msg_b(bob,charlie),true)).
+
+
+Could not find a trace corresponding to this derivation.
+RESULT event(RecvMsg(alice,bob,stage_b,m,true)) ==> event(SendMsg(bob,alice,stage_b,m,true)) || event(LeakS(phase0,bob)) cannot be proved.
+Starting query not attacker_p1(msg_b(bob,alice))
+RESULT not attacker_p1(msg_b(bob,alice)) is true.
+Starting query attacker_p1(msg_b(bob,alice)) ==> event(LeakS(phase0,alice)) || event(LeakS(phase1,alice))
+RESULT attacker_p1(msg_b(bob,alice)) ==> event(LeakS(phase0,alice)) || event(LeakS(phase1,alice)) is true.
+Starting query attacker_p1(msg_b(bob,alice)) ==> event(LeakS(phase0,alice)) || (event(LeakS(phase1,alice)) && event(LeakS(p,bob)))
+RESULT attacker_p1(msg_b(bob,alice)) ==> event(LeakS(phase0,alice)) || (event(LeakS(phase1,alice)) && event(LeakS(p,bob))) is true.
+Starting query attacker_p1(msg_b(bob,alice)) ==> event(LeakS(phase0,alice))
+RESULT attacker_p1(msg_b(bob,alice)) ==> event(LeakS(phase0,alice)) is true.
+Starting query event(RecvMsg(bob,alice,stage_c,m,true)) ==> event(SendMsg(alice,bob,stage_c,m,true))
+goal reachable: begin(SendMsg(alice,bob,stage_c,msg_c(alice,bob),true)) && begin(SendMsg(bob,alice,stage_b,msg_b(bob,alice),true)) && begin(SendMsg(alice,bob,stage_a,msg_a(alice,bob),true)) -> end(RecvMsg(bob,alice,stage_c,msg_c(alice,bob),true))
+RESULT event(RecvMsg(bob,alice,stage_c,m,true)) ==> event(SendMsg(alice,bob,stage_c,m,true)) is true.
+Starting query event(RecvMsg(bob,alice,stage_c,m,true)) ==> event(SendMsg(alice,c_937,stage_c,m,true)) || event(LeakS(phase0,alice)) || event(LeakS(phase0,bob))
+goal reachable: begin(SendMsg(alice,bob,stage_c,msg_c(alice,bob),true)) && begin(SendMsg(bob,alice,stage_b,msg_b(bob,alice),true)) && begin(SendMsg(alice,bob,stage_a,msg_a(alice,bob),true)) -> end(RecvMsg(bob,alice,stage_c,msg_c(alice,bob),true))
+RESULT event(RecvMsg(bob,alice,stage_c,m,true)) ==> event(SendMsg(alice,c_937,stage_c,m,true)) || event(LeakS(phase0,alice)) || event(LeakS(phase0,bob)) is true.
+Starting query event(RecvMsg(bob,alice,stage_c,m,true)) ==> event(SendMsg(alice,c_937,stage_c,m,true)) || event(LeakS(phase0,alice))
+goal reachable: begin(SendMsg(alice,bob,stage_c,msg_c(alice,bob),true)) && begin(SendMsg(bob,alice,stage_b,msg_b(bob,alice),true)) && begin(SendMsg(alice,bob,stage_a,msg_a(alice,bob),true)) -> end(RecvMsg(bob,alice,stage_c,msg_c(alice,bob),true))
+RESULT event(RecvMsg(bob,alice,stage_c,m,true)) ==> event(SendMsg(alice,c_937,stage_c,m,true)) || event(LeakS(phase0,alice)) is true.
+Starting query event(RecvMsg(bob,alice,stage_c,m,true)) ==> event(SendMsg(alice,bob,stage_c,m,true)) || event(LeakS(phase0,alice)) || event(LeakS(phase0,bob))
+goal reachable: begin(SendMsg(alice,bob,stage_c,msg_c(alice,bob),true)) && begin(SendMsg(bob,alice,stage_b,msg_b(bob,alice),true)) && begin(SendMsg(alice,bob,stage_a,msg_a(alice,bob),true)) -> end(RecvMsg(bob,alice,stage_c,msg_c(alice,bob),true))
+RESULT event(RecvMsg(bob,alice,stage_c,m,true)) ==> event(SendMsg(alice,bob,stage_c,m,true)) || event(LeakS(phase0,alice)) || event(LeakS(phase0,bob)) is true.
+Starting query event(RecvMsg(bob,alice,stage_c,m,true)) ==> event(SendMsg(alice,bob,stage_c,m,true)) || event(LeakS(phase0,alice))
+goal reachable: begin(SendMsg(alice,bob,stage_c,msg_c(alice,bob),true)) && begin(SendMsg(bob,alice,stage_b,msg_b(bob,alice),true)) && begin(SendMsg(alice,bob,stage_a,msg_a(alice,bob),true)) -> end(RecvMsg(bob,alice,stage_c,msg_c(alice,bob),true))
+RESULT event(RecvMsg(bob,alice,stage_c,m,true)) ==> event(SendMsg(alice,bob,stage_c,m,true)) || event(LeakS(phase0,alice)) is true.
+Starting query not attacker_p1(msg_c(alice,bob))
+RESULT not attacker_p1(msg_c(alice,bob)) is true.
+Starting query attacker_p1(msg_c(alice,bob)) ==> event(LeakS(phase0,bob)) || event(LeakS(phase1,bob))
+RESULT attacker_p1(msg_c(alice,bob)) ==> event(LeakS(phase0,bob)) || event(LeakS(phase1,bob)) is true.
+Starting query attacker_p1(msg_c(alice,bob)) ==> event(LeakS(phase0,bob)) || (event(LeakS(phase1,bob)) && event(LeakS(p,alice)))
+RESULT attacker_p1(msg_c(alice,bob)) ==> event(LeakS(phase0,bob)) || (event(LeakS(phase1,bob)) && event(LeakS(p,alice))) is true.
+Starting query attacker_p1(msg_c(alice,bob)) ==> event(LeakS(phase0,bob))
+RESULT attacker_p1(msg_c(alice,bob)) ==> event(LeakS(phase0,bob)) is true.
+Starting query not event(RecvEnd(true))
+goal reachable: begin(SendMsg(alice,bob,stage_c,msg_c(alice,bob),true)) && begin(SendMsg(bob,charlie,stage_b,msg_b(bob,charlie),true)) && begin(SendMsg(alice,bob,stage_a,msg_a(alice,bob),true)) -> end(RecvEnd(true))
+
+1. The entry statestore(bob,charlie,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(somename,empty),empty)),keypairpack(empty,empty),keypairpack(empty,empty),empty,empty,empty,false))) may be inserted in a table at insert {354}.
+table(statestore(bob,charlie,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(somename,empty),empty)),keypairpack(empty,empty),keypairpack(empty,empty),empty,empty,empty,false)))).
+
+2. The entry statestore(alice,bob,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(somename,empty),empty)),keypairpack(empty,empty),keypairpack(empty,empty),empty,empty,empty,true))) may be inserted in a table at insert {12}.
+table(statestore(alice,bob,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(somename,empty),empty)),keypairpack(empty,empty),keypairpack(empty,empty),empty,empty,empty,true)))).
+
+3. The entry statestore(alice,bob,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(somename,empty),empty)),keypairpack(empty,empty),keypairpack(empty,empty),empty,empty,empty,true))) that may be in a table by 2 may be read at get {35}.
+The event SendMsg(alice,bob,stage_a,msg_a(alice,bob),true) may be executed at {32}.
+So the message concat3(dhexp(key_e(alice,bob),g),empty,encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))) may be sent on channel pub at output {34}.
+mess(pub,concat3(dhexp(key_e(alice,bob),g),empty,encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)))).
+
+4. The entry statestore(bob,charlie,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(somename,empty),empty)),keypairpack(empty,empty),keypairpack(empty,empty),empty,empty,empty,false))) that may be in a table by 1 may be read at get {376}.
+The message concat3(dhexp(key_e(alice,bob),g),empty,encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))) that may be sent on channel pub by 3 may be received at input {355}.
+We have dhexp(key_e(alice,bob),g) <> caught-fail.
+So the entry statestore(bob,charlie,statepack_b(handshakestatepack(symmetricstatepack(cipherstatepack(empty,increment_nonce(minnonce)),hash(somename,empty),hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)))),keypairpack(empty,empty),keypairpack(empty,empty),empty,dhexp(key_e(alice,bob),g),empty,false))) may be inserted in a table at insert {375}.
+table(statestore(bob,charlie,statepack_b(handshakestatepack(symmetricstatepack(cipherstatepack(empty,increment_nonce(minnonce)),hash(somename,empty),hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)))),keypairpack(empty,empty),keypairpack(empty,empty),empty,dhexp(key_e(alice,bob),g),empty,false)))).
+
+5. The entry statestore(bob,charlie,statepack_b(handshakestatepack(symmetricstatepack(cipherstatepack(empty,increment_nonce(minnonce)),hash(somename,empty),hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)))),keypairpack(empty,empty),keypairpack(empty,empty),empty,dhexp(key_e(alice,bob),g),empty,false))) that may be in a table by 4 may be read at get {417}.
+The event SendMsg(bob,charlie,stage_b,msg_b(bob,charlie),true) may be executed at {414}.
+So the entry statestore(bob,charlie,statepack_c(handshakestatepack(symmetricstatepack(cipherstatepack(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),increment_nonce(increment_nonce(minnonce))),hmac_hash1(hash(somename,empty),dhexp(key_e(bob,charlie),dhexp(key_e(alice,bob),g))),hash(hash(hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),minnonce,hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),dhexp(key_s(bob),g))),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),increment_nonce(minnonce),hash(hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),minnonce,hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),dhexp(key_s(bob),g))),msg_b(bob,charlie)))),keypairpack(dhexp(key_s(bob),g),key_s(bob)),keypairpack(dhexp(key_e(bob,charlie),g),key_e(bob,charlie)),empty,dhexp(key_e(alice,bob),g),empty,false))) may be inserted in a table at insert {415}.
+table(statestore(bob,charlie,statepack_c(handshakestatepack(symmetricstatepack(cipherstatepack(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),increment_nonce(increment_nonce(minnonce))),hmac_hash1(hash(somename,empty),dhexp(key_e(bob,charlie),dhexp(key_e(alice,bob),g))),hash(hash(hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),minnonce,hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),dhexp(key_s(bob),g))),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),increment_nonce(minnonce),hash(hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),minnonce,hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),dhexp(key_s(bob),g))),msg_b(bob,charlie)))),keypairpack(dhexp(key_s(bob),g),key_s(bob)),keypairpack(dhexp(key_e(bob,charlie),g),key_e(bob,charlie)),empty,dhexp(key_e(alice,bob),g),empty,false)))).
+
+6. The entry statestore(alice,bob,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(somename,empty),empty)),keypairpack(empty,empty),keypairpack(empty,empty),empty,empty,empty,true))) may be inserted in a table at insert {12}.
+table(statestore(alice,bob,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(somename,empty),empty)),keypairpack(empty,empty),keypairpack(empty,empty),empty,empty,empty,true)))).
+
+7. The entry statestore(alice,bob,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(somename,empty),empty)),keypairpack(empty,empty),keypairpack(empty,empty),empty,empty,empty,true))) that may be in a table by 6 may be read at get {35}.
+The event SendMsg(alice,bob,stage_a,msg_a(alice,bob),true) may be executed at {32}.
+So the entry statestore(alice,bob,statepack_b(handshakestatepack(symmetricstatepack(cipherstatepack(empty,increment_nonce(minnonce)),hash(somename,empty),hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)))),keypairpack(empty,empty),keypairpack(dhexp(key_e(alice,bob),g),key_e(alice,bob)),empty,empty,empty,true))) may be inserted in a table at insert {33}.
+table(statestore(alice,bob,statepack_b(handshakestatepack(symmetricstatepack(cipherstatepack(empty,increment_nonce(minnonce)),hash(somename,empty),hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)))),keypairpack(empty,empty),keypairpack(dhexp(key_e(alice,bob),g),key_e(alice,bob)),empty,empty,empty,true)))).
+
+8. The entry statestore(bob,charlie,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(somename,empty),empty)),keypairpack(empty,empty),keypairpack(empty,empty),empty,empty,empty,false))) may be inserted in a table at insert {354}.
+table(statestore(bob,charlie,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(somename,empty),empty)),keypairpack(empty,empty),keypairpack(empty,empty),empty,empty,empty,false)))).
+
+9. The entry statestore(alice,bob,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(somename,empty),empty)),keypairpack(empty,empty),keypairpack(empty,empty),empty,empty,empty,true))) may be inserted in a table at insert {12}.
+table(statestore(alice,bob,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(somename,empty),empty)),keypairpack(empty,empty),keypairpack(empty,empty),empty,empty,empty,true)))).
+
+10. The entry statestore(alice,bob,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(somename,empty),empty)),keypairpack(empty,empty),keypairpack(empty,empty),empty,empty,empty,true))) that may be in a table by 9 may be read at get {35}.
+The event SendMsg(alice,bob,stage_a,msg_a(alice,bob),true) may be executed at {32}.
+So the message concat3(dhexp(key_e(alice,bob),g),empty,encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))) may be sent on channel pub at output {34}.
+mess(pub,concat3(dhexp(key_e(alice,bob),g),empty,encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)))).
+
+11. The entry statestore(bob,charlie,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(somename,empty),empty)),keypairpack(empty,empty),keypairpack(empty,empty),empty,empty,empty,false))) that may be in a table by 8 may be read at get {376}.
+The message concat3(dhexp(key_e(alice,bob),g),empty,encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))) that may be sent on channel pub by 10 may be received at input {355}.
+We have dhexp(key_e(alice,bob),g) <> caught-fail.
+So the entry statestore(bob,charlie,statepack_b(handshakestatepack(symmetricstatepack(cipherstatepack(empty,increment_nonce(minnonce)),hash(somename,empty),hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)))),keypairpack(empty,empty),keypairpack(empty,empty),empty,dhexp(key_e(alice,bob),g),empty,false))) may be inserted in a table at insert {375}.
+table(statestore(bob,charlie,statepack_b(handshakestatepack(symmetricstatepack(cipherstatepack(empty,increment_nonce(minnonce)),hash(somename,empty),hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)))),keypairpack(empty,empty),keypairpack(empty,empty),empty,dhexp(key_e(alice,bob),g),empty,false)))).
+
+12. The entry statestore(bob,charlie,statepack_b(handshakestatepack(symmetricstatepack(cipherstatepack(empty,increment_nonce(minnonce)),hash(somename,empty),hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)))),keypairpack(empty,empty),keypairpack(empty,empty),empty,dhexp(key_e(alice,bob),g),empty,false))) that may be in a table by 11 may be read at get {417}.
+The event SendMsg(bob,charlie,stage_b,msg_b(bob,charlie),true) may be executed at {414}.
+So the message concat3(dhexp(key_e(bob,charlie),g),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),minnonce,hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),dhexp(key_s(bob),g)),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),increment_nonce(minnonce),hash(hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),minnonce,hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),dhexp(key_s(bob),g))),msg_b(bob,charlie))) may be sent on channel pub at output {416}.
+mess(pub,concat3(dhexp(key_e(bob,charlie),g),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),minnonce,hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),dhexp(key_s(bob),g)),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),increment_nonce(minnonce),hash(hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),minnonce,hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),dhexp(key_s(bob),g))),msg_b(bob,charlie)))).
+
+13. The entry statestore(alice,bob,statepack_b(handshakestatepack(symmetricstatepack(cipherstatepack(empty,increment_nonce(minnonce)),hash(somename,empty),hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)))),keypairpack(empty,empty),keypairpack(dhexp(key_e(alice,bob),g),key_e(alice,bob)),empty,empty,empty,true))) that may be in a table by 7 may be read at get {76}.
+The message concat3(dhexp(key_e(bob,charlie),g),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),minnonce,hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),dhexp(key_s(bob),g)),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),increment_nonce(minnonce),hash(hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),minnonce,hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),dhexp(key_s(bob),g))),msg_b(bob,charlie))) that may be sent on channel pub by 12 may be received at input {36}.
+So the entry statestore(alice,bob,statepack_c(handshakestatepack(symmetricstatepack(cipherstatepack(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),increment_nonce(increment_nonce(minnonce))),hmac_hash1(hash(somename,empty),dhexp(key_e(bob,charlie),dhexp(key_e(alice,bob),g))),hash(hash(hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),minnonce,hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),dhexp(key_s(bob),g))),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),increment_nonce(minnonce),hash(hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),minnonce,hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),dhexp(key_s(bob),g))),msg_b(bob,charlie)))),keypairpack(empty,empty),keypairpack(dhexp(key_e(alice,bob),g),key_e(alice,bob)),dhexp(key_s(bob),g),dhexp(key_e(bob,charlie),g),empty,true))) may be inserted in a table at insert {75}.
+table(statestore(alice,bob,statepack_c(handshakestatepack(symmetricstatepack(cipherstatepack(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),increment_nonce(increment_nonce(minnonce))),hmac_hash1(hash(somename,empty),dhexp(key_e(bob,charlie),dhexp(key_e(alice,bob),g))),hash(hash(hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),minnonce,hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),dhexp(key_s(bob),g))),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),increment_nonce(minnonce),hash(hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),minnonce,hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),dhexp(key_s(bob),g))),msg_b(bob,charlie)))),keypairpack(empty,empty),keypairpack(dhexp(key_e(alice,bob),g),key_e(alice,bob)),dhexp(key_s(bob),g),dhexp(key_e(bob,charlie),g),empty,true)))).
+
+14. The entry statestore(alice,bob,statepack_c(handshakestatepack(symmetricstatepack(cipherstatepack(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),increment_nonce(increment_nonce(minnonce))),hmac_hash1(hash(somename,empty),dhexp(key_e(bob,charlie),dhexp(key_e(alice,bob),g))),hash(hash(hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),minnonce,hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),dhexp(key_s(bob),g))),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),increment_nonce(minnonce),hash(hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),minnonce,hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),dhexp(key_s(bob),g))),msg_b(bob,charlie)))),keypairpack(empty,empty),keypairpack(dhexp(key_e(alice,bob),g),key_e(alice,bob)),dhexp(key_s(bob),g),dhexp(key_e(bob,charlie),g),empty,true))) that may be in a table by 13 may be read at get {109}.
+The event SendMsg(alice,bob,stage_c,msg_c(alice,bob),true) may be executed at {106}.
+So the message concat3(empty,empty,encrypt(hmac_hash2(hmac_hash1(hash(somename,empty),dhexp(key_e(bob,charlie),dhexp(key_e(alice,bob),g))),dhexp(key_s(bob),dhexp(key_e(alice,bob),g))),minnonce,hash(hash(hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),minnonce,hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),dhexp(key_s(bob),g))),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),increment_nonce(minnonce),hash(hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),minnonce,hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),dhexp(key_s(bob),g))),msg_b(bob,charlie))),msg_c(alice,bob))) may be sent on channel pub at output {108}.
+mess(pub,concat3(empty,empty,encrypt(hmac_hash2(hmac_hash1(hash(somename,empty),dhexp(key_e(bob,charlie),dhexp(key_e(alice,bob),g))),dhexp(key_s(bob),dhexp(key_e(alice,bob),g))),minnonce,hash(hash(hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),minnonce,hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),dhexp(key_s(bob),g))),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),increment_nonce(minnonce),hash(hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),minnonce,hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),dhexp(key_s(bob),g))),msg_b(bob,charlie))),msg_c(alice,bob)))).
+
+15. The entry statestore(bob,charlie,statepack_c(handshakestatepack(symmetricstatepack(cipherstatepack(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),increment_nonce(increment_nonce(minnonce))),hmac_hash1(hash(somename,empty),dhexp(key_e(bob,charlie),dhexp(key_e(alice,bob),g))),hash(hash(hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),minnonce,hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),dhexp(key_s(bob),g))),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),increment_nonce(minnonce),hash(hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),minnonce,hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),dhexp(key_s(bob),g))),msg_b(bob,charlie)))),keypairpack(dhexp(key_s(bob),g),key_s(bob)),keypairpack(dhexp(key_e(bob,charlie),g),key_e(bob,charlie)),empty,dhexp(key_e(alice,bob),g),empty,false))) that may be in a table by 5 may be read at get {452}.
+The message concat3(empty,empty,encrypt(hmac_hash2(hmac_hash1(hash(somename,empty),dhexp(key_e(bob,charlie),dhexp(key_e(alice,bob),g))),dhexp(key_s(bob),dhexp(key_e(alice,bob),g))),minnonce,hash(hash(hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),minnonce,hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),dhexp(key_s(bob),g))),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),increment_nonce(minnonce),hash(hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),minnonce,hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),dhexp(key_s(bob),g))),msg_b(bob,charlie))),msg_c(alice,bob))) that may be sent on channel pub by 14 may be received at input {418}.
+So event RecvEnd(true) may be executed at {451}.
+end(RecvEnd(true)).
+
+
+Could not find a trace corresponding to this derivation.
+RESULT not event(RecvEnd(true)) cannot be proved.
