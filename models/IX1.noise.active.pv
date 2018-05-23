@@ -123,16 +123,6 @@ const maxnonce:nonce     [data].
 const empty:bitstring    [data].
 const somename:bitstring [data].
 
-const e_token:token      [data].
-const s_token:token      [data].
-const ee_token:token     [data].
-const es_token:token     [data].
-const se_token:token     [data].
-const ss_token:token     [data].
-const rs_token:token     [data].
-const re_token:token     [data].
-const rers_token:token   [data].
-const psk_token:token    [data].
 const notoken:token      [data].
 
 (* ---------------------------------------------------------------- *)
