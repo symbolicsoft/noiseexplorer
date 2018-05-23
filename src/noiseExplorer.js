@@ -5,7 +5,7 @@ const NOISE2PV = require('./parser/noise2Pv.js');
 const NOISEREADER = require('./parser/noiseReader.js');
 
 const HELPTEXT = [
-	'Noise Explorer v0.2',
+	'Noise Explorer version 0.3 (specification revision 34)',
 	'Noise Explorer can either generate models or render results, and the parameters',
 	'for either must be invoked exclusively.',
 	'',
