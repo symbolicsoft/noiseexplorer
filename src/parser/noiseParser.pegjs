@@ -127,6 +127,9 @@
 		}
 	};
 
+	// Ideas for more checks:
+	// - Check if all sent ephemerals are actually used (suggested by Katriel.)
+	// - Check if pattern names are accurate.
 	const errMsg = {
 		tooLongName: 'Handshake pattern names with a maximum length of 16 characters are currently supported.',
 		tooManyTokens: 'Message patterns with a maximum of 8 tokens are currently supported.',
