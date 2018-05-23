@@ -220,6 +220,14 @@ div.arrows svg circle[data-seclevel="1"] {
 }
 
 div.arrows svg circle[data-seclevel="2"] {
+	stroke: var(--noiseOrange);
+}
+
+div.arrows svg circle[data-seclevel="3"] {
+	stroke: var(--noiseGreen);
+}
+
+div.arrows svg circle[data-seclevel="4"] {
 	stroke: var(--noiseGreen);
 }
 
