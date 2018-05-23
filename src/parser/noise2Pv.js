@@ -309,14 +309,6 @@ const queries = (pattern) => {
 			`\tevent(RecvMsg(${recv}, ${send}, stage_${abc}, m, true)) ==> (event(SendMsg(${send}, ${recv}, stage_${abc}, m, true))) || (event(LeakS(phase0, ${send})));`
 		]);
 		if (hasPsk) {
-			quer = quer.concat([
-				`(* Message ${abc}: Authenticity 1 (PSK) *)`,
-				`\tevent(RecvMsg(${recv}, ${send}, stage_${abc}, m, true)) ==> (event(SendMsg(${send}, ${recv}, stage_${abc}, m, true))) || (event(LeakS(phase0, ${send})) || event(LeakS(phase0, ${recv}))) || event(LeakPsk(phase0, key_psk));`,
-				`\tevent(RecvMsg(${recv}, ${send}, stage_${abc}, m, true)) ==> (event(SendMsg(${send}, ${recv}, stage_${abc}, m, true))) || (event(LeakS(phase0, ${send})) || event(LeakS(phase0, ${recv}))) || event(LeakPsk(p, key_psk));`,
-				`(* Message ${abc}: Authenticity 2 (PSK) *)`,
-				`\tevent(RecvMsg(${recv}, ${send}, stage_${abc}, m, true)) ==> (event(SendMsg(${send}, ${recv}, stage_${abc}, m, true))) || ((event(LeakS(phase0, ${send})) || event(LeakPsk(phase0, key_psk))));`,
-				`\tevent(RecvMsg(${recv}, ${send}, stage_${abc}, m, true)) ==> (event(SendMsg(${send}, ${recv}, stage_${abc}, m, true))) || ((event(LeakS(phase0, ${send})) || event(LeakPsk(p, key_psk))));`,
-			]);
 		}
 		quer = quer.concat([
 			`(* Message ${abc}: Confidentiality sanity *)`,
@@ -329,19 +321,6 @@ const queries = (pattern) => {
 			`\tattacker(msg_${abc}(${send}, ${recv})) ==> (event(LeakS(phase0, ${recv})));`
 		]);
 		if (hasPsk) {
-			quer = quer.concat([
-				`(* Message ${abc}: Confidentiality sanity (PSK) *)`,
-				`\tattacker(msg_${abc}(${send}, ${recv}));`,
-				`(* Message ${abc}: Confidentiality ${confQuery21} (PSK) *)`,
-				`\tattacker(msg_${abc}(${send}, ${recv})) ==> (event(LeakS(phase0, ${recv}))) || (event(LeakS(phase1, ${recv})) || event(LeakPsk(phase0, key_psk)));`,
-				`\tattacker(msg_${abc}(${send}, ${recv})) ==> (event(LeakS(phase0, ${recv}))) || (event(LeakS(phase1, ${recv})) || event(LeakPsk(p, key_psk)));`,
-				`(* Message ${abc}: Confidentiality ${confQuery43} (PSK) *)`,
-				`\tattacker(msg_${abc}(${send}, ${recv})) ==> (event(LeakS(phase0, ${recv}))) || (((event(LeakS(phase1, ${recv})) && event(LeakS(p, ${send})))) || event(LeakPsk(phase0, key_psk)));`,
-				`\tattacker(msg_${abc}(${send}, ${recv})) ==> (event(LeakS(phase0, ${recv}))) || (((event(LeakS(phase1, ${recv})) && event(LeakS(p, ${send})))) || event(LeakPsk(p, key_psk)));`,
-				`(* Message ${abc}: Confidentiality 5 (PSK) *)`,
-				`\tattacker(msg_${abc}(${send}, ${recv})) ==> (event(LeakS(phase0, ${recv}))) || event(LeakPsk(phase0, key_psk));`,
-				`\tattacker(msg_${abc}(${send}, ${recv})) ==> (event(LeakS(phase0, ${recv}))) || event(LeakPsk(p, key_psk));`,
-			]);
 		}
 	});
 	quer.push(`\tevent(RecvEnd(true)).`);
