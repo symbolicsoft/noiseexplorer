@@ -521,7 +521,7 @@ query a:principal, b:principal, c:principal, s:stage, m:bitstring, p:phasen;
 (* Message e: Confidentiality 3 *)
 	attacker(msg_e(alice, bob)) ==> (event(LeakS(phase0, bob))) || ((event(LeakS(phase1, bob)) && event(LeakS(p, alice))));
 (* Message e: Confidentiality 5 *)
-	attacker(msg_e(alice, bob)) ==> (event(LeakS(phase0, bob)));
+	attacker(msg_e(alice, bob)) ==> (event(LeakS(phase0, bob))).
 
 (* ---------------------------------------------------------------- *)
 (* PROCESSES                                                        *)

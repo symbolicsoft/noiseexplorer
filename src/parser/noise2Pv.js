@@ -296,6 +296,7 @@ const queries = (pattern) => {
 		let abc = util.abc[i];
 		let confQuery21 = (params.attacker === 'active')? '2' : '1';
 		let confQuery43 = (params.attacker === 'active')? '4' : '3';
+		let end = (i < (pattern.messages.length - 1))? ';' : '.';
 		quer = quer.concat([
 			`(* Message ${abc}: Authenticity sanity *)`,
 			`\tevent(RecvMsg(${recv}, ${send}, stage_${abc}, m, true)) ==> (event(SendMsg(${send}, ${recv}, stage_${abc}, m, true)));`,
@@ -318,7 +319,7 @@ const queries = (pattern) => {
 			`(* Message ${abc}: Confidentiality ${confQuery43} *)`,
 			`\tattacker(msg_${abc}(${send}, ${recv})) ==> (event(LeakS(phase0, ${recv}))) || ((event(LeakS(phase1, ${recv})) && event(LeakS(p, ${send}))));`,
 			`(* Message ${abc}: Confidentiality 5 *)`,
-			`\tattacker(msg_${abc}(${send}, ${recv})) ==> (event(LeakS(phase0, ${recv})));`
+			`\tattacker(msg_${abc}(${send}, ${recv})) ==> (event(LeakS(phase0, ${recv})))${end}`
 		]);
 		if (hasPsk) {
 		}
