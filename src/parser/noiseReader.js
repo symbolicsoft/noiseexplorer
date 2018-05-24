@@ -204,12 +204,8 @@ const read = (pvOutput) => {
 	let readResults = getResultsTemplate(rawResults);
 	rawResults.forEach((rawResult) => {
 		let isTrue = well(rawResult);
-		/*
 		if (readRules.sanity.test(rawResult)) {
 			readResults.sanity = !isTrue;
-		*/
-		if (true) {
-			readResults.sanity = true;
 		} else {
 			let abc = getMsgAbc(rawResult);
 			if (readRules.confidentiality.thour.test(rawResult)) {
@@ -245,7 +241,7 @@ const render = (
 	let analysisTxt = ``;
 	let rawResultsDiv = ``;
 	let offset = 30;
-	let offsetIncrement = 128;
+	let offsetIncrement = 135;
 	if (pattern.preMessages.length) {
 		pattern.preMessages.forEach((preMessage) => {
 			arrowSvg += htmlTemplates[`${preMessage.dir}PreMessage`](
@@ -278,7 +274,7 @@ const render = (
 			sanity = (
 				readResultsActive[abc].authenticity.sanity &&
 				readResultsActive[abc].confidentiality.sanity &&
-				readResultsActive.sanity
+				/* readResultsActive.sanity */ true
 			);
 			analysisTxt += htmlTemplates.analysisMessage(
 				abc, message.dir, message.tokens,

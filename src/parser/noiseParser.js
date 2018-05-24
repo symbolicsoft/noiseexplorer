@@ -1076,7 +1076,7 @@ function peg$parse(input, options) {
   			(g.rs && (!g.ss && !g.es)) ||
   			(g.re && (!g.se && !g.ee))
   		) {
-  			error(errMsg.unusedKeySent);
+  			error(pattern.name + ' ' + errMsg.unusedKeySent);
   		}
   	},
   	psk: (pattern) => {

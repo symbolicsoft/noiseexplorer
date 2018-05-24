@@ -9,7 +9,7 @@ html {
 	--noiseDarkGray: #565C63;
 	--noiseBeige: #FFFCFC;
 	--noiseTextColor: #222;
-	--noiseHeight: 910px;
+	--noiseHeight: 1100px;
 }
 
 body {
@@ -37,6 +37,10 @@ ul {
 
 li {
 	margin-bottom: 10px;
+}
+
+h3 {
+	margin: 5% 0 0 0;
 }
 
 div.header {
@@ -103,8 +107,8 @@ div.nav div.navLinks {
 
 div.results {
 	width: 900px;
-	height: calc(var(--noiseHeight) + 120px);
-	margin: 1% auto 0 auto;
+	margin: 10px auto;
+	padding-bottom: 250px;
 }
 
 div.results.singleColumn {
@@ -116,6 +120,7 @@ div.results.singleColumn div.resultsExplanation {
 	float: none !important;
 	height: auto;
 	width: 855px;
+	padding-bottom: 20px;
 }
 
 div.arrowsFrame {
@@ -144,11 +149,11 @@ div.arrows {
 	margin: 0px auto;
 	width: 100%;
 	text-align: center;
+	padding-bottom: 150px;
 }
 
 div.arrows svg {
 	margin-top: 40px;
-	height: calc(var(--noiseHeight) - 24px);
 }
 
 div.arrows svg line {
@@ -260,12 +265,12 @@ div.arrows svg text.ellipsis {
 div.resultsExplanation {
 	float: right;
 	width: 500px;
-	height: calc(var(--noiseHeight) + 100px);
 	background-color: #FFFCFC;
 	padding: 0 20px 20px 20px;
 	border-radius: 5px;
 	border: 2px solid #FFF5F5;
 	text-align: justify;
+	padding-bottom: 250px;
 }
 
 div.resultsExplanation p {
