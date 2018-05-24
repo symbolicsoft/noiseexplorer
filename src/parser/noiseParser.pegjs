@@ -106,7 +106,7 @@ const check = {
 			(g.rs && (!g.ss && !g.es)) ||
 			(g.re && (!g.se && !g.ee))
 		) {
-			error(pattern.name + ' ' + errMsg.unusedKeySent);
+			error(errMsg.unusedKeySent);
 		}
 	},
 	psk: (pattern) => {
