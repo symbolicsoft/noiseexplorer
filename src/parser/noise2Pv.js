@@ -323,7 +323,7 @@ const queries = (pattern) => {
 		if (hasPsk) {
 		}
 	});
-	quer.push(`\tevent(RecvEnd(true)).`);
+	// quer.push(`\tevent(RecvEnd(true)).`);
 	return quer;
 };
 
