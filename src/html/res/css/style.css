@@ -114,6 +114,7 @@ div.results {
 div.results.singleColumn {
 	float: none;
 	height: auto;
+	padding-bottom: 0px;
 }
 
 div.results.singleColumn div.resultsExplanation {
