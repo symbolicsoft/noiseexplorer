@@ -4,6 +4,8 @@
 
 set redundancyElim = no.
 set expandIfTermsToTerms = true.
+set traceBacktracking = false.
+set reconstructTrace = false.
 set attacker = active.
 
 (* ---------------------------------------------------------------- *)
