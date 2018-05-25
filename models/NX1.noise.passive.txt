@@ -1,210 +1,210 @@
+File "NX1.noise.passive.pv", line 252, characters 7-8:
+Warning: identifier ck rebound.
 File "NX1.noise.passive.pv", line 261, characters 7-8:
 Warning: identifier ck rebound.
-File "NX1.noise.passive.pv", line 270, characters 7-8:
+File "NX1.noise.passive.pv", line 262, characters 7-8:
+Warning: identifier cs rebound.
+File "NX1.noise.passive.pv", line 262, character 36:
+Warning: identifier h rebound.
+File "NX1.noise.passive.pv", line 271, characters 7-8:
+Warning: identifier cs rebound.
+File "NX1.noise.passive.pv", line 272, characters 6-7:
+Warning: identifier ss rebound.
+File "NX1.noise.passive.pv", line 277, characters 7-8:
+Warning: identifier cs rebound.
+File "NX1.noise.passive.pv", line 278, characters 6-7:
+Warning: identifier ss rebound.
+File "NX1.noise.passive.pv", line 301, character 6:
+Warning: identifier e rebound.
+File "NX1.noise.passive.pv", line 302, characters 6-7:
+Warning: identifier ne rebound.
+File "NX1.noise.passive.pv", line 303, characters 6-7:
+Warning: identifier ss rebound.
+File "NX1.noise.passive.pv", line 305, characters 7-8:
+Warning: identifier ss rebound.
+File "NX1.noise.passive.pv", line 305, characters 26-36:
+Warning: identifier ciphertext2 rebound.
+File "NX1.noise.passive.pv", line 306, characters 6-7:
+Warning: identifier hs rebound.
+File "NX1.noise.passive.pv", line 313, character 6:
+Warning: identifier e rebound.
+File "NX1.noise.passive.pv", line 314, characters 6-7:
+Warning: identifier ne rebound.
+File "NX1.noise.passive.pv", line 315, characters 6-7:
+Warning: identifier ss rebound.
+File "NX1.noise.passive.pv", line 317, characters 6-7:
+Warning: identifier ss rebound.
+File "NX1.noise.passive.pv", line 318, character 6:
+Warning: identifier s rebound.
+File "NX1.noise.passive.pv", line 319, characters 7-8:
+Warning: identifier ss rebound.
+File "NX1.noise.passive.pv", line 319, characters 26-36:
+Warning: identifier ciphertext1 rebound.
+File "NX1.noise.passive.pv", line 320, characters 7-8:
+Warning: identifier ss rebound.
+File "NX1.noise.passive.pv", line 320, characters 26-36:
+Warning: identifier ciphertext2 rebound.
+File "NX1.noise.passive.pv", line 321, characters 6-7:
+Warning: identifier hs rebound.
+File "NX1.noise.passive.pv", line 328, characters 6-7:
+Warning: identifier ss rebound.
+File "NX1.noise.passive.pv", line 329, characters 7-8:
+Warning: identifier ss rebound.
+File "NX1.noise.passive.pv", line 329, characters 26-36:
+Warning: identifier ciphertext2 rebound.
+File "NX1.noise.passive.pv", line 330, characters 6-7:
+Warning: identifier hs rebound.
+File "NX1.noise.passive.pv", line 339, characters 6-7:
+Warning: identifier re rebound.
+File "NX1.noise.passive.pv", line 340, characters 6-7:
+Warning: identifier ss rebound.
+File "NX1.noise.passive.pv", line 342, characters 7-8:
+Warning: identifier ss rebound.
+File "NX1.noise.passive.pv", line 344, characters 7-8:
+Warning: identifier hs rebound.
+File "NX1.noise.passive.pv", line 352, characters 6-7:
+Warning: identifier re rebound.
+File "NX1.noise.passive.pv", line 353, characters 6-7:
+Warning: identifier ss rebound.
+File "NX1.noise.passive.pv", line 355, characters 6-7:
+Warning: identifier ss rebound.
+File "NX1.noise.passive.pv", line 356, characters 7-8:
+Warning: identifier ss rebound.
+File "NX1.noise.passive.pv", line 356, characters 48-53:
+Warning: identifier valid1 rebound.
+File "NX1.noise.passive.pv", line 357, characters 6-7:
+Warning: identifier rs rebound.
+File "NX1.noise.passive.pv", line 358, characters 7-8:
+Warning: identifier ss rebound.
+File "NX1.noise.passive.pv", line 360, characters 7-8:
+Warning: identifier hs rebound.
+File "NX1.noise.passive.pv", line 368, characters 6-7:
+Warning: identifier ss rebound.
+File "NX1.noise.passive.pv", line 369, characters 7-8:
+Warning: identifier ss rebound.
+File "NX1.noise.passive.pv", line 371, characters 7-8:
+Warning: identifier hs rebound.
+File "NX1.noise.passive.pv", line 489, characters 8-9:
+Warning: identifier hs rebound.
+File "NX1.noise.passive.pv", line 328, characters 6-7:
+Warning: identifier ss rebound.
+File "NX1.noise.passive.pv", line 329, characters 7-8:
+Warning: identifier ss rebound.
+File "NX1.noise.passive.pv", line 329, characters 26-36:
+Warning: identifier ciphertext2 rebound.
+File "NX1.noise.passive.pv", line 330, characters 6-7:
+Warning: identifier hs rebound.
+File "NX1.noise.passive.pv", line 252, characters 7-8:
 Warning: identifier ck rebound.
 File "NX1.noise.passive.pv", line 271, characters 7-8:
 Warning: identifier cs rebound.
-File "NX1.noise.passive.pv", line 271, character 36:
-Warning: identifier h rebound.
-File "NX1.noise.passive.pv", line 280, characters 7-8:
-Warning: identifier cs rebound.
-File "NX1.noise.passive.pv", line 281, characters 6-7:
+File "NX1.noise.passive.pv", line 272, characters 6-7:
 Warning: identifier ss rebound.
-File "NX1.noise.passive.pv", line 286, characters 7-8:
-Warning: identifier cs rebound.
-File "NX1.noise.passive.pv", line 287, characters 6-7:
-Warning: identifier ss rebound.
-File "NX1.noise.passive.pv", line 310, character 6:
-Warning: identifier e rebound.
-File "NX1.noise.passive.pv", line 311, characters 6-7:
-Warning: identifier ne rebound.
-File "NX1.noise.passive.pv", line 312, characters 6-7:
-Warning: identifier ss rebound.
-File "NX1.noise.passive.pv", line 314, characters 7-8:
-Warning: identifier ss rebound.
-File "NX1.noise.passive.pv", line 314, characters 26-36:
-Warning: identifier ciphertext2 rebound.
-File "NX1.noise.passive.pv", line 315, characters 6-7:
+File "NX1.noise.passive.pv", line 482, characters 8-9:
 Warning: identifier hs rebound.
-File "NX1.noise.passive.pv", line 322, character 6:
-Warning: identifier e rebound.
-File "NX1.noise.passive.pv", line 323, characters 6-7:
-Warning: identifier ne rebound.
-File "NX1.noise.passive.pv", line 324, characters 6-7:
-Warning: identifier ss rebound.
-File "NX1.noise.passive.pv", line 326, characters 6-7:
-Warning: identifier ss rebound.
-File "NX1.noise.passive.pv", line 327, character 6:
-Warning: identifier s rebound.
-File "NX1.noise.passive.pv", line 328, characters 7-8:
-Warning: identifier ss rebound.
-File "NX1.noise.passive.pv", line 328, characters 26-36:
-Warning: identifier ciphertext1 rebound.
-File "NX1.noise.passive.pv", line 329, characters 7-8:
-Warning: identifier ss rebound.
-File "NX1.noise.passive.pv", line 329, characters 26-36:
-Warning: identifier ciphertext2 rebound.
-File "NX1.noise.passive.pv", line 330, characters 6-7:
-Warning: identifier hs rebound.
-File "NX1.noise.passive.pv", line 337, characters 6-7:
-Warning: identifier ss rebound.
-File "NX1.noise.passive.pv", line 338, characters 7-8:
-Warning: identifier ss rebound.
-File "NX1.noise.passive.pv", line 338, characters 26-36:
-Warning: identifier ciphertext2 rebound.
-File "NX1.noise.passive.pv", line 339, characters 6-7:
-Warning: identifier hs rebound.
-File "NX1.noise.passive.pv", line 348, characters 6-7:
+File "NX1.noise.passive.pv", line 352, characters 6-7:
 Warning: identifier re rebound.
-File "NX1.noise.passive.pv", line 349, characters 6-7:
+File "NX1.noise.passive.pv", line 353, characters 6-7:
 Warning: identifier ss rebound.
-File "NX1.noise.passive.pv", line 351, characters 7-8:
+File "NX1.noise.passive.pv", line 355, characters 6-7:
 Warning: identifier ss rebound.
-File "NX1.noise.passive.pv", line 353, characters 7-8:
-Warning: identifier hs rebound.
-File "NX1.noise.passive.pv", line 361, characters 6-7:
-Warning: identifier re rebound.
-File "NX1.noise.passive.pv", line 362, characters 6-7:
+File "NX1.noise.passive.pv", line 356, characters 7-8:
 Warning: identifier ss rebound.
-File "NX1.noise.passive.pv", line 364, characters 6-7:
-Warning: identifier ss rebound.
-File "NX1.noise.passive.pv", line 365, characters 7-8:
-Warning: identifier ss rebound.
-File "NX1.noise.passive.pv", line 365, characters 48-53:
+File "NX1.noise.passive.pv", line 356, characters 48-53:
 Warning: identifier valid1 rebound.
-File "NX1.noise.passive.pv", line 366, characters 6-7:
+File "NX1.noise.passive.pv", line 357, characters 6-7:
 Warning: identifier rs rebound.
-File "NX1.noise.passive.pv", line 367, characters 7-8:
+File "NX1.noise.passive.pv", line 358, characters 7-8:
+Warning: identifier ss rebound.
+File "NX1.noise.passive.pv", line 360, characters 7-8:
+Warning: identifier hs rebound.
+File "NX1.noise.passive.pv", line 252, characters 7-8:
+Warning: identifier ck rebound.
+File "NX1.noise.passive.pv", line 277, characters 7-8:
+Warning: identifier cs rebound.
+File "NX1.noise.passive.pv", line 278, characters 6-7:
+Warning: identifier ss rebound.
+File "NX1.noise.passive.pv", line 277, characters 7-8:
+Warning: identifier cs rebound.
+File "NX1.noise.passive.pv", line 278, characters 6-7:
+Warning: identifier ss rebound.
+File "NX1.noise.passive.pv", line 474, characters 8-9:
+Warning: identifier hs rebound.
+File "NX1.noise.passive.pv", line 301, character 6:
+Warning: identifier e rebound.
+File "NX1.noise.passive.pv", line 302, characters 6-7:
+Warning: identifier ne rebound.
+File "NX1.noise.passive.pv", line 303, characters 6-7:
+Warning: identifier ss rebound.
+File "NX1.noise.passive.pv", line 305, characters 7-8:
+Warning: identifier ss rebound.
+File "NX1.noise.passive.pv", line 305, characters 26-36:
+Warning: identifier ciphertext2 rebound.
+File "NX1.noise.passive.pv", line 306, characters 6-7:
+Warning: identifier hs rebound.
+File "NX1.noise.passive.pv", line 271, characters 7-8:
+Warning: identifier cs rebound.
+File "NX1.noise.passive.pv", line 272, characters 6-7:
+Warning: identifier ss rebound.
+File "NX1.noise.passive.pv", line 532, characters 8-9:
+Warning: identifier hs rebound.
+File "NX1.noise.passive.pv", line 368, characters 6-7:
 Warning: identifier ss rebound.
 File "NX1.noise.passive.pv", line 369, characters 7-8:
-Warning: identifier hs rebound.
-File "NX1.noise.passive.pv", line 377, characters 6-7:
 Warning: identifier ss rebound.
-File "NX1.noise.passive.pv", line 378, characters 7-8:
-Warning: identifier ss rebound.
-File "NX1.noise.passive.pv", line 380, characters 7-8:
+File "NX1.noise.passive.pv", line 371, characters 7-8:
 Warning: identifier hs rebound.
-File "NX1.noise.passive.pv", line 499, characters 8-9:
-Warning: identifier hs rebound.
-File "NX1.noise.passive.pv", line 337, characters 6-7:
-Warning: identifier ss rebound.
-File "NX1.noise.passive.pv", line 338, characters 7-8:
-Warning: identifier ss rebound.
-File "NX1.noise.passive.pv", line 338, characters 26-36:
-Warning: identifier ciphertext2 rebound.
-File "NX1.noise.passive.pv", line 339, characters 6-7:
-Warning: identifier hs rebound.
-File "NX1.noise.passive.pv", line 261, characters 7-8:
+File "NX1.noise.passive.pv", line 252, characters 7-8:
 Warning: identifier ck rebound.
-File "NX1.noise.passive.pv", line 280, characters 7-8:
+File "NX1.noise.passive.pv", line 277, characters 7-8:
 Warning: identifier cs rebound.
-File "NX1.noise.passive.pv", line 281, characters 6-7:
+File "NX1.noise.passive.pv", line 278, characters 6-7:
 Warning: identifier ss rebound.
-File "NX1.noise.passive.pv", line 492, characters 8-9:
+File "NX1.noise.passive.pv", line 524, characters 8-9:
 Warning: identifier hs rebound.
-File "NX1.noise.passive.pv", line 361, characters 6-7:
-Warning: identifier re rebound.
-File "NX1.noise.passive.pv", line 362, characters 6-7:
-Warning: identifier ss rebound.
-File "NX1.noise.passive.pv", line 364, characters 6-7:
-Warning: identifier ss rebound.
-File "NX1.noise.passive.pv", line 365, characters 7-8:
-Warning: identifier ss rebound.
-File "NX1.noise.passive.pv", line 365, characters 48-53:
-Warning: identifier valid1 rebound.
-File "NX1.noise.passive.pv", line 366, characters 6-7:
-Warning: identifier rs rebound.
-File "NX1.noise.passive.pv", line 367, characters 7-8:
-Warning: identifier ss rebound.
-File "NX1.noise.passive.pv", line 369, characters 7-8:
-Warning: identifier hs rebound.
-File "NX1.noise.passive.pv", line 261, characters 7-8:
-Warning: identifier ck rebound.
-File "NX1.noise.passive.pv", line 286, characters 7-8:
-Warning: identifier cs rebound.
-File "NX1.noise.passive.pv", line 287, characters 6-7:
-Warning: identifier ss rebound.
-File "NX1.noise.passive.pv", line 286, characters 7-8:
-Warning: identifier cs rebound.
-File "NX1.noise.passive.pv", line 287, characters 6-7:
-Warning: identifier ss rebound.
-File "NX1.noise.passive.pv", line 484, characters 8-9:
-Warning: identifier hs rebound.
-File "NX1.noise.passive.pv", line 310, character 6:
+File "NX1.noise.passive.pv", line 313, character 6:
 Warning: identifier e rebound.
-File "NX1.noise.passive.pv", line 311, characters 6-7:
+File "NX1.noise.passive.pv", line 314, characters 6-7:
 Warning: identifier ne rebound.
-File "NX1.noise.passive.pv", line 312, characters 6-7:
-Warning: identifier ss rebound.
-File "NX1.noise.passive.pv", line 314, characters 7-8:
-Warning: identifier ss rebound.
-File "NX1.noise.passive.pv", line 314, characters 26-36:
-Warning: identifier ciphertext2 rebound.
 File "NX1.noise.passive.pv", line 315, characters 6-7:
-Warning: identifier hs rebound.
-File "NX1.noise.passive.pv", line 280, characters 7-8:
-Warning: identifier cs rebound.
-File "NX1.noise.passive.pv", line 281, characters 6-7:
 Warning: identifier ss rebound.
-File "NX1.noise.passive.pv", line 542, characters 8-9:
-Warning: identifier hs rebound.
-File "NX1.noise.passive.pv", line 377, characters 6-7:
+File "NX1.noise.passive.pv", line 317, characters 6-7:
 Warning: identifier ss rebound.
-File "NX1.noise.passive.pv", line 378, characters 7-8:
-Warning: identifier ss rebound.
-File "NX1.noise.passive.pv", line 380, characters 7-8:
-Warning: identifier hs rebound.
-File "NX1.noise.passive.pv", line 261, characters 7-8:
-Warning: identifier ck rebound.
-File "NX1.noise.passive.pv", line 286, characters 7-8:
-Warning: identifier cs rebound.
-File "NX1.noise.passive.pv", line 287, characters 6-7:
-Warning: identifier ss rebound.
-File "NX1.noise.passive.pv", line 534, characters 8-9:
-Warning: identifier hs rebound.
-File "NX1.noise.passive.pv", line 322, character 6:
-Warning: identifier e rebound.
-File "NX1.noise.passive.pv", line 323, characters 6-7:
-Warning: identifier ne rebound.
-File "NX1.noise.passive.pv", line 324, characters 6-7:
-Warning: identifier ss rebound.
-File "NX1.noise.passive.pv", line 326, characters 6-7:
-Warning: identifier ss rebound.
-File "NX1.noise.passive.pv", line 327, character 6:
+File "NX1.noise.passive.pv", line 318, character 6:
 Warning: identifier s rebound.
-File "NX1.noise.passive.pv", line 328, characters 7-8:
+File "NX1.noise.passive.pv", line 319, characters 7-8:
 Warning: identifier ss rebound.
-File "NX1.noise.passive.pv", line 328, characters 26-36:
+File "NX1.noise.passive.pv", line 319, characters 26-36:
 Warning: identifier ciphertext1 rebound.
-File "NX1.noise.passive.pv", line 329, characters 7-8:
+File "NX1.noise.passive.pv", line 320, characters 7-8:
 Warning: identifier ss rebound.
-File "NX1.noise.passive.pv", line 329, characters 26-36:
+File "NX1.noise.passive.pv", line 320, characters 26-36:
 Warning: identifier ciphertext2 rebound.
-File "NX1.noise.passive.pv", line 330, characters 6-7:
+File "NX1.noise.passive.pv", line 321, characters 6-7:
 Warning: identifier hs rebound.
-File "NX1.noise.passive.pv", line 261, characters 7-8:
+File "NX1.noise.passive.pv", line 252, characters 7-8:
 Warning: identifier ck rebound.
-File "NX1.noise.passive.pv", line 280, characters 7-8:
+File "NX1.noise.passive.pv", line 271, characters 7-8:
 Warning: identifier cs rebound.
-File "NX1.noise.passive.pv", line 281, characters 6-7:
+File "NX1.noise.passive.pv", line 272, characters 6-7:
 Warning: identifier ss rebound.
-File "NX1.noise.passive.pv", line 280, characters 7-8:
+File "NX1.noise.passive.pv", line 271, characters 7-8:
 Warning: identifier cs rebound.
-File "NX1.noise.passive.pv", line 281, characters 6-7:
+File "NX1.noise.passive.pv", line 272, characters 6-7:
 Warning: identifier ss rebound.
-File "NX1.noise.passive.pv", line 527, characters 8-9:
+File "NX1.noise.passive.pv", line 517, characters 8-9:
 Warning: identifier hs rebound.
-File "NX1.noise.passive.pv", line 348, characters 6-7:
+File "NX1.noise.passive.pv", line 339, characters 6-7:
 Warning: identifier re rebound.
-File "NX1.noise.passive.pv", line 349, characters 6-7:
+File "NX1.noise.passive.pv", line 340, characters 6-7:
 Warning: identifier ss rebound.
-File "NX1.noise.passive.pv", line 351, characters 7-8:
+File "NX1.noise.passive.pv", line 342, characters 7-8:
 Warning: identifier ss rebound.
-File "NX1.noise.passive.pv", line 353, characters 7-8:
+File "NX1.noise.passive.pv", line 344, characters 7-8:
 Warning: identifier hs rebound.
-File "NX1.noise.passive.pv", line 286, characters 7-8:
+File "NX1.noise.passive.pv", line 277, characters 7-8:
 Warning: identifier cs rebound.
-File "NX1.noise.passive.pv", line 287, characters 6-7:
+File "NX1.noise.passive.pv", line 278, characters 6-7:
 Warning: identifier ss rebound.
 Linear part:
 dhexp(b_49,dhexp(a_48,g)) = dhexp(a_48,dhexp(b_49,g))
@@ -708,23 +708,23 @@ Process:
     {458}out(pub, (key_s(charlie),key_e(charlie,alice),key_e(charlie,bob)))
 )
 
--- Query event(RecvMsg(bob,alice,stage_a,m,true)) ==> event(SendMsg(alice,bob,stage_a,m,true)); event(RecvMsg(bob,alice,stage_a,m,true)) ==> event(SendMsg(alice,c_937,stage_a,m,true)) || event(LeakS(phase0,alice)) || event(LeakS(phase0,bob)); event(RecvMsg(bob,alice,stage_a,m,true)) ==> event(SendMsg(alice,c_937,stage_a,m,true)) || event(LeakS(phase0,alice)); event(RecvMsg(bob,alice,stage_a,m,true)) ==> event(SendMsg(alice,bob,stage_a,m,true)) || event(LeakS(phase0,alice)) || event(LeakS(phase0,bob)); event(RecvMsg(bob,alice,stage_a,m,true)) ==> event(SendMsg(alice,bob,stage_a,m,true)) || event(LeakS(phase0,alice)); not attacker_p1(msg_a(alice,bob)); attacker_p1(msg_a(alice,bob)) ==> event(LeakS(phase0,bob)) || event(LeakS(phase1,bob)); attacker_p1(msg_a(alice,bob)) ==> event(LeakS(phase0,bob)) || (event(LeakS(phase1,bob)) && event(LeakS(p,alice))); attacker_p1(msg_a(alice,bob)) ==> event(LeakS(phase0,bob)); event(RecvMsg(alice,bob,stage_b,m,true)) ==> event(SendMsg(bob,alice,stage_b,m,true)); event(RecvMsg(alice,bob,stage_b,m,true)) ==> event(SendMsg(bob,c_937,stage_b,m,true)) || event(LeakS(phase0,bob)) || event(LeakS(phase0,alice)); event(RecvMsg(alice,bob,stage_b,m,true)) ==> event(SendMsg(bob,c_937,stage_b,m,true)) || event(LeakS(phase0,bob)); event(RecvMsg(alice,bob,stage_b,m,true)) ==> event(SendMsg(bob,alice,stage_b,m,true)) || event(LeakS(phase0,bob)) || event(LeakS(phase0,alice)); event(RecvMsg(alice,bob,stage_b,m,true)) ==> event(SendMsg(bob,alice,stage_b,m,true)) || event(LeakS(phase0,bob)); not attacker_p1(msg_b(bob,alice)); attacker_p1(msg_b(bob,alice)) ==> event(LeakS(phase0,alice)) || event(LeakS(phase1,alice)); attacker_p1(msg_b(bob,alice)) ==> event(LeakS(phase0,alice)) || (event(LeakS(phase1,alice)) && event(LeakS(p,bob))); attacker_p1(msg_b(bob,alice)) ==> event(LeakS(phase0,alice)); event(RecvMsg(bob,alice,stage_c,m,true)) ==> event(SendMsg(alice,bob,stage_c,m,true)); event(RecvMsg(bob,alice,stage_c,m,true)) ==> event(SendMsg(alice,c_937,stage_c,m,true)) || event(LeakS(phase0,alice)) || event(LeakS(phase0,bob)); event(RecvMsg(bob,alice,stage_c,m,true)) ==> event(SendMsg(alice,c_937,stage_c,m,true)) || event(LeakS(phase0,alice)); event(RecvMsg(bob,alice,stage_c,m,true)) ==> event(SendMsg(alice,bob,stage_c,m,true)) || event(LeakS(phase0,alice)) || event(LeakS(phase0,bob)); event(RecvMsg(bob,alice,stage_c,m,true)) ==> event(SendMsg(alice,bob,stage_c,m,true)) || event(LeakS(phase0,alice)); not attacker_p1(msg_c(alice,bob)); attacker_p1(msg_c(alice,bob)) ==> event(LeakS(phase0,bob)) || event(LeakS(phase1,bob)); attacker_p1(msg_c(alice,bob)) ==> event(LeakS(phase0,bob)) || (event(LeakS(phase1,bob)) && event(LeakS(p,alice))); attacker_p1(msg_c(alice,bob)) ==> event(LeakS(phase0,bob)); not event(RecvEnd(true))
+-- Query event(RecvMsg(bob,alice,stage_a,m,true)) ==> event(SendMsg(alice,bob,stage_a,m,true)); event(RecvMsg(bob,alice,stage_a,m,true)) ==> event(SendMsg(alice,c_937,stage_a,m,true)) || event(LeakS(phase0,alice)) || event(LeakS(phase0,bob)); event(RecvMsg(bob,alice,stage_a,m,true)) ==> event(SendMsg(alice,c_937,stage_a,m,true)) || event(LeakS(phase0,alice)); event(RecvMsg(bob,alice,stage_a,m,true)) ==> event(SendMsg(alice,bob,stage_a,m,true)) || event(LeakS(phase0,alice)) || event(LeakS(phase0,bob)); event(RecvMsg(bob,alice,stage_a,m,true)) ==> event(SendMsg(alice,bob,stage_a,m,true)) || event(LeakS(phase0,alice)); not attacker_p1(msg_a(alice,bob)); attacker_p1(msg_a(alice,bob)) ==> event(LeakS(phase0,bob)) || event(LeakS(phase1,bob)); attacker_p1(msg_a(alice,bob)) ==> event(LeakS(phase0,bob)) || (event(LeakS(phase1,bob)) && event(LeakS(p,alice))); attacker_p1(msg_a(alice,bob)) ==> event(LeakS(phase0,bob)); event(RecvMsg(alice,bob,stage_b,m,true)) ==> event(SendMsg(bob,alice,stage_b,m,true)); event(RecvMsg(alice,bob,stage_b,m,true)) ==> event(SendMsg(bob,c_937,stage_b,m,true)) || event(LeakS(phase0,bob)) || event(LeakS(phase0,alice)); event(RecvMsg(alice,bob,stage_b,m,true)) ==> event(SendMsg(bob,c_937,stage_b,m,true)) || event(LeakS(phase0,bob)); event(RecvMsg(alice,bob,stage_b,m,true)) ==> event(SendMsg(bob,alice,stage_b,m,true)) || event(LeakS(phase0,bob)) || event(LeakS(phase0,alice)); event(RecvMsg(alice,bob,stage_b,m,true)) ==> event(SendMsg(bob,alice,stage_b,m,true)) || event(LeakS(phase0,bob)); not attacker_p1(msg_b(bob,alice)); attacker_p1(msg_b(bob,alice)) ==> event(LeakS(phase0,alice)) || event(LeakS(phase1,alice)); attacker_p1(msg_b(bob,alice)) ==> event(LeakS(phase0,alice)) || (event(LeakS(phase1,alice)) && event(LeakS(p,bob))); attacker_p1(msg_b(bob,alice)) ==> event(LeakS(phase0,alice)); event(RecvMsg(bob,alice,stage_c,m,true)) ==> event(SendMsg(alice,bob,stage_c,m,true)); event(RecvMsg(bob,alice,stage_c,m,true)) ==> event(SendMsg(alice,c_937,stage_c,m,true)) || event(LeakS(phase0,alice)) || event(LeakS(phase0,bob)); event(RecvMsg(bob,alice,stage_c,m,true)) ==> event(SendMsg(alice,c_937,stage_c,m,true)) || event(LeakS(phase0,alice)); event(RecvMsg(bob,alice,stage_c,m,true)) ==> event(SendMsg(alice,bob,stage_c,m,true)) || event(LeakS(phase0,alice)) || event(LeakS(phase0,bob)); event(RecvMsg(bob,alice,stage_c,m,true)) ==> event(SendMsg(alice,bob,stage_c,m,true)) || event(LeakS(phase0,alice)); not attacker_p1(msg_c(alice,bob)); attacker_p1(msg_c(alice,bob)) ==> event(LeakS(phase0,bob)) || event(LeakS(phase1,bob)); attacker_p1(msg_c(alice,bob)) ==> event(LeakS(phase0,bob)) || (event(LeakS(phase1,bob)) && event(LeakS(p,alice))); attacker_p1(msg_c(alice,bob)) ==> event(LeakS(phase0,bob))
 Completing...
-200 rules inserted. The rule base contains 200 rules. 153 rules in the queue.
-400 rules inserted. The rule base contains 387 rules. 34 rules in the queue.
-600 rules inserted. The rule base contains 567 rules. 54 rules in the queue.
-800 rules inserted. The rule base contains 746 rules. 133 rules in the queue.
-1000 rules inserted. The rule base contains 887 rules. 97 rules in the queue.
-1200 rules inserted. The rule base contains 1026 rules. 151 rules in the queue.
-1400 rules inserted. The rule base contains 1151 rules. 153 rules in the queue.
-1600 rules inserted. The rule base contains 1305 rules. 181 rules in the queue.
-1800 rules inserted. The rule base contains 1399 rules. 148 rules in the queue.
-2000 rules inserted. The rule base contains 1496 rules. 139 rules in the queue.
-2200 rules inserted. The rule base contains 1580 rules. 113 rules in the queue.
-2400 rules inserted. The rule base contains 1658 rules. 94 rules in the queue.
-2600 rules inserted. The rule base contains 1800 rules. 104 rules in the queue.
-2800 rules inserted. The rule base contains 1953 rules. 108 rules in the queue.
-3000 rules inserted. The rule base contains 2044 rules. 28 rules in the queue.
+200 rules inserted. The rule base contains 200 rules. 130 rules in the queue.
+400 rules inserted. The rule base contains 389 rules. 135 rules in the queue.
+600 rules inserted. The rule base contains 567 rules. 102 rules in the queue.
+800 rules inserted. The rule base contains 737 rules. 126 rules in the queue.
+1000 rules inserted. The rule base contains 865 rules. 99 rules in the queue.
+1200 rules inserted. The rule base contains 1002 rules. 148 rules in the queue.
+1400 rules inserted. The rule base contains 1136 rules. 160 rules in the queue.
+1600 rules inserted. The rule base contains 1286 rules. 175 rules in the queue.
+1800 rules inserted. The rule base contains 1380 rules. 146 rules in the queue.
+2000 rules inserted. The rule base contains 1464 rules. 134 rules in the queue.
+2200 rules inserted. The rule base contains 1544 rules. 119 rules in the queue.
+2400 rules inserted. The rule base contains 1625 rules. 105 rules in the queue.
+2600 rules inserted. The rule base contains 1797 rules. 117 rules in the queue.
+2800 rules inserted. The rule base contains 1941 rules. 98 rules in the queue.
+3000 rules inserted. The rule base contains 1967 rules. 6 rules in the queue.
 Starting query event(RecvMsg(bob,alice,stage_a,m,true)) ==> event(SendMsg(alice,bob,stage_a,m,true))
 goal reachable: begin(SendMsg(alice,charlie,stage_a,msg_a(alice,charlie),true)) -> end(RecvMsg(bob,alice,stage_a,msg_a(alice,charlie),true))
 
@@ -825,47 +825,54 @@ attacker(concat3(dhexp(key_e(alice,bob),g),empty,encrypt(empty,minnonce,hash(has
 Using the function 3-proj-concat3 the attacker may obtain encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)).
 attacker(encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))).
 
-6. By 4, the attacker may know concat3(dhexp(key_e(alice,bob),g),empty,encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))).
+6. By 5, the attacker may know encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)).
+So the attacker may know encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)) in phase 1.
+attacker_p1(encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))).
+
+7. By 4, the attacker may know concat3(dhexp(key_e(alice,bob),g),empty,encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))).
 Using the function 1-proj-concat3 the attacker may obtain dhexp(key_e(alice,bob),g).
 attacker(dhexp(key_e(alice,bob),g)).
 
-7. Using the function empty the attacker may obtain empty.
+8. Using the function empty the attacker may obtain empty.
 attacker(empty).
 
-8. Using the function somename the attacker may obtain somename.
+9. Using the function somename the attacker may obtain somename.
 attacker(somename).
 
-9. By 8, the attacker may know somename.
-By 7, the attacker may know empty.
+10. By 9, the attacker may know somename.
+By 8, the attacker may know empty.
 Using the function hash the attacker may obtain hash(somename,empty).
 attacker(hash(somename,empty)).
 
-10. By 9, the attacker may know hash(somename,empty).
-By 7, the attacker may know empty.
+11. By 10, the attacker may know hash(somename,empty).
+By 8, the attacker may know empty.
 Using the function hash the attacker may obtain hash(hash(somename,empty),empty).
 attacker(hash(hash(somename,empty),empty)).
 
-11. By 10, the attacker may know hash(hash(somename,empty),empty).
-By 6, the attacker may know dhexp(key_e(alice,bob),g).
+12. By 11, the attacker may know hash(hash(somename,empty),empty).
+By 7, the attacker may know dhexp(key_e(alice,bob),g).
 Using the function hash the attacker may obtain hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)).
 attacker(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g))).
 
-12. Using the function minnonce the attacker may obtain minnonce.
-attacker(minnonce).
+13. By 12, the attacker may know hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)).
+So the attacker may know hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)) in phase 1.
+attacker_p1(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g))).
 
-13. By 7, the attacker may know empty.
-By 12, the attacker may know minnonce.
-By 11, the attacker may know hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)).
-By 5, the attacker may know encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)).
-Using the function decrypt the attacker may obtain aeadpack(true,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)).
-attacker(aeadpack(true,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))).
+14. Using the function minnonce the attacker may obtain minnonce in phase 1.
+attacker_p1(minnonce).
 
-14. By 13, the attacker may know aeadpack(true,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)).
-Using the function 3-proj-aeadpack the attacker may obtain msg_a(alice,bob).
-attacker(msg_a(alice,bob)).
+15. Using the function empty the attacker may obtain empty in phase 1.
+attacker_p1(empty).
 
-15. By 14, the attacker may know msg_a(alice,bob).
-So the attacker may know msg_a(alice,bob) in phase 1.
+16. By 15, the attacker may know empty in phase 1.
+By 14, the attacker may know minnonce in phase 1.
+By 13, the attacker may know hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)) in phase 1.
+By 6, the attacker may know encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)) in phase 1.
+Using the function decrypt the attacker may obtain aeadpack(true,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)) in phase 1.
+attacker_p1(aeadpack(true,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))).
+
+17. By 16, the attacker may know aeadpack(true,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)) in phase 1.
+Using the function 3-proj-aeadpack the attacker may obtain msg_a(alice,bob) in phase 1.
 attacker_p1(msg_a(alice,bob)).
 
 
@@ -894,47 +901,54 @@ attacker(concat3(dhexp(key_e(alice,bob),g),empty,encrypt(empty,minnonce,hash(has
 Using the function 3-proj-concat3 the attacker may obtain encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)).
 attacker(encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))).
 
-6. By 4, the attacker may know concat3(dhexp(key_e(alice,bob),g),empty,encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))).
+6. By 5, the attacker may know encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)).
+So the attacker may know encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)) in phase 1.
+attacker_p1(encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))).
+
+7. By 4, the attacker may know concat3(dhexp(key_e(alice,bob),g),empty,encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))).
 Using the function 1-proj-concat3 the attacker may obtain dhexp(key_e(alice,bob),g).
 attacker(dhexp(key_e(alice,bob),g)).
 
-7. Using the function empty the attacker may obtain empty.
+8. Using the function empty the attacker may obtain empty.
 attacker(empty).
 
-8. Using the function somename the attacker may obtain somename.
+9. Using the function somename the attacker may obtain somename.
 attacker(somename).
 
-9. By 8, the attacker may know somename.
-By 7, the attacker may know empty.
+10. By 9, the attacker may know somename.
+By 8, the attacker may know empty.
 Using the function hash the attacker may obtain hash(somename,empty).
 attacker(hash(somename,empty)).
 
-10. By 9, the attacker may know hash(somename,empty).
-By 7, the attacker may know empty.
+11. By 10, the attacker may know hash(somename,empty).
+By 8, the attacker may know empty.
 Using the function hash the attacker may obtain hash(hash(somename,empty),empty).
 attacker(hash(hash(somename,empty),empty)).
 
-11. By 10, the attacker may know hash(hash(somename,empty),empty).
-By 6, the attacker may know dhexp(key_e(alice,bob),g).
+12. By 11, the attacker may know hash(hash(somename,empty),empty).
+By 7, the attacker may know dhexp(key_e(alice,bob),g).
 Using the function hash the attacker may obtain hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)).
 attacker(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g))).
 
-12. Using the function minnonce the attacker may obtain minnonce.
-attacker(minnonce).
+13. By 12, the attacker may know hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)).
+So the attacker may know hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)) in phase 1.
+attacker_p1(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g))).
 
-13. By 7, the attacker may know empty.
-By 12, the attacker may know minnonce.
-By 11, the attacker may know hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)).
-By 5, the attacker may know encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)).
-Using the function decrypt the attacker may obtain aeadpack(true,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)).
-attacker(aeadpack(true,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))).
+14. Using the function minnonce the attacker may obtain minnonce in phase 1.
+attacker_p1(minnonce).
 
-14. By 13, the attacker may know aeadpack(true,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)).
-Using the function 3-proj-aeadpack the attacker may obtain msg_a(alice,bob).
-attacker(msg_a(alice,bob)).
+15. Using the function empty the attacker may obtain empty in phase 1.
+attacker_p1(empty).
 
-15. By 14, the attacker may know msg_a(alice,bob).
-So the attacker may know msg_a(alice,bob) in phase 1.
+16. By 15, the attacker may know empty in phase 1.
+By 14, the attacker may know minnonce in phase 1.
+By 13, the attacker may know hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)) in phase 1.
+By 6, the attacker may know encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)) in phase 1.
+Using the function decrypt the attacker may obtain aeadpack(true,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)) in phase 1.
+attacker_p1(aeadpack(true,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))).
+
+17. By 16, the attacker may know aeadpack(true,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)) in phase 1.
+Using the function 3-proj-aeadpack the attacker may obtain msg_a(alice,bob) in phase 1.
 attacker_p1(msg_a(alice,bob)).
 
 
@@ -963,47 +977,54 @@ attacker(concat3(dhexp(key_e(alice,bob),g),empty,encrypt(empty,minnonce,hash(has
 Using the function 3-proj-concat3 the attacker may obtain encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)).
 attacker(encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))).
 
-6. By 4, the attacker may know concat3(dhexp(key_e(alice,bob),g),empty,encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))).
+6. By 5, the attacker may know encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)).
+So the attacker may know encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)) in phase 1.
+attacker_p1(encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))).
+
+7. By 4, the attacker may know concat3(dhexp(key_e(alice,bob),g),empty,encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))).
 Using the function 1-proj-concat3 the attacker may obtain dhexp(key_e(alice,bob),g).
 attacker(dhexp(key_e(alice,bob),g)).
 
-7. Using the function empty the attacker may obtain empty.
+8. Using the function empty the attacker may obtain empty.
 attacker(empty).
 
-8. Using the function somename the attacker may obtain somename.
+9. Using the function somename the attacker may obtain somename.
 attacker(somename).
 
-9. By 8, the attacker may know somename.
-By 7, the attacker may know empty.
+10. By 9, the attacker may know somename.
+By 8, the attacker may know empty.
 Using the function hash the attacker may obtain hash(somename,empty).
 attacker(hash(somename,empty)).
 
-10. By 9, the attacker may know hash(somename,empty).
-By 7, the attacker may know empty.
+11. By 10, the attacker may know hash(somename,empty).
+By 8, the attacker may know empty.
 Using the function hash the attacker may obtain hash(hash(somename,empty),empty).
 attacker(hash(hash(somename,empty),empty)).
 
-11. By 10, the attacker may know hash(hash(somename,empty),empty).
-By 6, the attacker may know dhexp(key_e(alice,bob),g).
+12. By 11, the attacker may know hash(hash(somename,empty),empty).
+By 7, the attacker may know dhexp(key_e(alice,bob),g).
 Using the function hash the attacker may obtain hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)).
 attacker(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g))).
 
-12. Using the function minnonce the attacker may obtain minnonce.
-attacker(minnonce).
+13. By 12, the attacker may know hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)).
+So the attacker may know hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)) in phase 1.
+attacker_p1(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g))).
 
-13. By 7, the attacker may know empty.
-By 12, the attacker may know minnonce.
-By 11, the attacker may know hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)).
-By 5, the attacker may know encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)).
-Using the function decrypt the attacker may obtain aeadpack(true,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)).
-attacker(aeadpack(true,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))).
+14. Using the function minnonce the attacker may obtain minnonce in phase 1.
+attacker_p1(minnonce).
 
-14. By 13, the attacker may know aeadpack(true,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)).
-Using the function 3-proj-aeadpack the attacker may obtain msg_a(alice,bob).
-attacker(msg_a(alice,bob)).
+15. Using the function empty the attacker may obtain empty in phase 1.
+attacker_p1(empty).
 
-15. By 14, the attacker may know msg_a(alice,bob).
-So the attacker may know msg_a(alice,bob) in phase 1.
+16. By 15, the attacker may know empty in phase 1.
+By 14, the attacker may know minnonce in phase 1.
+By 13, the attacker may know hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)) in phase 1.
+By 6, the attacker may know encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)) in phase 1.
+Using the function decrypt the attacker may obtain aeadpack(true,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)) in phase 1.
+attacker_p1(aeadpack(true,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))).
+
+17. By 16, the attacker may know aeadpack(true,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)) in phase 1.
+Using the function 3-proj-aeadpack the attacker may obtain msg_a(alice,bob) in phase 1.
 attacker_p1(msg_a(alice,bob)).
 
 
@@ -1032,47 +1053,54 @@ attacker(concat3(dhexp(key_e(alice,bob),g),empty,encrypt(empty,minnonce,hash(has
 Using the function 3-proj-concat3 the attacker may obtain encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)).
 attacker(encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))).
 
-6. By 4, the attacker may know concat3(dhexp(key_e(alice,bob),g),empty,encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))).
+6. By 5, the attacker may know encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)).
+So the attacker may know encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)) in phase 1.
+attacker_p1(encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))).
+
+7. By 4, the attacker may know concat3(dhexp(key_e(alice,bob),g),empty,encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))).
 Using the function 1-proj-concat3 the attacker may obtain dhexp(key_e(alice,bob),g).
 attacker(dhexp(key_e(alice,bob),g)).
 
-7. Using the function empty the attacker may obtain empty.
+8. Using the function empty the attacker may obtain empty.
 attacker(empty).
 
-8. Using the function somename the attacker may obtain somename.
+9. Using the function somename the attacker may obtain somename.
 attacker(somename).
 
-9. By 8, the attacker may know somename.
-By 7, the attacker may know empty.
+10. By 9, the attacker may know somename.
+By 8, the attacker may know empty.
 Using the function hash the attacker may obtain hash(somename,empty).
 attacker(hash(somename,empty)).
 
-10. By 9, the attacker may know hash(somename,empty).
-By 7, the attacker may know empty.
+11. By 10, the attacker may know hash(somename,empty).
+By 8, the attacker may know empty.
 Using the function hash the attacker may obtain hash(hash(somename,empty),empty).
 attacker(hash(hash(somename,empty),empty)).
 
-11. By 10, the attacker may know hash(hash(somename,empty),empty).
-By 6, the attacker may know dhexp(key_e(alice,bob),g).
+12. By 11, the attacker may know hash(hash(somename,empty),empty).
+By 7, the attacker may know dhexp(key_e(alice,bob),g).
 Using the function hash the attacker may obtain hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)).
 attacker(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g))).
 
-12. Using the function minnonce the attacker may obtain minnonce.
-attacker(minnonce).
+13. By 12, the attacker may know hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)).
+So the attacker may know hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)) in phase 1.
+attacker_p1(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g))).
 
-13. By 7, the attacker may know empty.
-By 12, the attacker may know minnonce.
-By 11, the attacker may know hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)).
-By 5, the attacker may know encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)).
-Using the function decrypt the attacker may obtain aeadpack(true,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)).
-attacker(aeadpack(true,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))).
+14. Using the function minnonce the attacker may obtain minnonce in phase 1.
+attacker_p1(minnonce).
 
-14. By 13, the attacker may know aeadpack(true,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)).
-Using the function 3-proj-aeadpack the attacker may obtain msg_a(alice,bob).
-attacker(msg_a(alice,bob)).
+15. Using the function empty the attacker may obtain empty in phase 1.
+attacker_p1(empty).
 
-15. By 14, the attacker may know msg_a(alice,bob).
-So the attacker may know msg_a(alice,bob) in phase 1.
+16. By 15, the attacker may know empty in phase 1.
+By 14, the attacker may know minnonce in phase 1.
+By 13, the attacker may know hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)) in phase 1.
+By 6, the attacker may know encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)) in phase 1.
+Using the function decrypt the attacker may obtain aeadpack(true,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)) in phase 1.
+attacker_p1(aeadpack(true,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))).
+
+17. By 16, the attacker may know aeadpack(true,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)) in phase 1.
+Using the function 3-proj-aeadpack the attacker may obtain msg_a(alice,bob) in phase 1.
 attacker_p1(msg_a(alice,bob)).
 
 
@@ -1243,76 +1271,3 @@ Starting query attacker_p1(msg_c(alice,bob)) ==> event(LeakS(phase0,bob)) || (ev
 RESULT attacker_p1(msg_c(alice,bob)) ==> event(LeakS(phase0,bob)) || (event(LeakS(phase1,bob)) && event(LeakS(p,alice))) is true.
 Starting query attacker_p1(msg_c(alice,bob)) ==> event(LeakS(phase0,bob))
 RESULT attacker_p1(msg_c(alice,bob)) ==> event(LeakS(phase0,bob)) is true.
-Starting query not event(RecvEnd(true))
-goal reachable: begin(SendMsg(alice,bob,stage_c,msg_c(alice,bob),true)) && begin(SendMsg(bob,charlie,stage_b,msg_b(bob,charlie),true)) && begin(SendMsg(alice,bob,stage_a,msg_a(alice,bob),true)) -> end(RecvEnd(true))
-
-1. The entry statestore(bob,charlie,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(somename,empty),empty)),keypairpack(empty,empty),keypairpack(empty,empty),empty,empty,empty,false))) may be inserted in a table at insert {354}.
-table(statestore(bob,charlie,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(somename,empty),empty)),keypairpack(empty,empty),keypairpack(empty,empty),empty,empty,empty,false)))).
-
-2. The entry statestore(alice,bob,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(somename,empty),empty)),keypairpack(empty,empty),keypairpack(empty,empty),empty,empty,empty,true))) may be inserted in a table at insert {12}.
-table(statestore(alice,bob,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(somename,empty),empty)),keypairpack(empty,empty),keypairpack(empty,empty),empty,empty,empty,true)))).
-
-3. The entry statestore(alice,bob,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(somename,empty),empty)),keypairpack(empty,empty),keypairpack(empty,empty),empty,empty,empty,true))) that may be in a table by 2 may be read at get {35}.
-The event SendMsg(alice,bob,stage_a,msg_a(alice,bob),true) may be executed at {32}.
-So the message concat3(dhexp(key_e(alice,bob),g),empty,encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))) may be sent on channel pub at output {34}.
-mess(pub,concat3(dhexp(key_e(alice,bob),g),empty,encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)))).
-
-4. The entry statestore(bob,charlie,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(somename,empty),empty)),keypairpack(empty,empty),keypairpack(empty,empty),empty,empty,empty,false))) that may be in a table by 1 may be read at get {376}.
-The message concat3(dhexp(key_e(alice,bob),g),empty,encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))) that may be sent on channel pub by 3 may be received at input {355}.
-We have dhexp(key_e(alice,bob),g) <> caught-fail.
-So the entry statestore(bob,charlie,statepack_b(handshakestatepack(symmetricstatepack(cipherstatepack(empty,increment_nonce(minnonce)),hash(somename,empty),hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)))),keypairpack(empty,empty),keypairpack(empty,empty),empty,dhexp(key_e(alice,bob),g),empty,false))) may be inserted in a table at insert {375}.
-table(statestore(bob,charlie,statepack_b(handshakestatepack(symmetricstatepack(cipherstatepack(empty,increment_nonce(minnonce)),hash(somename,empty),hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)))),keypairpack(empty,empty),keypairpack(empty,empty),empty,dhexp(key_e(alice,bob),g),empty,false)))).
-
-5. The entry statestore(bob,charlie,statepack_b(handshakestatepack(symmetricstatepack(cipherstatepack(empty,increment_nonce(minnonce)),hash(somename,empty),hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)))),keypairpack(empty,empty),keypairpack(empty,empty),empty,dhexp(key_e(alice,bob),g),empty,false))) that may be in a table by 4 may be read at get {417}.
-The event SendMsg(bob,charlie,stage_b,msg_b(bob,charlie),true) may be executed at {414}.
-So the entry statestore(bob,charlie,statepack_c(handshakestatepack(symmetricstatepack(cipherstatepack(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),increment_nonce(increment_nonce(minnonce))),hmac_hash1(hash(somename,empty),dhexp(key_e(bob,charlie),dhexp(key_e(alice,bob),g))),hash(hash(hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),minnonce,hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),dhexp(key_s(bob),g))),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),increment_nonce(minnonce),hash(hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),minnonce,hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),dhexp(key_s(bob),g))),msg_b(bob,charlie)))),keypairpack(dhexp(key_s(bob),g),key_s(bob)),keypairpack(dhexp(key_e(bob,charlie),g),key_e(bob,charlie)),empty,dhexp(key_e(alice,bob),g),empty,false))) may be inserted in a table at insert {415}.
-table(statestore(bob,charlie,statepack_c(handshakestatepack(symmetricstatepack(cipherstatepack(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),increment_nonce(increment_nonce(minnonce))),hmac_hash1(hash(somename,empty),dhexp(key_e(bob,charlie),dhexp(key_e(alice,bob),g))),hash(hash(hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),minnonce,hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),dhexp(key_s(bob),g))),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),increment_nonce(minnonce),hash(hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),minnonce,hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),dhexp(key_s(bob),g))),msg_b(bob,charlie)))),keypairpack(dhexp(key_s(bob),g),key_s(bob)),keypairpack(dhexp(key_e(bob,charlie),g),key_e(bob,charlie)),empty,dhexp(key_e(alice,bob),g),empty,false)))).
-
-6. The entry statestore(alice,bob,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(somename,empty),empty)),keypairpack(empty,empty),keypairpack(empty,empty),empty,empty,empty,true))) may be inserted in a table at insert {12}.
-table(statestore(alice,bob,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(somename,empty),empty)),keypairpack(empty,empty),keypairpack(empty,empty),empty,empty,empty,true)))).
-
-7. The entry statestore(alice,bob,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(somename,empty),empty)),keypairpack(empty,empty),keypairpack(empty,empty),empty,empty,empty,true))) that may be in a table by 6 may be read at get {35}.
-The event SendMsg(alice,bob,stage_a,msg_a(alice,bob),true) may be executed at {32}.
-So the entry statestore(alice,bob,statepack_b(handshakestatepack(symmetricstatepack(cipherstatepack(empty,increment_nonce(minnonce)),hash(somename,empty),hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)))),keypairpack(empty,empty),keypairpack(dhexp(key_e(alice,bob),g),key_e(alice,bob)),empty,empty,empty,true))) may be inserted in a table at insert {33}.
-table(statestore(alice,bob,statepack_b(handshakestatepack(symmetricstatepack(cipherstatepack(empty,increment_nonce(minnonce)),hash(somename,empty),hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)))),keypairpack(empty,empty),keypairpack(dhexp(key_e(alice,bob),g),key_e(alice,bob)),empty,empty,empty,true)))).
-
-8. The entry statestore(bob,charlie,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(somename,empty),empty)),keypairpack(empty,empty),keypairpack(empty,empty),empty,empty,empty,false))) may be inserted in a table at insert {354}.
-table(statestore(bob,charlie,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(somename,empty),empty)),keypairpack(empty,empty),keypairpack(empty,empty),empty,empty,empty,false)))).
-
-9. The entry statestore(alice,bob,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(somename,empty),empty)),keypairpack(empty,empty),keypairpack(empty,empty),empty,empty,empty,true))) may be inserted in a table at insert {12}.
-table(statestore(alice,bob,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(somename,empty),empty)),keypairpack(empty,empty),keypairpack(empty,empty),empty,empty,empty,true)))).
-
-10. The entry statestore(alice,bob,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(somename,empty),empty)),keypairpack(empty,empty),keypairpack(empty,empty),empty,empty,empty,true))) that may be in a table by 9 may be read at get {35}.
-The event SendMsg(alice,bob,stage_a,msg_a(alice,bob),true) may be executed at {32}.
-So the message concat3(dhexp(key_e(alice,bob),g),empty,encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))) may be sent on channel pub at output {34}.
-mess(pub,concat3(dhexp(key_e(alice,bob),g),empty,encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)))).
-
-11. The entry statestore(bob,charlie,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(somename,empty),empty)),keypairpack(empty,empty),keypairpack(empty,empty),empty,empty,empty,false))) that may be in a table by 8 may be read at get {376}.
-The message concat3(dhexp(key_e(alice,bob),g),empty,encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))) that may be sent on channel pub by 10 may be received at input {355}.
-We have dhexp(key_e(alice,bob),g) <> caught-fail.
-So the entry statestore(bob,charlie,statepack_b(handshakestatepack(symmetricstatepack(cipherstatepack(empty,increment_nonce(minnonce)),hash(somename,empty),hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)))),keypairpack(empty,empty),keypairpack(empty,empty),empty,dhexp(key_e(alice,bob),g),empty,false))) may be inserted in a table at insert {375}.
-table(statestore(bob,charlie,statepack_b(handshakestatepack(symmetricstatepack(cipherstatepack(empty,increment_nonce(minnonce)),hash(somename,empty),hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)))),keypairpack(empty,empty),keypairpack(empty,empty),empty,dhexp(key_e(alice,bob),g),empty,false)))).
-
-12. The entry statestore(bob,charlie,statepack_b(handshakestatepack(symmetricstatepack(cipherstatepack(empty,increment_nonce(minnonce)),hash(somename,empty),hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)))),keypairpack(empty,empty),keypairpack(empty,empty),empty,dhexp(key_e(alice,bob),g),empty,false))) that may be in a table by 11 may be read at get {417}.
-The event SendMsg(bob,charlie,stage_b,msg_b(bob,charlie),true) may be executed at {414}.
-So the message concat3(dhexp(key_e(bob,charlie),g),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),minnonce,hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),dhexp(key_s(bob),g)),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),increment_nonce(minnonce),hash(hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),minnonce,hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),dhexp(key_s(bob),g))),msg_b(bob,charlie))) may be sent on channel pub at output {416}.
-mess(pub,concat3(dhexp(key_e(bob,charlie),g),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),minnonce,hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),dhexp(key_s(bob),g)),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),increment_nonce(minnonce),hash(hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),minnonce,hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),dhexp(key_s(bob),g))),msg_b(bob,charlie)))).
-
-13. The entry statestore(alice,bob,statepack_b(handshakestatepack(symmetricstatepack(cipherstatepack(empty,increment_nonce(minnonce)),hash(somename,empty),hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob)))),keypairpack(empty,empty),keypairpack(dhexp(key_e(alice,bob),g),key_e(alice,bob)),empty,empty,empty,true))) that may be in a table by 7 may be read at get {76}.
-The message concat3(dhexp(key_e(bob,charlie),g),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),minnonce,hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),dhexp(key_s(bob),g)),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),increment_nonce(minnonce),hash(hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),minnonce,hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),dhexp(key_s(bob),g))),msg_b(bob,charlie))) that may be sent on channel pub by 12 may be received at input {36}.
-So the entry statestore(alice,bob,statepack_c(handshakestatepack(symmetricstatepack(cipherstatepack(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),increment_nonce(increment_nonce(minnonce))),hmac_hash1(hash(somename,empty),dhexp(key_e(bob,charlie),dhexp(key_e(alice,bob),g))),hash(hash(hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),minnonce,hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),dhexp(key_s(bob),g))),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),increment_nonce(minnonce),hash(hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),minnonce,hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),dhexp(key_s(bob),g))),msg_b(bob,charlie)))),keypairpack(empty,empty),keypairpack(dhexp(key_e(alice,bob),g),key_e(alice,bob)),dhexp(key_s(bob),g),dhexp(key_e(bob,charlie),g),empty,true))) may be inserted in a table at insert {75}.
-table(statestore(alice,bob,statepack_c(handshakestatepack(symmetricstatepack(cipherstatepack(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),increment_nonce(increment_nonce(minnonce))),hmac_hash1(hash(somename,empty),dhexp(key_e(bob,charlie),dhexp(key_e(alice,bob),g))),hash(hash(hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),minnonce,hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),dhexp(key_s(bob),g))),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),increment_nonce(minnonce),hash(hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),minnonce,hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),dhexp(key_s(bob),g))),msg_b(bob,charlie)))),keypairpack(empty,empty),keypairpack(dhexp(key_e(alice,bob),g),key_e(alice,bob)),dhexp(key_s(bob),g),dhexp(key_e(bob,charlie),g),empty,true)))).
-
-14. The entry statestore(alice,bob,statepack_c(handshakestatepack(symmetricstatepack(cipherstatepack(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),increment_nonce(increment_nonce(minnonce))),hmac_hash1(hash(somename,empty),dhexp(key_e(bob,charlie),dhexp(key_e(alice,bob),g))),hash(hash(hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),minnonce,hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),dhexp(key_s(bob),g))),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),increment_nonce(minnonce),hash(hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),minnonce,hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),dhexp(key_s(bob),g))),msg_b(bob,charlie)))),keypairpack(empty,empty),keypairpack(dhexp(key_e(alice,bob),g),key_e(alice,bob)),dhexp(key_s(bob),g),dhexp(key_e(bob,charlie),g),empty,true))) that may be in a table by 13 may be read at get {109}.
-The event SendMsg(alice,bob,stage_c,msg_c(alice,bob),true) may be executed at {106}.
-So the message concat3(empty,empty,encrypt(hmac_hash2(hmac_hash1(hash(somename,empty),dhexp(key_e(bob,charlie),dhexp(key_e(alice,bob),g))),dhexp(key_s(bob),dhexp(key_e(alice,bob),g))),minnonce,hash(hash(hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),minnonce,hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),dhexp(key_s(bob),g))),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),increment_nonce(minnonce),hash(hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),minnonce,hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),dhexp(key_s(bob),g))),msg_b(bob,charlie))),msg_c(alice,bob))) may be sent on channel pub at output {108}.
-mess(pub,concat3(empty,empty,encrypt(hmac_hash2(hmac_hash1(hash(somename,empty),dhexp(key_e(bob,charlie),dhexp(key_e(alice,bob),g))),dhexp(key_s(bob),dhexp(key_e(alice,bob),g))),minnonce,hash(hash(hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),minnonce,hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),dhexp(key_s(bob),g))),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),increment_nonce(minnonce),hash(hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),minnonce,hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),dhexp(key_s(bob),g))),msg_b(bob,charlie))),msg_c(alice,bob)))).
-
-15. The entry statestore(bob,charlie,statepack_c(handshakestatepack(symmetricstatepack(cipherstatepack(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),increment_nonce(increment_nonce(minnonce))),hmac_hash1(hash(somename,empty),dhexp(key_e(bob,charlie),dhexp(key_e(alice,bob),g))),hash(hash(hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),minnonce,hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),dhexp(key_s(bob),g))),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),increment_nonce(minnonce),hash(hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),minnonce,hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),dhexp(key_s(bob),g))),msg_b(bob,charlie)))),keypairpack(dhexp(key_s(bob),g),key_s(bob)),keypairpack(dhexp(key_e(bob,charlie),g),key_e(bob,charlie)),empty,dhexp(key_e(alice,bob),g),empty,false))) that may be in a table by 5 may be read at get {452}.
-The message concat3(empty,empty,encrypt(hmac_hash2(hmac_hash1(hash(somename,empty),dhexp(key_e(bob,charlie),dhexp(key_e(alice,bob),g))),dhexp(key_s(bob),dhexp(key_e(alice,bob),g))),minnonce,hash(hash(hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),minnonce,hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),dhexp(key_s(bob),g))),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),increment_nonce(minnonce),hash(hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob),dhexp(key_e(bob,charlie),g))),minnonce,hash(hash(hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),encrypt(empty,minnonce,hash(hash(hash(somename,empty),empty),dhexp(key_e(alice,bob),g)),msg_a(alice,bob))),dhexp(key_e(bob,charlie),g)),dhexp(key_s(bob),g))),msg_b(bob,charlie))),msg_c(alice,bob))) that may be sent on channel pub by 14 may be received at input {418}.
-So event RecvEnd(true) may be executed at {451}.
-end(RecvEnd(true)).
-
-
-Could not find a trace corresponding to this derivation.
-RESULT not event(RecvEnd(true)) cannot be proved.
