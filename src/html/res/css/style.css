@@ -371,27 +371,23 @@ div#patternInputParseStatus.parseInvalid {
 	color: var(--noiseRed) !important;
 }
 
-div.footer {
-	width: 890px;
-	margin: 30px auto 0 auto;
-	background-color: rgba(0, 0, 0, 0.05);
-	padding: 3px 5px;
-	position: relative;
+input#patternSearch {
+	border-radius: 5px;
+	border: 1px solid #CCC;
+	font-size: 16px;
+	padding: 4px 8px;
+	display: block;
+	width: 80%;
+	margin: 20px auto 20px auto;
 }
 
-div.footer span {
-	margin-left: 55px;
+p#patternSearchNotFound {
+	display: none;
+	text-align: center;
 }
 
-div.footer span.about {
-	position: absolute;
-	left: 0;
-	top: 0;
-	background: rgba(255, 255, 255, 0.8);
-	font-variant: small-caps;
-	padding: 3px 5px;
-	font-weight: bold;
-	margin-left: 0;
+p#patternSearchNotFound.visible {
+	display: block;
 }
 
 a.patternEntry {
@@ -418,10 +414,37 @@ a.patternEntry:hover {
 	border-color: var(--noiseGreen);
 }
 
+a.patternEntry.hidden {
+	display: none;
+}
+
 pre {
 	background-color: var(--noiseDarkGray);
 	color: #FFF;
 	padding: 20px;
 	border-radius: 5px;
 	font-family: 'IBM Plex Mono', monospace;
+}
+
+div.footer {
+	width: 890px;
+	margin: 30px auto 0 auto;
+	background-color: rgba(0, 0, 0, 0.05);
+	padding: 3px 5px;
+	position: relative;
+}
+
+div.footer span {
+	margin-left: 55px;
+}
+
+div.footer span.about {
+	position: absolute;
+	left: 0;
+	top: 0;
+	background: rgba(255, 255, 255, 0.8);
+	font-variant: small-caps;
+	padding: 3px 5px;
+	font-weight: bold;
+	margin-left: 0;
 }
