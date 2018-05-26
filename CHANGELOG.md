@@ -1,7 +1,9 @@
 ## Noise Explorer 0.3 (???)
 - Now based on Noise Protocol Framework revision 34.
-- Added deferred patterns from revision 34 to compendium with formal verification results.
-- All formal verification results in the compendium now include two tokenless message patterns.
+- Added deferred handshake patterns from revision 34 to the compendium with formal verification results.
+- Added one-way handshake patterns to the compendium with formal verification results.
+- All formal verification results in the compendium, except for one-way handshake patterns, now include two tokenless message patterns.
+- The compendium now includes a search function that allows searching for Noise Handshake Pattern results by pattern name.
 - Added two parsing checks for Noise Handshake Patterns, suggested by Katriel Cohn-Gordon: `dhWithUnknownKey` and `unusedKeySent`.
 - ProVerif models for PSK-using Noise Handshake Patterns now are generated with the same queries and events as non-PSK Noise Handshake Patterns.
 - The `RecvEnd` query has been removed from ProVerif models, as it is no longer useful at this stage and slows down verification times.

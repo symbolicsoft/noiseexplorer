@@ -10,7 +10,38 @@
 	<link rel="icon" type="image/png" href="../res/img/logo.png" />
 	<link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono|IBM+Plex+Sans" rel="stylesheet" />
 	<link href="../res/css/style.css" rel="stylesheet" />
-	<script type="application/javascript"></script>
+	<script type="application/javascript">
+		let $ = (id) => { return document.getElementById(id) };
+		window.addEventListener('load', () => {
+			$('patternSearch').value = '';
+			$('patternSearch').addEventListener('input', (event) => {
+				let value = $('patternSearch').value.toLowerCase();
+				let entries = document.getElementsByClassName('patternEntry');
+				if (value.length) {
+					let visible = entries.length;
+					for (let i = 0; i < entries.length; i++) {
+						let name = entries[i].innerText.split('\n')[1].toLowerCase();
+						if (name.match(value)) {
+							entries[i].classList.remove('hidden');
+						} else {
+							entries[i].classList.add('hidden');
+							visible--;
+						}
+					}
+					if (visible) {
+						$('patternSearchNotFound').classList.remove('visible');
+					} else {
+						$('patternSearchNotFound').classList.add('visible');
+					}
+				} else {
+					for (let i = 0; i < entries.length; i++) {
+						entries[i].classList.remove('hidden');
+					}
+					$('patternSearchNotFound').classList.remove('visible');
+				}
+			});
+		});
+	</script>
 </head>
 
 <body>
@@ -30,6 +61,8 @@
 		<div class="resultsExplanation">
 			<h2>Explore Noise Pattern Analysis Results</h2>
 			<p>Click on a Noise pattern in order to view its full analysis results using the <a href="http://prosecco.gforge.inria.fr/personal/bblanche/proverif/" target="_blank">ProVerif</a> symbolic protocol verifier. Analyses are carried out under both an active and passive attacker with a malicious principal. Security queries include tests for authenticity (key compromise impersonation resistance, etc.) and confidentiality (strong forward secrecy, weak forward secrecy, etc.)</p>
+			<input type="text" id="patternSearch" placeholder="Search patterns by name..." />
+			<p id="patternSearchNotFound">Noise Handshake Pattern not found.</p>
 <a href="IK.noise.html" class="patternEntry">
 IK:
   &lt;- s
