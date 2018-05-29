@@ -300,7 +300,8 @@ letfun initialize_b(prologue:bitstring, s:keypair, e:keypair, rs:key, re:key, ps
 letfun writeMessage_a(me:principal, them:principal, hs:handshakestate, payload:bitstring) =
 	let (ss:symmetricstate, s:keypair, e:keypair, rs:key, re:key, psk:key, initiator:bool) = handshakestateunpack(hs) in
 	let (ne:bitstring, ciphertext1:bitstring, ciphertext2:bitstring) = (empty, empty, empty) in
-	let e = generate_keypair(key_e(me, them)) in
+	new key_e[me, them]:key;
+	let e = generate_keypair(key_e) in
 	let ne = key2bit(getpublickey(e)) in
 	let ss = mixHash(ss, ne) in
 	(* No PSK, so skipping mixKey. *)
@@ -312,7 +313,8 @@ letfun writeMessage_a(me:principal, them:principal, hs:handshakestate, payload:b
 letfun writeMessage_b(me:principal, them:principal, hs:handshakestate, payload:bitstring) =
 	let (ss:symmetricstate, s:keypair, e:keypair, rs:key, re:key, psk:key, initiator:bool) = handshakestateunpack(hs) in
 	let (ne:bitstring, ciphertext1:bitstring, ciphertext2:bitstring) = (empty, empty, empty) in
-	let e = generate_keypair(key_e(me, them)) in
+	new key_e[me, them]:key;
+	let e = generate_keypair(key_e) in
 	let ne = key2bit(getpublickey(e)) in
 	let ss = mixHash(ss, ne) in
 	(* No PSK, so skipping mixKey. *)
@@ -539,7 +541,7 @@ let initiator(me:principal, them:principal) =
 	let s = keypairpack(bit2key(empty), bit2key(empty)) in
 	out(pub, getpublickey(s));
 	((
-		let e = keypairpack(bit2key(empty), bit2key(empty)) in
+	let e = keypairpack(bit2key(empty), bit2key(empty)) in
 		let rs = bit2key(empty) in
 		let re = bit2key(empty) in
 		let hs:handshakestate = initialize_a(empty, s, e, rs, re, bit2key(empty)) in
@@ -596,7 +598,7 @@ let responder(me:principal, them:principal) =
 	let s = keypairpack(bit2key(empty), bit2key(empty)) in
 	(* No static key initialized. *)
 	((
-		let e = keypairpack(bit2key(empty), bit2key(empty)) in
+	let e = keypairpack(bit2key(empty), bit2key(empty)) in
 		let rs = bit2key(empty) in
 		let re = bit2key(empty) in
 		let hs:handshakestate = initialize_b(empty, s, e, rs, re, bit2key(empty)) in
@@ -655,7 +657,8 @@ let responder(me:principal, them:principal) =
 (* ---------------------------------------------------------------- *)
 
 process
-  !(
+  out(pub, key_s(charlie));
+	!(
 		initiator(alice, bob)
 		|
 		initiator(alice, charlie)
@@ -663,7 +666,5 @@ process
 		responder(bob, alice)
 		|
 		responder(bob, charlie)
-		|
-		out(pub, (key_s(charlie), key_e(charlie, alice), key_e(charlie, bob)))
 	)
 
