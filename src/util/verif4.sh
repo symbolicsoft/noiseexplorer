@@ -9,6 +9,10 @@ echo "X1K1"
 proverif X1K1.noise.active.pv > X1K1.noise.active.txt
 proverif X1K1.noise.passive.pv > X1K1.noise.passive.txt
 
+echo "X1N"
+proverif X1N.noise.active.pv > X1N.noise.active.txt
+proverif X1N.noise.passive.pv > X1N.noise.passive.txt
+
 echo "X1X"
 proverif X1X.noise.active.pv > X1X.noise.active.txt
 proverif X1X.noise.passive.pv > X1X.noise.passive.txt
