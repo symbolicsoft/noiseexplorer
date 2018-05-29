@@ -29,12 +29,4 @@ echo "NX"
 proverif NX.noise.active.pv > NX.noise.active.txt
 proverif NX.noise.passive.pv > NX.noise.passive.txt
 
-echo "NX1"
-proverif NX1.noise.active.pv > NX1.noise.active.txt
-proverif NX1.noise.passive.pv > NX1.noise.passive.txt
-
-echo "X"
-proverif X.noise.active.pv > X.noise.active.txt
-proverif X.noise.passive.pv > X.noise.passive.txt
-
 cd ../src/util

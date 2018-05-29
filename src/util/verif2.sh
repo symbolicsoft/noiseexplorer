@@ -29,16 +29,4 @@ echo "K1X1"
 proverif K1X1.noise.active.pv > K1X1.noise.active.txt
 proverif K1X1.noise.passive.pv > K1X1.noise.passive.txt
 
-echo "KK"
-proverif KK.noise.active.pv > KK.noise.active.txt
-proverif KK.noise.passive.pv > KK.noise.passive.txt
-
-echo "KK1"
-proverif KK1.noise.active.pv > KK1.noise.active.txt
-proverif KK1.noise.passive.pv > KK1.noise.passive.txt
-
-echo "KN"
-proverif KN.noise.active.pv > KN.noise.active.txt
-proverif KN.noise.passive.pv > KN.noise.passive.txt
-
 cd ../src/util

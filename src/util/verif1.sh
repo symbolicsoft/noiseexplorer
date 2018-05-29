@@ -29,12 +29,4 @@ echo "IK1"
 proverif IK1.noise.active.pv > IK1.noise.active.txt
 proverif I1K1.noise.passive.pv > IK1.noise.passive.txt
 
-echo "IN"
-proverif IN.noise.active.pv > IN.noise.active.txt
-proverif IN.noise.passive.pv > IN.noise.passive.txt
-
-echo "IX"
-proverif IX.noise.active.pv > IX.noise.active.txt
-proverif IX.noise.passive.pv > IX.noise.passive.txt
-
 cd ../src/util
