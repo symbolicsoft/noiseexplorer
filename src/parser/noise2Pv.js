@@ -372,11 +372,12 @@ const initiatorFun = (pattern) => {
 	pattern.messages.forEach((message, i) => {
 		let abc = util.abc[i];
 		let abcn = util.abc[i + 1];
+		let replicateMessage = message.tokens.length? '' : '!';
 		let splitCipherState = (i === (pattern.messages.length - 1))?
 			`, cs1:cipherstate, cs2:cipherstate` : ``;
 		if (message.dir === 'send') {
 			initiator = initiator.concat([
-				`| (`,
+				`| ${replicateMessage}(`,
 				`\tget statestore(=me, =them, statepack_${abc}(hs)) in`,
 				`\tlet (hs:handshakestate, re:key, message_${abc}:bitstring${splitCipherState}) = writeMessage_${abc}(me, them, hs, msg_${abc}(me, them)) in`,
 				`\tevent SendMsg(me, them, stage_${abc}, msg_${abc}(me, them), true);`,
@@ -386,7 +387,7 @@ const initiatorFun = (pattern) => {
 			]);
 		} else if (message.dir === 'recv') {
 			initiator = initiator.concat([
-				`| (`,
+				`| ${replicateMessage}(`,
 				`\tget statestore(=me, =them, statepack_${abc}(hs)) in`,
 				`\tin(pub, message_${abc}:bitstring);`,
 				`\tlet (hs:handshakestate, re:key, plaintext_${abc}:bitstring, valid:bool${splitCipherState}) = readMessage_${abc}(me, them, hs, message_${abc}) in`,
@@ -450,11 +451,12 @@ const responderFun = (pattern) => {
 	pattern.messages.forEach((message, i) => {
 		let abc = util.abc[i];
 		let abcn = util.abc[i + 1];
+		let replicateMessage = message.tokens.length? '' : '!';
 		let splitCipherState = (i === (pattern.messages.length - 1))?
 			`, cs1:cipherstate, cs2:cipherstate` : ``;
 		if (message.dir === 'recv') {
 			responder = responder.concat([
-				`| (`,
+				`| ${replicateMessage}(`,
 				`\tget statestore(=me, =them, statepack_${abc}(hs)) in`,
 				`\tlet (hs:handshakestate, re:key, message_${abc}:bitstring${splitCipherState}) = writeMessage_${abc}(me, them, hs, msg_${abc}(me, them)) in`,
 				`\tevent SendMsg(me, them, stage_${abc}, msg_${abc}(me, them), true);`,
@@ -464,7 +466,7 @@ const responderFun = (pattern) => {
 			]);
 		} else if (message.dir === 'send') {
 			responder = responder.concat([
-				`| (`,
+				`| ${replicateMessage}(`,
 				`\tget statestore(=me, =them, statepack_${abc}(hs)) in`,
 				`\tin(pub, message_${abc}:bitstring);`,
 				`\tlet (hs:handshakestate, re:key, plaintext_${abc}:bitstring, valid:bool${splitCipherState}) = readMessage_${abc}(me, them, hs, message_${abc}) in`,

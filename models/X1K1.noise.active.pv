@@ -606,14 +606,14 @@ let initiator(me:principal, them:principal) =
 		insert statestore(me, them, statepack_e(hs));
 		0
 	)
-	| (
+	| !(
 		get statestore(=me, =them, statepack_e(hs)) in
 		let (hs:handshakestate, re:key, message_e:bitstring) = writeMessage_e(me, them, hs, msg_e(me, them)) in
 		event SendMsg(me, them, stage_e, msg_e(me, them), true);
 		insert statestore(me, them, statepack_f(hs));
 		out(pub, message_e)
 	)
-	| (
+	| !(
 		get statestore(=me, =them, statepack_f(hs)) in
 		in(pub, message_f:bitstring);
 		let (hs:handshakestate, re:key, plaintext_f:bitstring, valid:bool, cs1:cipherstate, cs2:cipherstate) = readMessage_f(me, them, hs, message_f) in
@@ -671,7 +671,7 @@ let responder(me:principal, them:principal) =
 		insert statestore(me, them, statepack_e(hs));
 		out(pub, message_d)
 	)
-	| (
+	| !(
 		get statestore(=me, =them, statepack_e(hs)) in
 		in(pub, message_e:bitstring);
 		let (hs:handshakestate, re:key, plaintext_e:bitstring, valid:bool) = readMessage_e(me, them, hs, message_e) in
@@ -679,7 +679,7 @@ let responder(me:principal, them:principal) =
 		insert statestore(me, them, statepack_f(hs));
 		0
 	)
-	| (
+	| !(
 		get statestore(=me, =them, statepack_f(hs)) in
 		let (hs:handshakestate, re:key, message_f:bitstring, cs1:cipherstate, cs2:cipherstate) = writeMessage_f(me, them, hs, msg_f(me, them)) in
 		event SendMsg(me, them, stage_f, msg_f(me, them), true);
