@@ -171,19 +171,6 @@ fun decrypt(key, nonce, bitstring, bitstring):aead reduc
 		
 fun hash(bitstring, bitstring):bitstring.
 
-(*
-letfun hmac_hash(k:key, data:bitstring) =
-	bit2key(hash(concat2(key2bit(k), data))).
-
-letfun hkdf(chaining_key:key, input_key_material:key) =
-	let ikm_bitstring = key2bit(input_key_material) in
-	let temp_key = hmac_hash(chaining_key, ikm_bitstring) in
-	let output1 = hmac_hash(temp_key, one) in
-	let output2 = hmac_hash(temp_key, concat2(key2bit(output1), two)) in
-	let output3 = hmac_hash(temp_key, concat2(key2bit(output2), three)) in
-  (output1, output2, output3).
-*)
-
 fun hmac_hash1(key, key):key.
 fun hmac_hash2(key, key):key.
 fun hmac_hash3(key, key):key.
