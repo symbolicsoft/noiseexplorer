@@ -286,7 +286,7 @@ letfun initialize_b(prologue:bitstring, s:keypair, e:keypair, rs:key, re:key, ps
 	let ss = mixHash(ss, key2bit(getpublickey(s))) in
 	handshakestatepack(ss, s, e, rs, re, psk, false).
 
-letfun writeMessage_a(me:principal, them:principal, hs:handshakestate, payload:bitstring) =
+letfun writeMessage_a(me:principal, them:principal, hs:handshakestate, payload:bitstring, sid:sessionid) =
 	let (ss:symmetricstate, s:keypair, e:keypair, rs:key, re:key, psk:key, initiator:bool) = handshakestateunpack(hs) in
 	let (ne:bitstring, ciphertext1:bitstring, ciphertext2:bitstring) = (empty, empty, empty) in
 	new key_e[me, them, sid]:key;
@@ -301,7 +301,7 @@ letfun writeMessage_a(me:principal, them:principal, hs:handshakestate, payload:b
 	let message_buffer = concat3(ne, ciphertext1, ciphertext2) in
 	(hs, re, message_buffer).
 
-letfun writeMessage_b(me:principal, them:principal, hs:handshakestate, payload:bitstring) =
+letfun writeMessage_b(me:principal, them:principal, hs:handshakestate, payload:bitstring, sid:sessionid) =
 	let (ss:symmetricstate, s:keypair, e:keypair, rs:key, re:key, psk:key, initiator:bool) = handshakestateunpack(hs) in
 	let (ne:bitstring, ciphertext1:bitstring, ciphertext2:bitstring) = (empty, empty, empty) in
 	new key_e[me, them, sid]:key;
@@ -316,7 +316,7 @@ letfun writeMessage_b(me:principal, them:principal, hs:handshakestate, payload:b
 	let message_buffer = concat3(ne, ciphertext1, ciphertext2) in
 	(hs, re, message_buffer).
 
-letfun writeMessage_c(me:principal, them:principal, hs:handshakestate, payload:bitstring) =
+letfun writeMessage_c(me:principal, them:principal, hs:handshakestate, payload:bitstring, sid:sessionid) =
 	let (ss:symmetricstate, s:keypair, e:keypair, rs:key, re:key, psk:key, initiator:bool) = handshakestateunpack(hs) in
 	let (ne:bitstring, ciphertext1:bitstring, ciphertext2:bitstring) = (empty, empty, empty) in
 	let ss = mixKey(ss, dh(s, re)) in
@@ -325,7 +325,7 @@ letfun writeMessage_c(me:principal, them:principal, hs:handshakestate, payload:b
 	let message_buffer = concat3(ne, ciphertext1, ciphertext2) in
 	(hs, re, message_buffer).
 
-letfun writeMessage_d(me:principal, them:principal, hs:handshakestate, payload:bitstring) =
+letfun writeMessage_d(me:principal, them:principal, hs:handshakestate, payload:bitstring, sid:sessionid) =
 	let (ss:symmetricstate, s:keypair, e:keypair, rs:key, re:key, psk:key, initiator:bool) = handshakestateunpack(hs) in
 	let (ne:bitstring, ciphertext1:bitstring, ciphertext2:bitstring) = (empty, empty, empty) in
 	let (ss:symmetricstate, ciphertext2:bitstring) = encryptAndHash(ss, payload) in
@@ -333,7 +333,7 @@ letfun writeMessage_d(me:principal, them:principal, hs:handshakestate, payload:b
 	let message_buffer = concat3(ne, ciphertext1, ciphertext2) in
 	(hs, re, message_buffer).
 
-letfun writeMessage_e(me:principal, them:principal, hs:handshakestate, payload:bitstring) =
+letfun writeMessage_e(me:principal, them:principal, hs:handshakestate, payload:bitstring, sid:sessionid) =
 	let (ss:symmetricstate, s:keypair, e:keypair, rs:key, re:key, psk:key, initiator:bool) = handshakestateunpack(hs) in
 	let (ne:bitstring, ciphertext1:bitstring, ciphertext2:bitstring) = (empty, empty, empty) in
 	let (ss:symmetricstate, ciphertext2:bitstring) = encryptAndHash(ss, payload) in
@@ -342,7 +342,7 @@ letfun writeMessage_e(me:principal, them:principal, hs:handshakestate, payload:b
 	let (ssi:symmetricstate, cs1:cipherstate, cs2:cipherstate) = split(ss) in
 	(hs, re, message_buffer, cs1, cs2).
 
-letfun readMessage_a(me:principal, them:principal, hs:handshakestate, message:bitstring) =
+letfun readMessage_a(me:principal, them:principal, hs:handshakestate, message:bitstring, sid:sessionid) =
 	let (ss:symmetricstate, s:keypair, e:keypair, rs:key, re:key, psk:key, initiator:bool) = handshakestateunpack(hs) in
 	let (ne:bitstring, ciphertext1:bitstring, ciphertext2:bitstring) = deconcat3(message) in
 	let valid1 = true in
@@ -357,7 +357,7 @@ letfun readMessage_a(me:principal, them:principal, hs:handshakestate, message:bi
 		(hs, getpublickey(e), plaintext2, true)
 	).
 
-letfun readMessage_b(me:principal, them:principal, hs:handshakestate, message:bitstring) =
+letfun readMessage_b(me:principal, them:principal, hs:handshakestate, message:bitstring, sid:sessionid) =
 	let (ss:symmetricstate, s:keypair, e:keypair, rs:key, re:key, psk:key, initiator:bool) = handshakestateunpack(hs) in
 	let (ne:bitstring, ciphertext1:bitstring, ciphertext2:bitstring) = deconcat3(message) in
 	let valid1 = true in
@@ -372,7 +372,7 @@ letfun readMessage_b(me:principal, them:principal, hs:handshakestate, message:bi
 		(hs, getpublickey(e), plaintext2, true)
 	).
 
-letfun readMessage_c(me:principal, them:principal, hs:handshakestate, message:bitstring) =
+letfun readMessage_c(me:principal, them:principal, hs:handshakestate, message:bitstring, sid:sessionid) =
 	let (ss:symmetricstate, s:keypair, e:keypair, rs:key, re:key, psk:key, initiator:bool) = handshakestateunpack(hs) in
 	let (ne:bitstring, ciphertext1:bitstring, ciphertext2:bitstring) = deconcat3(message) in
 	let valid1 = true in
@@ -383,7 +383,7 @@ letfun readMessage_c(me:principal, them:principal, hs:handshakestate, message:bi
 		(hs, getpublickey(e), plaintext2, true)
 	).
 
-letfun readMessage_d(me:principal, them:principal, hs:handshakestate, message:bitstring) =
+letfun readMessage_d(me:principal, them:principal, hs:handshakestate, message:bitstring, sid:sessionid) =
 	let (ss:symmetricstate, s:keypair, e:keypair, rs:key, re:key, psk:key, initiator:bool) = handshakestateunpack(hs) in
 	let (ne:bitstring, ciphertext1:bitstring, ciphertext2:bitstring) = deconcat3(message) in
 	let valid1 = true in
@@ -393,7 +393,7 @@ letfun readMessage_d(me:principal, them:principal, hs:handshakestate, message:bi
 		(hs, getpublickey(e), plaintext2, true)
 	).
 
-letfun readMessage_e(me:principal, them:principal, hs:handshakestate, message:bitstring) =
+letfun readMessage_e(me:principal, them:principal, hs:handshakestate, message:bitstring, sid:sessionid) =
 	let (ss:symmetricstate, s:keypair, e:keypair, rs:key, re:key, psk:key, initiator:bool) = handshakestateunpack(hs) in
 	let (ne:bitstring, ciphertext1:bitstring, ciphertext2:bitstring) = deconcat3(message) in
 	let valid1 = true in
@@ -542,7 +542,7 @@ let initiator(me:principal, them:principal, sid:sessionid) =
 	)
 	| (
 		get statestore(=me, =them, statepack_a(hs)) in
-		let (hs:handshakestate, re:key, message_a:bitstring) = writeMessage_a(me, them, hs, msg_a(me, them)) in
+		let (hs:handshakestate, re:key, message_a:bitstring) = writeMessage_a(me, them, hs, msg_a(me, them), sid) in
 		event SendMsg(me, them, stage_a(sid), msg_a(me, them), true);
 		insert statestore(me, them, statepack_b(hs));
 		out(pub, message_a)
@@ -550,14 +550,14 @@ let initiator(me:principal, them:principal, sid:sessionid) =
 	| (
 		get statestore(=me, =them, statepack_b(hs)) in
 		in(pub, message_b:bitstring);
-		let (hs:handshakestate, re:key, plaintext_b:bitstring, valid:bool) = readMessage_b(me, them, hs, message_b) in
+		let (hs:handshakestate, re:key, plaintext_b:bitstring, valid:bool) = readMessage_b(me, them, hs, message_b, sid) in
 		event RecvMsg(me, them, stage_b(sid), plaintext_b, valid);
 		insert statestore(me, them, statepack_c(hs));
 		0
 	)
 	| (
 		get statestore(=me, =them, statepack_c(hs)) in
-		let (hs:handshakestate, re:key, message_c:bitstring) = writeMessage_c(me, them, hs, msg_c(me, them)) in
+		let (hs:handshakestate, re:key, message_c:bitstring) = writeMessage_c(me, them, hs, msg_c(me, them), sid) in
 		event SendMsg(me, them, stage_c(sid), msg_c(me, them), true);
 		insert statestore(me, them, statepack_d(hs));
 		out(pub, message_c)
@@ -565,14 +565,14 @@ let initiator(me:principal, them:principal, sid:sessionid) =
 	| !(
 		get statestore(=me, =them, statepack_d(hs)) in
 		in(pub, message_d:bitstring);
-		let (hs:handshakestate, re:key, plaintext_d:bitstring, valid:bool) = readMessage_d(me, them, hs, message_d) in
+		let (hs:handshakestate, re:key, plaintext_d:bitstring, valid:bool) = readMessage_d(me, them, hs, message_d, sid) in
 		event RecvMsg(me, them, stage_d(sid), plaintext_d, valid);
 		insert statestore(me, them, statepack_e(hs));
 		0
 	)
 	| !(
 		get statestore(=me, =them, statepack_e(hs)) in
-		let (hs:handshakestate, re:key, message_e:bitstring, cs1:cipherstate, cs2:cipherstate) = writeMessage_e(me, them, hs, msg_e(me, them)) in
+		let (hs:handshakestate, re:key, message_e:bitstring, cs1:cipherstate, cs2:cipherstate) = writeMessage_e(me, them, hs, msg_e(me, them), sid) in
 		event SendMsg(me, them, stage_e(sid), msg_e(me, them), true);
 		insert statestore(me, them, statepack_f(hs));
 		out(pub, message_e)
@@ -600,14 +600,14 @@ let responder(me:principal, them:principal, sid:sessionid) =
 	| (
 		get statestore(=me, =them, statepack_a(hs)) in
 		in(pub, message_a:bitstring);
-		let (hs:handshakestate, re:key, plaintext_a:bitstring, valid:bool) = readMessage_a(me, them, hs, message_a) in
+		let (hs:handshakestate, re:key, plaintext_a:bitstring, valid:bool) = readMessage_a(me, them, hs, message_a, sid) in
 		event RecvMsg(me, them, stage_a(sid), plaintext_a, valid);
 		insert statestore(me, them, statepack_b(hs));
 		0
 	)
 	| (
 		get statestore(=me, =them, statepack_b(hs)) in
-		let (hs:handshakestate, re:key, message_b:bitstring) = writeMessage_b(me, them, hs, msg_b(me, them)) in
+		let (hs:handshakestate, re:key, message_b:bitstring) = writeMessage_b(me, them, hs, msg_b(me, them), sid) in
 		event SendMsg(me, them, stage_b(sid), msg_b(me, them), true);
 		insert statestore(me, them, statepack_c(hs));
 		out(pub, message_b)
@@ -615,14 +615,14 @@ let responder(me:principal, them:principal, sid:sessionid) =
 	| (
 		get statestore(=me, =them, statepack_c(hs)) in
 		in(pub, message_c:bitstring);
-		let (hs:handshakestate, re:key, plaintext_c:bitstring, valid:bool) = readMessage_c(me, them, hs, message_c) in
+		let (hs:handshakestate, re:key, plaintext_c:bitstring, valid:bool) = readMessage_c(me, them, hs, message_c, sid) in
 		event RecvMsg(me, them, stage_c(sid), plaintext_c, valid);
 		insert statestore(me, them, statepack_d(hs));
 		0
 	)
 	| !(
 		get statestore(=me, =them, statepack_d(hs)) in
-		let (hs:handshakestate, re:key, message_d:bitstring) = writeMessage_d(me, them, hs, msg_d(me, them)) in
+		let (hs:handshakestate, re:key, message_d:bitstring) = writeMessage_d(me, them, hs, msg_d(me, them), sid) in
 		event SendMsg(me, them, stage_d(sid), msg_d(me, them), true);
 		insert statestore(me, them, statepack_e(hs));
 		out(pub, message_d)
@@ -630,7 +630,7 @@ let responder(me:principal, them:principal, sid:sessionid) =
 	| !(
 		get statestore(=me, =them, statepack_e(hs)) in
 		in(pub, message_e:bitstring);
-		let (hs:handshakestate, re:key, plaintext_e:bitstring, valid:bool, cs1:cipherstate, cs2:cipherstate) = readMessage_e(me, them, hs, message_e) in
+		let (hs:handshakestate, re:key, plaintext_e:bitstring, valid:bool, cs1:cipherstate, cs2:cipherstate) = readMessage_e(me, them, hs, message_e, sid) in
 		event RecvMsg(me, them, stage_e(sid), plaintext_e, valid);
 		insert statestore(me, them, statepack_f(hs));
 		event RecvEnd(valid)
