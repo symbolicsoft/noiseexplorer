@@ -171,7 +171,7 @@ const writeMessageFun = (message, hasPsk, initiator, isFinal, suffix) => {
 		].join(`\n\t`),
 	};
 	let writeFun = [
-		`letfun writeMessage_${suffix}(me:principal, them:principal, hs:handshakestate, payload:bitstring) =`,
+		`letfun writeMessage_${suffix}(me:principal, them:principal, hs:handshakestate, payload:bitstring, sid:sessionid) =`,
 		`let (ss:symmetricstate, s:keypair, e:keypair, rs:key, re:key, psk:key, initiator:bool) = handshakestateunpack(hs) in`,
 		`let (ne:bitstring, ciphertext1:bitstring, ciphertext2:bitstring) = (empty, empty, empty) in`
 	];
@@ -242,7 +242,7 @@ const readMessageFun = (message, hasPsk, initiator, isFinal, suffix) => {
 		].join(`\n\t`),
 	};
 	let readFun = [
-		`letfun readMessage_${suffix}(me:principal, them:principal, hs:handshakestate, message:bitstring) =`,
+		`letfun readMessage_${suffix}(me:principal, them:principal, hs:handshakestate, message:bitstring, sid:sessionid) =`,
 		`let (ss:symmetricstate, s:keypair, e:keypair, rs:key, re:key, psk:key, initiator:bool) = handshakestateunpack(hs) in`,
 		`let (ne:bitstring, ciphertext1:bitstring, ciphertext2:bitstring) = deconcat3(message) in`,
 		`let valid1 = true in`
@@ -379,7 +379,7 @@ const initiatorFun = (pattern) => {
 			initiator = initiator.concat([
 				`| ${replicateMessage}(`,
 				`\tget statestore(=me, =them, statepack_${abc}(hs)) in`,
-				`\tlet (hs:handshakestate, re:key, message_${abc}:bitstring${splitCipherState}) = writeMessage_${abc}(me, them, hs, msg_${abc}(me, them)) in`,
+				`\tlet (hs:handshakestate, re:key, message_${abc}:bitstring${splitCipherState}) = writeMessage_${abc}(me, them, hs, msg_${abc}(me, them), sid) in`,
 				`\tevent SendMsg(me, them, stage_${abc}(sid), msg_${abc}(me, them), true);`,
 				`\tinsert statestore(me, them, statepack_${abcn}(hs));`,
 				`\tout(pub, message_${abc})`,
@@ -390,7 +390,7 @@ const initiatorFun = (pattern) => {
 				`| ${replicateMessage}(`,
 				`\tget statestore(=me, =them, statepack_${abc}(hs)) in`,
 				`\tin(pub, message_${abc}:bitstring);`,
-				`\tlet (hs:handshakestate, re:key, plaintext_${abc}:bitstring, valid:bool${splitCipherState}) = readMessage_${abc}(me, them, hs, message_${abc}) in`,
+				`\tlet (hs:handshakestate, re:key, plaintext_${abc}:bitstring, valid:bool${splitCipherState}) = readMessage_${abc}(me, them, hs, message_${abc}, sid) in`,
 				`\tevent RecvMsg(me, them, stage_${abc}(sid), plaintext_${abc}, valid);`,
 				`\tinsert statestore(me, them, statepack_${abcn}(hs));`,
 				(i === (pattern.messages.length - 1))? `\t${phase0End}` : `\t0`,
@@ -417,7 +417,7 @@ const responderFun = (pattern) => {
 		s: preMessagesRecvStatic(pattern)?
 			`generate_keypair(key_s(me))` : util.emptyKeyPair,
 		e: preMessagesRecvEphemeral(pattern)? [
-			`new key_e[me, them]:key;`,
+			`new key_e[me, them, sid]:key;`,
 			`let e = generate_keypair(key_e) in`
 		].join('\n\t') : `let e = ${util.emptyKeyPair} in`,
 		rs: preMessagesSendStatic(pattern)?
@@ -458,7 +458,7 @@ const responderFun = (pattern) => {
 			responder = responder.concat([
 				`| ${replicateMessage}(`,
 				`\tget statestore(=me, =them, statepack_${abc}(hs)) in`,
-				`\tlet (hs:handshakestate, re:key, message_${abc}:bitstring${splitCipherState}) = writeMessage_${abc}(me, them, hs, msg_${abc}(me, them)) in`,
+				`\tlet (hs:handshakestate, re:key, message_${abc}:bitstring${splitCipherState}) = writeMessage_${abc}(me, them, hs, msg_${abc}(me, them), sid) in`,
 				`\tevent SendMsg(me, them, stage_${abc}(sid), msg_${abc}(me, them), true);`,
 				`\tinsert statestore(me, them, statepack_${abcn}(hs));`,
 				`\tout(pub, message_${abc})`,
@@ -469,7 +469,7 @@ const responderFun = (pattern) => {
 				`| ${replicateMessage}(`,
 				`\tget statestore(=me, =them, statepack_${abc}(hs)) in`,
 				`\tin(pub, message_${abc}:bitstring);`,
-				`\tlet (hs:handshakestate, re:key, plaintext_${abc}:bitstring, valid:bool${splitCipherState}) = readMessage_${abc}(me, them, hs, message_${abc}) in`,
+				`\tlet (hs:handshakestate, re:key, plaintext_${abc}:bitstring, valid:bool${splitCipherState}) = readMessage_${abc}(me, them, hs, message_${abc}, sid) in`,
 				`\tevent RecvMsg(me, them, stage_${abc}(sid), plaintext_${abc}, valid);`,
 				`\tinsert statestore(me, them, statepack_${abcn}(hs));`,
 				(i === (pattern.messages.length - 1))? `\t${phase0End}` : `\t0`,
