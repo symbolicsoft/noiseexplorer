@@ -23,7 +23,8 @@ let getArrows = (parsedPattern) => {
 
 let buildModel = (patternInput, parsedPattern, passive, pv) => {
 	let parsedPv = NOISE2PV.parse(parsedPattern, passive);
-	pv[0] = pv[0].replace('$NOISE2PV_T$', parsedPv.t)
+	pv[0] = pv[0].replace('$NOISE2PV_T$', parsedPv.t);
+	pv[1] = pv[1].replace('$NOISE2PV_S$', parsedPv.s);
 	pv[5] = pv[5].replace('$NOISE2PV_I$', parsedPv.i);
 	pv[5] = pv[5].replace('$NOISE2PV_W$', parsedPv.w);
 	pv[5] = pv[5].replace('$NOISE2PV_R$', parsedPv.r);

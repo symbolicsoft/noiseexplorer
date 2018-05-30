@@ -1007,7 +1007,8 @@ function peg$parse(input, options) {
   	wrongMessageDir: 'Message direction within a Noise Handshake Pattern must alternate (initiator -> responder, initiator <- responder), with the first message being sent by the initiator.',
   	tokenlessNotLast: 'Noise Handshake Patterns can only contain tokenless handshake messages at the very bottom of the pattern.',
   	dhWithUnknownKey: 'Principals cannot perform a Diffie-Hellman operation with a key share that does not exist.',
-  	unusedKeySent: 'Noise Handshake Patterns should not contain key shares that are not subsequently used in any Diffie-Hellman operation.'
+  	unusedKeySent: 'Noise Handshake Patterns should not contain key shares that are not subsequently used in any Diffie-Hellman operation.',
+  	tokenlessOnly: 'Noise Handshake Pattern cannot consist purely of tokenless messages.'
   };
 
   const check = {
@@ -1133,6 +1134,9 @@ function peg$parse(input, options) {
   				error(errMsg.tokenlessNotLast);
   			}
   		});
+  		if (pattern.messages[0].tokens.length === 0) {
+  			error(errMsg.tokenlessOnly);
+  		}
   	}
   };
 

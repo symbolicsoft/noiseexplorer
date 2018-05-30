@@ -86,6 +86,7 @@ const BUILDMODEL = (pattern, parsedPv) => {
 		READFILE('pv/9processes.pv')
 	];
 	pv[0] = pv[0].replace('$NOISE2PV_T$', parsedPv.t)
+	pv[1] = pv[1].replace('$NOISE2PV_S$', parsedPv.s);
 	pv[5] = pv[5].replace('$NOISE2PV_I$', parsedPv.i);
 	pv[5] = pv[5].replace('$NOISE2PV_W$', parsedPv.w);
 	pv[5] = pv[5].replace('$NOISE2PV_R$', parsedPv.r);

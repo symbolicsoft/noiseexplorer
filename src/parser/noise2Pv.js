@@ -92,7 +92,45 @@ const messagesRecvStatic = (pattern) => {
 	return r;
 };
 
+const finalKeyExchangeMessage = (pattern) => {
+	let r = 0;
+	for (let i = 0; i < pattern.messages.length; i++) {
+		let b = (
+			(i < 1) ||
+			(pattern.messages[i - 1].tokens.length)
+		);
+		let a = (
+			(i === (pattern.messages.length - 1)) ||
+			(!pattern.messages[i + 1].tokens.length)
+		);
+		let c = (pattern.messages[i].tokens.length > 0);
+		if (a && b && c) {
+			r = i;
+			break;
+		}
+	};
+	return r;
+};
 
+const typeFuns = (pattern) => {
+	let stage = [];
+	let state = [];
+	let msg = [];
+	pattern.messages.forEach((message, i) => {
+		let abc = util.abc[i];
+		stage.push(`fun stage_${abc}(sessionid):stage [data].`);
+		if (message.tokens.length) {
+			state.push(`fun statepack_${abc}(handshakestate):state [data].`);
+		}
+		else {
+			state.push(`fun statepack_${abc}(handshakestate, cipherstate, cipherstate):state [data].`);
+		}
+		msg.push(`fun msg_${abc}(principal, principal):bitstring [private].`);
+	});
+	stage.push('');
+	state.push('');
+	return stage.concat(state.concat(msg.concat()));
+};
 
 const initializeFun = (pattern, initiator, suffix) => {
 	let preMessageTokenParsers = {
@@ -188,12 +226,12 @@ const writeMessageFun = (message, hasPsk, initiator, isFinal, suffix) => {
 
 const writeMessageFuns = (pattern) => {
 	let writeFuns = [];
+	let finalKex = finalKeyExchangeMessage(pattern);
 	pattern.messages.forEach((message, i) => {
 		let hasPsk = /psk\d$/.test(pattern.name);
 		let initiator = (message.dir === 'send');
-		let isFinal = (i === (pattern.messages.length - 1));
 		writeFuns.push(
-			writeMessageFun(message, hasPsk, initiator, isFinal, util.abc[i])
+			writeMessageFun(message, hasPsk, initiator, (i === finalKex), util.abc[i])
 		);
 	});
 	return writeFuns;
@@ -261,12 +299,12 @@ const readMessageFun = (message, hasPsk, initiator, isFinal, suffix) => {
 
 const readMessageFuns = (pattern) => {
 	let readFuns = [];
+	let finalKex = finalKeyExchangeMessage(pattern)
 	pattern.messages.forEach((message, i) => {
 		let hasPsk = /psk\d$/.test(pattern.name);
 		let initiator = (message.dir === 'recv');
-		let isFinal = (i === (pattern.messages.length - 1));
 		readFuns.push(
-			readMessageFun(message, hasPsk, initiator, isFinal, util.abc[i])
+			readMessageFun(message, hasPsk, initiator, (i === finalKex), util.abc[i])
 		);
 	});
 	return readFuns;
@@ -296,7 +334,7 @@ const queries = (pattern) => {
 		let abc = util.abc[i];
 		let confQuery21 = (params.attacker === 'active')? '2' : '1';
 		let confQuery43 = (params.attacker === 'active')? '4' : '3';
-		let end = (i < (pattern.messages.length - 1))? ';' : '.';
+		let end = (i < (pattern.messages.length - 1))? ';' : ';';
 		quer = quer.concat([
 			`(* Message ${abc}: Authenticity sanity *)`,
 			`\tevent(RecvMsg(${recv}, ${send}, stage_${abc}(s), m, true)) ==> (event(SendMsg(${send}, ${recv}, stage_${abc}(s), m, true)));`,
@@ -324,7 +362,7 @@ const queries = (pattern) => {
 		if (hasPsk) {
 		}
 	});
-	// quer.push(`\tevent(RecvEnd(true)).`);
+	quer.push(`\tevent(RecvEnd(true)).`);
 	return quer;
 };
 
@@ -356,6 +394,7 @@ const initiatorFun = (pattern) => {
 		`((`,
 		`let e = ${init.e} in`
 	];
+	let finalKex = finalKeyExchangeMessage(pattern);
 	if (preMessagesSendEphemeral(pattern)) {
 		initiator.push(`out(pub, getpublickey(e));`);
 	}
@@ -367,29 +406,40 @@ const initiatorFun = (pattern) => {
 		`)`
 	]);
 	pattern.messages.forEach((message, i) => {
+		let msgDirSend = (message.dir === 'send');
 		let abc = util.abc[i];
 		let abcn = util.abc[i + 1];
 		let replicateMessage = message.tokens.length? '' : '!';
-		let splitCipherState = (i === (pattern.messages.length - 1))?
+		let splitCipherState = (i === finalKex)?
 			`, cs1:cipherstate, cs2:cipherstate` : ``;
-		if (message.dir === 'send') {
+		let statePack = (i <= finalKex)? `get statestore(=me, =them, statepack_${abc}(hs)) in` : [
+			`get statestore(=me, =them, statepack_${abc}(hs, cs1, cs2)) in`,
+			`let hs = handshakestatesetcs(hs, ${msgDirSend? 'cs1' : 'cs2'}) in`
+		].join('\n\t\t');
+		let statePackNext = (i < finalKex)?
+			`statepack_${abcn}(hs)` :
+				`statepack_${abcn}(hs, ${(i === finalKex)? 'cs1, cs2' : (msgDirSend? 'handshakestategetcs(hs), cs2' : 'cs1, handshakestategetcs(hs)')})`;
+		let stateStore = (i < (pattern.messages.length - 1))?
+			`insert statestore(me, them, ${statePackNext});`
+				: `(* Final message, do not pack state. *)`;
+		if (msgDirSend) {
 			initiator = initiator.concat([
 				`| ${replicateMessage}(`,
-				`\tget statestore(=me, =them, statepack_${abc}(hs)) in`,
+				`\t${statePack}`,
 				`\tlet (hs:handshakestate, re:key, message_${abc}:bitstring${splitCipherState}) = writeMessage_${abc}(me, them, hs, msg_${abc}(me, them), sid) in`,
 				`\tevent SendMsg(me, them, stage_${abc}(sid), msg_${abc}(me, them), true);`,
-				`\tinsert statestore(me, them, statepack_${abcn}(hs));`,
+				`\t${stateStore}`,
 				`\tout(pub, message_${abc})`,
 				`)`
 			]);
-		} else if (message.dir === 'recv') {
+		} else {
 			initiator = initiator.concat([
 				`| ${replicateMessage}(`,
-				`\tget statestore(=me, =them, statepack_${abc}(hs)) in`,
+				`\t${statePack}`,
 				`\tin(pub, message_${abc}:bitstring);`,
 				`\tlet (hs:handshakestate, re:key, plaintext_${abc}:bitstring, valid:bool${splitCipherState}) = readMessage_${abc}(me, them, hs, message_${abc}, sid) in`,
 				`\tevent RecvMsg(me, them, stage_${abc}(sid), plaintext_${abc}, valid);`,
-				`\tinsert statestore(me, them, statepack_${abcn}(hs));`,
+				`\t${stateStore}`,
 				(i === (pattern.messages.length - 1))? `\t${phase0End}` : `\t0`,
 				`)`
 			]);
@@ -433,6 +483,7 @@ const responderFun = (pattern) => {
 		`((`,
 		`let e = ${init.e} in`
 	];
+	let finalKex = finalKeyExchangeMessage(pattern);
 	if (preMessagesRecvEphemeral(pattern)) {
 		responder.push(`out(pub, getpublickey(e));`);
 	}
@@ -440,34 +491,45 @@ const responderFun = (pattern) => {
 		`\tlet rs = ${init.rs} in`,
 		`\t${init.re}`,
 		`\tlet hs:handshakestate = initialize_b(empty, s, e, rs, re, ${init.psk}) in`,
-		`\tinsert statestore(me, them, statepack_a(hs))`,
+		`\tinsert statestore(me, them, statepack_${util.abc[0]}(hs))`,
 		`)`
 	]);
 	pattern.messages.forEach((message, i) => {
+		let msgDirSend = (message.dir === 'send');
 		let abc = util.abc[i];
 		let abcn = util.abc[i + 1];
 		let replicateMessage = message.tokens.length? '' : '!';
-		let splitCipherState = (i === (pattern.messages.length - 1))?
+		let splitCipherState = (i === finalKex)?
 			`, cs1:cipherstate, cs2:cipherstate` : ``;
-		if (message.dir === 'recv') {
+		let statePack = (i <= finalKex)? `get statestore(=me, =them, statepack_${abc}(hs)) in` : [
+			`get statestore(=me, =them, statepack_${abc}(hs, cs1, cs2)) in`,
+			`let hs = handshakestatesetcs(hs, ${msgDirSend? 'cs1' : 'cs2'}) in`
+		].join('\n\t\t');
+		let statePackNext = (i < finalKex)?
+			`statepack_${abcn}(hs)` :
+				`statepack_${abcn}(hs, ${(i === finalKex)? 'cs1, cs2' : (msgDirSend? 'handshakestategetcs(hs), cs2' : 'cs1, handshakestategetcs(hs)')})`;
+		let stateStore = (i < (pattern.messages.length - 1))?
+			`insert statestore(me, them, ${statePackNext});`
+				: `(* Final message, do not pack state. *)`;
+		if (msgDirSend) {
 			responder = responder.concat([
 				`| ${replicateMessage}(`,
-				`\tget statestore(=me, =them, statepack_${abc}(hs)) in`,
-				`\tlet (hs:handshakestate, re:key, message_${abc}:bitstring${splitCipherState}) = writeMessage_${abc}(me, them, hs, msg_${abc}(me, them), sid) in`,
-				`\tevent SendMsg(me, them, stage_${abc}(sid), msg_${abc}(me, them), true);`,
-				`\tinsert statestore(me, them, statepack_${abcn}(hs));`,
-				`\tout(pub, message_${abc})`,
-				`)`
-			]);
-		} else if (message.dir === 'send') {
-			responder = responder.concat([
-				`| ${replicateMessage}(`,
-				`\tget statestore(=me, =them, statepack_${abc}(hs)) in`,
+				`\t${statePack}`,
 				`\tin(pub, message_${abc}:bitstring);`,
 				`\tlet (hs:handshakestate, re:key, plaintext_${abc}:bitstring, valid:bool${splitCipherState}) = readMessage_${abc}(me, them, hs, message_${abc}, sid) in`,
 				`\tevent RecvMsg(me, them, stage_${abc}(sid), plaintext_${abc}, valid);`,
-				`\tinsert statestore(me, them, statepack_${abcn}(hs));`,
+				`\t${stateStore}`,
 				(i === (pattern.messages.length - 1))? `\t${phase0End}` : `\t0`,
+				`)`
+			]);
+		} else {
+			responder = responder.concat([
+				`| ${replicateMessage}(`,
+				`\t${statePack}`,
+				`\tlet (hs:handshakestate, re:key, message_${abc}:bitstring${splitCipherState}) = writeMessage_${abc}(me, them, hs, msg_${abc}(me, them), sid) in`,
+				`\tevent SendMsg(me, them, stage_${abc}(sid), msg_${abc}(me, them), true);`,
+				`\t${stateStore}`,
+				`\tout(pub, message_${abc})`,
 				`)`
 			]);
 		}
@@ -525,6 +587,7 @@ const parse = (pattern, passive) => {
 		params.attacker = 'passive';
 	}
 	let t = params.attacker;
+	let s = typeFuns(pattern).join('\n');
 	let i = initializeFuns(pattern).join('\n\n');
 	let w = writeMessageFuns(pattern).join('\n\n');
 	let r = readMessageFuns(pattern).join('\n\n');
@@ -534,7 +597,7 @@ const parse = (pattern, passive) => {
 	let b = responderFun(pattern).join('\n\t');
 	let p = processFuns(pattern).join('\n\t');
 	let q = queries(pattern).join('\n');
-	let parsed = {t, i, w, r, e, q, g, a, b, p};
+	let parsed = {t, s, i, w, r, e, q, g, a, b, p};
 	return parsed;
 };
 
