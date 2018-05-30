@@ -6,6 +6,7 @@ type phasen.
 type principal.
 type state.
 type stage.
+type sessionid.
 
 type key.
 type nonce.
@@ -19,17 +20,24 @@ type handshakestate.
 
 type handshakepattern.
 
-table statestore(principal, principal, state).
+fun stage_a(sessionid):stage [data].
+fun stage_b(sessionid):stage [data].
+fun stage_c(sessionid):stage [data].
+fun stage_d(sessionid):stage [data].
+fun stage_e(sessionid):stage [data].
+fun stage_f(sessionid):stage [data].
+fun stage_g(sessionid):stage [data].
+fun stage_h(sessionid):stage [data].
 
-fun statepack_a(handshakestate): state [data].
-fun statepack_b(handshakestate): state [data].
-fun statepack_c(handshakestate): state [data].
-fun statepack_d(handshakestate): state [data].
-fun statepack_e(handshakestate): state [data].
-fun statepack_f(handshakestate): state [data].
-fun statepack_g(handshakestate): state [data].
-fun statepack_h(handshakestate): state [data].
-fun statepack_i(handshakestate): state [data].
+fun statepack_a(handshakestate):state [data].
+fun statepack_b(handshakestate):state [data].
+fun statepack_c(handshakestate):state [data].
+fun statepack_d(handshakestate):state [data].
+fun statepack_e(handshakestate):state [data].
+fun statepack_f(handshakestate):state [data].
+fun statepack_g(handshakestate):state [data].
+fun statepack_h(handshakestate):state [data].
+fun statepack_i(handshakestate):state [data].
 
 fun msg_a(principal, principal):bitstring [private].
 fun msg_b(principal, principal):bitstring [private].
@@ -39,6 +47,8 @@ fun msg_e(principal, principal):bitstring [private].
 fun msg_f(principal, principal):bitstring [private].
 fun msg_g(principal, principal):bitstring [private].
 fun msg_h(principal, principal):bitstring [private].
+
+table statestore(principal, principal, state).
 
 fun key_s(principal):key [private].
 const key_psk:key [private].

@@ -2,14 +2,14 @@
 (* STRING CONCATENATION                                             *)
 (* ---------------------------------------------------------------- *)
 
-fun concat2(bitstring, bitstring): bitstring [data].
+fun concat2(bitstring, bitstring):bitstring [data].
 reduc forall a:bitstring, b:bitstring;
 	deconcat2(concat2(a, b)) = (a, b).
 
-fun concat3(bitstring, bitstring, bitstring): bitstring [data].
+fun concat3(bitstring, bitstring, bitstring):bitstring [data].
 reduc forall a:bitstring, b:bitstring, c:bitstring;
 	deconcat3(concat3(a, b, c)) = (a, b, c).
 
-fun concat4(bitstring, bitstring, bitstring, bitstring): bitstring [data].
+fun concat4(bitstring, bitstring, bitstring, bitstring):bitstring [data].
 	reduc forall a:bitstring, b:bitstring, c:bitstring, d:bitstring;
 		deconcat4(concat4(a, b, c, d)) = (a, b, c, d).

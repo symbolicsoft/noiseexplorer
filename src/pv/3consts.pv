@@ -15,15 +15,6 @@ const noise:bitstring    [data].
 const phase0:phasen      [data].
 const phase1:phasen      [data].
 
-const stage_a:stage      [data].
-const stage_b:stage      [data].
-const stage_c:stage      [data].
-const stage_d:stage      [data].
-const stage_e:stage      [data].
-const stage_f:stage      [data].
-const stage_g:stage      [data].
-const stage_h:stage      [data].
-
 const alice:principal    [data].
 const bob:principal      [data].
 const charlie:principal  [data].

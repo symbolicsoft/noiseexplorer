@@ -289,7 +289,7 @@ const events = (pattern) => {
 const queries = (pattern) => {
 	let hasPsk = /psk\d$/.test(pattern.name);
 	let quer = [
-		`query a:principal, b:principal, c:principal, s:stage, m:bitstring, p:phasen;`,
+		`query c:principal, m:bitstring, s:sessionid, p:phasen;`,
 	];
 	pattern.messages.forEach((message, i) => {
 		let send = (i % 2)? 'bob' : 'alice';
@@ -300,15 +300,15 @@ const queries = (pattern) => {
 		let end = (i < (pattern.messages.length - 1))? ';' : '.';
 		quer = quer.concat([
 			`(* Message ${abc}: Authenticity sanity *)`,
-			`\tevent(RecvMsg(${recv}, ${send}, stage_${abc}, m, true)) ==> (event(SendMsg(${send}, ${recv}, stage_${abc}, m, true)));`,
+			`\tevent(RecvMsg(${recv}, ${send}, stage_${abc}(s), m, true)) ==> (event(SendMsg(${send}, ${recv}, stage_${abc}(s), m, true)));`,
 			`(* Message ${abc}: Authenticity 1 *)`,
-			`\tevent(RecvMsg(${recv}, ${send}, stage_${abc}, m, true)) ==> (event(SendMsg(${send}, c, stage_${abc}, m, true))) || (event(LeakS(phase0, ${send})) || event(LeakS(phase0, ${recv})));`,
+			`\tevent(RecvMsg(${recv}, ${send}, stage_${abc}(s), m, true)) ==> (event(SendMsg(${send}, c, stage_${abc}(s), m, true))) || (event(LeakS(phase0, ${send})) || event(LeakS(phase0, ${recv})));`,
 			`(* Message ${abc}: Authenticity 2 *)`,
-			`\tevent(RecvMsg(${recv}, ${send}, stage_${abc}, m, true)) ==> (event(SendMsg(${send}, c, stage_${abc}, m, true))) || (event(LeakS(phase0, ${send})));`,
+			`\tevent(RecvMsg(${recv}, ${send}, stage_${abc}(s), m, true)) ==> (event(SendMsg(${send}, c, stage_${abc}(s), m, true))) || (event(LeakS(phase0, ${send})));`,
 			`(* Message ${abc}: Authenticity 3 *)`,
-			`\tevent(RecvMsg(${recv}, ${send}, stage_${abc}, m, true)) ==> (event(SendMsg(${send}, ${recv}, stage_${abc}, m, true))) || (event(LeakS(phase0, ${send})) || event(LeakS(phase0, ${recv})));`,
+			`\tevent(RecvMsg(${recv}, ${send}, stage_${abc}(s), m, true)) ==> (event(SendMsg(${send}, ${recv}, stage_${abc}(s), m, true))) || (event(LeakS(phase0, ${send})) || event(LeakS(phase0, ${recv})));`,
 			`(* Message ${abc}: Authenticity 4 *)`,
-			`\tevent(RecvMsg(${recv}, ${send}, stage_${abc}, m, true)) ==> (event(SendMsg(${send}, ${recv}, stage_${abc}, m, true))) || (event(LeakS(phase0, ${send})));`
+			`\tevent(RecvMsg(${recv}, ${send}, stage_${abc}(s), m, true)) ==> (event(SendMsg(${send}, ${recv}, stage_${abc}(s), m, true))) || (event(LeakS(phase0, ${send})));`
 		]);
 		if (hasPsk) {
 		}
@@ -353,7 +353,7 @@ const initiatorFun = (pattern) => {
 	let phase0End = (pattern.messages[pattern.messages.length - 1].dir === 'recv')?
 		`event RecvEnd(valid)` : `(* Not last recipient. *)`;
 	let initiator = [
-		`let initiator(me:principal, them:principal) =`,
+		`let initiator(me:principal, them:principal, sid:sessionid) =`,
 		`let s = ${init.s} in`,
 		outStatic,
 		`((`,
@@ -380,7 +380,7 @@ const initiatorFun = (pattern) => {
 				`| ${replicateMessage}(`,
 				`\tget statestore(=me, =them, statepack_${abc}(hs)) in`,
 				`\tlet (hs:handshakestate, re:key, message_${abc}:bitstring${splitCipherState}) = writeMessage_${abc}(me, them, hs, msg_${abc}(me, them)) in`,
-				`\tevent SendMsg(me, them, stage_${abc}, msg_${abc}(me, them), true);`,
+				`\tevent SendMsg(me, them, stage_${abc}(sid), msg_${abc}(me, them), true);`,
 				`\tinsert statestore(me, them, statepack_${abcn}(hs));`,
 				`\tout(pub, message_${abc})`,
 				`)`
@@ -391,7 +391,7 @@ const initiatorFun = (pattern) => {
 				`\tget statestore(=me, =them, statepack_${abc}(hs)) in`,
 				`\tin(pub, message_${abc}:bitstring);`,
 				`\tlet (hs:handshakestate, re:key, plaintext_${abc}:bitstring, valid:bool${splitCipherState}) = readMessage_${abc}(me, them, hs, message_${abc}) in`,
-				`\tevent RecvMsg(me, them, stage_${abc}, plaintext_${abc}, valid);`,
+				`\tevent RecvMsg(me, them, stage_${abc}(sid), plaintext_${abc}, valid);`,
 				`\tinsert statestore(me, them, statepack_${abcn}(hs));`,
 				(i === (pattern.messages.length - 1))? `\t${phase0End}` : `\t0`,
 				`)`
@@ -432,7 +432,7 @@ const responderFun = (pattern) => {
 	let phase0End = (pattern.messages[pattern.messages.length - 1].dir === 'send')?
 		`event RecvEnd(valid)` : `(* Not last recipient. *)`;
 	let responder = [
-		`let responder(me:principal, them:principal) =`,
+		`let responder(me:principal, them:principal, sid:sessionid) =`,
 		`let s = ${init.s} in`,
 		outStatic,
 		`((`,
@@ -459,7 +459,7 @@ const responderFun = (pattern) => {
 				`| ${replicateMessage}(`,
 				`\tget statestore(=me, =them, statepack_${abc}(hs)) in`,
 				`\tlet (hs:handshakestate, re:key, message_${abc}:bitstring${splitCipherState}) = writeMessage_${abc}(me, them, hs, msg_${abc}(me, them)) in`,
-				`\tevent SendMsg(me, them, stage_${abc}, msg_${abc}(me, them), true);`,
+				`\tevent SendMsg(me, them, stage_${abc}(sid), msg_${abc}(me, them), true);`,
 				`\tinsert statestore(me, them, statepack_${abcn}(hs));`,
 				`\tout(pub, message_${abc})`,
 				`)`
@@ -470,7 +470,7 @@ const responderFun = (pattern) => {
 				`\tget statestore(=me, =them, statepack_${abc}(hs)) in`,
 				`\tin(pub, message_${abc}:bitstring);`,
 				`\tlet (hs:handshakestate, re:key, plaintext_${abc}:bitstring, valid:bool${splitCipherState}) = readMessage_${abc}(me, them, hs, message_${abc}) in`,
-				`\tevent RecvMsg(me, them, stage_${abc}, plaintext_${abc}, valid);`,
+				`\tevent RecvMsg(me, them, stage_${abc}(sid), plaintext_${abc}, valid);`,
 				`\tinsert statestore(me, them, statepack_${abcn}(hs));`,
 				(i === (pattern.messages.length - 1))? `\t${phase0End}` : `\t0`,
 				`)`
@@ -496,13 +496,17 @@ const processFuns = (pattern) => {
 	let proc = [
 		`out(pub, key_s(charlie));`,
 		`!(`,
-		`\tinitiator(alice, bob)`,
-		`\t|`,
-		`\tinitiator(alice, charlie)`,
-		`\t|`,
-		`\tresponder(bob, alice)`,
-		`\t|`,
-		`\tresponder(bob, charlie)`
+		`\tnew sid:sessionid;`,
+		`\tout(pub, sid);`,
+		`\t(`,
+		`\t\tinitiator(alice, bob, sid)`,
+		`\t\t|`,
+		`\t\tinitiator(alice, charlie, sid)`,
+		`\t\t|`,
+		`\t\tresponder(bob, alice, sid)`,
+		`\t\t|`,
+		`\t\tresponder(bob, charlie, sid)`,
+		`\t)`
 	];
 	if (hasPsk) {
 		proc = proc.concat([

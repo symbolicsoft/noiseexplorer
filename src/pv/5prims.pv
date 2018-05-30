@@ -38,10 +38,10 @@ letfun hkdf(chaining_key:key, input_key_material:key) =
   (output1, output2, output3).
 
 (*
-fun sign(key, bitstring): bitstring.
-fun sigpk(key): key.
+fun sign(key, bitstring):bitstring.
+fun sigpk(key):key.
 	
-fun sigver(key, bitstring, bitstring): bool reduc
+fun sigver(key, bitstring, bitstring):bool reduc
 	forall sk:key, m:bitstring;
 		sigver(sigpk(sk), sign(sk, m), m) = true
 	otherwise forall pk:key, s:bitstring, m:bitstring;
