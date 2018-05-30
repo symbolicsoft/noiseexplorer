@@ -144,7 +144,7 @@ const writeMessageFun = (message, hasPsk, initiator, isFinal, suffix) => {
 	];
 	let messageTokenParsers = {
 		e: [
-			`new key_e[me, them]:key;`,
+			`new key_e[me, them, sid]:key;`,
 			`let e = generate_keypair(key_e) in`,
 			`let ne = key2bit(getpublickey(e)) in`,
 			`let ss = mixHash(ss, ne) in`,
@@ -338,7 +338,7 @@ const initiatorFun = (pattern) => {
 		s: preMessagesSendStatic(pattern)?
 			`generate_keypair(key_s(me))` : util.emptyKeyPair,
 		e: preMessagesSendEphemeral(pattern)? [
-			`new key_e[me, them]:key;`,
+			`new key_e[me, them, sid]:key;`,
 			`let e = generate_keypair(key_e) in`
 		].join('\n\t') : `let e = ${util.emptyKeyPair} in`,
 		rs: preMessagesRecvStatic(pattern)?

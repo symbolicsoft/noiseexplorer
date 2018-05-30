@@ -289,7 +289,7 @@ letfun initialize_b(prologue:bitstring, s:keypair, e:keypair, rs:key, re:key, ps
 letfun writeMessage_a(me:principal, them:principal, hs:handshakestate, payload:bitstring) =
 	let (ss:symmetricstate, s:keypair, e:keypair, rs:key, re:key, psk:key, initiator:bool) = handshakestateunpack(hs) in
 	let (ne:bitstring, ciphertext1:bitstring, ciphertext2:bitstring) = (empty, empty, empty) in
-	new key_e[me, them]:key;
+	new key_e[me, them, sid]:key;
 	let e = generate_keypair(key_e) in
 	let ne = key2bit(getpublickey(e)) in
 	let ss = mixHash(ss, ne) in
@@ -305,7 +305,7 @@ letfun writeMessage_a(me:principal, them:principal, hs:handshakestate, payload:b
 letfun writeMessage_b(me:principal, them:principal, hs:handshakestate, payload:bitstring) =
 	let (ss:symmetricstate, s:keypair, e:keypair, rs:key, re:key, psk:key, initiator:bool) = handshakestateunpack(hs) in
 	let (ne:bitstring, ciphertext1:bitstring, ciphertext2:bitstring) = (empty, empty, empty) in
-	new key_e[me, them]:key;
+	new key_e[me, them, sid]:key;
 	let e = generate_keypair(key_e) in
 	let ne = key2bit(getpublickey(e)) in
 	let ss = mixHash(ss, ne) in
