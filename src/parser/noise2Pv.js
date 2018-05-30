@@ -144,8 +144,7 @@ const writeMessageFun = (message, hasPsk, initiator, isFinal, suffix) => {
 	];
 	let messageTokenParsers = {
 		e: [
-			`new key_e[me, them, sid]:key;`,
-			`let e = generate_keypair(key_e) in`,
+			`let e = generate_keypair(key_e(me, them, sid)) in`,
 			`let ne = key2bit(getpublickey(e)) in`,
 			`let ss = mixHash(ss, ne) in`,
 			ePskFill
@@ -337,10 +336,8 @@ const initiatorFun = (pattern) => {
 	let init = {
 		s: preMessagesSendStatic(pattern)?
 			`generate_keypair(key_s(me))` : util.emptyKeyPair,
-		e: preMessagesSendEphemeral(pattern)? [
-			`new key_e[me, them, sid]:key;`,
-			`let e = generate_keypair(key_e) in`
-		].join('\n\t') : `let e = ${util.emptyKeyPair} in`,
+		e: preMessagesSendEphemeral(pattern)?
+			`generate_keypair(key_e(me, them, sid))` : `${util.emptyKeyPair}`,
 		rs: preMessagesRecvStatic(pattern)?
 			`getpublickey(generate_keypair(key_s(them)))` : util.emptyKey,
 		re: preMessagesRecvEphemeral(pattern)?
@@ -357,7 +354,7 @@ const initiatorFun = (pattern) => {
 		`let s = ${init.s} in`,
 		outStatic,
 		`((`,
-		`${init.e}`
+		`let e = ${init.e} in`
 	];
 	if (preMessagesSendEphemeral(pattern)) {
 		initiator.push(`out(pub, getpublickey(e));`);
@@ -416,10 +413,8 @@ const responderFun = (pattern) => {
 	let init = {
 		s: preMessagesRecvStatic(pattern)?
 			`generate_keypair(key_s(me))` : util.emptyKeyPair,
-		e: preMessagesRecvEphemeral(pattern)? [
-			`new key_e[me, them, sid]:key;`,
-			`let e = generate_keypair(key_e) in`
-		].join('\n\t') : `let e = ${util.emptyKeyPair} in`,
+		e: preMessagesRecvEphemeral(pattern)?
+			`generate_keypair(key_e(me, them, sid))` : `${util.emptyKeyPair}`,
 		rs: preMessagesSendStatic(pattern)?
 			`getpublickey(generate_keypair(key_s(them)))` : util.emptyKey,
 		re: preMessagesSendEphemeral(pattern)?
@@ -436,7 +431,7 @@ const responderFun = (pattern) => {
 		`let s = ${init.s} in`,
 		outStatic,
 		`((`,
-		`${init.e}`
+		`let e = ${init.e} in`
 	];
 	if (preMessagesRecvEphemeral(pattern)) {
 		responder.push(`out(pub, getpublickey(e));`);

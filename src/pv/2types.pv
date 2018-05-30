@@ -51,6 +51,7 @@ fun msg_h(principal, principal):bitstring [private].
 table statestore(principal, principal, state).
 
 fun key_s(principal):key [private].
+fun key_e(principal, principal, sessionid):key [private].
 const key_psk:key [private].
 
 fun key2bit(key):bitstring     [typeConverter].

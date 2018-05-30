@@ -61,6 +61,7 @@ fun msg_h(principal, principal):bitstring [private].
 table statestore(principal, principal, state).
 
 fun key_s(principal):key [private].
+fun key_e(principal, principal, sessionid):key [private].
 const key_psk:key [private].
 
 fun key2bit(key):bitstring     [typeConverter].
@@ -289,8 +290,7 @@ letfun initialize_b(prologue:bitstring, s:keypair, e:keypair, rs:key, re:key, ps
 letfun writeMessage_a(me:principal, them:principal, hs:handshakestate, payload:bitstring, sid:sessionid) =
 	let (ss:symmetricstate, s:keypair, e:keypair, rs:key, re:key, psk:key, initiator:bool) = handshakestateunpack(hs) in
 	let (ne:bitstring, ciphertext1:bitstring, ciphertext2:bitstring) = (empty, empty, empty) in
-	new key_e[me, them, sid]:key;
-	let e = generate_keypair(key_e) in
+	let e = generate_keypair(key_e(me, them, sid)) in
 	let ne = key2bit(getpublickey(e)) in
 	let ss = mixHash(ss, ne) in
 	(* No PSK, so skipping mixKey. *)
@@ -303,8 +303,7 @@ letfun writeMessage_a(me:principal, them:principal, hs:handshakestate, payload:b
 letfun writeMessage_b(me:principal, them:principal, hs:handshakestate, payload:bitstring, sid:sessionid) =
 	let (ss:symmetricstate, s:keypair, e:keypair, rs:key, re:key, psk:key, initiator:bool) = handshakestateunpack(hs) in
 	let (ne:bitstring, ciphertext1:bitstring, ciphertext2:bitstring) = (empty, empty, empty) in
-	new key_e[me, them, sid]:key;
-	let e = generate_keypair(key_e) in
+	let e = generate_keypair(key_e(me, them, sid)) in
 	let ne = key2bit(getpublickey(e)) in
 	let ss = mixHash(ss, ne) in
 	(* No PSK, so skipping mixKey. *)
