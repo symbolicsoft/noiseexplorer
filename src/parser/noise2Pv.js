@@ -299,7 +299,7 @@ const readMessageFun = (message, hasPsk, initiator, isFinal, suffix) => {
 
 const readMessageFuns = (pattern) => {
 	let readFuns = [];
-	let finalKex = finalKeyExchangeMessage(pattern)
+	let finalKex = finalKeyExchangeMessage(pattern);
 	pattern.messages.forEach((message, i) => {
 		let hasPsk = /psk\d$/.test(pattern.name);
 		let initiator = (message.dir === 'recv');
