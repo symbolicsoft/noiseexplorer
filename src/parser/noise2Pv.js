@@ -402,7 +402,7 @@ const initiatorFun = (pattern) => {
 		`\tlet rs = ${init.rs} in`,
 		`\t${init.re}`,
 		`\tlet hs:handshakestate = initialize_a(empty, s, e, rs, re, ${init.psk}) in`,
-		`\tinsert statestore(me, them, statepack_${util.abc[0]}(hs))`,
+		`\tinsert statestore(me, them, sid, statepack_${util.abc[0]}(hs))`,
 		`)`
 	]);
 	pattern.messages.forEach((message, i) => {
@@ -412,15 +412,15 @@ const initiatorFun = (pattern) => {
 		let replicateMessage = message.tokens.length? '' : '!';
 		let splitCipherState = (i === finalKex)?
 			`, cs1:cipherstate, cs2:cipherstate` : ``;
-		let statePack = (i <= finalKex)? `get statestore(=me, =them, statepack_${abc}(hs)) in` : [
-			`get statestore(=me, =them, statepack_${abc}(hs, cs1, cs2)) in`,
+		let statePack = (i <= finalKex)? `get statestore(=me, =them, =sid, statepack_${abc}(hs)) in` : [
+			`get statestore(=me, =them, =sid, statepack_${abc}(hs, cs1, cs2)) in`,
 			`let hs = handshakestatesetcs(hs, ${msgDirSend? 'cs1' : 'cs2'}) in`
 		].join('\n\t\t');
 		let statePackNext = (i < finalKex)?
 			`statepack_${abcn}(hs)` :
 				`statepack_${abcn}(hs, ${(i === finalKex)? 'cs1, cs2' : (msgDirSend? 'handshakestategetcs(hs), cs2' : 'cs1, handshakestategetcs(hs)')})`;
 		let stateStore = (i < (pattern.messages.length - 1))?
-			`insert statestore(me, them, ${statePackNext});`
+			`insert statestore(me, them, sid, ${statePackNext});`
 				: `(* Final message, do not pack state. *)`;
 		if (msgDirSend) {
 			initiator = initiator.concat([
@@ -491,7 +491,7 @@ const responderFun = (pattern) => {
 		`\tlet rs = ${init.rs} in`,
 		`\t${init.re}`,
 		`\tlet hs:handshakestate = initialize_b(empty, s, e, rs, re, ${init.psk}) in`,
-		`\tinsert statestore(me, them, statepack_${util.abc[0]}(hs))`,
+		`\tinsert statestore(me, them, sid, statepack_${util.abc[0]}(hs))`,
 		`)`
 	]);
 	pattern.messages.forEach((message, i) => {
@@ -501,15 +501,15 @@ const responderFun = (pattern) => {
 		let replicateMessage = message.tokens.length? '' : '!';
 		let splitCipherState = (i === finalKex)?
 			`, cs1:cipherstate, cs2:cipherstate` : ``;
-		let statePack = (i <= finalKex)? `get statestore(=me, =them, statepack_${abc}(hs)) in` : [
-			`get statestore(=me, =them, statepack_${abc}(hs, cs1, cs2)) in`,
+		let statePack = (i <= finalKex)? `get statestore(=me, =them, =sid, statepack_${abc}(hs)) in` : [
+			`get statestore(=me, =them, =sid, statepack_${abc}(hs, cs1, cs2)) in`,
 			`let hs = handshakestatesetcs(hs, ${msgDirSend? 'cs1' : 'cs2'}) in`
 		].join('\n\t\t');
 		let statePackNext = (i < finalKex)?
 			`statepack_${abcn}(hs)` :
 				`statepack_${abcn}(hs, ${(i === finalKex)? 'cs1, cs2' : (msgDirSend? 'handshakestategetcs(hs), cs2' : 'cs1, handshakestategetcs(hs)')})`;
 		let stateStore = (i < (pattern.messages.length - 1))?
-			`insert statestore(me, them, ${statePackNext});`
+			`insert statestore(me, them, sid, ${statePackNext});`
 				: `(* Final message, do not pack state. *)`;
 		if (msgDirSend) {
 			responder = responder.concat([

@@ -22,7 +22,7 @@ type handshakepattern.
 
 $NOISE2PV_S$
 
-table statestore(principal, principal, state).
+table statestore(principal, principal, sessionid, state).
 
 fun key_s(principal):key [private].
 fun key_e(principal, principal, sessionid):key [private].
