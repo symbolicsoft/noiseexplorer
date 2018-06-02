@@ -9,7 +9,9 @@ fun decrement_nonce(nonce):nonce reduc
 
 fun dhexp(key, key):key.
 equation forall a:key, b:key;
-	dhexp(b, dhexp(a, g)) = dhexp(a, dhexp(b, g)).
+  dhexp(b, dhexp(a, g)) = dhexp(a, dhexp(b, g)).
+(* equation forall b:key;
+  dhexp(b, bit2key(zero)) = bit2key(zero). *)
 
 letfun dh(my_keypair:keypair, pubkey:key) =
 	let (my_public_key:key, my_private_key:key) = keypairunpack(my_keypair) in

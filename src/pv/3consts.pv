@@ -2,18 +2,10 @@
 (* CONSTANTS                                                        *)
 (* ---------------------------------------------------------------- *)
 
-const zero:bitstring     [data].
-const one:bitstring      [data].
-const two:bitstring      [data].
-const three:bitstring    [data].
-const four:bitstring     [data].
-const five:bitstring     [data].
-const six:bitstring      [data].
-const seven:bitstring    [data].
-const noise:bitstring    [data].
-
 const phase0:phasen      [data].
 const phase1:phasen      [data].
+
+const zero:bitstring     [data].
 
 const alice:principal    [data].
 const bob:principal      [data].
@@ -25,5 +17,3 @@ const maxnonce:nonce     [data].
 
 const empty:bitstring    [data].
 const somename:bitstring [data].
-
-const notoken:token      [data].
