@@ -9,19 +9,19 @@ node noiseExplorer --render --pattern=../patterns/N.noise --activeResults=../mod
 cd ../models
 date
 
-echo "NK"
-proverif NK.noise.active.pv > NK.noise.active.txt
-proverif NK.noise.passive.pv > NK.noise.passive.txt
-cd ../src
-node noiseExplorer --render --pattern=../patterns/NK.noise --activeResults=../models/NK.noise.active.txt --passiveResults=../models/NK.noise.passive.txt > html/patterns/NK.noise.html
-cd ../models
-date
-
 echo "NN"
 proverif NN.noise.active.pv > NN.noise.active.txt
 proverif NN.noise.passive.pv > NN.noise.passive.txt
 cd ../src
 node noiseExplorer --render --pattern=../patterns/NN.noise --activeResults=../models/NN.noise.active.txt --passiveResults=../models/NN.noise.passive.txt > html/patterns/NN.noise.html
+cd ../models
+date
+
+echo "NK"
+proverif NK.noise.active.pv > NK.noise.active.txt
+proverif NK.noise.passive.pv > NK.noise.passive.txt
+cd ../src
+node noiseExplorer --render --pattern=../patterns/NK.noise --activeResults=../models/NK.noise.active.txt --passiveResults=../models/NK.noise.passive.txt > html/patterns/NK.noise.html
 cd ../models
 date
 

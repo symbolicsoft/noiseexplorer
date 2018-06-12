@@ -128,7 +128,7 @@ const getResultsTemplate = (rawResults) => {
 	};
 	let rawResultsStr = rawResults.join('\n');
 	util.abc.forEach((abc) => {
-		let stage = new RegExp(`stage_${abc}`);
+		let stage = new RegExp(`stagepack_${abc}`);
 		if (stage.test(rawResultsStr)) {
 			resultsTemplate[abc] = JSON.parse(JSON.stringify(msg));
 		}
@@ -148,8 +148,8 @@ const getRawResults = (pvOutput) => {
 };
 
 const getMsgAbc = (rawResult) => {
-	if (rawResult.match(/stage_\w/)) {
-		return rawResult.match(/stage_\w/)[0][6];
+	if (rawResult.match(/stagepack_\w/)) {
+		return rawResult.match(/stagepack_\w/)[0][6];
 	}
 	if (rawResult.match(/msg_\w/)) {
 		return rawResult.match(/msg_\w/)[0][4];
