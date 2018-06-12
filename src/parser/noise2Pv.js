@@ -118,7 +118,7 @@ const typeFuns = (pattern) => {
 	let msg = [];
 	pattern.messages.forEach((message, i) => {
 		let abc = util.abc[i];
-		stage.push(`fun stagepack_${abc}(key, key):stage [data].`);
+		stage.push(`fun stagepack_${abc}(sessionid):stage [data].`);
 		if (message.tokens.length) {
 			state.push(`fun statepack_${abc}(handshakestate):state [data].`);
 		}
@@ -326,28 +326,28 @@ const events = (pattern) => {
 const queries = (pattern) => {
 	let hasPsk = /psk\d$/.test(pattern.name);
 	let quer = [
-		`query c:principal, m:bitstring, ae:key, be:key, p:phasen;`,
+		`query c:principal, m:bitstring, sid_a:sessionid, sid_b:sessionid, p:phasen;`,
 	];
 	pattern.messages.forEach((message, i) => {
 		let send = (i % 2)? 'bob' : 'alice';
 		let recv = (i % 2)? 'alice' : 'bob';
-		let sende = `${send[0]}e`;
-		let recve = `${recv[0]}e`;
+		let sendsid = `sid_${send[0]}`;
+		let recvsid = `sid_${recv[0]}`;
 		let abc = util.abc[i];
 		let confQuery21 = (params.attacker === 'active')? '2' : '1';
 		let confQuery43 = (params.attacker === 'active')? '4' : '3';
 		let end = (i < (pattern.messages.length - 1))? ';' : ';';
 		quer = quer.concat([
 			`(* Message ${abc}: Authenticity sanity *)`,
-			`\tevent(RecvMsg(${recv}, ${send}, stagepack_${abc}(${recve}, ${sende}), m)) ==> (event(SendMsg(${send}, ${recv}, stagepack_${abc}(${sende}, ${recve}), m)));`,
+			`\tevent(RecvMsg(${recv}, ${send}, stagepack_${abc}(${recvsid}), m)) ==> (event(SendMsg(${send}, ${recv}, stagepack_${abc}(${sendsid}), m))) || (${sendsid} <> ${recvsid});`,
 			`(* Message ${abc}: Authenticity 1 *)`,
-			`\tevent(RecvMsg(${recv}, ${send}, stagepack_${abc}(${recve}, ${sende}), m)) ==> (event(SendMsg(${send}, c, stagepack_${abc}(${sende}, ${recve}), m))) || (event(LeakS(phase0, ${send})) || event(LeakS(phase0, ${recv})));`,
+			`\tevent(RecvMsg(${recv}, ${send}, stagepack_${abc}(${recvsid}), m)) ==> (event(SendMsg(${send}, c, stagepack_${abc}(${sendsid}), m))) || (event(LeakS(phase0, ${send})) || event(LeakS(phase0, ${recv}))) || (${sendsid} <> ${recvsid});`,
 			`(* Message ${abc}: Authenticity 2 *)`,
-			`\tevent(RecvMsg(${recv}, ${send}, stagepack_${abc}(${recve}, ${sende}), m)) ==> (event(SendMsg(${send}, c, stagepack_${abc}(${sende}, ${recve}), m))) || (event(LeakS(phase0, ${send})));`,
+			`\tevent(RecvMsg(${recv}, ${send}, stagepack_${abc}(${recvsid}), m)) ==> (event(SendMsg(${send}, c, stagepack_${abc}(${sendsid}), m))) || (event(LeakS(phase0, ${send}))) || (${sendsid} <> ${recvsid});`,
 			`(* Message ${abc}: Authenticity 3 *)`,
-			`\tevent(RecvMsg(${recv}, ${send}, stagepack_${abc}(${recve}, ${sende}), m)) ==> (event(SendMsg(${send}, ${recv}, stagepack_${abc}(${sende}, ${recve}), m))) || (event(LeakS(phase0, ${send})) || event(LeakS(phase0, ${recv})));`,
+			`\tevent(RecvMsg(${recv}, ${send}, stagepack_${abc}(${recvsid}), m)) ==> (event(SendMsg(${send}, ${recv}, stagepack_${abc}(${sendsid}), m))) || (event(LeakS(phase0, ${send})) || event(LeakS(phase0, ${recv}))) || (${sendsid} <> ${recvsid});`,
 			`(* Message ${abc}: Authenticity 4 *)`,
-			`\tevent(RecvMsg(${recv}, ${send}, stagepack_${abc}(${recve}, ${sende}), m)) ==> (event(SendMsg(${send}, ${recv}, stagepack_${abc}(${sende}, ${recve}), m))) || (event(LeakS(phase0, ${send})));`
+			`\tevent(RecvMsg(${recv}, ${send}, stagepack_${abc}(${recvsid}), m)) ==> (event(SendMsg(${send}, ${recv}, stagepack_${abc}(${sendsid}), m))) || (event(LeakS(phase0, ${send}))) || (${sendsid} <> ${recvsid});`
 		]);
 		if (hasPsk) {
 		}
@@ -394,7 +394,7 @@ const initiatorFun = (pattern) => {
 		`let s = ${init.s} in`,
 		outStatic,
 		`((`,
-		`let e = ${init.e} in`
+		`\tlet e = ${init.e} in`
 	];
 	let finalKex = finalKeyExchangeMessage(pattern);
 	if (preMessagesSendEphemeral(pattern)) {
@@ -430,7 +430,7 @@ const initiatorFun = (pattern) => {
 				`| ${replicateMessage}(`,
 				`\t${statePack}`,
 				`\tlet (hs:handshakestate, message_${abc}:bitstring${splitCipherState}) = writeMessage_${abc}(me, them, hs, msg_${abc}(me, them), sid) in`,
-				`\tevent SendMsg(me, them, stagepack_${abc}(getpublickey(handshakestategete(hs)), handshakestategetre(hs)), msg_${abc}(me, them));`,
+				`\tevent SendMsg(me, them, stagepack_${abc}(sid), msg_${abc}(me, them));`,
 				`\t${stateStore}`,
 				`\tout(pub, message_${abc})`,
 				`)`
@@ -441,7 +441,7 @@ const initiatorFun = (pattern) => {
 				`\t${statePack}`,
 				`\tin(pub, message_${abc}:bitstring);`,
 				`\tlet (hs:handshakestate, plaintext_${abc}:bitstring, valid:bool${splitCipherState}) = readMessage_${abc}(me, them, hs, message_${abc}, sid) in`,
-				`\tevent RecvMsg(me, them, stagepack_${abc}(getpublickey(handshakestategete(hs)), handshakestategetre(hs)), plaintext_${abc});`,
+				`\tevent RecvMsg(me, them, stagepack_${abc}(sid), plaintext_${abc});`,
 				`\t${stateStore}`,
 				(i === (pattern.messages.length - 1))? `\t${phase0End}` : `\t0`,
 				`)`
@@ -484,7 +484,7 @@ const responderFun = (pattern) => {
 		`let s = ${init.s} in`,
 		outStatic,
 		`((`,
-		`let e = ${init.e} in`
+		`\tlet e = ${init.e} in`
 	];
 	let finalKex = finalKeyExchangeMessage(pattern);
 	if (preMessagesRecvEphemeral(pattern)) {
@@ -521,7 +521,7 @@ const responderFun = (pattern) => {
 				`\t${statePack}`,
 				`\tin(pub, message_${abc}:bitstring);`,
 				`\tlet (hs:handshakestate, plaintext_${abc}:bitstring, valid:bool${splitCipherState}) = readMessage_${abc}(me, them, hs, message_${abc}, sid) in`,
-				`\tevent RecvMsg(me, them, stagepack_${abc}(getpublickey(handshakestategete(hs)), handshakestategetre(hs)), plaintext_${abc});`,
+				`\tevent RecvMsg(me, them, stagepack_${abc}(sid), plaintext_${abc});`,
 				`\t${stateStore}`,
 				(i === (pattern.messages.length - 1))? `\t${phase0End}` : `\t0`,
 				`)`
@@ -531,7 +531,7 @@ const responderFun = (pattern) => {
 				`| ${replicateMessage}(`,
 				`\t${statePack}`,
 				`\tlet (hs:handshakestate, message_${abc}:bitstring${splitCipherState}) = writeMessage_${abc}(me, them, hs, msg_${abc}(me, them), sid) in`,
-				`\tevent SendMsg(me, them, stagepack_${abc}(getpublickey(handshakestategete(hs)), handshakestategetre(hs)), msg_${abc}(me, them));`,
+				`\tevent SendMsg(me, them, stagepack_${abc}(sid), msg_${abc}(me, them));`,
 				`\t${stateStore}`,
 				`\tout(pub, message_${abc})`,
 				`)`
@@ -557,11 +557,10 @@ const processFuns = (pattern) => {
 	let proc = [
 		`out(pub, key_s(charlie));`,
 		`!(`,
-		`\tnew sid_a:sessionid;`,
-		`\tinitiator(alice, bob, sid_a) | initiator(alice, charlie, sid_a)`,
-		`) | !(`,
-		`\tnew sid_b:sessionid;`,
-		`\tresponder(bob, alice, sid_b) | responder(bob, charlie, sid_b)`
+		`\tnew sid:sessionid;`,
+		`\tinitiator(alice, bob, sid) | initiator(alice, charlie, sid)`,
+		`\t|`,
+		`\tresponder(bob, alice, sid) | responder(bob, charlie, sid)`
 	];
 	if (hasPsk) {
 	}

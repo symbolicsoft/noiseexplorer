@@ -12,7 +12,6 @@ type key.
 type nonce.
 type keypair.
 type aead.
-type token.
 
 type cipherstate.
 type symmetricstate.
@@ -30,12 +29,6 @@ const key_psk:key [private].
 
 fun key2bit(key):bitstring     [typeConverter].
 fun bit2key(bitstring):key     [typeConverter].
-
-fun nonce2bit(nonce):bitstring [typeConverter].
-fun bit2nonce(bitstring):nonce [typeConverter].
-
-fun token2bit(token):bitstring [typeConverter].
-fun bit2token(bitstring):token [typeConverter].
 
 fun keypairpack(key, key):keypair [data].
 reduc forall public_key:key, private_key:key;
@@ -70,11 +63,3 @@ reduc forall cs:cipherstate, k:key, h:bitstring, s:keypair, e:keypair, rs:key, r
   handshakestategetcs(
     handshakestatepack(symmetricstatepack(cs, k, h), s, e, rs, re, psk, i)
   ) = cs.
-reduc forall ss:symmetricstate, s:keypair, e:keypair, rs:key, re:key, psk:key, i:bool;
-  handshakestategete(
-    handshakestatepack(ss, s, e, rs, re, psk, i)
-  ) = e.
-reduc forall ss:symmetricstate, s:keypair, e:keypair, rs:key, re:key, psk:key, i:bool;
-  handshakestategetre(
-    handshakestatepack(ss, s, e, rs, re, psk, i)
-  ) = re.
