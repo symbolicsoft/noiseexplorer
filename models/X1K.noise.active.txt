@@ -1139,3 +1139,4 @@ Completing...
 3000 rules inserted. The rule base contains 2580 rules. 797 rules in the queue.
 3200 rules inserted. The rule base contains 2736 rules. 858 rules in the queue.
 3400 rules inserted. The rule base contains 2821 rules. 879 rules in the queue.
+3600 rules inserted. The rule base contains 2945 rules. 919 rules in the queue.

@@ -19,10 +19,10 @@ const readRules = {
 		four: /^RESULT event\(RecvMsg\((alice|bob),(alice|bob),stagepack_\w\(\w{1,32}\),m\)\) ==> event\(SendMsg\((alice|bob),(alice|bob),stagepack_\w\(\w{1,32}\),m\)\) \|\| event\(LeakS\(phase0,(alice|bob)\)\)/
 	},
 	confidentiality: {
-		sanity: /^RESULT not attacker_p1\(msg_\w\((alice|bob),(alice|bob)\)\)/,
-		two: /^RESULT attacker_p1\(msg_\w\((alice|bob),(alice|bob)\)\) ==> event\(LeakS\(phase0,(alice|bob)\)\) \|\| event\(LeakS\(phase1,(alice|bob)\)\)/,
-		thour: /^RESULT attacker_p1\(msg_\w\((alice|bob),(alice|bob)\)\) ==> event\(LeakS\(phase0,(alice|bob)\)\) \|\| \(event\(LeakS\(phase1,(alice|bob)\)\) && event\(LeakS\(p,(alice|bob)\)\)\)/,
-		five: /^RESULT attacker_p1\(msg_\w\((alice|bob),(alice|bob)\)\) ==> event\(LeakS\(phase0,(alice|bob)\)\)/
+		sanity: /^RESULT not attacker_p1\(msg_\w\((alice|bob),(alice|bob),\w{1,32}\)\)/,
+		two: /^RESULT attacker_p1\(msg_\w\((alice|bob),(alice|bob),\w{1,32}\)\) ==> event\(LeakS\(phase0,(alice|bob)\)\) \|\| event\(LeakS\(phase1,(alice|bob)\)\)/,
+		thour: /^RESULT attacker_p1\(msg_\w\((alice|bob),(alice|bob),\w{1,32}\)\) ==> event\(LeakS\(phase0,(alice|bob)\)\) \|\| \(event\(LeakS\(phase1,(alice|bob)\)\) && event\(LeakS\(p,(alice|bob)\)\)\)/,
+		five: /^RESULT attacker_p1\(msg_\w\((alice|bob),(alice|bob),\w{1,32}\)\) ==> event\(LeakS\(phase0,(alice|bob)\)\)/
 	},
 	sanity: /^RESULT not event\(RecvEnd\(true\)\)/
 };
@@ -216,10 +216,10 @@ const read = (pvOutput) => {
 				readResults[abc].confidentiality.five = isTrue;
 			} else if (readRules.confidentiality.sanity.test(rawResult)) {
 				readResults[abc].confidentiality.sanity = !isTrue;
-			} else if (readRules.authenticity.one.test(rawResult)) {
-				readResults[abc].authenticity.one = isTrue;
 			} else if (readRules.authenticity.three.test(rawResult)) {
 				readResults[abc].authenticity.three = isTrue;
+			} else if (readRules.authenticity.one.test(rawResult)) {
+				readResults[abc].authenticity.one = isTrue;
 			} else if (readRules.authenticity.two.test(rawResult)) {
 				readResults[abc].authenticity.two = isTrue;
 			} else if (readRules.authenticity.four.test(rawResult)) {
