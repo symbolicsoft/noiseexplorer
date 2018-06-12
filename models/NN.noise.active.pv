@@ -588,10 +588,8 @@ let responder(me:principal, them:principal, sid:sessionid) =
 process
   out(pub, key_s(charlie));
 	!(
-		new sid_a:sessionid;
+		new sid_a[alice, bob, charlie]:sessionid;
 		initiator(alice, bob, sid_a) | initiator(alice, charlie, sid_a)
-	) | !(
-		new sid_b:sessionid;
-		responder(bob, alice, sid_b) | responder(bob, charlie, sid_b)
+		responder(bob, alice, sid_a) | responder(bob, charlie, sid_a)
 	)
 
