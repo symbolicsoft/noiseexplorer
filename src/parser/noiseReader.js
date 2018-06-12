@@ -12,11 +12,11 @@ const util = {
 const readRules = {
 	rawResult: /^RESULT.+(is false|is true|cannot be proved)\.$/,
 	authenticity: {
-		sanity: /^RESULT event\(RecvMsg\((alice|bob),(alice|bob),stage_\w\(\w{1,8}\),m,true\)\) ==> event\(SendMsg\((alice|bob),(alice|bob),stage_\w\(\w{1,8}\),m,true\)\)/,
-		one: /^RESULT event\(RecvMsg\((alice|bob),(alice|bob),stage_\w\(\w{1,8}\),m,true\)\) ==> event\(SendMsg\((alice|bob),c_\d{1,8},stage_\w\(\w{1,8}\),m,true\)\) \|\| event\(LeakS\(phase0,(alice|bob)\)\) \|\| event\(LeakS\(phase0,(alice|bob)\)\)/,
-		two: /^RESULT event\(RecvMsg\((alice|bob),(alice|bob),stage_\w\(\w{1,8}\),m,true\)\) ==> event\(SendMsg\((alice|bob),c_\d{1,8},stage_\w\(\w{1,8}\),m,true\)\) \|\| event\(LeakS\(phase0,(alice|bob)\)\)/,
-		three: /^RESULT event\(RecvMsg\((alice|bob),(alice|bob),stage_\w\(\w{1,8}\),m,true\)\) ==> event\(SendMsg\((alice|bob),(alice|bob),stage_\w\(\w{1,8}\),m,true\)\) \|\| event\(LeakS\(phase0,(alice|bob)\)\) \|\| event\(LeakS\(phase0,(alice|bob)\)\)/,
-		four: /^RESULT event\(RecvMsg\((alice|bob),(alice|bob),stage_\w\(\w{1,8}\),m,true\)\) ==> event\(SendMsg\((alice|bob),(alice|bob),stage_\w\(\w{1,8}\),m,true\)\) \|\| event\(LeakS\(phase0,(alice|bob)\)\)/
+		sanity: /^RESULT event\(RecvMsg\((alice|bob),(alice|bob),stagepack_\w\(\w{1,32}\),m\)\) ==> event\(SendMsg\((alice|bob),(alice|bob),stagepack_\w\(\w{1,32}\),m\)\)/,
+		one: /^RESULT event\(RecvMsg\((alice|bob),(alice|bob),stagepack_\w\(\w{1,32}\),m\)\) ==> event\(SendMsg\((alice|bob),c_\d{1,8},stagepack_\w\(\w{1,32}\),m\)\) \|\| event\(LeakS\(phase0,(alice|bob)\)\) \|\| event\(LeakS\(phase0,(alice|bob)\)\)/,
+		two: /^RESULT event\(RecvMsg\((alice|bob),(alice|bob),stagepack_\w\(\w{1,32}\),m\)\) ==> event\(SendMsg\((alice|bob),c_\d{1,8},stagepack_\w\(\w{1,32}\),m\)\) \|\| event\(LeakS\(phase0,(alice|bob)\)\)/,
+		three: /^RESULT event\(RecvMsg\((alice|bob),(alice|bob),stagepack_\w\(\w{1,32}\),m\)\) ==> event\(SendMsg\((alice|bob),(alice|bob),stagepack_\w\(\w{1,32}\),m\)\) \|\| event\(LeakS\(phase0,(alice|bob)\)\) \|\| event\(LeakS\(phase0,(alice|bob)\)\)/,
+		four: /^RESULT event\(RecvMsg\((alice|bob),(alice|bob),stagepack_\w\(\w{1,32}\),m\)\) ==> event\(SendMsg\((alice|bob),(alice|bob),stagepack_\w\(\w{1,32}\),m\)\) \|\| event\(LeakS\(phase0,(alice|bob)\)\)/
 	},
 	confidentiality: {
 		sanity: /^RESULT not attacker_p1\(msg_\w\((alice|bob),(alice|bob)\)\)/,
