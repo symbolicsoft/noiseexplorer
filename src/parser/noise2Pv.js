@@ -162,8 +162,8 @@ const initializeFun = (pattern, initiator, suffix) => {
 
 const initializeFuns = (pattern) => {
 	return [
-		initializeFun(pattern, true, util.abc[0]),
-		initializeFun(pattern, false, util.abc[1])
+		initializeFun(pattern, true, 'initiator'),
+		initializeFun(pattern, false, 'responder')
 	];
 };
 
@@ -318,7 +318,7 @@ const events = (pattern) => {
 		'event SendMsg(principal, principal, stage, bitstring).',
 		'event RecvMsg(principal, principal, stage, bitstring).',
 		'event LeakS(phasen, principal).',
-		'event LeakPsk(phasen, key).'
+		'event LeakPsk(phasen, principal, principal).'
 	];
 	return ev;
 };
@@ -383,7 +383,7 @@ const initiatorFun = (pattern) => {
 		re: preMessagesRecvEphemeral(pattern)?
 			'in(pub, re:key);': `let re = ${util.emptyKey} in`,
 		psk: /psk/.test(pattern.name)?
-			'key_psk' : util.emptyKey
+			'key_psk(me, them)' : util.emptyKey
 	};
 	let outStatic = (preMessagesSendStatic(pattern) || messagesSendStatic(pattern))?
 		`out(pub, getpublickey(s));` : `(* No static key initialized. *)`;
@@ -403,7 +403,7 @@ const initiatorFun = (pattern) => {
 	initiator = initiator.concat([
 		`\tlet rs = ${init.rs} in`,
 		`\t${init.re}`,
-		`\tlet hs:handshakestate = initialize_a(empty, s, e, rs, re, ${init.psk}) in`,
+		`\tlet hs:handshakestate = initialize_initiator(empty, s, e, rs, re, ${init.psk}) in`,
 		`\tinsert statestore(me, them, sid, statepack_${util.abc[0]}(hs))`,
 		`)`
 	]);
@@ -473,7 +473,7 @@ const responderFun = (pattern) => {
 		re: preMessagesSendEphemeral(pattern)?
 			'in(pub, re:key);': `let re = ${util.emptyKey} in`,
 		psk: /psk/.test(pattern.name)?
-			'key_psk' : util.emptyKey
+			'key_psk(them, me)' : util.emptyKey
 	};
 	let outStatic = (preMessagesRecvStatic(pattern) || messagesRecvStatic(pattern))?
 		`out(pub, getpublickey(s));` : `(* No static key initialized. *)`;
@@ -493,7 +493,7 @@ const responderFun = (pattern) => {
 	responder = responder.concat([
 		`\tlet rs = ${init.rs} in`,
 		`\t${init.re}`,
-		`\tlet hs:handshakestate = initialize_b(empty, s, e, rs, re, ${init.psk}) in`,
+		`\tlet hs:handshakestate = initialize_responder(empty, s, e, rs, re, ${init.psk}) in`,
 		`\tinsert statestore(me, them, sid, statepack_${util.abc[0]}(hs))`,
 		`)`
 	]);
@@ -554,16 +554,19 @@ const responderFun = (pattern) => {
 
 const processFuns = (pattern) => {
 	let hasPsk = /psk/.test(pattern.name);
+	let leakPsk = hasPsk? [
+		`out(pub, key_psk(alice, charlie));`,
+		`out(pub, key_psk(charlie, bob));`
+	].join('\n\t') : '(* No PSKs to leak. *)';
 	let proc = [
 		`out(pub, key_s(charlie));`,
+		leakPsk,
 		`!(`,
 		`\tnew sid:sessionid;`,
 		`\tinitiator(alice, bob, sid) | initiator(alice, charlie, sid)`,
 		`\t|`,
 		`\tresponder(bob, alice, sid) | responder(bob, charlie, sid)`
 	];
-	if (hasPsk) {
-	}
 	proc = proc.concat([')']);
 	return proc;
 };

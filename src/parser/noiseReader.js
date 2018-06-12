@@ -236,22 +236,22 @@ const render = (
 	readResultsActive, readResultsPassive,
 	rawResultsActive, rawResultsPassive
 ) => {
-	let arrowSvg = ``;
-	let analysisTxt = ``;
-	let rawResultsDiv = ``;
+	let arrowSvg = [];
+	let analysisTxt = [];
+	let rawResultsDiv = [];
 	let offset = 30;
 	let offsetIncrement = 135;
 	if (pattern.preMessages.length) {
 		pattern.preMessages.forEach((preMessage) => {
-			arrowSvg += htmlTemplates[`${preMessage.dir}PreMessage`](
+			arrowSvg.push(htmlTemplates[`${preMessage.dir}PreMessage`](
 				offset, preMessage.tokens
-			);
+			));
 			offset = offset + offsetIncrement;
-			analysisTxt += htmlTemplates.analysisPreMessage(
+			analysisTxt.push(htmlTemplates.analysisPreMessage(
 				preMessage.dir, preMessage.tokens
-			);
+			));
 		});
-		arrowSvg += htmlTemplates.ellipsis(offset);
+		arrowSvg.push(htmlTemplates.ellipsis(offset));
 		offset = offset + offsetIncrement;
 	}
 	pattern.messages.forEach((message, i) => {
@@ -275,32 +275,37 @@ const render = (
 				readResultsActive[abc].confidentiality.sanity &&
 				readResultsActive.sanity
 			);
-			analysisTxt += htmlTemplates.analysisMessage(
+			analysisTxt.push(htmlTemplates.analysisMessage(
 				abc, message.dir, message.tokens,
 				authenticity, confidentiality, sanity
-			);
+			));
 		}
-		arrowSvg += htmlTemplates[`${message.dir}Message`](
+		arrowSvg.push(htmlTemplates[`${message.dir}Message`](
 			offset, util.abc[i],
 			message.tokens.join(', '),
 			authenticity,
 			confidentiality
-		);
+		));
 		offset = offset + offsetIncrement;
 	});
 	if (
 		rawResultsActive.length &&
 		rawResultsPassive.length
 	) {
-		rawResultsDiv = [
+		rawResultsDiv.push([
 			`<h2>raw results &mdash; active attacker</h2>`,
 			`${rawResultsActive.join('<br />').toLowerCase()}`,
 			`<h2>raw results &mdash; passive attacker</h2>`,
 			`${rawResultsPassive.join('<br />').toLowerCase()}`,
 			`<br /><br />`
-		].join('\n');
+		]);
 	}
-	return {arrowSvg, analysisTxt, rawResultsDiv, offset};
+	return {
+		arrowSvg: arrowSvg.join('\n'),
+		analysisTxt: analysisTxt.join('\n'),
+		rawResultsDiv: rawResultsDiv.join('\n'),
+		offset: offset
+	};
 };
 
 if (typeof(module) !== 'undefined') {
