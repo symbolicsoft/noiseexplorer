@@ -420,7 +420,8 @@ const initiatorFun = (pattern) => {
 		].join('\n\t\t');
 		let statePackNext = (i < finalKex)?
 			`statepack_${abcn}(hs)` :
-				`statepack_${abcn}(hs, ${(i === finalKex)? 'cs1, cs2' : (msgDirSend? 'handshakestategetcs(hs), cs2' : 'cs1, handshakestategetcs(hs)')})`;
+				`statepack_${abcn}(hs, ${(i === finalKex)? 'cs1, cs2' :
+					(msgDirSend? 'handshakestategetcs(hs), cs2' : 'cs1, handshakestategetcs(hs)')})`;
 		let stateStore = (i < (pattern.messages.length - 1))?
 			`insert statestore(me, them, sid, ${statePackNext});`
 				: `(* Final message, do not pack state. *)`;
@@ -509,7 +510,8 @@ const responderFun = (pattern) => {
 		].join('\n\t\t');
 		let statePackNext = (i < finalKex)?
 			`statepack_${abcn}(hs)` :
-				`statepack_${abcn}(hs, ${(i === finalKex)? 'cs1, cs2' : (msgDirSend? 'handshakestategetcs(hs), cs2' : 'cs1, handshakestategetcs(hs)')})`;
+				`statepack_${abcn}(hs, ${(i === finalKex)? 'cs1, cs2' :
+					(msgDirSend? 'handshakestategetcs(hs), cs2' : 'cs1, handshakestategetcs(hs)')})`;
 		let stateStore = (i < (pattern.messages.length - 1))?
 			`insert statestore(me, them, sid, ${statePackNext});`
 				: `(* Final message, do not pack state. *)`;

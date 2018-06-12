@@ -100,14 +100,6 @@ reduc forall cs:cipherstate, k:key, h:bitstring, s:keypair, e:keypair, rs:key, r
     handshakestatepack(symmetricstatepack(cs, k, h), s, e, rs, re, psk, i)
   ) = cs.
 reduc forall ss:symmetricstate, s:keypair, e:keypair, rs:key, re:key, psk:key, i:bool;
-  handshakestategets(
-    handshakestatepack(ss, s, e, rs, re, psk, i)
-  ) = s.
-reduc forall ss:symmetricstate, s:keypair, e:keypair, rs:key, re:key, psk:key, i:bool;
-  handshakestategetrs(
-    handshakestatepack(ss, s, e, rs, re, psk, i)
-  ) = rs.
-reduc forall ss:symmetricstate, s:keypair, e:keypair, rs:key, re:key, psk:key, i:bool;
   handshakestategete(
     handshakestatepack(ss, s, e, rs, re, psk, i)
   ) = e.
@@ -115,6 +107,7 @@ reduc forall ss:symmetricstate, s:keypair, e:keypair, rs:key, re:key, psk:key, i
   handshakestategetre(
     handshakestatepack(ss, s, e, rs, re, psk, i)
   ) = re.
+
 (* ---------------------------------------------------------------- *)
 (* CONSTANTS                                                        *)
 (* ---------------------------------------------------------------- *)
