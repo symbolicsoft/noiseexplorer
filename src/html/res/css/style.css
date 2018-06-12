@@ -134,6 +134,12 @@ div.arrowsFrame {
 	float: left;
 }
 
+div.arrowsFrame.detailed {
+	float: none;
+	height: 300px;
+	width: 820px;
+}
+
 div.arrowsFrame h1 {
 	position: absolute;
 	top: 0;
@@ -272,6 +278,11 @@ div.resultsExplanation {
 	border: 2px solid #FFF5F5;
 	text-align: justify;
 	padding-bottom: 250px;
+}
+
+div.resultsExplanation.detailed {
+	float: none;
+	width: 860px;
 }
 
 div.resultsExplanation p {
