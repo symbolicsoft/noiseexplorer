@@ -78,7 +78,6 @@ const htmlTemplates = {
 	analysisMessage: (abc, dir, tokens, authenticity, confidentiality, sanity) => {
 		let who = (dir === 'send')? 'initiator' : 'responder';
 		let whom = (dir === 'recv')? 'initiator' : 'responder';
-
 		let authPhrases = {
 			0: `does not benefit from <em>sender authentication</em> and does not provide <em>message integrity</em>. It could have been sent by any party, including an active attacker`,
 			1: `benefits from <em>receiver authentication</em> but is <em>vulnerable to Key Compromise Impersonation</em>. If the ${whom}'s long-term private key has been compromised, this authentication can be forged. However, if the ${who} carries out a separate session with a separate, compromised ${whom}, this other session can be used to forge the authenticity of this message with this session's ${whom}`,
@@ -149,7 +148,7 @@ const getRawResults = (pvOutput) => {
 
 const getMsgAbc = (rawResult) => {
 	if (rawResult.match(/stagepack_\w/)) {
-		return rawResult.match(/stagepack_\w/)[0][6];
+		return rawResult.match(/stagepack_\w/)[0][10];
 	}
 	if (rawResult.match(/msg_\w/)) {
 		return rawResult.match(/msg_\w/)[0][4];
@@ -274,7 +273,7 @@ const render = (
 			sanity = (
 				readResultsActive[abc].authenticity.sanity &&
 				readResultsActive[abc].confidentiality.sanity &&
-				/* readResultsActive.sanity */ true
+				readResultsActive.sanity
 			);
 			analysisTxt += htmlTemplates.analysisMessage(
 				abc, message.dir, message.tokens,
