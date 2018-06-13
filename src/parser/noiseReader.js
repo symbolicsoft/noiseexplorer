@@ -6,7 +6,11 @@ const NOISEREADER = {
 (() => {
 
 const util = {
-	abc: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
+	abc: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'],
+	seq: [
+		'first', 'second', 'third', 'fourth',
+		'fifth', 'sixth', 'seventh', 'eighth'
+	]
 };
 
 const readRules = {
@@ -98,10 +102,140 @@ const htmlTemplates = {
 			false: `<strong>Sanity of this result could not be verified.</strong>`
 		};
 		let phrase = [
-			`\n\t\t\t<h3>Message ${abc.toUpperCase()}</h3>`,
+			`\n\t\t\t<h3>Message ${abc.toUpperCase()} &mdash; <a href="${abc.toUpperCase()}.html">Detailed analysis</a></h3>`,
 			`<p>Message ${abc.toUpperCase()}, sent by the ${who}, ${authPhrases[authenticity]}. ${confPhrases[confidentiality]}. ${sanPhrases[sanity]} <span class="resultNums">${authenticity},${confidentiality}</span></p>`
 		].join('\n\t\t\t');
 		return phrase;
+	},
+	detailed: {
+		sendMessage: (msg, tokens, authenticity, confidentiality) => {
+			return [
+				`<line data-seclevel="${confidentiality}" x1="1" x2="500" y1="70" y2="70"></line>`,
+				`<polyline data-seclevel="${confidentiality}" points="480,50 500,70 480,90"></polyline>`,
+				`<circle data-seclevel="${authenticity}" cx="29" cy="70" r="25"></circle>`,
+				`<text class="msg" x="29" y="77">${msg}</text>`,
+				`<text class="tokens" x="240" y="50">${tokens}</text>`
+			].join('\n\t\t\t\t\t');
+		},
+		recvMessage: (msg, tokens, authenticity, confidentiality) => { 
+			return [
+				`<line data-seclevel="${confidentiality}" x1="1" x2="500" y1="70" y2="70"></line>`,
+				`<polyline data-seclevel="${confidentiality}" points="21,50 3,70 21,90"></polyline>`,
+				`<circle data-seclevel="${authenticity}" cx="474" cy="70" r="25"></circle>`,
+				`<text class="msg" x="474" y="77">${msg}</text>`,
+				`<text class="tokens" x="240" y="50">${tokens}</text>`
+			].join('\n\t\t\t\t\t');
+		},
+		intro: (name, abc, seq, dir) => {
+			let who = (dir === 'send')? 'initiator' : 'responder';
+			let whom = (dir === 'recv')? 'initiator' : 'responder';
+			return `<p>Message <span class="mono">${abc.toUpperCase()}</span> is the ${seq} message in the <span class="mono">${name}</span> Noise Handshake Pattern. It is sent from the ${who} to the ${whom}.</p>`;
+		},
+		tokenTxt: (abc, dir, write, token) => {
+			let who = (dir === 'send')? 'initiator' : 'responder';
+			let whom = (dir === 'recv')? 'initiator' : 'responder';
+			let letfunName = write? `writeMessage` : `sendMessage`;
+			let stateFuns = {
+				mixKey: (dir, dh) => {
+					let dhDesc = '';
+					switch (dh) {
+						case 'e, re': dhDesc = `ephemeral key and the responder's ephemeral key`; break;
+						case 'e, rs': dhDesc = `ephemeral key and the responder's static key`; break;
+						case 's, re': dhDesc = `static key and the responder's ephemeral key`; break;
+						case 's, rs': dhDesc = `static key and the responder's static key`; break;
+					};
+					return `<span class="mono">mixKey</span>, which calls the HKDF function using, as input, the existing <span class="mono">SymmetricState</span> key, and <span class="mono">dh(${dh})</span>, the Diffie-Hellman share calculated from the initiator's ${dhDesc}.`;
+				},
+				mixHash: (dir) => {
+					return `<span class="mono">mixHash</span>, which hashes the new key into the session hash.`;
+				},
+				mixKeyAndHash: (dir) => {
+					return ` <span class="mono">mixKeyAndHash</span>, which mixes and hashes the PSK value into the state and then initializes a new state seeded by the result.`;
+				},
+				encryptAndHash: (dir, write) => {
+					return `<span class="mono">encryptAndHash</span> is called on the static public key. If any prior Diffie-Hellman shared secret was established between the sender and the recipient, this allows the ${who} to communicate their long-term identity with some degree of confidentiality.`
+				},
+			};
+			let verb = (token.length > 1)?
+				'calculating' : (write? 'sending' : 'receiving');
+			let desc = (() => {
+				let p = `a Diffie-Hellman shared secret derived from the initiator's`;
+				switch(token) {
+					case 'e': return `a fresh ephemeral key share`; break;
+					case 's': return `a static key share`; break;
+					case 'ee': return `${p} ephemeral key and the responder's ephemeral key`; break;
+					case 'es': return `${p} ephemeral key and the responder's static key`; break;
+					case 'se': return `${p} static key and the responder's ephemeral key`; break;
+					case 'ss': return `${p} static key and the responder's static key`; break;
+					case 'psk': return `a new session secret that adds a pre-shared symmetric key`; break;
+				}
+			})();
+			let res = [
+				`<ul>`,
+				`<li><span class="mono">${token}</span>: Signals that the ${who} is ${verb} a ${desc} as part of this message. This token adds the following state transformations to <span class="mono">${letfunName}_${abc}</span>:</li>`,
+				`<ul>`
+			];
+			switch(token) {
+				case 'e': res = res.concat([
+					`<li>${stateFuns.mixHash(dir)}</li>`
+				]); break;
+				case 's': res = res.concat([
+					`<li>${stateFuns.encryptAndHash(dir, true)}</li>`
+				]); break;
+				case 'ee': res = res.concat([
+					`<li>${stateFuns.mixKey(dir, 'e, re')}</li>`
+				]); break;
+				case 'es': res = res.concat([
+					`<li>${stateFuns.mixKey(dir, 'e, rs')}</li>`
+				]); break;
+				case 'se': res = res.concat([
+					`<li>${stateFuns.mixKey(dir, 's, re')}</li>`
+				]); break;
+				case 'ss': res = res.concat([
+					`<li>${stateFuns.mixKey(dir, 's, rs')}</li>`
+				]); break;
+				case 'psk': res = res.concat([
+					`<li>${stateFuns.mixKeyAndHash(dir)}</li>`
+				]); break;
+			}
+			res.push('</ul></ul>');
+			return res;
+		},
+		analysisTxt: (name, abc, seq, dir, write, letfun, tokens) => {
+			let who = (dir === 'send')? 'initiator' : 'responder';
+			let whom = (dir === 'recv')? 'initiator' : 'responder';
+			let verb = write? 'sending' : 'receiving';
+			let res = [
+				`<h3>${verb[0].toUpperCase()}${verb.substr(1)} Message <span class="mono">${abc.toUpperCase()}</span></h3>`,
+				`<p>In the applied pi calculus, the initiator's process prepares Message <span class="mono">${abc.toUpperCase()}</span> using the following function:</p>`,
+				`<p class="proverif">`
+			];
+			res = res.concat(letfun.split('\n'));
+			res.push(`</p>`);
+			if (tokens.length) {
+				res = res.concat([
+					`<h4>How each token is processed by the ${who}:</h4>`
+				]);
+				tokens.forEach((token) => {
+					res = res.concat(htmlTemplates.detailed.tokenTxt(abc, dir, write, token))
+				});
+			} else {
+				res = res.concat([
+					`Since Message <span class="mono">${abc.toUpperCase()}</span> contains no tokens, it is considered purely an "AppData" type message meant to transfer encrypted payloads.`
+				]);
+			};
+			if (tokens.indexOf('s') < 0) {
+				res.push(`<p>If a static public key was communicated as part of this message, it would have been encrypted as <span class="mono">ciphertext1</span>. However, since the initiator does not communicate a static public key here, that value is left empty.</p>`);
+			}
+			res.push(`<p>Message <span class="code">${abc.toUpperCase()}</span>'s payload, which is modeled as the output of the function <span class="mono">msg_a(initiatorIdentity, responderIdentity, sessionId)</span>, is encrypted as <span class="mono">ciphertext2</span>. This invokes the following operations:</p><ul>`)
+			if (write) {
+				res.push(`<li><span class="mono">encryptAndHash</span>, which performs an authenticated encryption with added data (AEAD) on the payload, with the session hash as the added data (<span class="mono">encryptWithAd</span>) and <span class="mono">mixHash</span>, which hashes the encrypted payload into the next session hash.</li>`)
+			} else {
+				res.push(`<li><span class="mono">decryptAndHash</span>, which performs an authenticated decryption with added data (AEAD) on the payload, with the session hash as the added data (<span class="mono">decryptWithAd</span>) and <span class="mono">mixHash</span>, which hashes the encrypted payload into the next session hash.</li>`);
+			}
+			res.push('</ul>');
+			return res.join('\n');
+		}
 	}
 };
 
@@ -308,16 +442,60 @@ const render = (
 	};
 };
 
+const renderDetailed = (
+	activeModel, pattern, message,
+	readResultsActive, readResultsPassive,
+	rawResultsActive, rawResultsPassive
+) => {
+	let abc = util.abc[message];
+	let seq = util.seq[message];
+	let dir = pattern.messages[message].dir;
+	let tokens = pattern.messages[message].tokens;
+	let arrowSvg = [];
+	let analysisTxt = [];
+	let writeMessageRegExp = new RegExp(`letfun writeMessage_${abc}[^.]+\.`, '');
+	let readMessageRegExp = new RegExp(`letfun readMessage_${abc}[^.]+\.`, '');
+	let writeMessage = activeModel.match(writeMessageRegExp)[0];
+	let readMessage = activeModel.match(readMessageRegExp)[0];
+	let authenticity = getAuthenticity(readResultsActive[abc]);
+	let confidentiality = getConfidentiality(readResultsActive[abc], readResultsPassive[abc]);
+	if (pattern.messages[message].dir === 'send') {
+		arrowSvg.push(htmlTemplates.detailed.sendMessage(
+			abc, tokens.join(', '), authenticity, confidentiality
+		));
+	} else {
+		arrowSvg.push(htmlTemplates.detailed.recvMessage(
+			abc, tokens.join(', '), authenticity, confidentiality
+		));
+	}
+	analysisTxt = [
+		htmlTemplates.detailed.intro(pattern.name, abc, seq, dir),
+	];
+	analysisTxt = analysisTxt.concat(
+		htmlTemplates.detailed.analysisTxt(pattern.name, abc, seq, dir, true, writeMessage, tokens)
+	);
+	analysisTxt = analysisTxt.concat(
+		htmlTemplates.detailed.analysisTxt(pattern.name, abc, seq, dir, false, readMessage, tokens)
+	);
+	return {
+		arrowSvg: arrowSvg.join('\n'),
+		analysisTxt: analysisTxt.join('\n'),
+		title: `${pattern.name} - Message ${abc.toUpperCase()}`
+	}
+}
+
 if (typeof(module) !== 'undefined') {
 	// Node
 	module.exports = {
 		read: read,
-		render: render
+		render: render,
+		renderDetailed: renderDetailed
 	};
 } else {
 	// Web
 	NOISEREADER.read = read;
 	NOISEREADER.render = render;
+	NOISEREADER.renderDetailed = renderDetailed;
 }
 
 })();

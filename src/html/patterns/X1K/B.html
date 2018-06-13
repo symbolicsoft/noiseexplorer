@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<title>Noise Explorer: X1K - Message B</title>
+	<meta name="keywords" content="noise protocol, protocol verification, formal verification, noise protocol framework, symbolic verification" />
+	<meta name="description" content="Noise Explorer is an online engine for reasoning about Noise Protocol Framework Handshake Patterns. Noise Explorer allows you to design and validate Noise Handshake Patterns, to generate cryptographic models for formal verification and to explore a compendium of formal verification results for the most popular and relevant Noise Handshake Patterns in use today." />
+	<link rel="image_src" href="https://noiseexplorer.com/res/img/logo.png" />
+	<link rel="icon" type="image/png" href="../../res/img/logo.png" />
+	<link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono|IBM+Plex+Sans" rel="stylesheet" />
+	<link href="../../res/css/style.css" rel="stylesheet" />
+	<script type="application/javascript"></script>
+</head>
+
+<body>
+	<div class="header">
+		<img id="logo" src="../../res/img/logo.png" alt="" />
+		<h1>Noise Explorer <span class="beta">beta</span></h1>
+	</div>
+	<div class="nav">
+		<span class="menu">menu</span>
+		<div class="navLinks">
+			<a href="../..">Design New Pattern</a>
+			<a href="../../patterns" class="currentNav">Explore Patterns</a>
+			<a href="../../cmd">Command-Line Tool</a>
+		</div>
+	</div>
+	<div class="results detailed">
+		<div class="arrowsFrame">
+			<h1 id="patternName"><a href="index.html">X1K</a></h1>
+			<div class="arrows">
+				<svg id="patternArrows">
+					<line data-seclevel="1" x1="1" x2="500" y1="70" y2="70"></line>
+					<polyline data-seclevel="1" points="21,50 3,70 21,90"></polyline>
+					<circle data-seclevel="2" cx="474" cy="70" r="25"></circle>
+					<text class="msg" x="474" y="77">b</text>
+					<text class="tokens" x="240" y="50">e, ee</text>
+				</svg>
+			</div>
+		</div>
+		<div class="resultsExplanation">
+			<h2>Message Pattern Analysis</h2>
+			<p>Message <span class="mono">B</span> is the second message in the <span class="mono">X1K</span> Noise Handshake Pattern. It is sent from the responder to the initiator.</p>
+<h3>Sending Message <span class="mono">B</span></h3>
+<p>In the applied pi calculus, the initiator's process prepares Message <span class="mono">B</span> using the following function:</p>
+<p class="proverif">
+letfun writeMessage_b(me:principal, them:principal, hs:handshakestate, payload:bitstring, sid:sessionid) =
+	let (ss:symmetricstate, s:keypair, e:keypair, rs:key, re:key, psk:key, initiator:bool) = handshakestateunpack(hs) in
+	let (ne:bitstring, ciphertext1:bitstring, ciphertext2:bitstring) = (empty, empty, empty) in
+	let e = generate_keypair(key_e(me, them, sid)) in
+	let ne = key2bit(getpublickey(e)) in
+	let ss = mixHash(ss, ne) in
+	(* No PSK, so skipping mixKey *)
+	let ss = mixKey(ss, dh(e, re)) in
+	let (ss:symmetricstate, ciphertext2:bitstring) = encryptAndHash(ss, payload) in
+	let hs = handshakestatepack(ss, s, e, rs, re, psk, initiator) in
+	let message_buffer = concat3(ne, ciphertext1, ciphertext2) in
+	(hs, message_buffer).
+</p>
+<h4>How each token is processed by the responder:</h4>
+<ul>
+<li><span class="mono">e</span>: Signals that the responder is sending a a fresh ephemeral key share as part of this message. This token adds the following state transformations to <span class="mono">writeMessage_b</span>:</li>
+<ul>
+<li><span class="mono">mixHash</span>, which hashes the new key into the session hash.</li>
+</ul></ul>
+<ul>
+<li><span class="mono">ee</span>: Signals that the responder is calculating a a Diffie-Hellman shared secret derived from the initiator's ephemeral key and the responder's ephemeral key as part of this message. This token adds the following state transformations to <span class="mono">writeMessage_b</span>:</li>
+<ul>
+<li><span class="mono">mixKey</span>, which calls the HKDF function using, as input, the existing <span class="mono">SymmetricState</span> key, and <span class="mono">dh(e, re)</span>, the Diffie-Hellman share calculated from the initiator's ephemeral key and the responder's ephemeral key.</li>
+</ul></ul>
+<p>If a static public key was communicated as part of this message, it would have been encrypted as <span class="mono">ciphertext1</span>. However, since the initiator does not communicate a static public key here, that value is left empty.</p>
+<p>Message <span class="code">B</span>'s payload, which is modeled as the output of the function <span class="mono">msg_a(initiatorIdentity, responderIdentity, sessionId)</span>, is encrypted as <span class="mono">ciphertext2</span>. This invokes the following operations:</p><ul>
+<li><span class="mono">encryptAndHash</span>, which performs an authenticated encryption with added data (AEAD) on the payload, with the session hash as the added data (<span class="mono">encryptWithAd</span>) and <span class="mono">mixHash</span>, which hashes the encrypted payload into the next session hash.</li>
+</ul>
+<h3>Receiving Message <span class="mono">B</span></h3>
+<p>In the applied pi calculus, the initiator's process prepares Message <span class="mono">B</span> using the following function:</p>
+<p class="proverif">
+letfun readMessage_b(me:principal, them:principal, hs:handshakestate, message:bitstring, sid:sessionid) =
+	let (ss:symmetricstate, s:keypair, e:keypair, rs:key, re:key, psk:key, initiator:bool) = handshakestateunpack(hs) in
+	let (ne:bitstring, ciphertext1:bitstring, ciphertext2:bitstring) = deconcat3(message) in
+	let valid1 = true in
+	let re = bit2key(ne) in
+	let ss = mixHash(ss, key2bit(re)) in
+	(* No PSK, so skipping mixKey *)
+	let ss = mixKey(ss, dh(e, re)) in
+	let (ss:symmetricstate, plaintext2:bitstring, valid2:bool) = decryptAndHash(ss, ciphertext2) in
+	if ((valid1 && valid2)) then (
+		let hs = handshakestatepack(ss, s, e, rs, re, psk, initiator) in
+		(hs, plaintext2, true)
+	).
+</p>
+<h4>How each token is processed by the responder:</h4>
+<ul>
+<li><span class="mono">e</span>: Signals that the responder is receiving a a fresh ephemeral key share as part of this message. This token adds the following state transformations to <span class="mono">sendMessage_b</span>:</li>
+<ul>
+<li><span class="mono">mixHash</span>, which hashes the new key into the session hash.</li>
+</ul></ul>
+<ul>
+<li><span class="mono">ee</span>: Signals that the responder is calculating a a Diffie-Hellman shared secret derived from the initiator's ephemeral key and the responder's ephemeral key as part of this message. This token adds the following state transformations to <span class="mono">sendMessage_b</span>:</li>
+<ul>
+<li><span class="mono">mixKey</span>, which calls the HKDF function using, as input, the existing <span class="mono">SymmetricState</span> key, and <span class="mono">dh(e, re)</span>, the Diffie-Hellman share calculated from the initiator's ephemeral key and the responder's ephemeral key.</li>
+</ul></ul>
+<p>If a static public key was communicated as part of this message, it would have been encrypted as <span class="mono">ciphertext1</span>. However, since the initiator does not communicate a static public key here, that value is left empty.</p>
+<p>Message <span class="code">B</span>'s payload, which is modeled as the output of the function <span class="mono">msg_a(initiatorIdentity, responderIdentity, sessionId)</span>, is encrypted as <span class="mono">ciphertext2</span>. This invokes the following operations:</p><ul>
+<li><span class="mono">decryptAndHash</span>, which performs an authenticated decryption with added data (AEAD) on the payload, with the session hash as the added data (<span class="mono">decryptWithAd</span>) and <span class="mono">mixHash</span>, which hashes the encrypted payload into the next session hash.</li>
+</ul>
+		</div>
+	</div>
+	<div class="footer">
+		<span class="about">about</span>
+		<span>Noise Explorer is authored by <a href="https://nadim.computer" target="_blank">Nadim Kobeissi</a> (<a href="https://www.gnu.org/licenses/gpl-3.0.en.html" target="_blank">GPLv3</a>)</span><span style="float:right"><a href="https://symbolic.software" target="_blank">Symbolic Software</a> | <a href="https://inria.fr/" target="_blank">INRIA</a></span>
+	</div>
+</body>
+
+</html>

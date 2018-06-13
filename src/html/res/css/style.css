@@ -43,6 +43,11 @@ h3 {
 	margin: 5% 0 0 0;
 }
 
+span.mono {
+	font-family: 'IBM Plex Mono', monospace;
+	font-weight: bold;
+}
+
 div.header {
 	width: 900px;
 	height: 100px;
@@ -132,12 +137,6 @@ div.arrowsFrame {
 	background-color: var(--noiseBeige);
 	position: relative;
 	float: left;
-}
-
-div.arrowsFrame.detailed {
-	float: none;
-	height: 300px;
-	width: 820px;
 }
 
 div.arrowsFrame h1 {
@@ -272,17 +271,12 @@ div.arrows svg text.ellipsis {
 div.resultsExplanation {
 	float: right;
 	width: 500px;
-	background-color: #FFFCFC;
+	background-color: var(--noiseBeige);
 	padding: 0 20px 20px 20px;
 	border-radius: 5px;
 	border: 2px solid #FFF5F5;
 	text-align: justify;
 	padding-bottom: 250px;
-}
-
-div.resultsExplanation.detailed {
-	float: none;
-	width: 860px;
 }
 
 div.resultsExplanation p {
@@ -300,14 +294,16 @@ div.resultsExplanation span.resultNums {
 }
 
 div.rawResults {
-	border: 1px solid var(--noiseDarkGray);
-	box-shadow: 2px 2px var(--noiseDarkGray);
+	background-color: var(--noiseDarkGray);
+	border: 2px solid var(--noiseLightGray);
+	border-radius: 5px;
+	color: #FFF;
 	font-family: 'IBM Plex Mono', monospace;
 	margin: 20px auto 0 auto;
 	width: 860px;
 	padding: 0 20px;
 	height: 400px;
-	font-size: 12px;
+	font-size: 10px;
 	overflow-y: auto;
 	font-variant: small-caps;
 }
@@ -404,7 +400,7 @@ p#patternSearchNotFound.visible {
 a.patternEntry {
 	display: inline-block;
 	vertical-align: middle;
-	white-space: pre;
+	white-space: pre-line;
 	border: 3px solid var(--noiseClearGray);
 	background-clip: padding-box;
 	border-radius: 5px;
@@ -458,4 +454,69 @@ div.footer span.about {
 	padding: 3px 5px;
 	font-weight: bold;
 	margin-left: 0;
+}
+
+div.results.detailed {
+	padding-bottom: 0px;
+}
+
+div.results.detailed h3 {
+	margin-top: 30px;
+}
+
+div.results.detailed div.arrowsFrame {
+	float: none;
+	height: 150px;
+	width: 820px;
+}
+
+div.results.detailed div.arrowsFrame div.arrows {
+	height: 150px;
+	padding-bottom: 0px;
+}
+
+div.results.detailed div.arrowsFrame div.arrows svg {
+	margin-top: 0px;
+	height: 150px;
+	width: 520px;
+}
+
+div.results.detailed div.arrowsFrame div.arrows svg line {
+	stroke-width: 6px;
+}
+
+div.results.detailed div.arrowsFrame div.arrows svg polyline {
+	stroke-width: 6px;
+}
+
+div.results.detailed div.arrowsFrame div.arrows svg circle {
+	stroke-width: 6px;
+}
+
+div.results.detailed div.arrowsFrame div.arrows svg text.msg {
+	font-size: 26px;
+}
+
+div.results.detailed div.arrowsFrame div.arrows svg text.tokens {
+	font-size: 26px;
+}
+
+div.results.detailed div.resultsExplanation {
+	float: none;
+	width: 860px;
+	background-color: var(--noiseDarkGray);
+	border-color: var(--noiseLightGray);
+	color: #FFF;
+	margin-top: 20px;
+	padding-bottom: 20px;
+}
+
+div.results.detailed p.proverif {
+	font-family: 'IBM Plex Mono', monospace;
+	white-space: pre-line;
+	font-size: 12px;
+	background: var(--noiseClearGray);
+	color: var(--noiseTextColor);
+	border-radius: 4px;
+	padding: 0 10px 15px 10px;
 }

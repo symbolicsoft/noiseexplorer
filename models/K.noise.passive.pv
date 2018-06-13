@@ -266,7 +266,7 @@ letfun writeMessage_a(me:principal, them:principal, hs:handshakestate, payload:b
 	let e = generate_keypair(key_e(me, them, sid)) in
 	let ne = key2bit(getpublickey(e)) in
 	let ss = mixHash(ss, ne) in
-	(* No PSK, so skipping mixKey. *)
+	(* No PSK, so skipping mixKey *)
 	let ss = mixKey(ss, dh(e, rs)) in
 	let ss = mixKey(ss, dh(s, rs)) in
 	let (ss:symmetricstate, ciphertext2:bitstring) = encryptAndHash(ss, payload) in
@@ -281,7 +281,7 @@ letfun readMessage_a(me:principal, them:principal, hs:handshakestate, message:bi
 	let valid1 = true in
 	let re = bit2key(ne) in
 	let ss = mixHash(ss, key2bit(re)) in
-	(* No PSK, so skipping mixKey. *)
+	(* No PSK, so skipping mixKey *)
 	let ss = mixKey(ss, dh(s, re)) in
 	let ss = mixKey(ss, dh(s, rs)) in
 	let (ss:symmetricstate, plaintext2:bitstring, valid2:bool) = decryptAndHash(ss, ciphertext2) in
@@ -357,7 +357,7 @@ let initiator(me:principal, them:principal, sid:sessionid) =
 		get statestore(=me, =them, =sid, statepack_a(hs)) in
 		let (hs:handshakestate, message_a:bitstring, cs1:cipherstate, cs2:cipherstate) = writeMessage_a(me, them, hs, msg_a(me, them, sid), sid) in
 		event SendMsg(me, them, stagepack_a(sid), msg_a(me, them, sid));
-		(* Final message, do not pack state. *)
+		(* Final message, do not pack state *)
 		out(pub, message_a)
 	)
 	| (
@@ -385,7 +385,7 @@ let responder(me:principal, them:principal, sid:sessionid) =
 		in(pub, message_a:bitstring);
 		let (hs:handshakestate, plaintext_a:bitstring, valid:bool, cs1:cipherstate, cs2:cipherstate) = readMessage_a(me, them, hs, message_a, sid) in
 		event RecvMsg(me, them, stagepack_a(sid), plaintext_a);
-		(* Final message, do not pack state. *)
+		(* Final message, do not pack state *)
 		event RecvEnd(valid)
 	)
 	| (
@@ -404,7 +404,7 @@ let responder(me:principal, them:principal, sid:sessionid) =
 
 process
   out(pub, key_s(charlie));
-	(* No PSKs to leak. *)
+	(* No PSKs to leak *)
 	!(
 		new sid:sessionid;
 		initiator(alice, bob, sid) | initiator(alice, charlie, sid)

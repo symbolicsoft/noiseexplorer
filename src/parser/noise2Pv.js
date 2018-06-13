@@ -169,7 +169,7 @@ const initializeFuns = (pattern) => {
 
 const writeMessageFun = (message, hasPsk, initiator, isFinal, suffix) => {
 	let ePskFill = hasPsk?
-		`let ss = mixKey(ss, getpublickey(e)) in` : `(* No PSK, so skipping mixKey. *)`;
+		`let ss = mixKey(ss, getpublickey(e)) in` : `(* No PSK, so skipping mixKey *)`;
 	let esInitiatorFill = initiator?
 		`let ss = mixKey(ss, dh(e, rs)) in` : `let ss = mixKey(ss, dh(s, re)) in`;
 	let seInitiatorFill = initiator?
@@ -239,7 +239,7 @@ const writeMessageFuns = (pattern) => {
 
 const readMessageFun = (message, hasPsk, initiator, isFinal, suffix) => {
 	let ePskFill = hasPsk?
-		`let ss = mixKey(ss, re) in` : `(* No PSK, so skipping mixKey. *)`;
+		`let ss = mixKey(ss, re) in` : `(* No PSK, so skipping mixKey *)`;
 	let esInitiatorFill = initiator?
 		`let ss = mixKey(ss, dh(e, rs)) in` : `let ss = mixKey(ss, dh(s, re)) in`;
 	let seInitiatorFill = initiator?
@@ -386,9 +386,9 @@ const initiatorFun = (pattern) => {
 			'key_psk(me, them)' : util.emptyKey
 	};
 	let outStatic = (preMessagesSendStatic(pattern) || messagesSendStatic(pattern))?
-		`out(pub, getpublickey(s));` : `(* No static key initialized. *)`;
+		`out(pub, getpublickey(s));` : `(* No static key initialized *)`;
 	let phase0End = (pattern.messages[pattern.messages.length - 1].dir === 'recv')?
-		`event RecvEnd(valid)` : `(* Not last recipient. *)`;
+		`event RecvEnd(valid)` : `(* Not last recipient *)`;
 	let initiator = [
 		`let initiator(me:principal, them:principal, sid:sessionid) =`,
 		`let s = ${init.s} in`,
@@ -424,7 +424,7 @@ const initiatorFun = (pattern) => {
 					(msgDirSend? 'handshakestategetcs(hs), cs2' : 'cs1, handshakestategetcs(hs)')})`;
 		let stateStore = (i < (pattern.messages.length - 1))?
 			`insert statestore(me, them, sid, ${statePackNext});`
-				: `(* Final message, do not pack state. *)`;
+				: `(* Final message, do not pack state *)`;
 		if (msgDirSend) {
 			initiator = initiator.concat([
 				`| ${replicateMessage}(`,
@@ -476,9 +476,9 @@ const responderFun = (pattern) => {
 			'key_psk(them, me)' : util.emptyKey
 	};
 	let outStatic = (preMessagesRecvStatic(pattern) || messagesRecvStatic(pattern))?
-		`out(pub, getpublickey(s));` : `(* No static key initialized. *)`;
+		`out(pub, getpublickey(s));` : `(* No static key initialized *)`;
 	let phase0End = (pattern.messages[pattern.messages.length - 1].dir === 'send')?
-		`event RecvEnd(valid)` : `(* Not last recipient. *)`;
+		`event RecvEnd(valid)` : `(* Not last recipient *)`;
 	let responder = [
 		`let responder(me:principal, them:principal, sid:sessionid) =`,
 		`let s = ${init.s} in`,
@@ -514,7 +514,7 @@ const responderFun = (pattern) => {
 					(msgDirSend? 'handshakestategetcs(hs), cs2' : 'cs1, handshakestategetcs(hs)')})`;
 		let stateStore = (i < (pattern.messages.length - 1))?
 			`insert statestore(me, them, sid, ${statePackNext});`
-				: `(* Final message, do not pack state. *)`;
+				: `(* Final message, do not pack state *)`;
 		if (msgDirSend) {
 			responder = responder.concat([
 				`| ${replicateMessage}(`,
@@ -557,7 +557,7 @@ const processFuns = (pattern) => {
 	let leakPsk = hasPsk? [
 		`out(pub, key_psk(alice, charlie));`,
 		`out(pub, key_psk(charlie, bob));`
-	].join('\n\t') : '(* No PSKs to leak. *)';
+	].join('\n\t') : '(* No PSKs to leak *)';
 	let proc = [
 		`out(pub, key_s(charlie));`,
 		leakPsk,

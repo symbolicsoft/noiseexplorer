@@ -516,7 +516,7 @@ let initiator(me:principal, them:principal, sid:sessionid) =
 		in(pub, message_d:bitstring);
 		let (hs:handshakestate, plaintext_d:bitstring, valid:bool) = readMessage_d(me, them, hs, message_d, sid) in
 		event RecvMsg(me, them, stagepack_d(sid), plaintext_d);
-		(* Final message, do not pack state. *)
+		(* Final message, do not pack state *)
 		event RecvEnd(valid)
 	)
 	| (
@@ -568,7 +568,7 @@ let responder(me:principal, them:principal, sid:sessionid) =
 		let hs = handshakestatesetcs(hs, cs2) in
 		let (hs:handshakestate, message_d:bitstring) = writeMessage_d(me, them, hs, msg_d(me, them, sid), sid) in
 		event SendMsg(me, them, stagepack_d(sid), msg_d(me, them, sid));
-		(* Final message, do not pack state. *)
+		(* Final message, do not pack state *)
 		out(pub, message_d)
 	)
 	| (

@@ -273,7 +273,7 @@ letfun writeMessage_a(me:principal, them:principal, hs:handshakestate, payload:b
 	let e = generate_keypair(key_e(me, them, sid)) in
 	let ne = key2bit(getpublickey(e)) in
 	let ss = mixHash(ss, ne) in
-	(* No PSK, so skipping mixKey. *)
+	(* No PSK, so skipping mixKey *)
 	let (ss:symmetricstate, ciphertext2:bitstring) = encryptAndHash(ss, payload) in
 	let hs = handshakestatepack(ss, s, e, rs, re, psk, initiator) in
 	let message_buffer = concat3(ne, ciphertext1, ciphertext2) in
@@ -285,7 +285,7 @@ letfun writeMessage_b(me:principal, them:principal, hs:handshakestate, payload:b
 	let e = generate_keypair(key_e(me, them, sid)) in
 	let ne = key2bit(getpublickey(e)) in
 	let ss = mixHash(ss, ne) in
-	(* No PSK, so skipping mixKey. *)
+	(* No PSK, so skipping mixKey *)
 	let ss = mixKey(ss, dh(e, re)) in
 	let ss = mixKey(ss, dh(e, rs)) in
 	let s = generate_keypair(key_s(me)) in
@@ -319,7 +319,7 @@ letfun readMessage_a(me:principal, them:principal, hs:handshakestate, message:bi
 	let valid1 = true in
 	let re = bit2key(ne) in
 	let ss = mixHash(ss, key2bit(re)) in
-	(* No PSK, so skipping mixKey. *)
+	(* No PSK, so skipping mixKey *)
 	let (ss:symmetricstate, plaintext2:bitstring, valid2:bool) = decryptAndHash(ss, ciphertext2) in
 	if ((valid1 && valid2)) then (
 		let hs = handshakestatepack(ss, s, e, rs, re, psk, initiator) in
@@ -332,7 +332,7 @@ letfun readMessage_b(me:principal, them:principal, hs:handshakestate, message:bi
 	let valid1 = true in
 	let re = bit2key(ne) in
 	let ss = mixHash(ss, key2bit(re)) in
-	(* No PSK, so skipping mixKey. *)
+	(* No PSK, so skipping mixKey *)
 	let ss = mixKey(ss, dh(e, re)) in
 	let ss = mixKey(ss, dh(s, re)) in
 	let (ss:symmetricstate, plaintext1:bitstring, valid1:bool) = decryptAndHash(ss, ciphertext1) in
@@ -512,7 +512,7 @@ let initiator(me:principal, them:principal, sid:sessionid) =
 		in(pub, message_d:bitstring);
 		let (hs:handshakestate, plaintext_d:bitstring, valid:bool) = readMessage_d(me, them, hs, message_d, sid) in
 		event RecvMsg(me, them, stagepack_d(sid), plaintext_d);
-		(* Final message, do not pack state. *)
+		(* Final message, do not pack state *)
 		event RecvEnd(valid)
 	)
 	| (
@@ -564,7 +564,7 @@ let responder(me:principal, them:principal, sid:sessionid) =
 		let hs = handshakestatesetcs(hs, cs2) in
 		let (hs:handshakestate, message_d:bitstring) = writeMessage_d(me, them, hs, msg_d(me, them, sid), sid) in
 		event SendMsg(me, them, stagepack_d(sid), msg_d(me, them, sid));
-		(* Final message, do not pack state. *)
+		(* Final message, do not pack state *)
 		out(pub, message_d)
 	)
 	| (
@@ -583,7 +583,7 @@ let responder(me:principal, them:principal, sid:sessionid) =
 
 process
   out(pub, key_s(charlie));
-	(* No PSKs to leak. *)
+	(* No PSKs to leak *)
 	!(
 		new sid:sessionid;
 		initiator(alice, bob, sid) | initiator(alice, charlie, sid)

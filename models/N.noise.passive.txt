@@ -350,3 +350,378 @@ Process:
     )
 )
 
+-- Query event(RecvMsg(bob,alice,stagepack_a(sid_b),m)) ==> event(SendMsg(alice,bob,stagepack_a(sid_a),m)); event(RecvMsg(bob,alice,stagepack_a(sid_b),m)) ==> event(SendMsg(alice,c_635,stagepack_a(sid_a),m)) || event(LeakS(phase0,alice)) || event(LeakS(phase0,bob)); event(RecvMsg(bob,alice,stagepack_a(sid_b),m)) ==> event(SendMsg(alice,c_635,stagepack_a(sid_a),m)) || event(LeakS(phase0,alice)); event(RecvMsg(bob,alice,stagepack_a(sid_b),m)) ==> event(SendMsg(alice,bob,stagepack_a(sid_a),m)) || event(LeakS(phase0,alice)) || event(LeakS(phase0,bob)); event(RecvMsg(bob,alice,stagepack_a(sid_b),m)) ==> event(SendMsg(alice,bob,stagepack_a(sid_a),m)) || event(LeakS(phase0,alice)); not attacker_p1(msg_a(alice,bob,sid_a)); attacker_p1(msg_a(alice,bob,sid_a)) ==> event(LeakS(phase0,bob)) || event(LeakS(phase1,bob)); attacker_p1(msg_a(alice,bob,sid_a)) ==> event(LeakS(phase0,bob)) || (event(LeakS(phase1,bob)) && event(LeakS(p,alice))); attacker_p1(msg_a(alice,bob,sid_a)) ==> event(LeakS(phase0,bob)); not event(RecvEnd(true))
+Completing...
+200 rules inserted. The rule base contains 200 rules. 26 rules in the queue.
+400 rules inserted. The rule base contains 356 rules. 34 rules in the queue.
+Starting query event(RecvMsg(bob,alice,stagepack_a(sid_b),m)) ==> event(SendMsg(alice,bob,stagepack_a(sid_a),m))
+goal reachable: begin(SendMsg(alice,bob,stagepack_a(sid[!1 = @sid_16267908]),msg_a(alice,bob,sid[!1 = @sid_16267908]))) -> end(RecvMsg(bob,alice,stagepack_a(sid[!1 = @sid_16267909]),msg_a(alice,bob,sid[!1 = @sid_16267908])))
+RESULT event(RecvMsg(bob,alice,stagepack_a(sid_b),m)) ==> event(SendMsg(alice,bob,stagepack_a(sid_a),m)) is true.
+Starting query event(RecvMsg(bob,alice,stagepack_a(sid_b),m)) ==> event(SendMsg(alice,c_635,stagepack_a(sid_a),m)) || event(LeakS(phase0,alice)) || event(LeakS(phase0,bob))
+goal reachable: begin(SendMsg(alice,bob,stagepack_a(sid[!1 = @sid_16267917]),msg_a(alice,bob,sid[!1 = @sid_16267917]))) -> end(RecvMsg(bob,alice,stagepack_a(sid[!1 = @sid_16267918]),msg_a(alice,bob,sid[!1 = @sid_16267917])))
+RESULT event(RecvMsg(bob,alice,stagepack_a(sid_b),m)) ==> event(SendMsg(alice,c_635,stagepack_a(sid_a),m)) || event(LeakS(phase0,alice)) || event(LeakS(phase0,bob)) is true.
+Starting query event(RecvMsg(bob,alice,stagepack_a(sid_b),m)) ==> event(SendMsg(alice,c_635,stagepack_a(sid_a),m)) || event(LeakS(phase0,alice))
+goal reachable: begin(SendMsg(alice,bob,stagepack_a(sid[!1 = @sid_16267927]),msg_a(alice,bob,sid[!1 = @sid_16267927]))) -> end(RecvMsg(bob,alice,stagepack_a(sid[!1 = @sid_16267928]),msg_a(alice,bob,sid[!1 = @sid_16267927])))
+RESULT event(RecvMsg(bob,alice,stagepack_a(sid_b),m)) ==> event(SendMsg(alice,c_635,stagepack_a(sid_a),m)) || event(LeakS(phase0,alice)) is true.
+Starting query event(RecvMsg(bob,alice,stagepack_a(sid_b),m)) ==> event(SendMsg(alice,bob,stagepack_a(sid_a),m)) || event(LeakS(phase0,alice)) || event(LeakS(phase0,bob))
+goal reachable: begin(SendMsg(alice,bob,stagepack_a(sid[!1 = @sid_16267937]),msg_a(alice,bob,sid[!1 = @sid_16267937]))) -> end(RecvMsg(bob,alice,stagepack_a(sid[!1 = @sid_16267938]),msg_a(alice,bob,sid[!1 = @sid_16267937])))
+RESULT event(RecvMsg(bob,alice,stagepack_a(sid_b),m)) ==> event(SendMsg(alice,bob,stagepack_a(sid_a),m)) || event(LeakS(phase0,alice)) || event(LeakS(phase0,bob)) is true.
+Starting query event(RecvMsg(bob,alice,stagepack_a(sid_b),m)) ==> event(SendMsg(alice,bob,stagepack_a(sid_a),m)) || event(LeakS(phase0,alice))
+goal reachable: begin(SendMsg(alice,bob,stagepack_a(sid[!1 = @sid_16267946]),msg_a(alice,bob,sid[!1 = @sid_16267946]))) -> end(RecvMsg(bob,alice,stagepack_a(sid[!1 = @sid_16267947]),msg_a(alice,bob,sid[!1 = @sid_16267946])))
+RESULT event(RecvMsg(bob,alice,stagepack_a(sid_b),m)) ==> event(SendMsg(alice,bob,stagepack_a(sid_a),m)) || event(LeakS(phase0,alice)) is true.
+Starting query not attacker_p1(msg_a(alice,bob,sid_a))
+goal reachable: begin(LeakS(phase1,bob)) && begin(SendMsg(alice,bob,stagepack_a(sid[!1 = @sid_16267954]),msg_a(alice,bob,sid[!1 = @sid_16267954]))) -> attacker_p1(msg_a(alice,bob,sid[!1 = @sid_16267954]))
+Abbreviations:
+sid_16268038 = sid[!1 = @sid_16268014]
+
+1. Using the function pub the attacker may obtain pub.
+attacker(pub).
+
+2. The entry statestore(alice,bob,sid_16268038,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(hash(somename,empty),empty),dhexp(key_s(bob),g))),keypairpack(empty,empty),keypairpack(empty,empty),dhexp(key_s(bob),g),empty,empty,true))) may be inserted in a table at insert {17}.
+table(statestore(alice,bob,sid_16268038,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(hash(somename,empty),empty),dhexp(key_s(bob),g))),keypairpack(empty,empty),keypairpack(empty,empty),dhexp(key_s(bob),g),empty,empty,true)))).
+
+3. The entry statestore(alice,bob,sid_16268038,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(hash(somename,empty),empty),dhexp(key_s(bob),g))),keypairpack(empty,empty),keypairpack(empty,empty),dhexp(key_s(bob),g),empty,empty,true))) that may be in a table by 2 may be read at get {54}.
+The event SendMsg(alice,bob,stagepack_a(sid_16268038),msg_a(alice,bob,sid_16268038)) may be executed at {52}.
+So the message concat3(dhexp(key_e(alice,bob,sid_16268038),g),empty,encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob,sid_16268038),dhexp(key_s(bob),g))),minnonce,hash(hash(hash(hash(somename,empty),empty),dhexp(key_s(bob),g)),dhexp(key_e(alice,bob,sid_16268038),g)),msg_a(alice,bob,sid_16268038))) may be sent on channel pub at output {53}.
+mess(pub,concat3(dhexp(key_e(alice,bob,sid_16268038),g),empty,encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob,sid_16268038),dhexp(key_s(bob),g))),minnonce,hash(hash(hash(hash(somename,empty),empty),dhexp(key_s(bob),g)),dhexp(key_e(alice,bob,sid_16268038),g)),msg_a(alice,bob,sid_16268038)))).
+
+4. By 1, the attacker may have the channel pub.
+By 3, the message concat3(dhexp(key_e(alice,bob,sid_16268038),g),empty,encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob,sid_16268038),dhexp(key_s(bob),g))),minnonce,hash(hash(hash(hash(somename,empty),empty),dhexp(key_s(bob),g)),dhexp(key_e(alice,bob,sid_16268038),g)),msg_a(alice,bob,sid_16268038))) may be sent on this channel.
+So the attacker may obtain the message concat3(dhexp(key_e(alice,bob,sid_16268038),g),empty,encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob,sid_16268038),dhexp(key_s(bob),g))),minnonce,hash(hash(hash(hash(somename,empty),empty),dhexp(key_s(bob),g)),dhexp(key_e(alice,bob,sid_16268038),g)),msg_a(alice,bob,sid_16268038))) by listening on this channel.
+attacker(concat3(dhexp(key_e(alice,bob,sid_16268038),g),empty,encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob,sid_16268038),dhexp(key_s(bob),g))),minnonce,hash(hash(hash(hash(somename,empty),empty),dhexp(key_s(bob),g)),dhexp(key_e(alice,bob,sid_16268038),g)),msg_a(alice,bob,sid_16268038)))).
+
+5. By 4, the attacker may know concat3(dhexp(key_e(alice,bob,sid_16268038),g),empty,encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob,sid_16268038),dhexp(key_s(bob),g))),minnonce,hash(hash(hash(hash(somename,empty),empty),dhexp(key_s(bob),g)),dhexp(key_e(alice,bob,sid_16268038),g)),msg_a(alice,bob,sid_16268038))).
+Using the function 3-proj-concat3 the attacker may obtain encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob,sid_16268038),dhexp(key_s(bob),g))),minnonce,hash(hash(hash(hash(somename,empty),empty),dhexp(key_s(bob),g)),dhexp(key_e(alice,bob,sid_16268038),g)),msg_a(alice,bob,sid_16268038)).
+attacker(encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob,sid_16268038),dhexp(key_s(bob),g))),minnonce,hash(hash(hash(hash(somename,empty),empty),dhexp(key_s(bob),g)),dhexp(key_e(alice,bob,sid_16268038),g)),msg_a(alice,bob,sid_16268038))).
+
+6. By 5, the attacker may know encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob,sid_16268038),dhexp(key_s(bob),g))),minnonce,hash(hash(hash(hash(somename,empty),empty),dhexp(key_s(bob),g)),dhexp(key_e(alice,bob,sid_16268038),g)),msg_a(alice,bob,sid_16268038)).
+So the attacker may know encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob,sid_16268038),dhexp(key_s(bob),g))),minnonce,hash(hash(hash(hash(somename,empty),empty),dhexp(key_s(bob),g)),dhexp(key_e(alice,bob,sid_16268038),g)),msg_a(alice,bob,sid_16268038)) in phase 1.
+attacker_p1(encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob,sid_16268038),dhexp(key_s(bob),g))),minnonce,hash(hash(hash(hash(somename,empty),empty),dhexp(key_s(bob),g)),dhexp(key_e(alice,bob,sid_16268038),g)),msg_a(alice,bob,sid_16268038))).
+
+7. By 4, the attacker may know concat3(dhexp(key_e(alice,bob,sid_16268038),g),empty,encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob,sid_16268038),dhexp(key_s(bob),g))),minnonce,hash(hash(hash(hash(somename,empty),empty),dhexp(key_s(bob),g)),dhexp(key_e(alice,bob,sid_16268038),g)),msg_a(alice,bob,sid_16268038))).
+Using the function 1-proj-concat3 the attacker may obtain dhexp(key_e(alice,bob,sid_16268038),g).
+attacker(dhexp(key_e(alice,bob,sid_16268038),g)).
+
+8. By 7, the attacker may know dhexp(key_e(alice,bob,sid_16268038),g).
+So the attacker may know dhexp(key_e(alice,bob,sid_16268038),g) in phase 1.
+attacker_p1(dhexp(key_e(alice,bob,sid_16268038),g)).
+
+9. Using the function g the attacker may obtain g in phase 1.
+attacker_p1(g).
+
+10. Using the function pub the attacker may obtain pub in phase 1.
+attacker_p1(pub).
+
+11. The event LeakS(phase1,bob) may be executed at {171}.
+So the message key_s(bob) may be sent on channel pub in phase 1 at output {172}.
+mess_p1(pub,key_s(bob)).
+
+12. By 10, the attacker may have the channel pub in phase 1.
+By 11, the message key_s(bob) in phase 1 may be sent on this channel.
+So the attacker may obtain the message key_s(bob) in phase 1 by listening on this channel.
+attacker_p1(key_s(bob)).
+
+13. By 12, the attacker may know key_s(bob) in phase 1.
+By 9, the attacker may know g in phase 1.
+Using the function dhexp the attacker may obtain dhexp(key_s(bob),g) in phase 1.
+attacker_p1(dhexp(key_s(bob),g)).
+
+14. Using the function empty the attacker may obtain empty in phase 1.
+attacker_p1(empty).
+
+15. Using the function somename the attacker may obtain somename in phase 1.
+attacker_p1(somename).
+
+16. By 15, the attacker may know somename in phase 1.
+By 14, the attacker may know empty in phase 1.
+Using the function hash the attacker may obtain hash(somename,empty) in phase 1.
+attacker_p1(hash(somename,empty)).
+
+17. By 16, the attacker may know hash(somename,empty) in phase 1.
+By 14, the attacker may know empty in phase 1.
+Using the function hash the attacker may obtain hash(hash(somename,empty),empty) in phase 1.
+attacker_p1(hash(hash(somename,empty),empty)).
+
+18. By 17, the attacker may know hash(hash(somename,empty),empty) in phase 1.
+By 13, the attacker may know dhexp(key_s(bob),g) in phase 1.
+Using the function hash the attacker may obtain hash(hash(hash(somename,empty),empty),dhexp(key_s(bob),g)) in phase 1.
+attacker_p1(hash(hash(hash(somename,empty),empty),dhexp(key_s(bob),g))).
+
+19. By 18, the attacker may know hash(hash(hash(somename,empty),empty),dhexp(key_s(bob),g)) in phase 1.
+By 8, the attacker may know dhexp(key_e(alice,bob,sid_16268038),g) in phase 1.
+Using the function hash the attacker may obtain hash(hash(hash(hash(somename,empty),empty),dhexp(key_s(bob),g)),dhexp(key_e(alice,bob,sid_16268038),g)) in phase 1.
+attacker_p1(hash(hash(hash(hash(somename,empty),empty),dhexp(key_s(bob),g)),dhexp(key_e(alice,bob,sid_16268038),g))).
+
+20. Using the function minnonce the attacker may obtain minnonce in phase 1.
+attacker_p1(minnonce).
+
+21. By 12, the attacker may know key_s(bob) in phase 1.
+By 8, the attacker may know dhexp(key_e(alice,bob,sid_16268038),g) in phase 1.
+Using the function dhexp the attacker may obtain dhexp(key_e(alice,bob,sid_16268038),dhexp(key_s(bob),g)) in phase 1.
+attacker_p1(dhexp(key_e(alice,bob,sid_16268038),dhexp(key_s(bob),g))).
+
+22. By 16, the attacker may know hash(somename,empty) in phase 1.
+By 21, the attacker may know dhexp(key_e(alice,bob,sid_16268038),dhexp(key_s(bob),g)) in phase 1.
+Using the function hmac_hash2 the attacker may obtain hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob,sid_16268038),dhexp(key_s(bob),g))) in phase 1.
+attacker_p1(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob,sid_16268038),dhexp(key_s(bob),g)))).
+
+23. By 22, the attacker may know hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob,sid_16268038),dhexp(key_s(bob),g))) in phase 1.
+By 20, the attacker may know minnonce in phase 1.
+By 19, the attacker may know hash(hash(hash(hash(somename,empty),empty),dhexp(key_s(bob),g)),dhexp(key_e(alice,bob,sid_16268038),g)) in phase 1.
+By 6, the attacker may know encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob,sid_16268038),dhexp(key_s(bob),g))),minnonce,hash(hash(hash(hash(somename,empty),empty),dhexp(key_s(bob),g)),dhexp(key_e(alice,bob,sid_16268038),g)),msg_a(alice,bob,sid_16268038)) in phase 1.
+Using the function decrypt the attacker may obtain aeadpack(true,hash(hash(hash(hash(somename,empty),empty),dhexp(key_s(bob),g)),dhexp(key_e(alice,bob,sid_16268038),g)),msg_a(alice,bob,sid_16268038)) in phase 1.
+attacker_p1(aeadpack(true,hash(hash(hash(hash(somename,empty),empty),dhexp(key_s(bob),g)),dhexp(key_e(alice,bob,sid_16268038),g)),msg_a(alice,bob,sid_16268038))).
+
+24. By 23, the attacker may know aeadpack(true,hash(hash(hash(hash(somename,empty),empty),dhexp(key_s(bob),g)),dhexp(key_e(alice,bob,sid_16268038),g)),msg_a(alice,bob,sid_16268038)) in phase 1.
+Using the function 3-proj-aeadpack the attacker may obtain msg_a(alice,bob,sid_16268038) in phase 1.
+attacker_p1(msg_a(alice,bob,sid_16268038)).
+
+
+RESULT not attacker_p1(msg_a(alice,bob,sid_a)) cannot be proved.
+Starting query attacker_p1(msg_a(alice,bob,sid_a)) ==> event(LeakS(phase0,bob)) || event(LeakS(phase1,bob))
+goal reachable: begin(LeakS(phase1,bob)) && begin(SendMsg(alice,bob,stagepack_a(sid[!1 = @sid_16268040]),msg_a(alice,bob,sid[!1 = @sid_16268040]))) -> attacker_p1(msg_a(alice,bob,sid[!1 = @sid_16268040]))
+goal reachable: begin(LeakS(phase0,bob)) && begin(SendMsg(alice,bob,stagepack_a(sid[!1 = @sid_16268043]),msg_a(alice,bob,sid[!1 = @sid_16268043]))) -> attacker_p1(msg_a(alice,bob,sid[!1 = @sid_16268043]))
+RESULT attacker_p1(msg_a(alice,bob,sid_a)) ==> event(LeakS(phase0,bob)) || event(LeakS(phase1,bob)) is true.
+Starting query attacker_p1(msg_a(alice,bob,sid_a)) ==> event(LeakS(phase0,bob)) || (event(LeakS(phase1,bob)) && event(LeakS(p,alice)))
+goal reachable: begin(LeakS(phase1,bob)) && begin(SendMsg(alice,bob,stagepack_a(sid[!1 = @sid_16268049]),msg_a(alice,bob,sid[!1 = @sid_16268049]))) -> attacker_p1(msg_a(alice,bob,sid[!1 = @sid_16268049]))
+Abbreviations:
+sid_16268134 = sid[!1 = @sid_16268110]
+
+1. Using the function pub the attacker may obtain pub.
+attacker(pub).
+
+2. The entry statestore(alice,bob,sid_16268134,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(hash(somename,empty),empty),dhexp(key_s(bob),g))),keypairpack(empty,empty),keypairpack(empty,empty),dhexp(key_s(bob),g),empty,empty,true))) may be inserted in a table at insert {17}.
+table(statestore(alice,bob,sid_16268134,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(hash(somename,empty),empty),dhexp(key_s(bob),g))),keypairpack(empty,empty),keypairpack(empty,empty),dhexp(key_s(bob),g),empty,empty,true)))).
+
+3. The entry statestore(alice,bob,sid_16268134,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(hash(somename,empty),empty),dhexp(key_s(bob),g))),keypairpack(empty,empty),keypairpack(empty,empty),dhexp(key_s(bob),g),empty,empty,true))) that may be in a table by 2 may be read at get {54}.
+The event SendMsg(alice,bob,stagepack_a(sid_16268134),msg_a(alice,bob,sid_16268134)) may be executed at {52}.
+So the message concat3(dhexp(key_e(alice,bob,sid_16268134),g),empty,encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob,sid_16268134),dhexp(key_s(bob),g))),minnonce,hash(hash(hash(hash(somename,empty),empty),dhexp(key_s(bob),g)),dhexp(key_e(alice,bob,sid_16268134),g)),msg_a(alice,bob,sid_16268134))) may be sent on channel pub at output {53}.
+mess(pub,concat3(dhexp(key_e(alice,bob,sid_16268134),g),empty,encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob,sid_16268134),dhexp(key_s(bob),g))),minnonce,hash(hash(hash(hash(somename,empty),empty),dhexp(key_s(bob),g)),dhexp(key_e(alice,bob,sid_16268134),g)),msg_a(alice,bob,sid_16268134)))).
+
+4. By 1, the attacker may have the channel pub.
+By 3, the message concat3(dhexp(key_e(alice,bob,sid_16268134),g),empty,encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob,sid_16268134),dhexp(key_s(bob),g))),minnonce,hash(hash(hash(hash(somename,empty),empty),dhexp(key_s(bob),g)),dhexp(key_e(alice,bob,sid_16268134),g)),msg_a(alice,bob,sid_16268134))) may be sent on this channel.
+So the attacker may obtain the message concat3(dhexp(key_e(alice,bob,sid_16268134),g),empty,encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob,sid_16268134),dhexp(key_s(bob),g))),minnonce,hash(hash(hash(hash(somename,empty),empty),dhexp(key_s(bob),g)),dhexp(key_e(alice,bob,sid_16268134),g)),msg_a(alice,bob,sid_16268134))) by listening on this channel.
+attacker(concat3(dhexp(key_e(alice,bob,sid_16268134),g),empty,encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob,sid_16268134),dhexp(key_s(bob),g))),minnonce,hash(hash(hash(hash(somename,empty),empty),dhexp(key_s(bob),g)),dhexp(key_e(alice,bob,sid_16268134),g)),msg_a(alice,bob,sid_16268134)))).
+
+5. By 4, the attacker may know concat3(dhexp(key_e(alice,bob,sid_16268134),g),empty,encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob,sid_16268134),dhexp(key_s(bob),g))),minnonce,hash(hash(hash(hash(somename,empty),empty),dhexp(key_s(bob),g)),dhexp(key_e(alice,bob,sid_16268134),g)),msg_a(alice,bob,sid_16268134))).
+Using the function 3-proj-concat3 the attacker may obtain encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob,sid_16268134),dhexp(key_s(bob),g))),minnonce,hash(hash(hash(hash(somename,empty),empty),dhexp(key_s(bob),g)),dhexp(key_e(alice,bob,sid_16268134),g)),msg_a(alice,bob,sid_16268134)).
+attacker(encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob,sid_16268134),dhexp(key_s(bob),g))),minnonce,hash(hash(hash(hash(somename,empty),empty),dhexp(key_s(bob),g)),dhexp(key_e(alice,bob,sid_16268134),g)),msg_a(alice,bob,sid_16268134))).
+
+6. By 5, the attacker may know encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob,sid_16268134),dhexp(key_s(bob),g))),minnonce,hash(hash(hash(hash(somename,empty),empty),dhexp(key_s(bob),g)),dhexp(key_e(alice,bob,sid_16268134),g)),msg_a(alice,bob,sid_16268134)).
+So the attacker may know encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob,sid_16268134),dhexp(key_s(bob),g))),minnonce,hash(hash(hash(hash(somename,empty),empty),dhexp(key_s(bob),g)),dhexp(key_e(alice,bob,sid_16268134),g)),msg_a(alice,bob,sid_16268134)) in phase 1.
+attacker_p1(encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob,sid_16268134),dhexp(key_s(bob),g))),minnonce,hash(hash(hash(hash(somename,empty),empty),dhexp(key_s(bob),g)),dhexp(key_e(alice,bob,sid_16268134),g)),msg_a(alice,bob,sid_16268134))).
+
+7. By 4, the attacker may know concat3(dhexp(key_e(alice,bob,sid_16268134),g),empty,encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob,sid_16268134),dhexp(key_s(bob),g))),minnonce,hash(hash(hash(hash(somename,empty),empty),dhexp(key_s(bob),g)),dhexp(key_e(alice,bob,sid_16268134),g)),msg_a(alice,bob,sid_16268134))).
+Using the function 1-proj-concat3 the attacker may obtain dhexp(key_e(alice,bob,sid_16268134),g).
+attacker(dhexp(key_e(alice,bob,sid_16268134),g)).
+
+8. By 7, the attacker may know dhexp(key_e(alice,bob,sid_16268134),g).
+So the attacker may know dhexp(key_e(alice,bob,sid_16268134),g) in phase 1.
+attacker_p1(dhexp(key_e(alice,bob,sid_16268134),g)).
+
+9. Using the function g the attacker may obtain g in phase 1.
+attacker_p1(g).
+
+10. Using the function pub the attacker may obtain pub in phase 1.
+attacker_p1(pub).
+
+11. The event LeakS(phase1,bob) may be executed at {171}.
+So the message key_s(bob) may be sent on channel pub in phase 1 at output {172}.
+mess_p1(pub,key_s(bob)).
+
+12. By 10, the attacker may have the channel pub in phase 1.
+By 11, the message key_s(bob) in phase 1 may be sent on this channel.
+So the attacker may obtain the message key_s(bob) in phase 1 by listening on this channel.
+attacker_p1(key_s(bob)).
+
+13. By 12, the attacker may know key_s(bob) in phase 1.
+By 9, the attacker may know g in phase 1.
+Using the function dhexp the attacker may obtain dhexp(key_s(bob),g) in phase 1.
+attacker_p1(dhexp(key_s(bob),g)).
+
+14. Using the function empty the attacker may obtain empty in phase 1.
+attacker_p1(empty).
+
+15. Using the function somename the attacker may obtain somename in phase 1.
+attacker_p1(somename).
+
+16. By 15, the attacker may know somename in phase 1.
+By 14, the attacker may know empty in phase 1.
+Using the function hash the attacker may obtain hash(somename,empty) in phase 1.
+attacker_p1(hash(somename,empty)).
+
+17. By 16, the attacker may know hash(somename,empty) in phase 1.
+By 14, the attacker may know empty in phase 1.
+Using the function hash the attacker may obtain hash(hash(somename,empty),empty) in phase 1.
+attacker_p1(hash(hash(somename,empty),empty)).
+
+18. By 17, the attacker may know hash(hash(somename,empty),empty) in phase 1.
+By 13, the attacker may know dhexp(key_s(bob),g) in phase 1.
+Using the function hash the attacker may obtain hash(hash(hash(somename,empty),empty),dhexp(key_s(bob),g)) in phase 1.
+attacker_p1(hash(hash(hash(somename,empty),empty),dhexp(key_s(bob),g))).
+
+19. By 18, the attacker may know hash(hash(hash(somename,empty),empty),dhexp(key_s(bob),g)) in phase 1.
+By 8, the attacker may know dhexp(key_e(alice,bob,sid_16268134),g) in phase 1.
+Using the function hash the attacker may obtain hash(hash(hash(hash(somename,empty),empty),dhexp(key_s(bob),g)),dhexp(key_e(alice,bob,sid_16268134),g)) in phase 1.
+attacker_p1(hash(hash(hash(hash(somename,empty),empty),dhexp(key_s(bob),g)),dhexp(key_e(alice,bob,sid_16268134),g))).
+
+20. Using the function minnonce the attacker may obtain minnonce in phase 1.
+attacker_p1(minnonce).
+
+21. By 12, the attacker may know key_s(bob) in phase 1.
+By 8, the attacker may know dhexp(key_e(alice,bob,sid_16268134),g) in phase 1.
+Using the function dhexp the attacker may obtain dhexp(key_e(alice,bob,sid_16268134),dhexp(key_s(bob),g)) in phase 1.
+attacker_p1(dhexp(key_e(alice,bob,sid_16268134),dhexp(key_s(bob),g))).
+
+22. By 16, the attacker may know hash(somename,empty) in phase 1.
+By 21, the attacker may know dhexp(key_e(alice,bob,sid_16268134),dhexp(key_s(bob),g)) in phase 1.
+Using the function hmac_hash2 the attacker may obtain hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob,sid_16268134),dhexp(key_s(bob),g))) in phase 1.
+attacker_p1(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob,sid_16268134),dhexp(key_s(bob),g)))).
+
+23. By 22, the attacker may know hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob,sid_16268134),dhexp(key_s(bob),g))) in phase 1.
+By 20, the attacker may know minnonce in phase 1.
+By 19, the attacker may know hash(hash(hash(hash(somename,empty),empty),dhexp(key_s(bob),g)),dhexp(key_e(alice,bob,sid_16268134),g)) in phase 1.
+By 6, the attacker may know encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob,sid_16268134),dhexp(key_s(bob),g))),minnonce,hash(hash(hash(hash(somename,empty),empty),dhexp(key_s(bob),g)),dhexp(key_e(alice,bob,sid_16268134),g)),msg_a(alice,bob,sid_16268134)) in phase 1.
+Using the function decrypt the attacker may obtain aeadpack(true,hash(hash(hash(hash(somename,empty),empty),dhexp(key_s(bob),g)),dhexp(key_e(alice,bob,sid_16268134),g)),msg_a(alice,bob,sid_16268134)) in phase 1.
+attacker_p1(aeadpack(true,hash(hash(hash(hash(somename,empty),empty),dhexp(key_s(bob),g)),dhexp(key_e(alice,bob,sid_16268134),g)),msg_a(alice,bob,sid_16268134))).
+
+24. By 23, the attacker may know aeadpack(true,hash(hash(hash(hash(somename,empty),empty),dhexp(key_s(bob),g)),dhexp(key_e(alice,bob,sid_16268134),g)),msg_a(alice,bob,sid_16268134)) in phase 1.
+Using the function 3-proj-aeadpack the attacker may obtain msg_a(alice,bob,sid_16268134) in phase 1.
+attacker_p1(msg_a(alice,bob,sid_16268134)).
+
+
+RESULT attacker_p1(msg_a(alice,bob,sid_a)) ==> event(LeakS(phase0,bob)) || (event(LeakS(phase1,bob)) && event(LeakS(p,alice))) cannot be proved.
+Starting query attacker_p1(msg_a(alice,bob,sid_a)) ==> event(LeakS(phase0,bob))
+goal reachable: begin(LeakS(phase1,bob)) && begin(SendMsg(alice,bob,stagepack_a(sid[!1 = @sid_16268136]),msg_a(alice,bob,sid[!1 = @sid_16268136]))) -> attacker_p1(msg_a(alice,bob,sid[!1 = @sid_16268136]))
+Abbreviations:
+sid_16268220 = sid[!1 = @sid_16268196]
+
+1. Using the function pub the attacker may obtain pub.
+attacker(pub).
+
+2. The entry statestore(alice,bob,sid_16268220,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(hash(somename,empty),empty),dhexp(key_s(bob),g))),keypairpack(empty,empty),keypairpack(empty,empty),dhexp(key_s(bob),g),empty,empty,true))) may be inserted in a table at insert {17}.
+table(statestore(alice,bob,sid_16268220,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(hash(somename,empty),empty),dhexp(key_s(bob),g))),keypairpack(empty,empty),keypairpack(empty,empty),dhexp(key_s(bob),g),empty,empty,true)))).
+
+3. The entry statestore(alice,bob,sid_16268220,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(hash(somename,empty),empty),dhexp(key_s(bob),g))),keypairpack(empty,empty),keypairpack(empty,empty),dhexp(key_s(bob),g),empty,empty,true))) that may be in a table by 2 may be read at get {54}.
+The event SendMsg(alice,bob,stagepack_a(sid_16268220),msg_a(alice,bob,sid_16268220)) may be executed at {52}.
+So the message concat3(dhexp(key_e(alice,bob,sid_16268220),g),empty,encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob,sid_16268220),dhexp(key_s(bob),g))),minnonce,hash(hash(hash(hash(somename,empty),empty),dhexp(key_s(bob),g)),dhexp(key_e(alice,bob,sid_16268220),g)),msg_a(alice,bob,sid_16268220))) may be sent on channel pub at output {53}.
+mess(pub,concat3(dhexp(key_e(alice,bob,sid_16268220),g),empty,encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob,sid_16268220),dhexp(key_s(bob),g))),minnonce,hash(hash(hash(hash(somename,empty),empty),dhexp(key_s(bob),g)),dhexp(key_e(alice,bob,sid_16268220),g)),msg_a(alice,bob,sid_16268220)))).
+
+4. By 1, the attacker may have the channel pub.
+By 3, the message concat3(dhexp(key_e(alice,bob,sid_16268220),g),empty,encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob,sid_16268220),dhexp(key_s(bob),g))),minnonce,hash(hash(hash(hash(somename,empty),empty),dhexp(key_s(bob),g)),dhexp(key_e(alice,bob,sid_16268220),g)),msg_a(alice,bob,sid_16268220))) may be sent on this channel.
+So the attacker may obtain the message concat3(dhexp(key_e(alice,bob,sid_16268220),g),empty,encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob,sid_16268220),dhexp(key_s(bob),g))),minnonce,hash(hash(hash(hash(somename,empty),empty),dhexp(key_s(bob),g)),dhexp(key_e(alice,bob,sid_16268220),g)),msg_a(alice,bob,sid_16268220))) by listening on this channel.
+attacker(concat3(dhexp(key_e(alice,bob,sid_16268220),g),empty,encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob,sid_16268220),dhexp(key_s(bob),g))),minnonce,hash(hash(hash(hash(somename,empty),empty),dhexp(key_s(bob),g)),dhexp(key_e(alice,bob,sid_16268220),g)),msg_a(alice,bob,sid_16268220)))).
+
+5. By 4, the attacker may know concat3(dhexp(key_e(alice,bob,sid_16268220),g),empty,encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob,sid_16268220),dhexp(key_s(bob),g))),minnonce,hash(hash(hash(hash(somename,empty),empty),dhexp(key_s(bob),g)),dhexp(key_e(alice,bob,sid_16268220),g)),msg_a(alice,bob,sid_16268220))).
+Using the function 3-proj-concat3 the attacker may obtain encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob,sid_16268220),dhexp(key_s(bob),g))),minnonce,hash(hash(hash(hash(somename,empty),empty),dhexp(key_s(bob),g)),dhexp(key_e(alice,bob,sid_16268220),g)),msg_a(alice,bob,sid_16268220)).
+attacker(encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob,sid_16268220),dhexp(key_s(bob),g))),minnonce,hash(hash(hash(hash(somename,empty),empty),dhexp(key_s(bob),g)),dhexp(key_e(alice,bob,sid_16268220),g)),msg_a(alice,bob,sid_16268220))).
+
+6. By 5, the attacker may know encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob,sid_16268220),dhexp(key_s(bob),g))),minnonce,hash(hash(hash(hash(somename,empty),empty),dhexp(key_s(bob),g)),dhexp(key_e(alice,bob,sid_16268220),g)),msg_a(alice,bob,sid_16268220)).
+So the attacker may know encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob,sid_16268220),dhexp(key_s(bob),g))),minnonce,hash(hash(hash(hash(somename,empty),empty),dhexp(key_s(bob),g)),dhexp(key_e(alice,bob,sid_16268220),g)),msg_a(alice,bob,sid_16268220)) in phase 1.
+attacker_p1(encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob,sid_16268220),dhexp(key_s(bob),g))),minnonce,hash(hash(hash(hash(somename,empty),empty),dhexp(key_s(bob),g)),dhexp(key_e(alice,bob,sid_16268220),g)),msg_a(alice,bob,sid_16268220))).
+
+7. By 4, the attacker may know concat3(dhexp(key_e(alice,bob,sid_16268220),g),empty,encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob,sid_16268220),dhexp(key_s(bob),g))),minnonce,hash(hash(hash(hash(somename,empty),empty),dhexp(key_s(bob),g)),dhexp(key_e(alice,bob,sid_16268220),g)),msg_a(alice,bob,sid_16268220))).
+Using the function 1-proj-concat3 the attacker may obtain dhexp(key_e(alice,bob,sid_16268220),g).
+attacker(dhexp(key_e(alice,bob,sid_16268220),g)).
+
+8. By 7, the attacker may know dhexp(key_e(alice,bob,sid_16268220),g).
+So the attacker may know dhexp(key_e(alice,bob,sid_16268220),g) in phase 1.
+attacker_p1(dhexp(key_e(alice,bob,sid_16268220),g)).
+
+9. Using the function g the attacker may obtain g in phase 1.
+attacker_p1(g).
+
+10. Using the function pub the attacker may obtain pub in phase 1.
+attacker_p1(pub).
+
+11. The event LeakS(phase1,bob) may be executed at {171}.
+So the message key_s(bob) may be sent on channel pub in phase 1 at output {172}.
+mess_p1(pub,key_s(bob)).
+
+12. By 10, the attacker may have the channel pub in phase 1.
+By 11, the message key_s(bob) in phase 1 may be sent on this channel.
+So the attacker may obtain the message key_s(bob) in phase 1 by listening on this channel.
+attacker_p1(key_s(bob)).
+
+13. By 12, the attacker may know key_s(bob) in phase 1.
+By 9, the attacker may know g in phase 1.
+Using the function dhexp the attacker may obtain dhexp(key_s(bob),g) in phase 1.
+attacker_p1(dhexp(key_s(bob),g)).
+
+14. Using the function empty the attacker may obtain empty in phase 1.
+attacker_p1(empty).
+
+15. Using the function somename the attacker may obtain somename in phase 1.
+attacker_p1(somename).
+
+16. By 15, the attacker may know somename in phase 1.
+By 14, the attacker may know empty in phase 1.
+Using the function hash the attacker may obtain hash(somename,empty) in phase 1.
+attacker_p1(hash(somename,empty)).
+
+17. By 16, the attacker may know hash(somename,empty) in phase 1.
+By 14, the attacker may know empty in phase 1.
+Using the function hash the attacker may obtain hash(hash(somename,empty),empty) in phase 1.
+attacker_p1(hash(hash(somename,empty),empty)).
+
+18. By 17, the attacker may know hash(hash(somename,empty),empty) in phase 1.
+By 13, the attacker may know dhexp(key_s(bob),g) in phase 1.
+Using the function hash the attacker may obtain hash(hash(hash(somename,empty),empty),dhexp(key_s(bob),g)) in phase 1.
+attacker_p1(hash(hash(hash(somename,empty),empty),dhexp(key_s(bob),g))).
+
+19. By 18, the attacker may know hash(hash(hash(somename,empty),empty),dhexp(key_s(bob),g)) in phase 1.
+By 8, the attacker may know dhexp(key_e(alice,bob,sid_16268220),g) in phase 1.
+Using the function hash the attacker may obtain hash(hash(hash(hash(somename,empty),empty),dhexp(key_s(bob),g)),dhexp(key_e(alice,bob,sid_16268220),g)) in phase 1.
+attacker_p1(hash(hash(hash(hash(somename,empty),empty),dhexp(key_s(bob),g)),dhexp(key_e(alice,bob,sid_16268220),g))).
+
+20. Using the function minnonce the attacker may obtain minnonce in phase 1.
+attacker_p1(minnonce).
+
+21. By 12, the attacker may know key_s(bob) in phase 1.
+By 8, the attacker may know dhexp(key_e(alice,bob,sid_16268220),g) in phase 1.
+Using the function dhexp the attacker may obtain dhexp(key_e(alice,bob,sid_16268220),dhexp(key_s(bob),g)) in phase 1.
+attacker_p1(dhexp(key_e(alice,bob,sid_16268220),dhexp(key_s(bob),g))).
+
+22. By 16, the attacker may know hash(somename,empty) in phase 1.
+By 21, the attacker may know dhexp(key_e(alice,bob,sid_16268220),dhexp(key_s(bob),g)) in phase 1.
+Using the function hmac_hash2 the attacker may obtain hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob,sid_16268220),dhexp(key_s(bob),g))) in phase 1.
+attacker_p1(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob,sid_16268220),dhexp(key_s(bob),g)))).
+
+23. By 22, the attacker may know hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob,sid_16268220),dhexp(key_s(bob),g))) in phase 1.
+By 20, the attacker may know minnonce in phase 1.
+By 19, the attacker may know hash(hash(hash(hash(somename,empty),empty),dhexp(key_s(bob),g)),dhexp(key_e(alice,bob,sid_16268220),g)) in phase 1.
+By 6, the attacker may know encrypt(hmac_hash2(hash(somename,empty),dhexp(key_e(alice,bob,sid_16268220),dhexp(key_s(bob),g))),minnonce,hash(hash(hash(hash(somename,empty),empty),dhexp(key_s(bob),g)),dhexp(key_e(alice,bob,sid_16268220),g)),msg_a(alice,bob,sid_16268220)) in phase 1.
+Using the function decrypt the attacker may obtain aeadpack(true,hash(hash(hash(hash(somename,empty),empty),dhexp(key_s(bob),g)),dhexp(key_e(alice,bob,sid_16268220),g)),msg_a(alice,bob,sid_16268220)) in phase 1.
+attacker_p1(aeadpack(true,hash(hash(hash(hash(somename,empty),empty),dhexp(key_s(bob),g)),dhexp(key_e(alice,bob,sid_16268220),g)),msg_a(alice,bob,sid_16268220))).
+
+24. By 23, the attacker may know aeadpack(true,hash(hash(hash(hash(somename,empty),empty),dhexp(key_s(bob),g)),dhexp(key_e(alice,bob,sid_16268220),g)),msg_a(alice,bob,sid_16268220)) in phase 1.
+Using the function 3-proj-aeadpack the attacker may obtain msg_a(alice,bob,sid_16268220) in phase 1.
+attacker_p1(msg_a(alice,bob,sid_16268220)).
+
+
+RESULT attacker_p1(msg_a(alice,bob,sid_a)) ==> event(LeakS(phase0,bob)) cannot be proved.
+Starting query not event(RecvEnd(true))
+goal reachable: begin(SendMsg(alice,bob,stagepack_a(sid[!1 = @sid_16268221]),msg_a(alice,bob,sid[!1 = @sid_16268221]))) -> end(RecvEnd(true))
+Abbreviations:
+sid_16268249 = sid[!1 = @sid_16268224]
+sid_16268250 = sid[!1 = @sid_16268241]
+
+1. The entry statestore(bob,alice,sid_16268250,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(hash(somename,empty),empty),dhexp(key_s(bob),g))),keypairpack(dhexp(key_s(bob),g),key_s(bob)),keypairpack(empty,empty),empty,empty,empty,false))) may be inserted in a table at insert {130}.
+table(statestore(bob,alice,sid_16268250,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(hash(somename,empty),empty),dhexp(key_s(bob),g))),keypairpack(dhexp(key_s(bob),g),key_s(bob)),keypairpack(empty,empty),empty,empty,empty,false)))).
+
+2. The entry statestore(alice,bob,sid_16268249,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(hash(somename,empty),empty),dhexp(key_s(bob),g))),keypairpack(empty,empty),keypairpack(empty,empty),dhexp(key_s(bob),g),empty,empty,true))) may be inserted in a table at insert {17}.
+table(statestore(alice,bob,sid_16268249,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(hash(somename,empty),empty),dhexp(key_s(bob),g))),keypairpack(empty,empty),keypairpack(empty,empty),dhexp(key_s(bob),g),empty,empty,true)))).
+
+3. The entry statestore(alice,bob,sid_16268249,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(hash(somename,empty),empty),dhexp(key_s(bob),g))),keypairpack(empty,empty),keypairpack(empty,empty),dhexp(key_s(bob),g),empty,empty,true))) that may be in a table by 2 may be read at get {54}.
+The event SendMsg(alice,bob,stagepack_a(sid_16268249),msg_a(alice,bob,sid_16268249)) may be executed at {52}.
+So the message concat3(dhexp(key_e(alice,bob,sid_16268249),g),empty,encrypt(hmac_hash2(hash(somename,empty),dhexp(key_s(bob),dhexp(key_e(alice,bob,sid_16268249),g))),minnonce,hash(hash(hash(hash(somename,empty),empty),dhexp(key_s(bob),g)),dhexp(key_e(alice,bob,sid_16268249),g)),msg_a(alice,bob,sid_16268249))) may be sent on channel pub at output {53}.
+mess(pub,concat3(dhexp(key_e(alice,bob,sid_16268249),g),empty,encrypt(hmac_hash2(hash(somename,empty),dhexp(key_s(bob),dhexp(key_e(alice,bob,sid_16268249),g))),minnonce,hash(hash(hash(hash(somename,empty),empty),dhexp(key_s(bob),g)),dhexp(key_e(alice,bob,sid_16268249),g)),msg_a(alice,bob,sid_16268249)))).
+
+4. The entry statestore(bob,alice,sid_16268250,statepack_a(handshakestatepack(symmetricstatepack(cipherstatepack(empty,minnonce),hash(somename,empty),hash(hash(hash(somename,empty),empty),dhexp(key_s(bob),g))),keypairpack(dhexp(key_s(bob),g),key_s(bob)),keypairpack(empty,empty),empty,empty,empty,false))) that may be in a table by 1 may be read at get {167}.
+The message concat3(dhexp(key_e(alice,bob,sid_16268249),g),empty,encrypt(hmac_hash2(hash(somename,empty),dhexp(key_s(bob),dhexp(key_e(alice,bob,sid_16268249),g))),minnonce,hash(hash(hash(hash(somename,empty),empty),dhexp(key_s(bob),g)),dhexp(key_e(alice,bob,sid_16268249),g)),msg_a(alice,bob,sid_16268249))) that may be sent on channel pub by 3 may be received at input {131}.
+We have dhexp(key_e(alice,bob,sid_16268249),g) <> caught-fail.
+So event RecvEnd(true) may be executed at {166}.
+end(RecvEnd(true)).
+
+
+RESULT not event(RecvEnd(true)) cannot be proved.
