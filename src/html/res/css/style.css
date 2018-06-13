@@ -43,6 +43,14 @@ h3 {
 	margin: 5% 0 0 0;
 }
 
+span.passed {
+	color: var(--noiseGreen);
+}
+
+span.failed {
+	color: var(--noiseRed);
+}
+
 span.mono {
 	font-family: 'IBM Plex Mono', monospace;
 	font-weight: bold;
@@ -277,6 +285,22 @@ div.resultsExplanation {
 	border: 2px solid #FFF5F5;
 	text-align: justify;
 	padding-bottom: 250px;
+}
+
+div.resultsExplanation a.detailedAnalysis {
+	font-variant: small-caps;
+	background-color: var(--noiseLightGray);
+	color: #FFF;
+	padding: 1px 3px;
+	border-radius: 3px;
+	font-size: 12px;
+	margin-left: 5px;
+	font-family: 'IBM Plex Mono', monospace;
+}
+
+div.resultsExplanation a.detailedAnalysis:hover {
+	text-decoration: none;
+	background-color: var(--noiseDarkGray);
 }
 
 div.resultsExplanation p {
@@ -519,4 +543,5 @@ div.results.detailed p.proverif {
 	color: var(--noiseTextColor);
 	border-radius: 4px;
 	padding: 0 10px 15px 10px;
+	text-align: left;
 }

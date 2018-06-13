@@ -165,8 +165,7 @@ if (ARGV.hasOwnProperty('render')) {
 			.replace(/\$NOISERENDER_T\$/g, json.name)
 			.replace(/\$NOISERENDER_H\$/g, html.offset)
 			.replace(/\$NOISERENDER_R\$/g, html.arrowSvg)
-			.replace(/\$NOISERENDER_A\$/g, html.analysisTxt)
-			.replace(/\$NOISERENDER_D\$/g, html.rawResultsDiv);
+			.replace(/\$NOISERENDER_A\$/g, html.analysisTxt);
 		if (!FS.existsSync(`html/patterns/${json.name}`)) {
 			FS.mkdirSync(`html/patterns/${json.name}`);
 		}

@@ -41,7 +41,7 @@
 		</div>
 		<div class="resultsExplanation">
 			<h2>Message Pattern Analysis</h2>
-			<p>Message <span class="mono">B</span> is the second message in the <span class="mono">NN</span> Noise Handshake Pattern. It is sent from the responder to the initiator.</p>
+			<p>Message <span class="mono">B</span> is the second message in the <span class="mono">NN</span> Noise Handshake Pattern. It is sent from the responder to the initiator. In this detailed analysis, we attempt to give you some insight into the protocol logic underlying this message. The insight given here does not fully extend down to fully illustrate the exact state transformations conducted by the formal model, but it does describe them at least informally in order to help illustrate how Message <span class="mono">B</span> affects the protocol.</p>
 <h3>Sending Message <span class="mono">B</span></h3>
 <p>In the applied pi calculus, the initiator's process prepares Message <span class="mono">B</span> using the following function:</p>
 <p class="proverif">
@@ -61,12 +61,12 @@ letfun writeMessage_b(me:principal, them:principal, hs:handshakestate, payload:b
 </p>
 <h4>How each token is processed by the responder:</h4>
 <ul>
-<li><span class="mono">e</span>: Signals that the responder is sending a a fresh ephemeral key share as part of this message. This token adds the following state transformations to <span class="mono">writeMessage_b</span>:</li>
+<li><span class="mono">e</span>: Signals that the responder is sending a fresh ephemeral key share as part of this message. This token adds the following state transformations to <span class="mono">writeMessage_b</span>:</li>
 <ul>
 <li><span class="mono">mixHash</span>, which hashes the new key into the session hash.</li>
 </ul></ul>
 <ul>
-<li><span class="mono">ee</span>: Signals that the responder is calculating a a Diffie-Hellman shared secret derived from the initiator's ephemeral key and the responder's ephemeral key as part of this message. This token adds the following state transformations to <span class="mono">writeMessage_b</span>:</li>
+<li><span class="mono">ee</span>: Signals that the responder is calculating a Diffie-Hellman shared secret derived from the initiator's ephemeral key and the responder's ephemeral key as part of this message. This token adds the following state transformations to <span class="mono">writeMessage_b</span>:</li>
 <ul>
 <li><span class="mono">mixKey</span>, which calls the HKDF function using, as input, the existing <span class="mono">SymmetricState</span> key, and <span class="mono">dh(e, re)</span>, the Diffie-Hellman share calculated from the initiator's ephemeral key and the responder's ephemeral key.</li>
 </ul></ul>
@@ -92,14 +92,14 @@ letfun readMessage_b(me:principal, them:principal, hs:handshakestate, message:bi
 		(hs, plaintext2, true, cs1, cs2)
 	).
 </p>
-<h4>How each token is processed by the responder:</h4>
+<h4>How each token is processed by the initiator:</h4>
 <ul>
-<li><span class="mono">e</span>: Signals that the responder is receiving a a fresh ephemeral key share as part of this message. This token adds the following state transformations to <span class="mono">sendMessage_b</span>:</li>
+<li><span class="mono">e</span>: Signals that the initiator is receiving a fresh ephemeral key share as part of this message. This token adds the following state transformations to <span class="mono">sendMessage_b</span>:</li>
 <ul>
 <li><span class="mono">mixHash</span>, which hashes the new key into the session hash.</li>
 </ul></ul>
 <ul>
-<li><span class="mono">ee</span>: Signals that the responder is calculating a a Diffie-Hellman shared secret derived from the initiator's ephemeral key and the responder's ephemeral key as part of this message. This token adds the following state transformations to <span class="mono">sendMessage_b</span>:</li>
+<li><span class="mono">ee</span>: Signals that the initiator is calculating a Diffie-Hellman shared secret derived from the initiator's ephemeral key and the responder's ephemeral key as part of this message. This token adds the following state transformations to <span class="mono">sendMessage_b</span>:</li>
 <ul>
 <li><span class="mono">mixKey</span>, which calls the HKDF function using, as input, the existing <span class="mono">SymmetricState</span> key, and <span class="mono">dh(e, re)</span>, the Diffie-Hellman share calculated from the initiator's ephemeral key and the responder's ephemeral key.</li>
 </ul></ul>
@@ -107,6 +107,35 @@ letfun readMessage_b(me:principal, them:principal, hs:handshakestate, message:bi
 <p>Message <span class="code">B</span>'s payload, which is modeled as the output of the function <span class="mono">msg_a(initiatorIdentity, responderIdentity, sessionId)</span>, is encrypted as <span class="mono">ciphertext2</span>. This invokes the following operations:</p><ul>
 <li><span class="mono">decryptAndHash</span>, which performs an authenticated decryption with added data (AEAD) on the payload, with the session hash as the added data (<span class="mono">decryptWithAd</span>) and <span class="mono">mixHash</span>, which hashes the encrypted payload into the next session hash.</li>
 </ul>
+<h3>Queries and Results</h3>
+Message <span class="mono">B</span> is tested against four authenticity queries and five confidentiality queries.
+<h4>Authenticity Grade 1: <span class="failed">Failed</span></h4>
+<p class="proverif"><br />event(RecvMsg(alice,bob,stagepack_b(sid_a),m)) ==> event(SendMsg(bob,c,stagepack_b(sid_b),m)) || event(LeakS(phase0,bob)) || event(LeakS(phase0,alice))</p>
+<p>In this query, we test for <em>sender authentication</em> and <em>message integrity</em>. If Alice receives a valid message from Bob, then Bob must have sent that message to <em>someone</em>, or Bob had their static key compromised before the session began, or Alice had their session key compromised before the session began.</p>
+<h4>Authenticity Grade 2: <span class="failed">Failed</span></h4>
+<p class="proverif"><br />event(RecvMsg(alice,bob,stagepack_b(sid_a),m)) ==> event(SendMsg(bob,c,stagepack_b(sid_b),m)) || event(LeakS(phase0,bob))</p>
+<p>In this query, we test for <em>receiver authentication</em> and is <em>Key Compromise Impersonation</em> resistance. If If Alice receives a valid message from Bob, then Bob must have sent that message to <em>someone</em>, or Bob had their static key compromised before the session began.</p>
+<h4>Authenticity Grade 3: <span class="failed">Failed</span></h4>
+<p class="proverif"><br />event(RecvMsg(alice,bob,stagepack_b(sid_a),m)) ==> event(SendMsg(bob,alice,stagepack_b(sid_b),m)) || event(LeakS(phase0,bob)) || event(LeakS(phase0,alice))</p>
+<p>In this query, we test for <em>sender authentication</em> and <em>message integrity</em>. If Alice receives a valid message from Bob, then Bob must have sent that message to <em>Alice specifically</em>, or Bob had their static key compromised before the session began, or Alice had their session key compromised before the session began.</p>
+<h4>Authenticity Grade 4: <span class="failed">Failed</span></h4>
+<p class="proverif"><br />event(RecvMsg(alice,bob,stagepack_b(sid_a),m)) ==> event(SendMsg(bob,alice,stagepack_b(sid_b),m)) || event(LeakS(phase0,bob))</p>
+<p>In this query, we test for <em>receiver authentication</em> and is <em>Key Compromise Impersonation</em> resistance. If If Alice receives a valid message from Bob, then Bob must have sent that message to <em>Alice specifically</em>, or Bob had their static key compromised before the session began.</p>
+<h4>Confidentiality Grade 1: <span class="passed">Passed</span></h4>
+<p class="proverif"><br />attacker_p1(msg_b(bob,alice,sid_b)) ==> event(LeakS(phase0,alice)) || event(LeakS(phase1,alice))</p>
+<p>In this query, we test for <em>message secrecy</em> by checking if a passive attacker is able to retrieve the payload plaintext only by compromising Alice's static key either before or after the protocol session.</p>
+<h4>Confidentiality Grade 2: <span class="failed">Failed</span></h4>
+<p class="proverif"><br />attacker_p1(msg_b(bob,alice,sid_b)) ==> event(LeakS(phase0,alice)) || event(LeakS(phase1,alice))</p>
+<p>In this query, we test for <em>message secrecy</em> by checking if an active attacker is able to retrieve the payload plaintext only by compromising Alice's static key either before or after the protocol session.</p>
+<h4>Confidentiality Grade 3: <span class="failed">Failed</span></h4>
+<p class="proverif"><br />attacker_p1(msg_b(bob,alice,sid_b)) ==> event(LeakS(phase0,alice)) || (event(LeakS(phase1,alice)) && event(LeakS(p,bob)))</p>
+<p>In this query, we test for <em>forward secrecy</em> by checking if a passive attacker is able to retrieve the payload plaintext only by compromising Alice's static key before the protocol session, or after the protocol session along with Bob's static public key (at any time.)</p>
+<h4>Confidentiality Grade 4: <span class="failed">Failed</span></h4>
+<p class="proverif"><br />attacker_p1(msg_b(bob,alice,sid_b)) ==> event(LeakS(phase0,alice)) || (event(LeakS(phase1,alice)) && event(LeakS(p,bob)))</p>
+<p>In this query, we test for <em>weak forward secrecy</em> by checking if an active attacker is able to retrieve the payload plaintext only by compromising Alice's static key before the protocol session, or after the protocol session along with Bob's static public key (at any time.)</p>
+<h4>Confidentiality Grade 5: <span class="failed">Failed</span></h4>
+<p class="proverif"><br />attacker_p1(msg_b(bob,alice,sid_b)) ==> event(LeakS(phase0,alice))</p>
+<p>In this query, we test for <em>weak forward secrecy</em> by checking if an active attacker is able to retrieve the payload plaintext only by compromising Alice's static key before the protocol session.</p>
 		</div>
 	</div>
 	<div class="footer">

@@ -102,7 +102,7 @@ const htmlTemplates = {
 			false: `<strong>Sanity of this result could not be verified.</strong>`
 		};
 		let phrase = [
-			`\n\t\t\t<h3>Message ${abc.toUpperCase()} &mdash; <a href="${abc.toUpperCase()}.html">Detailed analysis</a></h3>`,
+			`\n\t\t\t<h3>Message ${abc.toUpperCase()} <a href="${abc.toUpperCase()}.html" class="detailedAnalysis">show detailed analysis</a></h3>`,
 			`<p>Message ${abc.toUpperCase()}, sent by the ${who}, ${authPhrases[authenticity]}. ${confPhrases[confidentiality]}. ${sanPhrases[sanity]} <span class="resultNums">${authenticity},${confidentiality}</span></p>`
 		].join('\n\t\t\t');
 		return phrase;
@@ -129,7 +129,7 @@ const htmlTemplates = {
 		intro: (name, abc, seq, dir) => {
 			let who = (dir === 'send')? 'initiator' : 'responder';
 			let whom = (dir === 'recv')? 'initiator' : 'responder';
-			return `<p>Message <span class="mono">${abc.toUpperCase()}</span> is the ${seq} message in the <span class="mono">${name}</span> Noise Handshake Pattern. It is sent from the ${who} to the ${whom}.</p>`;
+			return `<p>Message <span class="mono">${abc.toUpperCase()}</span> is the ${seq} message in the <span class="mono">${name}</span> Noise Handshake Pattern. It is sent from the ${who} to the ${whom}. In this detailed analysis, we attempt to give you some insight into the protocol logic underlying this message. The insight given here does not fully extend down to fully illustrate the exact state transformations conducted by the formal model, but it does describe them at least informally in order to help illustrate how Message <span class="mono">${abc.toUpperCase()}</span> affects the protocol.</p>`;
 		},
 		tokenTxt: (abc, dir, write, token) => {
 			let who = (dir === 'send')? 'initiator' : 'responder';
@@ -172,7 +172,7 @@ const htmlTemplates = {
 			})();
 			let res = [
 				`<ul>`,
-				`<li><span class="mono">${token}</span>: Signals that the ${who} is ${verb} a ${desc} as part of this message. This token adds the following state transformations to <span class="mono">${letfunName}_${abc}</span>:</li>`,
+				`<li><span class="mono">${token}</span>: Signals that the ${write? who : whom} is ${verb} ${desc} as part of this message. This token adds the following state transformations to <span class="mono">${letfunName}_${abc}</span>:</li>`,
 				`<ul>`
 			];
 			switch(token) {
@@ -214,7 +214,7 @@ const htmlTemplates = {
 			res.push(`</p>`);
 			if (tokens.length) {
 				res = res.concat([
-					`<h4>How each token is processed by the ${who}:</h4>`
+					`<h4>How each token is processed by the ${write? who : whom}:</h4>`
 				]);
 				tokens.forEach((token) => {
 					res = res.concat(htmlTemplates.detailed.tokenTxt(abc, dir, write, token))
@@ -372,7 +372,6 @@ const render = (
 ) => {
 	let arrowSvg = [];
 	let analysisTxt = [];
-	let rawResultsDiv = [];
 	let offset = 30;
 	let offsetIncrement = 135;
 	if (pattern.preMessages.length) {
@@ -422,22 +421,9 @@ const render = (
 		));
 		offset = offset + offsetIncrement;
 	});
-	if (
-		rawResultsActive.length &&
-		rawResultsPassive.length
-	) {
-		rawResultsDiv.push([
-			`<h2>raw results &mdash; active attacker</h2>`,
-			`${rawResultsActive.join('<br />').toLowerCase()}`,
-			`<h2>raw results &mdash; passive attacker</h2>`,
-			`${rawResultsPassive.join('<br />').toLowerCase()}`,
-			`<br /><br />`
-		]);
-	}
 	return {
 		arrowSvg: arrowSvg.join('\n'),
 		analysisTxt: analysisTxt.join('\n'),
-		rawResultsDiv: rawResultsDiv.join('\n'),
 		offset: offset
 	};
 };
@@ -450,6 +436,8 @@ const renderDetailed = (
 	let abc = util.abc[message];
 	let seq = util.seq[message];
 	let dir = pattern.messages[message].dir;
+	let who = (dir === 'send')? 'alice' : 'bob';
+	let whom = (dir === 'send')? 'bob' : 'alice';
 	let tokens = pattern.messages[message].tokens;
 	let arrowSvg = [];
 	let analysisTxt = [];
@@ -468,6 +456,36 @@ const renderDetailed = (
 			abc, tokens.join(', '), authenticity, confidentiality
 		));
 	}
+	let queries = {
+		authenticity: ['',
+			`event(RecvMsg(${whom},${who},stagepack_${abc}(sid_${whom[0]}),m)) ==> event(SendMsg(${who},c,stagepack_${abc}(sid_${who[0]}),m)) || event(LeakS(phase0,${who})) || event(LeakS(phase0,${whom}))`,
+			`event(RecvMsg(${whom},${who},stagepack_${abc}(sid_${whom[0]}),m)) ==> event(SendMsg(${who},c,stagepack_${abc}(sid_${who[0]}),m)) || event(LeakS(phase0,${who}))`,
+			`event(RecvMsg(${whom},${who},stagepack_${abc}(sid_${whom[0]}),m)) ==> event(SendMsg(${who},${whom},stagepack_${abc}(sid_${who[0]}),m)) || event(LeakS(phase0,${who})) || event(LeakS(phase0,${whom}))`,
+			`event(RecvMsg(${whom},${who},stagepack_${abc}(sid_${whom[0]}),m)) ==> event(SendMsg(${who},${whom},stagepack_${abc}(sid_${who[0]}),m)) || event(LeakS(phase0,${who}))`
+		],
+		confidentiality: ['',
+			`attacker_p1(msg_${abc}(${who},${whom},sid_${who[0]})) ==> event(LeakS(phase0,${whom})) || event(LeakS(phase1,${whom}))`,
+			`attacker_p1(msg_${abc}(${who},${whom},sid_${who[0]})) ==> event(LeakS(phase0,${whom})) || event(LeakS(phase1,${whom}))`,
+			`attacker_p1(msg_${abc}(${who},${whom},sid_${who[0]})) ==> event(LeakS(phase0,${whom})) || (event(LeakS(phase1,${whom})) && event(LeakS(p,${who})))`,
+			`attacker_p1(msg_${abc}(${who},${whom},sid_${who[0]})) ==> event(LeakS(phase0,${whom})) || (event(LeakS(phase1,${whom})) && event(LeakS(p,${who})))`,
+			`attacker_p1(msg_${abc}(${who},${whom},sid_${who[0]})) ==> event(LeakS(phase0,${whom}))`
+		]
+	};
+	let queryExplanations = {
+		authenticity: ['',
+			`In this query, we test for <em>sender authentication</em> and <em>message integrity</em>. If ${whom[0].toUpperCase()}${whom.substr(1)} receives a valid message from ${who[0].toUpperCase()}${who.substr(1)}, then ${who[0].toUpperCase()}${who.substr(1)} must have sent that message to <em>someone</em>, or ${who[0].toUpperCase()}${who.substr(1)} had their static key compromised before the session began, or ${whom[0].toUpperCase()}${whom.substr(1)} had their session key compromised before the session began.`,
+			`In this query, we test for <em>receiver authentication</em> and is <em>Key Compromise Impersonation</em> resistance. If If ${whom[0].toUpperCase()}${whom.substr(1)} receives a valid message from ${who[0].toUpperCase()}${who.substr(1)}, then ${who[0].toUpperCase()}${who.substr(1)} must have sent that message to <em>someone</em>, or ${who[0].toUpperCase()}${who.substr(1)} had their static key compromised before the session began.`,
+			`In this query, we test for <em>sender authentication</em> and <em>message integrity</em>. If ${whom[0].toUpperCase()}${whom.substr(1)} receives a valid message from ${who[0].toUpperCase()}${who.substr(1)}, then ${who[0].toUpperCase()}${who.substr(1)} must have sent that message to <em>${whom[0].toUpperCase()}${whom.substr(1)} specifically</em>, or ${who[0].toUpperCase()}${who.substr(1)} had their static key compromised before the session began, or ${whom[0].toUpperCase()}${whom.substr(1)} had their session key compromised before the session began.`,
+			`In this query, we test for <em>receiver authentication</em> and is <em>Key Compromise Impersonation</em> resistance. If If ${whom[0].toUpperCase()}${whom.substr(1)} receives a valid message from ${who[0].toUpperCase()}${who.substr(1)}, then ${who[0].toUpperCase()}${who.substr(1)} must have sent that message to <em>${whom[0].toUpperCase()}${whom.substr(1)} specifically</em>, or ${who[0].toUpperCase()}${who.substr(1)} had their static key compromised before the session began.`,
+		],
+		confidentiality: ['',
+			`In this query, we test for <em>message secrecy</em> by checking if a passive attacker is able to retrieve the payload plaintext only by compromising ${whom[0].toUpperCase()}${whom.substr(1)}'s static key either before or after the protocol session.`,
+			`In this query, we test for <em>message secrecy</em> by checking if an active attacker is able to retrieve the payload plaintext only by compromising ${whom[0].toUpperCase()}${whom.substr(1)}'s static key either before or after the protocol session.`,
+			`In this query, we test for <em>forward secrecy</em> by checking if a passive attacker is able to retrieve the payload plaintext only by compromising ${whom[0].toUpperCase()}${whom.substr(1)}'s static key before the protocol session, or after the protocol session along with ${who[0].toUpperCase()}${who.substr(1)}'s static public key (at any time.)`,
+			`In this query, we test for <em>weak forward secrecy</em> by checking if an active attacker is able to retrieve the payload plaintext only by compromising ${whom[0].toUpperCase()}${whom.substr(1)}'s static key before the protocol session, or after the protocol session along with ${who[0].toUpperCase()}${who.substr(1)}'s static public key (at any time.)`,
+			`In this query, we test for <em>weak forward secrecy</em> by checking if an active attacker is able to retrieve the payload plaintext only by compromising ${whom[0].toUpperCase()}${whom.substr(1)}'s static key before the protocol session.`,
+		]
+	};
 	analysisTxt = [
 		htmlTemplates.detailed.intro(pattern.name, abc, seq, dir),
 	];
@@ -477,6 +495,24 @@ const renderDetailed = (
 	analysisTxt = analysisTxt.concat(
 		htmlTemplates.detailed.analysisTxt(pattern.name, abc, seq, dir, false, readMessage, tokens)
 	);
+	analysisTxt = analysisTxt.concat([
+		`<h3>Queries and Results</h3>`,
+		`Message <span class="mono">${abc.toUpperCase()}</span> is tested against four authenticity queries and five confidentiality queries.`
+	]);
+	for (let i = 1; i < 5; i++) {
+		analysisTxt = analysisTxt.concat([
+			`<h4>Authenticity Grade ${i}: ${(authenticity >= i)? '<span class="passed">Passed</span>' : '<span class="failed">Failed</span>'}</h4>`,
+			`<p class="proverif"><br />${queries.authenticity[i]}</p>`,
+			`<p>${queryExplanations.authenticity[i]}</p>`
+		]);
+	}
+	for (let i = 1; i < 6; i++) {
+		analysisTxt = analysisTxt.concat([
+			`<h4>Confidentiality Grade ${i}: ${(confidentiality >= i)? '<span class="passed">Passed</span>' : '<span class="failed">Failed</span>'}</h4>`,
+			`<p class="proverif"><br />${queries.confidentiality[i]}</p>`,
+			`<p>${queryExplanations.confidentiality[i]}</p>`
+		]);
+	}
 	return {
 		arrowSvg: arrowSvg.join('\n'),
 		analysisTxt: analysisTxt.join('\n'),
