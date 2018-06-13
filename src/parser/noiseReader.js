@@ -134,7 +134,7 @@ const htmlTemplates = {
 		tokenTxt: (abc, dir, write, token) => {
 			let who = (dir === 'send')? 'initiator' : 'responder';
 			let whom = (dir === 'recv')? 'initiator' : 'responder';
-			let letfunName = write? `writeMessage` : `sendMessage`;
+			let letfunName = write? `writeMessage` : `readMessage`;
 			let stateFuns = {
 				mixKey: (dir, dh) => {
 					let dhDesc = '';

@@ -89,12 +89,12 @@ letfun readMessage_c(me:principal, them:principal, hs:handshakestate, message:bi
 </p>
 <h4>How each token is processed by the responder:</h4>
 <ul>
-<li><span class="mono">se</span>: Signals that the responder is calculating a Diffie-Hellman shared secret derived from the initiator's static key and the responder's ephemeral key as part of this message. This token adds the following state transformations to <span class="mono">sendMessage_c</span>:</li>
+<li><span class="mono">se</span>: Signals that the responder is calculating a Diffie-Hellman shared secret derived from the initiator's static key and the responder's ephemeral key as part of this message. This token adds the following state transformations to <span class="mono">readMessage_c</span>:</li>
 <ul>
 <li><span class="mono">mixKey</span>, which calls the HKDF function using, as input, the existing <span class="mono">SymmetricState</span> key, and <span class="mono">dh(s, re)</span>, the Diffie-Hellman share calculated from the initiator's static key and the responder's ephemeral key.</li>
 </ul></ul>
 <ul>
-<li><span class="mono">es</span>: Signals that the responder is calculating a Diffie-Hellman shared secret derived from the initiator's ephemeral key and the responder's static key as part of this message. This token adds the following state transformations to <span class="mono">sendMessage_c</span>:</li>
+<li><span class="mono">es</span>: Signals that the responder is calculating a Diffie-Hellman shared secret derived from the initiator's ephemeral key and the responder's static key as part of this message. This token adds the following state transformations to <span class="mono">readMessage_c</span>:</li>
 <ul>
 <li><span class="mono">mixKey</span>, which calls the HKDF function using, as input, the existing <span class="mono">SymmetricState</span> key, and <span class="mono">dh(e, rs)</span>, the Diffie-Hellman share calculated from the initiator's ephemeral key and the responder's static key.</li>
 </ul></ul>

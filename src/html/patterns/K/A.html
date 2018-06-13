@@ -101,17 +101,17 @@ letfun readMessage_a(me:principal, them:principal, hs:handshakestate, message:bi
 </p>
 <h4>How each token is processed by the responder:</h4>
 <ul>
-<li><span class="mono">e</span>: Signals that the responder is receiving a fresh ephemeral key share as part of this message. This token adds the following state transformations to <span class="mono">sendMessage_a</span>:</li>
+<li><span class="mono">e</span>: Signals that the responder is receiving a fresh ephemeral key share as part of this message. This token adds the following state transformations to <span class="mono">readMessage_a</span>:</li>
 <ul>
 <li><span class="mono">mixHash</span>, which hashes the new key into the session hash.</li>
 </ul></ul>
 <ul>
-<li><span class="mono">es</span>: Signals that the responder is calculating a Diffie-Hellman shared secret derived from the initiator's ephemeral key and the responder's static key as part of this message. This token adds the following state transformations to <span class="mono">sendMessage_a</span>:</li>
+<li><span class="mono">es</span>: Signals that the responder is calculating a Diffie-Hellman shared secret derived from the initiator's ephemeral key and the responder's static key as part of this message. This token adds the following state transformations to <span class="mono">readMessage_a</span>:</li>
 <ul>
 <li><span class="mono">mixKey</span>, which calls the HKDF function using, as input, the existing <span class="mono">SymmetricState</span> key, and <span class="mono">dh(e, rs)</span>, the Diffie-Hellman share calculated from the initiator's ephemeral key and the responder's static key.</li>
 </ul></ul>
 <ul>
-<li><span class="mono">ss</span>: Signals that the responder is calculating a Diffie-Hellman shared secret derived from the initiator's static key and the responder's static key as part of this message. This token adds the following state transformations to <span class="mono">sendMessage_a</span>:</li>
+<li><span class="mono">ss</span>: Signals that the responder is calculating a Diffie-Hellman shared secret derived from the initiator's static key and the responder's static key as part of this message. This token adds the following state transformations to <span class="mono">readMessage_a</span>:</li>
 <ul>
 <li><span class="mono">mixKey</span>, which calls the HKDF function using, as input, the existing <span class="mono">SymmetricState</span> key, and <span class="mono">dh(s, rs)</span>, the Diffie-Hellman share calculated from the initiator's static key and the responder's static key.</li>
 </ul></ul>
