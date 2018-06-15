@@ -80,13 +80,13 @@ Since Message <span class="mono">C</span> contains no tokens, it is considered p
 Message <span class="mono">C</span> is tested against four authenticity queries and five confidentiality queries.
 <h4>Authenticity Grade 1: <span class="failed">Failed</span></h4>
 <p class="proverif"><br />event(RecvMsg(bob,alice,stagepack_c(sid_b),m)) ==> event(SendMsg(alice,c,stagepack_c(sid_a),m)) || event(LeakS(phase0,alice)) || event(LeakS(phase0,bob))</p>
-<p>In this query, we test for <em>sender authentication</em> and <em>message integrity</em>. If Bob receives a valid message from Alice, then Alice must have sent that message to <em>someone</em>, or Alice had their static key compromised before the session began, or Bob had their session key compromised before the session began.</p>
+<p>In this query, we test for <em>sender authentication</em> and <em>message integrity</em>. If Bob receives a valid message from Alice, then Alice must have sent that message to <em>someone</em>, or Alice had their static key compromised before the session began, or Bob had their static key compromised before the session began.</p>
 <h4>Authenticity Grade 2: <span class="failed">Failed</span></h4>
 <p class="proverif"><br />event(RecvMsg(bob,alice,stagepack_c(sid_b),m)) ==> event(SendMsg(alice,c,stagepack_c(sid_a),m)) || event(LeakS(phase0,alice))</p>
 <p>In this query, we test for <em>sender authentication</em> and is <em>Key Compromise Impersonation</em> resistance. If If Bob receives a valid message from Alice, then Alice must have sent that message to <em>someone</em>, or Alice had their static key compromised before the session began.</p>
 <h4>Authenticity Grade 3: <span class="failed">Failed</span></h4>
 <p class="proverif"><br />event(RecvMsg(bob,alice,stagepack_c(sid_b),m)) ==> event(SendMsg(alice,bob,stagepack_c(sid_a),m)) || event(LeakS(phase0,alice)) || event(LeakS(phase0,bob))</p>
-<p>In this query, we test for <em>sender and receiver authentication</em> and <em>message integrity</em>. If Bob receives a valid message from Alice, then Alice must have sent that message to <em>Bob specifically</em>, or Alice had their static key compromised before the session began, or Bob had their session key compromised before the session began.</p>
+<p>In this query, we test for <em>sender and receiver authentication</em> and <em>message integrity</em>. If Bob receives a valid message from Alice, then Alice must have sent that message to <em>Bob specifically</em>, or Alice had their static key compromised before the session began, or Bob had their static key compromised before the session began.</p>
 <h4>Authenticity Grade 4: <span class="failed">Failed</span></h4>
 <p class="proverif"><br />event(RecvMsg(bob,alice,stagepack_c(sid_b),m)) ==> event(SendMsg(alice,bob,stagepack_c(sid_a),m)) || event(LeakS(phase0,alice))</p>
 <p>In this query, we test for <em>sender and receiver authentication</em> and is <em>Key Compromise Impersonation</em> resistance. If If Bob receives a valid message from Alice, then Alice must have sent that message to <em>Bob specifically</em>, or Alice had their static key compromised before the session began.</p>
