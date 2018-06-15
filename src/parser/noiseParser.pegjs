@@ -216,7 +216,7 @@ Arrow =
 	}
 
 Token =
-	('psk' / 'rs' / 'ss' / 'se' / 'es' / 'ee' / 's' / 'e') {
+	('psk' / 'ss' / 'se' / 'es' / 'ee' / 's' / 'e') {
 		return text();
 	}
 
