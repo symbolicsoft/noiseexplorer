@@ -359,7 +359,7 @@ Process:
         {22}let v_591: symmetricstate = catch-fail((if success?(1-proj-7-tuple(v_585)) then (if (not-caught-fail(v_590) && success?(is-true(success?(1-proj-3-tuple(v_590))))) then symmetricstatepack(1-proj-3-tuple(v_590),2-proj-3-tuple(v_590),hash(3-proj-3-tuple(v_590),v_589)) else fail-any) else fail-any)) in
         {23}let v_592: bitstring = catch-fail(symmetricstateunpack(v_591)) in
         {24}let v_593: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_592))) in
-        {25}let v_594: bitstring = catch-fail(encrypt(1-proj-2-tuple(v_593),2-proj-2-tuple(v_593),3-proj-3-tuple(v_592),msg_a(alice,bob))) in
+        {25}let v_594: bitstring = catch-fail(encrypt(1-proj-2-tuple(v_593),2-proj-2-tuple(v_593),3-proj-3-tuple(v_592),msg_a(alice,bob,sid))) in
         {26}let v_595: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_592))) in
         {27}let v_596: cipherstate = catch-fail((if (success?(increment_nonce(2-proj-2-tuple(v_593))) && success?(1-proj-3-tuple(v_592))) then (if (not-caught-fail(v_595) && success?(is-true(success?(1-proj-2-tuple(v_595))))) then cipherstatepack(1-proj-2-tuple(v_595),increment_nonce(2-proj-2-tuple(v_593))) else fail-any) else fail-any)) in
         {28}let v_597: bitstring = catch-fail((if (success?(3-proj-3-tuple(v_592)) && success?(1-proj-3-tuple(v_592))) then (if (not-caught-fail(v_593) && success?(is-true(success?(1-proj-2-tuple(v_593))))) then (if not-caught-fail(v_594) then (if not-caught-fail(v_596) then (v_596,v_594) else fail-any) else fail-any) else fail-any) else fail-any)) in
@@ -369,7 +369,7 @@ Process:
         {32}let v_601: handshakestate = catch-fail(handshakestatepack(1-proj-2-tuple(v_600),2-proj-7-tuple(v_585),v_588,4-proj-7-tuple(v_585),5-proj-7-tuple(v_585),6-proj-7-tuple(v_585),7-proj-7-tuple(v_585))) in
         {33}let v_602: bitstring = catch-fail(concat3(v_589,2-proj-3-tuple(v_586),2-proj-2-tuple(v_600))) in
         {34}let (hs_603: handshakestate,message_a: bitstring) = (if (not-caught-fail(v_585) && success?(is-true(success?(1-proj-7-tuple(v_585))))) then (if (not-caught-fail(v_586) && success?(is-true(success?(1-proj-3-tuple(v_586))))) then (if not-caught-fail(v_588) then (if not-caught-fail(v_589) then (if not-caught-fail(v_591) then (if (not-caught-fail(v_600) && success?(is-true(success?(1-proj-2-tuple(v_600))))) then (if not-caught-fail(v_601) then (if not-caught-fail(v_602) then (v_601,v_602) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) in
-        {35}event SendMsg(alice,bob,stagepack_a(sid),msg_a(alice,bob));
+        {35}event SendMsg(alice,bob,stagepack_a(sid),msg_a(alice,bob,sid));
         {36}insert statestore(alice,bob,sid,statepack_b(hs_603));
         {37}out(pub, message_a)
     ) | (
@@ -445,7 +445,7 @@ Process:
         {106}let v_669: symmetricstate = catch-fail((if (success?((if success?(5-proj-7-tuple(v_650)) then (if (not-caught-fail(v_663) && success?(is-true(success?(1-proj-2-tuple(v_663))))) then dhexp(2-proj-2-tuple(v_663),5-proj-7-tuple(v_650)) else fail-any) else fail-any)) && success?(1-proj-2-tuple(v_662))) then (if (not-caught-fail(v_664) && success?(is-true(success?(1-proj-3-tuple(v_664))))) then (if (not-caught-fail(v_668) && success?(is-true(success?(1-proj-3-tuple(v_668))))) then symmetricstatepack((if success?(2-proj-3-tuple(v_668)) then cipherstatepack(2-proj-3-tuple(v_668),minnonce) else fail-any),1-proj-3-tuple(v_668),3-proj-3-tuple(v_664)) else fail-any) else fail-any) else fail-any)) in
         {107}let v_670: bitstring = catch-fail(symmetricstateunpack(v_669)) in
         {108}let v_671: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_670))) in
-        {109}let v_672: bitstring = catch-fail(encrypt(1-proj-2-tuple(v_671),2-proj-2-tuple(v_671),3-proj-3-tuple(v_670),msg_c(alice,bob))) in
+        {109}let v_672: bitstring = catch-fail(encrypt(1-proj-2-tuple(v_671),2-proj-2-tuple(v_671),3-proj-3-tuple(v_670),msg_c(alice,bob,sid))) in
         {110}let v_673: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_670))) in
         {111}let v_674: cipherstate = catch-fail((if (success?(increment_nonce(2-proj-2-tuple(v_671))) && success?(1-proj-3-tuple(v_670))) then (if (not-caught-fail(v_673) && success?(is-true(success?(1-proj-2-tuple(v_673))))) then cipherstatepack(1-proj-2-tuple(v_673),increment_nonce(2-proj-2-tuple(v_671))) else fail-any) else fail-any)) in
         {112}let v_675: bitstring = catch-fail((if (success?(3-proj-3-tuple(v_670)) && success?(1-proj-3-tuple(v_670))) then (if (not-caught-fail(v_671) && success?(is-true(success?(1-proj-2-tuple(v_671))))) then (if not-caught-fail(v_672) then (if not-caught-fail(v_674) then (v_674,v_672) else fail-any) else fail-any) else fail-any) else fail-any)) in
@@ -463,7 +463,7 @@ Process:
         {124}let v_687: cipherstate = catch-fail((if success?(2-proj-3-tuple(v_685)) then cipherstatepack(2-proj-3-tuple(v_685),minnonce) else fail-any)) in
         {125}let v_688: bitstring = catch-fail((if success?(1-proj-2-tuple(v_678)) then (if (not-caught-fail(v_681) && success?(is-true(success?(1-proj-3-tuple(v_681))))) then (if (not-caught-fail(v_685) && success?(is-true(success?(1-proj-3-tuple(v_685))))) then (if not-caught-fail(v_686) then (if not-caught-fail(v_687) then (1-proj-2-tuple(v_678),v_686,v_687) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any)) in
         {126}let (hs_689: handshakestate,message_c: bitstring,cs1: cipherstate,cs2: cipherstate) = (if (not-caught-fail(v_650) && success?(is-true(success?(1-proj-7-tuple(v_650))))) then (if (not-caught-fail(v_651) && success?(is-true(success?(1-proj-3-tuple(v_651))))) then (if not-caught-fail(v_653) then (if (not-caught-fail(v_662) && success?(is-true(success?(1-proj-2-tuple(v_662))))) then (if not-caught-fail(v_669) then (if (not-caught-fail(v_678) && success?(is-true(success?(1-proj-2-tuple(v_678))))) then (if not-caught-fail(v_679) then (if not-caught-fail(v_680) then (if (not-caught-fail(v_688) && success?(is-true(success?(1-proj-3-tuple(v_688))))) then (v_679,v_680,2-proj-3-tuple(v_688),3-proj-3-tuple(v_688)) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) in
-        {127}event SendMsg(alice,bob,stagepack_c(sid),msg_c(alice,bob));
+        {127}event SendMsg(alice,bob,stagepack_c(sid),msg_c(alice,bob,sid));
         {128}insert statestore(alice,bob,sid,statepack_d(hs_689,cs1,cs2));
         {129}out(pub, message_c)
     ) | (
@@ -496,7 +496,7 @@ Process:
         {155}let v_715: bitstring = catch-fail((empty,empty,empty)) in
         {156}let v_716: bitstring = catch-fail(symmetricstateunpack(1-proj-7-tuple(v_714))) in
         {157}let v_717: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_716))) in
-        {158}let v_718: bitstring = catch-fail(encrypt(1-proj-2-tuple(v_717),2-proj-2-tuple(v_717),3-proj-3-tuple(v_716),msg_e(alice,bob))) in
+        {158}let v_718: bitstring = catch-fail(encrypt(1-proj-2-tuple(v_717),2-proj-2-tuple(v_717),3-proj-3-tuple(v_716),msg_e(alice,bob,sid))) in
         {159}let v_719: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_716))) in
         {160}let v_720: cipherstate = catch-fail((if (success?(increment_nonce(2-proj-2-tuple(v_717))) && success?(1-proj-3-tuple(v_716))) then (if (not-caught-fail(v_719) && success?(is-true(success?(1-proj-2-tuple(v_719))))) then cipherstatepack(1-proj-2-tuple(v_719),increment_nonce(2-proj-2-tuple(v_717))) else fail-any) else fail-any)) in
         {161}let v_721: bitstring = catch-fail((if (success?(3-proj-3-tuple(v_716)) && success?(1-proj-3-tuple(v_716))) then (if (not-caught-fail(v_717) && success?(is-true(success?(1-proj-2-tuple(v_717))))) then (if not-caught-fail(v_718) then (if not-caught-fail(v_720) then (v_720,v_718) else fail-any) else fail-any) else fail-any) else fail-any)) in
@@ -506,7 +506,7 @@ Process:
         {165}let v_725: handshakestate = catch-fail(handshakestatepack(1-proj-2-tuple(v_724),2-proj-7-tuple(v_714),3-proj-7-tuple(v_714),4-proj-7-tuple(v_714),5-proj-7-tuple(v_714),6-proj-7-tuple(v_714),7-proj-7-tuple(v_714))) in
         {166}let v_726: bitstring = catch-fail(concat3(1-proj-3-tuple(v_715),2-proj-3-tuple(v_715),2-proj-2-tuple(v_724))) in
         {167}let (hs_727: handshakestate,message_e: bitstring) = (if (not-caught-fail(v_714) && success?(is-true(success?(1-proj-7-tuple(v_714))))) then (if (not-caught-fail(v_715) && success?(is-true(success?(1-proj-3-tuple(v_715))))) then (if (not-caught-fail(v_724) && success?(is-true(success?(1-proj-2-tuple(v_724))))) then (if not-caught-fail(v_725) then (if not-caught-fail(v_726) then (v_725,v_726) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) in
-        {168}event SendMsg(alice,bob,stagepack_e(sid),msg_e(alice,bob));
+        {168}event SendMsg(alice,bob,stagepack_e(sid),msg_e(alice,bob,sid));
         {169}out(pub, message_e)
     ) | (
         {171}event LeakS(phase0,alice);
@@ -541,7 +541,7 @@ Process:
         {194}let v_745: symmetricstate = catch-fail((if success?(1-proj-7-tuple(v_739)) then (if (not-caught-fail(v_744) && success?(is-true(success?(1-proj-3-tuple(v_744))))) then symmetricstatepack(1-proj-3-tuple(v_744),2-proj-3-tuple(v_744),hash(3-proj-3-tuple(v_744),v_743)) else fail-any) else fail-any)) in
         {195}let v_746: bitstring = catch-fail(symmetricstateunpack(v_745)) in
         {196}let v_747: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_746))) in
-        {197}let v_748: bitstring = catch-fail(encrypt(1-proj-2-tuple(v_747),2-proj-2-tuple(v_747),3-proj-3-tuple(v_746),msg_a(alice,charlie))) in
+        {197}let v_748: bitstring = catch-fail(encrypt(1-proj-2-tuple(v_747),2-proj-2-tuple(v_747),3-proj-3-tuple(v_746),msg_a(alice,charlie,sid))) in
         {198}let v_749: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_746))) in
         {199}let v_750: cipherstate = catch-fail((if (success?(increment_nonce(2-proj-2-tuple(v_747))) && success?(1-proj-3-tuple(v_746))) then (if (not-caught-fail(v_749) && success?(is-true(success?(1-proj-2-tuple(v_749))))) then cipherstatepack(1-proj-2-tuple(v_749),increment_nonce(2-proj-2-tuple(v_747))) else fail-any) else fail-any)) in
         {200}let v_751: bitstring = catch-fail((if (success?(3-proj-3-tuple(v_746)) && success?(1-proj-3-tuple(v_746))) then (if (not-caught-fail(v_747) && success?(is-true(success?(1-proj-2-tuple(v_747))))) then (if not-caught-fail(v_748) then (if not-caught-fail(v_750) then (v_750,v_748) else fail-any) else fail-any) else fail-any) else fail-any)) in
@@ -551,7 +551,7 @@ Process:
         {204}let v_755: handshakestate = catch-fail(handshakestatepack(1-proj-2-tuple(v_754),2-proj-7-tuple(v_739),v_742,4-proj-7-tuple(v_739),5-proj-7-tuple(v_739),6-proj-7-tuple(v_739),7-proj-7-tuple(v_739))) in
         {205}let v_756: bitstring = catch-fail(concat3(v_743,2-proj-3-tuple(v_740),2-proj-2-tuple(v_754))) in
         {206}let (hs_757: handshakestate,message_a_758: bitstring) = (if (not-caught-fail(v_739) && success?(is-true(success?(1-proj-7-tuple(v_739))))) then (if (not-caught-fail(v_740) && success?(is-true(success?(1-proj-3-tuple(v_740))))) then (if not-caught-fail(v_742) then (if not-caught-fail(v_743) then (if not-caught-fail(v_745) then (if (not-caught-fail(v_754) && success?(is-true(success?(1-proj-2-tuple(v_754))))) then (if not-caught-fail(v_755) then (if not-caught-fail(v_756) then (v_755,v_756) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) in
-        {207}event SendMsg(alice,charlie,stagepack_a(sid),msg_a(alice,charlie));
+        {207}event SendMsg(alice,charlie,stagepack_a(sid),msg_a(alice,charlie,sid));
         {208}insert statestore(alice,charlie,sid,statepack_b(hs_757));
         {209}out(pub, message_a_758)
     ) | (
@@ -627,7 +627,7 @@ Process:
         {278}let v_827: symmetricstate = catch-fail((if (success?((if success?(5-proj-7-tuple(v_808)) then (if (not-caught-fail(v_821) && success?(is-true(success?(1-proj-2-tuple(v_821))))) then dhexp(2-proj-2-tuple(v_821),5-proj-7-tuple(v_808)) else fail-any) else fail-any)) && success?(1-proj-2-tuple(v_820))) then (if (not-caught-fail(v_822) && success?(is-true(success?(1-proj-3-tuple(v_822))))) then (if (not-caught-fail(v_826) && success?(is-true(success?(1-proj-3-tuple(v_826))))) then symmetricstatepack((if success?(2-proj-3-tuple(v_826)) then cipherstatepack(2-proj-3-tuple(v_826),minnonce) else fail-any),1-proj-3-tuple(v_826),3-proj-3-tuple(v_822)) else fail-any) else fail-any) else fail-any)) in
         {279}let v_828: bitstring = catch-fail(symmetricstateunpack(v_827)) in
         {280}let v_829: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_828))) in
-        {281}let v_830: bitstring = catch-fail(encrypt(1-proj-2-tuple(v_829),2-proj-2-tuple(v_829),3-proj-3-tuple(v_828),msg_c(alice,charlie))) in
+        {281}let v_830: bitstring = catch-fail(encrypt(1-proj-2-tuple(v_829),2-proj-2-tuple(v_829),3-proj-3-tuple(v_828),msg_c(alice,charlie,sid))) in
         {282}let v_831: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_828))) in
         {283}let v_832: cipherstate = catch-fail((if (success?(increment_nonce(2-proj-2-tuple(v_829))) && success?(1-proj-3-tuple(v_828))) then (if (not-caught-fail(v_831) && success?(is-true(success?(1-proj-2-tuple(v_831))))) then cipherstatepack(1-proj-2-tuple(v_831),increment_nonce(2-proj-2-tuple(v_829))) else fail-any) else fail-any)) in
         {284}let v_833: bitstring = catch-fail((if (success?(3-proj-3-tuple(v_828)) && success?(1-proj-3-tuple(v_828))) then (if (not-caught-fail(v_829) && success?(is-true(success?(1-proj-2-tuple(v_829))))) then (if not-caught-fail(v_830) then (if not-caught-fail(v_832) then (v_832,v_830) else fail-any) else fail-any) else fail-any) else fail-any)) in
@@ -645,7 +645,7 @@ Process:
         {296}let v_845: cipherstate = catch-fail((if success?(2-proj-3-tuple(v_843)) then cipherstatepack(2-proj-3-tuple(v_843),minnonce) else fail-any)) in
         {297}let v_846: bitstring = catch-fail((if success?(1-proj-2-tuple(v_836)) then (if (not-caught-fail(v_839) && success?(is-true(success?(1-proj-3-tuple(v_839))))) then (if (not-caught-fail(v_843) && success?(is-true(success?(1-proj-3-tuple(v_843))))) then (if not-caught-fail(v_844) then (if not-caught-fail(v_845) then (1-proj-2-tuple(v_836),v_844,v_845) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any)) in
         {298}let (hs_847: handshakestate,message_c_848: bitstring,cs1_849: cipherstate,cs2_850: cipherstate) = (if (not-caught-fail(v_808) && success?(is-true(success?(1-proj-7-tuple(v_808))))) then (if (not-caught-fail(v_809) && success?(is-true(success?(1-proj-3-tuple(v_809))))) then (if not-caught-fail(v_811) then (if (not-caught-fail(v_820) && success?(is-true(success?(1-proj-2-tuple(v_820))))) then (if not-caught-fail(v_827) then (if (not-caught-fail(v_836) && success?(is-true(success?(1-proj-2-tuple(v_836))))) then (if not-caught-fail(v_837) then (if not-caught-fail(v_838) then (if (not-caught-fail(v_846) && success?(is-true(success?(1-proj-3-tuple(v_846))))) then (v_837,v_838,2-proj-3-tuple(v_846),3-proj-3-tuple(v_846)) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) in
-        {299}event SendMsg(alice,charlie,stagepack_c(sid),msg_c(alice,charlie));
+        {299}event SendMsg(alice,charlie,stagepack_c(sid),msg_c(alice,charlie,sid));
         {300}insert statestore(alice,charlie,sid,statepack_d(hs_847,cs1_849,cs2_850));
         {301}out(pub, message_c_848)
     ) | (
@@ -678,7 +678,7 @@ Process:
         {327}let v_878: bitstring = catch-fail((empty,empty,empty)) in
         {328}let v_879: bitstring = catch-fail(symmetricstateunpack(1-proj-7-tuple(v_877))) in
         {329}let v_880: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_879))) in
-        {330}let v_881: bitstring = catch-fail(encrypt(1-proj-2-tuple(v_880),2-proj-2-tuple(v_880),3-proj-3-tuple(v_879),msg_e(alice,charlie))) in
+        {330}let v_881: bitstring = catch-fail(encrypt(1-proj-2-tuple(v_880),2-proj-2-tuple(v_880),3-proj-3-tuple(v_879),msg_e(alice,charlie,sid))) in
         {331}let v_882: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_879))) in
         {332}let v_883: cipherstate = catch-fail((if (success?(increment_nonce(2-proj-2-tuple(v_880))) && success?(1-proj-3-tuple(v_879))) then (if (not-caught-fail(v_882) && success?(is-true(success?(1-proj-2-tuple(v_882))))) then cipherstatepack(1-proj-2-tuple(v_882),increment_nonce(2-proj-2-tuple(v_880))) else fail-any) else fail-any)) in
         {333}let v_884: bitstring = catch-fail((if (success?(3-proj-3-tuple(v_879)) && success?(1-proj-3-tuple(v_879))) then (if (not-caught-fail(v_880) && success?(is-true(success?(1-proj-2-tuple(v_880))))) then (if not-caught-fail(v_881) then (if not-caught-fail(v_883) then (v_883,v_881) else fail-any) else fail-any) else fail-any) else fail-any)) in
@@ -688,7 +688,7 @@ Process:
         {337}let v_888: handshakestate = catch-fail(handshakestatepack(1-proj-2-tuple(v_887),2-proj-7-tuple(v_877),3-proj-7-tuple(v_877),4-proj-7-tuple(v_877),5-proj-7-tuple(v_877),6-proj-7-tuple(v_877),7-proj-7-tuple(v_877))) in
         {338}let v_889: bitstring = catch-fail(concat3(1-proj-3-tuple(v_878),2-proj-3-tuple(v_878),2-proj-2-tuple(v_887))) in
         {339}let (hs_890: handshakestate,message_e_891: bitstring) = (if (not-caught-fail(v_877) && success?(is-true(success?(1-proj-7-tuple(v_877))))) then (if (not-caught-fail(v_878) && success?(is-true(success?(1-proj-3-tuple(v_878))))) then (if (not-caught-fail(v_887) && success?(is-true(success?(1-proj-2-tuple(v_887))))) then (if not-caught-fail(v_888) then (if not-caught-fail(v_889) then (v_888,v_889) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) in
-        {340}event SendMsg(alice,charlie,stagepack_e(sid),msg_e(alice,charlie));
+        {340}event SendMsg(alice,charlie,stagepack_e(sid),msg_e(alice,charlie,sid));
         {341}out(pub, message_e_891)
     ) | (
         {343}event LeakS(phase0,alice);
@@ -771,7 +771,7 @@ Process:
         {413}let v_955: symmetricstate = catch-fail((if (success?((if success?(5-proj-7-tuple(v_924)) then (if (not-caught-fail(v_949) && success?(is-true(success?(1-proj-2-tuple(v_949))))) then dhexp(2-proj-2-tuple(v_949),5-proj-7-tuple(v_924)) else fail-any) else fail-any)) && success?(1-proj-2-tuple(v_948))) then (if (not-caught-fail(v_950) && success?(is-true(success?(1-proj-3-tuple(v_950))))) then (if (not-caught-fail(v_954) && success?(is-true(success?(1-proj-3-tuple(v_954))))) then symmetricstatepack((if success?(2-proj-3-tuple(v_954)) then cipherstatepack(2-proj-3-tuple(v_954),minnonce) else fail-any),1-proj-3-tuple(v_954),3-proj-3-tuple(v_950)) else fail-any) else fail-any) else fail-any)) in
         {414}let v_956: bitstring = catch-fail(symmetricstateunpack(v_955)) in
         {415}let v_957: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_956))) in
-        {416}let v_958: bitstring = catch-fail(encrypt(1-proj-2-tuple(v_957),2-proj-2-tuple(v_957),3-proj-3-tuple(v_956),msg_b(bob,alice))) in
+        {416}let v_958: bitstring = catch-fail(encrypt(1-proj-2-tuple(v_957),2-proj-2-tuple(v_957),3-proj-3-tuple(v_956),msg_b(bob,alice,sid))) in
         {417}let v_959: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_956))) in
         {418}let v_960: cipherstate = catch-fail((if (success?(increment_nonce(2-proj-2-tuple(v_957))) && success?(1-proj-3-tuple(v_956))) then (if (not-caught-fail(v_959) && success?(is-true(success?(1-proj-2-tuple(v_959))))) then cipherstatepack(1-proj-2-tuple(v_959),increment_nonce(2-proj-2-tuple(v_957))) else fail-any) else fail-any)) in
         {419}let v_961: bitstring = catch-fail((if (success?(3-proj-3-tuple(v_956)) && success?(1-proj-3-tuple(v_956))) then (if (not-caught-fail(v_957) && success?(is-true(success?(1-proj-2-tuple(v_957))))) then (if not-caught-fail(v_958) then (if not-caught-fail(v_960) then (v_960,v_958) else fail-any) else fail-any) else fail-any) else fail-any)) in
@@ -781,7 +781,7 @@ Process:
         {423}let v_965: handshakestate = catch-fail(handshakestatepack(1-proj-2-tuple(v_964),v_939,v_927,4-proj-7-tuple(v_924),5-proj-7-tuple(v_924),6-proj-7-tuple(v_924),7-proj-7-tuple(v_924))) in
         {424}let v_966: bitstring = catch-fail(concat3(v_928,2-proj-2-tuple(v_948),2-proj-2-tuple(v_964))) in
         {425}let (hs_967: handshakestate,message_b_968: bitstring) = (if (not-caught-fail(v_924) && success?(is-true(success?(1-proj-7-tuple(v_924))))) then (if (not-caught-fail(v_925) && success?(is-true(success?(1-proj-3-tuple(v_925))))) then (if not-caught-fail(v_927) then (if not-caught-fail(v_928) then (if not-caught-fail(v_930) then (if not-caught-fail(v_937) then (if not-caught-fail(v_939) then (if (not-caught-fail(v_948) && success?(is-true(success?(1-proj-2-tuple(v_948))))) then (if not-caught-fail(v_955) then (if (not-caught-fail(v_964) && success?(is-true(success?(1-proj-2-tuple(v_964))))) then (if not-caught-fail(v_965) then (if not-caught-fail(v_966) then (v_965,v_966) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) in
-        {426}event SendMsg(bob,alice,stagepack_b(sid),msg_b(bob,alice));
+        {426}event SendMsg(bob,alice,stagepack_b(sid),msg_b(bob,alice,sid));
         {427}insert statestore(bob,alice,sid,statepack_c(hs_967));
         {428}out(pub, message_b_968)
     ) | (
@@ -839,7 +839,7 @@ Process:
         {479}let v_1021: bitstring = catch-fail((empty,empty,empty)) in
         {480}let v_1022: bitstring = catch-fail(symmetricstateunpack(1-proj-7-tuple(v_1020))) in
         {481}let v_1023: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_1022))) in
-        {482}let v_1024: bitstring = catch-fail(encrypt(1-proj-2-tuple(v_1023),2-proj-2-tuple(v_1023),3-proj-3-tuple(v_1022),msg_d(bob,alice))) in
+        {482}let v_1024: bitstring = catch-fail(encrypt(1-proj-2-tuple(v_1023),2-proj-2-tuple(v_1023),3-proj-3-tuple(v_1022),msg_d(bob,alice,sid))) in
         {483}let v_1025: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_1022))) in
         {484}let v_1026: cipherstate = catch-fail((if (success?(increment_nonce(2-proj-2-tuple(v_1023))) && success?(1-proj-3-tuple(v_1022))) then (if (not-caught-fail(v_1025) && success?(is-true(success?(1-proj-2-tuple(v_1025))))) then cipherstatepack(1-proj-2-tuple(v_1025),increment_nonce(2-proj-2-tuple(v_1023))) else fail-any) else fail-any)) in
         {485}let v_1027: bitstring = catch-fail((if (success?(3-proj-3-tuple(v_1022)) && success?(1-proj-3-tuple(v_1022))) then (if (not-caught-fail(v_1023) && success?(is-true(success?(1-proj-2-tuple(v_1023))))) then (if not-caught-fail(v_1024) then (if not-caught-fail(v_1026) then (v_1026,v_1024) else fail-any) else fail-any) else fail-any) else fail-any)) in
@@ -849,7 +849,7 @@ Process:
         {489}let v_1031: handshakestate = catch-fail(handshakestatepack(1-proj-2-tuple(v_1030),2-proj-7-tuple(v_1020),3-proj-7-tuple(v_1020),4-proj-7-tuple(v_1020),5-proj-7-tuple(v_1020),6-proj-7-tuple(v_1020),7-proj-7-tuple(v_1020))) in
         {490}let v_1032: bitstring = catch-fail(concat3(1-proj-3-tuple(v_1021),2-proj-3-tuple(v_1021),2-proj-2-tuple(v_1030))) in
         {491}let (hs_1033: handshakestate,message_d_1034: bitstring) = (if (not-caught-fail(v_1020) && success?(is-true(success?(1-proj-7-tuple(v_1020))))) then (if (not-caught-fail(v_1021) && success?(is-true(success?(1-proj-3-tuple(v_1021))))) then (if (not-caught-fail(v_1030) && success?(is-true(success?(1-proj-2-tuple(v_1030))))) then (if not-caught-fail(v_1031) then (if not-caught-fail(v_1032) then (v_1031,v_1032) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) in
-        {492}event SendMsg(bob,alice,stagepack_d(sid),msg_d(bob,alice));
+        {492}event SendMsg(bob,alice,stagepack_d(sid),msg_d(bob,alice,sid));
         {493}insert statestore(bob,alice,sid,statepack_e(hs_1033,cs1_1017,handshakestategetcs(hs_1033)));
         {494}out(pub, message_d_1034)
     ) | (
@@ -955,7 +955,7 @@ Process:
         {587}let v_1120: symmetricstate = catch-fail((if (success?((if success?(5-proj-7-tuple(v_1089)) then (if (not-caught-fail(v_1114) && success?(is-true(success?(1-proj-2-tuple(v_1114))))) then dhexp(2-proj-2-tuple(v_1114),5-proj-7-tuple(v_1089)) else fail-any) else fail-any)) && success?(1-proj-2-tuple(v_1113))) then (if (not-caught-fail(v_1115) && success?(is-true(success?(1-proj-3-tuple(v_1115))))) then (if (not-caught-fail(v_1119) && success?(is-true(success?(1-proj-3-tuple(v_1119))))) then symmetricstatepack((if success?(2-proj-3-tuple(v_1119)) then cipherstatepack(2-proj-3-tuple(v_1119),minnonce) else fail-any),1-proj-3-tuple(v_1119),3-proj-3-tuple(v_1115)) else fail-any) else fail-any) else fail-any)) in
         {588}let v_1121: bitstring = catch-fail(symmetricstateunpack(v_1120)) in
         {589}let v_1122: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_1121))) in
-        {590}let v_1123: bitstring = catch-fail(encrypt(1-proj-2-tuple(v_1122),2-proj-2-tuple(v_1122),3-proj-3-tuple(v_1121),msg_b(bob,charlie))) in
+        {590}let v_1123: bitstring = catch-fail(encrypt(1-proj-2-tuple(v_1122),2-proj-2-tuple(v_1122),3-proj-3-tuple(v_1121),msg_b(bob,charlie,sid))) in
         {591}let v_1124: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_1121))) in
         {592}let v_1125: cipherstate = catch-fail((if (success?(increment_nonce(2-proj-2-tuple(v_1122))) && success?(1-proj-3-tuple(v_1121))) then (if (not-caught-fail(v_1124) && success?(is-true(success?(1-proj-2-tuple(v_1124))))) then cipherstatepack(1-proj-2-tuple(v_1124),increment_nonce(2-proj-2-tuple(v_1122))) else fail-any) else fail-any)) in
         {593}let v_1126: bitstring = catch-fail((if (success?(3-proj-3-tuple(v_1121)) && success?(1-proj-3-tuple(v_1121))) then (if (not-caught-fail(v_1122) && success?(is-true(success?(1-proj-2-tuple(v_1122))))) then (if not-caught-fail(v_1123) then (if not-caught-fail(v_1125) then (v_1125,v_1123) else fail-any) else fail-any) else fail-any) else fail-any)) in
@@ -965,7 +965,7 @@ Process:
         {597}let v_1130: handshakestate = catch-fail(handshakestatepack(1-proj-2-tuple(v_1129),v_1104,v_1092,4-proj-7-tuple(v_1089),5-proj-7-tuple(v_1089),6-proj-7-tuple(v_1089),7-proj-7-tuple(v_1089))) in
         {598}let v_1131: bitstring = catch-fail(concat3(v_1093,2-proj-2-tuple(v_1113),2-proj-2-tuple(v_1129))) in
         {599}let (hs_1132: handshakestate,message_b_1133: bitstring) = (if (not-caught-fail(v_1089) && success?(is-true(success?(1-proj-7-tuple(v_1089))))) then (if (not-caught-fail(v_1090) && success?(is-true(success?(1-proj-3-tuple(v_1090))))) then (if not-caught-fail(v_1092) then (if not-caught-fail(v_1093) then (if not-caught-fail(v_1095) then (if not-caught-fail(v_1102) then (if not-caught-fail(v_1104) then (if (not-caught-fail(v_1113) && success?(is-true(success?(1-proj-2-tuple(v_1113))))) then (if not-caught-fail(v_1120) then (if (not-caught-fail(v_1129) && success?(is-true(success?(1-proj-2-tuple(v_1129))))) then (if not-caught-fail(v_1130) then (if not-caught-fail(v_1131) then (v_1130,v_1131) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) in
-        {600}event SendMsg(bob,charlie,stagepack_b(sid),msg_b(bob,charlie));
+        {600}event SendMsg(bob,charlie,stagepack_b(sid),msg_b(bob,charlie,sid));
         {601}insert statestore(bob,charlie,sid,statepack_c(hs_1132));
         {602}out(pub, message_b_1133)
     ) | (
@@ -1023,7 +1023,7 @@ Process:
         {653}let v_1187: bitstring = catch-fail((empty,empty,empty)) in
         {654}let v_1188: bitstring = catch-fail(symmetricstateunpack(1-proj-7-tuple(v_1186))) in
         {655}let v_1189: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_1188))) in
-        {656}let v_1190: bitstring = catch-fail(encrypt(1-proj-2-tuple(v_1189),2-proj-2-tuple(v_1189),3-proj-3-tuple(v_1188),msg_d(bob,charlie))) in
+        {656}let v_1190: bitstring = catch-fail(encrypt(1-proj-2-tuple(v_1189),2-proj-2-tuple(v_1189),3-proj-3-tuple(v_1188),msg_d(bob,charlie,sid))) in
         {657}let v_1191: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_1188))) in
         {658}let v_1192: cipherstate = catch-fail((if (success?(increment_nonce(2-proj-2-tuple(v_1189))) && success?(1-proj-3-tuple(v_1188))) then (if (not-caught-fail(v_1191) && success?(is-true(success?(1-proj-2-tuple(v_1191))))) then cipherstatepack(1-proj-2-tuple(v_1191),increment_nonce(2-proj-2-tuple(v_1189))) else fail-any) else fail-any)) in
         {659}let v_1193: bitstring = catch-fail((if (success?(3-proj-3-tuple(v_1188)) && success?(1-proj-3-tuple(v_1188))) then (if (not-caught-fail(v_1189) && success?(is-true(success?(1-proj-2-tuple(v_1189))))) then (if not-caught-fail(v_1190) then (if not-caught-fail(v_1192) then (v_1192,v_1190) else fail-any) else fail-any) else fail-any) else fail-any)) in
@@ -1033,7 +1033,7 @@ Process:
         {663}let v_1197: handshakestate = catch-fail(handshakestatepack(1-proj-2-tuple(v_1196),2-proj-7-tuple(v_1186),3-proj-7-tuple(v_1186),4-proj-7-tuple(v_1186),5-proj-7-tuple(v_1186),6-proj-7-tuple(v_1186),7-proj-7-tuple(v_1186))) in
         {664}let v_1198: bitstring = catch-fail(concat3(1-proj-3-tuple(v_1187),2-proj-3-tuple(v_1187),2-proj-2-tuple(v_1196))) in
         {665}let (hs_1199: handshakestate,message_d_1200: bitstring) = (if (not-caught-fail(v_1186) && success?(is-true(success?(1-proj-7-tuple(v_1186))))) then (if (not-caught-fail(v_1187) && success?(is-true(success?(1-proj-3-tuple(v_1187))))) then (if (not-caught-fail(v_1196) && success?(is-true(success?(1-proj-2-tuple(v_1196))))) then (if not-caught-fail(v_1197) then (if not-caught-fail(v_1198) then (v_1197,v_1198) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) in
-        {666}event SendMsg(bob,charlie,stagepack_d(sid),msg_d(bob,charlie));
+        {666}event SendMsg(bob,charlie,stagepack_d(sid),msg_d(bob,charlie,sid));
         {667}insert statestore(bob,charlie,sid,statepack_e(hs_1199,cs1_1183,handshakestategetcs(hs_1199)));
         {668}out(pub, message_d_1200)
     ) | (
@@ -1068,7 +1068,7 @@ Process:
     )
 )
 
--- Query event(RecvMsg(bob,alice,stagepack_a(sid_b),m)) ==> event(SendMsg(alice,bob,stagepack_a(sid_a),m)) || sid_a <> sid_b; event(RecvMsg(bob,alice,stagepack_a(sid_b),m)) ==> event(SendMsg(alice,c_1325,stagepack_a(sid_a),m)) || event(LeakS(phase0,alice)) || event(LeakS(phase0,bob)) || sid_a <> sid_b; event(RecvMsg(bob,alice,stagepack_a(sid_b),m)) ==> event(SendMsg(alice,c_1325,stagepack_a(sid_a),m)) || event(LeakS(phase0,alice)) || sid_a <> sid_b; event(RecvMsg(bob,alice,stagepack_a(sid_b),m)) ==> event(SendMsg(alice,bob,stagepack_a(sid_a),m)) || event(LeakS(phase0,alice)) || event(LeakS(phase0,bob)) || sid_a <> sid_b; event(RecvMsg(bob,alice,stagepack_a(sid_b),m)) ==> event(SendMsg(alice,bob,stagepack_a(sid_a),m)) || event(LeakS(phase0,alice)) || sid_a <> sid_b; not attacker_p1(msg_a(alice,bob)); attacker_p1(msg_a(alice,bob)) ==> event(LeakS(phase0,bob)) || event(LeakS(phase1,bob)); attacker_p1(msg_a(alice,bob)) ==> event(LeakS(phase0,bob)) || (event(LeakS(phase1,bob)) && event(LeakS(p,alice))); attacker_p1(msg_a(alice,bob)) ==> event(LeakS(phase0,bob)); event(RecvMsg(alice,bob,stagepack_b(sid_a),m)) ==> event(SendMsg(bob,alice,stagepack_b(sid_b),m)) || sid_b <> sid_a; event(RecvMsg(alice,bob,stagepack_b(sid_a),m)) ==> event(SendMsg(bob,c_1325,stagepack_b(sid_b),m)) || event(LeakS(phase0,bob)) || event(LeakS(phase0,alice)) || sid_b <> sid_a; event(RecvMsg(alice,bob,stagepack_b(sid_a),m)) ==> event(SendMsg(bob,c_1325,stagepack_b(sid_b),m)) || event(LeakS(phase0,bob)) || sid_b <> sid_a; event(RecvMsg(alice,bob,stagepack_b(sid_a),m)) ==> event(SendMsg(bob,alice,stagepack_b(sid_b),m)) || event(LeakS(phase0,bob)) || event(LeakS(phase0,alice)) || sid_b <> sid_a; event(RecvMsg(alice,bob,stagepack_b(sid_a),m)) ==> event(SendMsg(bob,alice,stagepack_b(sid_b),m)) || event(LeakS(phase0,bob)) || sid_b <> sid_a; not attacker_p1(msg_b(bob,alice)); attacker_p1(msg_b(bob,alice)) ==> event(LeakS(phase0,alice)) || event(LeakS(phase1,alice)); attacker_p1(msg_b(bob,alice)) ==> event(LeakS(phase0,alice)) || (event(LeakS(phase1,alice)) && event(LeakS(p,bob))); attacker_p1(msg_b(bob,alice)) ==> event(LeakS(phase0,alice)); event(RecvMsg(bob,alice,stagepack_c(sid_b),m)) ==> event(SendMsg(alice,bob,stagepack_c(sid_a),m)) || sid_a <> sid_b; event(RecvMsg(bob,alice,stagepack_c(sid_b),m)) ==> event(SendMsg(alice,c_1325,stagepack_c(sid_a),m)) || event(LeakS(phase0,alice)) || event(LeakS(phase0,bob)) || sid_a <> sid_b; event(RecvMsg(bob,alice,stagepack_c(sid_b),m)) ==> event(SendMsg(alice,c_1325,stagepack_c(sid_a),m)) || event(LeakS(phase0,alice)) || sid_a <> sid_b; event(RecvMsg(bob,alice,stagepack_c(sid_b),m)) ==> event(SendMsg(alice,bob,stagepack_c(sid_a),m)) || event(LeakS(phase0,alice)) || event(LeakS(phase0,bob)) || sid_a <> sid_b; event(RecvMsg(bob,alice,stagepack_c(sid_b),m)) ==> event(SendMsg(alice,bob,stagepack_c(sid_a),m)) || event(LeakS(phase0,alice)) || sid_a <> sid_b; not attacker_p1(msg_c(alice,bob)); attacker_p1(msg_c(alice,bob)) ==> event(LeakS(phase0,bob)) || event(LeakS(phase1,bob)); attacker_p1(msg_c(alice,bob)) ==> event(LeakS(phase0,bob)) || (event(LeakS(phase1,bob)) && event(LeakS(p,alice))); attacker_p1(msg_c(alice,bob)) ==> event(LeakS(phase0,bob)); event(RecvMsg(alice,bob,stagepack_d(sid_a),m)) ==> event(SendMsg(bob,alice,stagepack_d(sid_b),m)) || sid_b <> sid_a; event(RecvMsg(alice,bob,stagepack_d(sid_a),m)) ==> event(SendMsg(bob,c_1325,stagepack_d(sid_b),m)) || event(LeakS(phase0,bob)) || event(LeakS(phase0,alice)) || sid_b <> sid_a; event(RecvMsg(alice,bob,stagepack_d(sid_a),m)) ==> event(SendMsg(bob,c_1325,stagepack_d(sid_b),m)) || event(LeakS(phase0,bob)) || sid_b <> sid_a; event(RecvMsg(alice,bob,stagepack_d(sid_a),m)) ==> event(SendMsg(bob,alice,stagepack_d(sid_b),m)) || event(LeakS(phase0,bob)) || event(LeakS(phase0,alice)) || sid_b <> sid_a; event(RecvMsg(alice,bob,stagepack_d(sid_a),m)) ==> event(SendMsg(bob,alice,stagepack_d(sid_b),m)) || event(LeakS(phase0,bob)) || sid_b <> sid_a; not attacker_p1(msg_d(bob,alice)); attacker_p1(msg_d(bob,alice)) ==> event(LeakS(phase0,alice)) || event(LeakS(phase1,alice)); attacker_p1(msg_d(bob,alice)) ==> event(LeakS(phase0,alice)) || (event(LeakS(phase1,alice)) && event(LeakS(p,bob))); attacker_p1(msg_d(bob,alice)) ==> event(LeakS(phase0,alice)); event(RecvMsg(bob,alice,stagepack_e(sid_b),m)) ==> event(SendMsg(alice,bob,stagepack_e(sid_a),m)) || sid_a <> sid_b; event(RecvMsg(bob,alice,stagepack_e(sid_b),m)) ==> event(SendMsg(alice,c_1325,stagepack_e(sid_a),m)) || event(LeakS(phase0,alice)) || event(LeakS(phase0,bob)) || sid_a <> sid_b; event(RecvMsg(bob,alice,stagepack_e(sid_b),m)) ==> event(SendMsg(alice,c_1325,stagepack_e(sid_a),m)) || event(LeakS(phase0,alice)) || sid_a <> sid_b; event(RecvMsg(bob,alice,stagepack_e(sid_b),m)) ==> event(SendMsg(alice,bob,stagepack_e(sid_a),m)) || event(LeakS(phase0,alice)) || event(LeakS(phase0,bob)) || sid_a <> sid_b; event(RecvMsg(bob,alice,stagepack_e(sid_b),m)) ==> event(SendMsg(alice,bob,stagepack_e(sid_a),m)) || event(LeakS(phase0,alice)) || sid_a <> sid_b; not attacker_p1(msg_e(alice,bob)); attacker_p1(msg_e(alice,bob)) ==> event(LeakS(phase0,bob)) || event(LeakS(phase1,bob)); attacker_p1(msg_e(alice,bob)) ==> event(LeakS(phase0,bob)) || (event(LeakS(phase1,bob)) && event(LeakS(p,alice))); attacker_p1(msg_e(alice,bob)) ==> event(LeakS(phase0,bob)); not event(RecvEnd(true))
+-- Query event(RecvMsg(bob,alice,stagepack_a(sid_b),m)) ==> event(SendMsg(alice,bob,stagepack_a(sid_a),m)); event(RecvMsg(bob,alice,stagepack_a(sid_b),m)) ==> event(SendMsg(alice,c_1325,stagepack_a(sid_a),m)) || event(LeakS(phase0,alice)) || event(LeakS(phase0,bob)); event(RecvMsg(bob,alice,stagepack_a(sid_b),m)) ==> event(SendMsg(alice,c_1325,stagepack_a(sid_a),m)) || event(LeakS(phase0,alice)); event(RecvMsg(bob,alice,stagepack_a(sid_b),m)) ==> event(SendMsg(alice,bob,stagepack_a(sid_a),m)) || event(LeakS(phase0,alice)) || event(LeakS(phase0,bob)); event(RecvMsg(bob,alice,stagepack_a(sid_b),m)) ==> event(SendMsg(alice,bob,stagepack_a(sid_a),m)) || event(LeakS(phase0,alice)); not attacker_p1(msg_a(alice,bob,sid_a)); attacker_p1(msg_a(alice,bob,sid_a)) ==> event(LeakS(phase0,bob)) || event(LeakS(phase1,bob)); attacker_p1(msg_a(alice,bob,sid_a)) ==> event(LeakS(phase0,bob)) || (event(LeakS(phase1,bob)) && event(LeakS(p,alice))); attacker_p1(msg_a(alice,bob,sid_a)) ==> event(LeakS(phase0,bob)); event(RecvMsg(alice,bob,stagepack_b(sid_a),m)) ==> event(SendMsg(bob,alice,stagepack_b(sid_b),m)); event(RecvMsg(alice,bob,stagepack_b(sid_a),m)) ==> event(SendMsg(bob,c_1325,stagepack_b(sid_b),m)) || event(LeakS(phase0,bob)) || event(LeakS(phase0,alice)); event(RecvMsg(alice,bob,stagepack_b(sid_a),m)) ==> event(SendMsg(bob,c_1325,stagepack_b(sid_b),m)) || event(LeakS(phase0,bob)); event(RecvMsg(alice,bob,stagepack_b(sid_a),m)) ==> event(SendMsg(bob,alice,stagepack_b(sid_b),m)) || event(LeakS(phase0,bob)) || event(LeakS(phase0,alice)); event(RecvMsg(alice,bob,stagepack_b(sid_a),m)) ==> event(SendMsg(bob,alice,stagepack_b(sid_b),m)) || event(LeakS(phase0,bob)); not attacker_p1(msg_b(bob,alice,sid_b)); attacker_p1(msg_b(bob,alice,sid_b)) ==> event(LeakS(phase0,alice)) || event(LeakS(phase1,alice)); attacker_p1(msg_b(bob,alice,sid_b)) ==> event(LeakS(phase0,alice)) || (event(LeakS(phase1,alice)) && event(LeakS(p,bob))); attacker_p1(msg_b(bob,alice,sid_b)) ==> event(LeakS(phase0,alice)); event(RecvMsg(bob,alice,stagepack_c(sid_b),m)) ==> event(SendMsg(alice,bob,stagepack_c(sid_a),m)); event(RecvMsg(bob,alice,stagepack_c(sid_b),m)) ==> event(SendMsg(alice,c_1325,stagepack_c(sid_a),m)) || event(LeakS(phase0,alice)) || event(LeakS(phase0,bob)); event(RecvMsg(bob,alice,stagepack_c(sid_b),m)) ==> event(SendMsg(alice,c_1325,stagepack_c(sid_a),m)) || event(LeakS(phase0,alice)); event(RecvMsg(bob,alice,stagepack_c(sid_b),m)) ==> event(SendMsg(alice,bob,stagepack_c(sid_a),m)) || event(LeakS(phase0,alice)) || event(LeakS(phase0,bob)); event(RecvMsg(bob,alice,stagepack_c(sid_b),m)) ==> event(SendMsg(alice,bob,stagepack_c(sid_a),m)) || event(LeakS(phase0,alice)); not attacker_p1(msg_c(alice,bob,sid_a)); attacker_p1(msg_c(alice,bob,sid_a)) ==> event(LeakS(phase0,bob)) || event(LeakS(phase1,bob)); attacker_p1(msg_c(alice,bob,sid_a)) ==> event(LeakS(phase0,bob)) || (event(LeakS(phase1,bob)) && event(LeakS(p,alice))); attacker_p1(msg_c(alice,bob,sid_a)) ==> event(LeakS(phase0,bob)); event(RecvMsg(alice,bob,stagepack_d(sid_a),m)) ==> event(SendMsg(bob,alice,stagepack_d(sid_b),m)); event(RecvMsg(alice,bob,stagepack_d(sid_a),m)) ==> event(SendMsg(bob,c_1325,stagepack_d(sid_b),m)) || event(LeakS(phase0,bob)) || event(LeakS(phase0,alice)); event(RecvMsg(alice,bob,stagepack_d(sid_a),m)) ==> event(SendMsg(bob,c_1325,stagepack_d(sid_b),m)) || event(LeakS(phase0,bob)); event(RecvMsg(alice,bob,stagepack_d(sid_a),m)) ==> event(SendMsg(bob,alice,stagepack_d(sid_b),m)) || event(LeakS(phase0,bob)) || event(LeakS(phase0,alice)); event(RecvMsg(alice,bob,stagepack_d(sid_a),m)) ==> event(SendMsg(bob,alice,stagepack_d(sid_b),m)) || event(LeakS(phase0,bob)); not attacker_p1(msg_d(bob,alice,sid_b)); attacker_p1(msg_d(bob,alice,sid_b)) ==> event(LeakS(phase0,alice)) || event(LeakS(phase1,alice)); attacker_p1(msg_d(bob,alice,sid_b)) ==> event(LeakS(phase0,alice)) || (event(LeakS(phase1,alice)) && event(LeakS(p,bob))); attacker_p1(msg_d(bob,alice,sid_b)) ==> event(LeakS(phase0,alice)); event(RecvMsg(bob,alice,stagepack_e(sid_b),m)) ==> event(SendMsg(alice,bob,stagepack_e(sid_a),m)); event(RecvMsg(bob,alice,stagepack_e(sid_b),m)) ==> event(SendMsg(alice,c_1325,stagepack_e(sid_a),m)) || event(LeakS(phase0,alice)) || event(LeakS(phase0,bob)); event(RecvMsg(bob,alice,stagepack_e(sid_b),m)) ==> event(SendMsg(alice,c_1325,stagepack_e(sid_a),m)) || event(LeakS(phase0,alice)); event(RecvMsg(bob,alice,stagepack_e(sid_b),m)) ==> event(SendMsg(alice,bob,stagepack_e(sid_a),m)) || event(LeakS(phase0,alice)) || event(LeakS(phase0,bob)); event(RecvMsg(bob,alice,stagepack_e(sid_b),m)) ==> event(SendMsg(alice,bob,stagepack_e(sid_a),m)) || event(LeakS(phase0,alice)); not attacker_p1(msg_e(alice,bob,sid_a)); attacker_p1(msg_e(alice,bob,sid_a)) ==> event(LeakS(phase0,bob)) || event(LeakS(phase1,bob)); attacker_p1(msg_e(alice,bob,sid_a)) ==> event(LeakS(phase0,bob)) || (event(LeakS(phase1,bob)) && event(LeakS(p,alice))); attacker_p1(msg_e(alice,bob,sid_a)) ==> event(LeakS(phase0,bob)); not event(RecvEnd(true))
 Completing...
 200 rules inserted. The rule base contains 200 rules. 182 rules in the queue.
 400 rules inserted. The rule base contains 396 rules. 78 rules in the queue.
@@ -1098,57 +1098,58 @@ Completing...
 5200 rules inserted. The rule base contains 4392 rules. 1615 rules in the queue.
 5400 rules inserted. The rule base contains 4554 rules. 1656 rules in the queue.
 5600 rules inserted. The rule base contains 4730 rules. 1712 rules in the queue.
-5800 rules inserted. The rule base contains 4926 rules. 2434 rules in the queue.
-6000 rules inserted. The rule base contains 5011 rules. 2467 rules in the queue.
-6200 rules inserted. The rule base contains 5153 rules. 2479 rules in the queue.
-6400 rules inserted. The rule base contains 5345 rules. 3201 rules in the queue.
-6600 rules inserted. The rule base contains 5530 rules. 3247 rules in the queue.
-6800 rules inserted. The rule base contains 5644 rules. 3248 rules in the queue.
-7000 rules inserted. The rule base contains 5758 rules. 3251 rules in the queue.
-7200 rules inserted. The rule base contains 5881 rules. 3251 rules in the queue.
-7400 rules inserted. The rule base contains 6040 rules. 3239 rules in the queue.
-7600 rules inserted. The rule base contains 6219 rules. 3177 rules in the queue.
-7800 rules inserted. The rule base contains 6398 rules. 3127 rules in the queue.
-8000 rules inserted. The rule base contains 6584 rules. 3076 rules in the queue.
-8200 rules inserted. The rule base contains 6777 rules. 3037 rules in the queue.
-8400 rules inserted. The rule base contains 6850 rules. 3115 rules in the queue.
-8600 rules inserted. The rule base contains 6963 rules. 3125 rules in the queue.
-8800 rules inserted. The rule base contains 7115 rules. 3088 rules in the queue.
-9000 rules inserted. The rule base contains 7308 rules. 3045 rules in the queue.
+5800 rules inserted. The rule base contains 4926 rules. 2436 rules in the queue.
+6000 rules inserted. The rule base contains 5011 rules. 2469 rules in the queue.
+6200 rules inserted. The rule base contains 5153 rules. 2481 rules in the queue.
+6400 rules inserted. The rule base contains 5345 rules. 3205 rules in the queue.
+6600 rules inserted. The rule base contains 5530 rules. 3251 rules in the queue.
+6800 rules inserted. The rule base contains 5644 rules. 3252 rules in the queue.
+7000 rules inserted. The rule base contains 5758 rules. 3255 rules in the queue.
+7200 rules inserted. The rule base contains 5881 rules. 3255 rules in the queue.
+7400 rules inserted. The rule base contains 6040 rules. 3243 rules in the queue.
+7600 rules inserted. The rule base contains 6219 rules. 3179 rules in the queue.
+7800 rules inserted. The rule base contains 6398 rules. 3129 rules in the queue.
+8000 rules inserted. The rule base contains 6585 rules. 3079 rules in the queue.
+8200 rules inserted. The rule base contains 6777 rules. 3039 rules in the queue.
+8400 rules inserted. The rule base contains 6852 rules. 3117 rules in the queue.
+8600 rules inserted. The rule base contains 6963 rules. 3127 rules in the queue.
+8800 rules inserted. The rule base contains 7117 rules. 3089 rules in the queue.
+9000 rules inserted. The rule base contains 7308 rules. 3046 rules in the queue.
 9200 rules inserted. The rule base contains 7487 rules. 2996 rules in the queue.
-9400 rules inserted. The rule base contains 7673 rules. 2945 rules in the queue.
-9600 rules inserted. The rule base contains 7774 rules. 2974 rules in the queue.
-9800 rules inserted. The rule base contains 7941 rules. 2977 rules in the queue.
-10000 rules inserted. The rule base contains 8109 rules. 2972 rules in the queue.
+9400 rules inserted. The rule base contains 7673 rules. 2946 rules in the queue.
+9600 rules inserted. The rule base contains 7774 rules. 2975 rules in the queue.
+9800 rules inserted. The rule base contains 7943 rules. 2978 rules in the queue.
+10000 rules inserted. The rule base contains 8112 rules. 2973 rules in the queue.
 10200 rules inserted. The rule base contains 8279 rules. 2961 rules in the queue.
-10400 rules inserted. The rule base contains 8443 rules. 2954 rules in the queue.
+10400 rules inserted. The rule base contains 8444 rules. 2953 rules in the queue.
 10600 rules inserted. The rule base contains 8626 rules. 3046 rules in the queue.
 10800 rules inserted. The rule base contains 8819 rules. 3053 rules in the queue.
-11000 rules inserted. The rule base contains 9019 rules. 3070 rules in the queue.
-11200 rules inserted. The rule base contains 8993 rules. 3182 rules in the queue.
-11400 rules inserted. The rule base contains 8912 rules. 3284 rules in the queue.
-11600 rules inserted. The rule base contains 9049 rules. 3270 rules in the queue.
-11800 rules inserted. The rule base contains 9203 rules. 3312 rules in the queue.
-12000 rules inserted. The rule base contains 9396 rules. 3362 rules in the queue.
-12200 rules inserted. The rule base contains 9596 rules. 3376 rules in the queue.
-12400 rules inserted. The rule base contains 9796 rules. 3390 rules in the queue.
-12600 rules inserted. The rule base contains 9487 rules. 3610 rules in the queue.
-12800 rules inserted. The rule base contains 9628 rules. 3621 rules in the queue.
-13000 rules inserted. The rule base contains 9761 rules. 3638 rules in the queue.
-13200 rules inserted. The rule base contains 9888 rules. 3650 rules in the queue.
-13400 rules inserted. The rule base contains 10028 rules. 3662 rules in the queue.
-13600 rules inserted. The rule base contains 10228 rules. 3592 rules in the queue.
-13800 rules inserted. The rule base contains 10428 rules. 3606 rules in the queue.
-14000 rules inserted. The rule base contains 10628 rules. 3622 rules in the queue.
-14200 rules inserted. The rule base contains 10816 rules. 3632 rules in the queue.
-14400 rules inserted. The rule base contains 10703 rules. 3583 rules in the queue.
-14600 rules inserted. The rule base contains 10802 rules. 3586 rules in the queue.
-14800 rules inserted. The rule base contains 10931 rules. 3583 rules in the queue.
-15000 rules inserted. The rule base contains 11083 rules. 3580 rules in the queue.
-15200 rules inserted. The rule base contains 11283 rules. 3517 rules in the queue.
-15400 rules inserted. The rule base contains 11483 rules. 3531 rules in the queue.
-15600 rules inserted. The rule base contains 11683 rules. 3545 rules in the queue.
-15800 rules inserted. The rule base contains 11800 rules. 3536 rules in the queue.
-16000 rules inserted. The rule base contains 11683 rules. 3489 rules in the queue.
-16200 rules inserted. The rule base contains 11821 rules. 3562 rules in the queue.
-16400 rules inserted. The rule base contains 11967 rules. 3602 rules in the queue.
+11000 rules inserted. The rule base contains 9019 rules. 3067 rules in the queue.
+11200 rules inserted. The rule base contains 9029 rules. 3166 rules in the queue.
+11400 rules inserted. The rule base contains 8913 rules. 3286 rules in the queue.
+11600 rules inserted. The rule base contains 9047 rules. 3271 rules in the queue.
+11800 rules inserted. The rule base contains 9201 rules. 3285 rules in the queue.
+12000 rules inserted. The rule base contains 9394 rules. 3363 rules in the queue.
+12200 rules inserted. The rule base contains 9594 rules. 3377 rules in the queue.
+12400 rules inserted. The rule base contains 9794 rules. 3391 rules in the queue.
+12600 rules inserted. The rule base contains 9484 rules. 3612 rules in the queue.
+12800 rules inserted. The rule base contains 9625 rules. 3622 rules in the queue.
+13000 rules inserted. The rule base contains 9757 rules. 3640 rules in the queue.
+13200 rules inserted. The rule base contains 9884 rules. 3650 rules in the queue.
+13400 rules inserted. The rule base contains 10024 rules. 3664 rules in the queue.
+13600 rules inserted. The rule base contains 10224 rules. 3594 rules in the queue.
+13800 rules inserted. The rule base contains 10424 rules. 3608 rules in the queue.
+14000 rules inserted. The rule base contains 10624 rules. 3622 rules in the queue.
+14200 rules inserted. The rule base contains 10816 rules. 3636 rules in the queue.
+14400 rules inserted. The rule base contains 10710 rules. 3584 rules in the queue.
+14600 rules inserted. The rule base contains 10801 rules. 3587 rules in the queue.
+14800 rules inserted. The rule base contains 10930 rules. 3584 rules in the queue.
+15000 rules inserted. The rule base contains 11079 rules. 3581 rules in the queue.
+15200 rules inserted. The rule base contains 11279 rules. 3518 rules in the queue.
+15400 rules inserted. The rule base contains 11479 rules. 3532 rules in the queue.
+15600 rules inserted. The rule base contains 11679 rules. 3546 rules in the queue.
+15800 rules inserted. The rule base contains 11809 rules. 3536 rules in the queue.
+16000 rules inserted. The rule base contains 11689 rules. 3490 rules in the queue.
+16200 rules inserted. The rule base contains 11817 rules. 3562 rules in the queue.
+16400 rules inserted. The rule base contains 11965 rules. 3599 rules in the queue.
+16600 rules inserted. The rule base contains 12112 rules. 3638 rules in the queue.
