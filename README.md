@@ -8,18 +8,19 @@ Noise Explorer can also render results from the ProVerif output into an elegant 
 
 ```
 $> node noiseExplorer --help
-Noise Explorer v0.2
+	Noise Explorer version 0.3 (specification revision 34)
 	Noise Explorer can either generate models or render results, and the parameters
 	for either must be invoked exclusively.
-
+	
 	Model generation:
 	--generate=(proverif|json): Specify output format.
 	--pattern=[file]: Specify input pattern file (required).
 	--attacker=(active|passive): Specify attacker type (default: active).
-
+	
 	Results rendering:
-	--render: Render results from ProVerif output files into HTML.
+	--render=(handshake|message): Render results from ProVerif output files into HTML.
 	--pattern=[file]: Specify input pattern file (required).
+	--activeModel=[file]: Specify ProVerif active attacker model (required for --render=message).
 	--activeResults=[file]: Specify active results file for --render (required).
 	--passiveResults=[file]: Specify passive results file for --render (required).
 
