@@ -141,13 +141,13 @@ window.addEventListener('load', () => {
 	$('patternInput').focus();
 	processPatternInput('');
 	let c = 0;
-	let o = 500;
+	let o = 250;
 	while (c < startingPattern.length) {
 		setTimeout((i) => {
 			$('patternInput').value += startingPattern[i];
 			processPatternInput($('patternInput').value);
 		}, o, c);
 		c = c + 1;
-		o = o + 100;
+		o = o + 50;
 	}
 });
