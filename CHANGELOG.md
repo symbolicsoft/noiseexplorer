@@ -1,5 +1,6 @@
 ## Noise Explorer 0.3 (???)
 - Now based on Noise Protocol Framework revision 34.
+- Added detailed analysis feature for individual message patterns within Noise Handshake Patterns.
 - Added deferred handshake patterns from revision 34 to the compendium with formal verification results.
 - Added one-way handshake patterns to the compendium with formal verification results.
 - All formal verification results in the compendium, except for one-way handshake patterns, now include two tokenless message patterns.

@@ -84,6 +84,7 @@ const READFILE = (path) => {
 const WRITEFILE = (path, data) => {
 	try {
 		FS.writeFileSync(path, data);
+		console.log(`Output written to ${path}.`);
 	} catch (err) {
 		throw new Error(`Could not write to output file ${path}.`);
 	}
