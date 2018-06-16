@@ -2,27 +2,10 @@
 (* CONSTANTS                                                        *)
 (* ---------------------------------------------------------------- *)
 
-const zero:bitstring     [data].
-const one:bitstring      [data].
-const two:bitstring      [data].
-const three:bitstring    [data].
-const four:bitstring     [data].
-const five:bitstring     [data].
-const six:bitstring      [data].
-const seven:bitstring    [data].
-const noise:bitstring    [data].
-
 const phase0:phasen      [data].
 const phase1:phasen      [data].
 
-const stage_a:stage      [data].
-const stage_b:stage      [data].
-const stage_c:stage      [data].
-const stage_d:stage      [data].
-const stage_e:stage      [data].
-const stage_f:stage      [data].
-const stage_g:stage      [data].
-const stage_h:stage      [data].
+const zero:bitstring     [data].
 
 const alice:principal    [data].
 const bob:principal      [data].
@@ -34,15 +17,3 @@ const maxnonce:nonce     [data].
 
 const empty:bitstring    [data].
 const somename:bitstring [data].
-
-const e_token:token      [data].
-const s_token:token      [data].
-const ee_token:token     [data].
-const es_token:token     [data].
-const se_token:token     [data].
-const ss_token:token     [data].
-const rs_token:token     [data].
-const re_token:token     [data].
-const rers_token:token   [data].
-const psk_token:token    [data].
-const notoken:token      [data].

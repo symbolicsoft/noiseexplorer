@@ -1,4 +1,4 @@
-IK(s, rs):
+IK:
 	<- s
 	...
 	-> e, es, s, ss

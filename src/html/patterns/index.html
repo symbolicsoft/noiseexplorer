@@ -10,7 +10,38 @@
 	<link rel="icon" type="image/png" href="../res/img/logo.png" />
 	<link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono|IBM+Plex+Sans" rel="stylesheet" />
 	<link href="../res/css/style.css" rel="stylesheet" />
-	<script type="application/javascript"></script>
+	<script type="application/javascript">
+		let $ = (id) => { return document.getElementById(id) };
+		window.addEventListener('load', () => {
+			$('patternSearch').value = '';
+			$('patternSearch').addEventListener('input', (event) => {
+				let value = $('patternSearch').value.toLowerCase();
+				let entries = document.getElementsByClassName('patternEntry');
+				if (value.length) {
+					let visible = entries.length;
+					for (let i = 0; i < entries.length; i++) {
+						let name = entries[i].innerText.split(':')[0].toLowerCase();
+						if (name.match(value)) {
+							entries[i].classList.remove('hidden');
+						} else {
+							entries[i].classList.add('hidden');
+							visible--;
+						}
+					}
+					if (visible) {
+						$('patternSearchNotFound').classList.remove('visible');
+					} else {
+						$('patternSearchNotFound').classList.add('visible');
+					}
+				} else {
+					for (let i = 0; i < entries.length; i++) {
+						entries[i].classList.remove('hidden');
+					}
+					$('patternSearchNotFound').classList.remove('visible');
+				}
+			});
+		});
+	</script>
 </head>
 
 <body>
@@ -30,106 +61,296 @@
 		<div class="resultsExplanation">
 			<h2>Explore Noise Pattern Analysis Results</h2>
 			<p>Click on a Noise pattern in order to view its full analysis results using the <a href="http://prosecco.gforge.inria.fr/personal/bblanche/proverif/" target="_blank">ProVerif</a> symbolic protocol verifier. Analyses are carried out under both an active and passive attacker with a malicious principal. Security queries include tests for authenticity (key compromise impersonation resistance, etc.) and confidentiality (strong forward secrecy, weak forward secrecy, etc.)</p>
-<a href="IK.noise.html" class="patternEntry">
-IK(s, rs):
-  &lt;- s
-  ...
-  -&gt; e, es, s, ss
-  &lt;- e, ee, se
-  -&gt;
-  &lt;-
-</a>
-<a href="IN.noise.html" class="patternEntry">
-IN(s):
-  -&gt; e, s
-  &lt;- e, ee, se
-  -&gt;
-  &lt;-
-</a>
-<a href="IX.noise.html" class="patternEntry">
-IX(s, rs):
-  -&gt; e, s
-  &lt;- e, ee, se, s, es
-  -&gt;
-  &lt;-
-</a>
-<a href="KK.noise.html" class="patternEntry">
-KK(s, rs):
-  -&gt; s
-  &lt;- s
-  ...
-  -&gt; e, es, ss
-  &lt;- e, ee, se
-  -&gt;
-  &lt;-
-</a>
-<a href="KN.noise.html" class="patternEntry">
-KN(s):
-  -&gt; s
-  ...
-  -&gt; e
-  &lt;- e, ee, se
-  -&gt;
-  &lt;-
-</a>
-<a href="KX.noise.html" class="patternEntry">
-KX(s, rs):
-  -&gt; s
-  ...
-  -&gt; e
-  &lt;- e, ee, se, s, es
-  -&gt;
-  &lt;-
-</a>
-<a href="NK.noise.html" class="patternEntry">
-NK(rs):
-  &lt;- s
-  ...
-  -&gt; e, es 
-  &lt;- e, ee
-  -&gt;
-</a>
-<a href="NN.noise.html" class="patternEntry">
-NN():
-  -&gt; e
-  &lt;- e, ee
-  -&gt;
-</a>
-<a href="NX.noise.html" class="patternEntry">
-NX(rs):
-  -&gt; e
-  &lt;- e, ee, s, es
-  -&gt;
-</a>
-<a href="XK.noise.html" class="patternEntry">
-XK(s, rs):
-  &lt;- s
-  ...
-  -&gt; e, es
-  &lt;- e, ee
-  -&gt; s, se
-  &lt;-
-</a>
-<a href="XN.noise.html" class="patternEntry">
-XN(s):
-  -&gt; e
-  &lt;- e, ee
-  -&gt; s, se
-  &lt;-
-</a>
-<a href="XX.noise.html" class="patternEntry">
-XX(s, rs):
-  -&gt; e
-  &lt;- e, ee, s, es
-  -&gt; s, se
-  &lt;-
-</a>
+			<input type="text" id="patternSearch" placeholder="Search patterns by name..." />
+			<p id="patternSearchNotFound">Noise Handshake Pattern not found.</p>
+			<!--
+			<a href="IK" class="patternEntry">
+				IK:
+				&lt;- s
+				...
+				-&gt; e, es, s, ss
+				&lt;- e, ee, se
+			</a>
+			-->
+			<a href="IN" class="patternEntry">
+				IN:
+				-&gt; e, s
+				&lt;- e, ee, se
+			</a>
+			<a href="IX" class="patternEntry">
+				IX:
+				-&gt; e, s
+				&lt;- e, ee, se, s, es
+			</a>
+			<a href="K" class="patternEntry">
+				K:
+				-&gt; s
+				&lt;- s
+				...
+				-&gt; e, es, ss
+			</a>
+			<a href="KK" class="patternEntry">
+				KK:
+				-&gt; s
+				&lt;- s
+				...
+				-&gt; e, es, ss
+				&lt;- e, ee, se
+			</a>
+			<a href="KN" class="patternEntry">
+				KN:
+				-&gt; s
+				...
+				-&gt; e
+				&lt;- e, ee, se
+			</a>
+			<a href="KX" class="patternEntry">
+				KX:
+				-&gt; s
+				...
+				-&gt; e
+				&lt;- e, ee, se, s, es
+			</a>
+			<a href="N" class="patternEntry">
+				N:
+				&lt;- s
+				...
+				-&gt; e, es
+			</a>
+			<a href="NK" class="patternEntry">
+				NK:
+				&lt;- s
+				...
+				-&gt; e, es 
+				&lt;- e, ee
+			</a>
+			<a href="NN" class="patternEntry">
+				NN:
+				-&gt; e
+				&lt;- e, ee
+			</a>
+			<a href="NX" class="patternEntry">
+				NX:
+				-&gt; e
+				&lt;- e, ee, s, es
+			</a>
+			<!--
+			<a href="XK" class="patternEntry">
+				XK:
+				&lt;- s
+				...
+				-&gt; e, es
+				&lt;- e, ee
+				-&gt; s, se
+			</a>
+			-->
+			<a href="XN" class="patternEntry">
+				XN:
+				-&gt; e
+				&lt;- e, ee
+				-&gt; s, se
+			</a>
+			<!--
+			<a href="XX" class="patternEntry">
+				XX:
+				-&gt; e
+				&lt;- e, ee, s, es
+				-&gt; s, se
+			</a>
+			-->
+			<a href="NK1" class="patternEntry">
+				NK1:
+				&lt;- s
+				...
+				-&gt; e
+				&lt;- e, ee, es
+			</a>
+			<a href="NX1" class="patternEntry">
+				NX1:
+				-&gt; e
+				&lt;- e, ee, s
+				-&gt; es
+			</a>
+			<a href="X" class="patternEntry">
+				X:
+				&lt;- s
+				...
+				-&gt; e, es, s, ss
+			</a>
+			<a href="X1K" class="patternEntry">
+				X1K:
+				&lt;- s
+				...
+				-&gt; e, es
+				&lt;- e, ee
+				-&gt; s
+				&lt;- se
+			</a>
+			<a href="XK1" class="patternEntry">
+				XK1:
+				&lt;- s
+				...
+				-&gt; e
+				&lt;- e, ee, es
+				-&gt; s, se
+			</a>
+			<a href="X1K1" class="patternEntry">
+				X1K1:
+				&lt;- s
+				...
+				-&gt; e
+				&lt;- e, ee, es
+				-&gt; s
+				&lt;- se
+			</a>
+			<a href="X1N" class="patternEntry">
+				X1N:
+				-&gt; e
+				&lt;- e, ee
+				-&gt; s
+				&lt;- se
+			</a>
+			<!--
+			<a href="X1X" class="patternEntry">
+				X1X:
+				-&gt; e
+				&lt;- e, ee, s, es
+				-&gt; s
+				&lt;- se
+			</a>
+			-->
+			<a href="XX1" class="patternEntry">
+				XX1:
+				-&gt; e
+				&lt;- e, ee, s
+				-&gt; es, s, se
+			</a>
+			<!--
+			<a href="X1X1" class="patternEntry">
+				X1X1:
+				-&gt; e
+				&lt;- e, ee, s
+				-&gt; es, s
+				&lt;- se
+			</a>
+			-->
+			<a href="K1N" class="patternEntry">
+				K1N:
+				-&gt; s
+				...
+				-&gt; e
+				&lt;- e, ee
+				-&gt; se
+			</a>
+			<a href="K1K" class="patternEntry">
+				K1K:
+				-&gt; s
+				&lt;- s
+				...
+				-&gt; e, es
+				&lt;- e, ee
+				-&gt; se
+			</a>
+			<!--
+			<a href="KK1" class="patternEntry">
+				KK1:
+				-&gt; s
+				&lt;- s
+				...
+				-&gt; e
+				&lt;- e, ee, se, es
+			</a>
+			-->
+			<a href="K1K1" class="patternEntry">
+				K1K1:
+				-&gt; s
+				&lt;- s
+				...
+				-&gt; e
+				&lt;- e, ee, es
+				-&gt; se
+			</a>
+			<a href="K1X" class="patternEntry">
+				K1X:
+				-&gt; s
+				...
+				-&gt; e
+				&lt;- e, ee, s, es
+				-&gt; se
+			</a>
+			<a href="KX1" class="patternEntry">
+				KX1:
+				-&gt; s
+				...
+				-&gt; e
+				&lt;- e, ee, se, s
+				-&gt; es
+			</a>
+			<a href="K1X1" class="patternEntry">
+				K1X1:
+				-&gt; s
+				...
+				-&gt; e
+				&lt;- e, ee, s
+				-&gt; se, es
+			</a>
+			<a href="I1N" class="patternEntry">
+				I1N:
+				-&gt; e, s
+				&lt;- e, ee
+				-&gt; se
+			</a>
+			<a href="I1K" class="patternEntry">
+				I1K:
+				&lt;- s
+				...
+				-&gt; e, es, s
+				&lt;- e, ee
+				-&gt; se
+			</a>
+			<!--
+			<a href="IK1" class="patternEntry">
+				IK1:
+				&lt;- s
+				...
+				-&gt; e, s
+				&lt;- e, ee, se, es
+			</a>
+			-->
+			<a href="I1K1" class="patternEntry">
+				I1K1:
+				&lt;- s
+				...
+				-&gt; e, s
+				&lt;- e, ee, es
+				-&gt; se
+			</a>
+			<a href="I1X" class="patternEntry">
+				I1X:
+				-&gt; e, s
+				&lt;- e, ee, s, es
+				-&gt; se
+			</a>
+			<a href="IX1" class="patternEntry">
+				IX1:
+				-&gt; e, s
+				&lt;- e, ee, se, s
+				-&gt; es
+			</a>
+			<!--
+			<a href="I1X1" class="patternEntry">
+				I1X1:
+				-&gt; e, s
+				&lt;- e, ee, s
+				-&gt; se, es
+			</a>
+			-->
 		</div>
 	</div>
 	<!-- <div class="rawResults"></div> -->
 	<div class="footer">
 		<span class="about">about</span>
-		<span>Noise Explorer is authored by <a href="https://nadim.computer" target="_blank">Nadim Kobeissi</a> (<a href="https://www.gnu.org/licenses/gpl-3.0.en.html" target="_blank">GPLv3</a>)<span> <span style="float:right"><a href="https://symbolic.software" target="_blank">Symbolic Software</a> | <a href="https://inria.fr/" target="_blank">INRIA</a></span>
+		<span>Noise Explorer is authored by <a href="https://nadim.computer" target="_blank">Nadim Kobeissi</a> (<a href="https://www.gnu.org/licenses/gpl-3.0.en.html" target="_blank">GPLv3</a>)</span><span style="float:right"><a href="https://symbolic.software" target="_blank">Symbolic Software</a> | <a href="https://inria.fr/" target="_blank">INRIA</a></span>
 	</div>
 </body>
 

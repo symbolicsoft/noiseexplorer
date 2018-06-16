@@ -1,5 +1,6 @@
-XX(s, rs):
+XX:
 	-> e
 	<- e, ee, s, es
 	-> s, se
 	<-
+	->

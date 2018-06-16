@@ -14,27 +14,6 @@ const util = {
 	abc: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'],
 };
 
-const parseArgs = (args) => {
-	let sendarg = 'notoken';
-	let recvarg = 'notoken';
-	args.forEach((arg) => {
-		if (arg.dir === 'send') {
-			if (arg.tokens === 'e, s') {
-				sendarg = `es_token`;
-			} else {
-				sendarg = `${arg.tokens}_token`;
-			}
-		} else if (arg.dir === 'recv') {
-			if (arg.tokens = 're, rs') {
-				recvarg = `rers_token`;
-			} else {
-				recvarg = `${arg.tokens}_token`;
-			}
-		}
-	});
-	return [sendarg, recvarg];
-};
-
 const preMessagesSendStatic = (pattern) => {
 	let r = false;
 	pattern.preMessages.forEach((preMessage) => {
@@ -113,7 +92,45 @@ const messagesRecvStatic = (pattern) => {
 	return r;
 };
 
+const finalKeyExchangeMessage = (pattern) => {
+	let r = 0;
+	for (let i = 0; i < pattern.messages.length; i++) {
+		let b = (
+			(i < 1) ||
+			(pattern.messages[i - 1].tokens.length)
+		);
+		let a = (
+			(i === (pattern.messages.length - 1)) ||
+			(!pattern.messages[i + 1].tokens.length)
+		);
+		let c = (pattern.messages[i].tokens.length > 0);
+		if (a && b && c) {
+			r = i;
+			break;
+		}
+	};
+	return r;
+};
 
+const typeFuns = (pattern) => {
+	let stage = [];
+	let state = [];
+	let msg = [];
+	pattern.messages.forEach((message, i) => {
+		let abc = util.abc[i];
+		stage.push(`fun stagepack_${abc}(sessionid):stage [data].`);
+		if (message.tokens.length) {
+			state.push(`fun statepack_${abc}(handshakestate):state [data].`);
+		}
+		else {
+			state.push(`fun statepack_${abc}(handshakestate, cipherstate, cipherstate):state [data].`);
+		}
+		msg.push(`fun msg_${abc}(principal, principal, sessionid):bitstring [private].`);
+	});
+	stage.push('');
+	state.push('');
+	return stage.concat(state.concat(msg.concat()));
+};
 
 const initializeFun = (pattern, initiator, suffix) => {
 	let preMessageTokenParsers = {
@@ -145,27 +162,27 @@ const initializeFun = (pattern, initiator, suffix) => {
 
 const initializeFuns = (pattern) => {
 	return [
-		initializeFun(pattern, true, util.abc[0]),
-		initializeFun(pattern, false, util.abc[1])
+		initializeFun(pattern, true, 'initiator'),
+		initializeFun(pattern, false, 'responder')
 	];
 };
 
 const writeMessageFun = (message, hasPsk, initiator, isFinal, suffix) => {
 	let ePskFill = hasPsk?
-		`let ss = mixKey(ss, getpublickey(e)) in` : `(* No PSK, so skipping mixKey. *)`;
+		`let ss = mixKey(ss, getpublickey(e)) in` : `(* No PSK, so skipping mixKey *)`;
 	let esInitiatorFill = initiator?
 		`let ss = mixKey(ss, dh(e, rs)) in` : `let ss = mixKey(ss, dh(s, re)) in`;
 	let seInitiatorFill = initiator?
 		`let ss = mixKey(ss, dh(s, re)) in` : `let ss = mixKey(ss, dh(e, rs)) in`;
 	let finalFill = isFinal? [
 		`let (ssi:symmetricstate, cs1:cipherstate, cs2:cipherstate) = split(ss) in`,
-		`(hs, re, message_buffer, cs1, cs2).`
+		`(hs, message_buffer, cs1, cs2).`
 	] : [
-		`(hs, re, message_buffer).`
+		`(hs, message_buffer).`
 	];
 	let messageTokenParsers = {
 		e: [
-			`let e = generate_keypair(key_e(me, them)) in`,
+			`let e = generate_keypair(key_e(me, them, sid)) in`,
 			`let ne = key2bit(getpublickey(e)) in`,
 			`let ss = mixHash(ss, ne) in`,
 			ePskFill
@@ -191,7 +208,7 @@ const writeMessageFun = (message, hasPsk, initiator, isFinal, suffix) => {
 		].join(`\n\t`),
 	};
 	let writeFun = [
-		`letfun writeMessage_${suffix}(me:principal, them:principal, hs:handshakestate, payload:bitstring) =`,
+		`letfun writeMessage_${suffix}(me:principal, them:principal, hs:handshakestate, payload:bitstring, sid:sessionid) =`,
 		`let (ss:symmetricstate, s:keypair, e:keypair, rs:key, re:key, psk:key, initiator:bool) = handshakestateunpack(hs) in`,
 		`let (ne:bitstring, ciphertext1:bitstring, ciphertext2:bitstring) = (empty, empty, empty) in`
 	];
@@ -209,12 +226,12 @@ const writeMessageFun = (message, hasPsk, initiator, isFinal, suffix) => {
 
 const writeMessageFuns = (pattern) => {
 	let writeFuns = [];
+	let finalKex = finalKeyExchangeMessage(pattern);
 	pattern.messages.forEach((message, i) => {
 		let hasPsk = /psk\d$/.test(pattern.name);
 		let initiator = (message.dir === 'send');
-		let isFinal = (i === (pattern.messages.length - 1));
 		writeFuns.push(
-			writeMessageFun(message, hasPsk, initiator, isFinal, util.abc[i])
+			writeMessageFun(message, hasPsk, initiator, (i === finalKex), util.abc[i])
 		);
 	});
 	return writeFuns;
@@ -222,7 +239,7 @@ const writeMessageFuns = (pattern) => {
 
 const readMessageFun = (message, hasPsk, initiator, isFinal, suffix) => {
 	let ePskFill = hasPsk?
-		`let ss = mixKey(ss, re) in` : `(* No PSK, so skipping mixKey. *)`;
+		`let ss = mixKey(ss, re) in` : `(* No PSK, so skipping mixKey *)`;
 	let esInitiatorFill = initiator?
 		`let ss = mixKey(ss, dh(e, rs)) in` : `let ss = mixKey(ss, dh(s, re)) in`;
 	let seInitiatorFill = initiator?
@@ -231,9 +248,9 @@ const readMessageFun = (message, hasPsk, initiator, isFinal, suffix) => {
 		` && (rs = getpublickey(generate_keypair(key_s(them))))` : ``;
 	let finalFill = isFinal? [
 		`\tlet (ssi:symmetricstate, cs1:cipherstate, cs2:cipherstate) = split(ss) in`,
-		`\t(hs, getpublickey(e), plaintext2, true, cs1, cs2)`
+		`\t(hs, plaintext2, true, cs1, cs2)`
 	] : [
-		`\t(hs, getpublickey(e), plaintext2, true)`
+		`\t(hs, plaintext2, true)`
 	];
 	let messageTokenParsers = {
 		e: [
@@ -262,7 +279,7 @@ const readMessageFun = (message, hasPsk, initiator, isFinal, suffix) => {
 		].join(`\n\t`),
 	};
 	let readFun = [
-		`letfun readMessage_${suffix}(me:principal, them:principal, hs:handshakestate, message:bitstring) =`,
+		`letfun readMessage_${suffix}(me:principal, them:principal, hs:handshakestate, message:bitstring, sid:sessionid) =`,
 		`let (ss:symmetricstate, s:keypair, e:keypair, rs:key, re:key, psk:key, initiator:bool) = handshakestateunpack(hs) in`,
 		`let (ne:bitstring, ciphertext1:bitstring, ciphertext2:bitstring) = deconcat3(message) in`,
 		`let valid1 = true in`
@@ -282,12 +299,12 @@ const readMessageFun = (message, hasPsk, initiator, isFinal, suffix) => {
 
 const readMessageFuns = (pattern) => {
 	let readFuns = [];
+	let finalKex = finalKeyExchangeMessage(pattern);
 	pattern.messages.forEach((message, i) => {
 		let hasPsk = /psk\d$/.test(pattern.name);
 		let initiator = (message.dir === 'recv');
-		let isFinal = (i === (pattern.messages.length - 1));
 		readFuns.push(
-			readMessageFun(message, hasPsk, initiator, isFinal, util.abc[i])
+			readMessageFun(message, hasPsk, initiator, (i === finalKex), util.abc[i])
 		);
 	});
 	return readFuns;
@@ -298,10 +315,10 @@ const events = (pattern) => {
 		'event Error().',
 		'event SendEnd(bool).',
 		'event RecvEnd(bool).',
-		'event SendMsg(principal, principal, stage, bitstring, bool).',
-		'event RecvMsg(principal, principal, stage, bitstring, bool).',
+		'event SendMsg(principal, principal, stage, bitstring).',
+		'event RecvMsg(principal, principal, stage, bitstring).',
 		'event LeakS(phasen, principal).',
-		'event LeakPsk(phasen, key).'
+		'event LeakPsk(phasen, principal, principal).'
 	];
 	return ev;
 };
@@ -309,60 +326,42 @@ const events = (pattern) => {
 const queries = (pattern) => {
 	let hasPsk = /psk\d$/.test(pattern.name);
 	let quer = [
-		`query a:principal, b:principal, c:principal, s:stage, m:bitstring, p:phasen;`,
+		`query c:principal, m:bitstring, sid_a:sessionid, sid_b:sessionid, p:phasen;`,
 	];
 	pattern.messages.forEach((message, i) => {
 		let send = (i % 2)? 'bob' : 'alice';
 		let recv = (i % 2)? 'alice' : 'bob';
+		let sendsid = `sid_${send[0]}`;
+		let recvsid = `sid_${recv[0]}`;
 		let abc = util.abc[i];
 		let confQuery21 = (params.attacker === 'active')? '2' : '1';
 		let confQuery43 = (params.attacker === 'active')? '4' : '3';
+		let end = (i < (pattern.messages.length - 1))? ';' : ';';
 		quer = quer.concat([
 			`(* Message ${abc}: Authenticity sanity *)`,
-			`\tevent(RecvMsg(${recv}, ${send}, stage_${abc}, m, true)) ==> (event(SendMsg(${send}, ${recv}, stage_${abc}, m, true)));`,
+			`\tevent(RecvMsg(${recv}, ${send}, stagepack_${abc}(${recvsid}), m)) ==> (event(SendMsg(${send}, ${recv}, stagepack_${abc}(${sendsid}), m)));`,
 			`(* Message ${abc}: Authenticity 1 *)`,
-			`\tevent(RecvMsg(${recv}, ${send}, stage_${abc}, m, true)) ==> (event(SendMsg(${send}, c, stage_${abc}, m, true))) || (event(LeakS(phase0, ${send})) || event(LeakS(phase0, ${recv})));`,
+			`\tevent(RecvMsg(${recv}, ${send}, stagepack_${abc}(${recvsid}), m)) ==> (event(SendMsg(${send}, c, stagepack_${abc}(${sendsid}), m))) || (event(LeakS(phase0, ${send}))) || (event(LeakS(phase0, ${recv})));`,
 			`(* Message ${abc}: Authenticity 2 *)`,
-			`\tevent(RecvMsg(${recv}, ${send}, stage_${abc}, m, true)) ==> (event(SendMsg(${send}, c, stage_${abc}, m, true))) || (event(LeakS(phase0, ${send})));`,
+			`\tevent(RecvMsg(${recv}, ${send}, stagepack_${abc}(${recvsid}), m)) ==> (event(SendMsg(${send}, c, stagepack_${abc}(${sendsid}), m))) || (event(LeakS(phase0, ${send})));`,
 			`(* Message ${abc}: Authenticity 3 *)`,
-			`\tevent(RecvMsg(${recv}, ${send}, stage_${abc}, m, true)) ==> (event(SendMsg(${send}, ${recv}, stage_${abc}, m, true))) || (event(LeakS(phase0, ${send})) || event(LeakS(phase0, ${recv})));`,
+			`\tevent(RecvMsg(${recv}, ${send}, stagepack_${abc}(${recvsid}), m)) ==> (event(SendMsg(${send}, ${recv}, stagepack_${abc}(${sendsid}), m))) || (event(LeakS(phase0, ${send}))) || (event(LeakS(phase0, ${recv})));`,
 			`(* Message ${abc}: Authenticity 4 *)`,
-			`\tevent(RecvMsg(${recv}, ${send}, stage_${abc}, m, true)) ==> (event(SendMsg(${send}, ${recv}, stage_${abc}, m, true))) || (event(LeakS(phase0, ${send})));`
+			`\tevent(RecvMsg(${recv}, ${send}, stagepack_${abc}(${recvsid}), m)) ==> (event(SendMsg(${send}, ${recv}, stagepack_${abc}(${sendsid}), m))) || (event(LeakS(phase0, ${send})));`
 		]);
 		if (hasPsk) {
-			quer = quer.concat([
-				`(* Message ${abc}: Authenticity 1 (PSK) *)`,
-				`\tevent(RecvMsg(${recv}, ${send}, stage_${abc}, m, true)) ==> (event(SendMsg(${send}, ${recv}, stage_${abc}, m, true))) || (event(LeakS(phase0, ${send})) || event(LeakS(phase0, ${recv}))) || event(LeakPsk(phase0, key_psk));`,
-				`\tevent(RecvMsg(${recv}, ${send}, stage_${abc}, m, true)) ==> (event(SendMsg(${send}, ${recv}, stage_${abc}, m, true))) || (event(LeakS(phase0, ${send})) || event(LeakS(phase0, ${recv}))) || event(LeakPsk(p, key_psk));`,
-				`(* Message ${abc}: Authenticity 2 (PSK) *)`,
-				`\tevent(RecvMsg(${recv}, ${send}, stage_${abc}, m, true)) ==> (event(SendMsg(${send}, ${recv}, stage_${abc}, m, true))) || ((event(LeakS(phase0, ${send})) || event(LeakPsk(phase0, key_psk))));`,
-				`\tevent(RecvMsg(${recv}, ${send}, stage_${abc}, m, true)) ==> (event(SendMsg(${send}, ${recv}, stage_${abc}, m, true))) || ((event(LeakS(phase0, ${send})) || event(LeakPsk(p, key_psk))));`,
-			]);
 		}
 		quer = quer.concat([
 			`(* Message ${abc}: Confidentiality sanity *)`,
-			`\tattacker(msg_${abc}(${send}, ${recv}));`,
+			`\tattacker(msg_${abc}(${send}, ${recv}, ${sendsid}));`,
 			`(* Message ${abc}: Confidentiality ${confQuery21} *)`,
-			`\tattacker(msg_${abc}(${send}, ${recv})) ==> (event(LeakS(phase0, ${recv}))) || (event(LeakS(phase1, ${recv})));`,
+			`\tattacker(msg_${abc}(${send}, ${recv}, ${sendsid})) ==> (event(LeakS(phase0, ${recv}))) || (event(LeakS(phase1, ${recv})));`,
 			`(* Message ${abc}: Confidentiality ${confQuery43} *)`,
-			`\tattacker(msg_${abc}(${send}, ${recv})) ==> (event(LeakS(phase0, ${recv}))) || ((event(LeakS(phase1, ${recv})) && event(LeakS(p, ${send}))));`,
+			`\tattacker(msg_${abc}(${send}, ${recv}, ${sendsid})) ==> (event(LeakS(phase0, ${recv}))) || ((event(LeakS(phase1, ${recv})) && event(LeakS(p, ${send}))));`,
 			`(* Message ${abc}: Confidentiality 5 *)`,
-			`\tattacker(msg_${abc}(${send}, ${recv})) ==> (event(LeakS(phase0, ${recv})));`
+			`\tattacker(msg_${abc}(${send}, ${recv}, ${sendsid})) ==> (event(LeakS(phase0, ${recv})))${end}`
 		]);
 		if (hasPsk) {
-			quer = quer.concat([
-				`(* Message ${abc}: Confidentiality sanity (PSK) *)`,
-				`\tattacker(msg_${abc}(${send}, ${recv}));`,
-				`(* Message ${abc}: Confidentiality ${confQuery21} (PSK) *)`,
-				`\tattacker(msg_${abc}(${send}, ${recv})) ==> (event(LeakS(phase0, ${recv}))) || (event(LeakS(phase1, ${recv})) || event(LeakPsk(phase0, key_psk)));`,
-				`\tattacker(msg_${abc}(${send}, ${recv})) ==> (event(LeakS(phase0, ${recv}))) || (event(LeakS(phase1, ${recv})) || event(LeakPsk(p, key_psk)));`,
-				`(* Message ${abc}: Confidentiality ${confQuery43} (PSK) *)`,
-				`\tattacker(msg_${abc}(${send}, ${recv})) ==> (event(LeakS(phase0, ${recv}))) || (((event(LeakS(phase1, ${recv})) && event(LeakS(p, ${send})))) || event(LeakPsk(phase0, key_psk)));`,
-				`\tattacker(msg_${abc}(${send}, ${recv})) ==> (event(LeakS(phase0, ${recv}))) || (((event(LeakS(phase1, ${recv})) && event(LeakS(p, ${send})))) || event(LeakPsk(p, key_psk)));`,
-				`(* Message ${abc}: Confidentiality 5 (PSK) *)`,
-				`\tattacker(msg_${abc}(${send}, ${recv})) ==> (event(LeakS(phase0, ${recv}))) || event(LeakPsk(phase0, key_psk));`,
-				`\tattacker(msg_${abc}(${send}, ${recv})) ==> (event(LeakS(phase0, ${recv}))) || event(LeakPsk(p, key_psk));`,
-			]);
 		}
 	});
 	quer.push(`\tevent(RecvEnd(true)).`);
@@ -378,58 +377,72 @@ const initiatorFun = (pattern) => {
 		s: preMessagesSendStatic(pattern)?
 			`generate_keypair(key_s(me))` : util.emptyKeyPair,
 		e: preMessagesSendEphemeral(pattern)?
-			`generate_keypair(key_e(me, them))` : util.emptyKeyPair,
+			`generate_keypair(key_e(me, them, sid))` : `${util.emptyKeyPair}`,
 		rs: preMessagesRecvStatic(pattern)?
 			`getpublickey(generate_keypair(key_s(them)))` : util.emptyKey,
 		re: preMessagesRecvEphemeral(pattern)?
 			'in(pub, re:key);': `let re = ${util.emptyKey} in`,
 		psk: /psk/.test(pattern.name)?
-			'key_psk' : util.emptyKey
+			'key_psk(me, them)' : util.emptyKey
 	};
 	let outStatic = (preMessagesSendStatic(pattern) || messagesSendStatic(pattern))?
-		`out(pub, getpublickey(s));` : `(* No static key initialized. *)`;
+		`out(pub, getpublickey(s));` : `(* No static key initialized *)`;
 	let phase0End = (pattern.messages[pattern.messages.length - 1].dir === 'recv')?
-		`event RecvEnd(valid)` : `(* Not last recipient. *)`;
+		`event RecvEnd(valid)` : `(* Not last recipient *)`;
 	let initiator = [
-		`let initiator(me:principal, them:principal) =`,
+		`let initiator(me:principal, them:principal, sid:sessionid) =`,
 		`let s = ${init.s} in`,
 		outStatic,
 		`((`,
 		`\tlet e = ${init.e} in`
 	];
+	let finalKex = finalKeyExchangeMessage(pattern);
 	if (preMessagesSendEphemeral(pattern)) {
 		initiator.push(`out(pub, getpublickey(e));`);
 	}
 	initiator = initiator.concat([
 		`\tlet rs = ${init.rs} in`,
 		`\t${init.re}`,
-		`\tlet hs:handshakestate = initialize_a(empty, s, e, rs, re, ${init.psk}) in`,
-		`\tinsert statestore(me, them, statepack_${util.abc[0]}(hs))`,
+		`\tlet hs:handshakestate = initialize_initiator(empty, s, e, rs, re, ${init.psk}) in`,
+		`\tinsert statestore(me, them, sid, statepack_${util.abc[0]}(hs))`,
 		`)`
 	]);
 	pattern.messages.forEach((message, i) => {
+		let msgDirSend = (message.dir === 'send');
 		let abc = util.abc[i];
 		let abcn = util.abc[i + 1];
-		let splitCipherState = (i === (pattern.messages.length - 1))?
+		let replicateMessage = message.tokens.length? '' : '!';
+		let splitCipherState = (i === finalKex)?
 			`, cs1:cipherstate, cs2:cipherstate` : ``;
-		if (message.dir === 'send') {
+		let statePack = (i <= finalKex)? `get statestore(=me, =them, =sid, statepack_${abc}(hs)) in` : [
+			`get statestore(=me, =them, =sid, statepack_${abc}(hs, cs1, cs2)) in`,
+			`let hs = handshakestatesetcs(hs, ${msgDirSend? 'cs1' : 'cs2'}) in`
+		].join('\n\t\t');
+		let statePackNext = (i < finalKex)?
+			`statepack_${abcn}(hs)` :
+				`statepack_${abcn}(hs, ${(i === finalKex)? 'cs1, cs2' :
+					(msgDirSend? 'handshakestategetcs(hs), cs2' : 'cs1, handshakestategetcs(hs)')})`;
+		let stateStore = (i < (pattern.messages.length - 1))?
+			`insert statestore(me, them, sid, ${statePackNext});`
+				: `(* Final message, do not pack state *)`;
+		if (msgDirSend) {
 			initiator = initiator.concat([
-				`| (`,
-				`\tget statestore(=me, =them, statepack_${abc}(hs)) in`,
-				`\tlet (hs:handshakestate, re:key, message_${abc}:bitstring${splitCipherState}) = writeMessage_${abc}(me, them, hs, msg_${abc}(me, them)) in`,
-				`\tevent SendMsg(me, them, stage_${abc}, msg_${abc}(me, them), true);`,
-				`\tinsert statestore(me, them, statepack_${abcn}(hs));`,
+				`| ${replicateMessage}(`,
+				`\t${statePack}`,
+				`\tlet (hs:handshakestate, message_${abc}:bitstring${splitCipherState}) = writeMessage_${abc}(me, them, hs, msg_${abc}(me, them, sid), sid) in`,
+				`\tevent SendMsg(me, them, stagepack_${abc}(sid), msg_${abc}(me, them, sid));`,
+				`\t${stateStore}`,
 				`\tout(pub, message_${abc})`,
 				`)`
 			]);
-		} else if (message.dir === 'recv') {
+		} else {
 			initiator = initiator.concat([
-				`| (`,
-				`\tget statestore(=me, =them, statepack_${abc}(hs)) in`,
+				`| ${replicateMessage}(`,
+				`\t${statePack}`,
 				`\tin(pub, message_${abc}:bitstring);`,
-				`\tlet (hs:handshakestate, re:key, plaintext_${abc}:bitstring, valid:bool${splitCipherState}) = readMessage_${abc}(me, them, hs, message_${abc}) in`,
-				`\tevent RecvMsg(me, them, stage_${abc}, plaintext_${abc}, valid);`,
-				`\tinsert statestore(me, them, statepack_${abcn}(hs));`,
+				`\tlet (hs:handshakestate, plaintext_${abc}:bitstring, valid:bool${splitCipherState}) = readMessage_${abc}(me, them, hs, message_${abc}, sid) in`,
+				`\tevent RecvMsg(me, them, stagepack_${abc}(sid), plaintext_${abc});`,
+				`\t${stateStore}`,
 				(i === (pattern.messages.length - 1))? `\t${phase0End}` : `\t0`,
 				`)`
 			]);
@@ -454,59 +467,73 @@ const responderFun = (pattern) => {
 		s: preMessagesRecvStatic(pattern)?
 			`generate_keypair(key_s(me))` : util.emptyKeyPair,
 		e: preMessagesRecvEphemeral(pattern)?
-			`generate_keypair(key_e(me, them))` : util.emptyKeyPair,
+			`generate_keypair(key_e(me, them, sid))` : `${util.emptyKeyPair}`,
 		rs: preMessagesSendStatic(pattern)?
 			`getpublickey(generate_keypair(key_s(them)))` : util.emptyKey,
 		re: preMessagesSendEphemeral(pattern)?
 			'in(pub, re:key);': `let re = ${util.emptyKey} in`,
 		psk: /psk/.test(pattern.name)?
-			'key_psk' : util.emptyKey
+			'key_psk(them, me)' : util.emptyKey
 	};
 	let outStatic = (preMessagesRecvStatic(pattern) || messagesRecvStatic(pattern))?
-		`out(pub, getpublickey(s));` : `(* No static key initialized. *)`;
+		`out(pub, getpublickey(s));` : `(* No static key initialized *)`;
 	let phase0End = (pattern.messages[pattern.messages.length - 1].dir === 'send')?
-		`event RecvEnd(valid)` : `(* Not last recipient. *)`;
+		`event RecvEnd(valid)` : `(* Not last recipient *)`;
 	let responder = [
-		`let responder(me:principal, them:principal) =`,
+		`let responder(me:principal, them:principal, sid:sessionid) =`,
 		`let s = ${init.s} in`,
 		outStatic,
 		`((`,
 		`\tlet e = ${init.e} in`
 	];
+	let finalKex = finalKeyExchangeMessage(pattern);
 	if (preMessagesRecvEphemeral(pattern)) {
 		responder.push(`out(pub, getpublickey(e));`);
 	}
 	responder = responder.concat([
 		`\tlet rs = ${init.rs} in`,
 		`\t${init.re}`,
-		`\tlet hs:handshakestate = initialize_b(empty, s, e, rs, re, ${init.psk}) in`,
-		`\tinsert statestore(me, them, statepack_a(hs))`,
+		`\tlet hs:handshakestate = initialize_responder(empty, s, e, rs, re, ${init.psk}) in`,
+		`\tinsert statestore(me, them, sid, statepack_${util.abc[0]}(hs))`,
 		`)`
 	]);
 	pattern.messages.forEach((message, i) => {
+		let msgDirSend = (message.dir === 'send');
 		let abc = util.abc[i];
 		let abcn = util.abc[i + 1];
-		let splitCipherState = (i === (pattern.messages.length - 1))?
+		let replicateMessage = message.tokens.length? '' : '!';
+		let splitCipherState = (i === finalKex)?
 			`, cs1:cipherstate, cs2:cipherstate` : ``;
-		if (message.dir === 'recv') {
+		let statePack = (i <= finalKex)? `get statestore(=me, =them, =sid, statepack_${abc}(hs)) in` : [
+			`get statestore(=me, =them, =sid, statepack_${abc}(hs, cs1, cs2)) in`,
+			`let hs = handshakestatesetcs(hs, ${msgDirSend? 'cs1' : 'cs2'}) in`
+		].join('\n\t\t');
+		let statePackNext = (i < finalKex)?
+			`statepack_${abcn}(hs)` :
+				`statepack_${abcn}(hs, ${(i === finalKex)? 'cs1, cs2' :
+					(msgDirSend? 'handshakestategetcs(hs), cs2' : 'cs1, handshakestategetcs(hs)')})`;
+		let stateStore = (i < (pattern.messages.length - 1))?
+			`insert statestore(me, them, sid, ${statePackNext});`
+				: `(* Final message, do not pack state *)`;
+		if (msgDirSend) {
 			responder = responder.concat([
-				`| (`,
-				`\tget statestore(=me, =them, statepack_${abc}(hs)) in`,
-				`\tlet (hs:handshakestate, re:key, message_${abc}:bitstring${splitCipherState}) = writeMessage_${abc}(me, them, hs, msg_${abc}(me, them)) in`,
-				`\tevent SendMsg(me, them, stage_${abc}, msg_${abc}(me, them), true);`,
-				`\tinsert statestore(me, them, statepack_${abcn}(hs));`,
-				`\tout(pub, message_${abc})`,
+				`| ${replicateMessage}(`,
+				`\t${statePack}`,
+				`\tin(pub, message_${abc}:bitstring);`,
+				`\tlet (hs:handshakestate, plaintext_${abc}:bitstring, valid:bool${splitCipherState}) = readMessage_${abc}(me, them, hs, message_${abc}, sid) in`,
+				`\tevent RecvMsg(me, them, stagepack_${abc}(sid), plaintext_${abc});`,
+				`\t${stateStore}`,
+				(i === (pattern.messages.length - 1))? `\t${phase0End}` : `\t0`,
 				`)`
 			]);
-		} else if (message.dir === 'send') {
+		} else {
 			responder = responder.concat([
-				`| (`,
-				`\tget statestore(=me, =them, statepack_${abc}(hs)) in`,
-				`\tin(pub, message_${abc}:bitstring);`,
-				`\tlet (hs:handshakestate, re:key, plaintext_${abc}:bitstring, valid:bool${splitCipherState}) = readMessage_${abc}(me, them, hs, message_${abc}) in`,
-				`\tevent RecvMsg(me, them, stage_${abc}, plaintext_${abc}, valid);`,
-				`\tinsert statestore(me, them, statepack_${abcn}(hs));`,
-				(i === (pattern.messages.length - 1))? `\t${phase0End}` : `\t0`,
+				`| ${replicateMessage}(`,
+				`\t${statePack}`,
+				`\tlet (hs:handshakestate, message_${abc}:bitstring${splitCipherState}) = writeMessage_${abc}(me, them, hs, msg_${abc}(me, them, sid), sid) in`,
+				`\tevent SendMsg(me, them, stagepack_${abc}(sid), msg_${abc}(me, them, sid));`,
+				`\t${stateStore}`,
+				`\tout(pub, message_${abc})`,
 				`)`
 			]);
 		}
@@ -527,31 +554,19 @@ const responderFun = (pattern) => {
 
 const processFuns = (pattern) => {
 	let hasPsk = /psk/.test(pattern.name);
+	let leakPsk = hasPsk? [
+		`out(pub, key_psk(alice, charlie));`,
+		`out(pub, key_psk(charlie, bob));`
+	].join('\n\t') : '(* No PSKs to leak *)';
 	let proc = [
+		`out(pub, key_s(charlie));`,
+		leakPsk,
 		`!(`,
-		`\tinitiator(alice, bob)`,
+		`\tnew sid:sessionid;`,
+		`\tinitiator(alice, bob, sid) | initiator(alice, charlie, sid)`,
 		`\t|`,
-		`\tinitiator(alice, charlie)`,
-		`\t|`,
-		`\tresponder(bob, alice)`,
-		`\t|`,
-		`\tresponder(bob, charlie)`,
-		`\t|`,
-		`\tout(pub, (key_s(charlie), key_e(charlie, alice), key_e(charlie, bob)))`
+		`\tresponder(bob, alice, sid) | responder(bob, charlie, sid)`
 	];
-	if (hasPsk) {
-		proc = proc.concat([
-			`\t| (`,
-			`\t\tevent LeakPsk(phase0, key_psk);`,
-			`\t\tout(pub, key_psk)`,
-			`\t)`,
-			`\t| (`,
-			`\t\tphase 1;`,
-			`\t\tevent LeakPsk(phase1, key_psk);`,
-			`\t\tout(pub, key_psk)`,
-			`\t)`
-		]);
-	}
 	proc = proc.concat([')']);
 	return proc;
 };
@@ -561,6 +576,7 @@ const parse = (pattern, passive) => {
 		params.attacker = 'passive';
 	}
 	let t = params.attacker;
+	let s = typeFuns(pattern).join('\n');
 	let i = initializeFuns(pattern).join('\n\n');
 	let w = writeMessageFuns(pattern).join('\n\n');
 	let r = readMessageFuns(pattern).join('\n\n');
@@ -570,7 +586,7 @@ const parse = (pattern, passive) => {
 	let b = responderFun(pattern).join('\n\t');
 	let p = processFuns(pattern).join('\n\t');
 	let q = queries(pattern).join('\n');
-	let parsed = {t, i, w, r, e, q, g, a, b, p};
+	let parsed = {t, s, i, w, r, e, q, g, a, b, p};
 	return parsed;
 };
 

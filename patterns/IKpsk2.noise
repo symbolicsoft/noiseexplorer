@@ -1,4 +1,4 @@
-IKpsk2(s, rs):
+IKpsk2:
 	<- s
 	...
 	-> e, es, s, ss
