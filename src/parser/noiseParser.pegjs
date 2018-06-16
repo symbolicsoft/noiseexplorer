@@ -30,6 +30,7 @@ const errMsg = {
 	tooManyMessages: 'Noise Handshake Patterns with a maximum of 8 message patterns are currently supported.',
 	dupTokens: 'Noise Handshake Patterns must not contain duplicate tokens in the same message flight.',
 	keySentMoreThanOnce: 'Principals must not send their static public key or ephemeral public key more than once per handshake.',
+	dhSentMoreThanOnce: 'Principals must not perform the same Diffie-Hellman key agreement more than once per handshake.',
 	wrongPskModifier: 'PSK modifiers must correctly indicate the position of PSK tokens.',
 	wrongPskLocation: 'PSK tokens must appear at the beginning or end of the first handshake message or at the end of any other handshake message.',
 	moreThanOnePsk: 'Noise Handshake Patterns with a maximum of one PSK are currently supported.',
@@ -96,11 +97,6 @@ const check = {
 				error(errMsg.dhWithUnknownKey);
 			}
 		});
-		if  ((g.s > 1) || (g.e > 1) ||
-			(g.rs > 1) || (g.re > 1)
-		) {
-			error(errMsg.keySentMoreThanOnce);
-		}
 		if (
 			(g.s  && (!g.ss && !g.se)) ||
 			(g.e  && (!g.es && !g.ee)) ||
@@ -108,6 +104,18 @@ const check = {
 			(g.re && (!g.se && !g.ee))
 		) {
 			error(errMsg.unusedKeySent);
+		}
+		if  (
+			(g.s > 1) || (g.e > 1) ||
+			(g.rs > 1) || (g.re > 1)
+		) {
+			error(errMsg.keySentMoreThanOnce);
+		}
+		if  (
+			(g.ee > 1) || (g.es > 1) ||
+			(g.se > 1) || (g.ss > 1)
+		) {
+			error(errMsg.dhSentMoreThanOnce);
 		}
 	},
 	psk: (pattern) => {
