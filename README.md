@@ -17,7 +17,7 @@ $> node noiseExplorer --help
 	--pattern=[file]: Specify input pattern file (required).
 	--attacker=(active|passive): Specify attacker type (default: active).
 	
-	Results rendering:
+	Results rendering:w
 	--render=(handshake|message): Render results from ProVerif output files into HTML.
 	--pattern=[file]: Specify input pattern file (required).
 	--activeModel=[file]: Specify ProVerif active attacker model (required for --render=message).
