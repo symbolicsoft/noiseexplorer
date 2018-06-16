@@ -1,5 +1,5 @@
 # [Noise Explorer](https://noiseexplorer.com)
-## Version 0.2, based on Noise Protocol Revision 33.
+## Version 0.3, based on Noise Protocol Revision 34.
 
 ### Overview
 The Noise Explorer command-line tool can parse Noise Handshake Patterns according to the original specification. It can generate cryptographic models for formal verification, including security queries, top-level processes and malicious principals, for testing against an active or passive attacker.
@@ -8,7 +8,7 @@ Noise Explorer can also render results from the ProVerif output into an elegant 
 
 ```
 $> node noiseExplorer --help
-Noise Explorer v0.2
+Noise Explorer version 0.3 (specification revision 34)
 	Noise Explorer can either generate models or render results, and the parameters
 	for either must be invoked exclusively.
 

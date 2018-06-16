@@ -1,7 +1,8 @@
-XK(s, rs):
+XK:
 	<- s
 	...
 	-> e, es
 	<- e, ee
 	-> s, se
 	<-
+	->

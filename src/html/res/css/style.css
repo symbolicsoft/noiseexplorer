@@ -9,7 +9,7 @@ html {
 	--noiseDarkGray: #565C63;
 	--noiseBeige: #FFFCFC;
 	--noiseTextColor: #222;
-	--noiseHeight: 910px;
+	--noiseHeight: 1100px;
 }
 
 body {
@@ -26,12 +26,34 @@ a:hover {
 	text-decoration: underline;
 }
 
+hr {
+	width: 50%;
+	opacity: 0.5;
+}
+
 ul {
 	padding-left: 20px;
 }
 
 li {
 	margin-bottom: 10px;
+}
+
+h3 {
+	margin: 5% 0 0 0;
+}
+
+span.passed {
+	color: var(--noiseGreen);
+}
+
+span.failed {
+	color: var(--noiseRed);
+}
+
+span.mono {
+	font-family: 'IBM Plex Mono', monospace;
+	font-weight: bold;
 }
 
 div.header {
@@ -98,18 +120,21 @@ div.nav div.navLinks {
 
 div.results {
 	width: 900px;
-	height: calc(var(--noiseHeight) + 100px);
-	margin: 1% auto 0 auto;
+	margin: 10px auto;
+	padding-bottom: 250px;
 }
 
 div.results.singleColumn {
-	height: calc(1030px + 100px) !important;
+	float: none;
+	height: auto;
+	padding-bottom: 0px;
 }
 
 div.results.singleColumn div.resultsExplanation {
-	height: calc(1030px + 3px) !important;
-	float: none;
+	float: none !important;
+	height: auto;
 	width: 855px;
+	padding-bottom: 20px;
 }
 
 div.arrowsFrame {
@@ -138,11 +163,11 @@ div.arrows {
 	margin: 0px auto;
 	width: 100%;
 	text-align: center;
+	padding-bottom: 150px;
 }
 
 div.arrows svg {
 	margin-top: 40px;
-	height: calc(var(--noiseHeight) - 40px);
 }
 
 div.arrows svg line {
@@ -214,6 +239,14 @@ div.arrows svg circle[data-seclevel="1"] {
 }
 
 div.arrows svg circle[data-seclevel="2"] {
+	stroke: var(--noiseOrange);
+}
+
+div.arrows svg circle[data-seclevel="3"] {
+	stroke: var(--noiseGreen);
+}
+
+div.arrows svg circle[data-seclevel="4"] {
 	stroke: var(--noiseGreen);
 }
 
@@ -246,17 +279,28 @@ div.arrows svg text.ellipsis {
 div.resultsExplanation {
 	float: right;
 	width: 500px;
-	height: calc(var(--noiseHeight) + 3px);
-	background-color: #FFFCFC;
-	padding: 0 20px 100px 20px;
+	background-color: var(--noiseBeige);
+	padding: 0 20px 20px 20px;
 	border-radius: 5px;
 	border: 2px solid #FFF5F5;
 	text-align: justify;
+	padding-bottom: 250px;
 }
 
-div.resultsExplanation h3 {
-	margin-bottom: 10px;
-	padding-bottom: 0;
+div.resultsExplanation a.detailedAnalysis {
+	font-variant: small-caps;
+	background-color: var(--noiseLightGray);
+	color: #FFF;
+	padding: 1px 3px;
+	border-radius: 3px;
+	font-size: 12px;
+	margin-left: 5px;
+	font-family: 'IBM Plex Mono', monospace;
+}
+
+div.resultsExplanation a.detailedAnalysis:hover {
+	text-decoration: none;
+	background-color: var(--noiseDarkGray);
 }
 
 div.resultsExplanation p {
@@ -274,14 +318,16 @@ div.resultsExplanation span.resultNums {
 }
 
 div.rawResults {
-	border: 1px solid var(--noiseDarkGray);
-	box-shadow: 2px 2px var(--noiseDarkGray);
+	background-color: var(--noiseDarkGray);
+	border: 2px solid var(--noiseLightGray);
+	border-radius: 5px;
+	color: #FFF;
 	font-family: 'IBM Plex Mono', monospace;
 	margin: 20px auto 0 auto;
 	width: 860px;
 	padding: 0 20px;
 	height: 400px;
-	font-size: 12px;
+	font-size: 10px;
 	overflow-y: auto;
 	font-variant: small-caps;
 }
@@ -356,6 +402,62 @@ div#patternInputParseStatus.parseInvalid {
 	color: var(--noiseRed) !important;
 }
 
+input#patternSearch {
+	border-radius: 5px;
+	border: 1px solid #CCC;
+	font-size: 16px;
+	padding: 4px 8px;
+	display: block;
+	width: 80%;
+	margin: 20px auto 20px auto;
+}
+
+p#patternSearchNotFound {
+	display: none;
+	text-align: center;
+}
+
+p#patternSearchNotFound.visible {
+	display: block;
+}
+
+a.patternEntry {
+	display: inline-block;
+	vertical-align: middle;
+	white-space: pre-line;
+	border: 3px solid var(--noiseClearGray);
+	background-clip: padding-box;
+	border-radius: 5px;
+	color: var(--noiseTextColor);
+	background: #FFF;
+	padding: 5px 15px 15px 15px;
+	font-weight: bold;
+	width: 180px;
+	height: 200px;
+	margin: 10px 30px;
+	text-align: left;
+	font-family: 'IBM Plex Mono', monospace;
+	line-height: normal;
+}
+
+a.patternEntry:hover {
+	text-decoration: none;
+	border-color: var(--noiseGreen);
+}
+
+a.patternEntry.hidden {
+	display: none;
+}
+
+pre {
+	background-color: var(--noiseDarkGray);
+	color: #FFF;
+	padding: 20px;
+	border-radius: 5px;
+	font-family: 'IBM Plex Mono', monospace;
+	white-space: pre-line;
+}
+
 div.footer {
 	width: 890px;
 	margin: 30px auto 0 auto;
@@ -379,32 +481,68 @@ div.footer span.about {
 	margin-left: 0;
 }
 
-a.patternEntry {
-	display: inline-block;
-	white-space: pre;
-	border: 3px solid var(--noiseClearGray);
-	border-radius: 5px;
-	color: var(--noiseTextColor);
-	background: #FFF;
-	padding: 5px 15px 15px 15px;
-	font-weight: bold;
-	width: 180px;
-	height: 200px;
-	margin: 10px 30px;
-	text-align: left;
-	float: left;
-	font-family: 'IBM Plex Mono', monospace;
+div.results.detailed {
+	padding-bottom: 0px;
 }
 
-a.patternEntry:hover {
-	text-decoration: none;
-	border-color: var(--noiseGreen);
+div.results.detailed h3 {
+	margin-top: 30px;
 }
 
-pre {
+div.results.detailed div.arrowsFrame {
+	float: none;
+	height: 150px;
+	width: 820px;
+}
+
+div.results.detailed div.arrowsFrame div.arrows {
+	height: 150px;
+	padding-bottom: 0px;
+}
+
+div.results.detailed div.arrowsFrame div.arrows svg {
+	margin-top: 0px;
+	height: 150px;
+	width: 520px;
+}
+
+div.results.detailed div.arrowsFrame div.arrows svg line {
+	stroke-width: 6px;
+}
+
+div.results.detailed div.arrowsFrame div.arrows svg polyline {
+	stroke-width: 6px;
+}
+
+div.results.detailed div.arrowsFrame div.arrows svg circle {
+	stroke-width: 6px;
+}
+
+div.results.detailed div.arrowsFrame div.arrows svg text.msg {
+	font-size: 26px;
+}
+
+div.results.detailed div.arrowsFrame div.arrows svg text.tokens {
+	font-size: 26px;
+}
+
+div.results.detailed div.resultsExplanation {
+	float: none;
+	width: 860px;
 	background-color: var(--noiseDarkGray);
+	border-color: var(--noiseLightGray);
 	color: #FFF;
-	padding: 20px;
-	border-radius: 5px;
+	margin-top: 20px;
+	padding-bottom: 20px;
+}
+
+div.results.detailed p.proverif {
 	font-family: 'IBM Plex Mono', monospace;
+	white-space: pre-line;
+	font-size: 12px;
+	background: var(--noiseClearGray);
+	color: var(--noiseTextColor);
+	border-radius: 4px;
+	padding: 0 10px 15px 10px;
+	text-align: left;
 }

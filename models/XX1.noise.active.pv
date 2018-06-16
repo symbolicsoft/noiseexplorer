@@ -1,0 +1,648 @@
+(* ---------------------------------------------------------------- *)
+(* PARAMETERS                                                       *)
+(* ---------------------------------------------------------------- *)
+
+set expandIfTermsToTerms = true.
+set traceBacktracking = false.
+set reconstructTrace = false.
+set attacker = active.
+
+(* ---------------------------------------------------------------- *)
+(* TYPES                                                            *)
+(* ---------------------------------------------------------------- *)
+
+type phasen.
+type principal.
+type state.
+type stage.
+type sessionid.
+
+type key.
+type nonce.
+type keypair.
+type aead.
+
+type cipherstate.
+type symmetricstate.
+type handshakestate.
+
+type handshakepattern.
+
+fun stagepack_a(sessionid):stage [data].
+fun stagepack_b(sessionid):stage [data].
+fun stagepack_c(sessionid):stage [data].
+fun stagepack_d(sessionid):stage [data].
+fun stagepack_e(sessionid):stage [data].
+
+fun statepack_a(handshakestate):state [data].
+fun statepack_b(handshakestate):state [data].
+fun statepack_c(handshakestate):state [data].
+fun statepack_d(handshakestate, cipherstate, cipherstate):state [data].
+fun statepack_e(handshakestate, cipherstate, cipherstate):state [data].
+
+fun msg_a(principal, principal, sessionid):bitstring [private].
+fun msg_b(principal, principal, sessionid):bitstring [private].
+fun msg_c(principal, principal, sessionid):bitstring [private].
+fun msg_d(principal, principal, sessionid):bitstring [private].
+fun msg_e(principal, principal, sessionid):bitstring [private].
+
+table statestore(principal, principal, sessionid, state).
+
+fun key_s(principal):key [private].
+fun key_e(principal, principal, sessionid):key [private].
+fun key_psk(principal, principal):key [private].
+
+fun key2bit(key):bitstring     [typeConverter].
+fun bit2key(bitstring):key     [typeConverter].
+
+fun keypairpack(key, key):keypair [data].
+reduc forall public_key:key, private_key:key;
+	keypairunpack(keypairpack(public_key, private_key))
+		= (public_key, private_key).
+reduc forall public_key:key, private_key:key;
+	getpublickey(keypairpack(public_key, private_key))
+		= public_key.
+	
+fun aeadpack(bool, bitstring, bitstring):aead [data].
+reduc forall b:bool, ad:bitstring, plaintext:bitstring;
+	aeadunpack(aeadpack(b, ad, plaintext)) = (b, ad, plaintext).
+
+fun cipherstatepack(key, nonce):cipherstate [data].
+reduc forall k:key, n:nonce;
+	cipherstateunpack(cipherstatepack(k, n)) = (k, n).
+
+fun symmetricstatepack(cipherstate, key, bitstring):symmetricstate [data].
+reduc forall cs:cipherstate, k:key, h:bitstring;
+	symmetricstateunpack(symmetricstatepack(cs, k, h)) = (cs, k, h).
+
+fun handshakestatepack(symmetricstate, keypair, keypair, key, key, key, bool):handshakestate [data].
+reduc forall ss:symmetricstate, s:keypair, e:keypair, rs:key, re:key, psk:key, i:bool;
+	handshakestateunpack(handshakestatepack(ss, s, e, rs, re, psk, i)) =
+    (ss, s, e, rs, re, psk, i).
+reduc forall cs:cipherstate, k:key, h:bitstring, s:keypair, e:keypair, rs:key, re:key, psk:key, i:bool, csn:cipherstate;
+  handshakestatesetcs(
+    handshakestatepack(symmetricstatepack(cs, k, h), s, e, rs, re, psk, i),
+    csn
+  ) = handshakestatepack(symmetricstatepack(csn, k, h), s, e, rs, re, psk, i).
+reduc forall cs:cipherstate, k:key, h:bitstring, s:keypair, e:keypair, rs:key, re:key, psk:key, i:bool;
+  handshakestategetcs(
+    handshakestatepack(symmetricstatepack(cs, k, h), s, e, rs, re, psk, i)
+  ) = cs.
+
+(* ---------------------------------------------------------------- *)
+(* CONSTANTS                                                        *)
+(* ---------------------------------------------------------------- *)
+
+const phase0:phasen      [data].
+const phase1:phasen      [data].
+
+const zero:bitstring     [data].
+
+const alice:principal    [data].
+const bob:principal      [data].
+const charlie:principal  [data].
+
+const g:key              [data].
+const minnonce:nonce     [data].
+const maxnonce:nonce     [data].
+
+const empty:bitstring    [data].
+const somename:bitstring [data].
+
+(* ---------------------------------------------------------------- *)
+(* STRING CONCATENATION                                             *)
+(* ---------------------------------------------------------------- *)
+
+fun concat2(bitstring, bitstring):bitstring [data].
+reduc forall a:bitstring, b:bitstring;
+	deconcat2(concat2(a, b)) = (a, b).
+
+fun concat3(bitstring, bitstring, bitstring):bitstring [data].
+reduc forall a:bitstring, b:bitstring, c:bitstring;
+	deconcat3(concat3(a, b, c)) = (a, b, c).
+
+fun concat4(bitstring, bitstring, bitstring, bitstring):bitstring [data].
+	reduc forall a:bitstring, b:bitstring, c:bitstring, d:bitstring;
+		deconcat4(concat4(a, b, c, d)) = (a, b, c, d).
+
+(* ---------------------------------------------------------------- *)
+(* PRIMITIVES                                                       *)
+(* ---------------------------------------------------------------- *)
+
+fun increment_nonce(nonce):nonce.
+fun decrement_nonce(nonce):nonce reduc
+	forall n:nonce;
+		decrement_nonce(increment_nonce(n)) = n.
+
+fun dhexp(key, key):key.
+equation forall a:key, b:key;
+  dhexp(b, dhexp(a, g)) = dhexp(a, dhexp(b, g)).
+(* equation forall b:key;
+  dhexp(b, bit2key(zero)) = bit2key(zero). *)
+
+letfun dh(my_keypair:keypair, pubkey:key) =
+	let (my_public_key:key, my_private_key:key) = keypairunpack(my_keypair) in
+	dhexp(my_private_key, pubkey).
+
+letfun generate_keypair(basis:key) =
+	let public_key = dhexp(basis, g) in
+	keypairpack(public_key, basis).
+
+fun encrypt(key, nonce, bitstring, bitstring):bitstring.
+
+fun decrypt(key, nonce, bitstring, bitstring):aead reduc
+	forall k:key, n:nonce, ad:bitstring, plaintext:bitstring;
+		decrypt(k, n, ad, encrypt(k, n, ad, plaintext)) = aeadpack(true, ad, plaintext).
+		
+fun hash(bitstring, bitstring):bitstring.
+
+fun hmac_hash1(key, key):key.
+fun hmac_hash2(key, key):key.
+fun hmac_hash3(key, key):key.
+
+letfun hkdf(chaining_key:key, input_key_material:key) =
+	let output1 = hmac_hash1(chaining_key, input_key_material) in
+	let output2 = hmac_hash2(chaining_key, input_key_material) in
+	let output3 = hmac_hash3(chaining_key, input_key_material) in
+  (output1, output2, output3).
+
+(*
+fun sign(key, bitstring):bitstring.
+fun sigpk(key):key.
+	
+fun sigver(key, bitstring, bitstring):bool reduc
+	forall sk:key, m:bitstring;
+		sigver(sigpk(sk), sign(sk, m), m) = true
+	otherwise forall pk:key, s:bitstring, m:bitstring;
+		sigver(pk, s, m) = false.
+*)
+
+(* ---------------------------------------------------------------- *)
+(* STATE MANAGEMENT                                                 *)
+(* ---------------------------------------------------------------- *)
+
+(* CipherState *)
+
+letfun initializeKey(k:key) =
+	cipherstatepack(k, minnonce).
+
+letfun hasKey(cs:cipherstate) =
+	let (k:key, n:nonce) = cipherstateunpack(cs) in
+	(k <> bit2key(empty)).
+
+letfun setNonce(cs:cipherstate, n:nonce) =
+	let (k:key, o:nonce) = cipherstateunpack(cs) in
+	cipherstatepack(k, n).
+
+letfun encryptWithAd(cs:cipherstate, ad:bitstring, plaintext:bitstring) =
+	let (k:key, n:nonce) = cipherstateunpack(cs) in
+	let e = encrypt(k, n, ad, plaintext) in
+	let csi = setNonce(cs, increment_nonce(n)) in
+	(csi, e).
+
+letfun decryptWithAd(cs:cipherstate, ad:bitstring, ciphertext:bitstring) =
+	let (k:key, n:nonce) = cipherstateunpack(cs) in
+	let d = decrypt(k, n, ad, ciphertext) in
+	let (valid:bool, adi:bitstring, plaintext:bitstring) = aeadunpack(d) in
+	let csi = setNonce(cs, increment_nonce(n)) in
+	(csi, plaintext, valid).
+
+letfun reKey(cs:cipherstate) =
+	let (k:key, n:nonce) = cipherstateunpack(cs) in
+	let ki = encrypt(k, maxnonce, empty, zero) in
+	cipherstatepack(bit2key(ki), n).
+
+(* SymmetricState *)
+
+letfun initializeSymmetric(protocol_name:bitstring) =
+	let h = hash(protocol_name, empty) in
+	let ck = bit2key(h) in
+	let cs = initializeKey(bit2key(empty)) in
+	symmetricstatepack(cs, ck, h).
+
+letfun mixKey(ss:symmetricstate, input_key_material:key) =
+	let (cs:cipherstate, ck:key, h:bitstring) = symmetricstateunpack(ss) in
+	let (ck:key, temp_k:key, output_3:key) = hkdf(ck, input_key_material) in
+	symmetricstatepack(initializeKey(temp_k), ck, h).
+
+letfun mixHash(ss:symmetricstate, data:bitstring) =
+	let (cs:cipherstate, ck:key, h:bitstring) = symmetricstateunpack(ss) in
+	symmetricstatepack(cs, ck, hash(h, data)).
+
+letfun mixKeyAndHash(ss:symmetricstate, input_key_material:key) =
+	let (cs:cipherstate, ck:key, h:bitstring) = symmetricstateunpack(ss) in
+	let (ck:key, temp_h:key, temp_k:key) = hkdf(ck, input_key_material) in
+	let (cs:cipherstate, temp_ck:key, h:bitstring) = symmetricstateunpack(mixHash(symmetricstatepack(cs, ck, h), key2bit(temp_h))) in
+	symmetricstatepack(initializeKey(temp_k), ck, h).
+	
+letfun getHandshakeHash(ss:symmetricstate) =
+	let (cs:cipherstate, ck:key, h:bitstring) = symmetricstateunpack(ss) in
+	(ss, h).
+
+letfun encryptAndHash(ss:symmetricstate, plaintext:bitstring) =
+	let (cs:cipherstate, ck:key, h:bitstring) = symmetricstateunpack(ss) in
+	let (cs:cipherstate, ciphertext:bitstring) = encryptWithAd(cs, h, plaintext) in
+	let ss = mixHash(symmetricstatepack(cs, ck, h), ciphertext) in
+	(ss, ciphertext).
+
+letfun decryptAndHash(ss:symmetricstate, ciphertext:bitstring) =
+	let (cs:cipherstate, ck:key, h:bitstring) = symmetricstateunpack(ss) in
+	let (cs:cipherstate, plaintext:bitstring, valid:bool) = decryptWithAd(cs, h, ciphertext) in
+	let ss = mixHash(symmetricstatepack(cs, ck, h), ciphertext) in
+	(ss, plaintext, valid).
+
+letfun split(ss:symmetricstate) =
+	let (cs:cipherstate, ck:key, h:bitstring) = symmetricstateunpack(ss) in
+	let (temp_k1:key, temp_k2:key, temp_k3:key) = hkdf(ck, bit2key(zero)) in
+	let cs1 = initializeKey(temp_k1) in
+	let cs2 = initializeKey(temp_k2) in
+	(ss, cs1, cs2).
+
+(* HandshakeState *)
+
+letfun initialize_initiator(prologue:bitstring, s:keypair, e:keypair, rs:key, re:key, psk:key) =
+	let ss = mixHash(initializeSymmetric(somename), prologue) in
+	handshakestatepack(ss, s, e, rs, re, psk, true).
+
+letfun initialize_responder(prologue:bitstring, s:keypair, e:keypair, rs:key, re:key, psk:key) =
+	let ss = mixHash(initializeSymmetric(somename), prologue) in
+	handshakestatepack(ss, s, e, rs, re, psk, false).
+
+letfun writeMessage_a(me:principal, them:principal, hs:handshakestate, payload:bitstring, sid:sessionid) =
+	let (ss:symmetricstate, s:keypair, e:keypair, rs:key, re:key, psk:key, initiator:bool) = handshakestateunpack(hs) in
+	let (ne:bitstring, ciphertext1:bitstring, ciphertext2:bitstring) = (empty, empty, empty) in
+	let e = generate_keypair(key_e(me, them, sid)) in
+	let ne = key2bit(getpublickey(e)) in
+	let ss = mixHash(ss, ne) in
+	(* No PSK, so skipping mixKey *)
+	let (ss:symmetricstate, ciphertext2:bitstring) = encryptAndHash(ss, payload) in
+	let hs = handshakestatepack(ss, s, e, rs, re, psk, initiator) in
+	let message_buffer = concat3(ne, ciphertext1, ciphertext2) in
+	(hs, message_buffer).
+
+letfun writeMessage_b(me:principal, them:principal, hs:handshakestate, payload:bitstring, sid:sessionid) =
+	let (ss:symmetricstate, s:keypair, e:keypair, rs:key, re:key, psk:key, initiator:bool) = handshakestateunpack(hs) in
+	let (ne:bitstring, ciphertext1:bitstring, ciphertext2:bitstring) = (empty, empty, empty) in
+	let e = generate_keypair(key_e(me, them, sid)) in
+	let ne = key2bit(getpublickey(e)) in
+	let ss = mixHash(ss, ne) in
+	(* No PSK, so skipping mixKey *)
+	let ss = mixKey(ss, dh(e, re)) in
+	let s = generate_keypair(key_s(me)) in
+	let (ss:symmetricstate, ciphertext1:bitstring) = encryptAndHash(ss, key2bit(getpublickey(s))) in
+	let (ss:symmetricstate, ciphertext2:bitstring) = encryptAndHash(ss, payload) in
+	let hs = handshakestatepack(ss, s, e, rs, re, psk, initiator) in
+	let message_buffer = concat3(ne, ciphertext1, ciphertext2) in
+	(hs, message_buffer).
+
+letfun writeMessage_c(me:principal, them:principal, hs:handshakestate, payload:bitstring, sid:sessionid) =
+	let (ss:symmetricstate, s:keypair, e:keypair, rs:key, re:key, psk:key, initiator:bool) = handshakestateunpack(hs) in
+	let (ne:bitstring, ciphertext1:bitstring, ciphertext2:bitstring) = (empty, empty, empty) in
+	let ss = mixKey(ss, dh(e, rs)) in
+	let s = generate_keypair(key_s(me)) in
+	let (ss:symmetricstate, ciphertext1:bitstring) = encryptAndHash(ss, key2bit(getpublickey(s))) in
+	let ss = mixKey(ss, dh(s, re)) in
+	let (ss:symmetricstate, ciphertext2:bitstring) = encryptAndHash(ss, payload) in
+	let hs = handshakestatepack(ss, s, e, rs, re, psk, initiator) in
+	let message_buffer = concat3(ne, ciphertext1, ciphertext2) in
+	let (ssi:symmetricstate, cs1:cipherstate, cs2:cipherstate) = split(ss) in
+	(hs, message_buffer, cs1, cs2).
+
+letfun writeMessage_d(me:principal, them:principal, hs:handshakestate, payload:bitstring, sid:sessionid) =
+	let (ss:symmetricstate, s:keypair, e:keypair, rs:key, re:key, psk:key, initiator:bool) = handshakestateunpack(hs) in
+	let (ne:bitstring, ciphertext1:bitstring, ciphertext2:bitstring) = (empty, empty, empty) in
+	let (ss:symmetricstate, ciphertext2:bitstring) = encryptAndHash(ss, payload) in
+	let hs = handshakestatepack(ss, s, e, rs, re, psk, initiator) in
+	let message_buffer = concat3(ne, ciphertext1, ciphertext2) in
+	(hs, message_buffer).
+
+letfun writeMessage_e(me:principal, them:principal, hs:handshakestate, payload:bitstring, sid:sessionid) =
+	let (ss:symmetricstate, s:keypair, e:keypair, rs:key, re:key, psk:key, initiator:bool) = handshakestateunpack(hs) in
+	let (ne:bitstring, ciphertext1:bitstring, ciphertext2:bitstring) = (empty, empty, empty) in
+	let (ss:symmetricstate, ciphertext2:bitstring) = encryptAndHash(ss, payload) in
+	let hs = handshakestatepack(ss, s, e, rs, re, psk, initiator) in
+	let message_buffer = concat3(ne, ciphertext1, ciphertext2) in
+	(hs, message_buffer).
+
+letfun readMessage_a(me:principal, them:principal, hs:handshakestate, message:bitstring, sid:sessionid) =
+	let (ss:symmetricstate, s:keypair, e:keypair, rs:key, re:key, psk:key, initiator:bool) = handshakestateunpack(hs) in
+	let (ne:bitstring, ciphertext1:bitstring, ciphertext2:bitstring) = deconcat3(message) in
+	let valid1 = true in
+	let re = bit2key(ne) in
+	let ss = mixHash(ss, key2bit(re)) in
+	(* No PSK, so skipping mixKey *)
+	let (ss:symmetricstate, plaintext2:bitstring, valid2:bool) = decryptAndHash(ss, ciphertext2) in
+	if ((valid1 && valid2)) then (
+		let hs = handshakestatepack(ss, s, e, rs, re, psk, initiator) in
+		(hs, plaintext2, true)
+	).
+
+letfun readMessage_b(me:principal, them:principal, hs:handshakestate, message:bitstring, sid:sessionid) =
+	let (ss:symmetricstate, s:keypair, e:keypair, rs:key, re:key, psk:key, initiator:bool) = handshakestateunpack(hs) in
+	let (ne:bitstring, ciphertext1:bitstring, ciphertext2:bitstring) = deconcat3(message) in
+	let valid1 = true in
+	let re = bit2key(ne) in
+	let ss = mixHash(ss, key2bit(re)) in
+	(* No PSK, so skipping mixKey *)
+	let ss = mixKey(ss, dh(e, re)) in
+	let (ss:symmetricstate, plaintext1:bitstring, valid1:bool) = decryptAndHash(ss, ciphertext1) in
+	let rs = bit2key(plaintext1) in
+	let (ss:symmetricstate, plaintext2:bitstring, valid2:bool) = decryptAndHash(ss, ciphertext2) in
+	if ((valid1 && valid2) && (rs = getpublickey(generate_keypair(key_s(them))))) then (
+		let hs = handshakestatepack(ss, s, e, rs, re, psk, initiator) in
+		(hs, plaintext2, true)
+	).
+
+letfun readMessage_c(me:principal, them:principal, hs:handshakestate, message:bitstring, sid:sessionid) =
+	let (ss:symmetricstate, s:keypair, e:keypair, rs:key, re:key, psk:key, initiator:bool) = handshakestateunpack(hs) in
+	let (ne:bitstring, ciphertext1:bitstring, ciphertext2:bitstring) = deconcat3(message) in
+	let valid1 = true in
+	let ss = mixKey(ss, dh(s, re)) in
+	let (ss:symmetricstate, plaintext1:bitstring, valid1:bool) = decryptAndHash(ss, ciphertext1) in
+	let rs = bit2key(plaintext1) in
+	let ss = mixKey(ss, dh(e, rs)) in
+	let (ss:symmetricstate, plaintext2:bitstring, valid2:bool) = decryptAndHash(ss, ciphertext2) in
+	if ((valid1 && valid2) && (rs = getpublickey(generate_keypair(key_s(them))))) then (
+		let hs = handshakestatepack(ss, s, e, rs, re, psk, initiator) in
+		let (ssi:symmetricstate, cs1:cipherstate, cs2:cipherstate) = split(ss) in
+		(hs, plaintext2, true, cs1, cs2)
+	).
+
+letfun readMessage_d(me:principal, them:principal, hs:handshakestate, message:bitstring, sid:sessionid) =
+	let (ss:symmetricstate, s:keypair, e:keypair, rs:key, re:key, psk:key, initiator:bool) = handshakestateunpack(hs) in
+	let (ne:bitstring, ciphertext1:bitstring, ciphertext2:bitstring) = deconcat3(message) in
+	let valid1 = true in
+	let (ss:symmetricstate, plaintext2:bitstring, valid2:bool) = decryptAndHash(ss, ciphertext2) in
+	if ((valid1 && valid2)) then (
+		let hs = handshakestatepack(ss, s, e, rs, re, psk, initiator) in
+		(hs, plaintext2, true)
+	).
+
+letfun readMessage_e(me:principal, them:principal, hs:handshakestate, message:bitstring, sid:sessionid) =
+	let (ss:symmetricstate, s:keypair, e:keypair, rs:key, re:key, psk:key, initiator:bool) = handshakestateunpack(hs) in
+	let (ne:bitstring, ciphertext1:bitstring, ciphertext2:bitstring) = deconcat3(message) in
+	let valid1 = true in
+	let (ss:symmetricstate, plaintext2:bitstring, valid2:bool) = decryptAndHash(ss, ciphertext2) in
+	if ((valid1 && valid2)) then (
+		let hs = handshakestatepack(ss, s, e, rs, re, psk, initiator) in
+		(hs, plaintext2, true)
+	).
+
+(* ---------------------------------------------------------------- *)
+(* CHANNELS                                                         *)
+(* ---------------------------------------------------------------- *)
+
+const pub:channel.
+
+(* ---------------------------------------------------------------- *)
+(* EVENTS & QUERIES                                                 *)
+(* ---------------------------------------------------------------- *)
+
+event Error().
+event SendEnd(bool).
+event RecvEnd(bool).
+event SendMsg(principal, principal, stage, bitstring).
+event RecvMsg(principal, principal, stage, bitstring).
+event LeakS(phasen, principal).
+event LeakPsk(phasen, principal, principal).
+
+query c:principal, m:bitstring, sid_a:sessionid, sid_b:sessionid, p:phasen;
+(* Message a: Authenticity sanity *)
+	event(RecvMsg(bob, alice, stagepack_a(sid_b), m)) ==> (event(SendMsg(alice, bob, stagepack_a(sid_a), m)));
+(* Message a: Authenticity 1 *)
+	event(RecvMsg(bob, alice, stagepack_a(sid_b), m)) ==> (event(SendMsg(alice, c, stagepack_a(sid_a), m))) || (event(LeakS(phase0, alice))) || (event(LeakS(phase0, bob)));
+(* Message a: Authenticity 2 *)
+	event(RecvMsg(bob, alice, stagepack_a(sid_b), m)) ==> (event(SendMsg(alice, c, stagepack_a(sid_a), m))) || (event(LeakS(phase0, alice)));
+(* Message a: Authenticity 3 *)
+	event(RecvMsg(bob, alice, stagepack_a(sid_b), m)) ==> (event(SendMsg(alice, bob, stagepack_a(sid_a), m))) || (event(LeakS(phase0, alice))) || (event(LeakS(phase0, bob)));
+(* Message a: Authenticity 4 *)
+	event(RecvMsg(bob, alice, stagepack_a(sid_b), m)) ==> (event(SendMsg(alice, bob, stagepack_a(sid_a), m))) || (event(LeakS(phase0, alice)));
+(* Message a: Confidentiality sanity *)
+	attacker(msg_a(alice, bob, sid_a));
+(* Message a: Confidentiality 2 *)
+	attacker(msg_a(alice, bob, sid_a)) ==> (event(LeakS(phase0, bob))) || (event(LeakS(phase1, bob)));
+(* Message a: Confidentiality 4 *)
+	attacker(msg_a(alice, bob, sid_a)) ==> (event(LeakS(phase0, bob))) || ((event(LeakS(phase1, bob)) && event(LeakS(p, alice))));
+(* Message a: Confidentiality 5 *)
+	attacker(msg_a(alice, bob, sid_a)) ==> (event(LeakS(phase0, bob)));
+(* Message b: Authenticity sanity *)
+	event(RecvMsg(alice, bob, stagepack_b(sid_a), m)) ==> (event(SendMsg(bob, alice, stagepack_b(sid_b), m)));
+(* Message b: Authenticity 1 *)
+	event(RecvMsg(alice, bob, stagepack_b(sid_a), m)) ==> (event(SendMsg(bob, c, stagepack_b(sid_b), m))) || (event(LeakS(phase0, bob))) || (event(LeakS(phase0, alice)));
+(* Message b: Authenticity 2 *)
+	event(RecvMsg(alice, bob, stagepack_b(sid_a), m)) ==> (event(SendMsg(bob, c, stagepack_b(sid_b), m))) || (event(LeakS(phase0, bob)));
+(* Message b: Authenticity 3 *)
+	event(RecvMsg(alice, bob, stagepack_b(sid_a), m)) ==> (event(SendMsg(bob, alice, stagepack_b(sid_b), m))) || (event(LeakS(phase0, bob))) || (event(LeakS(phase0, alice)));
+(* Message b: Authenticity 4 *)
+	event(RecvMsg(alice, bob, stagepack_b(sid_a), m)) ==> (event(SendMsg(bob, alice, stagepack_b(sid_b), m))) || (event(LeakS(phase0, bob)));
+(* Message b: Confidentiality sanity *)
+	attacker(msg_b(bob, alice, sid_b));
+(* Message b: Confidentiality 2 *)
+	attacker(msg_b(bob, alice, sid_b)) ==> (event(LeakS(phase0, alice))) || (event(LeakS(phase1, alice)));
+(* Message b: Confidentiality 4 *)
+	attacker(msg_b(bob, alice, sid_b)) ==> (event(LeakS(phase0, alice))) || ((event(LeakS(phase1, alice)) && event(LeakS(p, bob))));
+(* Message b: Confidentiality 5 *)
+	attacker(msg_b(bob, alice, sid_b)) ==> (event(LeakS(phase0, alice)));
+(* Message c: Authenticity sanity *)
+	event(RecvMsg(bob, alice, stagepack_c(sid_b), m)) ==> (event(SendMsg(alice, bob, stagepack_c(sid_a), m)));
+(* Message c: Authenticity 1 *)
+	event(RecvMsg(bob, alice, stagepack_c(sid_b), m)) ==> (event(SendMsg(alice, c, stagepack_c(sid_a), m))) || (event(LeakS(phase0, alice))) || (event(LeakS(phase0, bob)));
+(* Message c: Authenticity 2 *)
+	event(RecvMsg(bob, alice, stagepack_c(sid_b), m)) ==> (event(SendMsg(alice, c, stagepack_c(sid_a), m))) || (event(LeakS(phase0, alice)));
+(* Message c: Authenticity 3 *)
+	event(RecvMsg(bob, alice, stagepack_c(sid_b), m)) ==> (event(SendMsg(alice, bob, stagepack_c(sid_a), m))) || (event(LeakS(phase0, alice))) || (event(LeakS(phase0, bob)));
+(* Message c: Authenticity 4 *)
+	event(RecvMsg(bob, alice, stagepack_c(sid_b), m)) ==> (event(SendMsg(alice, bob, stagepack_c(sid_a), m))) || (event(LeakS(phase0, alice)));
+(* Message c: Confidentiality sanity *)
+	attacker(msg_c(alice, bob, sid_a));
+(* Message c: Confidentiality 2 *)
+	attacker(msg_c(alice, bob, sid_a)) ==> (event(LeakS(phase0, bob))) || (event(LeakS(phase1, bob)));
+(* Message c: Confidentiality 4 *)
+	attacker(msg_c(alice, bob, sid_a)) ==> (event(LeakS(phase0, bob))) || ((event(LeakS(phase1, bob)) && event(LeakS(p, alice))));
+(* Message c: Confidentiality 5 *)
+	attacker(msg_c(alice, bob, sid_a)) ==> (event(LeakS(phase0, bob)));
+(* Message d: Authenticity sanity *)
+	event(RecvMsg(alice, bob, stagepack_d(sid_a), m)) ==> (event(SendMsg(bob, alice, stagepack_d(sid_b), m)));
+(* Message d: Authenticity 1 *)
+	event(RecvMsg(alice, bob, stagepack_d(sid_a), m)) ==> (event(SendMsg(bob, c, stagepack_d(sid_b), m))) || (event(LeakS(phase0, bob))) || (event(LeakS(phase0, alice)));
+(* Message d: Authenticity 2 *)
+	event(RecvMsg(alice, bob, stagepack_d(sid_a), m)) ==> (event(SendMsg(bob, c, stagepack_d(sid_b), m))) || (event(LeakS(phase0, bob)));
+(* Message d: Authenticity 3 *)
+	event(RecvMsg(alice, bob, stagepack_d(sid_a), m)) ==> (event(SendMsg(bob, alice, stagepack_d(sid_b), m))) || (event(LeakS(phase0, bob))) || (event(LeakS(phase0, alice)));
+(* Message d: Authenticity 4 *)
+	event(RecvMsg(alice, bob, stagepack_d(sid_a), m)) ==> (event(SendMsg(bob, alice, stagepack_d(sid_b), m))) || (event(LeakS(phase0, bob)));
+(* Message d: Confidentiality sanity *)
+	attacker(msg_d(bob, alice, sid_b));
+(* Message d: Confidentiality 2 *)
+	attacker(msg_d(bob, alice, sid_b)) ==> (event(LeakS(phase0, alice))) || (event(LeakS(phase1, alice)));
+(* Message d: Confidentiality 4 *)
+	attacker(msg_d(bob, alice, sid_b)) ==> (event(LeakS(phase0, alice))) || ((event(LeakS(phase1, alice)) && event(LeakS(p, bob))));
+(* Message d: Confidentiality 5 *)
+	attacker(msg_d(bob, alice, sid_b)) ==> (event(LeakS(phase0, alice)));
+(* Message e: Authenticity sanity *)
+	event(RecvMsg(bob, alice, stagepack_e(sid_b), m)) ==> (event(SendMsg(alice, bob, stagepack_e(sid_a), m)));
+(* Message e: Authenticity 1 *)
+	event(RecvMsg(bob, alice, stagepack_e(sid_b), m)) ==> (event(SendMsg(alice, c, stagepack_e(sid_a), m))) || (event(LeakS(phase0, alice))) || (event(LeakS(phase0, bob)));
+(* Message e: Authenticity 2 *)
+	event(RecvMsg(bob, alice, stagepack_e(sid_b), m)) ==> (event(SendMsg(alice, c, stagepack_e(sid_a), m))) || (event(LeakS(phase0, alice)));
+(* Message e: Authenticity 3 *)
+	event(RecvMsg(bob, alice, stagepack_e(sid_b), m)) ==> (event(SendMsg(alice, bob, stagepack_e(sid_a), m))) || (event(LeakS(phase0, alice))) || (event(LeakS(phase0, bob)));
+(* Message e: Authenticity 4 *)
+	event(RecvMsg(bob, alice, stagepack_e(sid_b), m)) ==> (event(SendMsg(alice, bob, stagepack_e(sid_a), m))) || (event(LeakS(phase0, alice)));
+(* Message e: Confidentiality sanity *)
+	attacker(msg_e(alice, bob, sid_a));
+(* Message e: Confidentiality 2 *)
+	attacker(msg_e(alice, bob, sid_a)) ==> (event(LeakS(phase0, bob))) || (event(LeakS(phase1, bob)));
+(* Message e: Confidentiality 4 *)
+	attacker(msg_e(alice, bob, sid_a)) ==> (event(LeakS(phase0, bob))) || ((event(LeakS(phase1, bob)) && event(LeakS(p, alice))));
+(* Message e: Confidentiality 5 *)
+	attacker(msg_e(alice, bob, sid_a)) ==> (event(LeakS(phase0, bob)));
+	event(RecvEnd(true)).
+
+(* ---------------------------------------------------------------- *)
+(* PROCESSES                                                        *)
+(* ---------------------------------------------------------------- *)
+
+(*
+XX1:
+	-> e
+	<- e, ee, s
+	-> es, s, se
+	<-
+	->
+*)
+
+
+let initiator(me:principal, them:principal, sid:sessionid) =
+	let s = keypairpack(bit2key(empty), bit2key(empty)) in
+	out(pub, getpublickey(s));
+	((
+		let e = keypairpack(bit2key(empty), bit2key(empty)) in
+		let rs = bit2key(empty) in
+		let re = bit2key(empty) in
+		let hs:handshakestate = initialize_initiator(empty, s, e, rs, re, bit2key(empty)) in
+		insert statestore(me, them, sid, statepack_a(hs))
+	)
+	| (
+		get statestore(=me, =them, =sid, statepack_a(hs)) in
+		let (hs:handshakestate, message_a:bitstring) = writeMessage_a(me, them, hs, msg_a(me, them, sid), sid) in
+		event SendMsg(me, them, stagepack_a(sid), msg_a(me, them, sid));
+		insert statestore(me, them, sid, statepack_b(hs));
+		out(pub, message_a)
+	)
+	| (
+		get statestore(=me, =them, =sid, statepack_b(hs)) in
+		in(pub, message_b:bitstring);
+		let (hs:handshakestate, plaintext_b:bitstring, valid:bool) = readMessage_b(me, them, hs, message_b, sid) in
+		event RecvMsg(me, them, stagepack_b(sid), plaintext_b);
+		insert statestore(me, them, sid, statepack_c(hs));
+		0
+	)
+	| (
+		get statestore(=me, =them, =sid, statepack_c(hs)) in
+		let (hs:handshakestate, message_c:bitstring, cs1:cipherstate, cs2:cipherstate) = writeMessage_c(me, them, hs, msg_c(me, them, sid), sid) in
+		event SendMsg(me, them, stagepack_c(sid), msg_c(me, them, sid));
+		insert statestore(me, them, sid, statepack_d(hs, cs1, cs2));
+		out(pub, message_c)
+	)
+	| !(
+		get statestore(=me, =them, =sid, statepack_d(hs, cs1, cs2)) in
+		let hs = handshakestatesetcs(hs, cs2) in
+		in(pub, message_d:bitstring);
+		let (hs:handshakestate, plaintext_d:bitstring, valid:bool) = readMessage_d(me, them, hs, message_d, sid) in
+		event RecvMsg(me, them, stagepack_d(sid), plaintext_d);
+		insert statestore(me, them, sid, statepack_e(hs, cs1, handshakestategetcs(hs)));
+		0
+	)
+	| !(
+		get statestore(=me, =them, =sid, statepack_e(hs, cs1, cs2)) in
+		let hs = handshakestatesetcs(hs, cs1) in
+		let (hs:handshakestate, message_e:bitstring) = writeMessage_e(me, them, hs, msg_e(me, them, sid), sid) in
+		event SendMsg(me, them, stagepack_e(sid), msg_e(me, them, sid));
+		(* Final message, do not pack state *)
+		out(pub, message_e)
+	)
+	| (
+		event LeakS(phase0, me);
+		out(pub, key_s(me))
+	)
+	| (
+		phase 1;
+		event LeakS(phase1, me);
+		out(pub, key_s(me))
+	)).
+
+let responder(me:principal, them:principal, sid:sessionid) =
+	let s = keypairpack(bit2key(empty), bit2key(empty)) in
+	out(pub, getpublickey(s));
+	((
+		let e = keypairpack(bit2key(empty), bit2key(empty)) in
+		let rs = bit2key(empty) in
+		let re = bit2key(empty) in
+		let hs:handshakestate = initialize_responder(empty, s, e, rs, re, bit2key(empty)) in
+		insert statestore(me, them, sid, statepack_a(hs))
+	)
+	| (
+		get statestore(=me, =them, =sid, statepack_a(hs)) in
+		in(pub, message_a:bitstring);
+		let (hs:handshakestate, plaintext_a:bitstring, valid:bool) = readMessage_a(me, them, hs, message_a, sid) in
+		event RecvMsg(me, them, stagepack_a(sid), plaintext_a);
+		insert statestore(me, them, sid, statepack_b(hs));
+		0
+	)
+	| (
+		get statestore(=me, =them, =sid, statepack_b(hs)) in
+		let (hs:handshakestate, message_b:bitstring) = writeMessage_b(me, them, hs, msg_b(me, them, sid), sid) in
+		event SendMsg(me, them, stagepack_b(sid), msg_b(me, them, sid));
+		insert statestore(me, them, sid, statepack_c(hs));
+		out(pub, message_b)
+	)
+	| (
+		get statestore(=me, =them, =sid, statepack_c(hs)) in
+		in(pub, message_c:bitstring);
+		let (hs:handshakestate, plaintext_c:bitstring, valid:bool, cs1:cipherstate, cs2:cipherstate) = readMessage_c(me, them, hs, message_c, sid) in
+		event RecvMsg(me, them, stagepack_c(sid), plaintext_c);
+		insert statestore(me, them, sid, statepack_d(hs, cs1, cs2));
+		0
+	)
+	| !(
+		get statestore(=me, =them, =sid, statepack_d(hs, cs1, cs2)) in
+		let hs = handshakestatesetcs(hs, cs2) in
+		let (hs:handshakestate, message_d:bitstring) = writeMessage_d(me, them, hs, msg_d(me, them, sid), sid) in
+		event SendMsg(me, them, stagepack_d(sid), msg_d(me, them, sid));
+		insert statestore(me, them, sid, statepack_e(hs, cs1, handshakestategetcs(hs)));
+		out(pub, message_d)
+	)
+	| !(
+		get statestore(=me, =them, =sid, statepack_e(hs, cs1, cs2)) in
+		let hs = handshakestatesetcs(hs, cs1) in
+		in(pub, message_e:bitstring);
+		let (hs:handshakestate, plaintext_e:bitstring, valid:bool) = readMessage_e(me, them, hs, message_e, sid) in
+		event RecvMsg(me, them, stagepack_e(sid), plaintext_e);
+		(* Final message, do not pack state *)
+		event RecvEnd(valid)
+	)
+	| (
+		event LeakS(phase0, me);
+		out(pub, key_s(me))
+	)
+	| (
+		phase 1;
+		event LeakS(phase1, me);
+		out(pub, key_s(me))
+	)).
+
+(* ---------------------------------------------------------------- *)
+(* TOP-LEVEL PROCESS                                                *)
+(* ---------------------------------------------------------------- *)
+
+process
+  out(pub, key_s(charlie));
+	(* No PSKs to leak *)
+	!(
+		new sid:sessionid;
+		initiator(alice, bob, sid) | initiator(alice, charlie, sid)
+		|
+		responder(bob, alice, sid) | responder(bob, charlie, sid)
+	)
+
