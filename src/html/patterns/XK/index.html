@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<title>Noise Explorer: XK</title>
+	<meta name="keywords" content="noise protocol, protocol verification, formal verification, noise protocol framework, symbolic verification" />
+	<meta name="description" content="Noise Explorer is an online engine for reasoning about Noise Protocol Framework Handshake Patterns. Noise Explorer allows you to design and validate Noise Handshake Patterns, to generate cryptographic models for formal verification and to explore a compendium of formal verification results for the most popular and relevant Noise Handshake Patterns in use today." />
+	<link rel="image_src" href="https://noiseexplorer.com/res/img/logo.png" />
+	<link rel="icon" type="image/png" href="../../res/img/logo.png" />
+	<link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono|IBM+Plex+Sans" rel="stylesheet" />
+	<link href="../../res/css/style.css" rel="stylesheet" />
+	<script type="application/javascript"></script>
+</head>
+
+<body>
+	<div class="header">
+		<img id="logo" src="../../res/img/logo.png" alt="" />
+		<h1>Noise Explorer <span class="beta">beta</span></h1>
+	</div>
+	<div class="nav">
+		<span class="menu">menu</span>
+		<div class="navLinks">
+			<a href="../..">Design New Pattern</a>
+			<a href="../../patterns" class="currentNav">Explore Patterns</a>
+			<a href="../../cmd">Command-Line Tool</a>
+		</div>
+	</div>
+	<div class="results" style="height: 975px;">
+		<div class="arrowsFrame">
+			<h1 id="patternName">XK</h1>
+			<div class="arrows" style="height: 975px;">
+				<svg id="patternArrows" style="height: 975px;">
+					<line x2="248" y1="30" y2="30"></line>
+					<polyline  points="10 20 1 30 10 40"></polyline>
+					<text class="tokens" x="120" y="22">s</text>
+
+				<text class="ellipsis" x="120" y="165">...</text>
+<line data-seclevel="2" x1="1" x2="248" y1="300" y2="300"></line>
+					<polyline data-seclevel="2" points="237 290 248 300 237 310"></polyline>
+					<circle data-seclevel="0" cx="17" cy="300" r="15"></circle>
+					<text class="msg" x="16" y="305">a</text>
+					<text class="tokens" x="120" y="292">e, es</text>
+<line data-seclevel="1" x2="248" y1="435" y2="435"></line>
+					<polyline data-seclevel="1" points="10 425 1 435 10 445"></polyline>
+					<circle data-seclevel="2" cx="234" cy="435" r="15"></circle>
+					<text class="msg" x="233" y="440">b</text>
+					<text class="tokens" x="120" y="427">e, ee</text>
+<line data-seclevel="5" x1="1" x2="248" y1="570" y2="570"></line>
+					<polyline data-seclevel="5" points="237 560 248 570 237 580"></polyline>
+					<circle data-seclevel="4" cx="17" cy="570" r="15"></circle>
+					<text class="msg" x="16" y="575">c</text>
+					<text class="tokens" x="120" y="562">s, se</text>
+<line data-seclevel="5" x2="248" y1="705" y2="705"></line>
+					<polyline data-seclevel="5" points="10 695 1 705 10 715"></polyline>
+					<circle data-seclevel="4" cx="234" cy="705" r="15"></circle>
+					<text class="msg" x="233" y="710">d</text>
+					<text class="tokens" x="120" y="697"></text>
+<line data-seclevel="5" x1="1" x2="248" y1="840" y2="840"></line>
+					<polyline data-seclevel="5" points="237 830 248 840 237 850"></polyline>
+					<circle data-seclevel="4" cx="17" cy="840" r="15"></circle>
+					<text class="msg" x="16" y="845">e</text>
+					<text class="tokens" x="120" y="832"></text>
+				</svg>
+			</div>
+		</div>
+		<div class="resultsExplanation" style="height: 975px;">
+			<h2>Handshake Pattern Analysis</h2>
+			<p>The responder is initialized with a pre-shared long-term static key, which is assumed to be pre-authenticated out of band by the initiator.</p> 
+			
+
+			<h3>Message A <a href="A.html" class="detailedAnalysis">show detailed analysis</a></h3>
+			<p>Message A, sent by the initiator, does not benefit from <em>sender authentication</em> and does not provide <em>message integrity</em>. It could have been sent by any party, including an active attacker. Message contents benefit from <em>message secrecy</em> and some <em>forward secrecy</em>: the compromise of the responder's long-term private keys, even at a later date, will lead to message contents being decrypted by the attacker.  <span class="resultNums">0,2</span></p>
+
+			<h3>Message B <a href="B.html" class="detailedAnalysis">show detailed analysis</a></h3>
+			<p>Message B, sent by the responder, benefits from <em>sender authentication</em> and is <em>resistant to Key Compromise Impersonation</em>. Assuming the corresponding private keys are secure, this authentication cannot be forged. However, if the responder carries out a separate session with a separate, compromised initiator, this other session can be used to forge the authenticity of this message with this session's initiator. Message contents benefit from some <em>message secrecy</em> and some <em>forward secrecy</em>, but not sufficiently to resist any active attacker.  <span class="resultNums">2,1</span></p>
+
+			<h3>Message C <a href="C.html" class="detailedAnalysis">show detailed analysis</a></h3>
+			<p>Message C, sent by the initiator, benefits from <em>sender and receiver authentication</em> and is <em>resistant to Key Compromise Impersonation</em>. Assuming the corresponding private keys are secure, this authentication cannot be forged. Message contents benefit from <em>message secrecy</em> and <em>strong forward secrecy</em>: if the ephemeral private keys are secure and the responder is not being actively impersonated by an active attacker, message contents cannot be decrypted.  <span class="resultNums">4,5</span></p>
+
+			<h3>Message D <a href="D.html" class="detailedAnalysis">show detailed analysis</a></h3>
+			<p>Message D, sent by the responder, benefits from <em>sender and receiver authentication</em> and is <em>resistant to Key Compromise Impersonation</em>. Assuming the corresponding private keys are secure, this authentication cannot be forged. Message contents benefit from <em>message secrecy</em> and <em>strong forward secrecy</em>: if the ephemeral private keys are secure and the initiator is not being actively impersonated by an active attacker, message contents cannot be decrypted.  <span class="resultNums">4,5</span></p>
+
+			<h3>Message E <a href="E.html" class="detailedAnalysis">show detailed analysis</a></h3>
+			<p>Message E, sent by the initiator, benefits from <em>sender and receiver authentication</em> and is <em>resistant to Key Compromise Impersonation</em>. Assuming the corresponding private keys are secure, this authentication cannot be forged. Message contents benefit from <em>message secrecy</em> and <em>strong forward secrecy</em>: if the ephemeral private keys are secure and the responder is not being actively impersonated by an active attacker, message contents cannot be decrypted.  <span class="resultNums">4,5</span></p>
+		</div>
+	</div>
+	<div class="footer">
+		<span class="about">about</span>
+		<span>Noise Explorer is authored by <a href="https://nadim.computer" target="_blank">Nadim Kobeissi</a> (<a href="https://www.gnu.org/licenses/gpl-3.0.en.html" target="_blank">GPLv3</a>)</span><span style="float:right"><a href="https://symbolic.software" target="_blank">Symbolic Software</a> | <a href="https://inria.fr/" target="_blank">INRIA</a></span>
+	</div>
+</body>
+
+</html>
