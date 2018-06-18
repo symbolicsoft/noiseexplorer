@@ -554,13 +554,8 @@ const responderFun = (pattern) => {
 
 const processFuns = (pattern) => {
 	let hasPsk = /psk/.test(pattern.name);
-	let leakPsk = hasPsk? [
-		`out(pub, key_psk(alice, charlie));`,
-		`out(pub, key_psk(charlie, bob));`
-	].join('\n\t') : '(* No PSKs to leak *)';
 	let proc = [
 		`out(pub, key_s(charlie));`,
-		leakPsk,
 		`!(`,
 		`\tnew sid:sessionid;`,
 		`\tinitiator(alice, bob, sid) | initiator(alice, charlie, sid)`,
