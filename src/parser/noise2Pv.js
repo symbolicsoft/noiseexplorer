@@ -320,13 +320,16 @@ const events = (pattern) => {
 		'event LeakS(phasen, principal).',
 		'event LeakPsk(phasen, principal, principal).'
 	];
+	pattern.messages.forEach((message, i) => {
+		ev.push(`event RepeatingKey_${util.abc[i]}(principal).`);
+	});
 	return ev;
 };
 
 const queries = (pattern) => {
 	let hasPsk = /psk\d$/.test(pattern.name);
 	let quer = [
-		`query c:principal, m:bitstring, sid_a:sessionid, sid_b:sessionid, p:phasen;`,
+		`query c:principal, m:bitstring, sid_a:sessionid, sid_b:sessionid, s:stage, b:bitstring, p:phasen;`,
 	];
 	pattern.messages.forEach((message, i) => {
 		let send = (i % 2)? 'bob' : 'alice';
@@ -364,7 +367,37 @@ const queries = (pattern) => {
 		if (hasPsk) {
 		}
 	});
-	quer.push(`\tevent(RecvEnd(true)).`);
+	pattern.messages.forEach((message, i) => {
+		quer = quer.concat([
+			`(* Repeating keys *)`,
+			`\t(* event(RepeatingKey_${util.abc[i]}(alice)); event(RepeatingKey_${util.abc[i]}(bob)); *)`
+		]);
+	});
+	/*
+	if (params.attacker === 'active') {
+		quer = quer.concat([
+			`(* Identity hiding 2 (responder) *)`,
+			`\tattacker(dhexp_real(key_s(bob), g)) ==> (event(LeakS(p, bob))) || (event(LeakS(p, alice)));`,
+			`(* Identity hiding 3 (initiator) *)`,
+			`\tattacker(dhexp_real(key_s(alice), g)) ==> (event(LeakS(p, alice))) || (event(LeakS(phase0, bob)));`,
+			`(* Identity hiding 3 (responder) *)`,
+			`\tattacker(dhexp_real(key_s(bob), g)) ==> (event(LeakS(p, bob))) || (event(LeakS(phase0, alice)));`
+		]);
+	} else {
+		quer = quer.concat([
+			`(* Identity hiding 1 (initiator) *)`,
+			`\tattacker(dhexp_real(key_s(alice), g)) ==> (event(LeakS(p, alice))) || event(SendMsg(alice, charlie, s, m));`,
+			`(* Identity hiding 1 (responder) *)`,
+			`\tattacker(dhexp_real(key_s(bob), g)) ==> (event(LeakS(p, bob))) || event(RecvMsg(bob, charlie, s, m));`,
+			`(* Identity hiding 2 (initiator) *)`,
+			`\tattacker(dhexp_real(key_s(alice), g)) ==> (event(LeakS(p, alice))) || (event(LeakS(p, bob)));`
+		]);
+	}
+	*/
+	quer = quer.concat([
+		`(* Protocol termination sanity *)`,
+		`\tevent(RecvEnd(true)).`
+	]);
 	return quer;
 };
 
@@ -405,13 +438,14 @@ const initiatorFun = (pattern) => {
 		`\t${init.re}`,
 		`\tlet hs:handshakestate = initialize_initiator(empty, s, e, rs, re, ${init.psk}) in`,
 		`\tinsert statestore(me, them, sid, statepack_${util.abc[0]}(hs))`,
-		`)`
+		`) | (`,
 	]);
 	pattern.messages.forEach((message, i) => {
 		let msgDirSend = (message.dir === 'send');
 		let abc = util.abc[i];
 		let abcn = util.abc[i + 1];
-		let replicateMessage = message.tokens.length? '' : '!';
+		let nextMessage = pattern.messages[i + 1]?
+			(pattern.messages[i + 1].tokens.length? ' | (' : ' | !(') : ' | (';
 		let splitCipherState = (i === finalKex)?
 			`, cs1:cipherstate, cs2:cipherstate` : ``;
 		let statePack = (i <= finalKex)? `get statestore(=me, =them, =sid, statepack_${abc}(hs)) in` : [
@@ -427,33 +461,29 @@ const initiatorFun = (pattern) => {
 				: `(* Final message, do not pack state *)`;
 		if (msgDirSend) {
 			initiator = initiator.concat([
-				`| ${replicateMessage}(`,
 				`\t${statePack}`,
 				`\tlet (hs:handshakestate, message_${abc}:bitstring${splitCipherState}) = writeMessage_${abc}(me, them, hs, msg_${abc}(me, them, sid), sid) in`,
 				`\tevent SendMsg(me, them, stagepack_${abc}(sid), msg_${abc}(me, them, sid));`,
 				`\t${stateStore}`,
 				`\tout(pub, message_${abc})`,
-				`)`
+				`)${nextMessage}`
 			]);
 		} else {
 			initiator = initiator.concat([
-				`| ${replicateMessage}(`,
 				`\t${statePack}`,
 				`\tin(pub, message_${abc}:bitstring);`,
 				`\tlet (hs:handshakestate, plaintext_${abc}:bitstring, valid:bool${splitCipherState}) = readMessage_${abc}(me, them, hs, message_${abc}, sid) in`,
 				`\tevent RecvMsg(me, them, stagepack_${abc}(sid), plaintext_${abc});`,
 				`\t${stateStore}`,
 				(i === (pattern.messages.length - 1))? `\t${phase0End}` : `\t0`,
-				`)`
+				`)${nextMessage}`
 			]);
 		}
 	});
 	initiator = initiator.concat([
-		`| (`,
 		`\tevent LeakS(phase0, me);`,
 		`\tout(pub, key_s(me))`,
-		`)`,
-		`| (`,
+		`) | (`,
 		`\tphase 1;`,
 		`\tevent LeakS(phase1, me);`,
 		`\tout(pub, key_s(me))`,
@@ -495,13 +525,14 @@ const responderFun = (pattern) => {
 		`\t${init.re}`,
 		`\tlet hs:handshakestate = initialize_responder(empty, s, e, rs, re, ${init.psk}) in`,
 		`\tinsert statestore(me, them, sid, statepack_${util.abc[0]}(hs))`,
-		`)`
+		`) | (`,
 	]);
 	pattern.messages.forEach((message, i) => {
 		let msgDirSend = (message.dir === 'send');
 		let abc = util.abc[i];
 		let abcn = util.abc[i + 1];
-		let replicateMessage = message.tokens.length? '' : '!';
+		let nextMessage = pattern.messages[i + 1]?
+			(pattern.messages[i + 1].tokens.length? ' | (' : ' | !(') : ' | (';
 		let splitCipherState = (i === finalKex)?
 			`, cs1:cipherstate, cs2:cipherstate` : ``;
 		let statePack = (i <= finalKex)? `get statestore(=me, =them, =sid, statepack_${abc}(hs)) in` : [
@@ -517,33 +548,29 @@ const responderFun = (pattern) => {
 				: `(* Final message, do not pack state *)`;
 		if (msgDirSend) {
 			responder = responder.concat([
-				`| ${replicateMessage}(`,
 				`\t${statePack}`,
 				`\tin(pub, message_${abc}:bitstring);`,
 				`\tlet (hs:handshakestate, plaintext_${abc}:bitstring, valid:bool${splitCipherState}) = readMessage_${abc}(me, them, hs, message_${abc}, sid) in`,
 				`\tevent RecvMsg(me, them, stagepack_${abc}(sid), plaintext_${abc});`,
 				`\t${stateStore}`,
 				(i === (pattern.messages.length - 1))? `\t${phase0End}` : `\t0`,
-				`)`
+				`)${nextMessage}`
 			]);
 		} else {
 			responder = responder.concat([
-				`| ${replicateMessage}(`,
 				`\t${statePack}`,
 				`\tlet (hs:handshakestate, message_${abc}:bitstring${splitCipherState}) = writeMessage_${abc}(me, them, hs, msg_${abc}(me, them, sid), sid) in`,
 				`\tevent SendMsg(me, them, stagepack_${abc}(sid), msg_${abc}(me, them, sid));`,
 				`\t${stateStore}`,
 				`\tout(pub, message_${abc})`,
-				`)`
+				`)${nextMessage}`
 			]);
 		}
 	});
 	responder = responder.concat([
-		`| (`,
 		`\tevent LeakS(phase0, me);`,
 		`\tout(pub, key_s(me))`,
-		`)`,
-		`| (`,
+		`) | (`,
 		`\tphase 1;`,
 		`\tevent LeakS(phase1, me);`,
 		`\tout(pub, key_s(me))`,
@@ -552,15 +579,54 @@ const responderFun = (pattern) => {
 	return responder;
 };
 
+let repeatingKeysQueryFun = (pattern) => {
+	let repeatingKeysQuery = [
+		`let repeatingKeysQuery() =`,
+		`(`
+	];
+	pattern.messages.forEach((message, i) => {
+		if (message.tokens.length) {
+			repeatingKeysQuery = repeatingKeysQuery.concat([
+				`\tget statestore(a, b, sid_x, statepack_${util.abc[i]}(hs_x)) in`,
+				`\tget statestore(c, d, sid_y, statepack_${util.abc[i]}(hs_y)) in`,
+				`\tlet cs_x = handshakestategetcs(hs_x) in`,
+				`\tlet cs_y = handshakestategetcs(hs_y) in`,
+				`\tlet (k_x:key, n_x:nonce) = cipherstateunpack(cs_x) in`,
+				`\tlet (k_y:key, n_y:nonce) = cipherstateunpack(cs_y) in`,
+				`\tif ((k_x = k_y) && ((b <> c) || (a <> d)) && ((a <> c) || (b <> d) || (sid_x <> sid_y))) then (`,
+				`\t\tevent RepeatingKey_${util.abc[i]}(a)`,
+				`\t)`
+			]);
+		} else {
+			let csn = (i % 2)? '2' : '1';
+			repeatingKeysQuery = repeatingKeysQuery.concat([
+				`\tget statestore(a, b, sid_x, statepack_${util.abc[i]}(hs_x, cs1_x, cs2_x)) in`,
+				`\tget statestore(c, d, sid_y, statepack_${util.abc[i]}(hs_y, cs1_y, cs2_y)) in`,
+				`\tlet (k${csn}_x:key, n${csn}_x:nonce) = cipherstateunpack(cs${csn}_x) in`,
+				`\tlet (k${csn}_y:key, n${csn}_y:nonce) = cipherstateunpack(cs${csn}_y) in`,
+				`\tif ((k${csn}_x = k${csn}_y) && ((b <> c) || (a <> d)) && ((a <> c) || (b <> d) || (sid_x <> sid_y))) then (`,
+				`\t\tevent RepeatingKey_${util.abc[i]}(a)`,
+				`\t)`
+			]);
+		}
+		if (i < (pattern.messages.length - 1)) {
+			repeatingKeysQuery.push(') | (');
+		} else {
+			repeatingKeysQuery.push(').');
+		}
+	});
+	return repeatingKeysQuery;
+};
+
 const processFuns = (pattern) => {
 	let hasPsk = /psk/.test(pattern.name);
 	let proc = [
 		`out(pub, key_s(charlie));`,
 		`!(`,
 		`\tnew sid:sessionid;`,
-		`\tinitiator(alice, bob, sid) | initiator(alice, charlie, sid)`,
-		`\t|`,
-		`\tresponder(bob, alice, sid) | responder(bob, charlie, sid)`
+		`\tinitiator(alice, bob, sid) | initiator(alice, charlie, sid) |`,
+		`\tresponder(bob, alice, sid) | responder(bob, charlie, sid)`,
+		`\t(* | !repeatingKeysQuery() *)`
 	];
 	proc = proc.concat([')']);
 	return proc;
@@ -579,9 +645,10 @@ const parse = (pattern, passive) => {
 	let g = globals(pattern).join('\n');
 	let a = initiatorFun(pattern).join('\n\t');
 	let b = responderFun(pattern).join('\n\t');
+	let k = repeatingKeysQueryFun(pattern).join('\n\t');
 	let p = processFuns(pattern).join('\n\t');
 	let q = queries(pattern).join('\n');
-	let parsed = {t, s, i, w, r, e, q, g, a, b, p};
+	let parsed = {t, s, i, w, r, e, q, g, a, b, k, p};
 	return parsed;
 };
 

@@ -34,6 +34,7 @@ let buildModel = (patternInput, parsedPattern, passive, pv) => {
 	pv[8] = pv[8].replace('$NOISE2PV_G$', parsedPv.g);
 	pv[8] = pv[8].replace('$NOISE2PV_A$', parsedPv.a);
 	pv[8] = pv[8].replace('$NOISE2PV_B$', parsedPv.b);
+	pv[8] = pv[8].replace('$NOISE2PV_K$', parsedPv.k);
 	pv[8] = pv[8].replace('$NOISE2PV_P$', parsedPv.p);
 	return pv.join('\n');
 }

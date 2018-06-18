@@ -390,8 +390,12 @@ event SendMsg(principal, principal, stage, bitstring).
 event RecvMsg(principal, principal, stage, bitstring).
 event LeakS(phasen, principal).
 event LeakPsk(phasen, principal, principal).
+event RepeatingKey_a(principal).
+event RepeatingKey_b(principal).
+event RepeatingKey_c(principal).
+event RepeatingKey_d(principal).
 
-query c:principal, m:bitstring, sid_a:sessionid, sid_b:sessionid, p:phasen;
+query c:principal, m:bitstring, sid_a:sessionid, sid_b:sessionid, s:stage, b:bitstring, p:phasen;
 (* Message a: Authenticity sanity *)
 	event(RecvMsg(bob, alice, stagepack_a(sid_b), m)) ==> (event(SendMsg(alice, bob, stagepack_a(sid_a), m)));
 (* Message a: Authenticity 1 *)
@@ -464,6 +468,15 @@ query c:principal, m:bitstring, sid_a:sessionid, sid_b:sessionid, p:phasen;
 	attacker(msg_d(bob, alice, sid_b)) ==> (event(LeakS(phase0, alice))) || ((event(LeakS(phase1, alice)) && event(LeakS(p, bob))));
 (* Message d: Confidentiality 5 *)
 	attacker(msg_d(bob, alice, sid_b)) ==> (event(LeakS(phase0, alice)));
+(* Repeating keys *)
+	(* event(RepeatingKey_a(alice)); event(RepeatingKey_a(bob)); *)
+(* Repeating keys *)
+	(* event(RepeatingKey_b(alice)); event(RepeatingKey_b(bob)); *)
+(* Repeating keys *)
+	(* event(RepeatingKey_c(alice)); event(RepeatingKey_c(bob)); *)
+(* Repeating keys *)
+	(* event(RepeatingKey_d(alice)); event(RepeatingKey_d(bob)); *)
+(* Protocol termination sanity *)
 	event(RecvEnd(true)).
 
 (* ---------------------------------------------------------------- *)
@@ -490,31 +503,27 @@ let initiator(me:principal, them:principal, sid:sessionid) =
 		let re = bit2key(empty) in
 		let hs:handshakestate = initialize_initiator(empty, s, e, rs, re, key_psk(me, them)) in
 		insert statestore(me, them, sid, statepack_a(hs))
-	)
-	| (
+	) | (
 		get statestore(=me, =them, =sid, statepack_a(hs)) in
 		let (hs:handshakestate, message_a:bitstring) = writeMessage_a(me, them, hs, msg_a(me, them, sid), sid) in
 		event SendMsg(me, them, stagepack_a(sid), msg_a(me, them, sid));
 		insert statestore(me, them, sid, statepack_b(hs));
 		out(pub, message_a)
-	)
-	| (
+	) | (
 		get statestore(=me, =them, =sid, statepack_b(hs)) in
 		in(pub, message_b:bitstring);
 		let (hs:handshakestate, plaintext_b:bitstring, valid:bool, cs1:cipherstate, cs2:cipherstate) = readMessage_b(me, them, hs, message_b, sid) in
 		event RecvMsg(me, them, stagepack_b(sid), plaintext_b);
 		insert statestore(me, them, sid, statepack_c(hs, cs1, cs2));
 		0
-	)
-	| !(
+	) | !(
 		get statestore(=me, =them, =sid, statepack_c(hs, cs1, cs2)) in
 		let hs = handshakestatesetcs(hs, cs1) in
 		let (hs:handshakestate, message_c:bitstring) = writeMessage_c(me, them, hs, msg_c(me, them, sid), sid) in
 		event SendMsg(me, them, stagepack_c(sid), msg_c(me, them, sid));
 		insert statestore(me, them, sid, statepack_d(hs, handshakestategetcs(hs), cs2));
 		out(pub, message_c)
-	)
-	| !(
+	) | !(
 		get statestore(=me, =them, =sid, statepack_d(hs, cs1, cs2)) in
 		let hs = handshakestatesetcs(hs, cs2) in
 		in(pub, message_d:bitstring);
@@ -522,12 +531,10 @@ let initiator(me:principal, them:principal, sid:sessionid) =
 		event RecvMsg(me, them, stagepack_d(sid), plaintext_d);
 		(* Final message, do not pack state *)
 		event RecvEnd(valid)
-	)
-	| (
+	) | (
 		event LeakS(phase0, me);
 		out(pub, key_s(me))
-	)
-	| (
+	) | (
 		phase 1;
 		event LeakS(phase1, me);
 		out(pub, key_s(me))
@@ -542,23 +549,20 @@ let responder(me:principal, them:principal, sid:sessionid) =
 		let re = bit2key(empty) in
 		let hs:handshakestate = initialize_responder(empty, s, e, rs, re, key_psk(them, me)) in
 		insert statestore(me, them, sid, statepack_a(hs))
-	)
-	| (
+	) | (
 		get statestore(=me, =them, =sid, statepack_a(hs)) in
 		in(pub, message_a:bitstring);
 		let (hs:handshakestate, plaintext_a:bitstring, valid:bool) = readMessage_a(me, them, hs, message_a, sid) in
 		event RecvMsg(me, them, stagepack_a(sid), plaintext_a);
 		insert statestore(me, them, sid, statepack_b(hs));
 		0
-	)
-	| (
+	) | (
 		get statestore(=me, =them, =sid, statepack_b(hs)) in
 		let (hs:handshakestate, message_b:bitstring, cs1:cipherstate, cs2:cipherstate) = writeMessage_b(me, them, hs, msg_b(me, them, sid), sid) in
 		event SendMsg(me, them, stagepack_b(sid), msg_b(me, them, sid));
 		insert statestore(me, them, sid, statepack_c(hs, cs1, cs2));
 		out(pub, message_b)
-	)
-	| !(
+	) | !(
 		get statestore(=me, =them, =sid, statepack_c(hs, cs1, cs2)) in
 		let hs = handshakestatesetcs(hs, cs1) in
 		in(pub, message_c:bitstring);
@@ -566,24 +570,60 @@ let responder(me:principal, them:principal, sid:sessionid) =
 		event RecvMsg(me, them, stagepack_c(sid), plaintext_c);
 		insert statestore(me, them, sid, statepack_d(hs, handshakestategetcs(hs), cs2));
 		0
-	)
-	| !(
+	) | !(
 		get statestore(=me, =them, =sid, statepack_d(hs, cs1, cs2)) in
 		let hs = handshakestatesetcs(hs, cs2) in
 		let (hs:handshakestate, message_d:bitstring) = writeMessage_d(me, them, hs, msg_d(me, them, sid), sid) in
 		event SendMsg(me, them, stagepack_d(sid), msg_d(me, them, sid));
 		(* Final message, do not pack state *)
 		out(pub, message_d)
-	)
-	| (
+	) | (
 		event LeakS(phase0, me);
 		out(pub, key_s(me))
-	)
-	| (
+	) | (
 		phase 1;
 		event LeakS(phase1, me);
 		out(pub, key_s(me))
 	)).
+
+let repeatingKeysQuery() =
+	(
+		get statestore(a, b, sid_x, statepack_a(hs_x)) in
+		get statestore(c, d, sid_y, statepack_a(hs_y)) in
+		let cs_x = handshakestategetcs(hs_x) in
+		let cs_y = handshakestategetcs(hs_y) in
+		let (k_x:key, n_x:nonce) = cipherstateunpack(cs_x) in
+		let (k_y:key, n_y:nonce) = cipherstateunpack(cs_y) in
+		if ((k_x = k_y) && ((b <> c) || (a <> d)) && ((a <> c) || (b <> d) || (sid_x <> sid_y))) then (
+			event RepeatingKey_a(a)
+		)
+	) | (
+		get statestore(a, b, sid_x, statepack_b(hs_x)) in
+		get statestore(c, d, sid_y, statepack_b(hs_y)) in
+		let cs_x = handshakestategetcs(hs_x) in
+		let cs_y = handshakestategetcs(hs_y) in
+		let (k_x:key, n_x:nonce) = cipherstateunpack(cs_x) in
+		let (k_y:key, n_y:nonce) = cipherstateunpack(cs_y) in
+		if ((k_x = k_y) && ((b <> c) || (a <> d)) && ((a <> c) || (b <> d) || (sid_x <> sid_y))) then (
+			event RepeatingKey_b(a)
+		)
+	) | (
+		get statestore(a, b, sid_x, statepack_c(hs_x, cs1_x, cs2_x)) in
+		get statestore(c, d, sid_y, statepack_c(hs_y, cs1_y, cs2_y)) in
+		let (k1_x:key, n1_x:nonce) = cipherstateunpack(cs1_x) in
+		let (k1_y:key, n1_y:nonce) = cipherstateunpack(cs1_y) in
+		if ((k1_x = k1_y) && ((b <> c) || (a <> d)) && ((a <> c) || (b <> d) || (sid_x <> sid_y))) then (
+			event RepeatingKey_c(a)
+		)
+	) | (
+		get statestore(a, b, sid_x, statepack_d(hs_x, cs1_x, cs2_x)) in
+		get statestore(c, d, sid_y, statepack_d(hs_y, cs1_y, cs2_y)) in
+		let (k2_x:key, n2_x:nonce) = cipherstateunpack(cs2_x) in
+		let (k2_y:key, n2_y:nonce) = cipherstateunpack(cs2_y) in
+		if ((k2_x = k2_y) && ((b <> c) || (a <> d)) && ((a <> c) || (b <> d) || (sid_x <> sid_y))) then (
+			event RepeatingKey_d(a)
+		)
+	).
 
 (* ---------------------------------------------------------------- *)
 (* TOP-LEVEL PROCESS                                                *)
@@ -591,12 +631,10 @@ let responder(me:principal, them:principal, sid:sessionid) =
 
 process
   out(pub, key_s(charlie));
-	out(pub, key_psk(alice, charlie));
-	out(pub, key_psk(charlie, bob));
 	!(
 		new sid:sessionid;
-		initiator(alice, bob, sid) | initiator(alice, charlie, sid)
-		|
+		initiator(alice, bob, sid) | initiator(alice, charlie, sid) |
 		responder(bob, alice, sid) | responder(bob, charlie, sid)
+		(* | !repeatingKeysQuery() *)
 	)
 
