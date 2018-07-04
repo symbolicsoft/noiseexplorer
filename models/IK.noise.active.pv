@@ -131,23 +131,17 @@ fun decrement_nonce(nonce):nonce reduc
 	forall n:nonce;
 		decrement_nonce(increment_nonce(n)) = n.
 
-fun validkey(key):key.
-
-fun dhexp_real(key, key):key.
-equation forall a:key, b:key;
-  dhexp_real(b, dhexp_real(a, g)) = dhexp_real(a, dhexp_real(b, g)).
-reduc forall b:key;
-  dhexp(b, bit2key(zero)) = bit2key(zero);
-  forall b:key, k:key;
-  dhexp(b, validkey(k)) = dhexp_real(b, k).
-
-letfun dh(my_keypair:keypair, pubkey:key) =
-	let (my_public_key:key, my_private_key:key) = keypairunpack(my_keypair) in
-	dhexp(my_private_key, pubkey).
-
-letfun generate_keypair(basis:key) =
-	let public_key = dhexp(basis, validkey(g)) in
-	keypairpack(validkey(public_key), basis).
+    fun dhexp(key, key):key.
+    equation forall a:key, b:key;
+      dhexp(b, dhexp(a, g)) = dhexp(a, dhexp(b, g)).
+    
+    letfun dh(my_keypair:keypair, pubkey:key) =
+      let (my_public_key:key, my_private_key:key) = keypairunpack(my_keypair) in
+      dhexp(my_private_key, pubkey).
+    
+    letfun generate_keypair(basis:key) =
+      let public_key = dhexp(basis, g) in
+      keypairpack(public_key, basis).
 
 fun encrypt(key, nonce, bitstring, bitstring):bitstring.
 
@@ -629,7 +623,7 @@ let repeatingKeysQuery() =
 
 process
   out(pub, key_s(charlie));
-	!(
+	(
 		new sid:sessionid;
 		initiator(alice, bob, sid) | initiator(alice, charlie, sid) |
 		responder(bob, alice, sid) | responder(bob, charlie, sid)
