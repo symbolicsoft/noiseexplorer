@@ -36,10 +36,10 @@ const errMsg = {
 	moreThanOnePsk: 'Noise Handshake Patterns with a maximum of one PSK are currently supported.',
 	pskNotAtEndOfName: 'PSK modifiers must appear at the end of the Noise Handshake Pattern name.',
 	wrongMessageDir: 'Message direction within a Noise Handshake Pattern must alternate (initiator -> responder, initiator <- responder), with the first message being sent by the initiator.',
-	tokenlessNotLast: 'Noise Handshake Patterns can only contain tokenless handshake messages at the very bottom of the pattern.',
+	transportNotLast: 'Noise Handshake Patterns can only contain transport handshake messages at the very bottom of the pattern.',
 	dhWithUnknownKey: 'Principals cannot perform a Diffie-Hellman operation with a key share that does not exist.',
 	unusedKeySent: 'Noise Handshake Patterns should not contain key shares that are not subsequently used in any Diffie-Hellman operation.',
-	tokenlessOnly: 'Noise Handshake Pattern cannot consist purely of tokenless messages.'
+	transportOnly: 'Noise Handshake Pattern cannot consist purely of transport messages.'
 };
 
 const check = {
@@ -155,25 +155,25 @@ const check = {
 			}
 		});
 	},
-	tokenlessMessages: (pattern) => {
-		let tokenlessMessage = -1;
+	transportMessages: (pattern) => {
+		let transportMessage = -1;
 		pattern.messages.forEach((message, i) => {
 			if (
 				(message.tokens.length === 0) &&
-				(tokenlessMessage === -1)
+				(transportMessage === -1)
 			) {
-				tokenlessMessage = i;
+				transportMessage = i;
 			}
 			if (
 				(message.tokens.length > 0) &&
-				(tokenlessMessage >= 0) &&
-				(i > tokenlessMessage)
+				(transportMessage >= 0) &&
+				(i > transportMessage)
 			) {
-				error(errMsg.tokenlessNotLast);
+				error(errMsg.transportNotLast);
 			}
 		});
 		if (pattern.messages[0].tokens.length === 0) {
-			error(errMsg.tokenlessOnly);
+			error(errMsg.transportOnly);
 		}
 	}
 };
@@ -192,7 +192,7 @@ Pattern =
 		check.preMessages(pattern);
 		check.messages(pattern);
 		check.psk(pattern);
-		check.tokenlessMessages(pattern);
+		check.transportMessages(pattern);
     	return pattern;
     }
 
