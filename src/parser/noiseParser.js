@@ -998,7 +998,7 @@ function peg$parse(input, options) {
   	transportNotLast: 'Noise Handshake Patterns can only contain transport handshake messages at the very bottom of the pattern.',
   	dhWithUnknownKey: 'Principals cannot perform a Diffie-Hellman operation with a key share that does not exist.',
   	unusedKeySent: 'Noise Handshake Patterns should not contain key shares that are not subsequently used in any Diffie-Hellman operation.',
-  	transportOnly: 'Noise Handshake Pattern cannot consist purely of transport messages.'
+  	transportOnly: 'Noise Handshake Patterns cannot consist purely of transport messages.'
   };
 
   const check = {
@@ -1121,7 +1121,7 @@ function peg$parse(input, options) {
   				(message.tokens.length === 0) &&
   				(transportMessage === -1)
   			) {
-				transportMessage = i;
+  				transportMessage = i;
   			}
   			if (
   				(message.tokens.length > 0) &&
