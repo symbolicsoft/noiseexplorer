@@ -483,7 +483,7 @@ const renderDetailed = (
 			`In this query, we test for <em>message secrecy</em> by checking if an active attacker is able to retrieve the payload plaintext only by compromising ${whom[0].toUpperCase()}${whom.substr(1)}'s static key either before or after the protocol session.`,
 			`In this query, we test for <em>forward secrecy</em> by checking if a passive attacker is able to retrieve the payload plaintext only by compromising ${whom[0].toUpperCase()}${whom.substr(1)}'s static key before the protocol session, or after the protocol session along with ${who[0].toUpperCase()}${who.substr(1)}'s static public key (at any time.)`,
 			`In this query, we test for <em>weak forward secrecy</em> by checking if an active attacker is able to retrieve the payload plaintext only by compromising ${whom[0].toUpperCase()}${whom.substr(1)}'s static key before the protocol session, or after the protocol session along with ${who[0].toUpperCase()}${who.substr(1)}'s static public key (at any time.)`,
-			`In this query, we test for <em>weak forward secrecy</em> by checking if an active attacker is able to retrieve the payload plaintext only by compromising ${whom[0].toUpperCase()}${whom.substr(1)}'s static key before the protocol session.`,
+			`In this query, we test for <em>strong forward secrecy</em> by checking if an active attacker is able to retrieve the payload plaintext only by compromising ${whom[0].toUpperCase()}${whom.substr(1)}'s static key before the protocol session.`,
 		]
 	};
 	analysisTxt = [
