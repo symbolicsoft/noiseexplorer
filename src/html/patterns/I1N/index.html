@@ -10,7 +10,16 @@
 	<link rel="icon" type="image/png" href="../../res/img/logo.png" />
 	<link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono|IBM+Plex+Sans" rel="stylesheet" />
 	<link href="../../res/css/style.css" rel="stylesheet" />
-	<script type="application/javascript"></script>
+	<script type="application/javascript" src="../../res/js/parser/noiseParser.js"></script>
+	<script type="application/javascript" src="../../res/js/parser/noise2Pv.js"></script>
+	<script type="application/javascript" src="../../res/js/parser/noiseReader.js"></script>
+	<script type="application/javascript" src="../../res/js/noiseWebIde.js"></script>
+	<script type="application/javascript">
+	window.addEventListener('load', () => {
+		pvModelGen(['I1N:','	-> e, s','	<- e, ee','	-> se','	<-','	->'].join('\n'), 'active', 'pvModelActiveLink', false);
+		pvModelGen(['I1N:','	-> e, s','	<- e, ee','	-> se','	<-','	->'].join('\n'), 'passive', 'pvModelPassiveLink', false);
+	});
+	</script>
 </head>
 
 <body>
@@ -26,40 +35,40 @@
 			<a href="../../cmd">Command-Line Tool</a>
 		</div>
 	</div>
-	<div class="results" style="height: 705px;">
+	<div class="results" style="height: 805px;">
 		<div class="arrowsFrame">
 			<h1 id="patternName">I1N</h1>
-			<div class="arrows" style="height: 705px;">
-				<svg id="patternArrows" style="height: 705px;">
+			<div class="arrows" style="height: 805px;">
+				<svg id="patternArrows" style="height: 805px;">
 					<line data-seclevel="0" x1="1" x2="248" y1="30" y2="30"></line>
 					<polyline data-seclevel="0" points="237 20 248 30 237 40"></polyline>
 					<circle data-seclevel="0" cx="17" cy="30" r="15"></circle>
 					<text class="msg" x="16" y="35">a</text>
 					<text class="tokens" x="120" y="22">e, s</text>
-<line data-seclevel="1" x2="248" y1="165" y2="165"></line>
-					<polyline data-seclevel="1" points="10 155 1 165 10 175"></polyline>
-					<circle data-seclevel="0" cx="234" cy="165" r="15"></circle>
-					<text class="msg" x="233" y="170">b</text>
-					<text class="tokens" x="120" y="157">e, ee</text>
-<line data-seclevel="1" x1="1" x2="248" y1="300" y2="300"></line>
-					<polyline data-seclevel="1" points="237 290 248 300 237 310"></polyline>
-					<circle data-seclevel="2" cx="17" cy="300" r="15"></circle>
-					<text class="msg" x="16" y="305">c</text>
-					<text class="tokens" x="120" y="292">se</text>
-<line data-seclevel="5" x2="248" y1="435" y2="435"></line>
-					<polyline data-seclevel="5" points="10 425 1 435 10 445"></polyline>
-					<circle data-seclevel="0" cx="234" cy="435" r="15"></circle>
-					<text class="msg" x="233" y="440">d</text>
-					<text class="tokens" x="120" y="427"></text>
-<line data-seclevel="1" x1="1" x2="248" y1="570" y2="570"></line>
-					<polyline data-seclevel="1" points="237 560 248 570 237 580"></polyline>
-					<circle data-seclevel="2" cx="17" cy="570" r="15"></circle>
-					<text class="msg" x="16" y="575">e</text>
-					<text class="tokens" x="120" y="562"></text>
+<line data-seclevel="1" x2="248" y1="185" y2="185"></line>
+					<polyline data-seclevel="1" points="10 175 1 185 10 195"></polyline>
+					<circle data-seclevel="0" cx="234" cy="185" r="15"></circle>
+					<text class="msg" x="233" y="190">b</text>
+					<text class="tokens" x="120" y="177">e, ee</text>
+<line data-seclevel="1" x1="1" x2="248" y1="340" y2="340"></line>
+					<polyline data-seclevel="1" points="237 330 248 340 237 350"></polyline>
+					<circle data-seclevel="2" cx="17" cy="340" r="15"></circle>
+					<text class="msg" x="16" y="345">c</text>
+					<text class="tokens" x="120" y="332">se</text>
+<line data-seclevel="5" x2="248" y1="495" y2="495"></line>
+					<polyline data-seclevel="5" points="10 485 1 495 10 505"></polyline>
+					<circle data-seclevel="0" cx="234" cy="495" r="15"></circle>
+					<text class="msg" x="233" y="500">d</text>
+					<text class="tokens" x="120" y="487"></text>
+<line data-seclevel="1" x1="1" x2="248" y1="650" y2="650"></line>
+					<polyline data-seclevel="1" points="237 640 248 650 237 660"></polyline>
+					<circle data-seclevel="2" cx="17" cy="650" r="15"></circle>
+					<text class="msg" x="16" y="655">e</text>
+					<text class="tokens" x="120" y="642"></text>
 				</svg>
 			</div>
 		</div>
-		<div class="resultsExplanation" style="height: 705px;">
+		<div class="resultsExplanation" style="height: 805px;">
 			<h2>Handshake Pattern Analysis</h2>
 			
 			<h3>Message A <a href="A.html" class="detailedAnalysis">show detailed analysis</a></h3>
@@ -76,6 +85,17 @@
 
 			<h3>Message E <a href="E.html" class="detailedAnalysis">show detailed analysis</a></h3>
 			<p>Message E, sent by the initiator, benefits from <em>sender authentication</em> and is <em>resistant to Key Compromise Impersonation</em>. Assuming the corresponding private keys are secure, this authentication cannot be forged. However, if the initiator carries out a separate session with a separate, compromised responder, this other session can be used to forge the authenticity of this message with this session's responder. Message contents benefit from some <em>message secrecy</em> and some <em>forward secrecy</em>, but not sufficiently to resist any active attacker.  <span class="resultNums">2,1</span></p>
+			<h3>Download Cryptographic Models for Formal Verification</h3>
+			<p>
+				<a href="#" id="pvModelActiveLink">
+					Download Model
+					<span class="modelType">active attacker</span>
+				</a>
+				<a href="#" id="pvModelPassiveLink">
+					Download Model
+					<span class="modelType">passive attacker</span>
+				</a>
+			</p>
 		</div>
 	</div>
 	<div class="footer">

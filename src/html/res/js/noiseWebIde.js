@@ -48,7 +48,7 @@ let getPvModel = (patternInput, parsedPattern, passive, cb) => {
 	let pv = ['', '', '', '', '', '', '', '', ''];
 	pvTemplates.forEach((templateFile, i) => {
 		let xhr = new XMLHttpRequest();
-		xhr.open('GET', `res/pv/${templateFile}.pv`);
+		xhr.open('GET', `/res/pv/${templateFile}.pv`);
 		xhr.onreadystatechange = () => {
 			if (
 				(xhr.readyState !== 4) ||
@@ -102,8 +102,9 @@ let processPatternKeyUp = (key) => {
 	}
 };
 
-let pvModelGen = (patternInput, attacker, aId) => {
+let pvModelGen = (patternInput, attacker, aId, autoClick) => {
 	let parsedPattern = {};
+	let passive = /^passive$/.test(attacker);
 	if (modelsReady[attacker]) {
 		return true;
 	}
@@ -113,42 +114,14 @@ let pvModelGen = (patternInput, attacker, aId) => {
 		alert('Please first ensure that your Noise pattern is valid.');
 		return false;
 	}
-	getPvModel(patternInput, parsedPattern, false, (pv) => {
+	getPvModel(patternInput, parsedPattern, passive, (pv) => {
 		let data = new Blob([pv], { type: 'text/plain' });
 		let pvModel = window.URL.createObjectURL(data);
 		modelsReady[attacker] = true;
 		$(aId).href = pvModel;
 		$(aId).download = `${parsedPattern.name}.${attacker}.pv`;
-		$(aId).click();
+		autoClick? $(aId).click() : false;
 	});
 	return false;
 };
 
-window.addEventListener('load', () => {
-	processPatternInput($('patternInput').value);
-	$('patternInput').addEventListener('input', (event) => {
-		processPatternInput($('patternInput').value);
-	});
-	$('patternInput').addEventListener('keyup', (event) => {
-		processPatternKeyUp(event.key);
-	});
-	$('pvModelActiveLink').addEventListener('click', (event) => {
-		pvModelGen($('patternInput').value, 'active', 'pvModelActiveLink');
-	});
-	$('pvModelPassiveLink').addEventListener('click', (event) => {
-		pvModelGen($('patternInput').value, 'passive', 'pvModelPassiveLink');
-	});
-	$('patternInput').value = '';
-	$('patternInput').focus();
-	processPatternInput('');
-	let c = 0;
-	let o = 250;
-	while (c < startingPattern.length) {
-		setTimeout((i) => {
-			$('patternInput').value += startingPattern[i];
-			processPatternInput($('patternInput').value);
-		}, o, c);
-		c = c + 1;
-		o = o + 50;
-	}
-});

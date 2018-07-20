@@ -163,11 +163,21 @@ if (ARGV.hasOwnProperty('render')) {
 			json, readResultsActive, readResultsPassive,
 			rawResultsActive, rawResultsPassive
 		);
+		let patternSplit = pattern.replace(/(\r\n\t|\n|\r\t)/gm, '\n').split('\n');
+		let patternSplitS = '[';
+		patternSplit.forEach((line) => {
+			if (line.length) {
+				patternSplitS = `${patternSplitS}'${line}',`;
+			}
+		});
+		patternSplitS = `${patternSplitS.slice(0, -1)}].join('\\n')`;
 		let output = READFILE('html/patterns/template.html')
 			.replace(/\$NOISERENDER_T\$/g, json.name)
 			.replace(/\$NOISERENDER_H\$/g, html.offset)
 			.replace(/\$NOISERENDER_R\$/g, html.arrowSvg)
-			.replace(/\$NOISERENDER_A\$/g, html.analysisTxt);
+			.replace(/\$NOISERENDER_A\$/g, html.analysisTxt)
+			.replace(/\$NOISERENDER_M\$/g, patternSplitS)
+			.replace(/\$NOISERENDER_N\$/g, patternSplitS);
 		if (!FS.existsSync(`html/patterns/${json.name}`)) {
 			FS.mkdirSync(`html/patterns/${json.name}`);
 		}

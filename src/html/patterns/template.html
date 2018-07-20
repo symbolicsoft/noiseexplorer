@@ -10,7 +10,16 @@
 	<link rel="icon" type="image/png" href="../../res/img/logo.png" />
 	<link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono|IBM+Plex+Sans" rel="stylesheet" />
 	<link href="../../res/css/style.css" rel="stylesheet" />
-	<script type="application/javascript"></script>
+	<script type="application/javascript" src="../../res/js/parser/noiseParser.js"></script>
+	<script type="application/javascript" src="../../res/js/parser/noise2Pv.js"></script>
+	<script type="application/javascript" src="../../res/js/parser/noiseReader.js"></script>
+	<script type="application/javascript" src="../../res/js/noiseWebIde.js"></script>
+	<script type="application/javascript">
+	window.addEventListener('load', () => {
+		pvModelGen($NOISERENDER_M$, 'active', 'pvModelActiveLink', false);
+		pvModelGen($NOISERENDER_N$, 'passive', 'pvModelPassiveLink', false);
+	});
+	</script>
 </head>
 
 <body>
@@ -38,6 +47,17 @@
 		<div class="resultsExplanation" style="height: $NOISERENDER_H$px;">
 			<h2>Handshake Pattern Analysis</h2>
 			$NOISERENDER_A$
+			<h3>Download Cryptographic Models for Formal Verification</h3>
+			<p>
+				<a href="#" id="pvModelActiveLink">
+					Download Model
+					<span class="modelType">active attacker</span>
+				</a>
+				<a href="#" id="pvModelPassiveLink">
+					Download Model
+					<span class="modelType">passive attacker</span>
+				</a>
+			</p>
 		</div>
 	</div>
 	<div class="footer">
