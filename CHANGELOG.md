@@ -13,6 +13,8 @@
 - Redundancy elimination during the derivation phase is now enabled in ProVerif, which should speed up verification performance in some cases.
 - Bug fix: the PSK parsing check was not sufficiently precise due to a programming error.
 - Bug fix: command-line interface always required that attacker be specified when parsing patterns, even though the value is optional with a default value of `active`.
+- Add Noise Handshake Pattern validation rule 7.3.4 from revision 34.
+- ProVerif models may now be generated and downloaded directly from each Noise Handshake Pattern's compendium page.
 - Numerous other additions, improvements and bug fixes.
 
 ## Noise Explorer 0.2 (May 22, 2018)
