@@ -998,7 +998,11 @@ function peg$parse(input, options) {
   	transportNotLast: 'Noise Handshake Patterns can only contain transport handshake messages at the very bottom of the pattern.',
   	dhWithUnknownKey: 'Principals cannot perform a Diffie-Hellman operation with a key share that does not exist.',
   	unusedKeySent: 'Noise Handshake Patterns should not contain key shares that are not subsequently used in any Diffie-Hellman operation.',
-  	transportOnly: 'Noise Handshake Patterns cannot consist purely of transport messages.'
+  	transportOnly: 'Noise Handshake Patterns cannot consist purely of transport messages.',
+  	seEeRule: 'After an se token, the initiator must not send a handshake payload or transport payload unless there has also been an ee token.',
+  	ssEsRule: 'After an ss token, the initiator must not send a handshake payload or transport payload unless there has also been an es token.',
+  	esEeRule: 'After an es token, the responder must not send a handshake payload or transport payload unless there has also been an ee token.',
+  	ssSeRule: 'After an ss token, the responder must not send a handshake payload or transport payload unless there has also been an se token.'
   };
 
   const check = {
@@ -1037,12 +1041,40 @@ function peg$parse(input, options) {
   			}
   			if (message.tokens.indexOf('ss') >= 0) {
   				g.ss++;
+  				if (
+  					(message.dir === 'send') &&
+  					(g.es === 0) &&
+  					(message.tokens.indexOf('es') < 0)
+  				) {
+  					error(errMsg.ssEsRule);
+  				}
+  				if (
+  					(message.dir === 'recv') &&
+  					(g.se === 0) &&
+  					(message.tokens.indexOf('se') < 0)
+  				) {
+  					error(errMsg.ssSeRule);
+  				}
   			}
   			if (message.tokens.indexOf('se') >= 0) {
   				g.se++;
+  				if (
+  					(message.dir === 'send') &&
+  					(g.ee === 0) &&
+  					(message.tokens.indexOf('ee') < 0)
+  				) {
+  					error(errMsg.seEeRule);
+  				}
   			}
   			if (message.tokens.indexOf('es') >= 0) {
   				g.es++;
+  				if (
+  					(message.dir === 'recv') &&
+  					(g.ee === 0) &&
+  					(message.tokens.indexOf('ee') < 0)
+  				) {
+  					error(errMsg.esEeRule);
+  				}
   			}
   			if (message.tokens.indexOf('ee') >= 0) {
   				g.ee++;
