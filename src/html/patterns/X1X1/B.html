@@ -120,31 +120,31 @@ letfun readMessage_b(me:principal, them:principal, hs:handshakestate, message:bi
 <h3>Queries and Results</h3>
 Message <span class="mono">B</span> is tested against four authenticity queries and five confidentiality queries.
 <h4>Authenticity Grade 1: <span class="failed">Failed</span></h4>
-<p class="proverif"><br />event(RecvMsg(alice,bob,stagepack_b(sid_a),m)) ==> event(SendMsg(bob,c,stagepack_b(sid_b),m)) || event(LeakS(phase0,bob)) || event(LeakS(phase0,alice))</p>
+<p class="proverif"><br />RESULT event(RecvMsg(alice,bob,stagepack_b(sid_a),m)) ==> event(SendMsg(bob,c_1430,stagepack_b(sid_b),m)) || event(LeakS(phase0,bob)) || event(LeakS(phase0,alice)) cannot be proved.</p>
 <p>In this query, we test for <em>sender authentication</em> and <em>message integrity</em>. If Alice receives a valid message from Bob, then Bob must have sent that message to <em>someone</em>, or Bob had their static key compromised before the session began, or Alice had their static key compromised before the session began.</p>
 <h4>Authenticity Grade 2: <span class="failed">Failed</span></h4>
-<p class="proverif"><br />event(RecvMsg(alice,bob,stagepack_b(sid_a),m)) ==> event(SendMsg(bob,c,stagepack_b(sid_b),m)) || event(LeakS(phase0,bob))</p>
+<p class="proverif"><br />RESULT event(RecvMsg(alice,bob,stagepack_b(sid_a),m)) ==> event(SendMsg(bob,c_1430,stagepack_b(sid_b),m)) || event(LeakS(phase0,bob)) cannot be proved.</p>
 <p>In this query, we test for <em>sender authentication</em> and is <em>Key Compromise Impersonation</em> resistance. If Alice receives a valid message from Bob, then Bob must have sent that message to <em>someone</em>, or Bob had their static key compromised before the session began.</p>
 <h4>Authenticity Grade 3: <span class="failed">Failed</span></h4>
-<p class="proverif"><br />event(RecvMsg(alice,bob,stagepack_b(sid_a),m)) ==> event(SendMsg(bob,alice,stagepack_b(sid_b),m)) || event(LeakS(phase0,bob)) || event(LeakS(phase0,alice))</p>
+<p class="proverif"><br />RESULT event(RecvMsg(alice,bob,stagepack_b(sid_a),m)) ==> event(SendMsg(bob,alice,stagepack_b(sid_b),m)) || event(LeakS(phase0,bob)) || event(LeakS(phase0,alice)) cannot be proved.</p>
 <p>In this query, we test for <em>sender and receiver authentication</em> and <em>message integrity</em>. If Alice receives a valid message from Bob, then Bob must have sent that message to <em>Alice specifically</em>, or Bob had their static key compromised before the session began, or Alice had their static key compromised before the session began.</p>
 <h4>Authenticity Grade 4: <span class="failed">Failed</span></h4>
-<p class="proverif"><br />event(RecvMsg(alice,bob,stagepack_b(sid_a),m)) ==> event(SendMsg(bob,alice,stagepack_b(sid_b),m)) || event(LeakS(phase0,bob))</p>
+<p class="proverif"><br />RESULT event(RecvMsg(alice,bob,stagepack_b(sid_a),m)) ==> event(SendMsg(bob,alice,stagepack_b(sid_b),m)) || event(LeakS(phase0,bob)) cannot be proved.</p>
 <p>In this query, we test for <em>sender and receiver authentication</em> and is <em>Key Compromise Impersonation</em> resistance. If Alice receives a valid message from Bob, then Bob must have sent that message to <em>Alice specifically</em>, or Bob had their static key compromised before the session began.</p>
 <h4>Confidentiality Grade 1: <span class="passed">Passed</span></h4>
-<p class="proverif"><br />attacker_p1(msg_b(bob,alice,sid_b)) ==> event(LeakS(phase0,alice)) || event(LeakS(phase1,alice))</p>
+<p class="proverif"><br />RESULT attacker_p1(msg_b(bob,alice,sid_b)) ==> event(LeakS(phase0,alice)) || event(LeakS(phase1,alice)) is true.</p>
 <p>In this query, we test for <em>message secrecy</em> by checking if a passive attacker is able to retrieve the payload plaintext only by compromising Alice's static key either before or after the protocol session.</p>
 <h4>Confidentiality Grade 2: <span class="failed">Failed</span></h4>
-<p class="proverif"><br />attacker_p1(msg_b(bob,alice,sid_b)) ==> event(LeakS(phase0,alice)) || event(LeakS(phase1,alice))</p>
+<p class="proverif"><br />RESULT attacker_p1(msg_b(bob,alice,sid_b)) ==> event(LeakS(phase0,alice)) || event(LeakS(phase1,alice)) cannot be proved.</p>
 <p>In this query, we test for <em>message secrecy</em> by checking if an active attacker is able to retrieve the payload plaintext only by compromising Alice's static key either before or after the protocol session.</p>
 <h4>Confidentiality Grade 3: <span class="failed">Failed</span></h4>
-<p class="proverif"><br />attacker_p1(msg_b(bob,alice,sid_b)) ==> event(LeakS(phase0,alice)) || (event(LeakS(phase1,alice)) && event(LeakS(p,bob)))</p>
+<p class="proverif"><br />RESULT attacker_p1(msg_b(bob,alice,sid_b)) ==> event(LeakS(phase0,alice)) || (event(LeakS(phase1,alice)) && event(LeakS(p,bob))) is true.</p>
 <p>In this query, we test for <em>forward secrecy</em> by checking if a passive attacker is able to retrieve the payload plaintext only by compromising Alice's static key before the protocol session, or after the protocol session along with Bob's static public key (at any time.)</p>
 <h4>Confidentiality Grade 4: <span class="failed">Failed</span></h4>
-<p class="proverif"><br />attacker_p1(msg_b(bob,alice,sid_b)) ==> event(LeakS(phase0,alice)) || (event(LeakS(phase1,alice)) && event(LeakS(p,bob)))</p>
+<p class="proverif"><br />RESULT attacker_p1(msg_b(bob,alice,sid_b)) ==> event(LeakS(phase0,alice)) || (event(LeakS(phase1,alice)) && event(LeakS(p,bob))) cannot be proved.</p>
 <p>In this query, we test for <em>weak forward secrecy</em> by checking if an active attacker is able to retrieve the payload plaintext only by compromising Alice's static key before the protocol session, or after the protocol session along with Bob's static public key (at any time.)</p>
 <h4>Confidentiality Grade 5: <span class="failed">Failed</span></h4>
-<p class="proverif"><br />attacker_p1(msg_b(bob,alice,sid_b)) ==> event(LeakS(phase0,alice))</p>
+<p class="proverif"><br />RESULT attacker_p1(msg_b(bob,alice,sid_b)) ==> event(LeakS(phase0,alice)) cannot be proved.</p>
 <p>In this query, we test for <em>strong forward secrecy</em> by checking if an active attacker is able to retrieve the payload plaintext only by compromising Alice's static key before the protocol session.</p>
 		</div>
 	</div>

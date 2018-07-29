@@ -1,0 +1,8 @@
+KKpsk2:
+    -> s
+    <- s
+    ...
+    -> e, es, ss
+    <- e, ee, se, psk
+	->
+	<-

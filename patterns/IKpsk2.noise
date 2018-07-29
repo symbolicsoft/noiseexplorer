@@ -1,0 +1,7 @@
+IKpsk2:
+     <- s
+     ...
+     -> e, es, s, ss
+     <- e, ee, se, psk
+	 ->
+	 <-

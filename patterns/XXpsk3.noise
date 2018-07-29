@@ -1,0 +1,6 @@
+XXpsk3:
+   -> e
+   <- e, ee, s, es
+   -> s, se, psk
+   <-
+   ->

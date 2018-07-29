@@ -67,26 +67,36 @@ const preMessagesRecvEphemeral = (pattern) => {
 };
 
 const messagesSendStatic = (pattern) => {
-	let r = false;
-	pattern.messages.forEach((message) => {
+	let r = -1;
+	pattern.messages.forEach((message, i) => {
 		if (
 			(message.dir === 'send') &&
 			(message.tokens.indexOf('s') >= 0)
 		) {
-			r = true;
+			r = i;
 		}
 	});
 	return r;
 };
 
 const messagesRecvStatic = (pattern) => {
-	let r = false;
-	pattern.messages.forEach((message) => {
+	let r = -1;
+	pattern.messages.forEach((message, i) => {
 		if (
 			(message.dir === 'recv') &&
 			((message.tokens.indexOf('s') >= 0))
 		) {
-			r = true;
+			r = i;
+		}
+	});
+	return r;
+};
+
+const messagesPsk = (pattern) => {
+	let r = -1;
+	pattern.messages.forEach((message, i) => {
+		if (message.tokens.indexOf('psk') >= 0) {
+			r = i;
 		}
 	});
 	return r;
@@ -228,7 +238,7 @@ const writeMessageFuns = (pattern) => {
 	let writeFuns = [];
 	let finalKex = finalKeyExchangeMessage(pattern);
 	pattern.messages.forEach((message, i) => {
-		let hasPsk = /psk\d$/.test(pattern.name);
+		let hasPsk = messagesPsk(pattern) >= 0;
 		let initiator = (message.dir === 'send');
 		writeFuns.push(
 			writeMessageFun(message, hasPsk, initiator, (i === finalKex), util.abc[i])
@@ -301,7 +311,7 @@ const readMessageFuns = (pattern) => {
 	let readFuns = [];
 	let finalKex = finalKeyExchangeMessage(pattern);
 	pattern.messages.forEach((message, i) => {
-		let hasPsk = /psk\d$/.test(pattern.name);
+		let hasPsk = messagesPsk(pattern) >= 0;
 		let initiator = (message.dir === 'recv');
 		readFuns.push(
 			readMessageFun(message, hasPsk, initiator, (i === finalKex), util.abc[i])
@@ -327,10 +337,12 @@ const events = (pattern) => {
 };
 
 const queries = (pattern) => {
-	let hasPsk = /psk\d$/.test(pattern.name);
 	let quer = [
 		`query c:principal, m:bitstring, sid_a:sessionid, sid_b:sessionid, s:stage, b:bitstring, p:phasen;`,
 	];
+	let sends = preMessagesSendStatic(pattern)? 0 : messagesSendStatic(pattern);
+	let recvs = preMessagesRecvStatic(pattern)? 0 : messagesRecvStatic(pattern);
+	let psk = messagesPsk(pattern);
 	pattern.messages.forEach((message, i) => {
 		let send = (i % 2)? 'bob' : 'alice';
 		let recv = (i % 2)? 'alice' : 'bob';
@@ -339,33 +351,36 @@ const queries = (pattern) => {
 		let abc = util.abc[i];
 		let confQuery21 = (params.attacker === 'active')? '2' : '1';
 		let confQuery43 = (params.attacker === 'active')? '4' : '3';
-		let end = (i < (pattern.messages.length - 1))? ';' : ';';
+		let leakS = (phase, isSend) => {
+			let x = isSend? send : recv;
+			let y = (x === 'alice')? sends : recvs;
+			let s = (y >= 0)? `(event(LeakS(${phase}, ${x})))` : '';
+			let p = (psk >= 0)? `(event(LeakPsk(${phase}, alice, bob)))` : '';
+			let a = (s.length && p.length)? ' && ' : '';
+			return (s || p)? `${s}${a}${p}` : 'false';
+		};
 		quer = quer.concat([
 			`(* Message ${abc}: Authenticity sanity *)`,
 			`\tevent(RecvMsg(${recv}, ${send}, stagepack_${abc}(${recvsid}), m)) ==> (event(SendMsg(${send}, ${recv}, stagepack_${abc}(${sendsid}), m)));`,
 			`(* Message ${abc}: Authenticity 1 *)`,
-			`\tevent(RecvMsg(${recv}, ${send}, stagepack_${abc}(${recvsid}), m)) ==> (event(SendMsg(${send}, c, stagepack_${abc}(${sendsid}), m))) || (event(LeakS(phase0, ${send}))) || (event(LeakS(phase0, ${recv})));`,
+			`\tevent(RecvMsg(${recv}, ${send}, stagepack_${abc}(${recvsid}), m)) ==> (event(SendMsg(${send}, c, stagepack_${abc}(${sendsid}), m))) || (${leakS('phase0', true)}) || (${leakS('phase0', false)});`,
 			`(* Message ${abc}: Authenticity 2 *)`,
-			`\tevent(RecvMsg(${recv}, ${send}, stagepack_${abc}(${recvsid}), m)) ==> (event(SendMsg(${send}, c, stagepack_${abc}(${sendsid}), m))) || (event(LeakS(phase0, ${send})));`,
+			`\tevent(RecvMsg(${recv}, ${send}, stagepack_${abc}(${recvsid}), m)) ==> (event(SendMsg(${send}, c, stagepack_${abc}(${sendsid}), m))) || (${leakS('phase0', true)});`,
 			`(* Message ${abc}: Authenticity 3 *)`,
-			`\tevent(RecvMsg(${recv}, ${send}, stagepack_${abc}(${recvsid}), m)) ==> (event(SendMsg(${send}, ${recv}, stagepack_${abc}(${sendsid}), m))) || (event(LeakS(phase0, ${send}))) || (event(LeakS(phase0, ${recv})));`,
+			`\tevent(RecvMsg(${recv}, ${send}, stagepack_${abc}(${recvsid}), m)) ==> (event(SendMsg(${send}, ${recv}, stagepack_${abc}(${sendsid}), m))) || (${leakS('phase0', true)}) || (${leakS('phase0', false)});`,
 			`(* Message ${abc}: Authenticity 4 *)`,
-			`\tevent(RecvMsg(${recv}, ${send}, stagepack_${abc}(${recvsid}), m)) ==> (event(SendMsg(${send}, ${recv}, stagepack_${abc}(${sendsid}), m))) || (event(LeakS(phase0, ${send})));`
+			`\tevent(RecvMsg(${recv}, ${send}, stagepack_${abc}(${recvsid}), m)) ==> (event(SendMsg(${send}, ${recv}, stagepack_${abc}(${sendsid}), m))) || (${leakS('phase0', true)});`
 		]);
-		if (hasPsk) {
-		}
 		quer = quer.concat([
 			`(* Message ${abc}: Confidentiality sanity *)`,
 			`\tattacker(msg_${abc}(${send}, ${recv}, ${sendsid}));`,
 			`(* Message ${abc}: Confidentiality ${confQuery21} *)`,
-			`\tattacker(msg_${abc}(${send}, ${recv}, ${sendsid})) ==> (event(LeakS(phase0, ${recv}))) || (event(LeakS(phase1, ${recv})));`,
+			`\tattacker(msg_${abc}(${send}, ${recv}, ${sendsid})) ==> (${leakS('phase0', false)}) || (${leakS('phase1', false)});`,
 			`(* Message ${abc}: Confidentiality ${confQuery43} *)`,
-			`\tattacker(msg_${abc}(${send}, ${recv}, ${sendsid})) ==> (event(LeakS(phase0, ${recv}))) || ((event(LeakS(phase1, ${recv})) && event(LeakS(p, ${send}))));`,
+			`\tattacker(msg_${abc}(${send}, ${recv}, ${sendsid})) ==> (${leakS('phase0', false)}) || ((${leakS('phase1', false)}) && (${leakS('p', true)}));`,
 			`(* Message ${abc}: Confidentiality 5 *)`,
-			`\tattacker(msg_${abc}(${send}, ${recv}, ${sendsid})) ==> (event(LeakS(phase0, ${recv})))${end}`
+			`\tattacker(msg_${abc}(${send}, ${recv}, ${sendsid})) ==> (${leakS('phase0', false)});`
 		]);
-		if (hasPsk) {
-		}
 	});
 	pattern.messages.forEach((message, i) => {
 		quer = quer.concat([
@@ -373,27 +388,6 @@ const queries = (pattern) => {
 			`\t(* event(RepeatingKey_${util.abc[i]}(alice)); event(RepeatingKey_${util.abc[i]}(bob)); *)`
 		]);
 	});
-	/*
-	if (params.attacker === 'active') {
-		quer = quer.concat([
-			`(* Identity hiding 2 (responder) *)`,
-			`\tattacker(dhexp_real(key_s(bob), g)) ==> (event(LeakS(p, bob))) || (event(LeakS(p, alice)));`,
-			`(* Identity hiding 3 (initiator) *)`,
-			`\tattacker(dhexp_real(key_s(alice), g)) ==> (event(LeakS(p, alice))) || (event(LeakS(phase0, bob)));`,
-			`(* Identity hiding 3 (responder) *)`,
-			`\tattacker(dhexp_real(key_s(bob), g)) ==> (event(LeakS(p, bob))) || (event(LeakS(phase0, alice)));`
-		]);
-	} else {
-		quer = quer.concat([
-			`(* Identity hiding 1 (initiator) *)`,
-			`\tattacker(dhexp_real(key_s(alice), g)) ==> (event(LeakS(p, alice))) || event(SendMsg(alice, charlie, s, m));`,
-			`(* Identity hiding 1 (responder) *)`,
-			`\tattacker(dhexp_real(key_s(bob), g)) ==> (event(LeakS(p, bob))) || event(RecvMsg(bob, charlie, s, m));`,
-			`(* Identity hiding 2 (initiator) *)`,
-			`\tattacker(dhexp_real(key_s(alice), g)) ==> (event(LeakS(p, alice))) || (event(LeakS(p, bob)));`
-		]);
-	}
-	*/
 	quer = quer.concat([
 		`(* Protocol termination sanity *)`,
 		`\tevent(RecvEnd(true)).`
@@ -406,6 +400,9 @@ const globals = (pattern) => {
 };
 
 const initiatorFun = (pattern) => {
+	let sends = preMessagesSendStatic(pattern)? 0 : messagesSendStatic(pattern);
+	let recvs = preMessagesRecvStatic(pattern)? 0 : messagesRecvStatic(pattern);
+	let hasPsk = messagesPsk(pattern) >= 0;
 	let init = {
 		s: preMessagesSendStatic(pattern)?
 			`generate_keypair(key_s(me))` : util.emptyKeyPair,
@@ -415,10 +412,10 @@ const initiatorFun = (pattern) => {
 			`getpublickey(generate_keypair(key_s(them)))` : util.emptyKey,
 		re: preMessagesRecvEphemeral(pattern)?
 			'in(pub, re:key);': `let re = ${util.emptyKey} in`,
-		psk: /psk/.test(pattern.name)?
+		psk: hasPsk?
 			'key_psk(me, them)' : util.emptyKey
 	};
-	let outStatic = (preMessagesSendStatic(pattern) || messagesSendStatic(pattern))?
+	let outStatic = sends >= 0?
 		`out(pub, getpublickey(s));` : `(* No static key initialized *)`;
 	let phase0End = (pattern.messages[pattern.messages.length - 1].dir === 'recv')?
 		`event RecvEnd(valid)` : `(* Not last recipient *)`;
@@ -480,19 +477,37 @@ const initiatorFun = (pattern) => {
 			]);
 		}
 	});
-	initiator = initiator.concat([
-		`\tevent LeakS(phase0, me);`,
-		`\tout(pub, key_s(me))`,
-		`) | (`,
-		`\tphase 1;`,
-		`\tevent LeakS(phase1, me);`,
-		`\tout(pub, key_s(me))`,
-		`)).`
-	]);
+	if (hasPsk) {
+		initiator = initiator.concat([
+			`\tevent LeakPsk(phase0, me, them);`,
+			`\tout(pub, key_psk(me, them))`,
+			`) | (`,
+			`\tphase 1;`,
+			`\tevent LeakPsk(phase1, me, them);`,
+			`\tout(pub, key_psk(me, them))`,
+			`) | (`
+		]);
+	}
+	if (sends >= 0) {
+		initiator = initiator.concat([
+			`\tevent LeakS(phase0, me);`,
+			`\tout(pub, key_s(me))`,
+			`) | (`,
+			`\tphase 1;`,
+			`\tevent LeakS(phase1, me);`,
+			`\tout(pub, key_s(me))`,
+			`)).`
+		]);
+	} else {
+		initiator.push('0)).');
+	}
 	return initiator;
 };
 
 const responderFun = (pattern) => {
+	let sends = preMessagesSendStatic(pattern)? 0 : messagesSendStatic(pattern);
+	let recvs = preMessagesRecvStatic(pattern)? 0 : messagesRecvStatic(pattern);
+	let hasPsk = messagesPsk(pattern) >= 0;
 	let init = {
 		s: preMessagesRecvStatic(pattern)?
 			`generate_keypair(key_s(me))` : util.emptyKeyPair,
@@ -502,10 +517,10 @@ const responderFun = (pattern) => {
 			`getpublickey(generate_keypair(key_s(them)))` : util.emptyKey,
 		re: preMessagesSendEphemeral(pattern)?
 			'in(pub, re:key);': `let re = ${util.emptyKey} in`,
-		psk: /psk/.test(pattern.name)?
+		psk: hasPsk?
 			'key_psk(them, me)' : util.emptyKey
 	};
-	let outStatic = (preMessagesRecvStatic(pattern) || messagesRecvStatic(pattern))?
+	let outStatic = recvs >= 0?
 		`out(pub, getpublickey(s));` : `(* No static key initialized *)`;
 	let phase0End = (pattern.messages[pattern.messages.length - 1].dir === 'send')?
 		`event RecvEnd(valid)` : `(* Not last recipient *)`;
@@ -567,15 +582,30 @@ const responderFun = (pattern) => {
 			]);
 		}
 	});
-	responder = responder.concat([
-		`\tevent LeakS(phase0, me);`,
-		`\tout(pub, key_s(me))`,
-		`) | (`,
-		`\tphase 1;`,
-		`\tevent LeakS(phase1, me);`,
-		`\tout(pub, key_s(me))`,
-		`)).`
-	]);
+	if (hasPsk) {
+		responder = responder.concat([
+			`\tevent LeakPsk(phase0, them, me);`,
+			`\tout(pub, key_psk(them, me))`,
+			`) | (`,
+			`\tphase 1;`,
+			`\tevent LeakPsk(phase1, them, me);`,
+			`\tout(pub, key_psk(them, me))`,
+			`) | (`
+		]);
+	}
+	if (recvs >= 0) {
+		responder = responder.concat([
+			`\tevent LeakS(phase0, me);`,
+			`\tout(pub, key_s(me))`,
+			`) | (`,
+			`\tphase 1;`,
+			`\tevent LeakS(phase1, me);`,
+			`\tout(pub, key_s(me))`,
+			`)).`
+		]);
+	} else {
+		responder.push('0)).');
+	}
 	return responder;
 };
 
@@ -619,7 +649,7 @@ let repeatingKeysQueryFun = (pattern) => {
 };
 
 const processFuns = (pattern) => {
-	let hasPsk = /psk/.test(pattern.name);
+	let hasPsk = messagesPsk(pattern) >= 0;
 	let proc = [
 		`out(pub, key_s(charlie));`,
 		`!(`,

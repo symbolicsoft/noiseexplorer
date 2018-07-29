@@ -14,21 +14,7 @@ const util = {
 };
 
 const readRules = {
-	rawResult: /^RESULT.+(is false|is true|cannot be proved)\.$/,
-	authenticity: {
-		sanity: /^RESULT event\(RecvMsg\((alice|bob),(alice|bob),stagepack_\w\(\w{1,32}\),m\)\) ==> event\(SendMsg\((alice|bob),(alice|bob),stagepack_\w\(\w{1,32}\),m\)\)/,
-		one: /^RESULT event\(RecvMsg\((alice|bob),(alice|bob),stagepack_\w\(\w{1,32}\),m\)\) ==> event\(SendMsg\((alice|bob),c_\d{1,8},stagepack_\w\(\w{1,32}\),m\)\) \|\| event\(LeakS\(phase0,(alice|bob)\)\) \|\| event\(LeakS\(phase0,(alice|bob)\)\)/,
-		two: /^RESULT event\(RecvMsg\((alice|bob),(alice|bob),stagepack_\w\(\w{1,32}\),m\)\) ==> event\(SendMsg\((alice|bob),c_\d{1,8},stagepack_\w\(\w{1,32}\),m\)\) \|\| event\(LeakS\(phase0,(alice|bob)\)\)/,
-		three: /^RESULT event\(RecvMsg\((alice|bob),(alice|bob),stagepack_\w\(\w{1,32}\),m\)\) ==> event\(SendMsg\((alice|bob),(alice|bob),stagepack_\w\(\w{1,32}\),m\)\) \|\| event\(LeakS\(phase0,(alice|bob)\)\) \|\| event\(LeakS\(phase0,(alice|bob)\)\)/,
-		four: /^RESULT event\(RecvMsg\((alice|bob),(alice|bob),stagepack_\w\(\w{1,32}\),m\)\) ==> event\(SendMsg\((alice|bob),(alice|bob),stagepack_\w\(\w{1,32}\),m\)\) \|\| event\(LeakS\(phase0,(alice|bob)\)\)/
-	},
-	confidentiality: {
-		sanity: /^RESULT not attacker_p1\(msg_\w\((alice|bob),(alice|bob),\w{1,32}\)\)/,
-		two: /^RESULT attacker_p1\(msg_\w\((alice|bob),(alice|bob),\w{1,32}\)\) ==> event\(LeakS\(phase0,(alice|bob)\)\) \|\| event\(LeakS\(phase1,(alice|bob)\)\)/,
-		thour: /^RESULT attacker_p1\(msg_\w\((alice|bob),(alice|bob),\w{1,32}\)\) ==> event\(LeakS\(phase0,(alice|bob)\)\) \|\| \(event\(LeakS\(phase1,(alice|bob)\)\) && event\(LeakS\(p,(alice|bob)\)\)\)/,
-		five: /^RESULT attacker_p1\(msg_\w\((alice|bob),(alice|bob),\w{1,32}\)\) ==> event\(LeakS\(phase0,(alice|bob)\)\)/
-	},
-	sanity: /^RESULT not event\(RecvEnd\(true\)\)/
+	rawResult: /^RESULT.+(is false|is true|cannot be proved)\.$/
 };
 
 const htmlTemplates = {
@@ -335,30 +321,31 @@ const well = (rawResult) => {
 const read = (pvOutput) => {
 	let rawResults = getRawResults(pvOutput);
 	let readResults = getResultsTemplate(rawResults);
-	rawResults.forEach((rawResult) => {
+	rawResults.forEach((rawResult, i) => {
 		let isTrue = well(rawResult);
-		if (readRules.sanity.test(rawResult)) {
+		if (i === rawResults.length - 1) {
 			readResults.sanity = !isTrue;
 		} else {
 			let abc = getMsgAbc(rawResult);
-			if (readRules.confidentiality.thour.test(rawResult)) {
-				readResults[abc].confidentiality.thour = isTrue;
-			} else if (readRules.confidentiality.two.test(rawResult)) {
-				readResults[abc].confidentiality.two = isTrue;
-			} else if (readRules.confidentiality.five.test(rawResult)) {
-				readResults[abc].confidentiality.five = isTrue;
-			} else if (readRules.confidentiality.sanity.test(rawResult)) {
-				readResults[abc].confidentiality.sanity = !isTrue;
-			} else if (readRules.authenticity.three.test(rawResult)) {
-				readResults[abc].authenticity.three = isTrue;
-			} else if (readRules.authenticity.one.test(rawResult)) {
-				readResults[abc].authenticity.one = isTrue;
-			} else if (readRules.authenticity.two.test(rawResult)) {
-				readResults[abc].authenticity.two = isTrue;
-			} else if (readRules.authenticity.four.test(rawResult)) {
-				readResults[abc].authenticity.four = isTrue;
-			} else if (readRules.authenticity.sanity.test(rawResult)) {
+			let r = i % 9;
+			if (r === 0) {
 				readResults[abc].authenticity.sanity = !isTrue;
+			} else if (r === 1) {
+				readResults[abc].authenticity.one = isTrue;
+			} else if (r === 2) {
+				readResults[abc].authenticity.two = isTrue;
+			} else if (r === 3) {
+				readResults[abc].authenticity.three = isTrue;
+			} else if (r === 4) {
+				readResults[abc].authenticity.four = isTrue;
+			} else if (r === 5) {
+				readResults[abc].confidentiality.sanity = !isTrue;
+			} else if (r === 6) {
+				readResults[abc].confidentiality.two = isTrue;
+			} else if (r === 7) {
+				readResults[abc].confidentiality.thour = isTrue;
+			} else if (r === 8) {
+				readResults[abc].confidentiality.five = isTrue;
 			}
 		}
 	});
@@ -456,21 +443,6 @@ const renderDetailed = (
 			abc, tokens.join(', '), authenticity, confidentiality
 		));
 	}
-	let queries = {
-		authenticity: ['',
-			`event(RecvMsg(${whom},${who},stagepack_${abc}(sid_${whom[0]}),m)) ==> event(SendMsg(${who},c,stagepack_${abc}(sid_${who[0]}),m)) || event(LeakS(phase0,${who})) || event(LeakS(phase0,${whom}))`,
-			`event(RecvMsg(${whom},${who},stagepack_${abc}(sid_${whom[0]}),m)) ==> event(SendMsg(${who},c,stagepack_${abc}(sid_${who[0]}),m)) || event(LeakS(phase0,${who}))`,
-			`event(RecvMsg(${whom},${who},stagepack_${abc}(sid_${whom[0]}),m)) ==> event(SendMsg(${who},${whom},stagepack_${abc}(sid_${who[0]}),m)) || event(LeakS(phase0,${who})) || event(LeakS(phase0,${whom}))`,
-			`event(RecvMsg(${whom},${who},stagepack_${abc}(sid_${whom[0]}),m)) ==> event(SendMsg(${who},${whom},stagepack_${abc}(sid_${who[0]}),m)) || event(LeakS(phase0,${who}))`
-		],
-		confidentiality: ['',
-			`attacker_p1(msg_${abc}(${who},${whom},sid_${who[0]})) ==> event(LeakS(phase0,${whom})) || event(LeakS(phase1,${whom}))`,
-			`attacker_p1(msg_${abc}(${who},${whom},sid_${who[0]})) ==> event(LeakS(phase0,${whom})) || event(LeakS(phase1,${whom}))`,
-			`attacker_p1(msg_${abc}(${who},${whom},sid_${who[0]})) ==> event(LeakS(phase0,${whom})) || (event(LeakS(phase1,${whom})) && event(LeakS(p,${who})))`,
-			`attacker_p1(msg_${abc}(${who},${whom},sid_${who[0]})) ==> event(LeakS(phase0,${whom})) || (event(LeakS(phase1,${whom})) && event(LeakS(p,${who})))`,
-			`attacker_p1(msg_${abc}(${who},${whom},sid_${who[0]})) ==> event(LeakS(phase0,${whom}))`
-		]
-	};
 	let queryExplanations = {
 		authenticity: ['',
 			`In this query, we test for <em>sender authentication</em> and <em>message integrity</em>. If ${whom[0].toUpperCase()}${whom.substr(1)} receives a valid message from ${who[0].toUpperCase()}${who.substr(1)}, then ${who[0].toUpperCase()}${who.substr(1)} must have sent that message to <em>someone</em>, or ${who[0].toUpperCase()}${who.substr(1)} had their static key compromised before the session began, or ${whom[0].toUpperCase()}${whom.substr(1)} had their static key compromised before the session began.`,
@@ -502,14 +474,16 @@ const renderDetailed = (
 	for (let i = 1; i < 5; i++) {
 		analysisTxt = analysisTxt.concat([
 			`<h4>Authenticity Grade ${i}: ${(authenticity >= i)? '<span class="passed">Passed</span>' : '<span class="failed">Failed</span>'}</h4>`,
-			`<p class="proverif"><br />${queries.authenticity[i]}</p>`,
+			`<p class="proverif"><br />${rawResultsActive[(message * 9) + i]}</p>`,
 			`<p>${queryExplanations.authenticity[i]}</p>`
 		]);
 	}
 	for (let i = 1; i < 6; i++) {
+		let rawResults = ((i === 1) || (i === 3))? rawResultsPassive : rawResultsActive;
+		let x = (i === 2)? 1 : (i === 3)? 2 : (i === 4)? 2 : (i === 5)? 3 : i
 		analysisTxt = analysisTxt.concat([
 			`<h4>Confidentiality Grade ${i}: ${(confidentiality >= i)? '<span class="passed">Passed</span>' : '<span class="failed">Failed</span>'}</h4>`,
-			`<p class="proverif"><br />${queries.confidentiality[i]}</p>`,
+			`<p class="proverif"><br />${rawResults[((message * 9) + 5) + x]}</p>`,
 			`<p>${queryExplanations.confidentiality[i]}</p>`
 		]);
 	}

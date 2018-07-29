@@ -22,24 +22,25 @@ const util = {
 	}
 };
 
-// Ideas for more checks:
-// - Check if pattern names are accurate.
 const errMsg = {
+	// Below are validity rules specific to Noise Explorer and not to the Noise Protocol Framework.
 	tooLongName: 'Noise Handshake Pattern names with a maximum length of 16 characters are currently supported.',
 	tooManyTokens: 'Noise Message Patterns with a maximum of 8 tokens are currently supported.',
 	tooManyMessages: 'Noise Handshake Patterns with a maximum of 8 message patterns are currently supported.',
+	moreThanOnePsk: 'Noise Handshake Patterns with a maximum of one PSK are currently supported.',
+	// Below are validity rules which we are not exactly sure are shared by the Noise Protocol Framework (but likely are.)
+	transportNotLast: 'Noise Handshake Patterns can only contain transport handshake messages at the very bottom of the pattern.',
+	transportOnly: 'Noise Handshake Patterns cannot consist purely of transport messages.',
+	unusedKeySent: 'Noise Handshake Patterns should not contain key shares that are not subsequently used in any Diffie-Hellman operation.',
+	// Below are validity rules shared by the Noise Protocol Framework.
 	dupTokens: 'Noise Handshake Patterns must not contain duplicate tokens in the same message flight.',
 	keySentMoreThanOnce: 'Principals must not send their static public key or ephemeral public key more than once per handshake.',
 	dhSentMoreThanOnce: 'Principals must not perform the same Diffie-Hellman key agreement more than once per handshake.',
 	wrongPskModifier: 'PSK modifiers must correctly indicate the position of PSK tokens.',
 	wrongPskLocation: 'PSK tokens must appear at the beginning or end of the first handshake message or at the end of any other handshake message.',
-	moreThanOnePsk: 'Noise Handshake Patterns with a maximum of one PSK are currently supported.',
 	pskNotAtEndOfName: 'PSK modifiers must appear at the end of the Noise Handshake Pattern name.',
 	wrongMessageDir: 'Message direction within a Noise Handshake Pattern must alternate (initiator -> responder, initiator <- responder), with the first message being sent by the initiator.',
-	transportNotLast: 'Noise Handshake Patterns can only contain transport handshake messages at the very bottom of the pattern.',
 	dhWithUnknownKey: 'Principals cannot perform a Diffie-Hellman operation with a key share that does not exist.',
-	unusedKeySent: 'Noise Handshake Patterns should not contain key shares that are not subsequently used in any Diffie-Hellman operation.',
-	transportOnly: 'Noise Handshake Patterns cannot consist purely of transport messages.',
 	seEeRule: 'After an se token, the initiator must not send a handshake payload or transport payload unless there has also been an ee token.',
 	ssEsRule: 'After an ss token, the initiator must not send a handshake payload or transport payload unless there has also been an es token.',
 	esEeRule: 'After an es token, the responder must not send a handshake payload or transport payload unless there has also been an ee token.',

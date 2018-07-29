@@ -1,0 +1,6 @@
+XNpsk3:
+   -> e
+   <- e, ee
+   -> s, se, psk
+   <-
+   ->
