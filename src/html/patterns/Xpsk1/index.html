@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<title>Noise Explorer: Xpsk1</title>
+	<meta name="keywords" content="noise protocol, protocol verification, formal verification, noise protocol framework, symbolic verification" />
+	<meta name="description" content="Noise Explorer is an online engine for reasoning about Noise Protocol Framework Handshake Patterns. Noise Explorer allows you to design and validate Noise Handshake Patterns, to generate cryptographic models for formal verification and to explore a compendium of formal verification results for the most popular and relevant Noise Handshake Patterns in use today." />
+	<link rel="image_src" href="https://noiseexplorer.com/res/img/logo.png" />
+	<link rel="icon" type="image/png" href="../../res/img/logo.png" />
+	<link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono|IBM+Plex+Sans" rel="stylesheet" />
+	<link href="../../res/css/style.css" rel="stylesheet" />
+	<script type="application/javascript" src="../../res/js/parser/noiseParser.js"></script>
+	<script type="application/javascript" src="../../res/js/parser/noise2Pv.js"></script>
+	<script type="application/javascript" src="../../res/js/parser/noiseReader.js"></script>
+	<script type="application/javascript" src="../../res/js/noiseWebIde.js"></script>
+	<script type="application/javascript">
+	window.addEventListener('load', () => {
+		pvModelGen(['Xpsk1:','  <- s','  ...','  -> e, es, s, ss, psk','  <-','  ->'].join('\n'), 'active', 'pvModelActiveLink', false);
+		pvModelGen(['Xpsk1:','  <- s','  ...','  -> e, es, s, ss, psk','  <-','  ->'].join('\n'), 'passive', 'pvModelPassiveLink', false);
+	});
+	</script>
+</head>
+
+<body>
+	<div class="header">
+		<img id="logo" src="../../res/img/logo.png" alt="" />
+		<h1>Noise Explorer <span class="beta">beta</span></h1>
+	</div>
+	<div class="nav">
+		<span class="menu">menu</span>
+		<div class="navLinks">
+			<a href="../..">Design New Pattern</a>
+			<a href="../../patterns" class="currentNav">Explore Patterns</a>
+			<a href="../../cmd">Command-Line Tool</a>
+		</div>
+	</div>
+	<div class="results" style="height: 805px;">
+		<div class="arrowsFrame">
+			<h1 id="patternName">Xpsk1</h1>
+			<div class="arrows" style="height: 805px;">
+				<svg id="patternArrows" style="height: 805px;">
+					<line x2="248" y1="30" y2="30"></line>
+					<polyline  points="10 20 1 30 10 40"></polyline>
+					<text class="tokens" x="120" y="22">s</text>
+
+				<text class="ellipsis" x="120" y="185">...</text>
+<line data-seclevel="0" x1="1" x2="248" y1="340" y2="340"></line>
+					<polyline data-seclevel="0" points="237 330 248 340 237 350"></polyline>
+					<circle data-seclevel="1" cx="17" cy="340" r="15"></circle>
+					<text class="msg" x="16" y="345">a</text>
+					<text class="tokens" x="120" y="332">e, es, s, ss, psk</text>
+<line data-seclevel="0" x2="248" y1="495" y2="495"></line>
+					<polyline data-seclevel="0" points="10 485 1 495 10 505"></polyline>
+					<circle data-seclevel="4" cx="234" cy="495" r="15"></circle>
+					<text class="msg" x="233" y="500">b</text>
+					<text class="tokens" x="120" y="487"></text>
+<line data-seclevel="0" x1="1" x2="248" y1="650" y2="650"></line>
+					<polyline data-seclevel="0" points="237 640 248 650 237 660"></polyline>
+					<circle data-seclevel="1" cx="17" cy="650" r="15"></circle>
+					<text class="msg" x="16" y="655">c</text>
+					<text class="tokens" x="120" y="642"></text>
+				</svg>
+			</div>
+		</div>
+		<div class="resultsExplanation" style="height: 805px;">
+			<h2>Handshake Pattern Analysis</h2>
+			<p>The responder is initialized with a pre-shared long-term static key, which is assumed to be pre-authenticated out of band by the initiator.</p> 
+			
+
+			<h3>Message A <a href="A.html" class="detailedAnalysis">show detailed analysis</a></h3>
+			<p>Message A, sent by the initiator, benefits from <em>receiver authentication</em> but is <em>vulnerable to Key Compromise Impersonation</em>. If the responder's long-term private key has been compromised, this authentication can be forged. However, if the initiator carries out a separate session with a separate, compromised responder, this other session can be used to forge the authenticity of this message with this session's responder. Message contents are sent in cleartext and do not benefit from <em>message secrecy</em> and any <em>forward secrecy</em> is out of the question.  <span class="resultNums">1,0</span></p>
+
+			<h3>Message B <a href="B.html" class="detailedAnalysis">show detailed analysis</a></h3>
+			<p>Message B, sent by the responder, benefits from <em>sender and receiver authentication</em> and is <em>resistant to Key Compromise Impersonation</em>. Assuming the corresponding private keys are secure, this authentication cannot be forged. Message contents are sent in cleartext and do not benefit from <em>message secrecy</em> and any <em>forward secrecy</em> is out of the question.  <span class="resultNums">4,0</span></p>
+
+			<h3>Message C <a href="C.html" class="detailedAnalysis">show detailed analysis</a></h3>
+			<p>Message C, sent by the initiator, benefits from <em>receiver authentication</em> but is <em>vulnerable to Key Compromise Impersonation</em>. If the responder's long-term private key has been compromised, this authentication can be forged. However, if the initiator carries out a separate session with a separate, compromised responder, this other session can be used to forge the authenticity of this message with this session's responder. Message contents are sent in cleartext and do not benefit from <em>message secrecy</em> and any <em>forward secrecy</em> is out of the question.  <span class="resultNums">1,0</span></p>
+			<h3>Download Cryptographic Models for Formal Verification</h3>
+			<p>
+				<a href="#" id="pvModelActiveLink">
+					Download Model
+					<span class="modelType">active attacker</span>
+				</a>
+				<a href="#" id="pvModelPassiveLink">
+					Download Model
+					<span class="modelType">passive attacker</span>
+				</a>
+			</p>
+		</div>
+	</div>
+	<div class="footer">
+		<!--
+		<span class="about">about</span>
+		<span>Noise Explorer is authored by <a href="https://nadim.computer" target="_blank">Nadim Kobeissi</a> (<a href="https://www.gnu.org/licenses/gpl-3.0.en.html" target="_blank">GPLv3</a>)</span><span style="float:right"><a href="https://symbolic.software" target="_blank">Symbolic Software</a> | <a href="https://inria.fr/" target="_blank">INRIA</a></span>
+		-->
+	</div>
+</body>
+
+</html>
