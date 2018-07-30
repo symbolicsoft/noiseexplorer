@@ -21,6 +21,11 @@ proverif XNpsk3.noise.active.pv > XNpsk3.noise.active.txt
 proverif XNpsk3.noise.passive.pv > XNpsk3.noise.passive.txt
 date
 
+echo "XKpsk3"
+proverif XKpsk3.noise.active.pv > XKpsk3.noise.active.txt
+proverif XKpsk3.noise.passive.pv > XKpsk3.noise.passive.txt
+date
+
 echo "XXpsk3"
 proverif XXpsk3.noise.active.pv > XXpsk3.noise.active.txt
 proverif XXpsk3.noise.passive.pv > XXpsk3.noise.passive.txt
