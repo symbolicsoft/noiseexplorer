@@ -473,7 +473,7 @@ const renderDetailed = (
 	]);
 	for (let i = 1; i < 5; i++) {
 		analysisTxt = analysisTxt.concat([
-			`<h4>Authenticity Grade ${i}: ${(authenticity >= i)? '<span class="passed">Passed</span>' : '<span class="failed">Failed</span>'}</h4>`,
+			`<h4>Authenticity Grade ${i}: ${(well(rawResultsActive[(message * 9) + i]))? '<span class="passed">Passed</span>' : '<span class="failed">Failed</span>'}</h4>`,
 			`<p class="proverif"><br />${rawResultsActive[(message * 9) + i]}</p>`,
 			`<p>${queryExplanations.authenticity[i]}</p>`
 		]);
@@ -482,7 +482,7 @@ const renderDetailed = (
 		let rawResults = ((i === 1) || (i === 3))? rawResultsPassive : rawResultsActive;
 		let x = (i === 2)? 1 : (i === 3)? 2 : (i === 4)? 2 : (i === 5)? 3 : i
 		analysisTxt = analysisTxt.concat([
-			`<h4>Confidentiality Grade ${i}: ${(confidentiality >= i)? '<span class="passed">Passed</span>' : '<span class="failed">Failed</span>'}</h4>`,
+			`<h4>Confidentiality Grade ${i}: ${(well(rawResults[((message * 9) + 5) + x]))? '<span class="passed">Passed</span>' : '<span class="failed">Failed</span>'}</h4>`,
 			`<p class="proverif"><br />${rawResults[((message * 9) + 5) + x]}</p>`,
 			`<p>${queryExplanations.confidentiality[i]}</p>`
 		]);

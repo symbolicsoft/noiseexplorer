@@ -45,19 +45,19 @@
 					<circle data-seclevel="0" cx="17" cy="30" r="15"></circle>
 					<text class="msg" x="16" y="35">a</text>
 					<text class="tokens" x="120" y="22">e</text>
-<line data-seclevel="4" x2="248" y1="185" y2="185"></line>
-					<polyline data-seclevel="4" points="10 175 1 185 10 195"></polyline>
-					<circle data-seclevel="4" cx="234" cy="185" r="15"></circle>
+<line data-seclevel="3" x2="248" y1="185" y2="185"></line>
+					<polyline data-seclevel="3" points="10 175 1 185 10 195"></polyline>
+					<circle data-seclevel="1" cx="234" cy="185" r="15"></circle>
 					<text class="msg" x="233" y="190">b</text>
 					<text class="tokens" x="120" y="177">e, ee, psk</text>
 <line data-seclevel="5" x1="1" x2="248" y1="340" y2="340"></line>
 					<polyline data-seclevel="5" points="237 330 248 340 237 350"></polyline>
-					<circle data-seclevel="4" cx="17" cy="340" r="15"></circle>
+					<circle data-seclevel="1" cx="17" cy="340" r="15"></circle>
 					<text class="msg" x="16" y="345">c</text>
 					<text class="tokens" x="120" y="332"></text>
 <line data-seclevel="5" x2="248" y1="495" y2="495"></line>
 					<polyline data-seclevel="5" points="10 485 1 495 10 505"></polyline>
-					<circle data-seclevel="4" cx="234" cy="495" r="15"></circle>
+					<circle data-seclevel="1" cx="234" cy="495" r="15"></circle>
 					<text class="msg" x="233" y="500">d</text>
 					<text class="tokens" x="120" y="487"></text>
 				</svg>
@@ -70,13 +70,13 @@
 			<p>Message A, sent by the initiator, does not benefit from <em>sender authentication</em> and does not provide <em>message integrity</em>. It could have been sent by any party, including an active attacker. Message contents are sent in cleartext and do not benefit from <em>message secrecy</em> and any <em>forward secrecy</em> is out of the question.  <span class="resultNums">0,0</span></p>
 
 			<h3>Message B <a href="B.html" class="detailedAnalysis">show detailed analysis</a></h3>
-			<p>Message B, sent by the responder, benefits from <em>sender and receiver authentication</em> and is <em>resistant to Key Compromise Impersonation</em>. Assuming the corresponding private keys are secure, this authentication cannot be forged. Message contents benefit from <em>message secrecy</em> and <em>weak forward secrecy</em> under an active attacker: if the responder's long-term static keys were previously compromised, the later compromise of the initiator's long-term static keys can lead to message contents being decrypted by an active attacker, should that attacker also have forged the initiator's ephemeral key during the session.  <span class="resultNums">4,4</span></p>
+			<p>Message B, sent by the responder, benefits from <em>receiver authentication</em> but is <em>vulnerable to Key Compromise Impersonation</em>. If the initiator's long-term private key has been compromised, this authentication can be forged. However, if the responder carries out a separate session with a separate, compromised initiator, this other session can be used to forge the authenticity of this message with this session's initiator. Message contents benefit from <em>message secrecy</em> and <em>weak forward secrecy</em> under a passive attacker: if the responder's long-term static keys were previously compromised, the later compromise of the initiator's long-term static keys can lead to message contents being decrypted by an attacker.  <span class="resultNums">1,3</span></p>
 
 			<h3>Message C <a href="C.html" class="detailedAnalysis">show detailed analysis</a></h3>
-			<p>Message C, sent by the initiator, benefits from <em>sender and receiver authentication</em> and is <em>resistant to Key Compromise Impersonation</em>. Assuming the corresponding private keys are secure, this authentication cannot be forged. Message contents benefit from <em>message secrecy</em> and <em>strong forward secrecy</em>: if the ephemeral private keys are secure and the responder is not being actively impersonated by an active attacker, message contents cannot be decrypted.  <span class="resultNums">4,5</span></p>
+			<p>Message C, sent by the initiator, benefits from <em>receiver authentication</em> but is <em>vulnerable to Key Compromise Impersonation</em>. If the responder's long-term private key has been compromised, this authentication can be forged. However, if the initiator carries out a separate session with a separate, compromised responder, this other session can be used to forge the authenticity of this message with this session's responder. Message contents benefit from <em>message secrecy</em> and <em>strong forward secrecy</em>: if the ephemeral private keys are secure and the responder is not being actively impersonated by an active attacker, message contents cannot be decrypted.  <span class="resultNums">1,5</span></p>
 
 			<h3>Message D <a href="D.html" class="detailedAnalysis">show detailed analysis</a></h3>
-			<p>Message D, sent by the responder, benefits from <em>sender and receiver authentication</em> and is <em>resistant to Key Compromise Impersonation</em>. Assuming the corresponding private keys are secure, this authentication cannot be forged. Message contents benefit from <em>message secrecy</em> and <em>strong forward secrecy</em>: if the ephemeral private keys are secure and the initiator is not being actively impersonated by an active attacker, message contents cannot be decrypted.  <span class="resultNums">4,5</span></p>
+			<p>Message D, sent by the responder, benefits from <em>receiver authentication</em> but is <em>vulnerable to Key Compromise Impersonation</em>. If the initiator's long-term private key has been compromised, this authentication can be forged. However, if the responder carries out a separate session with a separate, compromised initiator, this other session can be used to forge the authenticity of this message with this session's initiator. Message contents benefit from <em>message secrecy</em> and <em>strong forward secrecy</em>: if the ephemeral private keys are secure and the initiator is not being actively impersonated by an active attacker, message contents cannot be decrypted.  <span class="resultNums">1,5</span></p>
 			<h3>Download Cryptographic Models for Formal Verification</h3>
 			<p>
 				<a href="#" id="pvModelActiveLink">

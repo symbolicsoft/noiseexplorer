@@ -149,7 +149,7 @@ Message <span class="mono">B</span> is tested against four authenticity queries 
 <h4>Confidentiality Grade 2: <span class="failed">Failed</span></h4>
 <p class="proverif"><br />RESULT attacker_p1(msg_b(bob,alice,sid_b)) ==> event(LeakS(phase0,alice)) || event(LeakS(phase1,alice)) cannot be proved.</p>
 <p>In this query, we test for <em>message secrecy</em> by checking if an active attacker is able to retrieve the payload plaintext only by compromising Alice's static key either before or after the protocol session.</p>
-<h4>Confidentiality Grade 3: <span class="failed">Failed</span></h4>
+<h4>Confidentiality Grade 3: <span class="passed">Passed</span></h4>
 <p class="proverif"><br />RESULT attacker_p1(msg_b(bob,alice,sid_b)) ==> event(LeakS(phase0,alice)) || (event(LeakS(phase1,alice)) && event(LeakS(p,bob))) is true.</p>
 <p>In this query, we test for <em>forward secrecy</em> by checking if a passive attacker is able to retrieve the payload plaintext only by compromising Alice's static key before the protocol session, or after the protocol session along with Bob's static public key (at any time.)</p>
 <h4>Confidentiality Grade 4: <span class="failed">Failed</span></h4>

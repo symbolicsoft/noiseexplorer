@@ -16,8 +16,8 @@
 	<script type="application/javascript" src="../../res/js/noiseWebIde.js"></script>
 	<script type="application/javascript">
 	window.addEventListener('load', () => {
-		pvModelGen(['Kpsk0:','  -> s','  <- s','  ...','  -> psk, e, es, ss','  <-','  ->'].join('\n'), 'active', 'pvModelActiveLink', false);
-		pvModelGen(['Kpsk0:','  -> s','  <- s','  ...','  -> psk, e, es, ss','  <-','  ->'].join('\n'), 'passive', 'pvModelPassiveLink', false);
+		pvModelGen(['Kpsk0:','  -> s','  <- s','  ...','  -> psk, e, es, ss'].join('\n'), 'active', 'pvModelActiveLink', false);
+		pvModelGen(['Kpsk0:','  -> s','  <- s','  ...','  -> psk, e, es, ss'].join('\n'), 'passive', 'pvModelPassiveLink', false);
 	});
 	</script>
 </head>
@@ -35,11 +35,11 @@
 			<a href="../../cmd">Command-Line Tool</a>
 		</div>
 	</div>
-	<div class="results" style="height: 960px;">
+	<div class="results" style="height: 650px;">
 		<div class="arrowsFrame">
 			<h1 id="patternName">Kpsk0</h1>
-			<div class="arrows" style="height: 960px;">
-				<svg id="patternArrows" style="height: 960px;">
+			<div class="arrows" style="height: 650px;">
+				<svg id="patternArrows" style="height: 650px;">
 					<line x1="1" x2="248" y1="30" y2="30"></line>
 					<polyline points="237 20 248 30 237 40"></polyline>
 					<text class="tokens" x="120" y="22">s</text>
@@ -48,25 +48,15 @@
 					<text class="tokens" x="120" y="177">s</text>
 
 				<text class="ellipsis" x="120" y="340">...</text>
-<line data-seclevel="0" x1="1" x2="248" y1="495" y2="495"></line>
-					<polyline data-seclevel="0" points="237 485 248 495 237 505"></polyline>
+<line data-seclevel="2" x1="1" x2="248" y1="495" y2="495"></line>
+					<polyline data-seclevel="2" points="237 485 248 495 237 505"></polyline>
 					<circle data-seclevel="1" cx="17" cy="495" r="15"></circle>
 					<text class="msg" x="16" y="500">a</text>
 					<text class="tokens" x="120" y="487">psk, e, es, ss</text>
-<line data-seclevel="0" x2="248" y1="650" y2="650"></line>
-					<polyline data-seclevel="0" points="10 640 1 650 10 660"></polyline>
-					<circle data-seclevel="4" cx="234" cy="650" r="15"></circle>
-					<text class="msg" x="233" y="655">b</text>
-					<text class="tokens" x="120" y="642"></text>
-<line data-seclevel="0" x1="1" x2="248" y1="805" y2="805"></line>
-					<polyline data-seclevel="0" points="237 795 248 805 237 815"></polyline>
-					<circle data-seclevel="1" cx="17" cy="805" r="15"></circle>
-					<text class="msg" x="16" y="810">c</text>
-					<text class="tokens" x="120" y="797"></text>
 				</svg>
 			</div>
 		</div>
-		<div class="resultsExplanation" style="height: 960px;">
+		<div class="resultsExplanation" style="height: 650px;">
 			<h2>Handshake Pattern Analysis</h2>
 			<p>The initiator is initialized with a pre-shared long-term static key, which is assumed to be pre-authenticated out of band by the responder.</p> 
 			
@@ -74,13 +64,7 @@
 			
 
 			<h3>Message A <a href="A.html" class="detailedAnalysis">show detailed analysis</a></h3>
-			<p>Message A, sent by the initiator, benefits from <em>receiver authentication</em> but is <em>vulnerable to Key Compromise Impersonation</em>. If the responder's long-term private key has been compromised, this authentication can be forged. However, if the initiator carries out a separate session with a separate, compromised responder, this other session can be used to forge the authenticity of this message with this session's responder. Message contents are sent in cleartext and do not benefit from <em>message secrecy</em> and any <em>forward secrecy</em> is out of the question.  <span class="resultNums">1,0</span></p>
-
-			<h3>Message B <a href="B.html" class="detailedAnalysis">show detailed analysis</a></h3>
-			<p>Message B, sent by the responder, benefits from <em>sender and receiver authentication</em> and is <em>resistant to Key Compromise Impersonation</em>. Assuming the corresponding private keys are secure, this authentication cannot be forged. Message contents are sent in cleartext and do not benefit from <em>message secrecy</em> and any <em>forward secrecy</em> is out of the question.  <span class="resultNums">4,0</span></p>
-
-			<h3>Message C <a href="C.html" class="detailedAnalysis">show detailed analysis</a></h3>
-			<p>Message C, sent by the initiator, benefits from <em>receiver authentication</em> but is <em>vulnerable to Key Compromise Impersonation</em>. If the responder's long-term private key has been compromised, this authentication can be forged. However, if the initiator carries out a separate session with a separate, compromised responder, this other session can be used to forge the authenticity of this message with this session's responder. Message contents are sent in cleartext and do not benefit from <em>message secrecy</em> and any <em>forward secrecy</em> is out of the question.  <span class="resultNums">1,0</span></p>
+			<p>Message A, sent by the initiator, benefits from <em>receiver authentication</em> but is <em>vulnerable to Key Compromise Impersonation</em>. If the responder's long-term private key has been compromised, this authentication can be forged. However, if the initiator carries out a separate session with a separate, compromised responder, this other session can be used to forge the authenticity of this message with this session's responder. Message contents benefit from <em>message secrecy</em> and some <em>forward secrecy</em>: the compromise of the responder's long-term private keys, even at a later date, will lead to message contents being decrypted by the attacker.  <span class="resultNums">1,2</span></p>
 			<h3>Download Cryptographic Models for Formal Verification</h3>
 			<p>
 				<a href="#" id="pvModelActiveLink">

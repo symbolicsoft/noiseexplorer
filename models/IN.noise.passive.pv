@@ -401,9 +401,9 @@ query c:principal, m:bitstring, sid_a:sessionid, sid_b:sessionid, s:stage, b:bit
 (* Message a: Confidentiality sanity *)
 	attacker(msg_a(alice, bob, sid_a));
 (* Message a: Confidentiality 1 *)
-	attacker(msg_a(alice, bob, sid_a)) ==> (false) || (false);
+	attacker(msg_a(alice, bob, sid_a)) ==> false;
 (* Message a: Confidentiality 3 *)
-	attacker(msg_a(alice, bob, sid_a)) ==> (false) || ((false) && ((event(LeakS(p, alice)))));
+	attacker(msg_a(alice, bob, sid_a)) ==> false && ((event(LeakS(p, alice)))));
 (* Message a: Confidentiality 5 *)
 	attacker(msg_a(alice, bob, sid_a)) ==> (false);
 (* Message b: Authenticity sanity *)
@@ -419,9 +419,9 @@ query c:principal, m:bitstring, sid_a:sessionid, sid_b:sessionid, s:stage, b:bit
 (* Message b: Confidentiality sanity *)
 	attacker(msg_b(bob, alice, sid_b));
 (* Message b: Confidentiality 1 *)
-	attacker(msg_b(bob, alice, sid_b)) ==> ((event(LeakS(phase0, alice)))) || ((event(LeakS(phase1, alice))));
+	attacker(msg_b(bob, alice, sid_b)) ==> ((event(LeakS(phase0, alice))) || (event(LeakS(phase1, alice))));
 (* Message b: Confidentiality 3 *)
-	attacker(msg_b(bob, alice, sid_b)) ==> ((event(LeakS(phase0, alice)))) || (((event(LeakS(phase1, alice)))) && (false));
+	attacker(msg_b(bob, alice, sid_b)) ==> ((event(LeakS(phase0, alice))) || (event(LeakS(phase1, alice)))) || (false));
 (* Message b: Confidentiality 5 *)
 	attacker(msg_b(bob, alice, sid_b)) ==> ((event(LeakS(phase0, alice))));
 (* Message c: Authenticity sanity *)
@@ -437,9 +437,9 @@ query c:principal, m:bitstring, sid_a:sessionid, sid_b:sessionid, s:stage, b:bit
 (* Message c: Confidentiality sanity *)
 	attacker(msg_c(alice, bob, sid_a));
 (* Message c: Confidentiality 1 *)
-	attacker(msg_c(alice, bob, sid_a)) ==> (false) || (false);
+	attacker(msg_c(alice, bob, sid_a)) ==> false;
 (* Message c: Confidentiality 3 *)
-	attacker(msg_c(alice, bob, sid_a)) ==> (false) || ((false) && ((event(LeakS(p, alice)))));
+	attacker(msg_c(alice, bob, sid_a)) ==> false && ((event(LeakS(p, alice)))));
 (* Message c: Confidentiality 5 *)
 	attacker(msg_c(alice, bob, sid_a)) ==> (false);
 (* Message d: Authenticity sanity *)
@@ -455,9 +455,9 @@ query c:principal, m:bitstring, sid_a:sessionid, sid_b:sessionid, s:stage, b:bit
 (* Message d: Confidentiality sanity *)
 	attacker(msg_d(bob, alice, sid_b));
 (* Message d: Confidentiality 1 *)
-	attacker(msg_d(bob, alice, sid_b)) ==> ((event(LeakS(phase0, alice)))) || ((event(LeakS(phase1, alice))));
+	attacker(msg_d(bob, alice, sid_b)) ==> ((event(LeakS(phase0, alice))) || (event(LeakS(phase1, alice))));
 (* Message d: Confidentiality 3 *)
-	attacker(msg_d(bob, alice, sid_b)) ==> ((event(LeakS(phase0, alice)))) || (((event(LeakS(phase1, alice)))) && (false));
+	attacker(msg_d(bob, alice, sid_b)) ==> ((event(LeakS(phase0, alice))) || (event(LeakS(phase1, alice)))) || (false));
 (* Message d: Confidentiality 5 *)
 	attacker(msg_d(bob, alice, sid_b)) ==> ((event(LeakS(phase0, alice))));
 (* Repeating keys *)

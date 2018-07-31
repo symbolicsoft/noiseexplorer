@@ -45,23 +45,23 @@
 					<text class="tokens" x="120" y="22">s</text>
 
 				<text class="ellipsis" x="120" y="185">...</text>
-<line data-seclevel="0" x1="1" x2="248" y1="340" y2="340"></line>
-					<polyline data-seclevel="0" points="237 330 248 340 237 350"></polyline>
-					<circle data-seclevel="4" cx="17" cy="340" r="15"></circle>
+<line data-seclevel="2" x1="1" x2="248" y1="340" y2="340"></line>
+					<polyline data-seclevel="2" points="237 330 248 340 237 350"></polyline>
+					<circle data-seclevel="1" cx="17" cy="340" r="15"></circle>
 					<text class="msg" x="16" y="345">a</text>
 					<text class="tokens" x="120" y="332">psk, e, es</text>
-<line data-seclevel="5" x2="248" y1="495" y2="495"></line>
-					<polyline data-seclevel="5" points="10 485 1 495 10 505"></polyline>
+<line data-seclevel="3" x2="248" y1="495" y2="495"></line>
+					<polyline data-seclevel="3" points="10 485 1 495 10 505"></polyline>
 					<circle data-seclevel="4" cx="234" cy="495" r="15"></circle>
 					<text class="msg" x="233" y="500">b</text>
 					<text class="tokens" x="120" y="487">e, ee</text>
 <line data-seclevel="5" x1="1" x2="248" y1="650" y2="650"></line>
 					<polyline data-seclevel="5" points="237 640 248 650 237 660"></polyline>
-					<circle data-seclevel="4" cx="17" cy="650" r="15"></circle>
+					<circle data-seclevel="1" cx="17" cy="650" r="15"></circle>
 					<text class="msg" x="16" y="655">c</text>
 					<text class="tokens" x="120" y="642"></text>
-<line data-seclevel="5" x2="248" y1="805" y2="805"></line>
-					<polyline data-seclevel="5" points="10 795 1 805 10 815"></polyline>
+<line data-seclevel="3" x2="248" y1="805" y2="805"></line>
+					<polyline data-seclevel="3" points="10 795 1 805 10 815"></polyline>
 					<circle data-seclevel="4" cx="234" cy="805" r="15"></circle>
 					<text class="msg" x="233" y="810">d</text>
 					<text class="tokens" x="120" y="797"></text>
@@ -74,16 +74,16 @@
 			
 
 			<h3>Message A <a href="A.html" class="detailedAnalysis">show detailed analysis</a></h3>
-			<p>Message A, sent by the initiator, benefits from <em>sender and receiver authentication</em> and is <em>resistant to Key Compromise Impersonation</em>. Assuming the corresponding private keys are secure, this authentication cannot be forged. Message contents are sent in cleartext and do not benefit from <em>message secrecy</em> and any <em>forward secrecy</em> is out of the question.  <span class="resultNums">4,0</span></p>
+			<p>Message A, sent by the initiator, benefits from <em>receiver authentication</em> but is <em>vulnerable to Key Compromise Impersonation</em>. If the responder's long-term private key has been compromised, this authentication can be forged. However, if the initiator carries out a separate session with a separate, compromised responder, this other session can be used to forge the authenticity of this message with this session's responder. Message contents benefit from <em>message secrecy</em> and some <em>forward secrecy</em>: the compromise of the responder's long-term private keys, even at a later date, will lead to message contents being decrypted by the attacker.  <span class="resultNums">1,2</span></p>
 
 			<h3>Message B <a href="B.html" class="detailedAnalysis">show detailed analysis</a></h3>
-			<p>Message B, sent by the responder, benefits from <em>sender and receiver authentication</em> and is <em>resistant to Key Compromise Impersonation</em>. Assuming the corresponding private keys are secure, this authentication cannot be forged. Message contents benefit from <em>message secrecy</em> and <em>strong forward secrecy</em>: if the ephemeral private keys are secure and the initiator is not being actively impersonated by an active attacker, message contents cannot be decrypted.  <span class="resultNums">4,5</span></p>
+			<p>Message B, sent by the responder, benefits from <em>sender and receiver authentication</em> and is <em>resistant to Key Compromise Impersonation</em>. Assuming the corresponding private keys are secure, this authentication cannot be forged. Message contents benefit from <em>message secrecy</em> and <em>weak forward secrecy</em> under a passive attacker: if the responder's long-term static keys were previously compromised, the later compromise of the initiator's long-term static keys can lead to message contents being decrypted by an attacker.  <span class="resultNums">4,3</span></p>
 
 			<h3>Message C <a href="C.html" class="detailedAnalysis">show detailed analysis</a></h3>
-			<p>Message C, sent by the initiator, benefits from <em>sender and receiver authentication</em> and is <em>resistant to Key Compromise Impersonation</em>. Assuming the corresponding private keys are secure, this authentication cannot be forged. Message contents benefit from <em>message secrecy</em> and <em>strong forward secrecy</em>: if the ephemeral private keys are secure and the responder is not being actively impersonated by an active attacker, message contents cannot be decrypted.  <span class="resultNums">4,5</span></p>
+			<p>Message C, sent by the initiator, benefits from <em>receiver authentication</em> but is <em>vulnerable to Key Compromise Impersonation</em>. If the responder's long-term private key has been compromised, this authentication can be forged. However, if the initiator carries out a separate session with a separate, compromised responder, this other session can be used to forge the authenticity of this message with this session's responder. Message contents benefit from <em>message secrecy</em> and <em>strong forward secrecy</em>: if the ephemeral private keys are secure and the responder is not being actively impersonated by an active attacker, message contents cannot be decrypted.  <span class="resultNums">1,5</span></p>
 
 			<h3>Message D <a href="D.html" class="detailedAnalysis">show detailed analysis</a></h3>
-			<p>Message D, sent by the responder, benefits from <em>sender and receiver authentication</em> and is <em>resistant to Key Compromise Impersonation</em>. Assuming the corresponding private keys are secure, this authentication cannot be forged. Message contents benefit from <em>message secrecy</em> and <em>strong forward secrecy</em>: if the ephemeral private keys are secure and the initiator is not being actively impersonated by an active attacker, message contents cannot be decrypted.  <span class="resultNums">4,5</span></p>
+			<p>Message D, sent by the responder, benefits from <em>sender and receiver authentication</em> and is <em>resistant to Key Compromise Impersonation</em>. Assuming the corresponding private keys are secure, this authentication cannot be forged. Message contents benefit from <em>message secrecy</em> and <em>weak forward secrecy</em> under a passive attacker: if the responder's long-term static keys were previously compromised, the later compromise of the initiator's long-term static keys can lead to message contents being decrypted by an attacker.  <span class="resultNums">4,3</span></p>
 			<h3>Download Cryptographic Models for Formal Verification</h3>
 			<p>
 				<a href="#" id="pvModelActiveLink">

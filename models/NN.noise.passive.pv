@@ -395,9 +395,9 @@ query c:principal, m:bitstring, sid_a:sessionid, sid_b:sessionid, s:stage, b:bit
 (* Message a: Confidentiality sanity *)
 	attacker(msg_a(alice, bob, sid_a));
 (* Message a: Confidentiality 1 *)
-	attacker(msg_a(alice, bob, sid_a)) ==> (false) || (false);
+	attacker(msg_a(alice, bob, sid_a)) ==> false;
 (* Message a: Confidentiality 3 *)
-	attacker(msg_a(alice, bob, sid_a)) ==> (false) || ((false) && (false));
+	attacker(msg_a(alice, bob, sid_a)) ==> false || (false));
 (* Message a: Confidentiality 5 *)
 	attacker(msg_a(alice, bob, sid_a)) ==> (false);
 (* Message b: Authenticity sanity *)
@@ -413,9 +413,9 @@ query c:principal, m:bitstring, sid_a:sessionid, sid_b:sessionid, s:stage, b:bit
 (* Message b: Confidentiality sanity *)
 	attacker(msg_b(bob, alice, sid_b));
 (* Message b: Confidentiality 1 *)
-	attacker(msg_b(bob, alice, sid_b)) ==> (false) || (false);
+	attacker(msg_b(bob, alice, sid_b)) ==> false;
 (* Message b: Confidentiality 3 *)
-	attacker(msg_b(bob, alice, sid_b)) ==> (false) || ((false) && (false));
+	attacker(msg_b(bob, alice, sid_b)) ==> false || (false));
 (* Message b: Confidentiality 5 *)
 	attacker(msg_b(bob, alice, sid_b)) ==> (false);
 (* Message c: Authenticity sanity *)
@@ -431,9 +431,9 @@ query c:principal, m:bitstring, sid_a:sessionid, sid_b:sessionid, s:stage, b:bit
 (* Message c: Confidentiality sanity *)
 	attacker(msg_c(alice, bob, sid_a));
 (* Message c: Confidentiality 1 *)
-	attacker(msg_c(alice, bob, sid_a)) ==> (false) || (false);
+	attacker(msg_c(alice, bob, sid_a)) ==> false;
 (* Message c: Confidentiality 3 *)
-	attacker(msg_c(alice, bob, sid_a)) ==> (false) || ((false) && (false));
+	attacker(msg_c(alice, bob, sid_a)) ==> false || (false));
 (* Message c: Confidentiality 5 *)
 	attacker(msg_c(alice, bob, sid_a)) ==> (false);
 (* Message d: Authenticity sanity *)
@@ -449,9 +449,9 @@ query c:principal, m:bitstring, sid_a:sessionid, sid_b:sessionid, s:stage, b:bit
 (* Message d: Confidentiality sanity *)
 	attacker(msg_d(bob, alice, sid_b));
 (* Message d: Confidentiality 1 *)
-	attacker(msg_d(bob, alice, sid_b)) ==> (false) || (false);
+	attacker(msg_d(bob, alice, sid_b)) ==> false;
 (* Message d: Confidentiality 3 *)
-	attacker(msg_d(bob, alice, sid_b)) ==> (false) || ((false) && (false));
+	attacker(msg_d(bob, alice, sid_b)) ==> false || (false));
 (* Message d: Confidentiality 5 *)
 	attacker(msg_d(bob, alice, sid_b)) ==> (false);
 (* Repeating keys *)
