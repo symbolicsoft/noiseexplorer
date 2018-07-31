@@ -338,7 +338,7 @@ const events = (pattern) => {
 
 const queries = (pattern) => {
 	let quer = [
-		`query c:principal, m:bitstring, sid_a:sessionid, sid_b:sessionid, s:stage, b:bitstring, p:phasen;`,
+		`query c:principal, m:bitstring, sid_a:sessionid, sid_b:sessionid, s:stage, b:bitstring, px:phasen, py:phasen, pz:phasen;`,
 	];
 	let sends = preMessagesSendStatic(pattern)? 0 : messagesSendStatic(pattern);
 	let recvs = preMessagesRecvStatic(pattern)? 0 : messagesRecvStatic(pattern);
@@ -351,42 +351,53 @@ const queries = (pattern) => {
 		let abc = util.abc[i];
 		let confQuery21 = (params.attacker === 'active')? '2' : '1';
 		let confQuery43 = (params.attacker === 'active')? '4' : '3';
-		let leakS = (phase, isSend, includePsk) => {
+		let leakS = (px, py, isSend, includePsk) => {
 			let x = isSend? send : recv;
 			let y = (x === 'alice')? sends : recvs;
-			let s = (y >= 0)? `(event(LeakS(${phase}, ${x})))` : '';
-			let p = (includePsk && (psk >= 0))? `(event(LeakPsk(${phase}, alice, bob)))` : '';
+			let s = (y >= 0)? `(event(LeakS(${px}, ${x})))` : '';
+			let p = (includePsk && (psk >= 0))? `(event(LeakPsk(${py}, alice, bob)))` : '';
 			let a = (s.length && p.length)? ` && ` : '';
 			return (s || p)? `${s}${a}${p}` : 'false';
 		};
-		let conf = (thour) => {
+		let conf21 = () => {
 			let y = (recv === 'alice')? sends : recvs;
 			let s = (y >= 0)? `((event(LeakS(phase0, ${recv}))) || (event(LeakS(phase1, ${recv}))))` : '';
-			let p = (psk >= 0)? `((event(LeakPsk(phase0, alice, bob)))${!thour? ' || (event(LeakPsk(phase1, alice, bob))))' : ''}` : '';
+			let p = (psk >= 0)? `((event(LeakPsk(phase0, alice, bob))) || (event(LeakPsk(phase1, alice, bob))))` : '';
 			let a = (s.length && p.length)? ` && ` : '';
 			return (s || p)? `${s}${a}${p}` : 'false';
 		}
+		let conf43 = () => {
+			let x = (recv === 'alice')? recvs : sends;
+			let y = (send === 'alice')? sends : recvs;
+			let s = (y >= 0)? `${leakS('phase0', 'phase0', false, true)}` : '';
+			let p = (y >= 0)? `${leakS('px', 'py', false, true)}` : '';
+			let b = (x >= 0)? `${leakS('pz', 'pz', true, false)}` : '';
+			let a = (s.length && p.length)? ` || ` : '';
+			let d = (p.length && b.length)? ` && ` : '';
+			return ((s.length > 5) && (b.length > 5))? `(${s})${a}(${p}${d}${b})` : (s.length > 5)? `(${s})${a}(${p})` : (b.length > 5)? `(${b})` : 'false';
+
+		};
 		quer = quer.concat([
 			`(* Message ${abc}: Authentication sanity *)`,
 			`\tevent(RecvMsg(${recv}, ${send}, stagepack_${abc}(${recvsid}), m)) ==> (event(SendMsg(${send}, ${recv}, stagepack_${abc}(${sendsid}), m)));`,
 			`(* Message ${abc}: Authentication 1 *)`,
-			`\tevent(RecvMsg(${recv}, ${send}, stagepack_${abc}(${recvsid}), m)) ==> (event(SendMsg(${send}, c, stagepack_${abc}(${sendsid}), m))) || (${leakS('phase0', true, true)}) || (${leakS('phase0', false, true)});`,
+			`\tevent(RecvMsg(${recv}, ${send}, stagepack_${abc}(${recvsid}), m)) ==> (event(SendMsg(${send}, c, stagepack_${abc}(${sendsid}), m))) || (${leakS('phase0', 'phase0', true, true)}) || (${leakS('phase0', 'phase0', false, true)});`,
 			`(* Message ${abc}: Authentication 2 *)`,
-			`\tevent(RecvMsg(${recv}, ${send}, stagepack_${abc}(${recvsid}), m)) ==> (event(SendMsg(${send}, c, stagepack_${abc}(${sendsid}), m))) || (${leakS('phase0', true, false)});`,
+			`\tevent(RecvMsg(${recv}, ${send}, stagepack_${abc}(${recvsid}), m)) ==> (event(SendMsg(${send}, c, stagepack_${abc}(${sendsid}), m))) || (${leakS('phase0', 'phase0', true, false)});`,
 			`(* Message ${abc}: Authentication 3 *)`,
-			`\tevent(RecvMsg(${recv}, ${send}, stagepack_${abc}(${recvsid}), m)) ==> (event(SendMsg(${send}, ${recv}, stagepack_${abc}(${sendsid}), m))) || (${leakS('phase0', true, true)}) || (${leakS('phase0', false, true)});`,
+			`\tevent(RecvMsg(${recv}, ${send}, stagepack_${abc}(${recvsid}), m)) ==> (event(SendMsg(${send}, ${recv}, stagepack_${abc}(${sendsid}), m))) || (${leakS('phase0', 'phase0', true, true)}) || (${leakS('phase0', 'phase0', false, true)});`,
 			`(* Message ${abc}: Authentication 4 *)`,
-			`\tevent(RecvMsg(${recv}, ${send}, stagepack_${abc}(${recvsid}), m)) ==> (event(SendMsg(${send}, ${recv}, stagepack_${abc}(${sendsid}), m))) || (${leakS('phase0', true, false)});`
+			`\tevent(RecvMsg(${recv}, ${send}, stagepack_${abc}(${recvsid}), m)) ==> (event(SendMsg(${send}, ${recv}, stagepack_${abc}(${sendsid}), m))) || (${leakS('phase0', 'phase0', true, false)});`
 		]);
 		quer = quer.concat([
 			`(* Message ${abc}: Confidentiality sanity *)`,
 			`\tattacker(msg_${abc}(${send}, ${recv}, ${sendsid}));`,
 			`(* Message ${abc}: Confidentiality ${confQuery21} *)`,
-			`\tattacker(msg_${abc}(${send}, ${recv}, ${sendsid})) ==> ${conf(false)};`,
+			`\tattacker(msg_${abc}(${send}, ${recv}, ${sendsid})) ==> ${conf21()};`,
 			`(* Message ${abc}: Confidentiality ${confQuery43} *)`,
-			`\tattacker(msg_${abc}(${send}, ${recv}, ${sendsid})) ==> ${conf(true)} ${(((send === 'alice')? sends : recvs) >= 0)? '&&' : '||'} (${leakS('p', true, false)}));`,
+			`\tattacker(msg_${abc}(${send}, ${recv}, ${sendsid})) ==> ${conf43()};`,
 			`(* Message ${abc}: Confidentiality 5 *)`,
-			`\tattacker(msg_${abc}(${send}, ${recv}, ${sendsid})) ==> (${leakS('phase0', false, true)});`
+			`\tattacker(msg_${abc}(${send}, ${recv}, ${sendsid})) ==> (${leakS('phase0', 'phase0', false, true)});`
 		]);
 	});
 	pattern.messages.forEach((message, i) => {
