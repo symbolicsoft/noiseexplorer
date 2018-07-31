@@ -91,17 +91,17 @@ letfun readMessage_d(me:principal, them:principal, hs:handshakestate, message:bi
 <li><span class="mono">decryptAndHash</span>, which performs an authenticated decryption with added data (AEAD) on the payload, with the session hash as the added data (<span class="mono">decryptWithAd</span>) and <span class="mono">mixHash</span>, which hashes the encrypted payload into the next session hash.</li>
 </ul>
 <h3>Queries and Results</h3>
-Message <span class="mono">D</span> is tested against four authenticity queries and five confidentiality queries.
-<h4>Authenticity Grade 1: <span class="passed">Passed</span></h4>
+Message <span class="mono">D</span> is tested against four authentication queries and five confidentiality queries.
+<h4>Authentication Grade 1: <span class="passed">Passed</span></h4>
 <p class="proverif"><br />RESULT event(RecvMsg(alice,bob,stagepack_d(sid_a),m)) ==> event(SendMsg(bob,c_1377,stagepack_d(sid_b),m)) || event(LeakS(phase0,bob)) || event(LeakS(phase0,alice)) is true.</p>
 <p>In this query, we test for <em>sender authentication</em> and <em>message integrity</em>. If Alice receives a valid message from Bob, then Bob must have sent that message to <em>someone</em>, or Bob had their static key compromised before the session began, or Alice had their static key compromised before the session began.</p>
-<h4>Authenticity Grade 2: <span class="passed">Passed</span></h4>
+<h4>Authentication Grade 2: <span class="passed">Passed</span></h4>
 <p class="proverif"><br />RESULT event(RecvMsg(alice,bob,stagepack_d(sid_a),m)) ==> event(SendMsg(bob,c_1377,stagepack_d(sid_b),m)) || event(LeakS(phase0,bob)) is true.</p>
 <p>In this query, we test for <em>sender authentication</em> and is <em>Key Compromise Impersonation</em> resistance. If Alice receives a valid message from Bob, then Bob must have sent that message to <em>someone</em>, or Bob had their static key compromised before the session began.</p>
-<h4>Authenticity Grade 3: <span class="passed">Passed</span></h4>
+<h4>Authentication Grade 3: <span class="passed">Passed</span></h4>
 <p class="proverif"><br />RESULT event(RecvMsg(alice,bob,stagepack_d(sid_a),m)) ==> event(SendMsg(bob,alice,stagepack_d(sid_b),m)) || event(LeakS(phase0,bob)) || event(LeakS(phase0,alice)) is true.</p>
 <p>In this query, we test for <em>sender and receiver authentication</em> and <em>message integrity</em>. If Alice receives a valid message from Bob, then Bob must have sent that message to <em>Alice specifically</em>, or Bob had their static key compromised before the session began, or Alice had their static key compromised before the session began.</p>
-<h4>Authenticity Grade 4: <span class="passed">Passed</span></h4>
+<h4>Authentication Grade 4: <span class="passed">Passed</span></h4>
 <p class="proverif"><br />RESULT event(RecvMsg(alice,bob,stagepack_d(sid_a),m)) ==> event(SendMsg(bob,alice,stagepack_d(sid_b),m)) || event(LeakS(phase0,bob)) is true.</p>
 <p>In this query, we test for <em>sender and receiver authentication</em> and is <em>Key Compromise Impersonation</em> resistance. If Alice receives a valid message from Bob, then Bob must have sent that message to <em>Alice specifically</em>, or Bob had their static key compromised before the session began.</p>
 <h4>Confidentiality Grade 1: <span class="passed">Passed</span></h4>

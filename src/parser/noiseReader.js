@@ -18,20 +18,20 @@ const readRules = {
 };
 
 const htmlTemplates = {
-	sendMessage: (offset, msg, tokens, authenticity, confidentiality) => {
+	sendMessage: (offset, msg, tokens, authentication, confidentiality) => {
 		return [
 			`<line data-seclevel="${confidentiality}" x1="1" x2="248" y1="${offset}" y2="${offset}"></line>`,
 			`<polyline data-seclevel="${confidentiality}" points="237 ${offset-10} 248 ${offset} 237 ${offset+10}"></polyline>`,
-			`<circle data-seclevel="${authenticity}" cx="17" cy="${offset}" r="15"></circle>`,
+			`<circle data-seclevel="${authentication}" cx="17" cy="${offset}" r="15"></circle>`,
 			`<text class="msg" x="16" y="${offset+5}">${msg}</text>`,
 			`<text class="tokens" x="120" y="${offset-8}">${tokens}</text>`,
 		].join('\n\t\t\t\t\t');
 	},
-	recvMessage: (offset, msg, tokens, authenticity, confidentiality) => { 
+	recvMessage: (offset, msg, tokens, authentication, confidentiality) => { 
 		return [
 			`<line data-seclevel="${confidentiality}" x2="248" y1="${offset}" y2="${offset}"></line>`,
 			`<polyline data-seclevel="${confidentiality}" points="10 ${offset-10} 1 ${offset} 10 ${offset+10}"></polyline>`,
-			`<circle data-seclevel="${authenticity}" cx="234" cy="${offset}" r="15"></circle>`,
+			`<circle data-seclevel="${authentication}" cx="234" cy="${offset}" r="15"></circle>`,
 			`<text class="msg" x="233" y="${offset+5}">${msg}</text>`,
 			`<text class="tokens" x="120" y="${offset-8}">${tokens}</text>`,
 		].join('\n\t\t\t\t\t');
@@ -65,13 +65,13 @@ const htmlTemplates = {
 		};
 		return `<p>${phrases[tokens]}</p> \n\t\t\t`;
 	},
-	analysisMessage: (abc, dir, tokens, authenticity, confidentiality, sanity) => {
+	analysisMessage: (abc, dir, tokens, authentication, confidentiality, sanity) => {
 		let who = (dir === 'send')? 'initiator' : 'responder';
 		let whom = (dir === 'recv')? 'initiator' : 'responder';
 		let authPhrases = {
 			0: `does not benefit from <em>sender authentication</em> and does not provide <em>message integrity</em>. It could have been sent by any party, including an active attacker`,
-			1: `benefits from <em>receiver authentication</em> but is <em>vulnerable to Key Compromise Impersonation</em>. If the ${whom}'s long-term private key has been compromised, this authentication can be forged. However, if the ${who} carries out a separate session with a separate, compromised ${whom}, this other session can be used to forge the authenticity of this message with this session's ${whom}`,
-			2: `benefits from <em>sender authentication</em> and is <em>resistant to Key Compromise Impersonation</em>. Assuming the corresponding private keys are secure, this authentication cannot be forged. However, if the ${who} carries out a separate session with a separate, compromised ${whom}, this other session can be used to forge the authenticity of this message with this session's ${whom}`,
+			1: `benefits from <em>receiver authentication</em> but is <em>vulnerable to Key Compromise Impersonation</em>. If the ${whom}'s long-term private key has been compromised, this authentication can be forged. However, if the ${who} carries out a separate session with a separate, compromised ${whom}, this other session can be used to forge the authentication of this message with this session's ${whom}`,
+			2: `benefits from <em>sender authentication</em> and is <em>resistant to Key Compromise Impersonation</em>. Assuming the corresponding private keys are secure, this authentication cannot be forged. However, if the ${who} carries out a separate session with a separate, compromised ${whom}, this other session can be used to forge the authentication of this message with this session's ${whom}`,
 			3: `benefits from <em>sender and receiver receiver authentication</em> but is <em>vulnerable to Key Compromise Impersonation</em>. If the ${whom}'s long-term private key has been compromised, this authentication can be forged`,
 			4: `benefits from <em>sender and receiver authentication</em> and is <em>resistant to Key Compromise Impersonation</em>. Assuming the corresponding private keys are secure, this authentication cannot be forged`
 		};
@@ -89,25 +89,25 @@ const htmlTemplates = {
 		};
 		let phrase = [
 			`\n\t\t\t<h3>Message ${abc.toUpperCase()} <a href="${abc.toUpperCase()}.html" class="detailedAnalysis">show detailed analysis</a></h3>`,
-			`<p>Message ${abc.toUpperCase()}, sent by the ${who}, ${authPhrases[authenticity]}. ${confPhrases[confidentiality]}. ${sanPhrases[sanity]} <span class="resultNums">${authenticity},${confidentiality}</span></p>`
+			`<p>Message ${abc.toUpperCase()}, sent by the ${who}, ${authPhrases[authentication]}. ${confPhrases[confidentiality]}. ${sanPhrases[sanity]} <span class="resultNums">${authentication},${confidentiality}</span></p>`
 		].join('\n\t\t\t');
 		return phrase;
 	},
 	detailed: {
-		sendMessage: (msg, tokens, authenticity, confidentiality) => {
+		sendMessage: (msg, tokens, authentication, confidentiality) => {
 			return [
 				`<line data-seclevel="${confidentiality}" x1="1" x2="500" y1="70" y2="70"></line>`,
 				`<polyline data-seclevel="${confidentiality}" points="480,50 500,70 480,90"></polyline>`,
-				`<circle data-seclevel="${authenticity}" cx="29" cy="70" r="25"></circle>`,
+				`<circle data-seclevel="${authentication}" cx="29" cy="70" r="25"></circle>`,
 				`<text class="msg" x="29" y="77">${msg}</text>`,
 				`<text class="tokens" x="240" y="50">${tokens}</text>`
 			].join('\n\t\t\t\t\t');
 		},
-		recvMessage: (msg, tokens, authenticity, confidentiality) => { 
+		recvMessage: (msg, tokens, authentication, confidentiality) => { 
 			return [
 				`<line data-seclevel="${confidentiality}" x1="1" x2="500" y1="70" y2="70"></line>`,
 				`<polyline data-seclevel="${confidentiality}" points="21,50 3,70 21,90"></polyline>`,
-				`<circle data-seclevel="${authenticity}" cx="474" cy="70" r="25"></circle>`,
+				`<circle data-seclevel="${authentication}" cx="474" cy="70" r="25"></circle>`,
 				`<text class="msg" x="474" y="77">${msg}</text>`,
 				`<text class="tokens" x="240" y="50">${tokens}</text>`
 			].join('\n\t\t\t\t\t');
@@ -230,7 +230,7 @@ const getResultsTemplate = (rawResults) => {
 		sanity: false
 	};
 	let msg = {
-		authenticity: {
+		authentication: {
 			sanity: false,
 			one: false,
 			two: false,
@@ -276,17 +276,17 @@ const getMsgAbc = (rawResult) => {
 	throw new Error('getMsgAbc failure.');
 };
 
-const getAuthenticity = (msgActive) => {
-	if (!msgActive.authenticity.one) {
+const getAuthentication = (msgActive) => {
+	if (!msgActive.authentication.one) {
 		return 0;
 	}
-	if (!msgActive.authenticity.two) {
+	if (!msgActive.authentication.two) {
 		return 1;
 	}
-	if (!msgActive.authenticity.three) {
+	if (!msgActive.authentication.three) {
 		return 2;
 	}
-	if (!msgActive.authenticity.four) {
+	if (!msgActive.authentication.four) {
 		return 3;
 	}
 	return 4;
@@ -329,15 +329,15 @@ const read = (pvOutput) => {
 			let abc = getMsgAbc(rawResult);
 			let r = i % 9;
 			if (r === 0) {
-				readResults[abc].authenticity.sanity = !isTrue;
+				readResults[abc].authentication.sanity = !isTrue;
 			} else if (r === 1) {
-				readResults[abc].authenticity.one = isTrue;
+				readResults[abc].authentication.one = isTrue;
 			} else if (r === 2) {
-				readResults[abc].authenticity.two = isTrue;
+				readResults[abc].authentication.two = isTrue;
 			} else if (r === 3) {
-				readResults[abc].authenticity.three = isTrue;
+				readResults[abc].authentication.three = isTrue;
 			} else if (r === 4) {
-				readResults[abc].authenticity.four = isTrue;
+				readResults[abc].authentication.four = isTrue;
 			} else if (r === 5) {
 				readResults[abc].confidentiality.sanity = !isTrue;
 			} else if (r === 6) {
@@ -376,14 +376,14 @@ const render = (
 	}
 	pattern.messages.forEach((message, i) => {
 		let abc = util.abc[i];
-		let authenticity = 0;
+		let authentication = 0;
 		let confidentiality = 0;
 		let sanity = false;
 		if (
 			readResultsActive[abc] &&
 			readResultsPassive[abc]
 		) {
-			authenticity = getAuthenticity(
+			authentication = getAuthentication(
 				readResultsActive[abc]
 			);
 			confidentiality = getConfidentiality(
@@ -391,19 +391,19 @@ const render = (
 				readResultsPassive[abc]
 			);
 			sanity = (
-				readResultsActive[abc].authenticity.sanity &&
+				readResultsActive[abc].authentication.sanity &&
 				readResultsActive[abc].confidentiality.sanity &&
 				readResultsActive.sanity
 			);
 			analysisTxt.push(htmlTemplates.analysisMessage(
 				abc, message.dir, message.tokens,
-				authenticity, confidentiality, sanity
+				authentication, confidentiality, sanity
 			));
 		}
 		arrowSvg.push(htmlTemplates[`${message.dir}Message`](
 			offset, util.abc[i],
 			message.tokens.join(', '),
-			authenticity,
+			authentication,
 			confidentiality
 		));
 		offset = offset + offsetIncrement;
@@ -432,19 +432,19 @@ const renderDetailed = (
 	let readMessageRegExp = new RegExp(`letfun readMessage_${abc}[^.]+\.`, '');
 	let writeMessage = activeModel.match(writeMessageRegExp)[0];
 	let readMessage = activeModel.match(readMessageRegExp)[0];
-	let authenticity = getAuthenticity(readResultsActive[abc]);
+	let authentication = getAuthentication(readResultsActive[abc]);
 	let confidentiality = getConfidentiality(readResultsActive[abc], readResultsPassive[abc]);
 	if (pattern.messages[message].dir === 'send') {
 		arrowSvg.push(htmlTemplates.detailed.sendMessage(
-			abc, tokens.join(', '), authenticity, confidentiality
+			abc, tokens.join(', '), authentication, confidentiality
 		));
 	} else {
 		arrowSvg.push(htmlTemplates.detailed.recvMessage(
-			abc, tokens.join(', '), authenticity, confidentiality
+			abc, tokens.join(', '), authentication, confidentiality
 		));
 	}
 	let queryExplanations = {
-		authenticity: ['',
+		authentication: ['',
 			`In this query, we test for <em>sender authentication</em> and <em>message integrity</em>. If ${whom[0].toUpperCase()}${whom.substr(1)} receives a valid message from ${who[0].toUpperCase()}${who.substr(1)}, then ${who[0].toUpperCase()}${who.substr(1)} must have sent that message to <em>someone</em>, or ${who[0].toUpperCase()}${who.substr(1)} had their static key compromised before the session began, or ${whom[0].toUpperCase()}${whom.substr(1)} had their static key compromised before the session began.`,
 			`In this query, we test for <em>sender authentication</em> and is <em>Key Compromise Impersonation</em> resistance. If ${whom[0].toUpperCase()}${whom.substr(1)} receives a valid message from ${who[0].toUpperCase()}${who.substr(1)}, then ${who[0].toUpperCase()}${who.substr(1)} must have sent that message to <em>someone</em>, or ${who[0].toUpperCase()}${who.substr(1)} had their static key compromised before the session began.`,
 			`In this query, we test for <em>sender and receiver authentication</em> and <em>message integrity</em>. If ${whom[0].toUpperCase()}${whom.substr(1)} receives a valid message from ${who[0].toUpperCase()}${who.substr(1)}, then ${who[0].toUpperCase()}${who.substr(1)} must have sent that message to <em>${whom[0].toUpperCase()}${whom.substr(1)} specifically</em>, or ${who[0].toUpperCase()}${who.substr(1)} had their static key compromised before the session began, or ${whom[0].toUpperCase()}${whom.substr(1)} had their static key compromised before the session began.`,
@@ -469,13 +469,13 @@ const renderDetailed = (
 	);
 	analysisTxt = analysisTxt.concat([
 		`<h3>Queries and Results</h3>`,
-		`Message <span class="mono">${abc.toUpperCase()}</span> is tested against four authenticity queries and five confidentiality queries.`
+		`Message <span class="mono">${abc.toUpperCase()}</span> is tested against four authentication queries and five confidentiality queries.`
 	]);
 	for (let i = 1; i < 5; i++) {
 		analysisTxt = analysisTxt.concat([
-			`<h4>Authenticity Grade ${i}: ${(well(rawResultsActive[(message * 9) + i]))? '<span class="passed">Passed</span>' : '<span class="failed">Failed</span>'}</h4>`,
+			`<h4>Authentication Grade ${i}: ${(well(rawResultsActive[(message * 9) + i]))? '<span class="passed">Passed</span>' : '<span class="failed">Failed</span>'}</h4>`,
 			`<p class="proverif"><br />${rawResultsActive[(message * 9) + i]}</p>`,
-			`<p>${queryExplanations.authenticity[i]}</p>`
+			`<p>${queryExplanations.authentication[i]}</p>`
 		]);
 	}
 	for (let i = 1; i < 6; i++) {

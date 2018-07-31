@@ -367,15 +367,15 @@ const queries = (pattern) => {
 			return (s || p)? `${s}${a}${p}` : 'false';
 		}
 		quer = quer.concat([
-			`(* Message ${abc}: Authenticity sanity *)`,
+			`(* Message ${abc}: Authentication sanity *)`,
 			`\tevent(RecvMsg(${recv}, ${send}, stagepack_${abc}(${recvsid}), m)) ==> (event(SendMsg(${send}, ${recv}, stagepack_${abc}(${sendsid}), m)));`,
-			`(* Message ${abc}: Authenticity 1 *)`,
+			`(* Message ${abc}: Authentication 1 *)`,
 			`\tevent(RecvMsg(${recv}, ${send}, stagepack_${abc}(${recvsid}), m)) ==> (event(SendMsg(${send}, c, stagepack_${abc}(${sendsid}), m))) || (${leakS('phase0', true, true)}) || (${leakS('phase0', false, true)});`,
-			`(* Message ${abc}: Authenticity 2 *)`,
+			`(* Message ${abc}: Authentication 2 *)`,
 			`\tevent(RecvMsg(${recv}, ${send}, stagepack_${abc}(${recvsid}), m)) ==> (event(SendMsg(${send}, c, stagepack_${abc}(${sendsid}), m))) || (${leakS('phase0', true, false)});`,
-			`(* Message ${abc}: Authenticity 3 *)`,
+			`(* Message ${abc}: Authentication 3 *)`,
 			`\tevent(RecvMsg(${recv}, ${send}, stagepack_${abc}(${recvsid}), m)) ==> (event(SendMsg(${send}, ${recv}, stagepack_${abc}(${sendsid}), m))) || (${leakS('phase0', true, true)}) || (${leakS('phase0', false, true)});`,
-			`(* Message ${abc}: Authenticity 4 *)`,
+			`(* Message ${abc}: Authentication 4 *)`,
 			`\tevent(RecvMsg(${recv}, ${send}, stagepack_${abc}(${recvsid}), m)) ==> (event(SendMsg(${send}, ${recv}, stagepack_${abc}(${sendsid}), m))) || (${leakS('phase0', true, false)});`
 		]);
 		quer = quer.concat([

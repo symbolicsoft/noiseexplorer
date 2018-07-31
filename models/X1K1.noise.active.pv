@@ -436,15 +436,15 @@ event RepeatingKey_e(principal).
 event RepeatingKey_f(principal).
 
 query c:principal, m:bitstring, sid_a:sessionid, sid_b:sessionid, s:stage, b:bitstring, p:phasen;
-(* Message a: Authenticity sanity *)
+(* Message a: Authentication sanity *)
 	event(RecvMsg(bob, alice, stagepack_a(sid_b), m)) ==> (event(SendMsg(alice, bob, stagepack_a(sid_a), m)));
-(* Message a: Authenticity 1 *)
+(* Message a: Authentication 1 *)
 	event(RecvMsg(bob, alice, stagepack_a(sid_b), m)) ==> (event(SendMsg(alice, c, stagepack_a(sid_a), m))) || ((event(LeakS(phase0, alice)))) || ((event(LeakS(phase0, bob))));
-(* Message a: Authenticity 2 *)
+(* Message a: Authentication 2 *)
 	event(RecvMsg(bob, alice, stagepack_a(sid_b), m)) ==> (event(SendMsg(alice, c, stagepack_a(sid_a), m))) || ((event(LeakS(phase0, alice))));
-(* Message a: Authenticity 3 *)
+(* Message a: Authentication 3 *)
 	event(RecvMsg(bob, alice, stagepack_a(sid_b), m)) ==> (event(SendMsg(alice, bob, stagepack_a(sid_a), m))) || ((event(LeakS(phase0, alice)))) || ((event(LeakS(phase0, bob))));
-(* Message a: Authenticity 4 *)
+(* Message a: Authentication 4 *)
 	event(RecvMsg(bob, alice, stagepack_a(sid_b), m)) ==> (event(SendMsg(alice, bob, stagepack_a(sid_a), m))) || ((event(LeakS(phase0, alice))));
 (* Message a: Confidentiality sanity *)
 	attacker(msg_a(alice, bob, sid_a));
@@ -454,15 +454,15 @@ query c:principal, m:bitstring, sid_a:sessionid, sid_b:sessionid, s:stage, b:bit
 	attacker(msg_a(alice, bob, sid_a)) ==> ((event(LeakS(phase0, bob))) || (event(LeakS(phase1, bob)))) && ((event(LeakS(p, alice)))));
 (* Message a: Confidentiality 5 *)
 	attacker(msg_a(alice, bob, sid_a)) ==> ((event(LeakS(phase0, bob))));
-(* Message b: Authenticity sanity *)
+(* Message b: Authentication sanity *)
 	event(RecvMsg(alice, bob, stagepack_b(sid_a), m)) ==> (event(SendMsg(bob, alice, stagepack_b(sid_b), m)));
-(* Message b: Authenticity 1 *)
+(* Message b: Authentication 1 *)
 	event(RecvMsg(alice, bob, stagepack_b(sid_a), m)) ==> (event(SendMsg(bob, c, stagepack_b(sid_b), m))) || ((event(LeakS(phase0, bob)))) || ((event(LeakS(phase0, alice))));
-(* Message b: Authenticity 2 *)
+(* Message b: Authentication 2 *)
 	event(RecvMsg(alice, bob, stagepack_b(sid_a), m)) ==> (event(SendMsg(bob, c, stagepack_b(sid_b), m))) || ((event(LeakS(phase0, bob))));
-(* Message b: Authenticity 3 *)
+(* Message b: Authentication 3 *)
 	event(RecvMsg(alice, bob, stagepack_b(sid_a), m)) ==> (event(SendMsg(bob, alice, stagepack_b(sid_b), m))) || ((event(LeakS(phase0, bob)))) || ((event(LeakS(phase0, alice))));
-(* Message b: Authenticity 4 *)
+(* Message b: Authentication 4 *)
 	event(RecvMsg(alice, bob, stagepack_b(sid_a), m)) ==> (event(SendMsg(bob, alice, stagepack_b(sid_b), m))) || ((event(LeakS(phase0, bob))));
 (* Message b: Confidentiality sanity *)
 	attacker(msg_b(bob, alice, sid_b));
@@ -472,15 +472,15 @@ query c:principal, m:bitstring, sid_a:sessionid, sid_b:sessionid, s:stage, b:bit
 	attacker(msg_b(bob, alice, sid_b)) ==> ((event(LeakS(phase0, alice))) || (event(LeakS(phase1, alice)))) && ((event(LeakS(p, bob)))));
 (* Message b: Confidentiality 5 *)
 	attacker(msg_b(bob, alice, sid_b)) ==> ((event(LeakS(phase0, alice))));
-(* Message c: Authenticity sanity *)
+(* Message c: Authentication sanity *)
 	event(RecvMsg(bob, alice, stagepack_c(sid_b), m)) ==> (event(SendMsg(alice, bob, stagepack_c(sid_a), m)));
-(* Message c: Authenticity 1 *)
+(* Message c: Authentication 1 *)
 	event(RecvMsg(bob, alice, stagepack_c(sid_b), m)) ==> (event(SendMsg(alice, c, stagepack_c(sid_a), m))) || ((event(LeakS(phase0, alice)))) || ((event(LeakS(phase0, bob))));
-(* Message c: Authenticity 2 *)
+(* Message c: Authentication 2 *)
 	event(RecvMsg(bob, alice, stagepack_c(sid_b), m)) ==> (event(SendMsg(alice, c, stagepack_c(sid_a), m))) || ((event(LeakS(phase0, alice))));
-(* Message c: Authenticity 3 *)
+(* Message c: Authentication 3 *)
 	event(RecvMsg(bob, alice, stagepack_c(sid_b), m)) ==> (event(SendMsg(alice, bob, stagepack_c(sid_a), m))) || ((event(LeakS(phase0, alice)))) || ((event(LeakS(phase0, bob))));
-(* Message c: Authenticity 4 *)
+(* Message c: Authentication 4 *)
 	event(RecvMsg(bob, alice, stagepack_c(sid_b), m)) ==> (event(SendMsg(alice, bob, stagepack_c(sid_a), m))) || ((event(LeakS(phase0, alice))));
 (* Message c: Confidentiality sanity *)
 	attacker(msg_c(alice, bob, sid_a));
@@ -490,15 +490,15 @@ query c:principal, m:bitstring, sid_a:sessionid, sid_b:sessionid, s:stage, b:bit
 	attacker(msg_c(alice, bob, sid_a)) ==> ((event(LeakS(phase0, bob))) || (event(LeakS(phase1, bob)))) && ((event(LeakS(p, alice)))));
 (* Message c: Confidentiality 5 *)
 	attacker(msg_c(alice, bob, sid_a)) ==> ((event(LeakS(phase0, bob))));
-(* Message d: Authenticity sanity *)
+(* Message d: Authentication sanity *)
 	event(RecvMsg(alice, bob, stagepack_d(sid_a), m)) ==> (event(SendMsg(bob, alice, stagepack_d(sid_b), m)));
-(* Message d: Authenticity 1 *)
+(* Message d: Authentication 1 *)
 	event(RecvMsg(alice, bob, stagepack_d(sid_a), m)) ==> (event(SendMsg(bob, c, stagepack_d(sid_b), m))) || ((event(LeakS(phase0, bob)))) || ((event(LeakS(phase0, alice))));
-(* Message d: Authenticity 2 *)
+(* Message d: Authentication 2 *)
 	event(RecvMsg(alice, bob, stagepack_d(sid_a), m)) ==> (event(SendMsg(bob, c, stagepack_d(sid_b), m))) || ((event(LeakS(phase0, bob))));
-(* Message d: Authenticity 3 *)
+(* Message d: Authentication 3 *)
 	event(RecvMsg(alice, bob, stagepack_d(sid_a), m)) ==> (event(SendMsg(bob, alice, stagepack_d(sid_b), m))) || ((event(LeakS(phase0, bob)))) || ((event(LeakS(phase0, alice))));
-(* Message d: Authenticity 4 *)
+(* Message d: Authentication 4 *)
 	event(RecvMsg(alice, bob, stagepack_d(sid_a), m)) ==> (event(SendMsg(bob, alice, stagepack_d(sid_b), m))) || ((event(LeakS(phase0, bob))));
 (* Message d: Confidentiality sanity *)
 	attacker(msg_d(bob, alice, sid_b));
@@ -508,15 +508,15 @@ query c:principal, m:bitstring, sid_a:sessionid, sid_b:sessionid, s:stage, b:bit
 	attacker(msg_d(bob, alice, sid_b)) ==> ((event(LeakS(phase0, alice))) || (event(LeakS(phase1, alice)))) && ((event(LeakS(p, bob)))));
 (* Message d: Confidentiality 5 *)
 	attacker(msg_d(bob, alice, sid_b)) ==> ((event(LeakS(phase0, alice))));
-(* Message e: Authenticity sanity *)
+(* Message e: Authentication sanity *)
 	event(RecvMsg(bob, alice, stagepack_e(sid_b), m)) ==> (event(SendMsg(alice, bob, stagepack_e(sid_a), m)));
-(* Message e: Authenticity 1 *)
+(* Message e: Authentication 1 *)
 	event(RecvMsg(bob, alice, stagepack_e(sid_b), m)) ==> (event(SendMsg(alice, c, stagepack_e(sid_a), m))) || ((event(LeakS(phase0, alice)))) || ((event(LeakS(phase0, bob))));
-(* Message e: Authenticity 2 *)
+(* Message e: Authentication 2 *)
 	event(RecvMsg(bob, alice, stagepack_e(sid_b), m)) ==> (event(SendMsg(alice, c, stagepack_e(sid_a), m))) || ((event(LeakS(phase0, alice))));
-(* Message e: Authenticity 3 *)
+(* Message e: Authentication 3 *)
 	event(RecvMsg(bob, alice, stagepack_e(sid_b), m)) ==> (event(SendMsg(alice, bob, stagepack_e(sid_a), m))) || ((event(LeakS(phase0, alice)))) || ((event(LeakS(phase0, bob))));
-(* Message e: Authenticity 4 *)
+(* Message e: Authentication 4 *)
 	event(RecvMsg(bob, alice, stagepack_e(sid_b), m)) ==> (event(SendMsg(alice, bob, stagepack_e(sid_a), m))) || ((event(LeakS(phase0, alice))));
 (* Message e: Confidentiality sanity *)
 	attacker(msg_e(alice, bob, sid_a));
@@ -526,15 +526,15 @@ query c:principal, m:bitstring, sid_a:sessionid, sid_b:sessionid, s:stage, b:bit
 	attacker(msg_e(alice, bob, sid_a)) ==> ((event(LeakS(phase0, bob))) || (event(LeakS(phase1, bob)))) && ((event(LeakS(p, alice)))));
 (* Message e: Confidentiality 5 *)
 	attacker(msg_e(alice, bob, sid_a)) ==> ((event(LeakS(phase0, bob))));
-(* Message f: Authenticity sanity *)
+(* Message f: Authentication sanity *)
 	event(RecvMsg(alice, bob, stagepack_f(sid_a), m)) ==> (event(SendMsg(bob, alice, stagepack_f(sid_b), m)));
-(* Message f: Authenticity 1 *)
+(* Message f: Authentication 1 *)
 	event(RecvMsg(alice, bob, stagepack_f(sid_a), m)) ==> (event(SendMsg(bob, c, stagepack_f(sid_b), m))) || ((event(LeakS(phase0, bob)))) || ((event(LeakS(phase0, alice))));
-(* Message f: Authenticity 2 *)
+(* Message f: Authentication 2 *)
 	event(RecvMsg(alice, bob, stagepack_f(sid_a), m)) ==> (event(SendMsg(bob, c, stagepack_f(sid_b), m))) || ((event(LeakS(phase0, bob))));
-(* Message f: Authenticity 3 *)
+(* Message f: Authentication 3 *)
 	event(RecvMsg(alice, bob, stagepack_f(sid_a), m)) ==> (event(SendMsg(bob, alice, stagepack_f(sid_b), m))) || ((event(LeakS(phase0, bob)))) || ((event(LeakS(phase0, alice))));
-(* Message f: Authenticity 4 *)
+(* Message f: Authentication 4 *)
 	event(RecvMsg(alice, bob, stagepack_f(sid_a), m)) ==> (event(SendMsg(bob, alice, stagepack_f(sid_b), m))) || ((event(LeakS(phase0, bob))));
 (* Message f: Confidentiality sanity *)
 	attacker(msg_f(bob, alice, sid_b));
