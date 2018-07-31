@@ -360,7 +360,7 @@ const render = (
 	let arrowSvg = [];
 	let analysisTxt = [];
 	let offset = 30;
-	let offsetIncrement = 155;
+	let offsetIncrement = 165;
 	if (pattern.preMessages.length) {
 		pattern.preMessages.forEach((preMessage) => {
 			arrowSvg.push(htmlTemplates[`${preMessage.dir}PreMessage`](
