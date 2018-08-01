@@ -850,7 +850,7 @@ Process:
     )
 )
 
--- Query event(RecvMsg(bob,alice,stagepack_a(sid_b),m)) ==> event(SendMsg(alice,bob,stagepack_a(sid_a),m)); event(RecvMsg(bob,alice,stagepack_a(sid_b),m)) ==> event(SendMsg(alice,c_1136,stagepack_a(sid_a),m)) || event(LeakPsk(phase0,alice,bob)) || event(LeakPsk(phase0,alice,bob)); event(RecvMsg(bob,alice,stagepack_a(sid_b),m)) ==> event(SendMsg(alice,c_1136,stagepack_a(sid_a),m)); event(RecvMsg(bob,alice,stagepack_a(sid_b),m)) ==> event(SendMsg(alice,bob,stagepack_a(sid_a),m)) || event(LeakPsk(phase0,alice,bob)) || event(LeakPsk(phase0,alice,bob)); event(RecvMsg(bob,alice,stagepack_a(sid_b),m)) ==> event(SendMsg(alice,bob,stagepack_a(sid_a),m)); not attacker_p1(msg_a(alice,bob,sid_a)); attacker_p1(msg_a(alice,bob,sid_a)) ==> event(LeakPsk(phase0,alice,bob)) || event(LeakPsk(phase1,alice,bob)); attacker_p1(msg_a(alice,bob,sid_a)) ==> event(LeakPsk(phase0,alice,bob)); attacker_p1(msg_a(alice,bob,sid_a)) ==> event(LeakPsk(phase0,alice,bob)); event(RecvMsg(alice,bob,stagepack_b(sid_a),m)) ==> event(SendMsg(bob,alice,stagepack_b(sid_b),m)); event(RecvMsg(alice,bob,stagepack_b(sid_a),m)) ==> event(SendMsg(bob,c_1136,stagepack_b(sid_b),m)) || event(LeakPsk(phase0,alice,bob)) || event(LeakPsk(phase0,alice,bob)); event(RecvMsg(alice,bob,stagepack_b(sid_a),m)) ==> event(SendMsg(bob,c_1136,stagepack_b(sid_b),m)); event(RecvMsg(alice,bob,stagepack_b(sid_a),m)) ==> event(SendMsg(bob,alice,stagepack_b(sid_b),m)) || event(LeakPsk(phase0,alice,bob)) || event(LeakPsk(phase0,alice,bob)); event(RecvMsg(alice,bob,stagepack_b(sid_a),m)) ==> event(SendMsg(bob,alice,stagepack_b(sid_b),m)); not attacker_p1(msg_b(bob,alice,sid_b)); attacker_p1(msg_b(bob,alice,sid_b)) ==> event(LeakPsk(phase0,alice,bob)) || event(LeakPsk(phase1,alice,bob)); attacker_p1(msg_b(bob,alice,sid_b)) ==> event(LeakPsk(phase0,alice,bob)); attacker_p1(msg_b(bob,alice,sid_b)) ==> event(LeakPsk(phase0,alice,bob)); event(RecvMsg(bob,alice,stagepack_c(sid_b),m)) ==> event(SendMsg(alice,bob,stagepack_c(sid_a),m)); event(RecvMsg(bob,alice,stagepack_c(sid_b),m)) ==> event(SendMsg(alice,c_1136,stagepack_c(sid_a),m)) || event(LeakPsk(phase0,alice,bob)) || event(LeakPsk(phase0,alice,bob)); event(RecvMsg(bob,alice,stagepack_c(sid_b),m)) ==> event(SendMsg(alice,c_1136,stagepack_c(sid_a),m)); event(RecvMsg(bob,alice,stagepack_c(sid_b),m)) ==> event(SendMsg(alice,bob,stagepack_c(sid_a),m)) || event(LeakPsk(phase0,alice,bob)) || event(LeakPsk(phase0,alice,bob)); event(RecvMsg(bob,alice,stagepack_c(sid_b),m)) ==> event(SendMsg(alice,bob,stagepack_c(sid_a),m)); not attacker_p1(msg_c(alice,bob,sid_a)); attacker_p1(msg_c(alice,bob,sid_a)) ==> event(LeakPsk(phase0,alice,bob)) || event(LeakPsk(phase1,alice,bob)); attacker_p1(msg_c(alice,bob,sid_a)) ==> event(LeakPsk(phase0,alice,bob)); attacker_p1(msg_c(alice,bob,sid_a)) ==> event(LeakPsk(phase0,alice,bob)); event(RecvMsg(alice,bob,stagepack_d(sid_a),m)) ==> event(SendMsg(bob,alice,stagepack_d(sid_b),m)); event(RecvMsg(alice,bob,stagepack_d(sid_a),m)) ==> event(SendMsg(bob,c_1136,stagepack_d(sid_b),m)) || event(LeakPsk(phase0,alice,bob)) || event(LeakPsk(phase0,alice,bob)); event(RecvMsg(alice,bob,stagepack_d(sid_a),m)) ==> event(SendMsg(bob,c_1136,stagepack_d(sid_b),m)); event(RecvMsg(alice,bob,stagepack_d(sid_a),m)) ==> event(SendMsg(bob,alice,stagepack_d(sid_b),m)) || event(LeakPsk(phase0,alice,bob)) || event(LeakPsk(phase0,alice,bob)); event(RecvMsg(alice,bob,stagepack_d(sid_a),m)) ==> event(SendMsg(bob,alice,stagepack_d(sid_b),m)); not attacker_p1(msg_d(bob,alice,sid_b)); attacker_p1(msg_d(bob,alice,sid_b)) ==> event(LeakPsk(phase0,alice,bob)) || event(LeakPsk(phase1,alice,bob)); attacker_p1(msg_d(bob,alice,sid_b)) ==> event(LeakPsk(phase0,alice,bob)); attacker_p1(msg_d(bob,alice,sid_b)) ==> event(LeakPsk(phase0,alice,bob)); not event(RecvEnd(true))
+-- Query event(RecvMsg(bob,alice,stagepack_a(sid_b),m)) ==> event(SendMsg(alice,bob,stagepack_a(sid_a),m)); event(RecvMsg(bob,alice,stagepack_a(sid_b),m)) ==> event(SendMsg(alice,c_1136,stagepack_a(sid_a),m)) || event(LeakPsk(phase0,alice,bob)) || event(LeakPsk(phase0,alice,bob)); event(RecvMsg(bob,alice,stagepack_a(sid_b),m)) ==> event(SendMsg(alice,c_1136,stagepack_a(sid_a),m)); event(RecvMsg(bob,alice,stagepack_a(sid_b),m)) ==> event(SendMsg(alice,bob,stagepack_a(sid_a),m)) || event(LeakPsk(phase0,alice,bob)) || event(LeakPsk(phase0,alice,bob)); event(RecvMsg(bob,alice,stagepack_a(sid_b),m)) ==> event(SendMsg(alice,bob,stagepack_a(sid_a),m)); not attacker_p1(msg_a(alice,bob,sid_a)); attacker_p1(msg_a(alice,bob,sid_a)) ==> event(LeakPsk(phase0,alice,bob)) || event(LeakPsk(phase1,alice,bob)); not attacker_p1(msg_a(alice,bob,sid_a)); attacker_p1(msg_a(alice,bob,sid_a)) ==> event(LeakPsk(phase0,alice,bob)); event(RecvMsg(alice,bob,stagepack_b(sid_a),m)) ==> event(SendMsg(bob,alice,stagepack_b(sid_b),m)); event(RecvMsg(alice,bob,stagepack_b(sid_a),m)) ==> event(SendMsg(bob,c_1136,stagepack_b(sid_b),m)) || event(LeakPsk(phase0,alice,bob)) || event(LeakPsk(phase0,alice,bob)); event(RecvMsg(alice,bob,stagepack_b(sid_a),m)) ==> event(SendMsg(bob,c_1136,stagepack_b(sid_b),m)); event(RecvMsg(alice,bob,stagepack_b(sid_a),m)) ==> event(SendMsg(bob,alice,stagepack_b(sid_b),m)) || event(LeakPsk(phase0,alice,bob)) || event(LeakPsk(phase0,alice,bob)); event(RecvMsg(alice,bob,stagepack_b(sid_a),m)) ==> event(SendMsg(bob,alice,stagepack_b(sid_b),m)); not attacker_p1(msg_b(bob,alice,sid_b)); attacker_p1(msg_b(bob,alice,sid_b)) ==> event(LeakPsk(phase0,alice,bob)) || event(LeakPsk(phase1,alice,bob)); not attacker_p1(msg_b(bob,alice,sid_b)); attacker_p1(msg_b(bob,alice,sid_b)) ==> event(LeakPsk(phase0,alice,bob)); event(RecvMsg(bob,alice,stagepack_c(sid_b),m)) ==> event(SendMsg(alice,bob,stagepack_c(sid_a),m)); event(RecvMsg(bob,alice,stagepack_c(sid_b),m)) ==> event(SendMsg(alice,c_1136,stagepack_c(sid_a),m)) || event(LeakPsk(phase0,alice,bob)) || event(LeakPsk(phase0,alice,bob)); event(RecvMsg(bob,alice,stagepack_c(sid_b),m)) ==> event(SendMsg(alice,c_1136,stagepack_c(sid_a),m)); event(RecvMsg(bob,alice,stagepack_c(sid_b),m)) ==> event(SendMsg(alice,bob,stagepack_c(sid_a),m)) || event(LeakPsk(phase0,alice,bob)) || event(LeakPsk(phase0,alice,bob)); event(RecvMsg(bob,alice,stagepack_c(sid_b),m)) ==> event(SendMsg(alice,bob,stagepack_c(sid_a),m)); not attacker_p1(msg_c(alice,bob,sid_a)); attacker_p1(msg_c(alice,bob,sid_a)) ==> event(LeakPsk(phase0,alice,bob)) || event(LeakPsk(phase1,alice,bob)); not attacker_p1(msg_c(alice,bob,sid_a)); attacker_p1(msg_c(alice,bob,sid_a)) ==> event(LeakPsk(phase0,alice,bob)); event(RecvMsg(alice,bob,stagepack_d(sid_a),m)) ==> event(SendMsg(bob,alice,stagepack_d(sid_b),m)); event(RecvMsg(alice,bob,stagepack_d(sid_a),m)) ==> event(SendMsg(bob,c_1136,stagepack_d(sid_b),m)) || event(LeakPsk(phase0,alice,bob)) || event(LeakPsk(phase0,alice,bob)); event(RecvMsg(alice,bob,stagepack_d(sid_a),m)) ==> event(SendMsg(bob,c_1136,stagepack_d(sid_b),m)); event(RecvMsg(alice,bob,stagepack_d(sid_a),m)) ==> event(SendMsg(bob,alice,stagepack_d(sid_b),m)) || event(LeakPsk(phase0,alice,bob)) || event(LeakPsk(phase0,alice,bob)); event(RecvMsg(alice,bob,stagepack_d(sid_a),m)) ==> event(SendMsg(bob,alice,stagepack_d(sid_b),m)); not attacker_p1(msg_d(bob,alice,sid_b)); attacker_p1(msg_d(bob,alice,sid_b)) ==> event(LeakPsk(phase0,alice,bob)) || event(LeakPsk(phase1,alice,bob)); not attacker_p1(msg_d(bob,alice,sid_b)); attacker_p1(msg_d(bob,alice,sid_b)) ==> event(LeakPsk(phase0,alice,bob)); not event(RecvEnd(true))
 Completing...
 200 rules inserted. The rule base contains 200 rules. 83 rules in the queue.
 400 rules inserted. The rule base contains 380 rules. 42 rules in the queue.
@@ -1096,7 +1096,7 @@ attacker_p1(msg_a(alice,bob,sid_35561299)).
 
 
 RESULT attacker_p1(msg_a(alice,bob,sid_a)) ==> event(LeakPsk(phase0,alice,bob)) || event(LeakPsk(phase1,alice,bob)) cannot be proved.
-Starting query attacker_p1(msg_a(alice,bob,sid_a)) ==> event(LeakPsk(phase0,alice,bob))
+Starting query not attacker_p1(msg_a(alice,bob,sid_a))
 goal reachable: begin(SendMsg(alice,bob,stagepack_a(sid[!1 = @sid_35561302]),msg_a(alice,bob,sid[!1 = @sid_35561302]))) -> attacker_p1(msg_a(alice,bob,sid[!1 = @sid_35561302]))
 Abbreviations:
 sid_35561354 = sid[!1 = @sid_35561330]
@@ -1170,7 +1170,7 @@ So the attacker may know msg_a(alice,bob,sid_35561354) in phase 1.
 attacker_p1(msg_a(alice,bob,sid_35561354)).
 
 
-RESULT attacker_p1(msg_a(alice,bob,sid_a)) ==> event(LeakPsk(phase0,alice,bob)) cannot be proved.
+RESULT not attacker_p1(msg_a(alice,bob,sid_a)) cannot be proved.
 Starting query attacker_p1(msg_a(alice,bob,sid_a)) ==> event(LeakPsk(phase0,alice,bob))
 goal reachable: begin(SendMsg(alice,bob,stagepack_a(sid[!1 = @sid_35561357]),msg_a(alice,bob,sid[!1 = @sid_35561357]))) -> attacker_p1(msg_a(alice,bob,sid[!1 = @sid_35561357]))
 Abbreviations:
@@ -1265,8 +1265,8 @@ Starting query not attacker_p1(msg_b(bob,alice,sid_b))
 RESULT not attacker_p1(msg_b(bob,alice,sid_b)) is true.
 Starting query attacker_p1(msg_b(bob,alice,sid_b)) ==> event(LeakPsk(phase0,alice,bob)) || event(LeakPsk(phase1,alice,bob))
 RESULT attacker_p1(msg_b(bob,alice,sid_b)) ==> event(LeakPsk(phase0,alice,bob)) || event(LeakPsk(phase1,alice,bob)) is true.
-Starting query attacker_p1(msg_b(bob,alice,sid_b)) ==> event(LeakPsk(phase0,alice,bob))
-RESULT attacker_p1(msg_b(bob,alice,sid_b)) ==> event(LeakPsk(phase0,alice,bob)) is true.
+Starting query not attacker_p1(msg_b(bob,alice,sid_b))
+RESULT not attacker_p1(msg_b(bob,alice,sid_b)) is true.
 Starting query attacker_p1(msg_b(bob,alice,sid_b)) ==> event(LeakPsk(phase0,alice,bob))
 RESULT attacker_p1(msg_b(bob,alice,sid_b)) ==> event(LeakPsk(phase0,alice,bob)) is true.
 Starting query event(RecvMsg(bob,alice,stagepack_c(sid_b),m)) ==> event(SendMsg(alice,bob,stagepack_c(sid_a),m))
@@ -1288,8 +1288,8 @@ Starting query not attacker_p1(msg_c(alice,bob,sid_a))
 RESULT not attacker_p1(msg_c(alice,bob,sid_a)) is true.
 Starting query attacker_p1(msg_c(alice,bob,sid_a)) ==> event(LeakPsk(phase0,alice,bob)) || event(LeakPsk(phase1,alice,bob))
 RESULT attacker_p1(msg_c(alice,bob,sid_a)) ==> event(LeakPsk(phase0,alice,bob)) || event(LeakPsk(phase1,alice,bob)) is true.
-Starting query attacker_p1(msg_c(alice,bob,sid_a)) ==> event(LeakPsk(phase0,alice,bob))
-RESULT attacker_p1(msg_c(alice,bob,sid_a)) ==> event(LeakPsk(phase0,alice,bob)) is true.
+Starting query not attacker_p1(msg_c(alice,bob,sid_a))
+RESULT not attacker_p1(msg_c(alice,bob,sid_a)) is true.
 Starting query attacker_p1(msg_c(alice,bob,sid_a)) ==> event(LeakPsk(phase0,alice,bob))
 RESULT attacker_p1(msg_c(alice,bob,sid_a)) ==> event(LeakPsk(phase0,alice,bob)) is true.
 Starting query event(RecvMsg(alice,bob,stagepack_d(sid_a),m)) ==> event(SendMsg(bob,alice,stagepack_d(sid_b),m))
@@ -1311,8 +1311,8 @@ Starting query not attacker_p1(msg_d(bob,alice,sid_b))
 RESULT not attacker_p1(msg_d(bob,alice,sid_b)) is true.
 Starting query attacker_p1(msg_d(bob,alice,sid_b)) ==> event(LeakPsk(phase0,alice,bob)) || event(LeakPsk(phase1,alice,bob))
 RESULT attacker_p1(msg_d(bob,alice,sid_b)) ==> event(LeakPsk(phase0,alice,bob)) || event(LeakPsk(phase1,alice,bob)) is true.
-Starting query attacker_p1(msg_d(bob,alice,sid_b)) ==> event(LeakPsk(phase0,alice,bob))
-RESULT attacker_p1(msg_d(bob,alice,sid_b)) ==> event(LeakPsk(phase0,alice,bob)) is true.
+Starting query not attacker_p1(msg_d(bob,alice,sid_b))
+RESULT not attacker_p1(msg_d(bob,alice,sid_b)) is true.
 Starting query attacker_p1(msg_d(bob,alice,sid_b)) ==> event(LeakPsk(phase0,alice,bob))
 RESULT attacker_p1(msg_d(bob,alice,sid_b)) ==> event(LeakPsk(phase0,alice,bob)) is true.
 Starting query not event(RecvEnd(true))

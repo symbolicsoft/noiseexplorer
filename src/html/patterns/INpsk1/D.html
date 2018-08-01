@@ -31,8 +31,8 @@
 			<h1 id="patternName"><a href="index.html">INpsk1</a></h1>
 			<div class="arrows">
 				<svg id="patternArrows">
-					<line data-seclevel="5" x1="1" x2="500" y1="70" y2="70"></line>
-					<polyline data-seclevel="5" points="21,50 3,70 21,90"></polyline>
+					<line data-seclevel="3" x1="1" x2="500" y1="70" y2="70"></line>
+					<polyline data-seclevel="3" points="21,50 3,70 21,90"></polyline>
 					<circle data-seclevel="1" cx="474" cy="70" r="25"></circle>
 					<text class="msg" x="474" y="77">d</text>
 					<text class="tokens" x="240" y="50"></text>
@@ -97,10 +97,10 @@ Message <span class="mono">D</span> is tested against four authentication querie
 <p class="proverif"><br />RESULT attacker_p1(msg_d(bob,alice,sid_b)) ==> (event(LeakS(phase0,alice)) && event(LeakPsk(phase0,alice,bob))) || (event(LeakS(phase0,alice)) && event(LeakPsk(phase1,alice,bob))) || (event(LeakS(phase1,alice)) && event(LeakPsk(phase0,alice,bob))) || (event(LeakS(phase1,alice)) && event(LeakPsk(phase1,alice,bob))) is true.</p>
 <p>In this query, we test for <em>message secrecy</em> by checking if an active attacker is able to retrieve the payload plaintext only by compromising Alice's static key either before or after the protocol session.</p>
 <h4>Confidentiality Grade 3: <span class="passed">Passed</span></h4>
-<p class="proverif"><br />RESULT attacker_p1(msg_d(bob,alice,sid_b)) ==> (event(LeakS(phase0,alice)) && event(LeakPsk(phase0,alice,bob))) || (event(LeakS(phase1,alice)) && event(LeakPsk(phase0,alice,bob))) is true.</p>
+<p class="proverif"><br />RESULT not attacker_p1(msg_d(bob,alice,sid_b)) is true.</p>
 <p>In this query, we test for <em>forward secrecy</em> by checking if a passive attacker is able to retrieve the payload plaintext only by compromising Alice's static key before the protocol session, or after the protocol session along with Bob's static public key (at any time.)</p>
-<h4>Confidentiality Grade 4: <span class="passed">Passed</span></h4>
-<p class="proverif"><br />RESULT attacker_p1(msg_d(bob,alice,sid_b)) ==> (event(LeakS(phase0,alice)) && event(LeakPsk(phase0,alice,bob))) || (event(LeakS(phase1,alice)) && event(LeakPsk(phase0,alice,bob))) is true.</p>
+<h4>Confidentiality Grade 4: <span class="failed">Failed</span></h4>
+<p class="proverif"><br />RESULT not attacker_p1(msg_d(bob,alice,sid_b)) cannot be proved.</p>
 <p>In this query, we test for <em>weak forward secrecy</em> by checking if an active attacker is able to retrieve the payload plaintext only by compromising Alice's static key before the protocol session, or after the protocol session along with Bob's static public key (at any time.)</p>
 <h4>Confidentiality Grade 5: <span class="passed">Passed</span></h4>
 <p class="proverif"><br />RESULT attacker_p1(msg_d(bob,alice,sid_b)) ==> (event(LeakS(phase0,alice)) && event(LeakPsk(phase0,alice,bob))) is true.</p>

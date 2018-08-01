@@ -456,7 +456,7 @@ Process:
     )
 )
 
--- Query event(RecvMsg(bob,alice,stagepack_a(sid_b),m)) ==> event(SendMsg(alice,bob,stagepack_a(sid_a),m)); event(RecvMsg(bob,alice,stagepack_a(sid_b),m)) ==> event(SendMsg(alice,c_750,stagepack_a(sid_a),m)) || event(LeakPsk(phase0,alice,bob)) || (event(LeakS(phase0,bob)) && event(LeakPsk(phase0,alice,bob))); event(RecvMsg(bob,alice,stagepack_a(sid_b),m)) ==> event(SendMsg(alice,c_750,stagepack_a(sid_a),m)); event(RecvMsg(bob,alice,stagepack_a(sid_b),m)) ==> event(SendMsg(alice,bob,stagepack_a(sid_a),m)) || event(LeakPsk(phase0,alice,bob)) || (event(LeakS(phase0,bob)) && event(LeakPsk(phase0,alice,bob))); event(RecvMsg(bob,alice,stagepack_a(sid_b),m)) ==> event(SendMsg(alice,bob,stagepack_a(sid_a),m)); not attacker_p1(msg_a(alice,bob,sid_a)); attacker_p1(msg_a(alice,bob,sid_a)) ==> (event(LeakS(phase0,bob)) && event(LeakPsk(phase0,alice,bob))) || (event(LeakS(phase0,bob)) && event(LeakPsk(phase1,alice,bob))) || (event(LeakS(phase1,bob)) && event(LeakPsk(phase0,alice,bob))) || (event(LeakS(phase1,bob)) && event(LeakPsk(phase1,alice,bob))); attacker_p1(msg_a(alice,bob,sid_a)) ==> (event(LeakS(phase0,bob)) && event(LeakPsk(phase0,alice,bob))) || (event(LeakS(phase1,bob)) && event(LeakPsk(phase0,alice,bob))); attacker_p1(msg_a(alice,bob,sid_a)) ==> (event(LeakS(phase0,bob)) && event(LeakPsk(phase0,alice,bob))); not event(RecvEnd(true))
+-- Query event(RecvMsg(bob,alice,stagepack_a(sid_b),m)) ==> event(SendMsg(alice,bob,stagepack_a(sid_a),m)); event(RecvMsg(bob,alice,stagepack_a(sid_b),m)) ==> event(SendMsg(alice,c_750,stagepack_a(sid_a),m)) || event(LeakPsk(phase0,alice,bob)) || (event(LeakS(phase0,bob)) && event(LeakPsk(phase0,alice,bob))); event(RecvMsg(bob,alice,stagepack_a(sid_b),m)) ==> event(SendMsg(alice,c_750,stagepack_a(sid_a),m)); event(RecvMsg(bob,alice,stagepack_a(sid_b),m)) ==> event(SendMsg(alice,bob,stagepack_a(sid_a),m)) || event(LeakPsk(phase0,alice,bob)) || (event(LeakS(phase0,bob)) && event(LeakPsk(phase0,alice,bob))); event(RecvMsg(bob,alice,stagepack_a(sid_b),m)) ==> event(SendMsg(alice,bob,stagepack_a(sid_a),m)); not attacker_p1(msg_a(alice,bob,sid_a)); attacker_p1(msg_a(alice,bob,sid_a)) ==> (event(LeakS(phase0,bob)) && event(LeakPsk(phase0,alice,bob))) || (event(LeakS(phase0,bob)) && event(LeakPsk(phase1,alice,bob))) || (event(LeakS(phase1,bob)) && event(LeakPsk(phase0,alice,bob))) || (event(LeakS(phase1,bob)) && event(LeakPsk(phase1,alice,bob))); not attacker_p1(msg_a(alice,bob,sid_a)); attacker_p1(msg_a(alice,bob,sid_a)) ==> (event(LeakS(phase0,bob)) && event(LeakPsk(phase0,alice,bob))); not event(RecvEnd(true))
 Completing...
 200 rules inserted. The rule base contains 200 rules. 38 rules in the queue.
 400 rules inserted. The rule base contains 378 rules. 36 rules in the queue.
@@ -970,7 +970,7 @@ goal reachable: begin(LeakS(phase1,bob)) && begin(LeakPsk(phase1,alice,bob)) && 
 goal reachable: begin(LeakS(phase1,bob)) && begin(LeakPsk(phase0,alice,bob)) && begin(SendMsg(alice,bob,stagepack_a(sid[!1 = @sid_30776385]),msg_a(alice,bob,sid[!1 = @sid_30776385]))) -> attacker_p1(msg_a(alice,bob,sid[!1 = @sid_30776385]))
 goal reachable: begin(LeakS(phase0,bob)) && begin(LeakPsk(phase0,alice,bob)) && begin(SendMsg(alice,bob,stagepack_a(sid[!1 = @sid_30776388]),msg_a(alice,bob,sid[!1 = @sid_30776388]))) -> attacker_p1(msg_a(alice,bob,sid[!1 = @sid_30776388]))
 RESULT attacker_p1(msg_a(alice,bob,sid_a)) ==> (event(LeakS(phase0,bob)) && event(LeakPsk(phase0,alice,bob))) || (event(LeakS(phase0,bob)) && event(LeakPsk(phase1,alice,bob))) || (event(LeakS(phase1,bob)) && event(LeakPsk(phase0,alice,bob))) || (event(LeakS(phase1,bob)) && event(LeakPsk(phase1,alice,bob))) is true.
-Starting query attacker_p1(msg_a(alice,bob,sid_a)) ==> (event(LeakS(phase0,bob)) && event(LeakPsk(phase0,alice,bob))) || (event(LeakS(phase1,bob)) && event(LeakPsk(phase0,alice,bob)))
+Starting query not attacker_p1(msg_a(alice,bob,sid_a))
 goal reachable: begin(LeakS(phase0,bob)) && begin(LeakPsk(phase1,alice,bob)) && begin(SendMsg(alice,bob,stagepack_a(sid[!1 = @sid_30776404]),msg_a(alice,bob,sid[!1 = @sid_30776404]))) -> attacker_p1(msg_a(alice,bob,sid[!1 = @sid_30776404]))
 Abbreviations:
 sid_30776516 = sid[!1 = @sid_30776492]
@@ -1115,7 +1115,7 @@ Using the function 3-proj-aeadpack the attacker may obtain msg_a(alice,bob,sid_3
 attacker_p1(msg_a(alice,bob,sid_30776516)).
 
 
-RESULT attacker_p1(msg_a(alice,bob,sid_a)) ==> (event(LeakS(phase0,bob)) && event(LeakPsk(phase0,alice,bob))) || (event(LeakS(phase1,bob)) && event(LeakPsk(phase0,alice,bob))) cannot be proved.
+RESULT not attacker_p1(msg_a(alice,bob,sid_a)) cannot be proved.
 Starting query attacker_p1(msg_a(alice,bob,sid_a)) ==> (event(LeakS(phase0,bob)) && event(LeakPsk(phase0,alice,bob)))
 goal reachable: begin(LeakS(phase0,bob)) && begin(LeakPsk(phase1,alice,bob)) && begin(SendMsg(alice,bob,stagepack_a(sid[!1 = @sid_30776518]),msg_a(alice,bob,sid[!1 = @sid_30776518]))) -> attacker_p1(msg_a(alice,bob,sid[!1 = @sid_30776518]))
 Abbreviations:
