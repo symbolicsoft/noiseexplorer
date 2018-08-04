@@ -1,0 +1,1054 @@
+File "KXpsk2.noise.passive.pv", line 226, characters 7-8:
+Warning: identifier ck rebound.
+File "KXpsk2.noise.passive.pv", line 235, characters 7-8:
+Warning: identifier ck rebound.
+File "KXpsk2.noise.passive.pv", line 236, characters 7-8:
+Warning: identifier cs rebound.
+File "KXpsk2.noise.passive.pv", line 236, character 36:
+Warning: identifier h rebound.
+File "KXpsk2.noise.passive.pv", line 245, characters 7-8:
+Warning: identifier cs rebound.
+File "KXpsk2.noise.passive.pv", line 246, characters 6-7:
+Warning: identifier ss rebound.
+File "KXpsk2.noise.passive.pv", line 251, characters 7-8:
+Warning: identifier cs rebound.
+File "KXpsk2.noise.passive.pv", line 252, characters 6-7:
+Warning: identifier ss rebound.
+File "KXpsk2.noise.passive.pv", line 266, characters 6-7:
+Warning: identifier ss rebound.
+File "KXpsk2.noise.passive.pv", line 271, characters 6-7:
+Warning: identifier ss rebound.
+File "KXpsk2.noise.passive.pv", line 277, character 6:
+Warning: identifier e rebound.
+File "KXpsk2.noise.passive.pv", line 278, characters 6-7:
+Warning: identifier ne rebound.
+File "KXpsk2.noise.passive.pv", line 279, characters 6-7:
+Warning: identifier ss rebound.
+File "KXpsk2.noise.passive.pv", line 280, characters 6-7:
+Warning: identifier ss rebound.
+File "KXpsk2.noise.passive.pv", line 281, characters 7-8:
+Warning: identifier ss rebound.
+File "KXpsk2.noise.passive.pv", line 281, characters 26-36:
+Warning: identifier ciphertext2 rebound.
+File "KXpsk2.noise.passive.pv", line 282, characters 6-7:
+Warning: identifier hs rebound.
+File "KXpsk2.noise.passive.pv", line 289, character 6:
+Warning: identifier e rebound.
+File "KXpsk2.noise.passive.pv", line 290, characters 6-7:
+Warning: identifier ne rebound.
+File "KXpsk2.noise.passive.pv", line 291, characters 6-7:
+Warning: identifier ss rebound.
+File "KXpsk2.noise.passive.pv", line 292, characters 6-7:
+Warning: identifier ss rebound.
+File "KXpsk2.noise.passive.pv", line 293, characters 6-7:
+Warning: identifier ss rebound.
+File "KXpsk2.noise.passive.pv", line 294, characters 6-7:
+Warning: identifier ss rebound.
+File "KXpsk2.noise.passive.pv", line 295, character 6:
+Warning: identifier s rebound.
+File "KXpsk2.noise.passive.pv", line 296, characters 7-8:
+Warning: identifier ss rebound.
+File "KXpsk2.noise.passive.pv", line 296, characters 26-36:
+Warning: identifier ciphertext1 rebound.
+File "KXpsk2.noise.passive.pv", line 297, characters 6-7:
+Warning: identifier ss rebound.
+File "KXpsk2.noise.passive.pv", line 298, characters 6-7:
+Warning: identifier ss rebound.
+File "KXpsk2.noise.passive.pv", line 299, characters 7-8:
+Warning: identifier ss rebound.
+File "KXpsk2.noise.passive.pv", line 299, characters 26-36:
+Warning: identifier ciphertext2 rebound.
+File "KXpsk2.noise.passive.pv", line 300, characters 6-7:
+Warning: identifier hs rebound.
+File "KXpsk2.noise.passive.pv", line 308, characters 7-8:
+Warning: identifier ss rebound.
+File "KXpsk2.noise.passive.pv", line 308, characters 26-36:
+Warning: identifier ciphertext2 rebound.
+File "KXpsk2.noise.passive.pv", line 309, characters 6-7:
+Warning: identifier hs rebound.
+File "KXpsk2.noise.passive.pv", line 316, characters 7-8:
+Warning: identifier ss rebound.
+File "KXpsk2.noise.passive.pv", line 316, characters 26-36:
+Warning: identifier ciphertext2 rebound.
+File "KXpsk2.noise.passive.pv", line 317, characters 6-7:
+Warning: identifier hs rebound.
+File "KXpsk2.noise.passive.pv", line 325, characters 6-7:
+Warning: identifier re rebound.
+File "KXpsk2.noise.passive.pv", line 326, characters 6-7:
+Warning: identifier ss rebound.
+File "KXpsk2.noise.passive.pv", line 327, characters 6-7:
+Warning: identifier ss rebound.
+File "KXpsk2.noise.passive.pv", line 328, characters 7-8:
+Warning: identifier ss rebound.
+File "KXpsk2.noise.passive.pv", line 330, characters 7-8:
+Warning: identifier hs rebound.
+File "KXpsk2.noise.passive.pv", line 338, characters 6-7:
+Warning: identifier re rebound.
+File "KXpsk2.noise.passive.pv", line 339, characters 6-7:
+Warning: identifier ss rebound.
+File "KXpsk2.noise.passive.pv", line 340, characters 6-7:
+Warning: identifier ss rebound.
+File "KXpsk2.noise.passive.pv", line 341, characters 6-7:
+Warning: identifier ss rebound.
+File "KXpsk2.noise.passive.pv", line 342, characters 6-7:
+Warning: identifier ss rebound.
+File "KXpsk2.noise.passive.pv", line 343, characters 7-8:
+Warning: identifier ss rebound.
+File "KXpsk2.noise.passive.pv", line 343, characters 48-53:
+Warning: identifier valid1 rebound.
+File "KXpsk2.noise.passive.pv", line 344, characters 6-7:
+Warning: identifier rs rebound.
+File "KXpsk2.noise.passive.pv", line 345, characters 6-7:
+Warning: identifier ss rebound.
+File "KXpsk2.noise.passive.pv", line 346, characters 6-7:
+Warning: identifier ss rebound.
+File "KXpsk2.noise.passive.pv", line 347, characters 7-8:
+Warning: identifier ss rebound.
+File "KXpsk2.noise.passive.pv", line 349, characters 7-8:
+Warning: identifier hs rebound.
+File "KXpsk2.noise.passive.pv", line 358, characters 7-8:
+Warning: identifier ss rebound.
+File "KXpsk2.noise.passive.pv", line 360, characters 7-8:
+Warning: identifier hs rebound.
+File "KXpsk2.noise.passive.pv", line 368, characters 7-8:
+Warning: identifier ss rebound.
+File "KXpsk2.noise.passive.pv", line 370, characters 7-8:
+Warning: identifier hs rebound.
+File "KXpsk2.noise.passive.pv", line 526, characters 7-8:
+Warning: identifier hs rebound.
+File "KXpsk2.noise.passive.pv", line 528, characters 8-9:
+Warning: identifier hs rebound.
+File "KXpsk2.noise.passive.pv", line 368, characters 7-8:
+Warning: identifier ss rebound.
+File "KXpsk2.noise.passive.pv", line 370, characters 7-8:
+Warning: identifier hs rebound.
+File "KXpsk2.noise.passive.pv", line 251, characters 7-8:
+Warning: identifier cs rebound.
+File "KXpsk2.noise.passive.pv", line 252, characters 6-7:
+Warning: identifier ss rebound.
+File "KXpsk2.noise.passive.pv", line 519, characters 7-8:
+Warning: identifier hs rebound.
+File "KXpsk2.noise.passive.pv", line 520, characters 8-9:
+Warning: identifier hs rebound.
+File "KXpsk2.noise.passive.pv", line 308, characters 7-8:
+Warning: identifier ss rebound.
+File "KXpsk2.noise.passive.pv", line 308, characters 26-36:
+Warning: identifier ciphertext2 rebound.
+File "KXpsk2.noise.passive.pv", line 309, characters 6-7:
+Warning: identifier hs rebound.
+File "KXpsk2.noise.passive.pv", line 245, characters 7-8:
+Warning: identifier cs rebound.
+File "KXpsk2.noise.passive.pv", line 246, characters 6-7:
+Warning: identifier ss rebound.
+File "KXpsk2.noise.passive.pv", line 513, characters 8-9:
+Warning: identifier hs rebound.
+File "KXpsk2.noise.passive.pv", line 338, characters 6-7:
+Warning: identifier re rebound.
+File "KXpsk2.noise.passive.pv", line 339, characters 6-7:
+Warning: identifier ss rebound.
+File "KXpsk2.noise.passive.pv", line 340, characters 6-7:
+Warning: identifier ss rebound.
+File "KXpsk2.noise.passive.pv", line 341, characters 6-7:
+Warning: identifier ss rebound.
+File "KXpsk2.noise.passive.pv", line 342, characters 6-7:
+Warning: identifier ss rebound.
+File "KXpsk2.noise.passive.pv", line 343, characters 7-8:
+Warning: identifier ss rebound.
+File "KXpsk2.noise.passive.pv", line 343, characters 48-53:
+Warning: identifier valid1 rebound.
+File "KXpsk2.noise.passive.pv", line 344, characters 6-7:
+Warning: identifier rs rebound.
+File "KXpsk2.noise.passive.pv", line 345, characters 6-7:
+Warning: identifier ss rebound.
+File "KXpsk2.noise.passive.pv", line 346, characters 6-7:
+Warning: identifier ss rebound.
+File "KXpsk2.noise.passive.pv", line 347, characters 7-8:
+Warning: identifier ss rebound.
+File "KXpsk2.noise.passive.pv", line 349, characters 7-8:
+Warning: identifier hs rebound.
+File "KXpsk2.noise.passive.pv", line 226, characters 7-8:
+Warning: identifier ck rebound.
+File "KXpsk2.noise.passive.pv", line 226, characters 7-8:
+Warning: identifier ck rebound.
+File "KXpsk2.noise.passive.pv", line 226, characters 7-8:
+Warning: identifier ck rebound.
+File "KXpsk2.noise.passive.pv", line 251, characters 7-8:
+Warning: identifier cs rebound.
+File "KXpsk2.noise.passive.pv", line 252, characters 6-7:
+Warning: identifier ss rebound.
+File "KXpsk2.noise.passive.pv", line 226, characters 7-8:
+Warning: identifier ck rebound.
+File "KXpsk2.noise.passive.pv", line 235, characters 7-8:
+Warning: identifier ck rebound.
+File "KXpsk2.noise.passive.pv", line 236, characters 7-8:
+Warning: identifier cs rebound.
+File "KXpsk2.noise.passive.pv", line 236, character 36:
+Warning: identifier h rebound.
+File "KXpsk2.noise.passive.pv", line 251, characters 7-8:
+Warning: identifier cs rebound.
+File "KXpsk2.noise.passive.pv", line 252, characters 6-7:
+Warning: identifier ss rebound.
+File "KXpsk2.noise.passive.pv", line 506, characters 8-9:
+Warning: identifier hs rebound.
+File "KXpsk2.noise.passive.pv", line 277, character 6:
+Warning: identifier e rebound.
+File "KXpsk2.noise.passive.pv", line 278, characters 6-7:
+Warning: identifier ne rebound.
+File "KXpsk2.noise.passive.pv", line 279, characters 6-7:
+Warning: identifier ss rebound.
+File "KXpsk2.noise.passive.pv", line 280, characters 6-7:
+Warning: identifier ss rebound.
+File "KXpsk2.noise.passive.pv", line 281, characters 7-8:
+Warning: identifier ss rebound.
+File "KXpsk2.noise.passive.pv", line 281, characters 26-36:
+Warning: identifier ciphertext2 rebound.
+File "KXpsk2.noise.passive.pv", line 282, characters 6-7:
+Warning: identifier hs rebound.
+File "KXpsk2.noise.passive.pv", line 226, characters 7-8:
+Warning: identifier ck rebound.
+File "KXpsk2.noise.passive.pv", line 245, characters 7-8:
+Warning: identifier cs rebound.
+File "KXpsk2.noise.passive.pv", line 246, characters 6-7:
+Warning: identifier ss rebound.
+File "KXpsk2.noise.passive.pv", line 266, characters 6-7:
+Warning: identifier ss rebound.
+File "KXpsk2.noise.passive.pv", line 580, characters 7-8:
+Warning: identifier hs rebound.
+File "KXpsk2.noise.passive.pv", line 581, characters 8-9:
+Warning: identifier hs rebound.
+File "KXpsk2.noise.passive.pv", line 316, characters 7-8:
+Warning: identifier ss rebound.
+File "KXpsk2.noise.passive.pv", line 316, characters 26-36:
+Warning: identifier ciphertext2 rebound.
+File "KXpsk2.noise.passive.pv", line 317, characters 6-7:
+Warning: identifier hs rebound.
+File "KXpsk2.noise.passive.pv", line 245, characters 7-8:
+Warning: identifier cs rebound.
+File "KXpsk2.noise.passive.pv", line 246, characters 6-7:
+Warning: identifier ss rebound.
+File "KXpsk2.noise.passive.pv", line 572, characters 7-8:
+Warning: identifier hs rebound.
+File "KXpsk2.noise.passive.pv", line 574, characters 8-9:
+Warning: identifier hs rebound.
+File "KXpsk2.noise.passive.pv", line 358, characters 7-8:
+Warning: identifier ss rebound.
+File "KXpsk2.noise.passive.pv", line 360, characters 7-8:
+Warning: identifier hs rebound.
+File "KXpsk2.noise.passive.pv", line 251, characters 7-8:
+Warning: identifier cs rebound.
+File "KXpsk2.noise.passive.pv", line 252, characters 6-7:
+Warning: identifier ss rebound.
+File "KXpsk2.noise.passive.pv", line 566, characters 8-9:
+Warning: identifier hs rebound.
+File "KXpsk2.noise.passive.pv", line 289, character 6:
+Warning: identifier e rebound.
+File "KXpsk2.noise.passive.pv", line 290, characters 6-7:
+Warning: identifier ne rebound.
+File "KXpsk2.noise.passive.pv", line 291, characters 6-7:
+Warning: identifier ss rebound.
+File "KXpsk2.noise.passive.pv", line 292, characters 6-7:
+Warning: identifier ss rebound.
+File "KXpsk2.noise.passive.pv", line 293, characters 6-7:
+Warning: identifier ss rebound.
+File "KXpsk2.noise.passive.pv", line 294, characters 6-7:
+Warning: identifier ss rebound.
+File "KXpsk2.noise.passive.pv", line 295, character 6:
+Warning: identifier s rebound.
+File "KXpsk2.noise.passive.pv", line 296, characters 7-8:
+Warning: identifier ss rebound.
+File "KXpsk2.noise.passive.pv", line 296, characters 26-36:
+Warning: identifier ciphertext1 rebound.
+File "KXpsk2.noise.passive.pv", line 297, characters 6-7:
+Warning: identifier ss rebound.
+File "KXpsk2.noise.passive.pv", line 298, characters 6-7:
+Warning: identifier ss rebound.
+File "KXpsk2.noise.passive.pv", line 299, characters 7-8:
+Warning: identifier ss rebound.
+File "KXpsk2.noise.passive.pv", line 299, characters 26-36:
+Warning: identifier ciphertext2 rebound.
+File "KXpsk2.noise.passive.pv", line 300, characters 6-7:
+Warning: identifier hs rebound.
+File "KXpsk2.noise.passive.pv", line 226, characters 7-8:
+Warning: identifier ck rebound.
+File "KXpsk2.noise.passive.pv", line 226, characters 7-8:
+Warning: identifier ck rebound.
+File "KXpsk2.noise.passive.pv", line 226, characters 7-8:
+Warning: identifier ck rebound.
+File "KXpsk2.noise.passive.pv", line 245, characters 7-8:
+Warning: identifier cs rebound.
+File "KXpsk2.noise.passive.pv", line 246, characters 6-7:
+Warning: identifier ss rebound.
+File "KXpsk2.noise.passive.pv", line 226, characters 7-8:
+Warning: identifier ck rebound.
+File "KXpsk2.noise.passive.pv", line 235, characters 7-8:
+Warning: identifier ck rebound.
+File "KXpsk2.noise.passive.pv", line 236, characters 7-8:
+Warning: identifier cs rebound.
+File "KXpsk2.noise.passive.pv", line 236, character 36:
+Warning: identifier h rebound.
+File "KXpsk2.noise.passive.pv", line 245, characters 7-8:
+Warning: identifier cs rebound.
+File "KXpsk2.noise.passive.pv", line 246, characters 6-7:
+Warning: identifier ss rebound.
+File "KXpsk2.noise.passive.pv", line 560, characters 8-9:
+Warning: identifier hs rebound.
+File "KXpsk2.noise.passive.pv", line 325, characters 6-7:
+Warning: identifier re rebound.
+File "KXpsk2.noise.passive.pv", line 326, characters 6-7:
+Warning: identifier ss rebound.
+File "KXpsk2.noise.passive.pv", line 327, characters 6-7:
+Warning: identifier ss rebound.
+File "KXpsk2.noise.passive.pv", line 328, characters 7-8:
+Warning: identifier ss rebound.
+File "KXpsk2.noise.passive.pv", line 330, characters 7-8:
+Warning: identifier hs rebound.
+File "KXpsk2.noise.passive.pv", line 226, characters 7-8:
+Warning: identifier ck rebound.
+File "KXpsk2.noise.passive.pv", line 251, characters 7-8:
+Warning: identifier cs rebound.
+File "KXpsk2.noise.passive.pv", line 252, characters 6-7:
+Warning: identifier ss rebound.
+File "KXpsk2.noise.passive.pv", line 271, characters 6-7:
+Warning: identifier ss rebound.
+Linear part:
+dhexp_real(b_76,dhexp_real(a_75,g)) = dhexp_real(a_75,dhexp_real(b_76,g))
+Completing equations...
+Completed equations:
+dhexp_real(b_76,dhexp_real(a_75,g)) = dhexp_real(a_75,dhexp_real(b_76,g))
+Convergent part:
+Completing equations...
+Completed equations:
+Process:
+{1}out(pub, key_s(charlie));
+{2}!
+{3}new sid: sessionid;
+(
+    {4}let v_574: key = catch-fail(dhexp(key_s(alice),validkey(g))) in
+    {5}let s_575: keypair = (if not-caught-fail(v_574) then keypairpack(validkey(v_574),key_s(alice)) else fail-any) in
+    {6}out(pub, getpublickey(s_575));
+    (
+        {7}let e_576: keypair = keypairpack(empty,empty) in
+        {8}let rs_577: key = empty in
+        {9}let re_578: key = empty in
+        {10}let v_579: bitstring = catch-fail(hash(somename,empty)) in
+        {11}let v_580: key = catch-fail(v_579) in
+        {12}let v_581: cipherstate = catch-fail(cipherstatepack(empty,minnonce)) in
+        {13}let v_582: bitstring = catch-fail(symmetricstateunpack((if not-caught-fail(v_579) then (if not-caught-fail(v_580) then (if not-caught-fail(v_581) then symmetricstatepack(v_581,v_580,v_579) else fail-any) else fail-any) else fail-any))) in
+        {14}let v_583: symmetricstate = catch-fail((if success?((if not-caught-fail(v_579) then (if not-caught-fail(v_580) then (if not-caught-fail(v_581) then symmetricstatepack(v_581,v_580,v_579) else fail-any) else fail-any) else fail-any)) then (if (not-caught-fail(v_582) && success?(is-true(success?(1-proj-3-tuple(v_582))))) then symmetricstatepack(1-proj-3-tuple(v_582),2-proj-3-tuple(v_582),hash(3-proj-3-tuple(v_582),empty)) else fail-any) else fail-any)) in
+        {15}let v_584: bitstring = catch-fail(symmetricstateunpack(v_583)) in
+        {16}let v_585: symmetricstate = catch-fail((if success?(getpublickey(s_575)) then (if (not-caught-fail(v_584) && success?(is-true(success?(1-proj-3-tuple(v_584))))) then symmetricstatepack(1-proj-3-tuple(v_584),2-proj-3-tuple(v_584),hash(3-proj-3-tuple(v_584),getpublickey(s_575))) else fail-any) else fail-any)) in
+        {17}let hs: handshakestate = (if not-caught-fail(v_583) then (if not-caught-fail(v_585) then handshakestatepack(v_585,s_575,e_576,rs_577,re_578,key_psk(alice,bob),true) else fail-any) else fail-any) in
+        {18}insert statestore(alice,bob,sid,statepack_a(hs))
+    ) | (
+        {47}get statestore(=alice,=bob,=sid,statepack_a(hs_586: handshakestate)) in
+        {19}let v_587: bitstring = catch-fail(handshakestateunpack(hs_586)) in
+        {20}let v_588: bitstring = catch-fail((empty,empty,empty)) in
+        {21}let v_589: key = catch-fail(dhexp(key_e(alice,bob,sid),validkey(g))) in
+        {22}let v_590: keypair = catch-fail((if not-caught-fail(v_589) then keypairpack(validkey(v_589),key_e(alice,bob,sid)) else fail-any)) in
+        {23}let v_591: bitstring = catch-fail(getpublickey(v_590)) in
+        {24}let v_592: bitstring = catch-fail(symmetricstateunpack(1-proj-7-tuple(v_587))) in
+        {25}let v_593: symmetricstate = catch-fail((if success?(1-proj-7-tuple(v_587)) then (if (not-caught-fail(v_592) && success?(is-true(success?(1-proj-3-tuple(v_592))))) then symmetricstatepack(1-proj-3-tuple(v_592),2-proj-3-tuple(v_592),hash(3-proj-3-tuple(v_592),v_591)) else fail-any) else fail-any)) in
+        {26}let v_594: bitstring = catch-fail(symmetricstateunpack(v_593)) in
+        {27}let v_595: key = catch-fail(hmac_hash1(2-proj-3-tuple(v_594),getpublickey(v_590))) in
+        {28}let v_596: key = catch-fail(hmac_hash2(2-proj-3-tuple(v_594),getpublickey(v_590))) in
+        {29}let v_597: key = catch-fail(hmac_hash3(2-proj-3-tuple(v_594),getpublickey(v_590))) in
+        {30}let v_598: bitstring = catch-fail((if (success?(getpublickey(v_590)) && success?(2-proj-3-tuple(v_594))) then (if not-caught-fail(v_595) then (if not-caught-fail(v_596) then (if not-caught-fail(v_597) then (v_595,v_596,v_597) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {31}let v_599: symmetricstate = catch-fail((if success?(getpublickey(v_590)) then (if (not-caught-fail(v_594) && success?(is-true(success?(1-proj-3-tuple(v_594))))) then (if (not-caught-fail(v_598) && success?(is-true(success?(1-proj-3-tuple(v_598))))) then symmetricstatepack((if success?(2-proj-3-tuple(v_598)) then cipherstatepack(2-proj-3-tuple(v_598),minnonce) else fail-any),1-proj-3-tuple(v_598),3-proj-3-tuple(v_594)) else fail-any) else fail-any) else fail-any)) in
+        {32}let v_600: bitstring = catch-fail(symmetricstateunpack(v_599)) in
+        {33}let v_601: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_600))) in
+        {34}let v_602: bitstring = catch-fail(encrypt(1-proj-2-tuple(v_601),2-proj-2-tuple(v_601),3-proj-3-tuple(v_600),msg_a(alice,bob,sid))) in
+        {35}let v_603: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_600))) in
+        {36}let v_604: cipherstate = catch-fail((if (success?(increment_nonce(2-proj-2-tuple(v_601))) && success?(1-proj-3-tuple(v_600))) then (if (not-caught-fail(v_603) && success?(is-true(success?(1-proj-2-tuple(v_603))))) then cipherstatepack(1-proj-2-tuple(v_603),increment_nonce(2-proj-2-tuple(v_601))) else fail-any) else fail-any)) in
+        {37}let v_605: bitstring = catch-fail((if (success?(3-proj-3-tuple(v_600)) && success?(1-proj-3-tuple(v_600))) then (if (not-caught-fail(v_601) && success?(is-true(success?(1-proj-2-tuple(v_601))))) then (if not-caught-fail(v_602) then (if not-caught-fail(v_604) then (v_604,v_602) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {38}let v_606: bitstring = catch-fail(symmetricstateunpack(symmetricstatepack(1-proj-2-tuple(v_605),2-proj-3-tuple(v_600),3-proj-3-tuple(v_600)))) in
+        {39}let v_607: symmetricstate = catch-fail((if (success?(2-proj-2-tuple(v_605)) && success?(symmetricstatepack(1-proj-2-tuple(v_605),2-proj-3-tuple(v_600),3-proj-3-tuple(v_600)))) then (if (not-caught-fail(v_606) && success?(is-true(success?(1-proj-3-tuple(v_606))))) then symmetricstatepack(1-proj-3-tuple(v_606),2-proj-3-tuple(v_606),hash(3-proj-3-tuple(v_606),2-proj-2-tuple(v_605))) else fail-any) else fail-any)) in
+        {40}let v_608: bitstring = catch-fail((if (not-caught-fail(v_600) && success?(is-true(success?(1-proj-3-tuple(v_600))))) then (if (not-caught-fail(v_605) && success?(is-true(success?(1-proj-2-tuple(v_605))))) then (if not-caught-fail(v_607) then (v_607,2-proj-2-tuple(v_605)) else fail-any) else fail-any) else fail-any)) in
+        {41}let v_609: handshakestate = catch-fail(handshakestatepack(1-proj-2-tuple(v_608),2-proj-7-tuple(v_587),v_590,4-proj-7-tuple(v_587),5-proj-7-tuple(v_587),6-proj-7-tuple(v_587),7-proj-7-tuple(v_587))) in
+        {42}let v_610: bitstring = catch-fail(concat3(v_591,2-proj-3-tuple(v_588),2-proj-2-tuple(v_608))) in
+        {43}let (hs_611: handshakestate,message_a: bitstring) = (if (not-caught-fail(v_587) && success?(is-true(success?(1-proj-7-tuple(v_587))))) then (if (not-caught-fail(v_588) && success?(is-true(success?(1-proj-3-tuple(v_588))))) then (if not-caught-fail(v_590) then (if not-caught-fail(v_591) then (if not-caught-fail(v_593) then (if not-caught-fail(v_599) then (if (not-caught-fail(v_608) && success?(is-true(success?(1-proj-2-tuple(v_608))))) then (if not-caught-fail(v_609) then (if not-caught-fail(v_610) then (v_609,v_610) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) in
+        {44}event SendMsg(alice,bob,stagepack_a(sid),msg_a(alice,bob,sid));
+        {45}insert statestore(alice,bob,sid,statepack_b(hs_611));
+        {46}out(pub, message_a)
+    ) | (
+        {124}get statestore(=alice,=bob,=sid,statepack_b(hs_612: handshakestate)) in
+        {48}in(pub, message_b: bitstring);
+        {49}let v_613: bitstring = catch-fail(handshakestateunpack(hs_612)) in
+        {50}let v_614: bitstring = catch-fail(deconcat3(message_b)) in
+        {51}let v_615: bool = catch-fail(true) in
+        {52}let v_616: key = catch-fail(1-proj-3-tuple(v_614)) in
+        {53}let v_617: bitstring = catch-fail(symmetricstateunpack(1-proj-7-tuple(v_613))) in
+        {54}let v_618: symmetricstate = catch-fail((if success?(1-proj-7-tuple(v_613)) then (if (not-caught-fail(v_617) && success?(is-true(success?(1-proj-3-tuple(v_617))))) then symmetricstatepack(1-proj-3-tuple(v_617),2-proj-3-tuple(v_617),hash(3-proj-3-tuple(v_617),v_616)) else fail-any) else fail-any)) in
+        {55}let v_619: bitstring = catch-fail(symmetricstateunpack(v_618)) in
+        {56}let v_620: key = catch-fail(hmac_hash1(2-proj-3-tuple(v_619),v_616)) in
+        {57}let v_621: key = catch-fail(hmac_hash2(2-proj-3-tuple(v_619),v_616)) in
+        {58}let v_622: key = catch-fail(hmac_hash3(2-proj-3-tuple(v_619),v_616)) in
+        {59}let v_623: bitstring = catch-fail((if success?(2-proj-3-tuple(v_619)) then (if not-caught-fail(v_620) then (if not-caught-fail(v_621) then (if not-caught-fail(v_622) then (v_620,v_621,v_622) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {60}let v_624: symmetricstate = catch-fail((if (not-caught-fail(v_619) && success?(is-true(success?(1-proj-3-tuple(v_619))))) then (if (not-caught-fail(v_623) && success?(is-true(success?(1-proj-3-tuple(v_623))))) then symmetricstatepack((if success?(2-proj-3-tuple(v_623)) then cipherstatepack(2-proj-3-tuple(v_623),minnonce) else fail-any),1-proj-3-tuple(v_623),3-proj-3-tuple(v_619)) else fail-any) else fail-any)) in
+        {61}let v_625: bitstring = catch-fail(keypairunpack(3-proj-7-tuple(v_613))) in
+        {62}let v_626: bitstring = catch-fail(symmetricstateunpack(v_624)) in
+        {63}let v_627: key = catch-fail(hmac_hash1(2-proj-3-tuple(v_626),(if success?(3-proj-7-tuple(v_613)) then (if (not-caught-fail(v_625) && success?(is-true(success?(1-proj-2-tuple(v_625))))) then dhexp(2-proj-2-tuple(v_625),v_616) else fail-any) else fail-any))) in
+        {64}let v_628: key = catch-fail(hmac_hash2(2-proj-3-tuple(v_626),(if success?(3-proj-7-tuple(v_613)) then (if (not-caught-fail(v_625) && success?(is-true(success?(1-proj-2-tuple(v_625))))) then dhexp(2-proj-2-tuple(v_625),v_616) else fail-any) else fail-any))) in
+        {65}let v_629: key = catch-fail(hmac_hash3(2-proj-3-tuple(v_626),(if success?(3-proj-7-tuple(v_613)) then (if (not-caught-fail(v_625) && success?(is-true(success?(1-proj-2-tuple(v_625))))) then dhexp(2-proj-2-tuple(v_625),v_616) else fail-any) else fail-any))) in
+        {66}let v_630: bitstring = catch-fail((if (success?((if success?(3-proj-7-tuple(v_613)) then (if (not-caught-fail(v_625) && success?(is-true(success?(1-proj-2-tuple(v_625))))) then dhexp(2-proj-2-tuple(v_625),v_616) else fail-any) else fail-any)) && success?(2-proj-3-tuple(v_626))) then (if not-caught-fail(v_627) then (if not-caught-fail(v_628) then (if not-caught-fail(v_629) then (v_627,v_628,v_629) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {67}let v_631: symmetricstate = catch-fail((if success?((if success?(3-proj-7-tuple(v_613)) then (if (not-caught-fail(v_625) && success?(is-true(success?(1-proj-2-tuple(v_625))))) then dhexp(2-proj-2-tuple(v_625),v_616) else fail-any) else fail-any)) then (if (not-caught-fail(v_626) && success?(is-true(success?(1-proj-3-tuple(v_626))))) then (if (not-caught-fail(v_630) && success?(is-true(success?(1-proj-3-tuple(v_630))))) then symmetricstatepack((if success?(2-proj-3-tuple(v_630)) then cipherstatepack(2-proj-3-tuple(v_630),minnonce) else fail-any),1-proj-3-tuple(v_630),3-proj-3-tuple(v_626)) else fail-any) else fail-any) else fail-any)) in
+        {68}let v_632: bitstring = catch-fail(keypairunpack(2-proj-7-tuple(v_613))) in
+        {69}let v_633: bitstring = catch-fail(symmetricstateunpack(v_631)) in
+        {70}let v_634: key = catch-fail(hmac_hash1(2-proj-3-tuple(v_633),(if success?(2-proj-7-tuple(v_613)) then (if (not-caught-fail(v_632) && success?(is-true(success?(1-proj-2-tuple(v_632))))) then dhexp(2-proj-2-tuple(v_632),v_616) else fail-any) else fail-any))) in
+        {71}let v_635: key = catch-fail(hmac_hash2(2-proj-3-tuple(v_633),(if success?(2-proj-7-tuple(v_613)) then (if (not-caught-fail(v_632) && success?(is-true(success?(1-proj-2-tuple(v_632))))) then dhexp(2-proj-2-tuple(v_632),v_616) else fail-any) else fail-any))) in
+        {72}let v_636: key = catch-fail(hmac_hash3(2-proj-3-tuple(v_633),(if success?(2-proj-7-tuple(v_613)) then (if (not-caught-fail(v_632) && success?(is-true(success?(1-proj-2-tuple(v_632))))) then dhexp(2-proj-2-tuple(v_632),v_616) else fail-any) else fail-any))) in
+        {73}let v_637: bitstring = catch-fail((if (success?((if success?(2-proj-7-tuple(v_613)) then (if (not-caught-fail(v_632) && success?(is-true(success?(1-proj-2-tuple(v_632))))) then dhexp(2-proj-2-tuple(v_632),v_616) else fail-any) else fail-any)) && success?(2-proj-3-tuple(v_633))) then (if not-caught-fail(v_634) then (if not-caught-fail(v_635) then (if not-caught-fail(v_636) then (v_634,v_635,v_636) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {74}let v_638: symmetricstate = catch-fail((if success?((if success?(2-proj-7-tuple(v_613)) then (if (not-caught-fail(v_632) && success?(is-true(success?(1-proj-2-tuple(v_632))))) then dhexp(2-proj-2-tuple(v_632),v_616) else fail-any) else fail-any)) then (if (not-caught-fail(v_633) && success?(is-true(success?(1-proj-3-tuple(v_633))))) then (if (not-caught-fail(v_637) && success?(is-true(success?(1-proj-3-tuple(v_637))))) then symmetricstatepack((if success?(2-proj-3-tuple(v_637)) then cipherstatepack(2-proj-3-tuple(v_637),minnonce) else fail-any),1-proj-3-tuple(v_637),3-proj-3-tuple(v_633)) else fail-any) else fail-any) else fail-any)) in
+        {75}let v_639: bitstring = catch-fail(symmetricstateunpack(v_638)) in
+        {76}let v_640: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_639))) in
+        {77}let v_641: aead = catch-fail(decrypt(1-proj-2-tuple(v_640),2-proj-2-tuple(v_640),3-proj-3-tuple(v_639),2-proj-3-tuple(v_614))) in
+        {78}let v_642: bitstring = catch-fail(aeadunpack(v_641)) in
+        {79}let v_643: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_639))) in
+        {80}let v_644: cipherstate = catch-fail((if (success?(increment_nonce(2-proj-2-tuple(v_640))) && success?(1-proj-3-tuple(v_639))) then (if (not-caught-fail(v_643) && success?(is-true(success?(1-proj-2-tuple(v_643))))) then cipherstatepack(1-proj-2-tuple(v_643),increment_nonce(2-proj-2-tuple(v_640))) else fail-any) else fail-any)) in
+        {81}let v_645: bitstring = catch-fail((if (success?(2-proj-3-tuple(v_614)) && (success?(3-proj-3-tuple(v_639)) && success?(1-proj-3-tuple(v_639)))) then (if (not-caught-fail(v_640) && success?(is-true(success?(1-proj-2-tuple(v_640))))) then (if not-caught-fail(v_641) then (if (not-caught-fail(v_642) && success?(is-true(success?(1-proj-3-tuple(v_642))))) then (if not-caught-fail(v_644) then (v_644,3-proj-3-tuple(v_642),1-proj-3-tuple(v_642)) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {82}let v_646: bitstring = catch-fail(symmetricstateunpack(symmetricstatepack(1-proj-3-tuple(v_645),2-proj-3-tuple(v_639),3-proj-3-tuple(v_639)))) in
+        {83}let v_647: symmetricstate = catch-fail((if (success?(2-proj-3-tuple(v_614)) && success?(symmetricstatepack(1-proj-3-tuple(v_645),2-proj-3-tuple(v_639),3-proj-3-tuple(v_639)))) then (if (not-caught-fail(v_646) && success?(is-true(success?(1-proj-3-tuple(v_646))))) then symmetricstatepack(1-proj-3-tuple(v_646),2-proj-3-tuple(v_646),hash(3-proj-3-tuple(v_646),2-proj-3-tuple(v_614))) else fail-any) else fail-any)) in
+        {84}let v_648: bitstring = catch-fail((if success?(2-proj-3-tuple(v_614)) then (if (not-caught-fail(v_639) && success?(is-true(success?(1-proj-3-tuple(v_639))))) then (if (not-caught-fail(v_645) && success?(is-true(success?(1-proj-3-tuple(v_645))))) then (if not-caught-fail(v_647) then (v_647,2-proj-3-tuple(v_645),3-proj-3-tuple(v_645)) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {85}let v_649: key = catch-fail(2-proj-3-tuple(v_648)) in
+        {86}let v_650: bitstring = catch-fail(keypairunpack(3-proj-7-tuple(v_613))) in
+        {87}let v_651: bitstring = catch-fail(symmetricstateunpack(1-proj-3-tuple(v_648))) in
+        {88}let v_652: key = catch-fail(hmac_hash1(2-proj-3-tuple(v_651),(if success?(3-proj-7-tuple(v_613)) then (if (not-caught-fail(v_650) && success?(is-true(success?(1-proj-2-tuple(v_650))))) then dhexp(2-proj-2-tuple(v_650),v_649) else fail-any) else fail-any))) in
+        {89}let v_653: key = catch-fail(hmac_hash2(2-proj-3-tuple(v_651),(if success?(3-proj-7-tuple(v_613)) then (if (not-caught-fail(v_650) && success?(is-true(success?(1-proj-2-tuple(v_650))))) then dhexp(2-proj-2-tuple(v_650),v_649) else fail-any) else fail-any))) in
+        {90}let v_654: key = catch-fail(hmac_hash3(2-proj-3-tuple(v_651),(if success?(3-proj-7-tuple(v_613)) then (if (not-caught-fail(v_650) && success?(is-true(success?(1-proj-2-tuple(v_650))))) then dhexp(2-proj-2-tuple(v_650),v_649) else fail-any) else fail-any))) in
+        {91}let v_655: bitstring = catch-fail((if (success?((if success?(3-proj-7-tuple(v_613)) then (if (not-caught-fail(v_650) && success?(is-true(success?(1-proj-2-tuple(v_650))))) then dhexp(2-proj-2-tuple(v_650),v_649) else fail-any) else fail-any)) && success?(2-proj-3-tuple(v_651))) then (if not-caught-fail(v_652) then (if not-caught-fail(v_653) then (if not-caught-fail(v_654) then (v_652,v_653,v_654) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {92}let v_656: symmetricstate = catch-fail((if (success?((if success?(3-proj-7-tuple(v_613)) then (if (not-caught-fail(v_650) && success?(is-true(success?(1-proj-2-tuple(v_650))))) then dhexp(2-proj-2-tuple(v_650),v_649) else fail-any) else fail-any)) && success?(1-proj-3-tuple(v_648))) then (if (not-caught-fail(v_651) && success?(is-true(success?(1-proj-3-tuple(v_651))))) then (if (not-caught-fail(v_655) && success?(is-true(success?(1-proj-3-tuple(v_655))))) then symmetricstatepack((if success?(2-proj-3-tuple(v_655)) then cipherstatepack(2-proj-3-tuple(v_655),minnonce) else fail-any),1-proj-3-tuple(v_655),3-proj-3-tuple(v_651)) else fail-any) else fail-any) else fail-any)) in
+        {93}let v_657: bitstring = catch-fail(symmetricstateunpack(v_656)) in
+        {94}let v_658: key = catch-fail(hmac_hash1(2-proj-3-tuple(v_657),6-proj-7-tuple(v_613))) in
+        {95}let v_659: key = catch-fail(hmac_hash2(2-proj-3-tuple(v_657),6-proj-7-tuple(v_613))) in
+        {96}let v_660: key = catch-fail(hmac_hash3(2-proj-3-tuple(v_657),6-proj-7-tuple(v_613))) in
+        {97}let v_661: bitstring = catch-fail((if (success?(6-proj-7-tuple(v_613)) && success?(2-proj-3-tuple(v_657))) then (if not-caught-fail(v_658) then (if not-caught-fail(v_659) then (if not-caught-fail(v_660) then (v_658,v_659,v_660) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {98}let v_662: bitstring = catch-fail(symmetricstateunpack(symmetricstatepack(1-proj-3-tuple(v_657),1-proj-3-tuple(v_661),3-proj-3-tuple(v_657)))) in
+        {99}let v_663: bitstring = catch-fail(symmetricstateunpack((if (success?(2-proj-3-tuple(v_661)) && success?(symmetricstatepack(1-proj-3-tuple(v_657),1-proj-3-tuple(v_661),3-proj-3-tuple(v_657)))) then (if (not-caught-fail(v_662) && success?(is-true(success?(1-proj-3-tuple(v_662))))) then symmetricstatepack(1-proj-3-tuple(v_662),2-proj-3-tuple(v_662),hash(3-proj-3-tuple(v_662),2-proj-3-tuple(v_661))) else fail-any) else fail-any))) in
+        {100}let v_664: symmetricstate = catch-fail((if success?(6-proj-7-tuple(v_613)) then (if (not-caught-fail(v_657) && success?(is-true(success?(1-proj-3-tuple(v_657))))) then (if (not-caught-fail(v_661) && success?(is-true(success?(1-proj-3-tuple(v_661))))) then (if (not-caught-fail(v_663) && success?(is-true(success?(1-proj-3-tuple(v_663))))) then symmetricstatepack((if success?(3-proj-3-tuple(v_661)) then cipherstatepack(3-proj-3-tuple(v_661),minnonce) else fail-any),1-proj-3-tuple(v_661),3-proj-3-tuple(v_663)) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {101}let v_665: bitstring = catch-fail(symmetricstateunpack(v_664)) in
+        {102}let v_666: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_665))) in
+        {103}let v_667: aead = catch-fail(decrypt(1-proj-2-tuple(v_666),2-proj-2-tuple(v_666),3-proj-3-tuple(v_665),3-proj-3-tuple(v_614))) in
+        {104}let v_668: bitstring = catch-fail(aeadunpack(v_667)) in
+        {105}let v_669: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_665))) in
+        {106}let v_670: cipherstate = catch-fail((if (success?(increment_nonce(2-proj-2-tuple(v_666))) && success?(1-proj-3-tuple(v_665))) then (if (not-caught-fail(v_669) && success?(is-true(success?(1-proj-2-tuple(v_669))))) then cipherstatepack(1-proj-2-tuple(v_669),increment_nonce(2-proj-2-tuple(v_666))) else fail-any) else fail-any)) in
+        {107}let v_671: bitstring = catch-fail((if (success?(3-proj-3-tuple(v_614)) && (success?(3-proj-3-tuple(v_665)) && success?(1-proj-3-tuple(v_665)))) then (if (not-caught-fail(v_666) && success?(is-true(success?(1-proj-2-tuple(v_666))))) then (if not-caught-fail(v_667) then (if (not-caught-fail(v_668) && success?(is-true(success?(1-proj-3-tuple(v_668))))) then (if not-caught-fail(v_670) then (v_670,3-proj-3-tuple(v_668),1-proj-3-tuple(v_668)) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {108}let v_672: bitstring = catch-fail(symmetricstateunpack(symmetricstatepack(1-proj-3-tuple(v_671),2-proj-3-tuple(v_665),3-proj-3-tuple(v_665)))) in
+        {109}let v_673: symmetricstate = catch-fail((if (success?(3-proj-3-tuple(v_614)) && success?(symmetricstatepack(1-proj-3-tuple(v_671),2-proj-3-tuple(v_665),3-proj-3-tuple(v_665)))) then (if (not-caught-fail(v_672) && success?(is-true(success?(1-proj-3-tuple(v_672))))) then symmetricstatepack(1-proj-3-tuple(v_672),2-proj-3-tuple(v_672),hash(3-proj-3-tuple(v_672),3-proj-3-tuple(v_614))) else fail-any) else fail-any)) in
+        {110}let v_674: bitstring = catch-fail((if success?(3-proj-3-tuple(v_614)) then (if (not-caught-fail(v_665) && success?(is-true(success?(1-proj-3-tuple(v_665))))) then (if (not-caught-fail(v_671) && success?(is-true(success?(1-proj-3-tuple(v_671))))) then (if not-caught-fail(v_673) then (v_673,2-proj-3-tuple(v_671),3-proj-3-tuple(v_671)) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {111}let v_675: key = catch-fail(dhexp(key_s(bob),validkey(g))) in
+        {112}let v_676: handshakestate = catch-fail(handshakestatepack(1-proj-3-tuple(v_674),2-proj-7-tuple(v_613),3-proj-7-tuple(v_613),v_649,v_616,6-proj-7-tuple(v_613),7-proj-7-tuple(v_613))) in
+        {113}let v_677: bitstring = catch-fail(symmetricstateunpack(1-proj-3-tuple(v_674))) in
+        {114}let v_678: key = catch-fail(hmac_hash1(2-proj-3-tuple(v_677),zero)) in
+        {115}let v_679: key = catch-fail(hmac_hash2(2-proj-3-tuple(v_677),zero)) in
+        {116}let v_680: key = catch-fail(hmac_hash3(2-proj-3-tuple(v_677),zero)) in
+        {117}let v_681: bitstring = catch-fail((if success?(2-proj-3-tuple(v_677)) then (if not-caught-fail(v_678) then (if not-caught-fail(v_679) then (if not-caught-fail(v_680) then (v_678,v_679,v_680) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {118}let v_682: cipherstate = catch-fail((if success?(1-proj-3-tuple(v_681)) then cipherstatepack(1-proj-3-tuple(v_681),minnonce) else fail-any)) in
+        {119}let v_683: cipherstate = catch-fail((if success?(2-proj-3-tuple(v_681)) then cipherstatepack(2-proj-3-tuple(v_681),minnonce) else fail-any)) in
+        {120}let v_684: bitstring = catch-fail((if success?(1-proj-3-tuple(v_674)) then (if (not-caught-fail(v_677) && success?(is-true(success?(1-proj-3-tuple(v_677))))) then (if (not-caught-fail(v_681) && success?(is-true(success?(1-proj-3-tuple(v_681))))) then (if not-caught-fail(v_682) then (if not-caught-fail(v_683) then (1-proj-3-tuple(v_674),v_682,v_683) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {121}let (hs_685: handshakestate,plaintext_b: bitstring,valid: bool,cs1: cipherstate,cs2: cipherstate) = (if (not-caught-fail(v_613) && success?(is-true(success?(1-proj-7-tuple(v_613))))) then (if (not-caught-fail(v_614) && success?(is-true(success?(1-proj-3-tuple(v_614))))) then (if not-caught-fail(v_615) then (if not-caught-fail(v_616) then (if not-caught-fail(v_618) then (if not-caught-fail(v_624) then (if not-caught-fail(v_631) then (if not-caught-fail(v_638) then (if (not-caught-fail(v_648) && success?(is-true(success?(1-proj-3-tuple(v_648))))) then (if not-caught-fail(v_649) then (if not-caught-fail(v_656) then (if not-caught-fail(v_664) then (if (not-caught-fail(v_674) && success?(is-true(success?(1-proj-3-tuple(v_674))))) then (if ((3-proj-3-tuple(v_648) && 3-proj-3-tuple(v_674)) && (v_649 = getpublickey((if not-caught-fail(v_675) then keypairpack(validkey(v_675),key_s(bob)) else fail-any)))) then (if not-caught-fail(v_676) then (if (not-caught-fail(v_684) && success?(is-true(success?(1-proj-3-tuple(v_684))))) then (v_676,2-proj-3-tuple(v_674),true,2-proj-3-tuple(v_684),3-proj-3-tuple(v_684)) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) in
+        {122}event RecvMsg(alice,bob,stagepack_b(sid),plaintext_b);
+        {123}insert statestore(alice,bob,sid,statepack_c(hs_685,cs1,cs2))
+    ) | (
+        {125}!
+        {144}get statestore(=alice,=bob,=sid,statepack_c(hs_686: handshakestate,cs1_687: cipherstate,cs2_688: cipherstate)) in
+        {126}let hs_689: handshakestate = handshakestatesetcs(hs_686,cs1_687) in
+        {127}let v_690: bitstring = catch-fail(handshakestateunpack(hs_689)) in
+        {128}let v_691: bitstring = catch-fail((empty,empty,empty)) in
+        {129}let v_692: bitstring = catch-fail(symmetricstateunpack(1-proj-7-tuple(v_690))) in
+        {130}let v_693: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_692))) in
+        {131}let v_694: bitstring = catch-fail(encrypt(1-proj-2-tuple(v_693),2-proj-2-tuple(v_693),3-proj-3-tuple(v_692),msg_c(alice,bob,sid))) in
+        {132}let v_695: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_692))) in
+        {133}let v_696: cipherstate = catch-fail((if (success?(increment_nonce(2-proj-2-tuple(v_693))) && success?(1-proj-3-tuple(v_692))) then (if (not-caught-fail(v_695) && success?(is-true(success?(1-proj-2-tuple(v_695))))) then cipherstatepack(1-proj-2-tuple(v_695),increment_nonce(2-proj-2-tuple(v_693))) else fail-any) else fail-any)) in
+        {134}let v_697: bitstring = catch-fail((if (success?(3-proj-3-tuple(v_692)) && success?(1-proj-3-tuple(v_692))) then (if (not-caught-fail(v_693) && success?(is-true(success?(1-proj-2-tuple(v_693))))) then (if not-caught-fail(v_694) then (if not-caught-fail(v_696) then (v_696,v_694) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {135}let v_698: bitstring = catch-fail(symmetricstateunpack(symmetricstatepack(1-proj-2-tuple(v_697),2-proj-3-tuple(v_692),3-proj-3-tuple(v_692)))) in
+        {136}let v_699: symmetricstate = catch-fail((if (success?(2-proj-2-tuple(v_697)) && success?(symmetricstatepack(1-proj-2-tuple(v_697),2-proj-3-tuple(v_692),3-proj-3-tuple(v_692)))) then (if (not-caught-fail(v_698) && success?(is-true(success?(1-proj-3-tuple(v_698))))) then symmetricstatepack(1-proj-3-tuple(v_698),2-proj-3-tuple(v_698),hash(3-proj-3-tuple(v_698),2-proj-2-tuple(v_697))) else fail-any) else fail-any)) in
+        {137}let v_700: bitstring = catch-fail((if success?(1-proj-7-tuple(v_690)) then (if (not-caught-fail(v_692) && success?(is-true(success?(1-proj-3-tuple(v_692))))) then (if (not-caught-fail(v_697) && success?(is-true(success?(1-proj-2-tuple(v_697))))) then (if not-caught-fail(v_699) then (v_699,2-proj-2-tuple(v_697)) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {138}let v_701: handshakestate = catch-fail(handshakestatepack(1-proj-2-tuple(v_700),2-proj-7-tuple(v_690),3-proj-7-tuple(v_690),4-proj-7-tuple(v_690),5-proj-7-tuple(v_690),6-proj-7-tuple(v_690),7-proj-7-tuple(v_690))) in
+        {139}let v_702: bitstring = catch-fail(concat3(1-proj-3-tuple(v_691),2-proj-3-tuple(v_691),2-proj-2-tuple(v_700))) in
+        {140}let (hs_703: handshakestate,message_c: bitstring) = (if (not-caught-fail(v_690) && success?(is-true(success?(1-proj-7-tuple(v_690))))) then (if (not-caught-fail(v_691) && success?(is-true(success?(1-proj-3-tuple(v_691))))) then (if (not-caught-fail(v_700) && success?(is-true(success?(1-proj-2-tuple(v_700))))) then (if not-caught-fail(v_701) then (if not-caught-fail(v_702) then (v_701,v_702) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) in
+        {141}event SendMsg(alice,bob,stagepack_c(sid),msg_c(alice,bob,sid));
+        {142}insert statestore(alice,bob,sid,statepack_d(hs_703,handshakestategetcs(hs_703),cs2_688));
+        {143}out(pub, message_c)
+    ) | (
+        {145}!
+        {165}get statestore(=alice,=bob,=sid,statepack_d(hs_704: handshakestate,cs1_705: cipherstate,cs2_706: cipherstate)) in
+        {146}let hs_707: handshakestate = handshakestatesetcs(hs_704,cs2_706) in
+        {147}in(pub, message_d: bitstring);
+        {148}let v_708: bitstring = catch-fail(handshakestateunpack(hs_707)) in
+        {149}let v_709: bitstring = catch-fail(deconcat3(message_d)) in
+        {150}let v_710: bool = catch-fail(true) in
+        {151}let v_711: bitstring = catch-fail(symmetricstateunpack(1-proj-7-tuple(v_708))) in
+        {152}let v_712: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_711))) in
+        {153}let v_713: aead = catch-fail(decrypt(1-proj-2-tuple(v_712),2-proj-2-tuple(v_712),3-proj-3-tuple(v_711),3-proj-3-tuple(v_709))) in
+        {154}let v_714: bitstring = catch-fail(aeadunpack(v_713)) in
+        {155}let v_715: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_711))) in
+        {156}let v_716: cipherstate = catch-fail((if (success?(increment_nonce(2-proj-2-tuple(v_712))) && success?(1-proj-3-tuple(v_711))) then (if (not-caught-fail(v_715) && success?(is-true(success?(1-proj-2-tuple(v_715))))) then cipherstatepack(1-proj-2-tuple(v_715),increment_nonce(2-proj-2-tuple(v_712))) else fail-any) else fail-any)) in
+        {157}let v_717: bitstring = catch-fail((if (success?(3-proj-3-tuple(v_709)) && (success?(3-proj-3-tuple(v_711)) && success?(1-proj-3-tuple(v_711)))) then (if (not-caught-fail(v_712) && success?(is-true(success?(1-proj-2-tuple(v_712))))) then (if not-caught-fail(v_713) then (if (not-caught-fail(v_714) && success?(is-true(success?(1-proj-3-tuple(v_714))))) then (if not-caught-fail(v_716) then (v_716,3-proj-3-tuple(v_714),1-proj-3-tuple(v_714)) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {158}let v_718: bitstring = catch-fail(symmetricstateunpack(symmetricstatepack(1-proj-3-tuple(v_717),2-proj-3-tuple(v_711),3-proj-3-tuple(v_711)))) in
+        {159}let v_719: symmetricstate = catch-fail((if (success?(3-proj-3-tuple(v_709)) && success?(symmetricstatepack(1-proj-3-tuple(v_717),2-proj-3-tuple(v_711),3-proj-3-tuple(v_711)))) then (if (not-caught-fail(v_718) && success?(is-true(success?(1-proj-3-tuple(v_718))))) then symmetricstatepack(1-proj-3-tuple(v_718),2-proj-3-tuple(v_718),hash(3-proj-3-tuple(v_718),3-proj-3-tuple(v_709))) else fail-any) else fail-any)) in
+        {160}let v_720: bitstring = catch-fail((if (success?(3-proj-3-tuple(v_709)) && success?(1-proj-7-tuple(v_708))) then (if (not-caught-fail(v_711) && success?(is-true(success?(1-proj-3-tuple(v_711))))) then (if (not-caught-fail(v_717) && success?(is-true(success?(1-proj-3-tuple(v_717))))) then (if not-caught-fail(v_719) then (v_719,2-proj-3-tuple(v_717),3-proj-3-tuple(v_717)) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {161}let v_721: handshakestate = catch-fail(handshakestatepack(1-proj-3-tuple(v_720),2-proj-7-tuple(v_708),3-proj-7-tuple(v_708),4-proj-7-tuple(v_708),5-proj-7-tuple(v_708),6-proj-7-tuple(v_708),7-proj-7-tuple(v_708))) in
+        {162}let (hs_722: handshakestate,plaintext_d: bitstring,valid_723: bool) = (if (not-caught-fail(v_708) && success?(is-true(success?(1-proj-7-tuple(v_708))))) then (if (not-caught-fail(v_709) && success?(is-true(success?(1-proj-3-tuple(v_709))))) then (if not-caught-fail(v_710) then (if (not-caught-fail(v_720) && success?(is-true(success?(1-proj-3-tuple(v_720))))) then (if (v_710 && 3-proj-3-tuple(v_720)) then (if not-caught-fail(v_721) then (v_721,2-proj-3-tuple(v_720),true) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) in
+        {163}event RecvMsg(alice,bob,stagepack_d(sid),plaintext_d);
+        {164}event RecvEnd(valid_723)
+    ) | (
+        {166}event LeakPsk(phase0,alice,bob);
+        {167}out(pub, key_psk(alice,bob))
+    ) | (
+        {168}phase 1;
+        {169}event LeakPsk(phase1,alice,bob);
+        {170}out(pub, key_psk(alice,bob))
+    ) | (
+        {171}event LeakS(phase0,alice);
+        {172}out(pub, key_s(alice))
+    ) | (
+        {173}phase 1;
+        {174}event LeakS(phase1,alice);
+        {175}out(pub, key_s(alice))
+    )
+) | (
+    {176}let v_724: key = catch-fail(dhexp(key_s(alice),validkey(g))) in
+    {177}let s_725: keypair = (if not-caught-fail(v_724) then keypairpack(validkey(v_724),key_s(alice)) else fail-any) in
+    {178}out(pub, getpublickey(s_725));
+    (
+        {179}let e_726: keypair = keypairpack(empty,empty) in
+        {180}let rs_727: key = empty in
+        {181}let re_728: key = empty in
+        {182}let v_729: bitstring = catch-fail(hash(somename,empty)) in
+        {183}let v_730: key = catch-fail(v_729) in
+        {184}let v_731: cipherstate = catch-fail(cipherstatepack(empty,minnonce)) in
+        {185}let v_732: bitstring = catch-fail(symmetricstateunpack((if not-caught-fail(v_729) then (if not-caught-fail(v_730) then (if not-caught-fail(v_731) then symmetricstatepack(v_731,v_730,v_729) else fail-any) else fail-any) else fail-any))) in
+        {186}let v_733: symmetricstate = catch-fail((if success?((if not-caught-fail(v_729) then (if not-caught-fail(v_730) then (if not-caught-fail(v_731) then symmetricstatepack(v_731,v_730,v_729) else fail-any) else fail-any) else fail-any)) then (if (not-caught-fail(v_732) && success?(is-true(success?(1-proj-3-tuple(v_732))))) then symmetricstatepack(1-proj-3-tuple(v_732),2-proj-3-tuple(v_732),hash(3-proj-3-tuple(v_732),empty)) else fail-any) else fail-any)) in
+        {187}let v_734: bitstring = catch-fail(symmetricstateunpack(v_733)) in
+        {188}let v_735: symmetricstate = catch-fail((if success?(getpublickey(s_725)) then (if (not-caught-fail(v_734) && success?(is-true(success?(1-proj-3-tuple(v_734))))) then symmetricstatepack(1-proj-3-tuple(v_734),2-proj-3-tuple(v_734),hash(3-proj-3-tuple(v_734),getpublickey(s_725))) else fail-any) else fail-any)) in
+        {189}let hs_736: handshakestate = (if not-caught-fail(v_733) then (if not-caught-fail(v_735) then handshakestatepack(v_735,s_725,e_726,rs_727,re_728,key_psk(alice,charlie),true) else fail-any) else fail-any) in
+        {190}insert statestore(alice,charlie,sid,statepack_a(hs_736))
+    ) | (
+        {219}get statestore(=alice,=charlie,=sid,statepack_a(hs_737: handshakestate)) in
+        {191}let v_738: bitstring = catch-fail(handshakestateunpack(hs_737)) in
+        {192}let v_739: bitstring = catch-fail((empty,empty,empty)) in
+        {193}let v_740: key = catch-fail(dhexp(key_e(alice,charlie,sid),validkey(g))) in
+        {194}let v_741: keypair = catch-fail((if not-caught-fail(v_740) then keypairpack(validkey(v_740),key_e(alice,charlie,sid)) else fail-any)) in
+        {195}let v_742: bitstring = catch-fail(getpublickey(v_741)) in
+        {196}let v_743: bitstring = catch-fail(symmetricstateunpack(1-proj-7-tuple(v_738))) in
+        {197}let v_744: symmetricstate = catch-fail((if success?(1-proj-7-tuple(v_738)) then (if (not-caught-fail(v_743) && success?(is-true(success?(1-proj-3-tuple(v_743))))) then symmetricstatepack(1-proj-3-tuple(v_743),2-proj-3-tuple(v_743),hash(3-proj-3-tuple(v_743),v_742)) else fail-any) else fail-any)) in
+        {198}let v_745: bitstring = catch-fail(symmetricstateunpack(v_744)) in
+        {199}let v_746: key = catch-fail(hmac_hash1(2-proj-3-tuple(v_745),getpublickey(v_741))) in
+        {200}let v_747: key = catch-fail(hmac_hash2(2-proj-3-tuple(v_745),getpublickey(v_741))) in
+        {201}let v_748: key = catch-fail(hmac_hash3(2-proj-3-tuple(v_745),getpublickey(v_741))) in
+        {202}let v_749: bitstring = catch-fail((if (success?(getpublickey(v_741)) && success?(2-proj-3-tuple(v_745))) then (if not-caught-fail(v_746) then (if not-caught-fail(v_747) then (if not-caught-fail(v_748) then (v_746,v_747,v_748) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {203}let v_750: symmetricstate = catch-fail((if success?(getpublickey(v_741)) then (if (not-caught-fail(v_745) && success?(is-true(success?(1-proj-3-tuple(v_745))))) then (if (not-caught-fail(v_749) && success?(is-true(success?(1-proj-3-tuple(v_749))))) then symmetricstatepack((if success?(2-proj-3-tuple(v_749)) then cipherstatepack(2-proj-3-tuple(v_749),minnonce) else fail-any),1-proj-3-tuple(v_749),3-proj-3-tuple(v_745)) else fail-any) else fail-any) else fail-any)) in
+        {204}let v_751: bitstring = catch-fail(symmetricstateunpack(v_750)) in
+        {205}let v_752: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_751))) in
+        {206}let v_753: bitstring = catch-fail(encrypt(1-proj-2-tuple(v_752),2-proj-2-tuple(v_752),3-proj-3-tuple(v_751),msg_a(alice,charlie,sid))) in
+        {207}let v_754: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_751))) in
+        {208}let v_755: cipherstate = catch-fail((if (success?(increment_nonce(2-proj-2-tuple(v_752))) && success?(1-proj-3-tuple(v_751))) then (if (not-caught-fail(v_754) && success?(is-true(success?(1-proj-2-tuple(v_754))))) then cipherstatepack(1-proj-2-tuple(v_754),increment_nonce(2-proj-2-tuple(v_752))) else fail-any) else fail-any)) in
+        {209}let v_756: bitstring = catch-fail((if (success?(3-proj-3-tuple(v_751)) && success?(1-proj-3-tuple(v_751))) then (if (not-caught-fail(v_752) && success?(is-true(success?(1-proj-2-tuple(v_752))))) then (if not-caught-fail(v_753) then (if not-caught-fail(v_755) then (v_755,v_753) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {210}let v_757: bitstring = catch-fail(symmetricstateunpack(symmetricstatepack(1-proj-2-tuple(v_756),2-proj-3-tuple(v_751),3-proj-3-tuple(v_751)))) in
+        {211}let v_758: symmetricstate = catch-fail((if (success?(2-proj-2-tuple(v_756)) && success?(symmetricstatepack(1-proj-2-tuple(v_756),2-proj-3-tuple(v_751),3-proj-3-tuple(v_751)))) then (if (not-caught-fail(v_757) && success?(is-true(success?(1-proj-3-tuple(v_757))))) then symmetricstatepack(1-proj-3-tuple(v_757),2-proj-3-tuple(v_757),hash(3-proj-3-tuple(v_757),2-proj-2-tuple(v_756))) else fail-any) else fail-any)) in
+        {212}let v_759: bitstring = catch-fail((if (not-caught-fail(v_751) && success?(is-true(success?(1-proj-3-tuple(v_751))))) then (if (not-caught-fail(v_756) && success?(is-true(success?(1-proj-2-tuple(v_756))))) then (if not-caught-fail(v_758) then (v_758,2-proj-2-tuple(v_756)) else fail-any) else fail-any) else fail-any)) in
+        {213}let v_760: handshakestate = catch-fail(handshakestatepack(1-proj-2-tuple(v_759),2-proj-7-tuple(v_738),v_741,4-proj-7-tuple(v_738),5-proj-7-tuple(v_738),6-proj-7-tuple(v_738),7-proj-7-tuple(v_738))) in
+        {214}let v_761: bitstring = catch-fail(concat3(v_742,2-proj-3-tuple(v_739),2-proj-2-tuple(v_759))) in
+        {215}let (hs_762: handshakestate,message_a_763: bitstring) = (if (not-caught-fail(v_738) && success?(is-true(success?(1-proj-7-tuple(v_738))))) then (if (not-caught-fail(v_739) && success?(is-true(success?(1-proj-3-tuple(v_739))))) then (if not-caught-fail(v_741) then (if not-caught-fail(v_742) then (if not-caught-fail(v_744) then (if not-caught-fail(v_750) then (if (not-caught-fail(v_759) && success?(is-true(success?(1-proj-2-tuple(v_759))))) then (if not-caught-fail(v_760) then (if not-caught-fail(v_761) then (v_760,v_761) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) in
+        {216}event SendMsg(alice,charlie,stagepack_a(sid),msg_a(alice,charlie,sid));
+        {217}insert statestore(alice,charlie,sid,statepack_b(hs_762));
+        {218}out(pub, message_a_763)
+    ) | (
+        {296}get statestore(=alice,=charlie,=sid,statepack_b(hs_764: handshakestate)) in
+        {220}in(pub, message_b_765: bitstring);
+        {221}let v_766: bitstring = catch-fail(handshakestateunpack(hs_764)) in
+        {222}let v_767: bitstring = catch-fail(deconcat3(message_b_765)) in
+        {223}let v_768: bool = catch-fail(true) in
+        {224}let v_769: key = catch-fail(1-proj-3-tuple(v_767)) in
+        {225}let v_770: bitstring = catch-fail(symmetricstateunpack(1-proj-7-tuple(v_766))) in
+        {226}let v_771: symmetricstate = catch-fail((if success?(1-proj-7-tuple(v_766)) then (if (not-caught-fail(v_770) && success?(is-true(success?(1-proj-3-tuple(v_770))))) then symmetricstatepack(1-proj-3-tuple(v_770),2-proj-3-tuple(v_770),hash(3-proj-3-tuple(v_770),v_769)) else fail-any) else fail-any)) in
+        {227}let v_772: bitstring = catch-fail(symmetricstateunpack(v_771)) in
+        {228}let v_773: key = catch-fail(hmac_hash1(2-proj-3-tuple(v_772),v_769)) in
+        {229}let v_774: key = catch-fail(hmac_hash2(2-proj-3-tuple(v_772),v_769)) in
+        {230}let v_775: key = catch-fail(hmac_hash3(2-proj-3-tuple(v_772),v_769)) in
+        {231}let v_776: bitstring = catch-fail((if success?(2-proj-3-tuple(v_772)) then (if not-caught-fail(v_773) then (if not-caught-fail(v_774) then (if not-caught-fail(v_775) then (v_773,v_774,v_775) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {232}let v_777: symmetricstate = catch-fail((if (not-caught-fail(v_772) && success?(is-true(success?(1-proj-3-tuple(v_772))))) then (if (not-caught-fail(v_776) && success?(is-true(success?(1-proj-3-tuple(v_776))))) then symmetricstatepack((if success?(2-proj-3-tuple(v_776)) then cipherstatepack(2-proj-3-tuple(v_776),minnonce) else fail-any),1-proj-3-tuple(v_776),3-proj-3-tuple(v_772)) else fail-any) else fail-any)) in
+        {233}let v_778: bitstring = catch-fail(keypairunpack(3-proj-7-tuple(v_766))) in
+        {234}let v_779: bitstring = catch-fail(symmetricstateunpack(v_777)) in
+        {235}let v_780: key = catch-fail(hmac_hash1(2-proj-3-tuple(v_779),(if success?(3-proj-7-tuple(v_766)) then (if (not-caught-fail(v_778) && success?(is-true(success?(1-proj-2-tuple(v_778))))) then dhexp(2-proj-2-tuple(v_778),v_769) else fail-any) else fail-any))) in
+        {236}let v_781: key = catch-fail(hmac_hash2(2-proj-3-tuple(v_779),(if success?(3-proj-7-tuple(v_766)) then (if (not-caught-fail(v_778) && success?(is-true(success?(1-proj-2-tuple(v_778))))) then dhexp(2-proj-2-tuple(v_778),v_769) else fail-any) else fail-any))) in
+        {237}let v_782: key = catch-fail(hmac_hash3(2-proj-3-tuple(v_779),(if success?(3-proj-7-tuple(v_766)) then (if (not-caught-fail(v_778) && success?(is-true(success?(1-proj-2-tuple(v_778))))) then dhexp(2-proj-2-tuple(v_778),v_769) else fail-any) else fail-any))) in
+        {238}let v_783: bitstring = catch-fail((if (success?((if success?(3-proj-7-tuple(v_766)) then (if (not-caught-fail(v_778) && success?(is-true(success?(1-proj-2-tuple(v_778))))) then dhexp(2-proj-2-tuple(v_778),v_769) else fail-any) else fail-any)) && success?(2-proj-3-tuple(v_779))) then (if not-caught-fail(v_780) then (if not-caught-fail(v_781) then (if not-caught-fail(v_782) then (v_780,v_781,v_782) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {239}let v_784: symmetricstate = catch-fail((if success?((if success?(3-proj-7-tuple(v_766)) then (if (not-caught-fail(v_778) && success?(is-true(success?(1-proj-2-tuple(v_778))))) then dhexp(2-proj-2-tuple(v_778),v_769) else fail-any) else fail-any)) then (if (not-caught-fail(v_779) && success?(is-true(success?(1-proj-3-tuple(v_779))))) then (if (not-caught-fail(v_783) && success?(is-true(success?(1-proj-3-tuple(v_783))))) then symmetricstatepack((if success?(2-proj-3-tuple(v_783)) then cipherstatepack(2-proj-3-tuple(v_783),minnonce) else fail-any),1-proj-3-tuple(v_783),3-proj-3-tuple(v_779)) else fail-any) else fail-any) else fail-any)) in
+        {240}let v_785: bitstring = catch-fail(keypairunpack(2-proj-7-tuple(v_766))) in
+        {241}let v_786: bitstring = catch-fail(symmetricstateunpack(v_784)) in
+        {242}let v_787: key = catch-fail(hmac_hash1(2-proj-3-tuple(v_786),(if success?(2-proj-7-tuple(v_766)) then (if (not-caught-fail(v_785) && success?(is-true(success?(1-proj-2-tuple(v_785))))) then dhexp(2-proj-2-tuple(v_785),v_769) else fail-any) else fail-any))) in
+        {243}let v_788: key = catch-fail(hmac_hash2(2-proj-3-tuple(v_786),(if success?(2-proj-7-tuple(v_766)) then (if (not-caught-fail(v_785) && success?(is-true(success?(1-proj-2-tuple(v_785))))) then dhexp(2-proj-2-tuple(v_785),v_769) else fail-any) else fail-any))) in
+        {244}let v_789: key = catch-fail(hmac_hash3(2-proj-3-tuple(v_786),(if success?(2-proj-7-tuple(v_766)) then (if (not-caught-fail(v_785) && success?(is-true(success?(1-proj-2-tuple(v_785))))) then dhexp(2-proj-2-tuple(v_785),v_769) else fail-any) else fail-any))) in
+        {245}let v_790: bitstring = catch-fail((if (success?((if success?(2-proj-7-tuple(v_766)) then (if (not-caught-fail(v_785) && success?(is-true(success?(1-proj-2-tuple(v_785))))) then dhexp(2-proj-2-tuple(v_785),v_769) else fail-any) else fail-any)) && success?(2-proj-3-tuple(v_786))) then (if not-caught-fail(v_787) then (if not-caught-fail(v_788) then (if not-caught-fail(v_789) then (v_787,v_788,v_789) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {246}let v_791: symmetricstate = catch-fail((if success?((if success?(2-proj-7-tuple(v_766)) then (if (not-caught-fail(v_785) && success?(is-true(success?(1-proj-2-tuple(v_785))))) then dhexp(2-proj-2-tuple(v_785),v_769) else fail-any) else fail-any)) then (if (not-caught-fail(v_786) && success?(is-true(success?(1-proj-3-tuple(v_786))))) then (if (not-caught-fail(v_790) && success?(is-true(success?(1-proj-3-tuple(v_790))))) then symmetricstatepack((if success?(2-proj-3-tuple(v_790)) then cipherstatepack(2-proj-3-tuple(v_790),minnonce) else fail-any),1-proj-3-tuple(v_790),3-proj-3-tuple(v_786)) else fail-any) else fail-any) else fail-any)) in
+        {247}let v_792: bitstring = catch-fail(symmetricstateunpack(v_791)) in
+        {248}let v_793: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_792))) in
+        {249}let v_794: aead = catch-fail(decrypt(1-proj-2-tuple(v_793),2-proj-2-tuple(v_793),3-proj-3-tuple(v_792),2-proj-3-tuple(v_767))) in
+        {250}let v_795: bitstring = catch-fail(aeadunpack(v_794)) in
+        {251}let v_796: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_792))) in
+        {252}let v_797: cipherstate = catch-fail((if (success?(increment_nonce(2-proj-2-tuple(v_793))) && success?(1-proj-3-tuple(v_792))) then (if (not-caught-fail(v_796) && success?(is-true(success?(1-proj-2-tuple(v_796))))) then cipherstatepack(1-proj-2-tuple(v_796),increment_nonce(2-proj-2-tuple(v_793))) else fail-any) else fail-any)) in
+        {253}let v_798: bitstring = catch-fail((if (success?(2-proj-3-tuple(v_767)) && (success?(3-proj-3-tuple(v_792)) && success?(1-proj-3-tuple(v_792)))) then (if (not-caught-fail(v_793) && success?(is-true(success?(1-proj-2-tuple(v_793))))) then (if not-caught-fail(v_794) then (if (not-caught-fail(v_795) && success?(is-true(success?(1-proj-3-tuple(v_795))))) then (if not-caught-fail(v_797) then (v_797,3-proj-3-tuple(v_795),1-proj-3-tuple(v_795)) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {254}let v_799: bitstring = catch-fail(symmetricstateunpack(symmetricstatepack(1-proj-3-tuple(v_798),2-proj-3-tuple(v_792),3-proj-3-tuple(v_792)))) in
+        {255}let v_800: symmetricstate = catch-fail((if (success?(2-proj-3-tuple(v_767)) && success?(symmetricstatepack(1-proj-3-tuple(v_798),2-proj-3-tuple(v_792),3-proj-3-tuple(v_792)))) then (if (not-caught-fail(v_799) && success?(is-true(success?(1-proj-3-tuple(v_799))))) then symmetricstatepack(1-proj-3-tuple(v_799),2-proj-3-tuple(v_799),hash(3-proj-3-tuple(v_799),2-proj-3-tuple(v_767))) else fail-any) else fail-any)) in
+        {256}let v_801: bitstring = catch-fail((if success?(2-proj-3-tuple(v_767)) then (if (not-caught-fail(v_792) && success?(is-true(success?(1-proj-3-tuple(v_792))))) then (if (not-caught-fail(v_798) && success?(is-true(success?(1-proj-3-tuple(v_798))))) then (if not-caught-fail(v_800) then (v_800,2-proj-3-tuple(v_798),3-proj-3-tuple(v_798)) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {257}let v_802: key = catch-fail(2-proj-3-tuple(v_801)) in
+        {258}let v_803: bitstring = catch-fail(keypairunpack(3-proj-7-tuple(v_766))) in
+        {259}let v_804: bitstring = catch-fail(symmetricstateunpack(1-proj-3-tuple(v_801))) in
+        {260}let v_805: key = catch-fail(hmac_hash1(2-proj-3-tuple(v_804),(if success?(3-proj-7-tuple(v_766)) then (if (not-caught-fail(v_803) && success?(is-true(success?(1-proj-2-tuple(v_803))))) then dhexp(2-proj-2-tuple(v_803),v_802) else fail-any) else fail-any))) in
+        {261}let v_806: key = catch-fail(hmac_hash2(2-proj-3-tuple(v_804),(if success?(3-proj-7-tuple(v_766)) then (if (not-caught-fail(v_803) && success?(is-true(success?(1-proj-2-tuple(v_803))))) then dhexp(2-proj-2-tuple(v_803),v_802) else fail-any) else fail-any))) in
+        {262}let v_807: key = catch-fail(hmac_hash3(2-proj-3-tuple(v_804),(if success?(3-proj-7-tuple(v_766)) then (if (not-caught-fail(v_803) && success?(is-true(success?(1-proj-2-tuple(v_803))))) then dhexp(2-proj-2-tuple(v_803),v_802) else fail-any) else fail-any))) in
+        {263}let v_808: bitstring = catch-fail((if (success?((if success?(3-proj-7-tuple(v_766)) then (if (not-caught-fail(v_803) && success?(is-true(success?(1-proj-2-tuple(v_803))))) then dhexp(2-proj-2-tuple(v_803),v_802) else fail-any) else fail-any)) && success?(2-proj-3-tuple(v_804))) then (if not-caught-fail(v_805) then (if not-caught-fail(v_806) then (if not-caught-fail(v_807) then (v_805,v_806,v_807) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {264}let v_809: symmetricstate = catch-fail((if (success?((if success?(3-proj-7-tuple(v_766)) then (if (not-caught-fail(v_803) && success?(is-true(success?(1-proj-2-tuple(v_803))))) then dhexp(2-proj-2-tuple(v_803),v_802) else fail-any) else fail-any)) && success?(1-proj-3-tuple(v_801))) then (if (not-caught-fail(v_804) && success?(is-true(success?(1-proj-3-tuple(v_804))))) then (if (not-caught-fail(v_808) && success?(is-true(success?(1-proj-3-tuple(v_808))))) then symmetricstatepack((if success?(2-proj-3-tuple(v_808)) then cipherstatepack(2-proj-3-tuple(v_808),minnonce) else fail-any),1-proj-3-tuple(v_808),3-proj-3-tuple(v_804)) else fail-any) else fail-any) else fail-any)) in
+        {265}let v_810: bitstring = catch-fail(symmetricstateunpack(v_809)) in
+        {266}let v_811: key = catch-fail(hmac_hash1(2-proj-3-tuple(v_810),6-proj-7-tuple(v_766))) in
+        {267}let v_812: key = catch-fail(hmac_hash2(2-proj-3-tuple(v_810),6-proj-7-tuple(v_766))) in
+        {268}let v_813: key = catch-fail(hmac_hash3(2-proj-3-tuple(v_810),6-proj-7-tuple(v_766))) in
+        {269}let v_814: bitstring = catch-fail((if (success?(6-proj-7-tuple(v_766)) && success?(2-proj-3-tuple(v_810))) then (if not-caught-fail(v_811) then (if not-caught-fail(v_812) then (if not-caught-fail(v_813) then (v_811,v_812,v_813) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {270}let v_815: bitstring = catch-fail(symmetricstateunpack(symmetricstatepack(1-proj-3-tuple(v_810),1-proj-3-tuple(v_814),3-proj-3-tuple(v_810)))) in
+        {271}let v_816: bitstring = catch-fail(symmetricstateunpack((if (success?(2-proj-3-tuple(v_814)) && success?(symmetricstatepack(1-proj-3-tuple(v_810),1-proj-3-tuple(v_814),3-proj-3-tuple(v_810)))) then (if (not-caught-fail(v_815) && success?(is-true(success?(1-proj-3-tuple(v_815))))) then symmetricstatepack(1-proj-3-tuple(v_815),2-proj-3-tuple(v_815),hash(3-proj-3-tuple(v_815),2-proj-3-tuple(v_814))) else fail-any) else fail-any))) in
+        {272}let v_817: symmetricstate = catch-fail((if success?(6-proj-7-tuple(v_766)) then (if (not-caught-fail(v_810) && success?(is-true(success?(1-proj-3-tuple(v_810))))) then (if (not-caught-fail(v_814) && success?(is-true(success?(1-proj-3-tuple(v_814))))) then (if (not-caught-fail(v_816) && success?(is-true(success?(1-proj-3-tuple(v_816))))) then symmetricstatepack((if success?(3-proj-3-tuple(v_814)) then cipherstatepack(3-proj-3-tuple(v_814),minnonce) else fail-any),1-proj-3-tuple(v_814),3-proj-3-tuple(v_816)) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {273}let v_818: bitstring = catch-fail(symmetricstateunpack(v_817)) in
+        {274}let v_819: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_818))) in
+        {275}let v_820: aead = catch-fail(decrypt(1-proj-2-tuple(v_819),2-proj-2-tuple(v_819),3-proj-3-tuple(v_818),3-proj-3-tuple(v_767))) in
+        {276}let v_821: bitstring = catch-fail(aeadunpack(v_820)) in
+        {277}let v_822: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_818))) in
+        {278}let v_823: cipherstate = catch-fail((if (success?(increment_nonce(2-proj-2-tuple(v_819))) && success?(1-proj-3-tuple(v_818))) then (if (not-caught-fail(v_822) && success?(is-true(success?(1-proj-2-tuple(v_822))))) then cipherstatepack(1-proj-2-tuple(v_822),increment_nonce(2-proj-2-tuple(v_819))) else fail-any) else fail-any)) in
+        {279}let v_824: bitstring = catch-fail((if (success?(3-proj-3-tuple(v_767)) && (success?(3-proj-3-tuple(v_818)) && success?(1-proj-3-tuple(v_818)))) then (if (not-caught-fail(v_819) && success?(is-true(success?(1-proj-2-tuple(v_819))))) then (if not-caught-fail(v_820) then (if (not-caught-fail(v_821) && success?(is-true(success?(1-proj-3-tuple(v_821))))) then (if not-caught-fail(v_823) then (v_823,3-proj-3-tuple(v_821),1-proj-3-tuple(v_821)) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {280}let v_825: bitstring = catch-fail(symmetricstateunpack(symmetricstatepack(1-proj-3-tuple(v_824),2-proj-3-tuple(v_818),3-proj-3-tuple(v_818)))) in
+        {281}let v_826: symmetricstate = catch-fail((if (success?(3-proj-3-tuple(v_767)) && success?(symmetricstatepack(1-proj-3-tuple(v_824),2-proj-3-tuple(v_818),3-proj-3-tuple(v_818)))) then (if (not-caught-fail(v_825) && success?(is-true(success?(1-proj-3-tuple(v_825))))) then symmetricstatepack(1-proj-3-tuple(v_825),2-proj-3-tuple(v_825),hash(3-proj-3-tuple(v_825),3-proj-3-tuple(v_767))) else fail-any) else fail-any)) in
+        {282}let v_827: bitstring = catch-fail((if success?(3-proj-3-tuple(v_767)) then (if (not-caught-fail(v_818) && success?(is-true(success?(1-proj-3-tuple(v_818))))) then (if (not-caught-fail(v_824) && success?(is-true(success?(1-proj-3-tuple(v_824))))) then (if not-caught-fail(v_826) then (v_826,2-proj-3-tuple(v_824),3-proj-3-tuple(v_824)) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {283}let v_828: key = catch-fail(dhexp(key_s(charlie),validkey(g))) in
+        {284}let v_829: handshakestate = catch-fail(handshakestatepack(1-proj-3-tuple(v_827),2-proj-7-tuple(v_766),3-proj-7-tuple(v_766),v_802,v_769,6-proj-7-tuple(v_766),7-proj-7-tuple(v_766))) in
+        {285}let v_830: bitstring = catch-fail(symmetricstateunpack(1-proj-3-tuple(v_827))) in
+        {286}let v_831: key = catch-fail(hmac_hash1(2-proj-3-tuple(v_830),zero)) in
+        {287}let v_832: key = catch-fail(hmac_hash2(2-proj-3-tuple(v_830),zero)) in
+        {288}let v_833: key = catch-fail(hmac_hash3(2-proj-3-tuple(v_830),zero)) in
+        {289}let v_834: bitstring = catch-fail((if success?(2-proj-3-tuple(v_830)) then (if not-caught-fail(v_831) then (if not-caught-fail(v_832) then (if not-caught-fail(v_833) then (v_831,v_832,v_833) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {290}let v_835: cipherstate = catch-fail((if success?(1-proj-3-tuple(v_834)) then cipherstatepack(1-proj-3-tuple(v_834),minnonce) else fail-any)) in
+        {291}let v_836: cipherstate = catch-fail((if success?(2-proj-3-tuple(v_834)) then cipherstatepack(2-proj-3-tuple(v_834),minnonce) else fail-any)) in
+        {292}let v_837: bitstring = catch-fail((if success?(1-proj-3-tuple(v_827)) then (if (not-caught-fail(v_830) && success?(is-true(success?(1-proj-3-tuple(v_830))))) then (if (not-caught-fail(v_834) && success?(is-true(success?(1-proj-3-tuple(v_834))))) then (if not-caught-fail(v_835) then (if not-caught-fail(v_836) then (1-proj-3-tuple(v_827),v_835,v_836) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {293}let (hs_838: handshakestate,plaintext_b_839: bitstring,valid_840: bool,cs1_841: cipherstate,cs2_842: cipherstate) = (if (not-caught-fail(v_766) && success?(is-true(success?(1-proj-7-tuple(v_766))))) then (if (not-caught-fail(v_767) && success?(is-true(success?(1-proj-3-tuple(v_767))))) then (if not-caught-fail(v_768) then (if not-caught-fail(v_769) then (if not-caught-fail(v_771) then (if not-caught-fail(v_777) then (if not-caught-fail(v_784) then (if not-caught-fail(v_791) then (if (not-caught-fail(v_801) && success?(is-true(success?(1-proj-3-tuple(v_801))))) then (if not-caught-fail(v_802) then (if not-caught-fail(v_809) then (if not-caught-fail(v_817) then (if (not-caught-fail(v_827) && success?(is-true(success?(1-proj-3-tuple(v_827))))) then (if ((3-proj-3-tuple(v_801) && 3-proj-3-tuple(v_827)) && (v_802 = getpublickey((if not-caught-fail(v_828) then keypairpack(validkey(v_828),key_s(charlie)) else fail-any)))) then (if not-caught-fail(v_829) then (if (not-caught-fail(v_837) && success?(is-true(success?(1-proj-3-tuple(v_837))))) then (v_829,2-proj-3-tuple(v_827),true,2-proj-3-tuple(v_837),3-proj-3-tuple(v_837)) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) in
+        {294}event RecvMsg(alice,charlie,stagepack_b(sid),plaintext_b_839);
+        {295}insert statestore(alice,charlie,sid,statepack_c(hs_838,cs1_841,cs2_842))
+    ) | (
+        {297}!
+        {316}get statestore(=alice,=charlie,=sid,statepack_c(hs_843: handshakestate,cs1_844: cipherstate,cs2_845: cipherstate)) in
+        {298}let hs_846: handshakestate = handshakestatesetcs(hs_843,cs1_844) in
+        {299}let v_847: bitstring = catch-fail(handshakestateunpack(hs_846)) in
+        {300}let v_848: bitstring = catch-fail((empty,empty,empty)) in
+        {301}let v_849: bitstring = catch-fail(symmetricstateunpack(1-proj-7-tuple(v_847))) in
+        {302}let v_850: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_849))) in
+        {303}let v_851: bitstring = catch-fail(encrypt(1-proj-2-tuple(v_850),2-proj-2-tuple(v_850),3-proj-3-tuple(v_849),msg_c(alice,charlie,sid))) in
+        {304}let v_852: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_849))) in
+        {305}let v_853: cipherstate = catch-fail((if (success?(increment_nonce(2-proj-2-tuple(v_850))) && success?(1-proj-3-tuple(v_849))) then (if (not-caught-fail(v_852) && success?(is-true(success?(1-proj-2-tuple(v_852))))) then cipherstatepack(1-proj-2-tuple(v_852),increment_nonce(2-proj-2-tuple(v_850))) else fail-any) else fail-any)) in
+        {306}let v_854: bitstring = catch-fail((if (success?(3-proj-3-tuple(v_849)) && success?(1-proj-3-tuple(v_849))) then (if (not-caught-fail(v_850) && success?(is-true(success?(1-proj-2-tuple(v_850))))) then (if not-caught-fail(v_851) then (if not-caught-fail(v_853) then (v_853,v_851) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {307}let v_855: bitstring = catch-fail(symmetricstateunpack(symmetricstatepack(1-proj-2-tuple(v_854),2-proj-3-tuple(v_849),3-proj-3-tuple(v_849)))) in
+        {308}let v_856: symmetricstate = catch-fail((if (success?(2-proj-2-tuple(v_854)) && success?(symmetricstatepack(1-proj-2-tuple(v_854),2-proj-3-tuple(v_849),3-proj-3-tuple(v_849)))) then (if (not-caught-fail(v_855) && success?(is-true(success?(1-proj-3-tuple(v_855))))) then symmetricstatepack(1-proj-3-tuple(v_855),2-proj-3-tuple(v_855),hash(3-proj-3-tuple(v_855),2-proj-2-tuple(v_854))) else fail-any) else fail-any)) in
+        {309}let v_857: bitstring = catch-fail((if success?(1-proj-7-tuple(v_847)) then (if (not-caught-fail(v_849) && success?(is-true(success?(1-proj-3-tuple(v_849))))) then (if (not-caught-fail(v_854) && success?(is-true(success?(1-proj-2-tuple(v_854))))) then (if not-caught-fail(v_856) then (v_856,2-proj-2-tuple(v_854)) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {310}let v_858: handshakestate = catch-fail(handshakestatepack(1-proj-2-tuple(v_857),2-proj-7-tuple(v_847),3-proj-7-tuple(v_847),4-proj-7-tuple(v_847),5-proj-7-tuple(v_847),6-proj-7-tuple(v_847),7-proj-7-tuple(v_847))) in
+        {311}let v_859: bitstring = catch-fail(concat3(1-proj-3-tuple(v_848),2-proj-3-tuple(v_848),2-proj-2-tuple(v_857))) in
+        {312}let (hs_860: handshakestate,message_c_861: bitstring) = (if (not-caught-fail(v_847) && success?(is-true(success?(1-proj-7-tuple(v_847))))) then (if (not-caught-fail(v_848) && success?(is-true(success?(1-proj-3-tuple(v_848))))) then (if (not-caught-fail(v_857) && success?(is-true(success?(1-proj-2-tuple(v_857))))) then (if not-caught-fail(v_858) then (if not-caught-fail(v_859) then (v_858,v_859) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) in
+        {313}event SendMsg(alice,charlie,stagepack_c(sid),msg_c(alice,charlie,sid));
+        {314}insert statestore(alice,charlie,sid,statepack_d(hs_860,handshakestategetcs(hs_860),cs2_845));
+        {315}out(pub, message_c_861)
+    ) | (
+        {317}!
+        {337}get statestore(=alice,=charlie,=sid,statepack_d(hs_862: handshakestate,cs1_863: cipherstate,cs2_864: cipherstate)) in
+        {318}let hs_865: handshakestate = handshakestatesetcs(hs_862,cs2_864) in
+        {319}in(pub, message_d_866: bitstring);
+        {320}let v_867: bitstring = catch-fail(handshakestateunpack(hs_865)) in
+        {321}let v_868: bitstring = catch-fail(deconcat3(message_d_866)) in
+        {322}let v_869: bool = catch-fail(true) in
+        {323}let v_870: bitstring = catch-fail(symmetricstateunpack(1-proj-7-tuple(v_867))) in
+        {324}let v_871: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_870))) in
+        {325}let v_872: aead = catch-fail(decrypt(1-proj-2-tuple(v_871),2-proj-2-tuple(v_871),3-proj-3-tuple(v_870),3-proj-3-tuple(v_868))) in
+        {326}let v_873: bitstring = catch-fail(aeadunpack(v_872)) in
+        {327}let v_874: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_870))) in
+        {328}let v_875: cipherstate = catch-fail((if (success?(increment_nonce(2-proj-2-tuple(v_871))) && success?(1-proj-3-tuple(v_870))) then (if (not-caught-fail(v_874) && success?(is-true(success?(1-proj-2-tuple(v_874))))) then cipherstatepack(1-proj-2-tuple(v_874),increment_nonce(2-proj-2-tuple(v_871))) else fail-any) else fail-any)) in
+        {329}let v_876: bitstring = catch-fail((if (success?(3-proj-3-tuple(v_868)) && (success?(3-proj-3-tuple(v_870)) && success?(1-proj-3-tuple(v_870)))) then (if (not-caught-fail(v_871) && success?(is-true(success?(1-proj-2-tuple(v_871))))) then (if not-caught-fail(v_872) then (if (not-caught-fail(v_873) && success?(is-true(success?(1-proj-3-tuple(v_873))))) then (if not-caught-fail(v_875) then (v_875,3-proj-3-tuple(v_873),1-proj-3-tuple(v_873)) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {330}let v_877: bitstring = catch-fail(symmetricstateunpack(symmetricstatepack(1-proj-3-tuple(v_876),2-proj-3-tuple(v_870),3-proj-3-tuple(v_870)))) in
+        {331}let v_878: symmetricstate = catch-fail((if (success?(3-proj-3-tuple(v_868)) && success?(symmetricstatepack(1-proj-3-tuple(v_876),2-proj-3-tuple(v_870),3-proj-3-tuple(v_870)))) then (if (not-caught-fail(v_877) && success?(is-true(success?(1-proj-3-tuple(v_877))))) then symmetricstatepack(1-proj-3-tuple(v_877),2-proj-3-tuple(v_877),hash(3-proj-3-tuple(v_877),3-proj-3-tuple(v_868))) else fail-any) else fail-any)) in
+        {332}let v_879: bitstring = catch-fail((if (success?(3-proj-3-tuple(v_868)) && success?(1-proj-7-tuple(v_867))) then (if (not-caught-fail(v_870) && success?(is-true(success?(1-proj-3-tuple(v_870))))) then (if (not-caught-fail(v_876) && success?(is-true(success?(1-proj-3-tuple(v_876))))) then (if not-caught-fail(v_878) then (v_878,2-proj-3-tuple(v_876),3-proj-3-tuple(v_876)) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {333}let v_880: handshakestate = catch-fail(handshakestatepack(1-proj-3-tuple(v_879),2-proj-7-tuple(v_867),3-proj-7-tuple(v_867),4-proj-7-tuple(v_867),5-proj-7-tuple(v_867),6-proj-7-tuple(v_867),7-proj-7-tuple(v_867))) in
+        {334}let (hs_881: handshakestate,plaintext_d_882: bitstring,valid_883: bool) = (if (not-caught-fail(v_867) && success?(is-true(success?(1-proj-7-tuple(v_867))))) then (if (not-caught-fail(v_868) && success?(is-true(success?(1-proj-3-tuple(v_868))))) then (if not-caught-fail(v_869) then (if (not-caught-fail(v_879) && success?(is-true(success?(1-proj-3-tuple(v_879))))) then (if (v_869 && 3-proj-3-tuple(v_879)) then (if not-caught-fail(v_880) then (v_880,2-proj-3-tuple(v_879),true) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) in
+        {335}event RecvMsg(alice,charlie,stagepack_d(sid),plaintext_d_882);
+        {336}event RecvEnd(valid_883)
+    ) | (
+        {338}event LeakPsk(phase0,alice,charlie);
+        {339}out(pub, key_psk(alice,charlie))
+    ) | (
+        {340}phase 1;
+        {341}event LeakPsk(phase1,alice,charlie);
+        {342}out(pub, key_psk(alice,charlie))
+    ) | (
+        {343}event LeakS(phase0,alice);
+        {344}out(pub, key_s(alice))
+    ) | (
+        {345}phase 1;
+        {346}event LeakS(phase1,alice);
+        {347}out(pub, key_s(alice))
+    )
+) | (
+    {348}let s_884: keypair = keypairpack(empty,empty) in
+    {349}out(pub, getpublickey(s_884));
+    (
+        {350}let e_885: keypair = keypairpack(empty,empty) in
+        {351}let v_886: key = catch-fail(dhexp(key_s(alice),validkey(g))) in
+        {352}let rs_887: key = getpublickey((if not-caught-fail(v_886) then keypairpack(validkey(v_886),key_s(alice)) else fail-any)) in
+        {353}let re_888: key = empty in
+        {354}let v_889: bitstring = catch-fail(hash(somename,empty)) in
+        {355}let v_890: key = catch-fail(v_889) in
+        {356}let v_891: cipherstate = catch-fail(cipherstatepack(empty,minnonce)) in
+        {357}let v_892: bitstring = catch-fail(symmetricstateunpack((if not-caught-fail(v_889) then (if not-caught-fail(v_890) then (if not-caught-fail(v_891) then symmetricstatepack(v_891,v_890,v_889) else fail-any) else fail-any) else fail-any))) in
+        {358}let v_893: symmetricstate = catch-fail((if success?((if not-caught-fail(v_889) then (if not-caught-fail(v_890) then (if not-caught-fail(v_891) then symmetricstatepack(v_891,v_890,v_889) else fail-any) else fail-any) else fail-any)) then (if (not-caught-fail(v_892) && success?(is-true(success?(1-proj-3-tuple(v_892))))) then symmetricstatepack(1-proj-3-tuple(v_892),2-proj-3-tuple(v_892),hash(3-proj-3-tuple(v_892),empty)) else fail-any) else fail-any)) in
+        {359}let v_894: bitstring = catch-fail(symmetricstateunpack(v_893)) in
+        {360}let v_895: symmetricstate = catch-fail((if (not-caught-fail(v_894) && success?(is-true(success?(1-proj-3-tuple(v_894))))) then symmetricstatepack(1-proj-3-tuple(v_894),2-proj-3-tuple(v_894),hash(3-proj-3-tuple(v_894),rs_887)) else fail-any)) in
+        {361}let hs_896: handshakestate = (if not-caught-fail(v_893) then (if not-caught-fail(v_895) then handshakestatepack(v_895,s_884,e_885,rs_887,re_888,key_psk(alice,bob),false) else fail-any) else fail-any) in
+        {362}insert statestore(bob,alice,sid,statepack_a(hs_896))
+    ) | (
+        {390}get statestore(=bob,=alice,=sid,statepack_a(hs_897: handshakestate)) in
+        {363}in(pub, message_a_898: bitstring);
+        {364}let v_899: bitstring = catch-fail(handshakestateunpack(hs_897)) in
+        {365}let v_900: bitstring = catch-fail(deconcat3(message_a_898)) in
+        {366}let v_901: bool = catch-fail(true) in
+        {367}let v_902: key = catch-fail(1-proj-3-tuple(v_900)) in
+        {368}let v_903: bitstring = catch-fail(symmetricstateunpack(1-proj-7-tuple(v_899))) in
+        {369}let v_904: symmetricstate = catch-fail((if success?(1-proj-7-tuple(v_899)) then (if (not-caught-fail(v_903) && success?(is-true(success?(1-proj-3-tuple(v_903))))) then symmetricstatepack(1-proj-3-tuple(v_903),2-proj-3-tuple(v_903),hash(3-proj-3-tuple(v_903),v_902)) else fail-any) else fail-any)) in
+        {370}let v_905: bitstring = catch-fail(symmetricstateunpack(v_904)) in
+        {371}let v_906: key = catch-fail(hmac_hash1(2-proj-3-tuple(v_905),v_902)) in
+        {372}let v_907: key = catch-fail(hmac_hash2(2-proj-3-tuple(v_905),v_902)) in
+        {373}let v_908: key = catch-fail(hmac_hash3(2-proj-3-tuple(v_905),v_902)) in
+        {374}let v_909: bitstring = catch-fail((if success?(2-proj-3-tuple(v_905)) then (if not-caught-fail(v_906) then (if not-caught-fail(v_907) then (if not-caught-fail(v_908) then (v_906,v_907,v_908) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {375}let v_910: symmetricstate = catch-fail((if (not-caught-fail(v_905) && success?(is-true(success?(1-proj-3-tuple(v_905))))) then (if (not-caught-fail(v_909) && success?(is-true(success?(1-proj-3-tuple(v_909))))) then symmetricstatepack((if success?(2-proj-3-tuple(v_909)) then cipherstatepack(2-proj-3-tuple(v_909),minnonce) else fail-any),1-proj-3-tuple(v_909),3-proj-3-tuple(v_905)) else fail-any) else fail-any)) in
+        {376}let v_911: bitstring = catch-fail(symmetricstateunpack(v_910)) in
+        {377}let v_912: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_911))) in
+        {378}let v_913: aead = catch-fail(decrypt(1-proj-2-tuple(v_912),2-proj-2-tuple(v_912),3-proj-3-tuple(v_911),3-proj-3-tuple(v_900))) in
+        {379}let v_914: bitstring = catch-fail(aeadunpack(v_913)) in
+        {380}let v_915: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_911))) in
+        {381}let v_916: cipherstate = catch-fail((if (success?(increment_nonce(2-proj-2-tuple(v_912))) && success?(1-proj-3-tuple(v_911))) then (if (not-caught-fail(v_915) && success?(is-true(success?(1-proj-2-tuple(v_915))))) then cipherstatepack(1-proj-2-tuple(v_915),increment_nonce(2-proj-2-tuple(v_912))) else fail-any) else fail-any)) in
+        {382}let v_917: bitstring = catch-fail((if (success?(3-proj-3-tuple(v_900)) && (success?(3-proj-3-tuple(v_911)) && success?(1-proj-3-tuple(v_911)))) then (if (not-caught-fail(v_912) && success?(is-true(success?(1-proj-2-tuple(v_912))))) then (if not-caught-fail(v_913) then (if (not-caught-fail(v_914) && success?(is-true(success?(1-proj-3-tuple(v_914))))) then (if not-caught-fail(v_916) then (v_916,3-proj-3-tuple(v_914),1-proj-3-tuple(v_914)) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {383}let v_918: bitstring = catch-fail(symmetricstateunpack(symmetricstatepack(1-proj-3-tuple(v_917),2-proj-3-tuple(v_911),3-proj-3-tuple(v_911)))) in
+        {384}let v_919: symmetricstate = catch-fail((if (success?(3-proj-3-tuple(v_900)) && success?(symmetricstatepack(1-proj-3-tuple(v_917),2-proj-3-tuple(v_911),3-proj-3-tuple(v_911)))) then (if (not-caught-fail(v_918) && success?(is-true(success?(1-proj-3-tuple(v_918))))) then symmetricstatepack(1-proj-3-tuple(v_918),2-proj-3-tuple(v_918),hash(3-proj-3-tuple(v_918),3-proj-3-tuple(v_900))) else fail-any) else fail-any)) in
+        {385}let v_920: bitstring = catch-fail((if success?(3-proj-3-tuple(v_900)) then (if (not-caught-fail(v_911) && success?(is-true(success?(1-proj-3-tuple(v_911))))) then (if (not-caught-fail(v_917) && success?(is-true(success?(1-proj-3-tuple(v_917))))) then (if not-caught-fail(v_919) then (v_919,2-proj-3-tuple(v_917),3-proj-3-tuple(v_917)) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {386}let v_921: handshakestate = catch-fail(handshakestatepack(1-proj-3-tuple(v_920),2-proj-7-tuple(v_899),3-proj-7-tuple(v_899),4-proj-7-tuple(v_899),v_902,6-proj-7-tuple(v_899),7-proj-7-tuple(v_899))) in
+        {387}let (hs_922: handshakestate,plaintext_a: bitstring,valid_923: bool) = (if (not-caught-fail(v_899) && success?(is-true(success?(1-proj-7-tuple(v_899))))) then (if (not-caught-fail(v_900) && success?(is-true(success?(1-proj-3-tuple(v_900))))) then (if not-caught-fail(v_901) then (if not-caught-fail(v_902) then (if not-caught-fail(v_904) then (if not-caught-fail(v_910) then (if (not-caught-fail(v_920) && success?(is-true(success?(1-proj-3-tuple(v_920))))) then (if (v_901 && 3-proj-3-tuple(v_920)) then (if not-caught-fail(v_921) then (v_921,2-proj-3-tuple(v_920),true) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) in
+        {388}event RecvMsg(bob,alice,stagepack_a(sid),plaintext_a);
+        {389}insert statestore(bob,alice,sid,statepack_b(hs_922))
+    ) | (
+        {467}get statestore(=bob,=alice,=sid,statepack_b(hs_924: handshakestate)) in
+        {391}let v_925: bitstring = catch-fail(handshakestateunpack(hs_924)) in
+        {392}let v_926: bitstring = catch-fail((empty,empty,empty)) in
+        {393}let v_927: key = catch-fail(dhexp(key_e(bob,alice,sid),validkey(g))) in
+        {394}let v_928: keypair = catch-fail((if not-caught-fail(v_927) then keypairpack(validkey(v_927),key_e(bob,alice,sid)) else fail-any)) in
+        {395}let v_929: bitstring = catch-fail(getpublickey(v_928)) in
+        {396}let v_930: bitstring = catch-fail(symmetricstateunpack(1-proj-7-tuple(v_925))) in
+        {397}let v_931: symmetricstate = catch-fail((if success?(1-proj-7-tuple(v_925)) then (if (not-caught-fail(v_930) && success?(is-true(success?(1-proj-3-tuple(v_930))))) then symmetricstatepack(1-proj-3-tuple(v_930),2-proj-3-tuple(v_930),hash(3-proj-3-tuple(v_930),v_929)) else fail-any) else fail-any)) in
+        {398}let v_932: bitstring = catch-fail(symmetricstateunpack(v_931)) in
+        {399}let v_933: key = catch-fail(hmac_hash1(2-proj-3-tuple(v_932),getpublickey(v_928))) in
+        {400}let v_934: key = catch-fail(hmac_hash2(2-proj-3-tuple(v_932),getpublickey(v_928))) in
+        {401}let v_935: key = catch-fail(hmac_hash3(2-proj-3-tuple(v_932),getpublickey(v_928))) in
+        {402}let v_936: bitstring = catch-fail((if (success?(getpublickey(v_928)) && success?(2-proj-3-tuple(v_932))) then (if not-caught-fail(v_933) then (if not-caught-fail(v_934) then (if not-caught-fail(v_935) then (v_933,v_934,v_935) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {403}let v_937: symmetricstate = catch-fail((if success?(getpublickey(v_928)) then (if (not-caught-fail(v_932) && success?(is-true(success?(1-proj-3-tuple(v_932))))) then (if (not-caught-fail(v_936) && success?(is-true(success?(1-proj-3-tuple(v_936))))) then symmetricstatepack((if success?(2-proj-3-tuple(v_936)) then cipherstatepack(2-proj-3-tuple(v_936),minnonce) else fail-any),1-proj-3-tuple(v_936),3-proj-3-tuple(v_932)) else fail-any) else fail-any) else fail-any)) in
+        {404}let v_938: bitstring = catch-fail(keypairunpack(v_928)) in
+        {405}let v_939: bitstring = catch-fail(symmetricstateunpack(v_937)) in
+        {406}let v_940: key = catch-fail(hmac_hash1(2-proj-3-tuple(v_939),(if success?(5-proj-7-tuple(v_925)) then (if (not-caught-fail(v_938) && success?(is-true(success?(1-proj-2-tuple(v_938))))) then dhexp(2-proj-2-tuple(v_938),5-proj-7-tuple(v_925)) else fail-any) else fail-any))) in
+        {407}let v_941: key = catch-fail(hmac_hash2(2-proj-3-tuple(v_939),(if success?(5-proj-7-tuple(v_925)) then (if (not-caught-fail(v_938) && success?(is-true(success?(1-proj-2-tuple(v_938))))) then dhexp(2-proj-2-tuple(v_938),5-proj-7-tuple(v_925)) else fail-any) else fail-any))) in
+        {408}let v_942: key = catch-fail(hmac_hash3(2-proj-3-tuple(v_939),(if success?(5-proj-7-tuple(v_925)) then (if (not-caught-fail(v_938) && success?(is-true(success?(1-proj-2-tuple(v_938))))) then dhexp(2-proj-2-tuple(v_938),5-proj-7-tuple(v_925)) else fail-any) else fail-any))) in
+        {409}let v_943: bitstring = catch-fail((if (success?((if success?(5-proj-7-tuple(v_925)) then (if (not-caught-fail(v_938) && success?(is-true(success?(1-proj-2-tuple(v_938))))) then dhexp(2-proj-2-tuple(v_938),5-proj-7-tuple(v_925)) else fail-any) else fail-any)) && success?(2-proj-3-tuple(v_939))) then (if not-caught-fail(v_940) then (if not-caught-fail(v_941) then (if not-caught-fail(v_942) then (v_940,v_941,v_942) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {410}let v_944: symmetricstate = catch-fail((if success?((if success?(5-proj-7-tuple(v_925)) then (if (not-caught-fail(v_938) && success?(is-true(success?(1-proj-2-tuple(v_938))))) then dhexp(2-proj-2-tuple(v_938),5-proj-7-tuple(v_925)) else fail-any) else fail-any)) then (if (not-caught-fail(v_939) && success?(is-true(success?(1-proj-3-tuple(v_939))))) then (if (not-caught-fail(v_943) && success?(is-true(success?(1-proj-3-tuple(v_943))))) then symmetricstatepack((if success?(2-proj-3-tuple(v_943)) then cipherstatepack(2-proj-3-tuple(v_943),minnonce) else fail-any),1-proj-3-tuple(v_943),3-proj-3-tuple(v_939)) else fail-any) else fail-any) else fail-any)) in
+        {411}let v_945: bitstring = catch-fail(keypairunpack(v_928)) in
+        {412}let v_946: bitstring = catch-fail(symmetricstateunpack(v_944)) in
+        {413}let v_947: key = catch-fail(hmac_hash1(2-proj-3-tuple(v_946),(if success?(4-proj-7-tuple(v_925)) then (if (not-caught-fail(v_945) && success?(is-true(success?(1-proj-2-tuple(v_945))))) then dhexp(2-proj-2-tuple(v_945),4-proj-7-tuple(v_925)) else fail-any) else fail-any))) in
+        {414}let v_948: key = catch-fail(hmac_hash2(2-proj-3-tuple(v_946),(if success?(4-proj-7-tuple(v_925)) then (if (not-caught-fail(v_945) && success?(is-true(success?(1-proj-2-tuple(v_945))))) then dhexp(2-proj-2-tuple(v_945),4-proj-7-tuple(v_925)) else fail-any) else fail-any))) in
+        {415}let v_949: key = catch-fail(hmac_hash3(2-proj-3-tuple(v_946),(if success?(4-proj-7-tuple(v_925)) then (if (not-caught-fail(v_945) && success?(is-true(success?(1-proj-2-tuple(v_945))))) then dhexp(2-proj-2-tuple(v_945),4-proj-7-tuple(v_925)) else fail-any) else fail-any))) in
+        {416}let v_950: bitstring = catch-fail((if (success?((if success?(4-proj-7-tuple(v_925)) then (if (not-caught-fail(v_945) && success?(is-true(success?(1-proj-2-tuple(v_945))))) then dhexp(2-proj-2-tuple(v_945),4-proj-7-tuple(v_925)) else fail-any) else fail-any)) && success?(2-proj-3-tuple(v_946))) then (if not-caught-fail(v_947) then (if not-caught-fail(v_948) then (if not-caught-fail(v_949) then (v_947,v_948,v_949) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {417}let v_951: symmetricstate = catch-fail((if success?((if success?(4-proj-7-tuple(v_925)) then (if (not-caught-fail(v_945) && success?(is-true(success?(1-proj-2-tuple(v_945))))) then dhexp(2-proj-2-tuple(v_945),4-proj-7-tuple(v_925)) else fail-any) else fail-any)) then (if (not-caught-fail(v_946) && success?(is-true(success?(1-proj-3-tuple(v_946))))) then (if (not-caught-fail(v_950) && success?(is-true(success?(1-proj-3-tuple(v_950))))) then symmetricstatepack((if success?(2-proj-3-tuple(v_950)) then cipherstatepack(2-proj-3-tuple(v_950),minnonce) else fail-any),1-proj-3-tuple(v_950),3-proj-3-tuple(v_946)) else fail-any) else fail-any) else fail-any)) in
+        {418}let v_952: key = catch-fail(dhexp(key_s(bob),validkey(g))) in
+        {419}let v_953: keypair = catch-fail((if not-caught-fail(v_952) then keypairpack(validkey(v_952),key_s(bob)) else fail-any)) in
+        {420}let v_954: bitstring = catch-fail(symmetricstateunpack(v_951)) in
+        {421}let v_955: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_954))) in
+        {422}let v_956: bitstring = catch-fail(encrypt(1-proj-2-tuple(v_955),2-proj-2-tuple(v_955),3-proj-3-tuple(v_954),getpublickey(v_953))) in
+        {423}let v_957: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_954))) in
+        {424}let v_958: cipherstate = catch-fail((if (success?(increment_nonce(2-proj-2-tuple(v_955))) && success?(1-proj-3-tuple(v_954))) then (if (not-caught-fail(v_957) && success?(is-true(success?(1-proj-2-tuple(v_957))))) then cipherstatepack(1-proj-2-tuple(v_957),increment_nonce(2-proj-2-tuple(v_955))) else fail-any) else fail-any)) in
+        {425}let v_959: bitstring = catch-fail((if (success?(getpublickey(v_953)) && (success?(3-proj-3-tuple(v_954)) && success?(1-proj-3-tuple(v_954)))) then (if (not-caught-fail(v_955) && success?(is-true(success?(1-proj-2-tuple(v_955))))) then (if not-caught-fail(v_956) then (if not-caught-fail(v_958) then (v_958,v_956) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {426}let v_960: bitstring = catch-fail(symmetricstateunpack(symmetricstatepack(1-proj-2-tuple(v_959),2-proj-3-tuple(v_954),3-proj-3-tuple(v_954)))) in
+        {427}let v_961: symmetricstate = catch-fail((if (success?(2-proj-2-tuple(v_959)) && success?(symmetricstatepack(1-proj-2-tuple(v_959),2-proj-3-tuple(v_954),3-proj-3-tuple(v_954)))) then (if (not-caught-fail(v_960) && success?(is-true(success?(1-proj-3-tuple(v_960))))) then symmetricstatepack(1-proj-3-tuple(v_960),2-proj-3-tuple(v_960),hash(3-proj-3-tuple(v_960),2-proj-2-tuple(v_959))) else fail-any) else fail-any)) in
+        {428}let v_962: bitstring = catch-fail((if success?(getpublickey(v_953)) then (if (not-caught-fail(v_954) && success?(is-true(success?(1-proj-3-tuple(v_954))))) then (if (not-caught-fail(v_959) && success?(is-true(success?(1-proj-2-tuple(v_959))))) then (if not-caught-fail(v_961) then (v_961,2-proj-2-tuple(v_959)) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {429}let v_963: bitstring = catch-fail(keypairunpack(v_953)) in
+        {430}let v_964: bitstring = catch-fail(symmetricstateunpack(1-proj-2-tuple(v_962))) in
+        {431}let v_965: key = catch-fail(hmac_hash1(2-proj-3-tuple(v_964),(if success?(5-proj-7-tuple(v_925)) then (if (not-caught-fail(v_963) && success?(is-true(success?(1-proj-2-tuple(v_963))))) then dhexp(2-proj-2-tuple(v_963),5-proj-7-tuple(v_925)) else fail-any) else fail-any))) in
+        {432}let v_966: key = catch-fail(hmac_hash2(2-proj-3-tuple(v_964),(if success?(5-proj-7-tuple(v_925)) then (if (not-caught-fail(v_963) && success?(is-true(success?(1-proj-2-tuple(v_963))))) then dhexp(2-proj-2-tuple(v_963),5-proj-7-tuple(v_925)) else fail-any) else fail-any))) in
+        {433}let v_967: key = catch-fail(hmac_hash3(2-proj-3-tuple(v_964),(if success?(5-proj-7-tuple(v_925)) then (if (not-caught-fail(v_963) && success?(is-true(success?(1-proj-2-tuple(v_963))))) then dhexp(2-proj-2-tuple(v_963),5-proj-7-tuple(v_925)) else fail-any) else fail-any))) in
+        {434}let v_968: bitstring = catch-fail((if (success?((if success?(5-proj-7-tuple(v_925)) then (if (not-caught-fail(v_963) && success?(is-true(success?(1-proj-2-tuple(v_963))))) then dhexp(2-proj-2-tuple(v_963),5-proj-7-tuple(v_925)) else fail-any) else fail-any)) && success?(2-proj-3-tuple(v_964))) then (if not-caught-fail(v_965) then (if not-caught-fail(v_966) then (if not-caught-fail(v_967) then (v_965,v_966,v_967) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {435}let v_969: symmetricstate = catch-fail((if (success?((if success?(5-proj-7-tuple(v_925)) then (if (not-caught-fail(v_963) && success?(is-true(success?(1-proj-2-tuple(v_963))))) then dhexp(2-proj-2-tuple(v_963),5-proj-7-tuple(v_925)) else fail-any) else fail-any)) && success?(1-proj-2-tuple(v_962))) then (if (not-caught-fail(v_964) && success?(is-true(success?(1-proj-3-tuple(v_964))))) then (if (not-caught-fail(v_968) && success?(is-true(success?(1-proj-3-tuple(v_968))))) then symmetricstatepack((if success?(2-proj-3-tuple(v_968)) then cipherstatepack(2-proj-3-tuple(v_968),minnonce) else fail-any),1-proj-3-tuple(v_968),3-proj-3-tuple(v_964)) else fail-any) else fail-any) else fail-any)) in
+        {436}let v_970: bitstring = catch-fail(symmetricstateunpack(v_969)) in
+        {437}let v_971: key = catch-fail(hmac_hash1(2-proj-3-tuple(v_970),6-proj-7-tuple(v_925))) in
+        {438}let v_972: key = catch-fail(hmac_hash2(2-proj-3-tuple(v_970),6-proj-7-tuple(v_925))) in
+        {439}let v_973: key = catch-fail(hmac_hash3(2-proj-3-tuple(v_970),6-proj-7-tuple(v_925))) in
+        {440}let v_974: bitstring = catch-fail((if (success?(6-proj-7-tuple(v_925)) && success?(2-proj-3-tuple(v_970))) then (if not-caught-fail(v_971) then (if not-caught-fail(v_972) then (if not-caught-fail(v_973) then (v_971,v_972,v_973) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {441}let v_975: bitstring = catch-fail(symmetricstateunpack(symmetricstatepack(1-proj-3-tuple(v_970),1-proj-3-tuple(v_974),3-proj-3-tuple(v_970)))) in
+        {442}let v_976: bitstring = catch-fail(symmetricstateunpack((if (success?(2-proj-3-tuple(v_974)) && success?(symmetricstatepack(1-proj-3-tuple(v_970),1-proj-3-tuple(v_974),3-proj-3-tuple(v_970)))) then (if (not-caught-fail(v_975) && success?(is-true(success?(1-proj-3-tuple(v_975))))) then symmetricstatepack(1-proj-3-tuple(v_975),2-proj-3-tuple(v_975),hash(3-proj-3-tuple(v_975),2-proj-3-tuple(v_974))) else fail-any) else fail-any))) in
+        {443}let v_977: symmetricstate = catch-fail((if success?(6-proj-7-tuple(v_925)) then (if (not-caught-fail(v_970) && success?(is-true(success?(1-proj-3-tuple(v_970))))) then (if (not-caught-fail(v_974) && success?(is-true(success?(1-proj-3-tuple(v_974))))) then (if (not-caught-fail(v_976) && success?(is-true(success?(1-proj-3-tuple(v_976))))) then symmetricstatepack((if success?(3-proj-3-tuple(v_974)) then cipherstatepack(3-proj-3-tuple(v_974),minnonce) else fail-any),1-proj-3-tuple(v_974),3-proj-3-tuple(v_976)) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {444}let v_978: bitstring = catch-fail(symmetricstateunpack(v_977)) in
+        {445}let v_979: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_978))) in
+        {446}let v_980: bitstring = catch-fail(encrypt(1-proj-2-tuple(v_979),2-proj-2-tuple(v_979),3-proj-3-tuple(v_978),msg_b(bob,alice,sid))) in
+        {447}let v_981: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_978))) in
+        {448}let v_982: cipherstate = catch-fail((if (success?(increment_nonce(2-proj-2-tuple(v_979))) && success?(1-proj-3-tuple(v_978))) then (if (not-caught-fail(v_981) && success?(is-true(success?(1-proj-2-tuple(v_981))))) then cipherstatepack(1-proj-2-tuple(v_981),increment_nonce(2-proj-2-tuple(v_979))) else fail-any) else fail-any)) in
+        {449}let v_983: bitstring = catch-fail((if (success?(3-proj-3-tuple(v_978)) && success?(1-proj-3-tuple(v_978))) then (if (not-caught-fail(v_979) && success?(is-true(success?(1-proj-2-tuple(v_979))))) then (if not-caught-fail(v_980) then (if not-caught-fail(v_982) then (v_982,v_980) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {450}let v_984: bitstring = catch-fail(symmetricstateunpack(symmetricstatepack(1-proj-2-tuple(v_983),2-proj-3-tuple(v_978),3-proj-3-tuple(v_978)))) in
+        {451}let v_985: symmetricstate = catch-fail((if (success?(2-proj-2-tuple(v_983)) && success?(symmetricstatepack(1-proj-2-tuple(v_983),2-proj-3-tuple(v_978),3-proj-3-tuple(v_978)))) then (if (not-caught-fail(v_984) && success?(is-true(success?(1-proj-3-tuple(v_984))))) then symmetricstatepack(1-proj-3-tuple(v_984),2-proj-3-tuple(v_984),hash(3-proj-3-tuple(v_984),2-proj-2-tuple(v_983))) else fail-any) else fail-any)) in
+        {452}let v_986: bitstring = catch-fail((if (not-caught-fail(v_978) && success?(is-true(success?(1-proj-3-tuple(v_978))))) then (if (not-caught-fail(v_983) && success?(is-true(success?(1-proj-2-tuple(v_983))))) then (if not-caught-fail(v_985) then (v_985,2-proj-2-tuple(v_983)) else fail-any) else fail-any) else fail-any)) in
+        {453}let v_987: handshakestate = catch-fail(handshakestatepack(1-proj-2-tuple(v_986),v_953,v_928,4-proj-7-tuple(v_925),5-proj-7-tuple(v_925),6-proj-7-tuple(v_925),7-proj-7-tuple(v_925))) in
+        {454}let v_988: bitstring = catch-fail(concat3(v_929,2-proj-2-tuple(v_962),2-proj-2-tuple(v_986))) in
+        {455}let v_989: bitstring = catch-fail(symmetricstateunpack(1-proj-2-tuple(v_986))) in
+        {456}let v_990: key = catch-fail(hmac_hash1(2-proj-3-tuple(v_989),zero)) in
+        {457}let v_991: key = catch-fail(hmac_hash2(2-proj-3-tuple(v_989),zero)) in
+        {458}let v_992: key = catch-fail(hmac_hash3(2-proj-3-tuple(v_989),zero)) in
+        {459}let v_993: bitstring = catch-fail((if success?(2-proj-3-tuple(v_989)) then (if not-caught-fail(v_990) then (if not-caught-fail(v_991) then (if not-caught-fail(v_992) then (v_990,v_991,v_992) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {460}let v_994: cipherstate = catch-fail((if success?(1-proj-3-tuple(v_993)) then cipherstatepack(1-proj-3-tuple(v_993),minnonce) else fail-any)) in
+        {461}let v_995: cipherstate = catch-fail((if success?(2-proj-3-tuple(v_993)) then cipherstatepack(2-proj-3-tuple(v_993),minnonce) else fail-any)) in
+        {462}let v_996: bitstring = catch-fail((if success?(1-proj-2-tuple(v_986)) then (if (not-caught-fail(v_989) && success?(is-true(success?(1-proj-3-tuple(v_989))))) then (if (not-caught-fail(v_993) && success?(is-true(success?(1-proj-3-tuple(v_993))))) then (if not-caught-fail(v_994) then (if not-caught-fail(v_995) then (1-proj-2-tuple(v_986),v_994,v_995) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {463}let (hs_997: handshakestate,message_b_998: bitstring,cs1_999: cipherstate,cs2_1000: cipherstate) = (if (not-caught-fail(v_925) && success?(is-true(success?(1-proj-7-tuple(v_925))))) then (if (not-caught-fail(v_926) && success?(is-true(success?(1-proj-3-tuple(v_926))))) then (if not-caught-fail(v_928) then (if not-caught-fail(v_929) then (if not-caught-fail(v_931) then (if not-caught-fail(v_937) then (if not-caught-fail(v_944) then (if not-caught-fail(v_951) then (if not-caught-fail(v_953) then (if (not-caught-fail(v_962) && success?(is-true(success?(1-proj-2-tuple(v_962))))) then (if not-caught-fail(v_969) then (if not-caught-fail(v_977) then (if (not-caught-fail(v_986) && success?(is-true(success?(1-proj-2-tuple(v_986))))) then (if not-caught-fail(v_987) then (if not-caught-fail(v_988) then (if (not-caught-fail(v_996) && success?(is-true(success?(1-proj-3-tuple(v_996))))) then (v_987,v_988,2-proj-3-tuple(v_996),3-proj-3-tuple(v_996)) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) in
+        {464}event SendMsg(bob,alice,stagepack_b(sid),msg_b(bob,alice,sid));
+        {465}insert statestore(bob,alice,sid,statepack_c(hs_997,cs1_999,cs2_1000));
+        {466}out(pub, message_b_998)
+    ) | (
+        {468}!
+        {488}get statestore(=bob,=alice,=sid,statepack_c(hs_1001: handshakestate,cs1_1002: cipherstate,cs2_1003: cipherstate)) in
+        {469}let hs_1004: handshakestate = handshakestatesetcs(hs_1001,cs1_1002) in
+        {470}in(pub, message_c_1005: bitstring);
+        {471}let v_1006: bitstring = catch-fail(handshakestateunpack(hs_1004)) in
+        {472}let v_1007: bitstring = catch-fail(deconcat3(message_c_1005)) in
+        {473}let v_1008: bool = catch-fail(true) in
+        {474}let v_1009: bitstring = catch-fail(symmetricstateunpack(1-proj-7-tuple(v_1006))) in
+        {475}let v_1010: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_1009))) in
+        {476}let v_1011: aead = catch-fail(decrypt(1-proj-2-tuple(v_1010),2-proj-2-tuple(v_1010),3-proj-3-tuple(v_1009),3-proj-3-tuple(v_1007))) in
+        {477}let v_1012: bitstring = catch-fail(aeadunpack(v_1011)) in
+        {478}let v_1013: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_1009))) in
+        {479}let v_1014: cipherstate = catch-fail((if (success?(increment_nonce(2-proj-2-tuple(v_1010))) && success?(1-proj-3-tuple(v_1009))) then (if (not-caught-fail(v_1013) && success?(is-true(success?(1-proj-2-tuple(v_1013))))) then cipherstatepack(1-proj-2-tuple(v_1013),increment_nonce(2-proj-2-tuple(v_1010))) else fail-any) else fail-any)) in
+        {480}let v_1015: bitstring = catch-fail((if (success?(3-proj-3-tuple(v_1007)) && (success?(3-proj-3-tuple(v_1009)) && success?(1-proj-3-tuple(v_1009)))) then (if (not-caught-fail(v_1010) && success?(is-true(success?(1-proj-2-tuple(v_1010))))) then (if not-caught-fail(v_1011) then (if (not-caught-fail(v_1012) && success?(is-true(success?(1-proj-3-tuple(v_1012))))) then (if not-caught-fail(v_1014) then (v_1014,3-proj-3-tuple(v_1012),1-proj-3-tuple(v_1012)) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {481}let v_1016: bitstring = catch-fail(symmetricstateunpack(symmetricstatepack(1-proj-3-tuple(v_1015),2-proj-3-tuple(v_1009),3-proj-3-tuple(v_1009)))) in
+        {482}let v_1017: symmetricstate = catch-fail((if (success?(3-proj-3-tuple(v_1007)) && success?(symmetricstatepack(1-proj-3-tuple(v_1015),2-proj-3-tuple(v_1009),3-proj-3-tuple(v_1009)))) then (if (not-caught-fail(v_1016) && success?(is-true(success?(1-proj-3-tuple(v_1016))))) then symmetricstatepack(1-proj-3-tuple(v_1016),2-proj-3-tuple(v_1016),hash(3-proj-3-tuple(v_1016),3-proj-3-tuple(v_1007))) else fail-any) else fail-any)) in
+        {483}let v_1018: bitstring = catch-fail((if (success?(3-proj-3-tuple(v_1007)) && success?(1-proj-7-tuple(v_1006))) then (if (not-caught-fail(v_1009) && success?(is-true(success?(1-proj-3-tuple(v_1009))))) then (if (not-caught-fail(v_1015) && success?(is-true(success?(1-proj-3-tuple(v_1015))))) then (if not-caught-fail(v_1017) then (v_1017,2-proj-3-tuple(v_1015),3-proj-3-tuple(v_1015)) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {484}let v_1019: handshakestate = catch-fail(handshakestatepack(1-proj-3-tuple(v_1018),2-proj-7-tuple(v_1006),3-proj-7-tuple(v_1006),4-proj-7-tuple(v_1006),5-proj-7-tuple(v_1006),6-proj-7-tuple(v_1006),7-proj-7-tuple(v_1006))) in
+        {485}let (hs_1020: handshakestate,plaintext_c: bitstring,valid_1021: bool) = (if (not-caught-fail(v_1006) && success?(is-true(success?(1-proj-7-tuple(v_1006))))) then (if (not-caught-fail(v_1007) && success?(is-true(success?(1-proj-3-tuple(v_1007))))) then (if not-caught-fail(v_1008) then (if (not-caught-fail(v_1018) && success?(is-true(success?(1-proj-3-tuple(v_1018))))) then (if (v_1008 && 3-proj-3-tuple(v_1018)) then (if not-caught-fail(v_1019) then (v_1019,2-proj-3-tuple(v_1018),true) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) in
+        {486}event RecvMsg(bob,alice,stagepack_c(sid),plaintext_c);
+        {487}insert statestore(bob,alice,sid,statepack_d(hs_1020,handshakestategetcs(hs_1020),cs2_1003))
+    ) | (
+        {489}!
+        {507}get statestore(=bob,=alice,=sid,statepack_d(hs_1022: handshakestate,cs1_1023: cipherstate,cs2_1024: cipherstate)) in
+        {490}let hs_1025: handshakestate = handshakestatesetcs(hs_1022,cs2_1024) in
+        {491}let v_1026: bitstring = catch-fail(handshakestateunpack(hs_1025)) in
+        {492}let v_1027: bitstring = catch-fail((empty,empty,empty)) in
+        {493}let v_1028: bitstring = catch-fail(symmetricstateunpack(1-proj-7-tuple(v_1026))) in
+        {494}let v_1029: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_1028))) in
+        {495}let v_1030: bitstring = catch-fail(encrypt(1-proj-2-tuple(v_1029),2-proj-2-tuple(v_1029),3-proj-3-tuple(v_1028),msg_d(bob,alice,sid))) in
+        {496}let v_1031: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_1028))) in
+        {497}let v_1032: cipherstate = catch-fail((if (success?(increment_nonce(2-proj-2-tuple(v_1029))) && success?(1-proj-3-tuple(v_1028))) then (if (not-caught-fail(v_1031) && success?(is-true(success?(1-proj-2-tuple(v_1031))))) then cipherstatepack(1-proj-2-tuple(v_1031),increment_nonce(2-proj-2-tuple(v_1029))) else fail-any) else fail-any)) in
+        {498}let v_1033: bitstring = catch-fail((if (success?(3-proj-3-tuple(v_1028)) && success?(1-proj-3-tuple(v_1028))) then (if (not-caught-fail(v_1029) && success?(is-true(success?(1-proj-2-tuple(v_1029))))) then (if not-caught-fail(v_1030) then (if not-caught-fail(v_1032) then (v_1032,v_1030) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {499}let v_1034: bitstring = catch-fail(symmetricstateunpack(symmetricstatepack(1-proj-2-tuple(v_1033),2-proj-3-tuple(v_1028),3-proj-3-tuple(v_1028)))) in
+        {500}let v_1035: symmetricstate = catch-fail((if (success?(2-proj-2-tuple(v_1033)) && success?(symmetricstatepack(1-proj-2-tuple(v_1033),2-proj-3-tuple(v_1028),3-proj-3-tuple(v_1028)))) then (if (not-caught-fail(v_1034) && success?(is-true(success?(1-proj-3-tuple(v_1034))))) then symmetricstatepack(1-proj-3-tuple(v_1034),2-proj-3-tuple(v_1034),hash(3-proj-3-tuple(v_1034),2-proj-2-tuple(v_1033))) else fail-any) else fail-any)) in
+        {501}let v_1036: bitstring = catch-fail((if success?(1-proj-7-tuple(v_1026)) then (if (not-caught-fail(v_1028) && success?(is-true(success?(1-proj-3-tuple(v_1028))))) then (if (not-caught-fail(v_1033) && success?(is-true(success?(1-proj-2-tuple(v_1033))))) then (if not-caught-fail(v_1035) then (v_1035,2-proj-2-tuple(v_1033)) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {502}let v_1037: handshakestate = catch-fail(handshakestatepack(1-proj-2-tuple(v_1036),2-proj-7-tuple(v_1026),3-proj-7-tuple(v_1026),4-proj-7-tuple(v_1026),5-proj-7-tuple(v_1026),6-proj-7-tuple(v_1026),7-proj-7-tuple(v_1026))) in
+        {503}let v_1038: bitstring = catch-fail(concat3(1-proj-3-tuple(v_1027),2-proj-3-tuple(v_1027),2-proj-2-tuple(v_1036))) in
+        {504}let (hs_1039: handshakestate,message_d_1040: bitstring) = (if (not-caught-fail(v_1026) && success?(is-true(success?(1-proj-7-tuple(v_1026))))) then (if (not-caught-fail(v_1027) && success?(is-true(success?(1-proj-3-tuple(v_1027))))) then (if (not-caught-fail(v_1036) && success?(is-true(success?(1-proj-2-tuple(v_1036))))) then (if not-caught-fail(v_1037) then (if not-caught-fail(v_1038) then (v_1037,v_1038) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) in
+        {505}event SendMsg(bob,alice,stagepack_d(sid),msg_d(bob,alice,sid));
+        {506}out(pub, message_d_1040)
+    ) | (
+        {508}event LeakPsk(phase0,alice,bob);
+        {509}out(pub, key_psk(alice,bob))
+    ) | (
+        {510}phase 1;
+        {511}event LeakPsk(phase1,alice,bob);
+        {512}out(pub, key_psk(alice,bob))
+    ) | (
+        {513}event LeakS(phase0,bob);
+        {514}out(pub, key_s(bob))
+    ) | (
+        {515}phase 1;
+        {516}event LeakS(phase1,bob);
+        {517}out(pub, key_s(bob))
+    )
+) | (
+    {518}let s_1041: keypair = keypairpack(empty,empty) in
+    {519}out(pub, getpublickey(s_1041));
+    (
+        {520}let e_1042: keypair = keypairpack(empty,empty) in
+        {521}let v_1043: key = catch-fail(dhexp(key_s(charlie),validkey(g))) in
+        {522}let rs_1044: key = getpublickey((if not-caught-fail(v_1043) then keypairpack(validkey(v_1043),key_s(charlie)) else fail-any)) in
+        {523}let re_1045: key = empty in
+        {524}let v_1046: bitstring = catch-fail(hash(somename,empty)) in
+        {525}let v_1047: key = catch-fail(v_1046) in
+        {526}let v_1048: cipherstate = catch-fail(cipherstatepack(empty,minnonce)) in
+        {527}let v_1049: bitstring = catch-fail(symmetricstateunpack((if not-caught-fail(v_1046) then (if not-caught-fail(v_1047) then (if not-caught-fail(v_1048) then symmetricstatepack(v_1048,v_1047,v_1046) else fail-any) else fail-any) else fail-any))) in
+        {528}let v_1050: symmetricstate = catch-fail((if success?((if not-caught-fail(v_1046) then (if not-caught-fail(v_1047) then (if not-caught-fail(v_1048) then symmetricstatepack(v_1048,v_1047,v_1046) else fail-any) else fail-any) else fail-any)) then (if (not-caught-fail(v_1049) && success?(is-true(success?(1-proj-3-tuple(v_1049))))) then symmetricstatepack(1-proj-3-tuple(v_1049),2-proj-3-tuple(v_1049),hash(3-proj-3-tuple(v_1049),empty)) else fail-any) else fail-any)) in
+        {529}let v_1051: bitstring = catch-fail(symmetricstateunpack(v_1050)) in
+        {530}let v_1052: symmetricstate = catch-fail((if (not-caught-fail(v_1051) && success?(is-true(success?(1-proj-3-tuple(v_1051))))) then symmetricstatepack(1-proj-3-tuple(v_1051),2-proj-3-tuple(v_1051),hash(3-proj-3-tuple(v_1051),rs_1044)) else fail-any)) in
+        {531}let hs_1053: handshakestate = (if not-caught-fail(v_1050) then (if not-caught-fail(v_1052) then handshakestatepack(v_1052,s_1041,e_1042,rs_1044,re_1045,key_psk(charlie,bob),false) else fail-any) else fail-any) in
+        {532}insert statestore(bob,charlie,sid,statepack_a(hs_1053))
+    ) | (
+        {560}get statestore(=bob,=charlie,=sid,statepack_a(hs_1054: handshakestate)) in
+        {533}in(pub, message_a_1055: bitstring);
+        {534}let v_1056: bitstring = catch-fail(handshakestateunpack(hs_1054)) in
+        {535}let v_1057: bitstring = catch-fail(deconcat3(message_a_1055)) in
+        {536}let v_1058: bool = catch-fail(true) in
+        {537}let v_1059: key = catch-fail(1-proj-3-tuple(v_1057)) in
+        {538}let v_1060: bitstring = catch-fail(symmetricstateunpack(1-proj-7-tuple(v_1056))) in
+        {539}let v_1061: symmetricstate = catch-fail((if success?(1-proj-7-tuple(v_1056)) then (if (not-caught-fail(v_1060) && success?(is-true(success?(1-proj-3-tuple(v_1060))))) then symmetricstatepack(1-proj-3-tuple(v_1060),2-proj-3-tuple(v_1060),hash(3-proj-3-tuple(v_1060),v_1059)) else fail-any) else fail-any)) in
+        {540}let v_1062: bitstring = catch-fail(symmetricstateunpack(v_1061)) in
+        {541}let v_1063: key = catch-fail(hmac_hash1(2-proj-3-tuple(v_1062),v_1059)) in
+        {542}let v_1064: key = catch-fail(hmac_hash2(2-proj-3-tuple(v_1062),v_1059)) in
+        {543}let v_1065: key = catch-fail(hmac_hash3(2-proj-3-tuple(v_1062),v_1059)) in
+        {544}let v_1066: bitstring = catch-fail((if success?(2-proj-3-tuple(v_1062)) then (if not-caught-fail(v_1063) then (if not-caught-fail(v_1064) then (if not-caught-fail(v_1065) then (v_1063,v_1064,v_1065) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {545}let v_1067: symmetricstate = catch-fail((if (not-caught-fail(v_1062) && success?(is-true(success?(1-proj-3-tuple(v_1062))))) then (if (not-caught-fail(v_1066) && success?(is-true(success?(1-proj-3-tuple(v_1066))))) then symmetricstatepack((if success?(2-proj-3-tuple(v_1066)) then cipherstatepack(2-proj-3-tuple(v_1066),minnonce) else fail-any),1-proj-3-tuple(v_1066),3-proj-3-tuple(v_1062)) else fail-any) else fail-any)) in
+        {546}let v_1068: bitstring = catch-fail(symmetricstateunpack(v_1067)) in
+        {547}let v_1069: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_1068))) in
+        {548}let v_1070: aead = catch-fail(decrypt(1-proj-2-tuple(v_1069),2-proj-2-tuple(v_1069),3-proj-3-tuple(v_1068),3-proj-3-tuple(v_1057))) in
+        {549}let v_1071: bitstring = catch-fail(aeadunpack(v_1070)) in
+        {550}let v_1072: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_1068))) in
+        {551}let v_1073: cipherstate = catch-fail((if (success?(increment_nonce(2-proj-2-tuple(v_1069))) && success?(1-proj-3-tuple(v_1068))) then (if (not-caught-fail(v_1072) && success?(is-true(success?(1-proj-2-tuple(v_1072))))) then cipherstatepack(1-proj-2-tuple(v_1072),increment_nonce(2-proj-2-tuple(v_1069))) else fail-any) else fail-any)) in
+        {552}let v_1074: bitstring = catch-fail((if (success?(3-proj-3-tuple(v_1057)) && (success?(3-proj-3-tuple(v_1068)) && success?(1-proj-3-tuple(v_1068)))) then (if (not-caught-fail(v_1069) && success?(is-true(success?(1-proj-2-tuple(v_1069))))) then (if not-caught-fail(v_1070) then (if (not-caught-fail(v_1071) && success?(is-true(success?(1-proj-3-tuple(v_1071))))) then (if not-caught-fail(v_1073) then (v_1073,3-proj-3-tuple(v_1071),1-proj-3-tuple(v_1071)) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {553}let v_1075: bitstring = catch-fail(symmetricstateunpack(symmetricstatepack(1-proj-3-tuple(v_1074),2-proj-3-tuple(v_1068),3-proj-3-tuple(v_1068)))) in
+        {554}let v_1076: symmetricstate = catch-fail((if (success?(3-proj-3-tuple(v_1057)) && success?(symmetricstatepack(1-proj-3-tuple(v_1074),2-proj-3-tuple(v_1068),3-proj-3-tuple(v_1068)))) then (if (not-caught-fail(v_1075) && success?(is-true(success?(1-proj-3-tuple(v_1075))))) then symmetricstatepack(1-proj-3-tuple(v_1075),2-proj-3-tuple(v_1075),hash(3-proj-3-tuple(v_1075),3-proj-3-tuple(v_1057))) else fail-any) else fail-any)) in
+        {555}let v_1077: bitstring = catch-fail((if success?(3-proj-3-tuple(v_1057)) then (if (not-caught-fail(v_1068) && success?(is-true(success?(1-proj-3-tuple(v_1068))))) then (if (not-caught-fail(v_1074) && success?(is-true(success?(1-proj-3-tuple(v_1074))))) then (if not-caught-fail(v_1076) then (v_1076,2-proj-3-tuple(v_1074),3-proj-3-tuple(v_1074)) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {556}let v_1078: handshakestate = catch-fail(handshakestatepack(1-proj-3-tuple(v_1077),2-proj-7-tuple(v_1056),3-proj-7-tuple(v_1056),4-proj-7-tuple(v_1056),v_1059,6-proj-7-tuple(v_1056),7-proj-7-tuple(v_1056))) in
+        {557}let (hs_1079: handshakestate,plaintext_a_1080: bitstring,valid_1081: bool) = (if (not-caught-fail(v_1056) && success?(is-true(success?(1-proj-7-tuple(v_1056))))) then (if (not-caught-fail(v_1057) && success?(is-true(success?(1-proj-3-tuple(v_1057))))) then (if not-caught-fail(v_1058) then (if not-caught-fail(v_1059) then (if not-caught-fail(v_1061) then (if not-caught-fail(v_1067) then (if (not-caught-fail(v_1077) && success?(is-true(success?(1-proj-3-tuple(v_1077))))) then (if (v_1058 && 3-proj-3-tuple(v_1077)) then (if not-caught-fail(v_1078) then (v_1078,2-proj-3-tuple(v_1077),true) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) in
+        {558}event RecvMsg(bob,charlie,stagepack_a(sid),plaintext_a_1080);
+        {559}insert statestore(bob,charlie,sid,statepack_b(hs_1079))
+    ) | (
+        {637}get statestore(=bob,=charlie,=sid,statepack_b(hs_1082: handshakestate)) in
+        {561}let v_1083: bitstring = catch-fail(handshakestateunpack(hs_1082)) in
+        {562}let v_1084: bitstring = catch-fail((empty,empty,empty)) in
+        {563}let v_1085: key = catch-fail(dhexp(key_e(bob,charlie,sid),validkey(g))) in
+        {564}let v_1086: keypair = catch-fail((if not-caught-fail(v_1085) then keypairpack(validkey(v_1085),key_e(bob,charlie,sid)) else fail-any)) in
+        {565}let v_1087: bitstring = catch-fail(getpublickey(v_1086)) in
+        {566}let v_1088: bitstring = catch-fail(symmetricstateunpack(1-proj-7-tuple(v_1083))) in
+        {567}let v_1089: symmetricstate = catch-fail((if success?(1-proj-7-tuple(v_1083)) then (if (not-caught-fail(v_1088) && success?(is-true(success?(1-proj-3-tuple(v_1088))))) then symmetricstatepack(1-proj-3-tuple(v_1088),2-proj-3-tuple(v_1088),hash(3-proj-3-tuple(v_1088),v_1087)) else fail-any) else fail-any)) in
+        {568}let v_1090: bitstring = catch-fail(symmetricstateunpack(v_1089)) in
+        {569}let v_1091: key = catch-fail(hmac_hash1(2-proj-3-tuple(v_1090),getpublickey(v_1086))) in
+        {570}let v_1092: key = catch-fail(hmac_hash2(2-proj-3-tuple(v_1090),getpublickey(v_1086))) in
+        {571}let v_1093: key = catch-fail(hmac_hash3(2-proj-3-tuple(v_1090),getpublickey(v_1086))) in
+        {572}let v_1094: bitstring = catch-fail((if (success?(getpublickey(v_1086)) && success?(2-proj-3-tuple(v_1090))) then (if not-caught-fail(v_1091) then (if not-caught-fail(v_1092) then (if not-caught-fail(v_1093) then (v_1091,v_1092,v_1093) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {573}let v_1095: symmetricstate = catch-fail((if success?(getpublickey(v_1086)) then (if (not-caught-fail(v_1090) && success?(is-true(success?(1-proj-3-tuple(v_1090))))) then (if (not-caught-fail(v_1094) && success?(is-true(success?(1-proj-3-tuple(v_1094))))) then symmetricstatepack((if success?(2-proj-3-tuple(v_1094)) then cipherstatepack(2-proj-3-tuple(v_1094),minnonce) else fail-any),1-proj-3-tuple(v_1094),3-proj-3-tuple(v_1090)) else fail-any) else fail-any) else fail-any)) in
+        {574}let v_1096: bitstring = catch-fail(keypairunpack(v_1086)) in
+        {575}let v_1097: bitstring = catch-fail(symmetricstateunpack(v_1095)) in
+        {576}let v_1098: key = catch-fail(hmac_hash1(2-proj-3-tuple(v_1097),(if success?(5-proj-7-tuple(v_1083)) then (if (not-caught-fail(v_1096) && success?(is-true(success?(1-proj-2-tuple(v_1096))))) then dhexp(2-proj-2-tuple(v_1096),5-proj-7-tuple(v_1083)) else fail-any) else fail-any))) in
+        {577}let v_1099: key = catch-fail(hmac_hash2(2-proj-3-tuple(v_1097),(if success?(5-proj-7-tuple(v_1083)) then (if (not-caught-fail(v_1096) && success?(is-true(success?(1-proj-2-tuple(v_1096))))) then dhexp(2-proj-2-tuple(v_1096),5-proj-7-tuple(v_1083)) else fail-any) else fail-any))) in
+        {578}let v_1100: key = catch-fail(hmac_hash3(2-proj-3-tuple(v_1097),(if success?(5-proj-7-tuple(v_1083)) then (if (not-caught-fail(v_1096) && success?(is-true(success?(1-proj-2-tuple(v_1096))))) then dhexp(2-proj-2-tuple(v_1096),5-proj-7-tuple(v_1083)) else fail-any) else fail-any))) in
+        {579}let v_1101: bitstring = catch-fail((if (success?((if success?(5-proj-7-tuple(v_1083)) then (if (not-caught-fail(v_1096) && success?(is-true(success?(1-proj-2-tuple(v_1096))))) then dhexp(2-proj-2-tuple(v_1096),5-proj-7-tuple(v_1083)) else fail-any) else fail-any)) && success?(2-proj-3-tuple(v_1097))) then (if not-caught-fail(v_1098) then (if not-caught-fail(v_1099) then (if not-caught-fail(v_1100) then (v_1098,v_1099,v_1100) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {580}let v_1102: symmetricstate = catch-fail((if success?((if success?(5-proj-7-tuple(v_1083)) then (if (not-caught-fail(v_1096) && success?(is-true(success?(1-proj-2-tuple(v_1096))))) then dhexp(2-proj-2-tuple(v_1096),5-proj-7-tuple(v_1083)) else fail-any) else fail-any)) then (if (not-caught-fail(v_1097) && success?(is-true(success?(1-proj-3-tuple(v_1097))))) then (if (not-caught-fail(v_1101) && success?(is-true(success?(1-proj-3-tuple(v_1101))))) then symmetricstatepack((if success?(2-proj-3-tuple(v_1101)) then cipherstatepack(2-proj-3-tuple(v_1101),minnonce) else fail-any),1-proj-3-tuple(v_1101),3-proj-3-tuple(v_1097)) else fail-any) else fail-any) else fail-any)) in
+        {581}let v_1103: bitstring = catch-fail(keypairunpack(v_1086)) in
+        {582}let v_1104: bitstring = catch-fail(symmetricstateunpack(v_1102)) in
+        {583}let v_1105: key = catch-fail(hmac_hash1(2-proj-3-tuple(v_1104),(if success?(4-proj-7-tuple(v_1083)) then (if (not-caught-fail(v_1103) && success?(is-true(success?(1-proj-2-tuple(v_1103))))) then dhexp(2-proj-2-tuple(v_1103),4-proj-7-tuple(v_1083)) else fail-any) else fail-any))) in
+        {584}let v_1106: key = catch-fail(hmac_hash2(2-proj-3-tuple(v_1104),(if success?(4-proj-7-tuple(v_1083)) then (if (not-caught-fail(v_1103) && success?(is-true(success?(1-proj-2-tuple(v_1103))))) then dhexp(2-proj-2-tuple(v_1103),4-proj-7-tuple(v_1083)) else fail-any) else fail-any))) in
+        {585}let v_1107: key = catch-fail(hmac_hash3(2-proj-3-tuple(v_1104),(if success?(4-proj-7-tuple(v_1083)) then (if (not-caught-fail(v_1103) && success?(is-true(success?(1-proj-2-tuple(v_1103))))) then dhexp(2-proj-2-tuple(v_1103),4-proj-7-tuple(v_1083)) else fail-any) else fail-any))) in
+        {586}let v_1108: bitstring = catch-fail((if (success?((if success?(4-proj-7-tuple(v_1083)) then (if (not-caught-fail(v_1103) && success?(is-true(success?(1-proj-2-tuple(v_1103))))) then dhexp(2-proj-2-tuple(v_1103),4-proj-7-tuple(v_1083)) else fail-any) else fail-any)) && success?(2-proj-3-tuple(v_1104))) then (if not-caught-fail(v_1105) then (if not-caught-fail(v_1106) then (if not-caught-fail(v_1107) then (v_1105,v_1106,v_1107) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {587}let v_1109: symmetricstate = catch-fail((if success?((if success?(4-proj-7-tuple(v_1083)) then (if (not-caught-fail(v_1103) && success?(is-true(success?(1-proj-2-tuple(v_1103))))) then dhexp(2-proj-2-tuple(v_1103),4-proj-7-tuple(v_1083)) else fail-any) else fail-any)) then (if (not-caught-fail(v_1104) && success?(is-true(success?(1-proj-3-tuple(v_1104))))) then (if (not-caught-fail(v_1108) && success?(is-true(success?(1-proj-3-tuple(v_1108))))) then symmetricstatepack((if success?(2-proj-3-tuple(v_1108)) then cipherstatepack(2-proj-3-tuple(v_1108),minnonce) else fail-any),1-proj-3-tuple(v_1108),3-proj-3-tuple(v_1104)) else fail-any) else fail-any) else fail-any)) in
+        {588}let v_1110: key = catch-fail(dhexp(key_s(bob),validkey(g))) in
+        {589}let v_1111: keypair = catch-fail((if not-caught-fail(v_1110) then keypairpack(validkey(v_1110),key_s(bob)) else fail-any)) in
+        {590}let v_1112: bitstring = catch-fail(symmetricstateunpack(v_1109)) in
+        {591}let v_1113: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_1112))) in
+        {592}let v_1114: bitstring = catch-fail(encrypt(1-proj-2-tuple(v_1113),2-proj-2-tuple(v_1113),3-proj-3-tuple(v_1112),getpublickey(v_1111))) in
+        {593}let v_1115: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_1112))) in
+        {594}let v_1116: cipherstate = catch-fail((if (success?(increment_nonce(2-proj-2-tuple(v_1113))) && success?(1-proj-3-tuple(v_1112))) then (if (not-caught-fail(v_1115) && success?(is-true(success?(1-proj-2-tuple(v_1115))))) then cipherstatepack(1-proj-2-tuple(v_1115),increment_nonce(2-proj-2-tuple(v_1113))) else fail-any) else fail-any)) in
+        {595}let v_1117: bitstring = catch-fail((if (success?(getpublickey(v_1111)) && (success?(3-proj-3-tuple(v_1112)) && success?(1-proj-3-tuple(v_1112)))) then (if (not-caught-fail(v_1113) && success?(is-true(success?(1-proj-2-tuple(v_1113))))) then (if not-caught-fail(v_1114) then (if not-caught-fail(v_1116) then (v_1116,v_1114) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {596}let v_1118: bitstring = catch-fail(symmetricstateunpack(symmetricstatepack(1-proj-2-tuple(v_1117),2-proj-3-tuple(v_1112),3-proj-3-tuple(v_1112)))) in
+        {597}let v_1119: symmetricstate = catch-fail((if (success?(2-proj-2-tuple(v_1117)) && success?(symmetricstatepack(1-proj-2-tuple(v_1117),2-proj-3-tuple(v_1112),3-proj-3-tuple(v_1112)))) then (if (not-caught-fail(v_1118) && success?(is-true(success?(1-proj-3-tuple(v_1118))))) then symmetricstatepack(1-proj-3-tuple(v_1118),2-proj-3-tuple(v_1118),hash(3-proj-3-tuple(v_1118),2-proj-2-tuple(v_1117))) else fail-any) else fail-any)) in
+        {598}let v_1120: bitstring = catch-fail((if success?(getpublickey(v_1111)) then (if (not-caught-fail(v_1112) && success?(is-true(success?(1-proj-3-tuple(v_1112))))) then (if (not-caught-fail(v_1117) && success?(is-true(success?(1-proj-2-tuple(v_1117))))) then (if not-caught-fail(v_1119) then (v_1119,2-proj-2-tuple(v_1117)) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {599}let v_1121: bitstring = catch-fail(keypairunpack(v_1111)) in
+        {600}let v_1122: bitstring = catch-fail(symmetricstateunpack(1-proj-2-tuple(v_1120))) in
+        {601}let v_1123: key = catch-fail(hmac_hash1(2-proj-3-tuple(v_1122),(if success?(5-proj-7-tuple(v_1083)) then (if (not-caught-fail(v_1121) && success?(is-true(success?(1-proj-2-tuple(v_1121))))) then dhexp(2-proj-2-tuple(v_1121),5-proj-7-tuple(v_1083)) else fail-any) else fail-any))) in
+        {602}let v_1124: key = catch-fail(hmac_hash2(2-proj-3-tuple(v_1122),(if success?(5-proj-7-tuple(v_1083)) then (if (not-caught-fail(v_1121) && success?(is-true(success?(1-proj-2-tuple(v_1121))))) then dhexp(2-proj-2-tuple(v_1121),5-proj-7-tuple(v_1083)) else fail-any) else fail-any))) in
+        {603}let v_1125: key = catch-fail(hmac_hash3(2-proj-3-tuple(v_1122),(if success?(5-proj-7-tuple(v_1083)) then (if (not-caught-fail(v_1121) && success?(is-true(success?(1-proj-2-tuple(v_1121))))) then dhexp(2-proj-2-tuple(v_1121),5-proj-7-tuple(v_1083)) else fail-any) else fail-any))) in
+        {604}let v_1126: bitstring = catch-fail((if (success?((if success?(5-proj-7-tuple(v_1083)) then (if (not-caught-fail(v_1121) && success?(is-true(success?(1-proj-2-tuple(v_1121))))) then dhexp(2-proj-2-tuple(v_1121),5-proj-7-tuple(v_1083)) else fail-any) else fail-any)) && success?(2-proj-3-tuple(v_1122))) then (if not-caught-fail(v_1123) then (if not-caught-fail(v_1124) then (if not-caught-fail(v_1125) then (v_1123,v_1124,v_1125) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {605}let v_1127: symmetricstate = catch-fail((if (success?((if success?(5-proj-7-tuple(v_1083)) then (if (not-caught-fail(v_1121) && success?(is-true(success?(1-proj-2-tuple(v_1121))))) then dhexp(2-proj-2-tuple(v_1121),5-proj-7-tuple(v_1083)) else fail-any) else fail-any)) && success?(1-proj-2-tuple(v_1120))) then (if (not-caught-fail(v_1122) && success?(is-true(success?(1-proj-3-tuple(v_1122))))) then (if (not-caught-fail(v_1126) && success?(is-true(success?(1-proj-3-tuple(v_1126))))) then symmetricstatepack((if success?(2-proj-3-tuple(v_1126)) then cipherstatepack(2-proj-3-tuple(v_1126),minnonce) else fail-any),1-proj-3-tuple(v_1126),3-proj-3-tuple(v_1122)) else fail-any) else fail-any) else fail-any)) in
+        {606}let v_1128: bitstring = catch-fail(symmetricstateunpack(v_1127)) in
+        {607}let v_1129: key = catch-fail(hmac_hash1(2-proj-3-tuple(v_1128),6-proj-7-tuple(v_1083))) in
+        {608}let v_1130: key = catch-fail(hmac_hash2(2-proj-3-tuple(v_1128),6-proj-7-tuple(v_1083))) in
+        {609}let v_1131: key = catch-fail(hmac_hash3(2-proj-3-tuple(v_1128),6-proj-7-tuple(v_1083))) in
+        {610}let v_1132: bitstring = catch-fail((if (success?(6-proj-7-tuple(v_1083)) && success?(2-proj-3-tuple(v_1128))) then (if not-caught-fail(v_1129) then (if not-caught-fail(v_1130) then (if not-caught-fail(v_1131) then (v_1129,v_1130,v_1131) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {611}let v_1133: bitstring = catch-fail(symmetricstateunpack(symmetricstatepack(1-proj-3-tuple(v_1128),1-proj-3-tuple(v_1132),3-proj-3-tuple(v_1128)))) in
+        {612}let v_1134: bitstring = catch-fail(symmetricstateunpack((if (success?(2-proj-3-tuple(v_1132)) && success?(symmetricstatepack(1-proj-3-tuple(v_1128),1-proj-3-tuple(v_1132),3-proj-3-tuple(v_1128)))) then (if (not-caught-fail(v_1133) && success?(is-true(success?(1-proj-3-tuple(v_1133))))) then symmetricstatepack(1-proj-3-tuple(v_1133),2-proj-3-tuple(v_1133),hash(3-proj-3-tuple(v_1133),2-proj-3-tuple(v_1132))) else fail-any) else fail-any))) in
+        {613}let v_1135: symmetricstate = catch-fail((if success?(6-proj-7-tuple(v_1083)) then (if (not-caught-fail(v_1128) && success?(is-true(success?(1-proj-3-tuple(v_1128))))) then (if (not-caught-fail(v_1132) && success?(is-true(success?(1-proj-3-tuple(v_1132))))) then (if (not-caught-fail(v_1134) && success?(is-true(success?(1-proj-3-tuple(v_1134))))) then symmetricstatepack((if success?(3-proj-3-tuple(v_1132)) then cipherstatepack(3-proj-3-tuple(v_1132),minnonce) else fail-any),1-proj-3-tuple(v_1132),3-proj-3-tuple(v_1134)) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {614}let v_1136: bitstring = catch-fail(symmetricstateunpack(v_1135)) in
+        {615}let v_1137: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_1136))) in
+        {616}let v_1138: bitstring = catch-fail(encrypt(1-proj-2-tuple(v_1137),2-proj-2-tuple(v_1137),3-proj-3-tuple(v_1136),msg_b(bob,charlie,sid))) in
+        {617}let v_1139: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_1136))) in
+        {618}let v_1140: cipherstate = catch-fail((if (success?(increment_nonce(2-proj-2-tuple(v_1137))) && success?(1-proj-3-tuple(v_1136))) then (if (not-caught-fail(v_1139) && success?(is-true(success?(1-proj-2-tuple(v_1139))))) then cipherstatepack(1-proj-2-tuple(v_1139),increment_nonce(2-proj-2-tuple(v_1137))) else fail-any) else fail-any)) in
+        {619}let v_1141: bitstring = catch-fail((if (success?(3-proj-3-tuple(v_1136)) && success?(1-proj-3-tuple(v_1136))) then (if (not-caught-fail(v_1137) && success?(is-true(success?(1-proj-2-tuple(v_1137))))) then (if not-caught-fail(v_1138) then (if not-caught-fail(v_1140) then (v_1140,v_1138) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {620}let v_1142: bitstring = catch-fail(symmetricstateunpack(symmetricstatepack(1-proj-2-tuple(v_1141),2-proj-3-tuple(v_1136),3-proj-3-tuple(v_1136)))) in
+        {621}let v_1143: symmetricstate = catch-fail((if (success?(2-proj-2-tuple(v_1141)) && success?(symmetricstatepack(1-proj-2-tuple(v_1141),2-proj-3-tuple(v_1136),3-proj-3-tuple(v_1136)))) then (if (not-caught-fail(v_1142) && success?(is-true(success?(1-proj-3-tuple(v_1142))))) then symmetricstatepack(1-proj-3-tuple(v_1142),2-proj-3-tuple(v_1142),hash(3-proj-3-tuple(v_1142),2-proj-2-tuple(v_1141))) else fail-any) else fail-any)) in
+        {622}let v_1144: bitstring = catch-fail((if (not-caught-fail(v_1136) && success?(is-true(success?(1-proj-3-tuple(v_1136))))) then (if (not-caught-fail(v_1141) && success?(is-true(success?(1-proj-2-tuple(v_1141))))) then (if not-caught-fail(v_1143) then (v_1143,2-proj-2-tuple(v_1141)) else fail-any) else fail-any) else fail-any)) in
+        {623}let v_1145: handshakestate = catch-fail(handshakestatepack(1-proj-2-tuple(v_1144),v_1111,v_1086,4-proj-7-tuple(v_1083),5-proj-7-tuple(v_1083),6-proj-7-tuple(v_1083),7-proj-7-tuple(v_1083))) in
+        {624}let v_1146: bitstring = catch-fail(concat3(v_1087,2-proj-2-tuple(v_1120),2-proj-2-tuple(v_1144))) in
+        {625}let v_1147: bitstring = catch-fail(symmetricstateunpack(1-proj-2-tuple(v_1144))) in
+        {626}let v_1148: key = catch-fail(hmac_hash1(2-proj-3-tuple(v_1147),zero)) in
+        {627}let v_1149: key = catch-fail(hmac_hash2(2-proj-3-tuple(v_1147),zero)) in
+        {628}let v_1150: key = catch-fail(hmac_hash3(2-proj-3-tuple(v_1147),zero)) in
+        {629}let v_1151: bitstring = catch-fail((if success?(2-proj-3-tuple(v_1147)) then (if not-caught-fail(v_1148) then (if not-caught-fail(v_1149) then (if not-caught-fail(v_1150) then (v_1148,v_1149,v_1150) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {630}let v_1152: cipherstate = catch-fail((if success?(1-proj-3-tuple(v_1151)) then cipherstatepack(1-proj-3-tuple(v_1151),minnonce) else fail-any)) in
+        {631}let v_1153: cipherstate = catch-fail((if success?(2-proj-3-tuple(v_1151)) then cipherstatepack(2-proj-3-tuple(v_1151),minnonce) else fail-any)) in
+        {632}let v_1154: bitstring = catch-fail((if success?(1-proj-2-tuple(v_1144)) then (if (not-caught-fail(v_1147) && success?(is-true(success?(1-proj-3-tuple(v_1147))))) then (if (not-caught-fail(v_1151) && success?(is-true(success?(1-proj-3-tuple(v_1151))))) then (if not-caught-fail(v_1152) then (if not-caught-fail(v_1153) then (1-proj-2-tuple(v_1144),v_1152,v_1153) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {633}let (hs_1155: handshakestate,message_b_1156: bitstring,cs1_1157: cipherstate,cs2_1158: cipherstate) = (if (not-caught-fail(v_1083) && success?(is-true(success?(1-proj-7-tuple(v_1083))))) then (if (not-caught-fail(v_1084) && success?(is-true(success?(1-proj-3-tuple(v_1084))))) then (if not-caught-fail(v_1086) then (if not-caught-fail(v_1087) then (if not-caught-fail(v_1089) then (if not-caught-fail(v_1095) then (if not-caught-fail(v_1102) then (if not-caught-fail(v_1109) then (if not-caught-fail(v_1111) then (if (not-caught-fail(v_1120) && success?(is-true(success?(1-proj-2-tuple(v_1120))))) then (if not-caught-fail(v_1127) then (if not-caught-fail(v_1135) then (if (not-caught-fail(v_1144) && success?(is-true(success?(1-proj-2-tuple(v_1144))))) then (if not-caught-fail(v_1145) then (if not-caught-fail(v_1146) then (if (not-caught-fail(v_1154) && success?(is-true(success?(1-proj-3-tuple(v_1154))))) then (v_1145,v_1146,2-proj-3-tuple(v_1154),3-proj-3-tuple(v_1154)) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) in
+        {634}event SendMsg(bob,charlie,stagepack_b(sid),msg_b(bob,charlie,sid));
+        {635}insert statestore(bob,charlie,sid,statepack_c(hs_1155,cs1_1157,cs2_1158));
+        {636}out(pub, message_b_1156)
+    ) | (
+        {638}!
+        {658}get statestore(=bob,=charlie,=sid,statepack_c(hs_1159: handshakestate,cs1_1160: cipherstate,cs2_1161: cipherstate)) in
+        {639}let hs_1162: handshakestate = handshakestatesetcs(hs_1159,cs1_1160) in
+        {640}in(pub, message_c_1163: bitstring);
+        {641}let v_1164: bitstring = catch-fail(handshakestateunpack(hs_1162)) in
+        {642}let v_1165: bitstring = catch-fail(deconcat3(message_c_1163)) in
+        {643}let v_1166: bool = catch-fail(true) in
+        {644}let v_1167: bitstring = catch-fail(symmetricstateunpack(1-proj-7-tuple(v_1164))) in
+        {645}let v_1168: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_1167))) in
+        {646}let v_1169: aead = catch-fail(decrypt(1-proj-2-tuple(v_1168),2-proj-2-tuple(v_1168),3-proj-3-tuple(v_1167),3-proj-3-tuple(v_1165))) in
+        {647}let v_1170: bitstring = catch-fail(aeadunpack(v_1169)) in
+        {648}let v_1171: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_1167))) in
+        {649}let v_1172: cipherstate = catch-fail((if (success?(increment_nonce(2-proj-2-tuple(v_1168))) && success?(1-proj-3-tuple(v_1167))) then (if (not-caught-fail(v_1171) && success?(is-true(success?(1-proj-2-tuple(v_1171))))) then cipherstatepack(1-proj-2-tuple(v_1171),increment_nonce(2-proj-2-tuple(v_1168))) else fail-any) else fail-any)) in
+        {650}let v_1173: bitstring = catch-fail((if (success?(3-proj-3-tuple(v_1165)) && (success?(3-proj-3-tuple(v_1167)) && success?(1-proj-3-tuple(v_1167)))) then (if (not-caught-fail(v_1168) && success?(is-true(success?(1-proj-2-tuple(v_1168))))) then (if not-caught-fail(v_1169) then (if (not-caught-fail(v_1170) && success?(is-true(success?(1-proj-3-tuple(v_1170))))) then (if not-caught-fail(v_1172) then (v_1172,3-proj-3-tuple(v_1170),1-proj-3-tuple(v_1170)) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {651}let v_1174: bitstring = catch-fail(symmetricstateunpack(symmetricstatepack(1-proj-3-tuple(v_1173),2-proj-3-tuple(v_1167),3-proj-3-tuple(v_1167)))) in
+        {652}let v_1175: symmetricstate = catch-fail((if (success?(3-proj-3-tuple(v_1165)) && success?(symmetricstatepack(1-proj-3-tuple(v_1173),2-proj-3-tuple(v_1167),3-proj-3-tuple(v_1167)))) then (if (not-caught-fail(v_1174) && success?(is-true(success?(1-proj-3-tuple(v_1174))))) then symmetricstatepack(1-proj-3-tuple(v_1174),2-proj-3-tuple(v_1174),hash(3-proj-3-tuple(v_1174),3-proj-3-tuple(v_1165))) else fail-any) else fail-any)) in
+        {653}let v_1176: bitstring = catch-fail((if (success?(3-proj-3-tuple(v_1165)) && success?(1-proj-7-tuple(v_1164))) then (if (not-caught-fail(v_1167) && success?(is-true(success?(1-proj-3-tuple(v_1167))))) then (if (not-caught-fail(v_1173) && success?(is-true(success?(1-proj-3-tuple(v_1173))))) then (if not-caught-fail(v_1175) then (v_1175,2-proj-3-tuple(v_1173),3-proj-3-tuple(v_1173)) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {654}let v_1177: handshakestate = catch-fail(handshakestatepack(1-proj-3-tuple(v_1176),2-proj-7-tuple(v_1164),3-proj-7-tuple(v_1164),4-proj-7-tuple(v_1164),5-proj-7-tuple(v_1164),6-proj-7-tuple(v_1164),7-proj-7-tuple(v_1164))) in
+        {655}let (hs_1178: handshakestate,plaintext_c_1179: bitstring,valid_1180: bool) = (if (not-caught-fail(v_1164) && success?(is-true(success?(1-proj-7-tuple(v_1164))))) then (if (not-caught-fail(v_1165) && success?(is-true(success?(1-proj-3-tuple(v_1165))))) then (if not-caught-fail(v_1166) then (if (not-caught-fail(v_1176) && success?(is-true(success?(1-proj-3-tuple(v_1176))))) then (if (v_1166 && 3-proj-3-tuple(v_1176)) then (if not-caught-fail(v_1177) then (v_1177,2-proj-3-tuple(v_1176),true) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) in
+        {656}event RecvMsg(bob,charlie,stagepack_c(sid),plaintext_c_1179);
+        {657}insert statestore(bob,charlie,sid,statepack_d(hs_1178,handshakestategetcs(hs_1178),cs2_1161))
+    ) | (
+        {659}!
+        {677}get statestore(=bob,=charlie,=sid,statepack_d(hs_1181: handshakestate,cs1_1182: cipherstate,cs2_1183: cipherstate)) in
+        {660}let hs_1184: handshakestate = handshakestatesetcs(hs_1181,cs2_1183) in
+        {661}let v_1185: bitstring = catch-fail(handshakestateunpack(hs_1184)) in
+        {662}let v_1186: bitstring = catch-fail((empty,empty,empty)) in
+        {663}let v_1187: bitstring = catch-fail(symmetricstateunpack(1-proj-7-tuple(v_1185))) in
+        {664}let v_1188: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_1187))) in
+        {665}let v_1189: bitstring = catch-fail(encrypt(1-proj-2-tuple(v_1188),2-proj-2-tuple(v_1188),3-proj-3-tuple(v_1187),msg_d(bob,charlie,sid))) in
+        {666}let v_1190: bitstring = catch-fail(cipherstateunpack(1-proj-3-tuple(v_1187))) in
+        {667}let v_1191: cipherstate = catch-fail((if (success?(increment_nonce(2-proj-2-tuple(v_1188))) && success?(1-proj-3-tuple(v_1187))) then (if (not-caught-fail(v_1190) && success?(is-true(success?(1-proj-2-tuple(v_1190))))) then cipherstatepack(1-proj-2-tuple(v_1190),increment_nonce(2-proj-2-tuple(v_1188))) else fail-any) else fail-any)) in
+        {668}let v_1192: bitstring = catch-fail((if (success?(3-proj-3-tuple(v_1187)) && success?(1-proj-3-tuple(v_1187))) then (if (not-caught-fail(v_1188) && success?(is-true(success?(1-proj-2-tuple(v_1188))))) then (if not-caught-fail(v_1189) then (if not-caught-fail(v_1191) then (v_1191,v_1189) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {669}let v_1193: bitstring = catch-fail(symmetricstateunpack(symmetricstatepack(1-proj-2-tuple(v_1192),2-proj-3-tuple(v_1187),3-proj-3-tuple(v_1187)))) in
+        {670}let v_1194: symmetricstate = catch-fail((if (success?(2-proj-2-tuple(v_1192)) && success?(symmetricstatepack(1-proj-2-tuple(v_1192),2-proj-3-tuple(v_1187),3-proj-3-tuple(v_1187)))) then (if (not-caught-fail(v_1193) && success?(is-true(success?(1-proj-3-tuple(v_1193))))) then symmetricstatepack(1-proj-3-tuple(v_1193),2-proj-3-tuple(v_1193),hash(3-proj-3-tuple(v_1193),2-proj-2-tuple(v_1192))) else fail-any) else fail-any)) in
+        {671}let v_1195: bitstring = catch-fail((if success?(1-proj-7-tuple(v_1185)) then (if (not-caught-fail(v_1187) && success?(is-true(success?(1-proj-3-tuple(v_1187))))) then (if (not-caught-fail(v_1192) && success?(is-true(success?(1-proj-2-tuple(v_1192))))) then (if not-caught-fail(v_1194) then (v_1194,2-proj-2-tuple(v_1192)) else fail-any) else fail-any) else fail-any) else fail-any)) in
+        {672}let v_1196: handshakestate = catch-fail(handshakestatepack(1-proj-2-tuple(v_1195),2-proj-7-tuple(v_1185),3-proj-7-tuple(v_1185),4-proj-7-tuple(v_1185),5-proj-7-tuple(v_1185),6-proj-7-tuple(v_1185),7-proj-7-tuple(v_1185))) in
+        {673}let v_1197: bitstring = catch-fail(concat3(1-proj-3-tuple(v_1186),2-proj-3-tuple(v_1186),2-proj-2-tuple(v_1195))) in
+        {674}let (hs_1198: handshakestate,message_d_1199: bitstring) = (if (not-caught-fail(v_1185) && success?(is-true(success?(1-proj-7-tuple(v_1185))))) then (if (not-caught-fail(v_1186) && success?(is-true(success?(1-proj-3-tuple(v_1186))))) then (if (not-caught-fail(v_1195) && success?(is-true(success?(1-proj-2-tuple(v_1195))))) then (if not-caught-fail(v_1196) then (if not-caught-fail(v_1197) then (v_1196,v_1197) else fail-any) else fail-any) else fail-any) else fail-any) else fail-any) in
+        {675}event SendMsg(bob,charlie,stagepack_d(sid),msg_d(bob,charlie,sid));
+        {676}out(pub, message_d_1199)
+    ) | (
+        {678}event LeakPsk(phase0,charlie,bob);
+        {679}out(pub, key_psk(charlie,bob))
+    ) | (
+        {680}phase 1;
+        {681}event LeakPsk(phase1,charlie,bob);
+        {682}out(pub, key_psk(charlie,bob))
+    ) | (
+        {683}event LeakS(phase0,bob);
+        {684}out(pub, key_s(bob))
+    ) | (
+        {685}phase 1;
+        {686}event LeakS(phase1,bob);
+        {687}out(pub, key_s(bob))
+    )
+)
+
