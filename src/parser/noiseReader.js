@@ -29,8 +29,8 @@ const htmlTemplates = {
 	},
 	recvMessage: (offset, msg, tokens, authentication, confidentiality) => { 
 		return [
-			`<line data-seclevel="${confidentiality}" x2="248" y1="${offset}" y2="${offset}"></line>`,
-			`<polyline data-seclevel="${confidentiality}" points="10 ${offset-10} 1 ${offset} 10 ${offset+10}"></polyline>`,
+			`<line data-seclevel="${confidentiality}" x1="2" x2="250" y1="${offset}" y2="${offset}"></line>`,
+			`<polyline data-seclevel="${confidentiality}" points="12 ${offset-10} 2 ${offset} 12 ${offset+10}"></polyline>`,
 			`<circle data-seclevel="${authentication}" cx="234" cy="${offset}" r="15"></circle>`,
 			`<text class="msg" x="233" y="${offset+5}">${msg}</text>`,
 			`<text class="tokens" x="120" y="${offset-8}">${tokens}</text>`,
@@ -105,10 +105,10 @@ const htmlTemplates = {
 		},
 		recvMessage: (msg, tokens, authentication, confidentiality) => { 
 			return [
-				`<line data-seclevel="${confidentiality}" x1="1" x2="500" y1="70" y2="70"></line>`,
-				`<polyline data-seclevel="${confidentiality}" points="21,50 3,70 21,90"></polyline>`,
-				`<circle data-seclevel="${authentication}" cx="474" cy="70" r="25"></circle>`,
-				`<text class="msg" x="474" y="77">${msg}</text>`,
+				`<line data-seclevel="${confidentiality}" x1="5" x2="499" y1="70" y2="70"></line>`,
+				`<polyline data-seclevel="${confidentiality}" points="25,50 5,70 25,90"></polyline>`,
+				`<circle data-seclevel="${authentication}" cx="471" cy="70" r="25"></circle>`,
+				`<text class="msg" x="471" y="77">${msg}</text>`,
 				`<text class="tokens" x="240" y="50">${tokens}</text>`
 			].join('\n\t\t\t\t\t');
 		},
@@ -360,19 +360,21 @@ const render = (
 	let arrowSvg = [];
 	let analysisTxt = [];
 	let offset = 30;
-	let offsetIncrement = 190;
+	let totalHeight = 30;
 	if (pattern.preMessages.length) {
 		pattern.preMessages.forEach((preMessage) => {
 			arrowSvg.push(htmlTemplates[`${preMessage.dir}PreMessage`](
 				offset, preMessage.tokens
 			));
-			offset = offset + offsetIncrement;
+			offset = offset + 130;
+			totalHeight = totalHeight + 130;
 			analysisTxt.push(htmlTemplates.analysisPreMessage(
 				preMessage.dir, preMessage.tokens
 			));
 		});
 		arrowSvg.push(htmlTemplates.ellipsis(offset));
-		offset = offset + offsetIncrement;
+		offset = offset + 130;
+		totalHeight = totalHeight + 130;
 	}
 	pattern.messages.forEach((message, i) => {
 		let abc = util.abc[i];
@@ -406,12 +408,15 @@ const render = (
 			authentication,
 			confidentiality
 		));
-		offset = offset + offsetIncrement;
+		offset = offset + 130;
+		totalHeight = totalHeight + 130;
+		totalHeight = totalHeight + (((authentication === 1) || (authentication === 2))? 50 : 0);
+		totalHeight = totalHeight + ((confidentiality > 2)? 40 : 0);
 	});
 	return {
 		arrowSvg: arrowSvg.join('\n'),
 		analysisTxt: analysisTxt.join('\n'),
-		offset: offset
+		totalHeight: totalHeight
 	};
 };
 

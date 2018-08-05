@@ -173,7 +173,7 @@ if (ARGV.hasOwnProperty('render')) {
 		patternSplitS = `${patternSplitS.slice(0, -1)}].join('\\n')`;
 		let output = READFILE('html/patterns/template.html')
 			.replace(/\$NOISERENDER_T\$/g, json.name)
-			.replace(/\$NOISERENDER_H\$/g, html.offset)
+			.replace(/\$NOISERENDER_H\$/g, html.totalHeight)
 			.replace(/\$NOISERENDER_R\$/g, html.arrowSvg)
 			.replace(/\$NOISERENDER_A\$/g, html.analysisTxt)
 			.replace(/\$NOISERENDER_M\$/g, patternSplitS)
