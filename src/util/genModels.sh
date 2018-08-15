@@ -1,10 +1,10 @@
 #!/bin/bash
 cd ..
 for pattern in ../patterns/*.noise; do
-	node ../src/noiseExplorer \
+	node noiseExplorer \
 		--generate=proverif --pattern=$pattern --attacker=active \
 		> ../models/$(basename "${pattern}").active.pv
-	node ../src/noiseExplorer \
+	node noiseExplorer \
 		--generate=proverif --pattern=$pattern --attacker=passive \
 		> ../models/$(basename "${pattern}").passive.pv
 done
