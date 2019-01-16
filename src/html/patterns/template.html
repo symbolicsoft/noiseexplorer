@@ -12,12 +12,14 @@
 	<link href="../../res/css/style.css" rel="stylesheet" />
 	<script type="application/javascript" src="../../res/js/parser/noiseParser.js"></script>
 	<script type="application/javascript" src="../../res/js/parser/noise2Pv.js"></script>
+	<script type="application/javascript" src="../../res/js/parser/noise2Go.js"></script>
 	<script type="application/javascript" src="../../res/js/parser/noiseReader.js"></script>
 	<script type="application/javascript" src="../../res/js/noiseWebIde.js"></script>
 	<script type="application/javascript">
 	window.addEventListener('load', () => {
-		pvModelGen($NOISERENDER_M$, 'active', 'pvModelActiveLink', false);
-		pvModelGen($NOISERENDER_N$, 'passive', 'pvModelPassiveLink', false);
+		pvGen($NOISERENDER_M$, 'active', 'pvActiveLink', false);
+		pvGen($NOISERENDER_M$, 'passive', 'pvPassiveLink', false);
+		goGen($NOISERENDER_M$, 'goLink', false);
 	});
 	</script>
 </head>
@@ -47,15 +49,22 @@
 		<div class="resultsExplanation" style="height: $NOISERENDER_H$px;">
 			<h2>Handshake Pattern Analysis</h2>
 			$NOISERENDER_A$
-			<h3>Download Cryptographic Models for Formal Verification</h3>
+			<h3>Generate Cryptographic Models for Formal Verification</h3>
 			<p>
-				<a href="#" id="pvModelActiveLink">
-					Download Model
+				<a href="#" id="pvActiveLink">
+					Get Model
 					<span class="modelType">active attacker</span>
 				</a>
-				<a href="#" id="pvModelPassiveLink">
-					Download Model
+				<a href="#" id="pvPassiveLink">
+					Get Model
 					<span class="modelType">passive attacker</span>
+				</a>
+			</p>
+			<h3>Generate Secure Protocol Implementation Code</h3>
+			<p>
+				<a href="#" id="goLink">
+					Get Implementation
+					<span class="modelType">written in go</span>
 				</a>
 			</p>
 		</div>

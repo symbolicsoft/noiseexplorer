@@ -2,38 +2,40 @@
 ## Version 0.3, based on Noise Protocol Revision 34.
 
 ### Overview
-The Noise Explorer command-line tool can parse Noise Handshake Patterns according to the original specification. It can generate cryptographic models for formal verification, including security queries, top-level processes and malicious principals, for testing against an active or passive attacker.
+The Noise Explorer command-line tool can parse Noise Handshake Patterns according to the original specification. It can generate cryptographic models for formal verification, including security queries, top-level processes and malicious principals, for testing against an active or passive attacker. Noise Explorer can also generate fully functional discrete implementations for any Noise Handshake Pattern, written in the [Go programming language](https://golang.org).
 
 Noise Explorer can also render results from the ProVerif output into an elegant and easy to read HTML format: the pattern results that can be explored on [Noise Explorer](https://noiseexplorer.com) were generated using the Noise Explorer command-line tool.
 
 ```
 $> node noiseExplorer --help
-	Noise Explorer version 0.3 (specification revision 34)
-	Noise Explorer can either generate models or render results, and the parameters
-	for either must be invoked exclusively.
-	
-	Model generation:
-	--generate=(proverif|json): Specify output format.
-	--pattern=[file]: Specify input pattern file (required).
-	--attacker=(active|passive): Specify attacker type (default: active).
-	
-	Results rendering:
-	--render=(handshake|message): Render results from ProVerif output files into HTML.
-	--pattern=[file]: Specify input pattern file (required).
-	--activeModel=[file]: Specify ProVerif active attacker model (required for --render=message).
-	--activeResults=[file]: Specify active results file for --render (required).
-	--passiveResults=[file]: Specify passive results file for --render (required).
+Noise Explorer version 0.3 (specification revision 34)
+Noise Explorer has three individual modes: generation, rendering and web interface.
 
-	Help:
-	--help: View this help text.
+Generation:
+--generate=(json|proverif|go): Specify output format.
+--pattern=[file]: Specify input pattern file (required).
+--attacker=(active|passive): Specify ProVerif attacker type (default: active).
+
+Rendering:
+--render=(handshake|message): Render results from ProVerif output files into HTML.
+--pattern=[file]: Specify input pattern file (required).
+--activeModel=[file]: Specify ProVerif active attacker model (required for --render=message).
+--activeResults=[file]: Specify active results file for --render (required).
+--passiveResults=[file]: Specify passive results file for --render (required).
+
+Web interface:
+--web=(port): Make Noise Explorer's web interface available at http://localhost:(port) (default: 8000).
+
+Help:
+--help: View this help text.
 ```
 
 ### Requirements
-1. [Node](https://nodejs.org).
-2. [ProVerif](http://prosecco.gforge.inria.fr/personal/bblanche/proverif/).
+1. [Node](https://nodejs.org) is required for running Noise Explorer locally.
+2. [ProVerif](http://prosecco.gforge.inria.fr/personal/bblanche/proverif/) is required for verifying generated models.
+2. [Go](https://golang.org) is required for running generated implementations.
 
 ### Preparation
-1. Install `proverif` in your `$PATH`.
 1. `cd src`
 2. `make dependencies`
 3. `make parser`
@@ -42,7 +44,10 @@ $> node noiseExplorer --help
 `node noiseExplorer --help`
 
 ### Model Generation
-To quickly translate all Noise handshake patterns in the `patterns` directory to ProVerif models, simply run `make models` after completing the steps outlined in the Preparation section of this document. The models will be available in the `models` directory.
+To quickly translate all Noise handshake patterns in the `patterns` folder to ProVerif models, simply run `make models` after completing the steps outlined in the Preparation section of this document. The models will be available in the `models` folder.
+
+### Implementation Generation
+To quickly translate all Noise handshake patterns in the `patterns` folder to Go implementations, simply run `make implementations` after completing the steps outlined in the Preparation section of this document. The models will be available in the `implementations` folder.
 
 ### Author and License
-Authored by Nadim Kobeissi and released under the GNU General Public License, version 3.
+Authored by [Nadim Kobeissi](https://nadim.computer) and released under the GNU General Public License, version 3.

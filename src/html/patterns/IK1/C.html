@@ -47,10 +47,10 @@
 <p class="proverif">
 letfun writeMessage_c(me:principal, them:principal, hs:handshakestate, payload:bitstring, sid:sessionid) =
 	let (ss:symmetricstate, s:keypair, e:keypair, rs:key, re:key, psk:key, initiator:bool) = handshakestateunpack(hs) in
-	let (ne:bitstring, ciphertext1:bitstring, ciphertext2:bitstring) = (empty, empty, empty) in
-	let (ss:symmetricstate, ciphertext2:bitstring) = encryptAndHash(ss, payload) in
+	let (ne:bitstring, ns:bitstring, ciphertext:bitstring) = (empty, empty, empty) in
+	let (ss:symmetricstate, ciphertext:bitstring) = encryptAndHash(ss, payload) in
 	let hs = handshakestatepack(ss, s, e, rs, re, psk, initiator) in
-	let message_buffer = concat3(ne, ciphertext1, ciphertext2) in
+	let message_buffer = concat3(ne, ns, ciphertext) in
 	(hs, message_buffer).
 </p>
 Since Message <span class="mono">C</span> contains no tokens, it is considered purely an "AppData" type message meant to transfer encrypted payloads.
@@ -63,12 +63,12 @@ Since Message <span class="mono">C</span> contains no tokens, it is considered p
 <p class="proverif">
 letfun readMessage_c(me:principal, them:principal, hs:handshakestate, message:bitstring, sid:sessionid) =
 	let (ss:symmetricstate, s:keypair, e:keypair, rs:key, re:key, psk:key, initiator:bool) = handshakestateunpack(hs) in
-	let (ne:bitstring, ciphertext1:bitstring, ciphertext2:bitstring) = deconcat3(message) in
+	let (ne:bitstring, ns:bitstring, ciphertext:bitstring) = deconcat3(message) in
 	let valid1 = true in
-	let (ss:symmetricstate, plaintext2:bitstring, valid2:bool) = decryptAndHash(ss, ciphertext2) in
+	let (ss:symmetricstate, plaintext:bitstring, valid2:bool) = decryptAndHash(ss, ciphertext) in
 	if ((valid1 && valid2)) then (
 		let hs = handshakestatepack(ss, s, e, rs, re, psk, initiator) in
-		(hs, plaintext2, true)
+		(hs, plaintext, true)
 	).
 </p>
 Since Message <span class="mono">C</span> contains no tokens, it is considered purely an "AppData" type message meant to transfer encrypted payloads.

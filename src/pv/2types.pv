@@ -19,7 +19,7 @@ type handshakestate.
 
 type handshakepattern.
 
-$NOISE2PV_S$
+(* $NOISE2PV_S$ *)
 
 table statestore(principal, principal, sessionid, state).
 

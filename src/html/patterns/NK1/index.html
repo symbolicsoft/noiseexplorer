@@ -12,12 +12,14 @@
 	<link href="../../res/css/style.css" rel="stylesheet" />
 	<script type="application/javascript" src="../../res/js/parser/noiseParser.js"></script>
 	<script type="application/javascript" src="../../res/js/parser/noise2Pv.js"></script>
+	<script type="application/javascript" src="../../res/js/parser/noise2Go.js"></script>
 	<script type="application/javascript" src="../../res/js/parser/noiseReader.js"></script>
 	<script type="application/javascript" src="../../res/js/noiseWebIde.js"></script>
 	<script type="application/javascript">
 	window.addEventListener('load', () => {
-		pvModelGen(['NK1:','	<- s','	...','	-> e','	<- e, ee, es','	->','	<-'].join('\n'), 'active', 'pvModelActiveLink', false);
-		pvModelGen(['NK1:','	<- s','	...','	-> e','	<- e, ee, es','	->','	<-'].join('\n'), 'passive', 'pvModelPassiveLink', false);
+		pvGen(['NK1:','	<- s','	...','	-> e','	<- e, ee, es','	->','	<-'].join('\n'), 'active', 'pvActiveLink', false);
+		pvGen(['NK1:','	<- s','	...','	-> e','	<- e, ee, es','	->','	<-'].join('\n'), 'passive', 'pvPassiveLink', false);
+		goGen(['NK1:','	<- s','	...','	-> e','	<- e, ee, es','	->','	<-'].join('\n'), 'goLink', false);
 	});
 	</script>
 </head>
@@ -84,15 +86,22 @@
 
 			<h3>Message D <a href="D.html" class="detailedAnalysis">show detailed analysis</a></h3>
 			<p>Message D, sent by the responder, benefits from <em>sender authentication</em> and is <em>resistant to Key Compromise Impersonation</em>. Assuming the corresponding private keys are secure, this authentication cannot be forged. However, if the responder carries out a separate session with a separate, compromised initiator, this other session can be used to forge the authentication of this message with this session's initiator. Message contents benefit from some <em>message secrecy</em> and some <em>forward secrecy</em>, but not sufficiently to resist any active attacker.  <span class="resultNums">2,1</span></p>
-			<h3>Download Cryptographic Models for Formal Verification</h3>
+			<h3>Generate Cryptographic Models for Formal Verification</h3>
 			<p>
-				<a href="#" id="pvModelActiveLink">
-					Download Model
+				<a href="#" id="pvActiveLink">
+					Get Model
 					<span class="modelType">active attacker</span>
 				</a>
-				<a href="#" id="pvModelPassiveLink">
-					Download Model
+				<a href="#" id="pvPassiveLink">
+					Get Model
 					<span class="modelType">passive attacker</span>
+				</a>
+			</p>
+			<h3>Generate Secure Protocol Implementation Code</h3>
+			<p>
+				<a href="#" id="goLink">
+					Get Implementation
+					<span class="modelType">written in go</span>
 				</a>
 			</p>
 		</div>

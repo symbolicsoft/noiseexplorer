@@ -58,19 +58,19 @@ letfun mixKeyAndHash(ss:symmetricstate, input_key_material:key) =
 	
 letfun getHandshakeHash(ss:symmetricstate) =
 	let (cs:cipherstate, ck:key, h:bitstring) = symmetricstateunpack(ss) in
-	(ss, h).
+	h.
 
 letfun encryptAndHash(ss:symmetricstate, plaintext:bitstring) =
 	let (cs:cipherstate, ck:key, h:bitstring) = symmetricstateunpack(ss) in
-	let (cs:cipherstate, ciphertext:bitstring) = encryptWithAd(cs, h, plaintext) in
-	let ss = mixHash(symmetricstatepack(cs, ck, h), ciphertext) in
-	(ss, ciphertext).
+	let (csi:cipherstate, ciphertext:bitstring) = encryptWithAd(cs, h, plaintext) in
+	let ssi = mixHash(symmetricstatepack(csi, ck, h), ciphertext) in
+	(ssi, ciphertext).
 
 letfun decryptAndHash(ss:symmetricstate, ciphertext:bitstring) =
 	let (cs:cipherstate, ck:key, h:bitstring) = symmetricstateunpack(ss) in
-	let (cs:cipherstate, plaintext:bitstring, valid:bool) = decryptWithAd(cs, h, ciphertext) in
-	let ss = mixHash(symmetricstatepack(cs, ck, h), ciphertext) in
-	(ss, plaintext, valid).
+	let (csi:cipherstate, plaintext:bitstring, valid:bool) = decryptWithAd(cs, h, ciphertext) in
+	let ssi = mixHash(symmetricstatepack(csi, ck, h), ciphertext) in
+	(ssi, plaintext, valid).
 
 letfun split(ss:symmetricstate) =
 	let (cs:cipherstate, ck:key, h:bitstring) = symmetricstateunpack(ss) in
@@ -81,8 +81,8 @@ letfun split(ss:symmetricstate) =
 
 (* HandshakeState *)
 
-$NOISE2PV_I$
+(* $NOISE2PV_I$ *)
 
-$NOISE2PV_W$
+(* $NOISE2PV_W$ *)
 
-$NOISE2PV_R$
+(* $NOISE2PV_R$ *)

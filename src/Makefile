@@ -1,6 +1,6 @@
 dependencies:
 	@echo -n "[NoiseExplorer] Installing dependencies... "
-	@sudo npm install -g pegjs
+	@npm install -g pegjs
 	@npm install
 	@echo "OK."
 
@@ -15,6 +15,13 @@ models:
 	@rm -f parser/noiseParser.js
 	@pegjs -o parser/noiseParser.js parser/noiseParser.pegjs
 	@cd util && bash genModels.sh
+	@echo "OK."
+
+implementations:
+	@echo -n "[NoiseExplorer] Generating implementations... "
+	@rm -f parser/noiseParser.js
+	@pegjs -o parser/noiseParser.js parser/noiseParser.pegjs
+	@cd util && bash genImplementations.sh
 	@echo "OK."
 
 clean:

@@ -120,7 +120,7 @@ div.nav div.navLinks {
 div.results {
 	width: 900px;
 	margin: 10px auto;
-	padding-bottom: 250px;
+	padding-bottom: 280px;
 }
 
 div.results.singleColumn {
@@ -139,7 +139,6 @@ div.results.singleColumn div.resultsExplanation {
 div.arrowsFrame {
 	width: 250px;
 	padding: 60px 40px 40px 40px;
-	box-shadow: 2px 2px 2px var(--noiseLightGray);
 	border: 1px solid var(--noiseLightGray);
 	background-color: var(--noiseBeige);
 	position: relative;
@@ -162,7 +161,7 @@ div.arrows {
 	margin: 0px auto;
 	width: 100%;
 	text-align: center;
-	padding-bottom: 150px;
+	padding-bottom: 180px;
 }
 
 div.arrows svg {
@@ -280,10 +279,10 @@ div.resultsExplanation {
 	width: 500px;
 	background-color: var(--noiseBeige);
 	padding: 0 20px 20px 20px;
-	border-radius: 5px;
+	border-radius: 3px;
 	border: 2px solid #FFF5F5;
 	text-align: justify;
-	padding-bottom: 250px;
+	padding-bottom: 280px;
 }
 
 div.resultsExplanation a.detailedAnalysis {
@@ -319,7 +318,7 @@ div.resultsExplanation span.resultNums {
 div.rawResults {
 	background-color: var(--noiseDarkGray);
 	border: 2px solid var(--noiseLightGray);
-	border-radius: 5px;
+	border-radius: 3px;
 	color: #FFF;
 	font-family: 'IBM Plex Mono', monospace;
 	margin: 20px auto 0 auto;
@@ -346,7 +345,7 @@ textarea#patternInput {
 	padding: 20px;
 	border: 3px solid var(--noiseGreen);
 	font-weight: bold;
-	border-radius: 5px;
+	border-radius: 3px;
 	font-family: 'IBM Plex Mono', monospace;
 	font-size: 16px;
 	resize: none;
@@ -359,24 +358,39 @@ textarea#patternInput.parseInvalid {
 	border-color: var(--noiseRed) !important;
 }
 
-a#pvModelActiveLink,
-a#pvModelPassiveLink {
+a#pvActiveLink,
+a#pvPassiveLink,
+a#goLink {
 	display: inline-block;
 	padding: 10px;
 	border: 1px solid var(--noiseDarkGray);
-	box-shadow: 1px 1px var(--noiseDarkGray);
 	background-color: var(--noiseGreen);
 	color: #FFF;
 	font-weight: bold;
 	text-decoration: none;
-	width: 150px;
+	width: 170px;
 	height: 40px;
-	border-radius: 5px;
+	border-radius: 3px;
 	margin-right: 20px;
+	background-repeat: no-repeat;
+	text-align: right;
+	background-position: 5px;
 }
 
-a#pvModelActiveLink.parseInvalid,
-a#pvModelPassiveLink.parseInvalid {
+a#pvActiveLink,
+a#pvPassiveLink {
+	background-image: url('/res/img/models.svg');
+	background-size: 45px;
+}
+
+a#goLink {
+	background-image: url('/res/img/implementations.svg');
+	background-size: 45px;
+}
+
+a#pvActiveLink.parseInvalid,
+a#pvPassiveLink.parseInvalid,
+a#goLink.parseInvalid {
 	background-color: var(--noiseRed) !important;
 }
 
@@ -402,7 +416,7 @@ div#patternInputParseStatus.parseInvalid {
 }
 
 input#patternSearch {
-	border-radius: 5px;
+	border-radius: 3px;
 	border: 1px solid #CCC;
 	font-size: 16px;
 	padding: 4px 8px;
@@ -426,7 +440,7 @@ a.patternEntry {
 	white-space: pre-line;
 	border: 3px solid var(--noiseClearGray);
 	background-clip: padding-box;
-	border-radius: 5px;
+	border-radius: 3px;
 	color: var(--noiseTextColor);
 	background: #FFF;
 	padding: 5px 10px 10px 15px;
@@ -453,7 +467,7 @@ pre {
 	background-color: var(--noiseDarkGray);
 	color: #FFF;
 	padding: 20px;
-	border-radius: 5px;
+	border-radius: 3px;
 	font-family: 'IBM Plex Mono', monospace;
 	white-space: pre-line;
 }
@@ -542,7 +556,7 @@ div.results.detailed p.proverif {
 	font-size: 12px;
 	background: var(--noiseClearGray);
 	color: var(--noiseTextColor);
-	border-radius: 4px;
+	border-radius: 3px;
 	padding: 0 10px 15px 10px;
 	text-align: left;
 }

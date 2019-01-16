@@ -12,6 +12,7 @@
 	<link href="res/css/style.css" rel="stylesheet" />
 	<script type="application/javascript" src="res/js/parser/noiseParser.js"></script>
 	<script type="application/javascript" src="res/js/parser/noise2Pv.js"></script>
+	<script type="application/javascript" src="res/js/parser/noise2Go.js"></script>
 	<script type="application/javascript" src="res/js/parser/noiseReader.js"></script>
 	<script type="application/javascript" src="res/js/noiseWebIde.js"></script>
 	<script type="application/javascript">
@@ -23,25 +24,17 @@
 			$('patternInput').addEventListener('keyup', (event) => {
 				processPatternKeyUp(event.key);
 			});
-			$('pvModelActiveLink').addEventListener('click', (event) => {
-				pvModelGen($('patternInput').value, 'active', 'pvModelActiveLink', true);
+			$('pvActiveLink').addEventListener('click', (event) => {
+				pvGen($('patternInput').value, 'active', 'pvActiveLink', true);
 			});
-			$('pvModelPassiveLink').addEventListener('click', (event) => {
-				pvModelGen($('patternInput').value, 'passive', 'pvModelPassiveLink', true);
+			$('pvPassiveLink').addEventListener('click', (event) => {
+				pvGen($('patternInput').value, 'passive', 'pvPassiveLink', true);
 			});
-			$('patternInput').value = '';
+			$('goLink').addEventListener('click', (event) => {
+				goGen($('patternInput').value, 'goLink', true);
+			});
 			$('patternInput').focus();
-			processPatternInput('');
-			let c = 0;
-			let o = 250;
-			while (c < startingPattern.length) {
-				setTimeout((i) => {
-					$('patternInput').value += startingPattern[i];
-					processPatternInput($('patternInput').value);
-				}, o, c);
-				c = c + 1;
-				o = o + 50;
-			}
+			processPatternInput($('patternInput').value);
 		});
 	</script>
 </head>
@@ -73,27 +66,40 @@
 			</p>
 			<ul>
 				<li><strong>Design Noise Handshake Patterns.</strong> Immediately obtain validity checks that verify if your design conforms to the specification. Also, a convenient illustration in your browser.</li>
-				<li><strong>Generate Cryptographic Models for Formal Verification.</strong> Instantly generate full symbolic models in the applied pi calculus for any Noise Handshake Pattern that you enter. Using <a href="http://prosecco.gforge.inria.fr/personal/bblanche/proverif/" target="_blank">ProVerif</a>, these models can be analyzed against passive and active attackers with malicious principals. The model's top-level process and sophisticated queries are specifically generated to be relevant to your Noise Handshake Pattern, including tests for strong vs. weak forward secrecy and resistance to key compromise impersonation. The models can also be used as a foundation for further modeling in <a href="http://prosecco.gforge.inria.fr/personal/bblanche/cryptoverif/" target="_blank">CryptoVerif</a>.</li>
+				<li><strong>Generate Formal Verification Models and Software Implementations.</strong> Instantly generate full symbolic models in the applied pi calculus for any Noise Handshake Pattern that you enter. Using <a href="http://prosecco.gforge.inria.fr/personal/bblanche/proverif/" target="_blank">ProVerif</a>, these models can be analyzed against passive and active attackers with malicious principals. The model's top-level process and sophisticated queries are specifically generated to be relevant to your Noise Handshake Pattern, including tests for strong vs. weak forward secrecy and resistance to key compromise impersonation Noise Explorer also automatically generates a secure implementation of your chosen Noise Handshake Pattern design, written in <a href="https://golang.org" target="_blank">Go</a>.</li>
 				<li><strong>Explore a Compendium of Formal Verification Results.</strong> Since formal verification for complex Noise Handshake Patterns can take time and require fast CPU hardware, Noise Explorer comes with a compendium detailing the full results of all Noise Handshake Patterns described in the original specification. These results are presented with a security model that is even more comprehensive than the original specification, since it includes the participation of a malicious principal.</li>
 			</ul>
 			<h3>Design your Noise Handshake Pattern</h3>
 			<div class="patternEditor">
-				<textarea id="patternInput" spellcheck="false"></textarea>
+				<textarea id="patternInput" spellcheck="false">
+IKpsk2:
+  &lt;- s
+  ...
+  -&gt; e, es, s, ss
+  &lt;- e, ee, se, psk
+  -&gt;
+  &lt;-
+				</textarea>
 				<div id="patternInputParseStatus"></div>
 			</div>
-			<h3>Download Cryptographic Models for Formal Verification</h3>
+			<h3>Generate Cryptographic Models for Formal Verification</h3>
 			<p>
-				<a href="#" id="pvModelActiveLink">
-					Download Model
+				<a href="#" id="pvActiveLink">
+					Get Model
 					<span class="modelType">active attacker</span>
 				</a>
-				<a href="#" id="pvModelPassiveLink">
-					Download Model
+				<a href="#" id="pvPassiveLink">
+					Get Model
 					<span class="modelType">passive attacker</span>
 				</a>
 			</p>
-			<h3>Download Secure Protocol Implementation Code</h3>
-			<p>Soon, Noise Explorer will also automatically generate a secure implementation of your chosen Noise Handshake Pattern design, written in <a href="https://github.com/Inria-Prosecco/proscript-messaging" target="_blank">ProScript</a>, a secure subset of JavaScript.</p>
+			<h3>Generate Secure Protocol Implementation Code</h3>
+			<p>
+				<a href="#" id="goLink">
+					Get Implementation
+					<span class="modelType">written in go</span>
+				</a>
+			</p>
 		</div>
 	</div>
 	<div class="footer">

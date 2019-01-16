@@ -110,17 +110,9 @@ const somename:bitstring [data].
 (* STRING CONCATENATION                                             *)
 (* ---------------------------------------------------------------- *)
 
-fun concat2(bitstring, bitstring):bitstring [data].
-reduc forall a:bitstring, b:bitstring;
-	deconcat2(concat2(a, b)) = (a, b).
-
 fun concat3(bitstring, bitstring, bitstring):bitstring [data].
 reduc forall a:bitstring, b:bitstring, c:bitstring;
 	deconcat3(concat3(a, b, c)) = (a, b, c).
-
-fun concat4(bitstring, bitstring, bitstring, bitstring):bitstring [data].
-	reduc forall a:bitstring, b:bitstring, c:bitstring, d:bitstring;
-		deconcat4(concat4(a, b, c, d)) = (a, b, c, d).
 
 (* ---------------------------------------------------------------- *)
 (* PRIMITIVES                                                       *)
@@ -238,19 +230,19 @@ letfun mixKeyAndHash(ss:symmetricstate, input_key_material:key) =
 	
 letfun getHandshakeHash(ss:symmetricstate) =
 	let (cs:cipherstate, ck:key, h:bitstring) = symmetricstateunpack(ss) in
-	(ss, h).
+	h.
 
 letfun encryptAndHash(ss:symmetricstate, plaintext:bitstring) =
 	let (cs:cipherstate, ck:key, h:bitstring) = symmetricstateunpack(ss) in
-	let (cs:cipherstate, ciphertext:bitstring) = encryptWithAd(cs, h, plaintext) in
-	let ss = mixHash(symmetricstatepack(cs, ck, h), ciphertext) in
-	(ss, ciphertext).
+	let (csi:cipherstate, ciphertext:bitstring) = encryptWithAd(cs, h, plaintext) in
+	let ssi = mixHash(symmetricstatepack(csi, ck, h), ciphertext) in
+	(ssi, ciphertext).
 
 letfun decryptAndHash(ss:symmetricstate, ciphertext:bitstring) =
 	let (cs:cipherstate, ck:key, h:bitstring) = symmetricstateunpack(ss) in
-	let (cs:cipherstate, plaintext:bitstring, valid:bool) = decryptWithAd(cs, h, ciphertext) in
-	let ss = mixHash(symmetricstatepack(cs, ck, h), ciphertext) in
-	(ss, plaintext, valid).
+	let (csi:cipherstate, plaintext:bitstring, valid:bool) = decryptWithAd(cs, h, ciphertext) in
+	let ssi = mixHash(symmetricstatepack(csi, ck, h), ciphertext) in
+	(ssi, plaintext, valid).
 
 letfun split(ss:symmetricstate) =
 	let (cs:cipherstate, ck:key, h:bitstring) = symmetricstateunpack(ss) in
@@ -271,21 +263,21 @@ letfun initialize_responder(prologue:bitstring, s:keypair, e:keypair, rs:key, re
 
 letfun writeMessage_a(me:principal, them:principal, hs:handshakestate, payload:bitstring, sid:sessionid) =
 	let (ss:symmetricstate, s:keypair, e:keypair, rs:key, re:key, psk:key, initiator:bool) = handshakestateunpack(hs) in
-	let (ne:bitstring, ciphertext1:bitstring, ciphertext2:bitstring) = (empty, empty, empty) in
+	let (ne:bitstring, ns:bitstring, ciphertext:bitstring) = (empty, empty, empty) in
 	let e = generate_keypair(key_e(me, them, sid)) in
 	let ne = key2bit(getpublickey(e)) in
 	let ss = mixHash(ss, ne) in
 	let ss = mixKey(ss, getpublickey(e)) in
 	let s = generate_keypair(key_s(me)) in
-	let (ss:symmetricstate, ciphertext1:bitstring) = encryptAndHash(ss, key2bit(getpublickey(s))) in
-	let (ss:symmetricstate, ciphertext2:bitstring) = encryptAndHash(ss, payload) in
+	let (ss:symmetricstate, ns:bitstring) = encryptAndHash(ss, key2bit(getpublickey(s))) in
+	let (ss:symmetricstate, ciphertext:bitstring) = encryptAndHash(ss, payload) in
 	let hs = handshakestatepack(ss, s, e, rs, re, psk, initiator) in
-	let message_buffer = concat3(ne, ciphertext1, ciphertext2) in
+	let message_buffer = concat3(ne, ns, ciphertext) in
 	(hs, message_buffer).
 
 letfun writeMessage_b(me:principal, them:principal, hs:handshakestate, payload:bitstring, sid:sessionid) =
 	let (ss:symmetricstate, s:keypair, e:keypair, rs:key, re:key, psk:key, initiator:bool) = handshakestateunpack(hs) in
-	let (ne:bitstring, ciphertext1:bitstring, ciphertext2:bitstring) = (empty, empty, empty) in
+	let (ne:bitstring, ns:bitstring, ciphertext:bitstring) = (empty, empty, empty) in
 	let e = generate_keypair(key_e(me, them, sid)) in
 	let ne = key2bit(getpublickey(e)) in
 	let ss = mixHash(ss, ne) in
@@ -293,84 +285,84 @@ letfun writeMessage_b(me:principal, them:principal, hs:handshakestate, payload:b
 	let ss = mixKey(ss, dh(e, re)) in
 	let ss = mixKey(ss, dh(e, rs)) in
 	let s = generate_keypair(key_s(me)) in
-	let (ss:symmetricstate, ciphertext1:bitstring) = encryptAndHash(ss, key2bit(getpublickey(s))) in
+	let (ss:symmetricstate, ns:bitstring) = encryptAndHash(ss, key2bit(getpublickey(s))) in
 	let ss = mixKey(ss, dh(s, re)) in
 	let ss = mixKeyAndHash(ss, psk) in
-	let (ss:symmetricstate, ciphertext2:bitstring) = encryptAndHash(ss, payload) in
+	let (ss:symmetricstate, ciphertext:bitstring) = encryptAndHash(ss, payload) in
 	let hs = handshakestatepack(ss, s, e, rs, re, psk, initiator) in
-	let message_buffer = concat3(ne, ciphertext1, ciphertext2) in
+	let message_buffer = concat3(ne, ns, ciphertext) in
 	let (ssi:symmetricstate, cs1:cipherstate, cs2:cipherstate) = split(ss) in
 	(hs, message_buffer, cs1, cs2).
 
 letfun writeMessage_c(me:principal, them:principal, hs:handshakestate, payload:bitstring, sid:sessionid) =
 	let (ss:symmetricstate, s:keypair, e:keypair, rs:key, re:key, psk:key, initiator:bool) = handshakestateunpack(hs) in
-	let (ne:bitstring, ciphertext1:bitstring, ciphertext2:bitstring) = (empty, empty, empty) in
-	let (ss:symmetricstate, ciphertext2:bitstring) = encryptAndHash(ss, payload) in
+	let (ne:bitstring, ns:bitstring, ciphertext:bitstring) = (empty, empty, empty) in
+	let (ss:symmetricstate, ciphertext:bitstring) = encryptAndHash(ss, payload) in
 	let hs = handshakestatepack(ss, s, e, rs, re, psk, initiator) in
-	let message_buffer = concat3(ne, ciphertext1, ciphertext2) in
+	let message_buffer = concat3(ne, ns, ciphertext) in
 	(hs, message_buffer).
 
 letfun writeMessage_d(me:principal, them:principal, hs:handshakestate, payload:bitstring, sid:sessionid) =
 	let (ss:symmetricstate, s:keypair, e:keypair, rs:key, re:key, psk:key, initiator:bool) = handshakestateunpack(hs) in
-	let (ne:bitstring, ciphertext1:bitstring, ciphertext2:bitstring) = (empty, empty, empty) in
-	let (ss:symmetricstate, ciphertext2:bitstring) = encryptAndHash(ss, payload) in
+	let (ne:bitstring, ns:bitstring, ciphertext:bitstring) = (empty, empty, empty) in
+	let (ss:symmetricstate, ciphertext:bitstring) = encryptAndHash(ss, payload) in
 	let hs = handshakestatepack(ss, s, e, rs, re, psk, initiator) in
-	let message_buffer = concat3(ne, ciphertext1, ciphertext2) in
+	let message_buffer = concat3(ne, ns, ciphertext) in
 	(hs, message_buffer).
 
 letfun readMessage_a(me:principal, them:principal, hs:handshakestate, message:bitstring, sid:sessionid) =
 	let (ss:symmetricstate, s:keypair, e:keypair, rs:key, re:key, psk:key, initiator:bool) = handshakestateunpack(hs) in
-	let (ne:bitstring, ciphertext1:bitstring, ciphertext2:bitstring) = deconcat3(message) in
+	let (ne:bitstring, ns:bitstring, ciphertext:bitstring) = deconcat3(message) in
 	let valid1 = true in
 	let re = bit2key(ne) in
 	let ss = mixHash(ss, key2bit(re)) in
 	let ss = mixKey(ss, re) in
-	let (ss:symmetricstate, plaintext1:bitstring, valid1:bool) = decryptAndHash(ss, ciphertext1) in
-	let rs = bit2key(plaintext1) in
-	let (ss:symmetricstate, plaintext2:bitstring, valid2:bool) = decryptAndHash(ss, ciphertext2) in
+	let (ss:symmetricstate, ne:bitstring, valid1:bool) = decryptAndHash(ss, ns) in
+	let rs = bit2key(ne) in
+	let (ss:symmetricstate, plaintext:bitstring, valid2:bool) = decryptAndHash(ss, ciphertext) in
 	if ((valid1 && valid2) && (rs = getpublickey(generate_keypair(key_s(them))))) then (
 		let hs = handshakestatepack(ss, s, e, rs, re, psk, initiator) in
-		(hs, plaintext2, true)
+		(hs, plaintext, true)
 	).
 
 letfun readMessage_b(me:principal, them:principal, hs:handshakestate, message:bitstring, sid:sessionid) =
 	let (ss:symmetricstate, s:keypair, e:keypair, rs:key, re:key, psk:key, initiator:bool) = handshakestateunpack(hs) in
-	let (ne:bitstring, ciphertext1:bitstring, ciphertext2:bitstring) = deconcat3(message) in
+	let (ne:bitstring, ns:bitstring, ciphertext:bitstring) = deconcat3(message) in
 	let valid1 = true in
 	let re = bit2key(ne) in
 	let ss = mixHash(ss, key2bit(re)) in
 	let ss = mixKey(ss, re) in
 	let ss = mixKey(ss, dh(e, re)) in
 	let ss = mixKey(ss, dh(s, re)) in
-	let (ss:symmetricstate, plaintext1:bitstring, valid1:bool) = decryptAndHash(ss, ciphertext1) in
-	let rs = bit2key(plaintext1) in
+	let (ss:symmetricstate, ne:bitstring, valid1:bool) = decryptAndHash(ss, ns) in
+	let rs = bit2key(ne) in
 	let ss = mixKey(ss, dh(e, rs)) in
 	let ss = mixKeyAndHash(ss, psk) in
-	let (ss:symmetricstate, plaintext2:bitstring, valid2:bool) = decryptAndHash(ss, ciphertext2) in
+	let (ss:symmetricstate, plaintext:bitstring, valid2:bool) = decryptAndHash(ss, ciphertext) in
 	if ((valid1 && valid2) && (rs = getpublickey(generate_keypair(key_s(them))))) then (
 		let hs = handshakestatepack(ss, s, e, rs, re, psk, initiator) in
 		let (ssi:symmetricstate, cs1:cipherstate, cs2:cipherstate) = split(ss) in
-		(hs, plaintext2, true, cs1, cs2)
+		(hs, plaintext, true, cs1, cs2)
 	).
 
 letfun readMessage_c(me:principal, them:principal, hs:handshakestate, message:bitstring, sid:sessionid) =
 	let (ss:symmetricstate, s:keypair, e:keypair, rs:key, re:key, psk:key, initiator:bool) = handshakestateunpack(hs) in
-	let (ne:bitstring, ciphertext1:bitstring, ciphertext2:bitstring) = deconcat3(message) in
+	let (ne:bitstring, ns:bitstring, ciphertext:bitstring) = deconcat3(message) in
 	let valid1 = true in
-	let (ss:symmetricstate, plaintext2:bitstring, valid2:bool) = decryptAndHash(ss, ciphertext2) in
+	let (ss:symmetricstate, plaintext:bitstring, valid2:bool) = decryptAndHash(ss, ciphertext) in
 	if ((valid1 && valid2)) then (
 		let hs = handshakestatepack(ss, s, e, rs, re, psk, initiator) in
-		(hs, plaintext2, true)
+		(hs, plaintext, true)
 	).
 
 letfun readMessage_d(me:principal, them:principal, hs:handshakestate, message:bitstring, sid:sessionid) =
 	let (ss:symmetricstate, s:keypair, e:keypair, rs:key, re:key, psk:key, initiator:bool) = handshakestateunpack(hs) in
-	let (ne:bitstring, ciphertext1:bitstring, ciphertext2:bitstring) = deconcat3(message) in
+	let (ne:bitstring, ns:bitstring, ciphertext:bitstring) = deconcat3(message) in
 	let valid1 = true in
-	let (ss:symmetricstate, plaintext2:bitstring, valid2:bool) = decryptAndHash(ss, ciphertext2) in
+	let (ss:symmetricstate, plaintext:bitstring, valid2:bool) = decryptAndHash(ss, ciphertext) in
 	if ((valid1 && valid2)) then (
 		let hs = handshakestatepack(ss, s, e, rs, re, psk, initiator) in
-		(hs, plaintext2, true)
+		(hs, plaintext, true)
 	).
 
 (* ---------------------------------------------------------------- *)
@@ -490,6 +482,7 @@ IXpsk2:
 	 ->
 	 <-
 *)
+
 
 
 let initiator(me:principal, them:principal, sid:sessionid) =

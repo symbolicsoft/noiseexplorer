@@ -47,16 +47,16 @@
 <p class="proverif">
 letfun writeMessage_b(me:principal, them:principal, hs:handshakestate, payload:bitstring, sid:sessionid) =
 	let (ss:symmetricstate, s:keypair, e:keypair, rs:key, re:key, psk:key, initiator:bool) = handshakestateunpack(hs) in
-	let (ne:bitstring, ciphertext1:bitstring, ciphertext2:bitstring) = (empty, empty, empty) in
+	let (ne:bitstring, ns:bitstring, ciphertext:bitstring) = (empty, empty, empty) in
 	let e = generate_keypair(key_e(me, them, sid)) in
 	let ne = key2bit(getpublickey(e)) in
 	let ss = mixHash(ss, ne) in
 	(* No PSK, so skipping mixKey *)
 	let ss = mixKey(ss, dh(e, re)) in
 	let ss = mixKey(ss, dh(e, rs)) in
-	let (ss:symmetricstate, ciphertext2:bitstring) = encryptAndHash(ss, payload) in
+	let (ss:symmetricstate, ciphertext:bitstring) = encryptAndHash(ss, payload) in
 	let hs = handshakestatepack(ss, s, e, rs, re, psk, initiator) in
-	let message_buffer = concat3(ne, ciphertext1, ciphertext2) in
+	let message_buffer = concat3(ne, ns, ciphertext) in
 	let (ssi:symmetricstate, cs1:cipherstate, cs2:cipherstate) = split(ss) in
 	(hs, message_buffer, cs1, cs2).
 </p>
@@ -85,18 +85,18 @@ letfun writeMessage_b(me:principal, them:principal, hs:handshakestate, payload:b
 <p class="proverif">
 letfun readMessage_b(me:principal, them:principal, hs:handshakestate, message:bitstring, sid:sessionid) =
 	let (ss:symmetricstate, s:keypair, e:keypair, rs:key, re:key, psk:key, initiator:bool) = handshakestateunpack(hs) in
-	let (ne:bitstring, ciphertext1:bitstring, ciphertext2:bitstring) = deconcat3(message) in
+	let (ne:bitstring, ns:bitstring, ciphertext:bitstring) = deconcat3(message) in
 	let valid1 = true in
 	let re = bit2key(ne) in
 	let ss = mixHash(ss, key2bit(re)) in
 	(* No PSK, so skipping mixKey *)
 	let ss = mixKey(ss, dh(e, re)) in
 	let ss = mixKey(ss, dh(s, re)) in
-	let (ss:symmetricstate, plaintext2:bitstring, valid2:bool) = decryptAndHash(ss, ciphertext2) in
+	let (ss:symmetricstate, plaintext:bitstring, valid2:bool) = decryptAndHash(ss, ciphertext) in
 	if ((valid1 && valid2)) then (
 		let hs = handshakestatepack(ss, s, e, rs, re, psk, initiator) in
 		let (ssi:symmetricstate, cs1:cipherstate, cs2:cipherstate) = split(ss) in
-		(hs, plaintext2, true, cs1, cs2)
+		(hs, plaintext, true, cs1, cs2)
 	).
 </p>
 <h4>How each token is processed by the initiator:</h4>

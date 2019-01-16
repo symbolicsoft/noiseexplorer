@@ -199,7 +199,7 @@ const writeMessageFun = (message, hasPsk, initiator, isFinal, suffix) => {
 		].join(`\n\t`),
 		s: [
 			`let s = generate_keypair(key_s(me)) in`,
-			`let (ss:symmetricstate, ciphertext1:bitstring) = encryptAndHash(ss, key2bit(getpublickey(s))) in`
+			`let (ss:symmetricstate, ns:bitstring) = encryptAndHash(ss, key2bit(getpublickey(s))) in`
 		].join(`\n\t`),
 		ee: [
 			`let ss = mixKey(ss, dh(e, re)) in`
@@ -215,20 +215,20 @@ const writeMessageFun = (message, hasPsk, initiator, isFinal, suffix) => {
 		].join(`\n\t`),
 		psk: [
 			`let ss = mixKeyAndHash(ss, psk) in`
-		].join(`\n\t`),
+		].join(`\n\t`)
 	};
 	let writeFun = [
 		`letfun writeMessage_${suffix}(me:principal, them:principal, hs:handshakestate, payload:bitstring, sid:sessionid) =`,
 		`let (ss:symmetricstate, s:keypair, e:keypair, rs:key, re:key, psk:key, initiator:bool) = handshakestateunpack(hs) in`,
-		`let (ne:bitstring, ciphertext1:bitstring, ciphertext2:bitstring) = (empty, empty, empty) in`
+		`let (ne:bitstring, ns:bitstring, ciphertext:bitstring) = (empty, empty, empty) in`
 	];
 	message.tokens.forEach((token) => {
 		writeFun.push(messageTokenParsers[token]);
 	});
 	writeFun = writeFun.concat([
-		`let (ss:symmetricstate, ciphertext2:bitstring) = encryptAndHash(ss, payload) in`,
+		`let (ss:symmetricstate, ciphertext:bitstring) = encryptAndHash(ss, payload) in`,
 		`let hs = handshakestatepack(ss, s, e, rs, re, psk, initiator) in`,
-		`let message_buffer = concat3(ne, ciphertext1, ciphertext2) in`,
+		`let message_buffer = concat3(ne, ns, ciphertext) in`,
 	]);
 	writeFun = writeFun.concat(finalFill);
 	return writeFun.join('\n\t');
@@ -258,9 +258,9 @@ const readMessageFun = (message, hasPsk, initiator, isFinal, suffix) => {
 		` && (rs = getpublickey(generate_keypair(key_s(them))))` : ``;
 	let finalFill = isFinal? [
 		`\tlet (ssi:symmetricstate, cs1:cipherstate, cs2:cipherstate) = split(ss) in`,
-		`\t(hs, plaintext2, true, cs1, cs2)`
+		`\t(hs, plaintext, true, cs1, cs2)`
 	] : [
-		`\t(hs, plaintext2, true)`
+		`\t(hs, plaintext, true)`
 	];
 	let messageTokenParsers = {
 		e: [
@@ -269,8 +269,8 @@ const readMessageFun = (message, hasPsk, initiator, isFinal, suffix) => {
 			ePskFill
 		].join(`\n\t`),
 		s: [
-			`let (ss:symmetricstate, plaintext1:bitstring, valid1:bool) = decryptAndHash(ss, ciphertext1) in`,
-			`let rs = bit2key(plaintext1) in`
+			`let (ss:symmetricstate, ne:bitstring, valid1:bool) = decryptAndHash(ss, ns) in`,
+			`let rs = bit2key(ne) in`
 		].join(`\n\t`),
 		ee: [
 			`let ss = mixKey(ss, dh(e, re)) in`
@@ -286,19 +286,19 @@ const readMessageFun = (message, hasPsk, initiator, isFinal, suffix) => {
 		].join(`\n\t`),
 		psk: [
 			`let ss = mixKeyAndHash(ss, psk) in`
-		].join(`\n\t`),
+		].join(`\n\t`)
 	};
 	let readFun = [
 		`letfun readMessage_${suffix}(me:principal, them:principal, hs:handshakestate, message:bitstring, sid:sessionid) =`,
 		`let (ss:symmetricstate, s:keypair, e:keypair, rs:key, re:key, psk:key, initiator:bool) = handshakestateunpack(hs) in`,
-		`let (ne:bitstring, ciphertext1:bitstring, ciphertext2:bitstring) = deconcat3(message) in`,
+		`let (ne:bitstring, ns:bitstring, ciphertext:bitstring) = deconcat3(message) in`,
 		`let valid1 = true in`
 	];
 	message.tokens.forEach((token) => {
 		readFun.push(messageTokenParsers[token]);
 	});
 	readFun = readFun.concat([
-		`let (ss:symmetricstate, plaintext2:bitstring, valid2:bool) = decryptAndHash(ss, ciphertext2) in`,
+		`let (ss:symmetricstate, plaintext:bitstring, valid2:bool) = decryptAndHash(ss, ciphertext) in`,
 		`if ((valid1 && valid2)${authStaticKey}) then (`,
 		`\tlet hs = handshakestatepack(ss, s, e, rs, re, psk, initiator) in`,
 		`${finalFill.join('\n\t')}`,
@@ -681,10 +681,11 @@ const processFuns = (pattern) => {
 };
 
 const parse = (pattern, passive) => {
+	let t = `set attacker = active.`
 	if (passive) {
 		params.attacker = 'passive';
+		t = 'set attacker = passive.';
 	}
-	let t = params.attacker;
 	let s = typeFuns(pattern).join('\n');
 	let i = initializeFuns(pattern).join('\n\n');
 	let w = writeMessageFuns(pattern).join('\n\n');

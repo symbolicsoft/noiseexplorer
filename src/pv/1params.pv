@@ -5,4 +5,4 @@
 set expandIfTermsToTerms = true.
 set traceBacktracking = false.
 set reconstructTrace = false.
-set attacker = $NOISE2PV_T$.
+(* $NOISE2PV_T$ *)

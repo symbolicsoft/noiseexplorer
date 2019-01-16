@@ -12,12 +12,14 @@
 	<link href="../../res/css/style.css" rel="stylesheet" />
 	<script type="application/javascript" src="../../res/js/parser/noiseParser.js"></script>
 	<script type="application/javascript" src="../../res/js/parser/noise2Pv.js"></script>
+	<script type="application/javascript" src="../../res/js/parser/noise2Go.js"></script>
 	<script type="application/javascript" src="../../res/js/parser/noiseReader.js"></script>
 	<script type="application/javascript" src="../../res/js/noiseWebIde.js"></script>
 	<script type="application/javascript">
 	window.addEventListener('load', () => {
-		pvModelGen(['INpsk2:','     -> e, s','     <- e, ee, se, psk',' ->',' <-'].join('\n'), 'active', 'pvModelActiveLink', false);
-		pvModelGen(['INpsk2:','     -> e, s','     <- e, ee, se, psk',' ->',' <-'].join('\n'), 'passive', 'pvModelPassiveLink', false);
+		pvGen(['INpsk2:','     -> e, s','     <- e, ee, se, psk','	 ->','	 <-'].join('\n'), 'active', 'pvActiveLink', false);
+		pvGen(['INpsk2:','     -> e, s','     <- e, ee, se, psk','	 ->','	 <-'].join('\n'), 'passive', 'pvPassiveLink', false);
+		goGen(['INpsk2:','     -> e, s','     <- e, ee, se, psk','	 ->','	 <-'].join('\n'), 'goLink', false);
 	});
 	</script>
 </head>
@@ -77,15 +79,22 @@
 
 			<h3>Message D <a href="D.html" class="detailedAnalysis">show detailed analysis</a></h3>
 			<p>Message D, sent by the responder, benefits from <em>receiver authentication</em> but is <em>vulnerable to Key Compromise Impersonation</em>. If the initiator's long-term private key has been compromised, this authentication can be forged. However, if the responder carries out a separate session with a separate, compromised initiator, this other session can be used to forge the authentication of this message with this session's initiator. Message contents benefit from <em>message secrecy</em> and <em>weak forward secrecy</em> under a passive attacker: if the responder's long-term static keys were previously compromised, the later compromise of the initiator's long-term static keys can lead to message contents being decrypted by an attacker.  <span class="resultNums">1,3</span></p>
-			<h3>Download Cryptographic Models for Formal Verification</h3>
+			<h3>Generate Cryptographic Models for Formal Verification</h3>
 			<p>
-				<a href="#" id="pvModelActiveLink">
-					Download Model
+				<a href="#" id="pvActiveLink">
+					Get Model
 					<span class="modelType">active attacker</span>
 				</a>
-				<a href="#" id="pvModelPassiveLink">
-					Download Model
+				<a href="#" id="pvPassiveLink">
+					Get Model
 					<span class="modelType">passive attacker</span>
+				</a>
+			</p>
+			<h3>Generate Secure Protocol Implementation Code</h3>
+			<p>
+				<a href="#" id="goLink">
+					Get Implementation
+					<span class="modelType">written in go</span>
 				</a>
 			</p>
 		</div>

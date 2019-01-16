@@ -1,5 +1,6 @@
-## Noise Explorer 0.3 (???)
+## Noise Explorer 0.3 (January 12, 2019)
 - Now based on Noise Protocol Framework revision 34.
+- Generate Go implementations.
 - Added detailed analysis feature for individual message patterns within Noise Handshake Patterns.
 - Added deferred handshake patterns from revision 34 to the compendium with formal verification results.
 - Added one-way handshake patterns to the compendium with formal verification results.

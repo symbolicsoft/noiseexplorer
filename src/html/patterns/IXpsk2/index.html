@@ -12,12 +12,14 @@
 	<link href="../../res/css/style.css" rel="stylesheet" />
 	<script type="application/javascript" src="../../res/js/parser/noiseParser.js"></script>
 	<script type="application/javascript" src="../../res/js/parser/noise2Pv.js"></script>
+	<script type="application/javascript" src="../../res/js/parser/noise2Go.js"></script>
 	<script type="application/javascript" src="../../res/js/parser/noiseReader.js"></script>
 	<script type="application/javascript" src="../../res/js/noiseWebIde.js"></script>
 	<script type="application/javascript">
 	window.addEventListener('load', () => {
-		pvModelGen(['IXpsk2:','     -> e, s','     <- e, ee, se, s, es, psk',' ->',' <-'].join('\n'), 'active', 'pvModelActiveLink', false);
-		pvModelGen(['IXpsk2:','     -> e, s','     <- e, ee, se, s, es, psk',' ->',' <-'].join('\n'), 'passive', 'pvModelPassiveLink', false);
+		pvGen(['IXpsk2:','     -> e, s','     <- e, ee, se, s, es, psk','	 ->','	 <-'].join('\n'), 'active', 'pvActiveLink', false);
+		pvGen(['IXpsk2:','     -> e, s','     <- e, ee, se, s, es, psk','	 ->','	 <-'].join('\n'), 'passive', 'pvPassiveLink', false);
+		goGen(['IXpsk2:','     -> e, s','     <- e, ee, se, s, es, psk','	 ->','	 <-'].join('\n'), 'goLink', false);
 	});
 	</script>
 </head>
@@ -77,15 +79,22 @@
 
 			<h3>Message D <a href="D.html" class="detailedAnalysis">show detailed analysis</a></h3>
 			<p>Message D, sent by the responder, benefits from <em>sender and receiver authentication</em> and is <em>resistant to Key Compromise Impersonation</em>. Assuming the corresponding private keys are secure, this authentication cannot be forged. Message contents benefit from <em>message secrecy</em> and <em>strong forward secrecy</em>: if the ephemeral private keys are secure and the initiator is not being actively impersonated by an active attacker, message contents cannot be decrypted.  <span class="resultNums">4,5</span></p>
-			<h3>Download Cryptographic Models for Formal Verification</h3>
+			<h3>Generate Cryptographic Models for Formal Verification</h3>
 			<p>
-				<a href="#" id="pvModelActiveLink">
-					Download Model
+				<a href="#" id="pvActiveLink">
+					Get Model
 					<span class="modelType">active attacker</span>
 				</a>
-				<a href="#" id="pvModelPassiveLink">
-					Download Model
+				<a href="#" id="pvPassiveLink">
+					Get Model
 					<span class="modelType">passive attacker</span>
+				</a>
+			</p>
+			<h3>Generate Secure Protocol Implementation Code</h3>
+			<p>
+				<a href="#" id="goLink">
+					Get Implementation
+					<span class="modelType">written in go</span>
 				</a>
 			</p>
 		</div>
