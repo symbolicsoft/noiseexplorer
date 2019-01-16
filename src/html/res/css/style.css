@@ -120,7 +120,7 @@ div.nav div.navLinks {
 div.results {
 	width: 900px;
 	margin: 10px auto;
-	padding-bottom: 280px;
+	padding-bottom: 300px;
 }
 
 div.results.singleColumn {
@@ -161,7 +161,7 @@ div.arrows {
 	margin: 0px auto;
 	width: 100%;
 	text-align: center;
-	padding-bottom: 180px;
+	padding-bottom: 211px;
 }
 
 div.arrows svg {
@@ -282,7 +282,7 @@ div.resultsExplanation {
 	border-radius: 3px;
 	border: 2px solid #FFF5F5;
 	text-align: justify;
-	padding-bottom: 280px;
+	padding-bottom: 310px;
 }
 
 div.resultsExplanation a.detailedAnalysis {
