@@ -17,13 +17,14 @@ package main
 import (
 	"crypto/rand"
 	"encoding/binary"
+	"hash"
+	"io"
+	"math"
+
 	"golang.org/x/crypto/blake2s"
 	"golang.org/x/crypto/chacha20poly1305"
 	"golang.org/x/crypto/curve25519"
 	"golang.org/x/crypto/hkdf"
-	"hash"
-	"io"
-	"math"
 )
 
 /* ---------------------------------------------------------------- *
@@ -85,6 +86,7 @@ var emptyKey = [32]byte{
 }
 
 var minNonce = uint64(0)
+
 /* ---------------------------------------------------------------- *
  * UTILITY FUNCTIONS                                                *
  * ---------------------------------------------------------------- */
@@ -101,6 +103,7 @@ func isEmptyKey(k [32]byte) bool {
 	}
 	return true
 }
+
 /* ---------------------------------------------------------------- *
  * PRIMITIVES                                                       *
  * ---------------------------------------------------------------- */
@@ -182,6 +185,7 @@ func getHkdf(ck [32]byte, ikm []byte) ([32]byte, [32]byte, [32]byte) {
 	io.ReadFull(output, k3[:])
 	return k1, k2, k3
 }
+
 /* ---------------------------------------------------------------- *
  * STATE MANAGEMENT                                                 *
  * ---------------------------------------------------------------- */
@@ -394,8 +398,6 @@ func readMessageC(hs handshakestate, message messagebuffer) (handshakestate, []b
 	hs = handshakestate{ss, s, e, rs, re, psk, initiator}
 	return hs, plaintext, (valid1 && valid2)
 }
-
-
 
 /* ---------------------------------------------------------------- *
  * PROCESSES                                                        *
