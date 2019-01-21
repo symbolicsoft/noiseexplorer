@@ -15,6 +15,7 @@ package main
 
 import (
 	"crypto/rand"
+	"crypto/subtle"
 	"encoding/binary"
 	"golang.org/x/crypto/blake2s"
 	"golang.org/x/crypto/chacha20poly1305"
@@ -93,15 +94,9 @@ func getPublicKey(kp keypair) [32]byte {
 }
 
 func isEmptyKey(k [32]byte) bool {
-	var result bool
-	result = true
-	for _, v := range k {
-		if v != 0 {
-			result = false
-		}
-	}
-	return result
+	return subtle.ConstantTimeCompare(k[:], emptyKey[:]) == 1
 }
+
 /* ---------------------------------------------------------------- *
  * PRIMITIVES                                                       *
  * ---------------------------------------------------------------- */
