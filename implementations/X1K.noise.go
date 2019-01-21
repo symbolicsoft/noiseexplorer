@@ -96,12 +96,14 @@ func getPublicKey(kp keypair) [32]byte {
 }
 
 func isEmptyKey(k [32]byte) bool {
+	var result bool
+	result = true
 	for _, v := range k {
 		if v != 0 {
-			return false
+			result = false
 		}
 	}
-	return true
+	return result
 }
 /* ---------------------------------------------------------------- *
  * PRIMITIVES                                                       *
