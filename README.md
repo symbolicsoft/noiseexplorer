@@ -15,6 +15,7 @@ Generation:
 --generate=(json|proverif|go): Specify output format.
 --pattern=[file]: Specify input pattern file (required).
 --attacker=(active|passive): Specify ProVerif attacker type (default: active).
+--testgen: Embed test vectors into the generated implementation.
 
 Rendering:
 --render=(handshake|message): Render results from ProVerif output files into HTML.
