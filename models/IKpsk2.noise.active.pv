@@ -477,12 +477,12 @@ query c:principal, m:bitstring, sid_a:sessionid, sid_b:sessionid, s:stage, b:bit
 
 (*
 IKpsk2:
-     <- s
-     ...
-     -> e, es, s, ss
-     <- e, ee, se, psk
-	 ->
-	 <-
+  <- s
+  ...
+  -> e, es, s, ss
+  <- e, ee, se, psk
+  ->
+  <-
 *)
 
 

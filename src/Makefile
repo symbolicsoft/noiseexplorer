@@ -1,32 +1,37 @@
 dependencies:
-	@echo -n "[NoiseExplorer] Installing dependencies... "
+	@echo -n "[NoiseExplorer] Installing dependencies..."
 	@npm install -g pegjs
 	@npm install
-	@echo "OK."
+	@echo " OK."
 
 parser:
-	@echo -n "[NoiseExplorer] Generating NoiseParser... "
+	@echo -n "[NoiseExplorer] Generating NoiseParser..."
 	@rm -f parser/noiseParser.js
 	@pegjs -o parser/noiseParser.js parser/noiseParser.pegjs
-	@echo "OK."
+	@echo " OK."
 
 models:
-	@echo -n "[NoiseExplorer] Generating models... "
+	@echo -n "[NoiseExplorer] Generating models..."
 	@rm -f parser/noiseParser.js
 	@pegjs -o parser/noiseParser.js parser/noiseParser.pegjs
 	@cd util && bash genModels.sh
-	@echo "OK."
+	@echo " OK."
 
 implementations:
-	@echo -n "[NoiseExplorer] Generating implementations... "
+	@echo -n "[NoiseExplorer] Generating implementations..."
 	@rm -f parser/noiseParser.js
 	@pegjs -o parser/noiseParser.js parser/noiseParser.pegjs
 	@cd util && bash genImplementations.sh
-	@echo "OK."
+	@echo " OK."
+
+tests:
+	@echo -n "[NoiseExplorer] Generating tests..."
+	@cd util && bash genTests.sh
+	@echo " OK."
 
 clean:
 	@echo -n "[NoiseExplorer] Cleaning up... "
 	@rm -f parser/noiseParser.js
-	@echo "OK."
+	@echo " OK."
 
 .PHONY: dependencies parser models clean

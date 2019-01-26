@@ -475,12 +475,12 @@ query c:principal, m:bitstring, sid_a:sessionid, sid_b:sessionid, s:stage, b:bit
 
 (*
 KXpsk2:
-     -> s
-     ...
-     -> e
-     <- e, ee, se, s, es, psk
-	 ->
-	 <-
+  -> s
+  ...
+  -> e
+  <- e, ee, se, s, es, psk
+  ->
+  <-
 *)
 
 

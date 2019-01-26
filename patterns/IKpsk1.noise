@@ -1,7 +1,7 @@
 IKpsk1:
-     <- s
-     ...
-     -> e, es, s, ss, psk
-     <- e, ee, se
-	 ->
-	 <-
+  <- s
+  ...
+  -> e, es, s, ss, psk
+  <- e, ee, se
+  ->
+  <-

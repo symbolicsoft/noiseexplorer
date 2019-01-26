@@ -509,13 +509,13 @@ query c:principal, m:bitstring, sid_a:sessionid, sid_b:sessionid, s:stage, b:bit
 
 (*
 K1N:
-	-> s
-	...
-	-> e
-	<- e, ee
-	-> se
-	<-
-	->
+  -> s
+  ...
+  -> e
+  <- e, ee
+  -> se
+  <-
+  ->
 *)
 
 

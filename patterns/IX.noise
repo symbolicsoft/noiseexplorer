@@ -1,5 +1,5 @@
 IX:
-	-> e, s
-	<- e, ee, se, s, es
-	->
-	<-
+  -> e, s
+  <- e, ee, se, s, es
+  ->
+  <-

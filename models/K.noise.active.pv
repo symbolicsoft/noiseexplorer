@@ -336,10 +336,10 @@ query c:principal, m:bitstring, sid_a:sessionid, sid_b:sessionid, s:stage, b:bit
 
 (*
 K:
-	-> s
-	<- s
-	...
-	-> e, es, ss
+  -> s
+  <- s
+  ...
+  -> e, es, ss
 *)
 
 

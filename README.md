@@ -50,4 +50,4 @@ To quickly translate all Noise handshake patterns in the `patterns` folder to Pr
 To quickly translate all Noise handshake patterns in the `patterns` folder to Go implementations, simply run `make implementations` after completing the steps outlined in the Preparation section of this document. The models will be available in the `implementations` folder.
 
 ### Author and License
-Authored by [Nadim Kobeissi](https://nadim.computer) and released under the GNU General Public License, version 3.
+Authored by [Nadim Kobeissi](https://nadim.computer) and [Georgio Nicholas](https://georgio.xyz). Released under the GNU General Public License, version 3.

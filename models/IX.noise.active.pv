@@ -475,10 +475,10 @@ query c:principal, m:bitstring, sid_a:sessionid, sid_b:sessionid, s:stage, b:bit
 
 (*
 IX:
-	-> e, s
-	<- e, ee, se, s, es
-	->
-	<-
+  -> e, s
+  <- e, ee, se, s, es
+  ->
+  <-
 *)
 
 

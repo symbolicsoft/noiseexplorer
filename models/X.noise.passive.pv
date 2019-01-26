@@ -338,9 +338,9 @@ query c:principal, m:bitstring, sid_a:sessionid, sid_b:sessionid, s:stage, b:bit
 
 (*
 X:
-	<- s
-	...
-	-> e, es, s, ss
+  <- s
+  ...
+  -> e, es, s, ss
 *)
 
 

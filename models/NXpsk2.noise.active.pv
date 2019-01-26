@@ -471,10 +471,10 @@ query c:principal, m:bitstring, sid_a:sessionid, sid_b:sessionid, s:stage, b:bit
 
 (*
 NXpsk2:
-   -> e
-   <- e, ee, s, es, psk
-   ->
-   <-
+  -> e
+  <- e, ee, s, es, psk
+  ->
+  <-
 *)
 
 

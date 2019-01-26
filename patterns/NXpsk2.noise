@@ -1,5 +1,5 @@
 NXpsk2:
-   -> e
-   <- e, ee, s, es, psk
-   ->
-   <-
+  -> e
+  <- e, ee, s, es, psk
+  ->
+  <-

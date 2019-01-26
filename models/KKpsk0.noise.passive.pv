@@ -475,13 +475,13 @@ query c:principal, m:bitstring, sid_a:sessionid, sid_b:sessionid, s:stage, b:bit
 
 (*
 KKpsk0:
-    -> s
-    <- s
-    ...
-    -> psk, e, es, ss
-    <- e, ee, se
-	->
-	<-
+  -> s
+  <- s
+  ...
+  -> psk, e, es, ss
+  <- e, ee, se
+  ->
+  <-
 *)
 
 

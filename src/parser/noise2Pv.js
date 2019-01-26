@@ -240,8 +240,9 @@ const writeMessageFuns = (pattern) => {
 	pattern.messages.forEach((message, i) => {
 		let hasPsk = messagesPsk(pattern) >= 0;
 		let initiator = (message.dir === 'send');
+		let isFinal = (i === finalKex);
 		writeFuns.push(
-			writeMessageFun(message, hasPsk, initiator, (i === finalKex), util.abc[i])
+			writeMessageFun(message, hasPsk, initiator, isFinal, util.abc[i])
 		);
 	});
 	return writeFuns;
@@ -313,8 +314,9 @@ const readMessageFuns = (pattern) => {
 	pattern.messages.forEach((message, i) => {
 		let hasPsk = messagesPsk(pattern) >= 0;
 		let initiator = (message.dir === 'recv');
+		let isFinal = (i === finalKex);
 		readFuns.push(
-			readMessageFun(message, hasPsk, initiator, (i === finalKex), util.abc[i])
+			readMessageFun(message, hasPsk, initiator, isFinal, util.abc[i])
 		);
 	});
 	return readFuns;
@@ -459,9 +461,10 @@ const initiatorFun = (pattern) => {
 		let msgDirSend = (message.dir === 'send');
 		let abc = util.abc[i];
 		let abcn = util.abc[i + 1];
+		let isFinal = (i === finalKex);
 		let nextMessage = pattern.messages[i + 1]?
 			(pattern.messages[i + 1].tokens.length? ' | (' : ' | !(') : ' | (';
-		let splitCipherState = (i === finalKex)?
+		let splitCipherState = isFinal?
 			`, cs1:cipherstate, cs2:cipherstate` : ``;
 		let statePack = (i <= finalKex)? `get statestore(=me, =them, =sid, statepack_${abc}(hs)) in` : [
 			`get statestore(=me, =them, =sid, statepack_${abc}(hs, cs1, cs2)) in`,
@@ -469,7 +472,7 @@ const initiatorFun = (pattern) => {
 		].join('\n\t\t');
 		let statePackNext = (i < finalKex)?
 			`statepack_${abcn}(hs)` :
-				`statepack_${abcn}(hs, ${(i === finalKex)? 'cs1, cs2' :
+				`statepack_${abcn}(hs, ${isFinal? 'cs1, cs2' :
 					(msgDirSend? 'handshakestategetcs(hs), cs2' : 'cs1, handshakestategetcs(hs)')})`;
 		let stateStore = (i < (pattern.messages.length - 1))?
 			`insert statestore(me, them, sid, ${statePackNext});`
@@ -564,9 +567,10 @@ const responderFun = (pattern) => {
 		let msgDirSend = (message.dir === 'send');
 		let abc = util.abc[i];
 		let abcn = util.abc[i + 1];
+		let isFinal = (i === finalKex);
 		let nextMessage = pattern.messages[i + 1]?
 			(pattern.messages[i + 1].tokens.length? ' | (' : ' | !(') : ' | (';
-		let splitCipherState = (i === finalKex)?
+		let splitCipherState = isFinal?
 			`, cs1:cipherstate, cs2:cipherstate` : ``;
 		let statePack = (i <= finalKex)? `get statestore(=me, =them, =sid, statepack_${abc}(hs)) in` : [
 			`get statestore(=me, =them, =sid, statepack_${abc}(hs, cs1, cs2)) in`,
@@ -574,7 +578,7 @@ const responderFun = (pattern) => {
 		].join('\n\t\t');
 		let statePackNext = (i < finalKex)?
 			`statepack_${abcn}(hs)` :
-				`statepack_${abcn}(hs, ${(i === finalKex)? 'cs1, cs2' :
+				`statepack_${abcn}(hs, ${isFinal? 'cs1, cs2' :
 					(msgDirSend? 'handshakestategetcs(hs), cs2' : 'cs1, handshakestategetcs(hs)')})`;
 		let stateStore = (i < (pattern.messages.length - 1))?
 			`insert statestore(me, them, sid, ${statePackNext});`

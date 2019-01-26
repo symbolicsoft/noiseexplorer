@@ -1,6 +1,6 @@
 XNpsk3:
-   -> e
-   <- e, ee
-   -> s, se, psk
-   <-
-   ->
+  -> e
+  <- e, ee
+  -> s, se, psk
+  <-
+  ->

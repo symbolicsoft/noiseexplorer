@@ -469,12 +469,12 @@ query c:principal, m:bitstring, sid_a:sessionid, sid_b:sessionid, s:stage, b:bit
 
 (*
 KNpsk0:
-    -> s
-    ...
-    -> psk, e
-    <- e, ee, se
-	->
-	<-
+  -> s
+  ...
+  -> psk, e
+  <- e, ee, se
+  ->
+  <-
 *)
 
 

@@ -469,10 +469,10 @@ query c:principal, m:bitstring, sid_a:sessionid, sid_b:sessionid, s:stage, b:bit
 
 (*
 IN:
-	-> e, s
-	<- e, ee, se
-	->
-	<-
+  -> e, s
+  <- e, ee, se
+  ->
+  <-
 *)
 
 

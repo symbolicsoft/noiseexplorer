@@ -1,5 +1,5 @@
 INpsk1:
-     -> e, s, psk
-     <- e, ee, se
-	 ->
-	 <-
+  -> e, s, psk
+  <- e, ee, se
+  ->
+  <-

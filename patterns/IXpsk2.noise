@@ -1,5 +1,5 @@
 IXpsk2:
-     -> e, s
-     <- e, ee, se, s, es, psk
-	 ->
-	 <-
+  -> e, s
+  <- e, ee, se, s, es, psk
+  ->
+  <-

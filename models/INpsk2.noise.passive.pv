@@ -471,10 +471,10 @@ query c:principal, m:bitstring, sid_a:sessionid, sid_b:sessionid, s:stage, b:bit
 
 (*
 INpsk2:
-     -> e, s
-     <- e, ee, se, psk
-	 ->
-	 <-
+  -> e, s
+  <- e, ee, se, psk
+  ->
+  <-
 *)
 
 

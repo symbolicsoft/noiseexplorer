@@ -511,11 +511,11 @@ query c:principal, m:bitstring, sid_a:sessionid, sid_b:sessionid, s:stage, b:bit
 
 (*
 NX1:
-	-> e
-	<- e, ee, s
-	-> es
-	<-
-	->
+  -> e
+  <- e, ee, s
+  -> es
+  <-
+  ->
 *)
 
 

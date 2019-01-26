@@ -36,6 +36,7 @@ type handshakestate struct {
 
 type noisesession struct {
 	hs  handshakestate
+	h   [32]byte
 	cs1 cipherstate
 	cs2 cipherstate
 	mc  uint64

@@ -515,13 +515,13 @@ query c:principal, m:bitstring, sid_a:sessionid, sid_b:sessionid, s:stage, b:bit
 
 (*
 XK:
-	<- s
-	...
-	-> e, es
-	<- e, ee
-	-> s, se
-	<-
-	->
+  <- s
+  ...
+  -> e, es
+  <- e, ee
+  -> s, se
+  <-
+  ->
 *)
 
 

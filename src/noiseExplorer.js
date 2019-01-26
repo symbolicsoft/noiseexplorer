@@ -4,6 +4,7 @@ const NOISEPARSER = require('./parser/noiseParser.js');
 const NOISE2PV = require('./parser/noise2Pv.js');
 const NOISE2GO = require('./parser/noise2Go.js');
 const NOISEREADER = require('./parser/noiseReader.js');
+const NOISE2GOTESTGEN = require('./testgen/noise2GoTestGen.js')
 
 const UTIL = {
 	abc: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
@@ -17,6 +18,7 @@ const HELPTEXT = [
 	'--generate=(json|proverif|go): Specify output format.',
 	'--pattern=[file]: Specify input pattern file (required).',
 	'--attacker=(active|passive): Specify ProVerif attacker type (default: active).',
+	'--testgen: Embed test vectors into the generated implementation.',
 	'',
 	'Rendering:',
 	'--render=(handshake|message): Render results from ProVerif output files into HTML.',
@@ -45,7 +47,13 @@ if (
 		!ARGV.hasOwnProperty('pattern') ||
 		ARGV.hasOwnProperty('activeResults') ||
 		ARGV.hasOwnProperty('passiveResults') ||
-		ARGV.hasOwnProperty('activeModel')
+		ARGV.hasOwnProperty('activeModel') ||
+		((ARGV.generate === 'go') &&
+			ARGV.hasOwnProperty('attacker')
+		) ||
+		((ARGV.generate != 'go') &&
+			ARGV.hasOwnProperty('tests')
+		)
 	)) ||
 	(ARGV.hasOwnProperty('render') && (
 		ARGV.hasOwnProperty('generate') ||
@@ -145,6 +153,7 @@ const GORENDER = (pattern, parsedGo) => {
 	go[8] = go[8].replace('/* $NOISE2GO_B$ */', parsedGo.b);
 	go[8] = go[8].replace('/* $NOISE2GO_K$ */', parsedGo.k);
 	go[8] = go[8].replace('/* $NOISE2GO_P$ */', parsedGo.p);
+
 	return go.join('\n');
 };
 
@@ -197,7 +206,11 @@ if (
 	let json = NOISEPARSER.parse(pattern);
 	let parsedGo = NOISE2GO.parse(json);
 	let output = GORENDER(pattern, parsedGo);
-	console.log(output);
+	if (ARGV.hasOwnProperty('testgen')) {
+		console.log(NOISE2GOTESTGEN.generate(output));
+	} else {
+		console.log(output);
+	}
 	process.exit();
 }
 
@@ -280,7 +293,7 @@ if (ARGV.hasOwnProperty('web')) {
 	const HTTP = require('http');
 	const PATH = require('path');
 	const URL = require('url');
-	const webInterface = HTTP.createServer((req, res) => {
+	HTTP.createServer((req, res) => {
 		try {
 			let fsPath = PATH.join(PATH.join(__dirname, 'html'), URL.parse(req.url).pathname);
 			if (PATH.extname(fsPath).length === 0) {
@@ -295,10 +308,9 @@ if (ARGV.hasOwnProperty('web')) {
 				res.writeHead(404);
 				res.end();
 			});
-		} catch(e) {
+		} catch (e) {
 			res.writeHead(500);
 			res.end();
 		}
 	}).listen(port);
 }
-

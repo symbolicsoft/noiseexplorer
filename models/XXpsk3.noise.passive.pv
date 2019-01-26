@@ -519,11 +519,11 @@ query c:principal, m:bitstring, sid_a:sessionid, sid_b:sessionid, s:stage, b:bit
 
 (*
 XXpsk3:
-   -> e
-   <- e, ee, s, es
-   -> s, se, psk
-   <-
-   ->
+  -> e
+  <- e, ee, s, es
+  -> s, se, psk
+  <-
+  ->
 *)
 
 
