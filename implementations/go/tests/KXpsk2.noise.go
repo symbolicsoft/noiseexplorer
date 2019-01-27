@@ -475,23 +475,29 @@ func main() {
 	initiatorSession := InitSession(true, prologue, initStatic, emptyKey, psk)
 	responderSession := InitSession(false, prologue, respStatic, initStatic.pk, psk)
 	payloadA, _ := hex.DecodeString("4c756477696720766f6e204d69736573")
-	payloadB, _ := hex.DecodeString("4d757272617920526f746862617264")
-	payloadC, _ := hex.DecodeString("462e20412e20486179656b")
-	payloadD, _ := hex.DecodeString("4361726c204d656e676572")
-	payloadE, _ := hex.DecodeString("4a65616e2d426170746973746520536179")
-	payloadF, _ := hex.DecodeString("457567656e2042f6686d20766f6e2042617765726b")
 	initiatorSession, messageA := SendMessage(initiatorSession, payloadA)
 	responderSession, _, validA := RecvMessage(responderSession, messageA)
+	tA := "ca35def5ae56cec33dc2036731ab14896bc4c75dbb07a61f879f8e3afa4c7944e57f4cade9b799f5cb6f5572ef0015c86978d0987c6b70e507846a2294e0a599"
+	payloadB, _ := hex.DecodeString("4d757272617920526f746862617264")
 	responderSession, messageB := SendMessage(responderSession, payloadB)
 	initiatorSession, _, validB := RecvMessage(initiatorSession, messageB)
+	tB := "95ebc60d2b1fa672c1f46a8aa265ef51bfe38e7ccb39ec5be34069f144808843a86bff5db480c3f3c8b0b35a0d17ef3c0db131a24758fbab2783bb0519fcad9aaae34ac919a51e8eead1152372d27225521d41e288e751c914cd590cd86572f457350e80acada2ab0f430e999b5df0"
+	payloadC, _ := hex.DecodeString("462e20412e20486179656b")
 	initiatorSession, messageC := SendMessage(initiatorSession, payloadC)
 	responderSession, _, validC := RecvMessage(responderSession, messageC)
+	tC := "e28b96e12073b069fc5d3bfd2c799a4e362c0785ab94cff079f104"
+	payloadD, _ := hex.DecodeString("4361726c204d656e676572")
 	responderSession, messageD := SendMessage(responderSession, payloadD)
 	initiatorSession, _, validD := RecvMessage(initiatorSession, messageD)
+	tD := "09fc0d3f0309bb3c63b680ebc87b24140c425f6e93411e034e58cc"
+	payloadE, _ := hex.DecodeString("4a65616e2d426170746973746520536179")
 	initiatorSession, messageE := SendMessage(initiatorSession, payloadE)
 	responderSession, _, validE := RecvMessage(responderSession, messageE)
+	tE := "3aacd9ed59695e2f2ab3e2a8dc64c0f4a9772541feac7988d9f0fca3ea5d14e98f"
+	payloadF, _ := hex.DecodeString("457567656e2042f6686d20766f6e2042617765726b")
 	responderSession, messageF := SendMessage(responderSession, payloadF)
 	initiatorSession, _, validF := RecvMessage(initiatorSession, messageF)
+	tF := "e859f4fe72cc72cdeeca82ad3821fde4872362d8c3f68301633603a3afb3c349ce10b9d477"
 	if validA && validB && validC && validD && validE && validF {
 		println("Sanity check PASS for KXpsk2_25519_ChaChaPoly_BLAKE2s.")
 	} else {
@@ -503,52 +509,46 @@ func main() {
 	cD := hex.EncodeToString(messageD.ns) + hex.EncodeToString(messageD.ciphertext)
 	cE := hex.EncodeToString(messageE.ns) + hex.EncodeToString(messageE.ciphertext)
 	cF := hex.EncodeToString(messageF.ns) + hex.EncodeToString(messageF.ciphertext)
-	tA := "ca35def5ae56cec33dc2036731ab14896bc4c75dbb07a61f879f8e3afa4c7944e57f4cade9b799f5cb6f5572ef0015c86978d0987c6b70e507846a2294e0a599"
-	tB := "95ebc60d2b1fa672c1f46a8aa265ef51bfe38e7ccb39ec5be34069f144808843a86bff5db480c3f3c8b0b35a0d17ef3c0db131a24758fbab2783bb0519fcad9aaae34ac919a51e8eead1152372d27225521d41e288e751c914cd590cd86572f457350e80acada2ab0f430e999b5df0"
-	tC := "e28b96e12073b069fc5d3bfd2c799a4e362c0785ab94cff079f104"
-	tD := "09fc0d3f0309bb3c63b680ebc87b24140c425f6e93411e034e58cc"
-	tE := "3aacd9ed59695e2f2ab3e2a8dc64c0f4a9772541feac7988d9f0fca3ea5d14e98f"
-	tF := "e859f4fe72cc72cdeeca82ad3821fde4872362d8c3f68301633603a3afb3c349ce10b9d477"
 	if tA == cA {
-		println("Test 1: PASS")
+		println("Test A: PASS")
 	} else {
-		println("Test 1: FAIL")
-		println("Expected:	", tA) 
+		println("Test A: FAIL")
+		println("Expected:	", tA)
 		println("Actual:		", cA)
 	}
 	if tB == cB {
-		println("Test 2: PASS")
+		println("Test B: PASS")
 	} else {
-		println("Test 2: FAIL")
-		println("Expected:	", tB) 
+		println("Test B: FAIL")
+		println("Expected:	", tB)
 		println("Actual:		", cB)
 	}
 	if tC == cC {
-		println("Test 3: PASS")
+		println("Test C: PASS")
 	} else {
-		println("Test 3: FAIL")
-		println("Expected:	", tC) 
+		println("Test C: FAIL")
+		println("Expected:	", tC)
 		println("Actual:		", cC)
 	}
 	if tD == cD {
-		println("Test 4: PASS")
+		println("Test D: PASS")
 	} else {
-		println("Test 4: FAIL")
-		println("Expected:	", tD) 
+		println("Test D: FAIL")
+		println("Expected:	", tD)
 		println("Actual:		", cD)
 	}
 	if tE == cE {
-		println("Test 5: PASS")
+		println("Test E: PASS")
 	} else {
-		println("Test 5: FAIL")
-		println("Expected:	", tE) 
+		println("Test E: FAIL")
+		println("Expected:	", tE)
 		println("Actual:		", cE)
 	}
 	if tF == cF {
-		println("Test 6: PASS")
+		println("Test F: PASS")
 	} else {
-		println("Test 6: FAIL")
-		println("Expected:	", tF) 
+		println("Test F: FAIL")
+		println("Expected:	", tF)
 		println("Actual:		", cF)
 	}
 }
