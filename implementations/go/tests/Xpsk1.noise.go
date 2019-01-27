@@ -90,7 +90,7 @@ var minNonce = uint64(0)
  * UTILITY FUNCTIONS                                                *
  * ---------------------------------------------------------------- */
 
-func getPublicKey(kp keypair) [32]byte {
+func getPublicKey(kp *keypair) [32]byte {
 	return kp.pk
 }
 
@@ -188,33 +188,35 @@ func initializeKey(k [32]byte) cipherstate {
 	return cipherstate{k, minNonce}
 }
 
-func hasKey(cs cipherstate) bool {
+func hasKey(cs *cipherstate) bool {
 	return !isEmptyKey(cs.k)
 }
 
-func setNonce(cs cipherstate, newNonce uint64) cipherstate {
-	return cipherstate{cs.k, newNonce}
+func setNonce(cs *cipherstate, newNonce uint64) *cipherstate {
+	cs.n = newNonce
+	return cs
 }
 
-func encryptWithAd(cs cipherstate, ad []byte, plaintext []byte) (cipherstate, []byte) {
+func encryptWithAd(cs *cipherstate, ad []byte, plaintext []byte) (*cipherstate, []byte) {
 	e := encrypt(cs.k, cs.n, ad, plaintext)
-	csi := setNonce(cs, incrementNonce(cs.n))
-	return csi, e
+	cs = setNonce(cs, incrementNonce(cs.n))
+	return cs, e
 }
 
-func decryptWithAd(cs cipherstate, ad []byte, ciphertext []byte) (cipherstate, []byte, bool) {
+func decryptWithAd(cs *cipherstate, ad []byte, ciphertext []byte) (*cipherstate, []byte, bool) {
 	valid, ad, plaintext := decrypt(cs.k, cs.n, ad, ciphertext)
-	csi := setNonce(cs, incrementNonce(cs.n))
-	return csi, plaintext, valid
+	cs = setNonce(cs, incrementNonce(cs.n))
+	return cs, plaintext, valid
 }
 
-func reKey(cs cipherstate) cipherstate {
+func reKey(cs *cipherstate) *cipherstate {
 	var ki [32]byte
 	e := encrypt(cs.k, math.MaxUint64, []byte{}, emptyKey[:])
 	for i := 0; i < 32; i++ {
 		ki[i] = e[i]
 	}
-	return cipherstate{ki, cs.n}
+	cs.k = ki
+	return cs
 }
 
 /* SymmetricState */
@@ -226,52 +228,55 @@ func initializeSymmetric(protocolName []byte) symmetricstate {
 	return symmetricstate{cs, ck, h}
 }
 
-func mixKey(ss symmetricstate, ikm [32]byte) symmetricstate {
+func mixKey(ss *symmetricstate, ikm [32]byte) *symmetricstate {
 	ck, tempK, _ := getHkdf(ss.ck, ikm[:])
-	csi := initializeKey(tempK)
-	return symmetricstate{csi, ck, ss.h}
+	ss.cs = initializeKey(tempK)
+	ss.ck = ck
+	return ss
 }
 
-func mixHash(ss symmetricstate, data []byte) symmetricstate {
-	return symmetricstate{ss.cs, ss.ck, getHash(ss.h[:], data)}
+func mixHash(ss *symmetricstate, data []byte) *symmetricstate {
+	ss.h = getHash(ss.h[:], data)
+	return ss
 }
 
-func mixKeyAndHash(ss symmetricstate, ikm [32]byte) symmetricstate {
-	ck, tempH, tempK := getHkdf(ss.ck, ikm[:])
-	ssi := mixHash(symmetricstate{ss.cs, ck, ss.h}, tempH[:])
-	return symmetricstate{initializeKey(tempK), ck, ssi.h}
+func mixKeyAndHash(ss *symmetricstate, ikm [32]byte) *symmetricstate {
+	var tempH [32]byte
+	var tempK [32]byte
+	ss.ck, tempH, tempK = getHkdf(ss.ck, ikm[:])
+	ss = mixHash(ss, tempH[:])
+	ss.cs = initializeKey(tempK)
+	return ss
 }
 
-func getHandshakeHash(ss symmetricstate) [32]byte {
+func getHandshakeHash(ss *symmetricstate) [32]byte {
 	return ss.h
 }
 
-func encryptAndHash(ss symmetricstate, plaintext []byte) (symmetricstate, []byte) {
-	var csi cipherstate
+func encryptAndHash(ss *symmetricstate, plaintext []byte) (*symmetricstate, []byte) {
 	var ciphertext []byte
-	if hasKey(ss.cs) {
-		csi, ciphertext = encryptWithAd(ss.cs, ss.h[:], plaintext)
+	if hasKey(&ss.cs) {
+		_, ciphertext = encryptWithAd(&ss.cs, ss.h[:], plaintext)
 	} else {
-		csi, ciphertext = ss.cs, plaintext
+		ciphertext = plaintext
 	}
-	ssi := mixHash(symmetricstate{csi, ss.ck, ss.h}, ciphertext)
-	return ssi, ciphertext
+	ss = mixHash(ss, ciphertext)
+	return ss, ciphertext
 }
 
-func decryptAndHash(ss symmetricstate, ciphertext []byte) (symmetricstate, []byte, bool) {
-	var csi cipherstate
+func decryptAndHash(ss *symmetricstate, ciphertext []byte) (*symmetricstate, []byte, bool) {
 	var plaintext []byte
 	var valid bool
-	if hasKey(ss.cs) {
-		csi, plaintext, valid = decryptWithAd(ss.cs, ss.h[:], ciphertext)
+	if hasKey(&ss.cs) {
+		_, plaintext, valid = decryptWithAd(&ss.cs, ss.h[:], ciphertext)
 	} else {
-		csi, plaintext, valid = ss.cs, ciphertext, true
+		plaintext, valid = ciphertext, true
 	}
-	ssi := mixHash(symmetricstate{csi, ss.ck, ss.h}, ciphertext)
-	return ssi, plaintext, valid
+	ss = mixHash(ss, ciphertext)
+	return ss, plaintext, valid
 }
 
-func split(ss symmetricstate) (cipherstate, cipherstate) {
+func split(ss *symmetricstate) (cipherstate, cipherstate) {
 	tempK1, tempK2, _ := getHkdf(ss.ck, []byte{})
 	cs1 := initializeKey(tempK1)
 	cs2 := initializeKey(tempK2)
@@ -285,8 +290,9 @@ func initializeInitiator(prologue []byte, s keypair, rs [32]byte, psk [32]byte) 
 	var e keypair
 	var re [32]byte
 	name := []byte("Noise_Xpsk1_25519_ChaChaPoly_BLAKE2s")
-	ss = mixHash(initializeSymmetric(name), prologue)
-	ss = mixHash(ss, rs[:])
+	ss = initializeSymmetric(name)
+	mixHash(&ss, prologue)
+	mixHash(&ss, rs[:])
 	return handshakestate{ss, s, e, rs, re, psk, true}
 }
 
@@ -295,64 +301,59 @@ func initializeResponder(prologue []byte, s keypair, rs [32]byte, psk [32]byte) 
 	var e keypair
 	var re [32]byte
 	name := []byte("Noise_Xpsk1_25519_ChaChaPoly_BLAKE2s")
-	ss = mixHash(initializeSymmetric(name), prologue)
-	ss = mixHash(ss, s.pk[:])
+	ss = initializeSymmetric(name)
+	mixHash(&ss, prologue)
+	mixHash(&ss, s.pk[:])
 	return handshakestate{ss, s, e, rs, re, psk, false}
 }
 
-func writeMessageA(hs handshakestate, payload []byte) ([32]byte, messagebuffer, cipherstate, cipherstate) {
-	ss, s, e, rs, re, psk, initiator := hs.ss, hs.s, hs.e, hs.rs, hs.re, hs.psk, hs.i
+func writeMessageA(hs *handshakestate, payload []byte) ([32]byte, messagebuffer, cipherstate, cipherstate) {
 	ne, ns, ciphertext := emptyKey, []byte{}, []byte{}
 	esk, _ := hex.DecodeString("893e28b9dc6ca8d611ab664754b8ceb7bac5117349a4439a6b0569da977c464a")
-	copy(e.sk[:], esk[:])
-	e.pk = generatePublicKey(e.sk)
-	ne = e.pk
-	ss = mixHash(ss, ne[:])
-	ss = mixKey(ss, e.pk)
-	ss = mixKey(ss, dh(e.sk, rs))
-	ss, ns = encryptAndHash(ss, s.pk[:])
-	ss = mixKey(ss, dh(s.sk, rs))
-	ss = mixKeyAndHash(ss, psk)
-	ss, ciphertext = encryptAndHash(ss, payload)
-	hs = handshakestate{ss, s, e, rs, re, psk, initiator}
+	copy(hs.e.sk[:], esk[:])
+	hs.e.pk = generatePublicKey(hs.e.sk)
+	ne = hs.e.pk
+	mixHash(&hs.ss, ne[:])
+	mixKey(&hs.ss, hs.e.pk)
+	mixKey(&hs.ss, dh(hs.e.sk, hs.rs))
+	_, ns = encryptAndHash(&hs.ss, hs.s.pk[:])
+	mixKey(&hs.ss, dh(hs.s.sk, hs.rs))
+	mixKeyAndHash(&hs.ss, hs.psk)
+	_, ciphertext = encryptAndHash(&hs.ss, payload)
 	messageBuffer := messagebuffer{ne, ns, ciphertext}
-	cs1, cs2 := split(ss)
+	cs1, cs2 := split(&hs.ss)
 	return hs.ss.h, messageBuffer, cs1, cs2
 }
 
-func writeMessageRegular(cs cipherstate, payload []byte) (cipherstate, messagebuffer) {
-	/* No handshakestate */
+func writeMessageRegular(cs *cipherstate, payload []byte) (*cipherstate, messagebuffer) {
 	ne, ns, ciphertext := emptyKey, []byte{}, []byte{}
 	cs, ciphertext = encryptWithAd(cs, []byte{}, payload)
 	messageBuffer := messagebuffer{ne, ns, ciphertext}
 	return cs, messageBuffer
 }
 
-func readMessageA(hs handshakestate, message messagebuffer) ([32]byte, []byte, bool, cipherstate, cipherstate) {
-	ss, s, e, rs, re, psk, initiator := hs.ss, hs.s, hs.e, hs.rs, hs.re, hs.psk, hs.i
+func readMessageA(hs *handshakestate, message *messagebuffer) ([32]byte, []byte, bool, cipherstate, cipherstate) {
 	valid1 := true
-	re = message.ne
-	ss = mixHash(ss, re[:])
-	ss = mixKey(ss, re)
-	ss = mixKey(ss, dh(s.sk, re))
-	ss, ns, valid1 := decryptAndHash(ss, message.ns)
+	hs.re = message.ne
+	mixHash(&hs.ss, hs.re[:])
+	mixKey(&hs.ss, hs.re)
+	mixKey(&hs.ss, dh(hs.s.sk, hs.re))
+	_, ns, valid1 := decryptAndHash(&hs.ss, message.ns)
 	if !valid1 || len(ns) != 32 {
 		return emptyKey, []byte{}, false, hs.ss.cs, hs.ss.cs
 	}
-	for i := 0; i < 32; i++ { rs[i] = ns[i] }
-	ss = mixKey(ss, dh(s.sk, rs))
-	ss = mixKeyAndHash(ss, psk)
-	ss, plaintext, valid2 := decryptAndHash(ss, message.ciphertext)
+	for i := 0; i < 32; i++ { hs.rs[i] = ns[i] }
+	mixKey(&hs.ss, dh(hs.s.sk, hs.rs))
+	mixKeyAndHash(&hs.ss, hs.psk)
+	_, plaintext, valid2 := decryptAndHash(&hs.ss, message.ciphertext)
 	if !valid2 {
 		return emptyKey, []byte{}, false, hs.ss.cs, hs.ss.cs
 	}
-	hs = handshakestate{ss, s, e, rs, re, psk, initiator}
-	cs1, cs2 := split(ss)
+	cs1, cs2 := split(&hs.ss)
 	return hs.ss.h, plaintext, (valid1 && valid2), cs1, cs2
 }
 
-func readMessageRegular(cs cipherstate, message messagebuffer) (cipherstate, []byte, bool) {
-	/* No handshakestate */
+func readMessageRegular(cs *cipherstate, message *messagebuffer) (*cipherstate, []byte, bool) {
 	/* No encrypted keys */
 	csi, plaintext, valid2 := decryptWithAd(cs, []byte{}, message.ciphertext)
 	if !valid2 {
@@ -379,19 +380,19 @@ func InitSession(initiator bool, prologue []byte, s keypair, rs [32]byte, psk [3
 	return session
 }
 
-func SendMessage(session noisesession, message []byte) (noisesession, messagebuffer) {
+func SendMessage(session *noisesession, message []byte) (*noisesession, messagebuffer) {
 	var hs handshakestate
 	var messageBuffer messagebuffer
 	hs = session.hs
 	if session.mc == 0 {
-		session.h, messageBuffer, session.cs1, _ = writeMessageA(hs, message)
+		session.h, messageBuffer, session.cs1, _ = writeMessageA(&hs, message)
 		session.hs = handshakestate{}
 	}
 	if session.mc > 0 {
 		if hs.i {
-			session.cs1, messageBuffer = writeMessageRegular(session.cs1, message)
+			_, messageBuffer = writeMessageRegular(&session.cs1, message)
 		} else {
-			session.cs1, messageBuffer = writeMessageRegular(session.cs1, message)
+			_, messageBuffer = writeMessageRegular(&session.cs1, message)
 		}
 	}
 	session.mc = session.mc + 1
@@ -399,20 +400,20 @@ func SendMessage(session noisesession, message []byte) (noisesession, messagebuf
 	return session, messageBuffer
 }
 
-func RecvMessage(session noisesession, message messagebuffer) (noisesession, []byte, bool) {
+func RecvMessage(session *noisesession, message *messagebuffer) (*noisesession, []byte, bool) {
 	var hs handshakestate
 	var plaintext []byte
 	var valid bool
 	hs = session.hs
 	if session.mc == 0 {
-		session.h, plaintext, valid, session.cs1, _ = readMessageA(hs, message)
+		session.h, plaintext, valid, session.cs1, _ = readMessageA(&hs, message)
 		session.hs = handshakestate{}
 	}
 	if session.mc > 0 {
 		if hs.i {
-			session.cs1, plaintext, valid = readMessageRegular(session.cs1, message)
+			_, plaintext, valid = readMessageRegular(&session.cs1, message)
 		} else {
-			session.cs1, plaintext, valid = readMessageRegular(session.cs1, message)
+			_, plaintext, valid = readMessageRegular(&session.cs1, message)
 		}
 	}
 	session.mc = session.mc + 1
@@ -436,28 +437,28 @@ func main() {
 	initiatorSession := InitSession(true, prologue, initStatic, respStatic.pk, psk)
 	responderSession := InitSession(false, prologue, respStatic, emptyKey, psk)
 	payloadA, _ := hex.DecodeString("4c756477696720766f6e204d69736573")
-	initiatorSession, messageA := SendMessage(initiatorSession, payloadA)
-	responderSession, _, validA := RecvMessage(responderSession, messageA)
+	_, messageA := SendMessage(&initiatorSession, payloadA)
+	_, _, validA := RecvMessage(&responderSession, &messageA)
 	tA := "ca35def5ae56cec33dc2036731ab14896bc4c75dbb07a61f879f8e3afa4c794479be957c06c64483c69607f17a61f440528418499b7f686adfb8091fb03643ac32b5823d51c15e00d9355d5623c817a552a0bb264052946463c288d45d9ede7c6ea227faafbb5f1dd11166d6ad3f7cc5"
 	payloadB, _ := hex.DecodeString("4d757272617920526f746862617264")
-	responderSession, messageB := SendMessage(responderSession, payloadB)
-	initiatorSession, _, validB := RecvMessage(initiatorSession, messageB)
+	_, messageB := SendMessage(&responderSession, payloadB)
+	_, _, validB := RecvMessage(&initiatorSession, &messageB)
 	tB := "cfbc17a5950121da51b421b0f95dbaa4745e70477be8da8871edd89049f998"
 	payloadC, _ := hex.DecodeString("462e20412e20486179656b")
-	initiatorSession, messageC := SendMessage(initiatorSession, payloadC)
-	responderSession, _, validC := RecvMessage(responderSession, messageC)
+	_, messageC := SendMessage(&initiatorSession, payloadC)
+	_, _, validC := RecvMessage(&responderSession, &messageC)
 	tC := "a6a910d1067d991c63e8520bf327fa1f530a74fb47c58b8e3ff2a9"
 	payloadD, _ := hex.DecodeString("4361726c204d656e676572")
-	responderSession, messageD := SendMessage(responderSession, payloadD)
-	initiatorSession, _, validD := RecvMessage(initiatorSession, messageD)
+	_, messageD := SendMessage(&responderSession, payloadD)
+	_, _, validD := RecvMessage(&initiatorSession, &messageD)
 	tD := "b7cf2eb3291ef4b09514aa0f67ffc8b31cb1b2a323631bab0506c8"
 	payloadE, _ := hex.DecodeString("4a65616e2d426170746973746520536179")
-	initiatorSession, messageE := SendMessage(initiatorSession, payloadE)
-	responderSession, _, validE := RecvMessage(responderSession, messageE)
+	_, messageE := SendMessage(&initiatorSession, payloadE)
+	_, _, validE := RecvMessage(&responderSession, &messageE)
 	tE := "70ed51f6d218aa0d44a229ea4a6961d154f92868f832cb2471287e8af49460de90"
 	payloadF, _ := hex.DecodeString("457567656e2042f6686d20766f6e2042617765726b")
-	responderSession, messageF := SendMessage(responderSession, payloadF)
-	initiatorSession, _, validF := RecvMessage(initiatorSession, messageF)
+	_, messageF := SendMessage(&responderSession, payloadF)
+	_, _, validF := RecvMessage(&initiatorSession, &messageF)
 	tF := "2abf8cc72678e7c569817896cfddca8247274a794be86ac4e9b0a754f9332cf8ed784da75a"
 	if validA && validB && validC && validD && validE && validF {
 		println("Sanity check PASS for Xpsk1_25519_ChaChaPoly_BLAKE2s.")
