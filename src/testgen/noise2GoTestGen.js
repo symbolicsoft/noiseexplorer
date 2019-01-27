@@ -1,5 +1,5 @@
 const NOISE2GOTESTGEN = {
-	generate: () => {}
+	generate: () => { }
 };
 
 
@@ -9,6 +9,7 @@ const gen = (
 	respRemoteStaticPk, respStaticSk, respEphemeralPk,
 	psk, messages
 ) => {
+	let abc = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
 	let goTestCode = [];
 	let initInit = `initiatorSession := InitSession(true, prologue, initStatic`;
 	let initResp = `responderSession := InitSession(false, prologue, respStatic`;
@@ -43,46 +44,40 @@ const gen = (
 	goTestCode.push(`copy(respStatic.sk[:], respStaticSk[:])`);
 	goTestCode.push(`respStatic.pk = generatePublicKey(respStatic.sk)`);
 	if (initRemoteStaticPk.length > 0) {
-		initInit = initInit + `, respStatic.pk`;
+		initInit = `${initInit}, respStatic.pk`;
 	} else {
-		initInit = initInit + `, emptyKey`;
+		initInit = `${initInit}, emptyKey`;
 	}
 	if (respRemoteStaticPk.length > 0) {
-		initResp = initResp.concat(`, initStatic.pk`);
+		initResp = `${initResp}, initStatic.pk`;
 	} else {
-		initResp = initResp.concat(`, emptyKey`);
+		initResp = `${initResp}, emptyKey`;
 	}
 	if (psk.length > 0) {
 		goTestCode.push(`var psk [32]byte`);
 		goTestCode.push(`pskTemp, _ := hex.DecodeString("${psk}")`);
 		goTestCode.push(`copy(psk[:], pskTemp[:32])`);
-		initInit = initInit + `, psk)`;
-		initResp = initResp + `, psk)`;
+		initInit = `${initInit}, psk)`;
+		initResp = `${initResp}, psk)`;
 	} else {
-		initInit = initInit + `)`;
-		initResp = initResp + `)`;
+		initInit = `${initInit})`;
+		initResp = `${initResp})`;
 	}
 	goTestCode.push([
 		`${initInit}`,
-		`${initResp}`,
-		`payloadA, _ := hex.DecodeString("${messages[0].payload}")`,
-		`payloadB, _ := hex.DecodeString("${messages[1].payload}")`,
-		`payloadC, _ := hex.DecodeString("${messages[2].payload}")`,
-		`payloadD, _ := hex.DecodeString("${messages[3].payload}")`,
-		`payloadE, _ := hex.DecodeString("${messages[4].payload}")`,
-		`payloadF, _ := hex.DecodeString("${messages[5].payload}")`,
-		`initiatorSession, messageA := SendMessage(initiatorSession, payloadA)`,
-		`responderSession, _, validA := RecvMessage(responderSession, messageA)`,
-		`responderSession, messageB := SendMessage(responderSession, payloadB)`,
-		`initiatorSession, _, validB := RecvMessage(initiatorSession, messageB)`,
-		`initiatorSession, messageC := SendMessage(initiatorSession, payloadC)`,
-		`responderSession, _, validC := RecvMessage(responderSession, messageC)`,
-		`responderSession, messageD := SendMessage(responderSession, payloadD)`,
-		`initiatorSession, _, validD := RecvMessage(initiatorSession, messageD)`,
-		`initiatorSession, messageE := SendMessage(initiatorSession, payloadE)`,
-		`responderSession, _, validE := RecvMessage(responderSession, messageE)`,
-		`responderSession, messageF := SendMessage(responderSession, payloadF)`,
-		`initiatorSession, _, validF := RecvMessage(initiatorSession, messageF)`,
+		`${initResp}`
+	].join('\n\t'));
+	for (let i = 0; i < 6; i++) {
+		let send = (i % 2 === 0) ? 'initiatorSession' : 'responderSession';
+		let recv = (i % 2 === 0) ? 'responderSession' : 'initiatorSession';
+		goTestCode.push([
+			`payload${abc[i]}, _ := hex.DecodeString("${messages[i].payload}")`,
+			`${send}, message${abc[i]} := SendMessage(${send}, payload${abc[i]})`,
+			`${recv}, _, valid${abc[i]} := RecvMessage(${recv}, message${abc[i]})`,
+			`t${abc[i]} := "${messages[i].ciphertext}"`
+		].join('\n\t'));
+	}
+	goTestCode.push([
 		`if validA && validB && validC && validD && validE && validF {`,
 		`\tprintln("Sanity check PASS for ${protocolName}.")`,
 		`} else {`,
@@ -93,20 +88,19 @@ const gen = (
 		`cC := hex.EncodeToString(messageC.ns) + hex.EncodeToString(messageC.ciphertext)`,
 		`cD := hex.EncodeToString(messageD.ns) + hex.EncodeToString(messageD.ciphertext)`,
 		`cE := hex.EncodeToString(messageE.ns) + hex.EncodeToString(messageE.ciphertext)`,
-		`cF := hex.EncodeToString(messageF.ns) + hex.EncodeToString(messageF.ciphertext)`,
-		`tA := "${messages[0].ciphertext}"`,
-		`tB := "${messages[1].ciphertext}"`,
-		`tC := "${messages[2].ciphertext}"`,
-		`tD := "${messages[3].ciphertext}"`,
-		`tE := "${messages[4].ciphertext}"`,
-		`tF := "${messages[5].ciphertext}"`,
-		`if tA == cA {\n\t\tprintln("Test 1: PASS")\n\t} else {\n\t\tprintln("Test 1: FAIL")\n\t\tprintln("Expected:\t", tA) \n\t\tprintln("Actual:\t\t", cA)\n\t}`,
-		`if tB == cB {\n\t\tprintln("Test 2: PASS")\n\t} else {\n\t\tprintln("Test 2: FAIL")\n\t\tprintln("Expected:\t", tB) \n\t\tprintln("Actual:\t\t", cB)\n\t}`,
-		`if tC == cC {\n\t\tprintln("Test 3: PASS")\n\t} else {\n\t\tprintln("Test 3: FAIL")\n\t\tprintln("Expected:\t", tC) \n\t\tprintln("Actual:\t\t", cC)\n\t}`,
-		`if tD == cD {\n\t\tprintln("Test 4: PASS")\n\t} else {\n\t\tprintln("Test 4: FAIL")\n\t\tprintln("Expected:\t", tD) \n\t\tprintln("Actual:\t\t", cD)\n\t}`,
-		`if tE == cE {\n\t\tprintln("Test 5: PASS")\n\t} else {\n\t\tprintln("Test 5: FAIL")\n\t\tprintln("Expected:\t", tE) \n\t\tprintln("Actual:\t\t", cE)\n\t}`,
-		`if tF == cF {\n\t\tprintln("Test 6: PASS")\n\t} else {\n\t\tprintln("Test 6: FAIL")\n\t\tprintln("Expected:\t", tF) \n\t\tprintln("Actual:\t\t", cF)\n\t}`
+		`cF := hex.EncodeToString(messageF.ns) + hex.EncodeToString(messageF.ciphertext)`
 	].join('\n\t'));
+	for (let i = 0; i < 6; i++) {
+		goTestCode.push([
+			`if t${abc[i]} == c${abc[i]} {`,
+			`\tprintln("Test ${abc[i]}: PASS")`,
+			`} else {`,
+			`\tprintln("Test ${abc[i]}: FAIL")`,
+			`\tprintln("Expected:\t", t${abc[i]})`,
+			`\tprintln("Actual:\t\t", c${abc[i]})`,
+			`}`,
+		].join('\n\t'));
+	}
 	goTestCode = `${goTestCode.join('\n\t')}`;
 	return [goTestCode, eph];
 }
