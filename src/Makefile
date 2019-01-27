@@ -34,4 +34,4 @@ clean:
 	@rm -f parser/noiseParser.js
 	@echo " OK."
 
-.PHONY: dependencies parser models clean
+.PHONY: dependencies parser models implementations tests clean

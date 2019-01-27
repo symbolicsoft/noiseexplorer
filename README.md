@@ -48,7 +48,7 @@ Help:
 To quickly translate all Noise handshake patterns in the `patterns` folder to ProVerif models, simply run `make models` after completing the steps outlined in the Preparation section of this document. The models will be available in the `models` folder.
 
 ### Implementation Generation
-To quickly translate all Noise handshake patterns in the `patterns` folder to Go implementations, simply run `make implementations` after completing the steps outlined in the Preparation section of this document. The models will be available in the `implementations` folder.
+To quickly translate all Noise handshake patterns in the `patterns` folder to Go implementations, simply run `make implementations` after completing the steps outlined in the Preparation section of this document. The models will be available in the `implementations` folder. Running `make tests` will also generate test-injected implementations and verify them against test vectors obtained from [Cacophony](https://github.com/centromere/cacophony), a Haskell implementation of the Noise Protocol Framework.
 
 ### Contributors and License
 Authored by [Nadim Kobeissi](https://nadim.computer) and [Georgio Nicholas](https://georgio.xyz). Released under the GNU General Public License, version 3.
