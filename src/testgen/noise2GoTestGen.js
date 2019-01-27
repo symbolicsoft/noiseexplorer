@@ -17,14 +17,14 @@ const gen = (
 	if (initEphemeralPk.length > 0) {
 		eph[0] = `${[
 			`esk, _ := hex.DecodeString("${initEphemeralPk}")`,
-			`copy(e.sk[:], esk[:])`,
-			`e.pk = generatePublicKey(e.sk)`].join("\n\t")}`;
+			`copy(hs.e.sk[:], esk[:])`,
+			`hs.e.pk = generatePublicKey(hs.e.sk)`].join("\n\t")}`;
 	}
 	if (respEphemeralPk.length > 0) {
 		eph[1] = `${[
 			`esk, _ := hex.DecodeString("${respEphemeralPk}")`,
-			`copy(e.sk[:], esk[:])`,
-			`e.pk = generatePublicKey(e.sk)`].join("\n\t")}`;
+			`copy(hs.e.sk[:], esk[:])`,
+			`hs.e.pk = generatePublicKey(hs.e.sk)`].join("\n\t")}`;
 	}
 	goTestCode.push(`\tprologue, _ := hex.DecodeString("${initPrologue}")`);
 	goTestCode.push(`var initStatic keypair`);
@@ -72,8 +72,8 @@ const gen = (
 		let recv = (i % 2 === 0) ? 'responderSession' : 'initiatorSession';
 		goTestCode.push([
 			`payload${abc[i]}, _ := hex.DecodeString("${messages[i].payload}")`,
-			`${send}, message${abc[i]} := SendMessage(${send}, payload${abc[i]})`,
-			`${recv}, _, valid${abc[i]} := RecvMessage(${recv}, message${abc[i]})`,
+			`_, message${abc[i]} := SendMessage(&${send}, payload${abc[i]})`,
+			`_, _, valid${abc[i]} := RecvMessage(&${recv}, &message${abc[i]})`,
 			`t${abc[i]} := "${messages[i].ciphertext}"`
 		].join('\n\t'));
 	}
@@ -162,9 +162,9 @@ const generate = (code) => {
 		) {
 			let tempB = assign(testVectors[i]);
 			code = code.replace(`\"encoding/binary\"`, `\"encoding/binary\"\n\t\"encoding/hex\"`);
-			code = code.replace(`e = generateKeypair()`, tempB[1][0])
+			code = code.replace(`hs.e = generateKeypair()`, tempB[1][0])
 			if (tempB[1][1] != "") {
-				code = code.replace(`e = generateKeypair()`, tempB[1][1])
+				code = code.replace(`hs.e = generateKeypair()`, tempB[1][1])
 			}
 			return code.replace(`func main() {}`, `func main() {\n${tempB[0]}\n}`);
 		}

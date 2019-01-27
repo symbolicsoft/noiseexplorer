@@ -2,7 +2,7 @@
  * UTILITY FUNCTIONS                                                *
  * ---------------------------------------------------------------- */
 
-func getPublicKey(kp keypair) [32]byte {
+func getPublicKey(kp *keypair) [32]byte {
 	return kp.pk
 }
 

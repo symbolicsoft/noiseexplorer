@@ -7,33 +7,35 @@ func initializeKey(k [32]byte) cipherstate {
 	return cipherstate{k, minNonce}
 }
 
-func hasKey(cs cipherstate) bool {
+func hasKey(cs *cipherstate) bool {
 	return !isEmptyKey(cs.k)
 }
 
-func setNonce(cs cipherstate, newNonce uint64) cipherstate {
-	return cipherstate{cs.k, newNonce}
+func setNonce(cs *cipherstate, newNonce uint64) *cipherstate {
+	cs.n = newNonce
+	return cs
 }
 
-func encryptWithAd(cs cipherstate, ad []byte, plaintext []byte) (cipherstate, []byte) {
+func encryptWithAd(cs *cipherstate, ad []byte, plaintext []byte) (*cipherstate, []byte) {
 	e := encrypt(cs.k, cs.n, ad, plaintext)
-	csi := setNonce(cs, incrementNonce(cs.n))
-	return csi, e
+	cs = setNonce(cs, incrementNonce(cs.n))
+	return cs, e
 }
 
-func decryptWithAd(cs cipherstate, ad []byte, ciphertext []byte) (cipherstate, []byte, bool) {
+func decryptWithAd(cs *cipherstate, ad []byte, ciphertext []byte) (*cipherstate, []byte, bool) {
 	valid, ad, plaintext := decrypt(cs.k, cs.n, ad, ciphertext)
-	csi := setNonce(cs, incrementNonce(cs.n))
-	return csi, plaintext, valid
+	cs = setNonce(cs, incrementNonce(cs.n))
+	return cs, plaintext, valid
 }
 
-func reKey(cs cipherstate) cipherstate {
+func reKey(cs *cipherstate) *cipherstate {
 	var ki [32]byte
 	e := encrypt(cs.k, math.MaxUint64, []byte{}, emptyKey[:])
 	for i := 0; i < 32; i++ {
 		ki[i] = e[i]
 	}
-	return cipherstate{ki, cs.n}
+	cs.k = ki
+	return cs
 }
 
 /* SymmetricState */
@@ -45,52 +47,55 @@ func initializeSymmetric(protocolName []byte) symmetricstate {
 	return symmetricstate{cs, ck, h}
 }
 
-func mixKey(ss symmetricstate, ikm [32]byte) symmetricstate {
+func mixKey(ss *symmetricstate, ikm [32]byte) *symmetricstate {
 	ck, tempK, _ := getHkdf(ss.ck, ikm[:])
-	csi := initializeKey(tempK)
-	return symmetricstate{csi, ck, ss.h}
+	ss.cs = initializeKey(tempK)
+	ss.ck = ck
+	return ss
 }
 
-func mixHash(ss symmetricstate, data []byte) symmetricstate {
-	return symmetricstate{ss.cs, ss.ck, getHash(ss.h[:], data)}
+func mixHash(ss *symmetricstate, data []byte) *symmetricstate {
+	ss.h = getHash(ss.h[:], data)
+	return ss
 }
 
-func mixKeyAndHash(ss symmetricstate, ikm [32]byte) symmetricstate {
-	ck, tempH, tempK := getHkdf(ss.ck, ikm[:])
-	ssi := mixHash(symmetricstate{ss.cs, ck, ss.h}, tempH[:])
-	return symmetricstate{initializeKey(tempK), ck, ssi.h}
+func mixKeyAndHash(ss *symmetricstate, ikm [32]byte) *symmetricstate {
+	var tempH [32]byte
+	var tempK [32]byte
+	ss.ck, tempH, tempK = getHkdf(ss.ck, ikm[:])
+	ss = mixHash(ss, tempH[:])
+	ss.cs = initializeKey(tempK)
+	return ss
 }
 
-func getHandshakeHash(ss symmetricstate) [32]byte {
+func getHandshakeHash(ss *symmetricstate) [32]byte {
 	return ss.h
 }
 
-func encryptAndHash(ss symmetricstate, plaintext []byte) (symmetricstate, []byte) {
-	var csi cipherstate
+func encryptAndHash(ss *symmetricstate, plaintext []byte) (*symmetricstate, []byte) {
 	var ciphertext []byte
-	if hasKey(ss.cs) {
-		csi, ciphertext = encryptWithAd(ss.cs, ss.h[:], plaintext)
+	if hasKey(&ss.cs) {
+		_, ciphertext = encryptWithAd(&ss.cs, ss.h[:], plaintext)
 	} else {
-		csi, ciphertext = ss.cs, plaintext
+		ciphertext = plaintext
 	}
-	ssi := mixHash(symmetricstate{csi, ss.ck, ss.h}, ciphertext)
-	return ssi, ciphertext
+	ss = mixHash(ss, ciphertext)
+	return ss, ciphertext
 }
 
-func decryptAndHash(ss symmetricstate, ciphertext []byte) (symmetricstate, []byte, bool) {
-	var csi cipherstate
+func decryptAndHash(ss *symmetricstate, ciphertext []byte) (*symmetricstate, []byte, bool) {
 	var plaintext []byte
 	var valid bool
-	if hasKey(ss.cs) {
-		csi, plaintext, valid = decryptWithAd(ss.cs, ss.h[:], ciphertext)
+	if hasKey(&ss.cs) {
+		_, plaintext, valid = decryptWithAd(&ss.cs, ss.h[:], ciphertext)
 	} else {
-		csi, plaintext, valid = ss.cs, ciphertext, true
+		plaintext, valid = ciphertext, true
 	}
-	ssi := mixHash(symmetricstate{csi, ss.ck, ss.h}, ciphertext)
-	return ssi, plaintext, valid
+	ss = mixHash(ss, ciphertext)
+	return ss, plaintext, valid
 }
 
-func split(ss symmetricstate) (cipherstate, cipherstate) {
+func split(ss *symmetricstate) (cipherstate, cipherstate) {
 	tempK1, tempK2, _ := getHkdf(ss.ck, []byte{})
 	cs1 := initializeKey(tempK1)
 	cs2 := initializeKey(tempK2)

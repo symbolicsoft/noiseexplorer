@@ -129,14 +129,14 @@ const typeFuns = (pattern) => {
 const initializeFun = (pattern, initiator, suffix) => {
 	let preMessageTokenParsers = {
 		send: {
-			e: `ss = mixHash(ss, e.pk[:])`,
-			s: `ss = mixHash(ss, s.pk[:])`,
-			'e, s': `ss = mixHash(mixHash(ss, e.pk[:]), s.pk[:])`
+			e: `mixHash(&ss, e.pk[:])`,
+			s: `mixHash(&ss, s.pk[:])`,
+			'e, s': `mixHash(mixHash(&ss, e.pk[:]), s.pk[:])`
 		},
 		recv: {
-			e: `ss = mixHash(ss, re[:])`,
-			s: `ss = mixHash(ss, rs[:])`,
-			'e, s': `ss = mixHash(mixHash(ss, re[:]), rs[:])`
+			e: `mixHash(&ss, re[:])`,
+			s: `mixHash(&ss, rs[:])`,
+			'e, s': `mixHash(&mixHash(ss, re[:]), rs[:])`
 		}
 	};
 	let initFun = [
@@ -145,7 +145,8 @@ const initializeFun = (pattern, initiator, suffix) => {
 		`var e keypair`,
 		`var re [32]byte`,
 		`name := []byte("Noise_${pattern.name}_25519_ChaChaPoly_BLAKE2s")`,
-		`ss = mixHash(initializeSymmetric(name), prologue)`
+		`ss = initializeSymmetric(name)`,
+		`mixHash(&ss, prologue)`
 	];
 	pattern.preMessages.forEach((preMessage) => {
 		let dir = preMessage.dir;
@@ -167,33 +168,33 @@ const initializeFuns = (pattern) => {
 
 const writeMessageFun = (message, hasPsk, initiator, isFinal, suffix) => {
 	let ePskFill = hasPsk?
-		`ss = mixKey(ss, e.pk)` : `/* No PSK, so skipping mixKey */`;
+		`mixKey(&hs.ss, hs.e.pk)` : `/* No PSK, so skipping mixKey */`;
 	let esInitiatorFill = initiator?
-		`ss = mixKey(ss, dh(e.sk, rs))` : `ss = mixKey(ss, dh(s.sk, re))`;
+		`mixKey(&hs.ss, dh(hs.e.sk, hs.rs))` : `mixKey(&hs.ss, dh(hs.s.sk, hs.re))`;
 	let seInitiatorFill = initiator?
-		`ss = mixKey(ss, dh(s.sk, re))` : `ss = mixKey(ss, dh(e.sk, rs))`;
+		`mixKey(&hs.ss, dh(hs.s.sk, hs.re))` : `mixKey(&hs.ss, dh(hs.e.sk, hs.rs))`;
 	let finalFill = isFinal? [
-		`cs1, cs2 := split(ss)`,
+		`cs1, cs2 := split(&hs.ss)`,
 		`return hs.ss.h, messageBuffer, cs1, cs2`
 	] : [
 		`return hs, messageBuffer`
 	];
 	let isBeyondFinal = (message.tokens.length === 0);
 	let writeFunDeclaration = isBeyondFinal?
-		`func writeMessageRegular(cs cipherstate, payload []byte) (cipherstate, messagebuffer) {` :
-		`func writeMessage${suffix}(hs handshakestate, payload []byte) (${isFinal? `[32]byte, messagebuffer, cipherstate, cipherstate` : `handshakestate, messagebuffer`}) {`;
+		`func writeMessageRegular(cs *cipherstate, payload []byte) (*cipherstate, messagebuffer) {` :
+		`func writeMessage${suffix}(hs *handshakestate, payload []byte) (${isFinal? `[32]byte, messagebuffer, cipherstate, cipherstate` : `*handshakestate, messagebuffer`}) {`;
 	let messageTokenParsers = {
 		e: [
-			`e = generateKeypair()`,
-			`ne = e.pk`,
-			`ss = mixHash(ss, ne[:])`,
+			`hs.e = generateKeypair()`,
+			`ne = hs.e.pk`,
+			`mixHash(&hs.ss, ne[:])`,
 			ePskFill
 		].join(`\n\t`),
 		s: [
-			`ss, ns = encryptAndHash(ss, s.pk[:])`,
+			`_, ns = encryptAndHash(&hs.ss, hs.s.pk[:])`,
 		].join(`\n\t`),
 		ee: [
-			`ss = mixKey(ss, dh(e.sk, re))`
+			`mixKey(&hs.ss, dh(hs.e.sk, hs.re))`
 		].join(`\n\t`),
 		es: [
 			esInitiatorFill
@@ -202,15 +203,14 @@ const writeMessageFun = (message, hasPsk, initiator, isFinal, suffix) => {
 			seInitiatorFill
 		].join(`\n\t`),
 		ss: [
-			`ss = mixKey(ss, dh(s.sk, rs))`
+			`mixKey(&hs.ss, dh(hs.s.sk, hs.rs))`
 		].join(`\n\t`),
 		psk: [
-			`ss = mixKeyAndHash(ss, psk)`
+			`mixKeyAndHash(&hs.ss, hs.psk)`
 		].join(`\n\t`),
 	};
 	let writeFun = [
 		writeFunDeclaration,
-		 isBeyondFinal? `/* No handshakestate */` : `ss, s, e, rs, re, psk, initiator := hs.ss, hs.s, hs.e, hs.rs, hs.re, hs.psk, hs.i`,
 		`ne, ns, ciphertext := emptyKey, []byte{}, []byte{}`
 	];
 	message.tokens.forEach((token) => {
@@ -220,8 +220,7 @@ const writeMessageFun = (message, hasPsk, initiator, isFinal, suffix) => {
 		`cs, ciphertext = encryptWithAd(cs, []byte{}, payload)`,
 		`messageBuffer := messagebuffer{ne, ns, ciphertext}`
 	] : [
-		`ss, ciphertext = encryptAndHash(ss, payload)`,
-		`hs = handshakestate{ss, s, e, rs, re, psk, initiator}`,
+		`_, ciphertext = encryptAndHash(&hs.ss, payload)`,
 		`messageBuffer := messagebuffer{ne, ns, ciphertext}`,
 	]);
 	writeFun = writeFun.concat(isBeyondFinal? `return cs, messageBuffer` : finalFill);
@@ -248,36 +247,36 @@ const writeMessageFuns = (pattern) => {
 
 const readMessageFun = (message, hasPsk, initiator, isFinal, suffix) => {
 	let ePskFill = hasPsk?
-		`ss = mixKey(ss, re)` : `/* No PSK, so skipping mixKey */`;
+		`mixKey(&hs.ss, hs.re)` : `/* No PSK, so skipping mixKey */`;
 	let esInitiatorFill = initiator?
-		`ss = mixKey(ss, dh(e.sk, rs))` : `ss = mixKey(ss, dh(s.sk, re))`;
+		`mixKey(&hs.ss, dh(hs.e.sk, hs.rs))` : `mixKey(&hs.ss, dh(hs.s.sk, hs.re))`;
 	let seInitiatorFill = initiator?
-		`ss = mixKey(ss, dh(s.sk, re))` : `ss = mixKey(ss, dh(e.sk, rs))`;
+		`mixKey(&hs.ss, dh(hs.s.sk, hs.re))` : `mixKey(&hs.ss, dh(hs.e.sk, hs.rs))`;
 	let finalFill = isFinal? [
-		`cs1, cs2 := split(ss)`,
+		`cs1, cs2 := split(&hs.ss)`,
 		`return hs.ss.h, plaintext, (valid1 && valid2), cs1, cs2`
 	] : [
 		`return hs, plaintext, (valid1 && valid2)`
 	];
 	let isBeyondFinal = (message.tokens.length === 0);
 	let readFunDeclaration = isBeyondFinal?
-		`func readMessageRegular(cs cipherstate, message messagebuffer) (cipherstate, []byte, bool) {` :
-		`func readMessage${suffix}(hs handshakestate, message messagebuffer) (${isFinal? `[32]byte, []byte, bool, cipherstate, cipherstate` : `handshakestate, []byte, bool`}) {`;
+		`func readMessageRegular(cs *cipherstate, message *messagebuffer) (*cipherstate, []byte, bool) {` :
+		`func readMessage${suffix}(hs *handshakestate, message *messagebuffer) (${isFinal? `[32]byte, []byte, bool, cipherstate, cipherstate` : `*handshakestate, []byte, bool`}) {`;
 	let messageTokenParsers = {
 		e: [
-			`re = message.ne`,
-			`ss = mixHash(ss, re[:])`,
+			`hs.re = message.ne`,
+			`mixHash(&hs.ss, hs.re[:])`,
 			ePskFill
 		].join(`\n\t`),
 		s: [
-			`ss, ns, valid1 := decryptAndHash(ss, message.ns)`,
+			`_, ns, valid1 := decryptAndHash(&hs.ss, message.ns)`,
 			`if !valid1 || len(ns) != 32 {`,
 			isFinal? `\treturn emptyKey, []byte{}, false, hs.ss.cs, hs.ss.cs` : `\treturn hs, []byte{}, false`,
 			`}`,
-			`for i := 0; i < 32; i++ { rs[i] = ns[i] }`,
+			`for i := 0; i < 32; i++ { hs.rs[i] = ns[i] }`,
 		].join(`\n\t`),
 		ee: [
-			`ss = mixKey(ss, dh(e.sk, re))`
+			`mixKey(&hs.ss, dh(hs.e.sk, hs.re))`
 		].join(`\n\t`),
 		es: [
 			esInitiatorFill
@@ -286,15 +285,14 @@ const readMessageFun = (message, hasPsk, initiator, isFinal, suffix) => {
 			seInitiatorFill
 		].join(`\n\t`),
 		ss: [
-			`ss = mixKey(ss, dh(s.sk, rs))`
+			`mixKey(&hs.ss, dh(hs.s.sk, hs.rs))`
 		].join(`\n\t`),
 		psk: [
-			`ss = mixKeyAndHash(ss, psk)`
+			`mixKeyAndHash(&hs.ss, hs.psk)`
 		].join(`\n\t`)
 	};
 	let readFun = [
 		readFunDeclaration,
-		isBeyondFinal? `/* No handshakestate */` : `ss, s, e, rs, re, psk, initiator := hs.ss, hs.s, hs.e, hs.rs, hs.re, hs.psk, hs.i`,
 		isBeyondFinal? `/* No encrypted keys */` : `valid1 := true`
 	];
 	message.tokens.forEach((token) => {
@@ -307,11 +305,10 @@ const readMessageFun = (message, hasPsk, initiator, isFinal, suffix) => {
 		`}`,
 		`return csi, plaintext, valid2`
 	] : [
-		`ss, plaintext, valid2 := decryptAndHash(ss, message.ciphertext)`,
+		`_, plaintext, valid2 := decryptAndHash(&hs.ss, message.ciphertext)`,
 		`if !valid2 {`,
 		isFinal? `\treturn emptyKey, []byte{}, false, hs.ss.cs, hs.ss.cs` : `\treturn hs, []byte{}, false`,
 		`}`,
-		`hs = handshakestate{ss, s, e, rs, re, psk, initiator}`,
 		`${finalFill.join('\n\t')}`
 	]);
 	return `${readFun.join('\n\t')}\n}`;
@@ -376,13 +373,13 @@ const processFuns = (pattern, isOneWayPattern) => {
 		`}`
 	];
 	let sendMessage = [
-		`\nfunc SendMessage(session noisesession, message []byte) (noisesession, messagebuffer) {`,
+		`\nfunc SendMessage(session *noisesession, message []byte) (*noisesession, messagebuffer) {`,
 		`\tvar hs handshakestate`,
 		`\tvar messageBuffer messagebuffer`,
 		`\ths = session.hs`
 	];
 	let recvMessage = [
-		`\nfunc RecvMessage(session noisesession, message messagebuffer) (noisesession, []byte, bool) {`,
+		`\nfunc RecvMessage(session *noisesession, message *messagebuffer) (*noisesession, []byte, bool) {`,
 		`\tvar hs handshakestate`,
 		`\tvar plaintext []byte`,
 		`\tvar valid bool`,
@@ -392,24 +389,24 @@ const processFuns = (pattern, isOneWayPattern) => {
 		if (i < finalKex) {
 			sendMessage = sendMessage.concat([
 				`\tif session.mc == ${i} {`,
-				`\t\ths, messageBuffer = writeMessage${util.abc[i]}(hs, message)`,
+				`\t\t_, messageBuffer = writeMessage${util.abc[i]}(&hs, message)`,
 				`\t}`
 			]);
 			recvMessage = recvMessage.concat([
 				`\tif session.mc == ${i} {`,
-				`\t\ths, plaintext, valid = readMessage${util.abc[i]}(hs, message)`,
+				`\t\t_, plaintext, valid = readMessage${util.abc[i]}(&hs, message)`,
 				`\t}`
 			]);
 		} else if (i == finalKex) {
 			sendMessage = sendMessage.concat([
 				`\tif session.mc == ${i} {`,
-				`\t\tsession.h, messageBuffer, session.cs1, ${isOneWayPattern? `_` : `session.cs2`} = writeMessage${util.abc[i]}(hs, message)`,
+				`\t\tsession.h, messageBuffer, session.cs1, ${isOneWayPattern? `_` : `session.cs2`} = writeMessage${util.abc[i]}(&hs, message)`,
 				`\t\tsession.hs = handshakestate{}`,
 				`\t}`
 			]);
 			recvMessage = recvMessage.concat([
 				`\tif session.mc == ${i} {`,
-				`\t\tsession.h, plaintext, valid, session.cs1, ${isOneWayPattern? `_` : `session.cs2`} = readMessage${util.abc[i]}(hs, message)`,
+				`\t\tsession.h, plaintext, valid, session.cs1, ${isOneWayPattern? `_` : `session.cs2`} = readMessage${util.abc[i]}(&hs, message)`,
 				`\t\tsession.hs = handshakestate{}`,
 				`\t}`
 			]);
@@ -417,18 +414,18 @@ const processFuns = (pattern, isOneWayPattern) => {
 			sendMessage = sendMessage.concat([
 				`\tif session.mc > ${finalKex} {`,
 				`\t\tif hs.i {`,
-				`\t\t\tsession.cs1, messageBuffer = writeMessageRegular(session.cs1, message)`,
+				`\t\t\t_, messageBuffer = writeMessageRegular(&session.cs1, message)`,
 				`\t\t} else {`,
-				`\t\t\tsession.${isOneWayPattern? `cs1` : `cs2`}, messageBuffer = writeMessageRegular(session.${isOneWayPattern? `cs1` : `cs2`}, message)`,
+				`\t\t\t_, messageBuffer = writeMessageRegular(&session.${isOneWayPattern? `cs1` : `cs2`}, message)`,
 				`\t\t}`,
 				`\t}`
 			]);
 			recvMessage = recvMessage.concat([
 				`\tif session.mc > ${finalKex} {`,
 				`\t\tif hs.i {`,
-				`\t\t\tsession.${isOneWayPattern? `cs1` : `cs2`}, plaintext, valid = readMessageRegular(session.${isOneWayPattern? `cs1` : `cs2`}, message)`,
+				`\t\t\t_, plaintext, valid = readMessageRegular(&session.${isOneWayPattern? `cs1` : `cs2`}, message)`,
 				`\t\t} else {`,
-				`\t\t\tsession.cs1, plaintext, valid = readMessageRegular(session.cs1, message)`,
+				`\t\t\t_, plaintext, valid = readMessageRegular(&session.cs1, message)`,
 				`\t\t}`,
 				`\t}`
 			]);
