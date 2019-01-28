@@ -155,7 +155,7 @@ const initializeFun = (pattern, initiator, suffix) => {
 		}
 		initFun.push(preMessageTokenParsers[dir][preMessage.tokens]);
 	});
-	initFun.push(`return handshakestate{ss, s, e, rs, re, psk, ${initiator}}`);
+	initFun.push(`return handshakestate{ss, s, e, rs, re, psk}`);
 	return `${initFun.join('\n\t')}\n}`;
 };
 
@@ -191,7 +191,9 @@ const writeMessageFun = (message, hasPsk, initiator, isFinal, suffix) => {
 			ePskFill
 		].join(`\n\t`),
 		s: [
-			`_, ns = encryptAndHash(&hs.ss, hs.s.pk[:])`,
+			`spk := make([]byte, len(hs.s.pk))`,
+			`copy(spk[:], hs.s.pk[:])`,
+			`_, ns = encryptAndHash(&hs.ss, spk)`,
 		].join(`\n\t`),
 		ee: [
 			`mixKey(&hs.ss, dh(hs.e.sk, hs.re))`
@@ -270,10 +272,9 @@ const readMessageFun = (message, hasPsk, initiator, isFinal, suffix) => {
 		].join(`\n\t`),
 		s: [
 			`_, ns, valid1 := decryptAndHash(&hs.ss, message.ns)`,
-			`if !valid1 || len(ns) != 32 {`,
-			isFinal? `\treturn emptyKey, []byte{}, false, hs.ss.cs, hs.ss.cs` : `\treturn hs, []byte{}, false`,
+			`if valid1 && len(ns) == 32 {`,
+			`\tcopy(hs.rs[:], ns)`,
 			`}`,
-			`for i := 0; i < 32; i++ { hs.rs[i] = ns[i] }`,
 		].join(`\n\t`),
 		ee: [
 			`mixKey(&hs.ss, dh(hs.e.sk, hs.re))`
@@ -299,16 +300,10 @@ const readMessageFun = (message, hasPsk, initiator, isFinal, suffix) => {
 		readFun.push(messageTokenParsers[token]);
 	});
 	readFun = readFun.concat(isBeyondFinal? [
-		`csi, plaintext, valid2 := decryptWithAd(cs, []byte{}, message.ciphertext)`,
-		`if !valid2 {`,
-		`\treturn cs, []byte{}, false`,
-		`}`,
-		`return csi, plaintext, valid2`
+		`_, plaintext, valid2 := decryptWithAd(cs, []byte{}, message.ciphertext)`,
+		`return cs, plaintext, valid2`
 	] : [
 		`_, plaintext, valid2 := decryptAndHash(&hs.ss, message.ciphertext)`,
-		`if !valid2 {`,
-		isFinal? `\treturn emptyKey, []byte{}, false, hs.ss.cs, hs.ss.cs` : `\treturn hs, []byte{}, false`,
-		`}`,
 		`${finalFill.join('\n\t')}`
 	]);
 	return `${readFun.join('\n\t')}\n}`;
@@ -368,52 +363,49 @@ const processFuns = (pattern, isOneWayPattern) => {
 		`\t} else {`,
 		`\t\tsession.hs = initializeResponder(prologue, s, rs, psk)`,
 		`\t}`,
+		`\tsession.i = initiator`,
 		`\tsession.mc = 0`,
 		`\treturn session`,
 		`}`
 	];
 	let sendMessage = [
 		`\nfunc SendMessage(session *noisesession, message []byte) (*noisesession, messagebuffer) {`,
-		`\tvar hs handshakestate`,
-		`\tvar messageBuffer messagebuffer`,
-		`\ths = session.hs`
+		`\tvar messageBuffer messagebuffer`
 	];
 	let recvMessage = [
 		`\nfunc RecvMessage(session *noisesession, message *messagebuffer) (*noisesession, []byte, bool) {`,
-		`\tvar hs handshakestate`,
 		`\tvar plaintext []byte`,
-		`\tvar valid bool`,
-		`\ths = session.hs`
+		`\tvar valid bool`
 	];
 	for (let i = 0; i < pattern.messages.length; i++) {
 		if (i < finalKex) {
 			sendMessage = sendMessage.concat([
 				`\tif session.mc == ${i} {`,
-				`\t\t_, messageBuffer = writeMessage${util.abc[i]}(&hs, message)`,
+				`\t\t_, messageBuffer = writeMessage${util.abc[i]}(&session.hs, message)`,
 				`\t}`
 			]);
 			recvMessage = recvMessage.concat([
 				`\tif session.mc == ${i} {`,
-				`\t\t_, plaintext, valid = readMessage${util.abc[i]}(&hs, message)`,
+				`\t\t_, plaintext, valid = readMessage${util.abc[i]}(&session.hs, message)`,
 				`\t}`
 			]);
 		} else if (i == finalKex) {
 			sendMessage = sendMessage.concat([
 				`\tif session.mc == ${i} {`,
-				`\t\tsession.h, messageBuffer, session.cs1, ${isOneWayPattern? `_` : `session.cs2`} = writeMessage${util.abc[i]}(&hs, message)`,
+				`\t\tsession.h, messageBuffer, session.cs1, ${isOneWayPattern? `_` : `session.cs2`} = writeMessage${util.abc[i]}(&session.hs, message)`,
 				`\t\tsession.hs = handshakestate{}`,
 				`\t}`
 			]);
 			recvMessage = recvMessage.concat([
 				`\tif session.mc == ${i} {`,
-				`\t\tsession.h, plaintext, valid, session.cs1, ${isOneWayPattern? `_` : `session.cs2`} = readMessage${util.abc[i]}(&hs, message)`,
+				`\t\tsession.h, plaintext, valid, session.cs1, ${isOneWayPattern? `_` : `session.cs2`} = readMessage${util.abc[i]}(&session.hs, message)`,
 				`\t\tsession.hs = handshakestate{}`,
 				`\t}`
 			]);
 		} else {
 			sendMessage = sendMessage.concat([
 				`\tif session.mc > ${finalKex} {`,
-				`\t\tif hs.i {`,
+				`\t\tif session.i {`,
 				`\t\t\t_, messageBuffer = writeMessageRegular(&session.cs1, message)`,
 				`\t\t} else {`,
 				`\t\t\t_, messageBuffer = writeMessageRegular(&session.${isOneWayPattern? `cs1` : `cs2`}, message)`,
@@ -422,7 +414,7 @@ const processFuns = (pattern, isOneWayPattern) => {
 			]);
 			recvMessage = recvMessage.concat([
 				`\tif session.mc > ${finalKex} {`,
-				`\t\tif hs.i {`,
+				`\t\tif session.i {`,
 				`\t\t\t_, plaintext, valid = readMessageRegular(&session.${isOneWayPattern? `cs1` : `cs2`}, message)`,
 				`\t\t} else {`,
 				`\t\t\t_, plaintext, valid = readMessageRegular(&session.cs1, message)`,
@@ -434,13 +426,11 @@ const processFuns = (pattern, isOneWayPattern) => {
 	}
 	sendMessage = sendMessage.concat([
 		`\tsession.mc = session.mc + 1`,
-		`\tsession.hs = hs`,
 		`\treturn session, messageBuffer`,
 		`}`
 	]);
 	recvMessage = recvMessage.concat([
 		`\tsession.mc = session.mc + 1`,
-		`\tsession.hs = hs`,
 		`\treturn session, plaintext, valid`,
 		`}`
 	]);

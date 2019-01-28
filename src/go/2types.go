@@ -31,7 +31,6 @@ type handshakestate struct {
 	rs  [32]byte
 	re  [32]byte
 	psk [32]byte
-	i   bool
 }
 
 type noisesession struct {
@@ -40,4 +39,5 @@ type noisesession struct {
 	cs1 cipherstate
 	cs2 cipherstate
 	mc  uint64
+	i   bool
 }

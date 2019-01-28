@@ -29,12 +29,8 @@ func decryptWithAd(cs *cipherstate, ad []byte, ciphertext []byte) (*cipherstate,
 }
 
 func reKey(cs *cipherstate) *cipherstate {
-	var ki [32]byte
 	e := encrypt(cs.k, math.MaxUint64, []byte{}, emptyKey[:])
-	for i := 0; i < 32; i++ {
-		ki[i] = e[i]
-	}
-	cs.k = ki
+	copy(cs.k[:], e)
 	return cs
 }
 

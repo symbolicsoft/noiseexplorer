@@ -51,13 +51,7 @@ func getHash(a []byte, b []byte) [32]byte {
 func hashProtocolName(protocolName []byte) [32]byte {
 	var h [32]byte
 	if len(protocolName) <= 32 {
-		for i := 0; i < 32; i++ {
-			if i < len(protocolName) {
-				h[i] = protocolName[i]
-			} else {
-				h[i] = byte(0x00)
-			}
-		}
+		copy(h[:], protocolName)
 	} else {
 		h = getHash(protocolName, []byte{})
 	}
