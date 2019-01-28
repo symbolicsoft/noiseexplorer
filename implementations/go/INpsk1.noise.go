@@ -58,7 +58,6 @@ type handshakestate struct {
 	rs  [32]byte
 	re  [32]byte
 	psk [32]byte
-	i   bool
 }
 
 type noisesession struct {
@@ -67,6 +66,7 @@ type noisesession struct {
 	cs1 cipherstate
 	cs2 cipherstate
 	mc  uint64
+	i   bool
 }
 
 /* ---------------------------------------------------------------- *
@@ -150,13 +150,7 @@ func getHash(a []byte, b []byte) [32]byte {
 func hashProtocolName(protocolName []byte) [32]byte {
 	var h [32]byte
 	if len(protocolName) <= 32 {
-		for i := 0; i < 32; i++ {
-			if i < len(protocolName) {
-				h[i] = protocolName[i]
-			} else {
-				h[i] = byte(0x00)
-			}
-		}
+		copy(h[:], protocolName)
 	} else {
 		h = getHash(protocolName, []byte{})
 	}
@@ -178,6 +172,7 @@ func getHkdf(ck [32]byte, ikm []byte) ([32]byte, [32]byte, [32]byte) {
 	io.ReadFull(output, k3[:])
 	return k1, k2, k3
 }
+
 /* ---------------------------------------------------------------- *
  * STATE MANAGEMENT                                                 *
  * ---------------------------------------------------------------- */
@@ -209,12 +204,8 @@ func decryptWithAd(cs *cipherstate, ad []byte, ciphertext []byte) (*cipherstate,
 }
 
 func reKey(cs *cipherstate) *cipherstate {
-	var ki [32]byte
 	e := encrypt(cs.k, math.MaxUint64, []byte{}, emptyKey[:])
-	for i := 0; i < 32; i++ {
-		ki[i] = e[i]
-	}
-	cs.k = ki
+	copy(cs.k[:], e)
 	return cs
 }
 
@@ -291,7 +282,7 @@ func initializeInitiator(prologue []byte, s keypair, rs [32]byte, psk [32]byte) 
 	name := []byte("Noise_INpsk1_25519_ChaChaPoly_BLAKE2s")
 	ss = initializeSymmetric(name)
 	mixHash(&ss, prologue)
-	return handshakestate{ss, s, e, rs, re, psk, true}
+	return handshakestate{ss, s, e, rs, re, psk}
 }
 
 func initializeResponder(prologue []byte, s keypair, rs [32]byte, psk [32]byte) handshakestate {
@@ -301,7 +292,7 @@ func initializeResponder(prologue []byte, s keypair, rs [32]byte, psk [32]byte) 
 	name := []byte("Noise_INpsk1_25519_ChaChaPoly_BLAKE2s")
 	ss = initializeSymmetric(name)
 	mixHash(&ss, prologue)
-	return handshakestate{ss, s, e, rs, re, psk, false}
+	return handshakestate{ss, s, e, rs, re, psk}
 }
 
 func writeMessageA(hs *handshakestate, payload []byte) (*handshakestate, messagebuffer) {
@@ -310,7 +301,9 @@ func writeMessageA(hs *handshakestate, payload []byte) (*handshakestate, message
 	ne = hs.e.pk
 	mixHash(&hs.ss, ne[:])
 	mixKey(&hs.ss, hs.e.pk)
-	_, ns = encryptAndHash(&hs.ss, hs.s.pk[:])
+	spk := make([]byte, len(hs.s.pk))
+	copy(spk[:], hs.s.pk[:])
+	_, ns = encryptAndHash(&hs.ss, spk)
 	mixKeyAndHash(&hs.ss, hs.psk)
 	_, ciphertext = encryptAndHash(&hs.ss, payload)
 	messageBuffer := messagebuffer{ne, ns, ciphertext}
@@ -344,15 +337,11 @@ func readMessageA(hs *handshakestate, message *messagebuffer) (*handshakestate, 
 	mixHash(&hs.ss, hs.re[:])
 	mixKey(&hs.ss, hs.re)
 	_, ns, valid1 := decryptAndHash(&hs.ss, message.ns)
-	if !valid1 || len(ns) != 32 {
-		return hs, []byte{}, false
+	if valid1 && len(ns) == 32 {
+		copy(hs.rs[:], ns)
 	}
-	for i := 0; i < 32; i++ { hs.rs[i] = ns[i] }
 	mixKeyAndHash(&hs.ss, hs.psk)
 	_, plaintext, valid2 := decryptAndHash(&hs.ss, message.ciphertext)
-	if !valid2 {
-		return hs, []byte{}, false
-	}
 	return hs, plaintext, (valid1 && valid2)
 }
 
@@ -364,20 +353,14 @@ func readMessageB(hs *handshakestate, message *messagebuffer) ([32]byte, []byte,
 	mixKey(&hs.ss, dh(hs.e.sk, hs.re))
 	mixKey(&hs.ss, dh(hs.s.sk, hs.re))
 	_, plaintext, valid2 := decryptAndHash(&hs.ss, message.ciphertext)
-	if !valid2 {
-		return emptyKey, []byte{}, false, hs.ss.cs, hs.ss.cs
-	}
 	cs1, cs2 := split(&hs.ss)
 	return hs.ss.h, plaintext, (valid1 && valid2), cs1, cs2
 }
 
 func readMessageRegular(cs *cipherstate, message *messagebuffer) (*cipherstate, []byte, bool) {
 	/* No encrypted keys */
-	csi, plaintext, valid2 := decryptWithAd(cs, []byte{}, message.ciphertext)
-	if !valid2 {
-		return cs, []byte{}, false
-	}
-	return csi, plaintext, valid2
+	_, plaintext, valid2 := decryptWithAd(cs, []byte{}, message.ciphertext)
+	return cs, plaintext, valid2
 }
 
 
@@ -394,54 +377,49 @@ func InitSession(initiator bool, prologue []byte, s keypair, rs [32]byte, psk [3
 	} else {
 		session.hs = initializeResponder(prologue, s, rs, psk)
 	}
+	session.i = initiator
 	session.mc = 0
 	return session
 }
 
 func SendMessage(session *noisesession, message []byte) (*noisesession, messagebuffer) {
-	var hs handshakestate
 	var messageBuffer messagebuffer
-	hs = session.hs
 	if session.mc == 0 {
-		_, messageBuffer = writeMessageA(&hs, message)
+		_, messageBuffer = writeMessageA(&session.hs, message)
 	}
 	if session.mc == 1 {
-		session.h, messageBuffer, session.cs1, session.cs2 = writeMessageB(&hs, message)
+		session.h, messageBuffer, session.cs1, session.cs2 = writeMessageB(&session.hs, message)
 		session.hs = handshakestate{}
 	}
 	if session.mc > 1 {
-		if hs.i {
+		if session.i {
 			_, messageBuffer = writeMessageRegular(&session.cs1, message)
 		} else {
 			_, messageBuffer = writeMessageRegular(&session.cs2, message)
 		}
 	}
 	session.mc = session.mc + 1
-	session.hs = hs
 	return session, messageBuffer
 }
 
 func RecvMessage(session *noisesession, message *messagebuffer) (*noisesession, []byte, bool) {
-	var hs handshakestate
 	var plaintext []byte
 	var valid bool
-	hs = session.hs
 	if session.mc == 0 {
-		_, plaintext, valid = readMessageA(&hs, message)
+		_, plaintext, valid = readMessageA(&session.hs, message)
 	}
 	if session.mc == 1 {
-		session.h, plaintext, valid, session.cs1, session.cs2 = readMessageB(&hs, message)
+		session.h, plaintext, valid, session.cs1, session.cs2 = readMessageB(&session.hs, message)
 		session.hs = handshakestate{}
 	}
 	if session.mc > 1 {
-		if hs.i {
+		if session.i {
 			_, plaintext, valid = readMessageRegular(&session.cs2, message)
 		} else {
 			_, plaintext, valid = readMessageRegular(&session.cs1, message)
 		}
 	}
 	session.mc = session.mc + 1
-	session.hs = hs
 	return session, plaintext, valid
 }
 
