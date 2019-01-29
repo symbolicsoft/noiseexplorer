@@ -5,4 +5,6 @@ for pattern in ../patterns/*.noise; do
 		--generate=go --pattern=$pattern \
 		> ../implementations/go/$(basename "${pattern}").go
 done
-cd util
+cd ../implementations/go
+go get -d ./...
+cd ../../src/util

@@ -18,14 +18,13 @@ import (
 	"crypto/rand"
 	"crypto/subtle"
 	"encoding/binary"
-	"hash"
-	"io"
-	"math"
-
 	"golang.org/x/crypto/blake2s"
 	"golang.org/x/crypto/chacha20poly1305"
 	"golang.org/x/crypto/curve25519"
 	"golang.org/x/crypto/hkdf"
+	"hash"
+	"io"
+	"math"
 )
 
 /* ---------------------------------------------------------------- *
@@ -88,7 +87,6 @@ var emptyKey = [32]byte{
 }
 
 var minNonce = uint64(0)
-
 /* ---------------------------------------------------------------- *
  * UTILITY FUNCTIONS                                                *
  * ---------------------------------------------------------------- */
@@ -372,6 +370,8 @@ func readMessageRegular(cs *cipherstate, message *messagebuffer) (*cipherstate, 
 	_, plaintext, valid2 := decryptWithAd(cs, []byte{}, message.ciphertext)
 	return cs, plaintext, valid2
 }
+
+
 
 /* ---------------------------------------------------------------- *
  * PROCESSES                                                        *

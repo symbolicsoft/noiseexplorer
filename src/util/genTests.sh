@@ -7,7 +7,11 @@ for pattern in ../patterns/*.noise; do
 done
 echo " OK"
 echo "[NoiseExplorer] Running Tests..."
+cd ../implementations/go/tests
+go get -d ./...
+cd ../../../src
 for pattern in ../implementations/go/tests/*.go; do
     go run $pattern
 done
-cd ../src/util
+cd util
+
