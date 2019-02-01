@@ -159,7 +159,7 @@ const htmlTemplates = {
 			let res = [
 				`<ul>`,
 				`<li><span class="mono">${token}</span>: Signals that the ${write? who : whom} is ${verb} ${desc} as part of this message. This token adds the following state transformations to <span class="mono">${letfunName}_${abc}</span>:</li>`,
-				`<ul>`
+				`<li><ul>`
 			];
 			switch(token) {
 				case 'e': res = res.concat([
@@ -184,7 +184,7 @@ const htmlTemplates = {
 					`<li>${stateFuns.mixKeyAndHash(dir)}</li>`
 				]); break;
 			}
-			res.push('</ul></ul>');
+			res.push('</ul></li></ul>');
 			return res;
 		},
 		analysisTxt: (name, abc, seq, dir, write, letfun, tokens) => {

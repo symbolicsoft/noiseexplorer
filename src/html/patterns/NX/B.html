@@ -65,24 +65,24 @@ letfun writeMessage_b(me:principal, them:principal, hs:handshakestate, payload:b
 <h4>How each token is processed by the responder:</h4>
 <ul>
 <li><span class="mono">e</span>: Signals that the responder is sending a fresh ephemeral key share as part of this message. This token adds the following state transformations to <span class="mono">writeMessage_b</span>:</li>
-<ul>
+<li><ul>
 <li><span class="mono">mixHash</span>, which hashes the new key into the session hash.</li>
-</ul></ul>
+</ul></li></ul>
 <ul>
 <li><span class="mono">ee</span>: Signals that the responder is calculating a Diffie-Hellman shared secret derived from the initiator's ephemeral key and the responder's ephemeral key as part of this message. This token adds the following state transformations to <span class="mono">writeMessage_b</span>:</li>
-<ul>
+<li><ul>
 <li><span class="mono">mixKey</span>, which calls the HKDF function using, as input, the existing <span class="mono">SymmetricState</span> key, and <span class="mono">dh(e, re)</span>, the Diffie-Hellman share calculated from the initiator's ephemeral key and the responder's ephemeral key.</li>
-</ul></ul>
+</ul></li></ul>
 <ul>
 <li><span class="mono">s</span>: Signals that the responder is sending a static key share as part of this message. This token adds the following state transformations to <span class="mono">writeMessage_b</span>:</li>
-<ul>
+<li><ul>
 <li><span class="mono">encryptAndHash</span> is called on the static public key. If any prior Diffie-Hellman shared secret was established between the sender and the recipient, this allows the responder to communicate their long-term identity with some degree of confidentiality.</li>
-</ul></ul>
+</ul></li></ul>
 <ul>
 <li><span class="mono">es</span>: Signals that the responder is calculating a Diffie-Hellman shared secret derived from the initiator's ephemeral key and the responder's static key as part of this message. This token adds the following state transformations to <span class="mono">writeMessage_b</span>:</li>
-<ul>
+<li><ul>
 <li><span class="mono">mixKey</span>, which calls the HKDF function using, as input, the existing <span class="mono">SymmetricState</span> key, and <span class="mono">dh(e, rs)</span>, the Diffie-Hellman share calculated from the initiator's ephemeral key and the responder's static key.</li>
-</ul></ul>
+</ul></li></ul>
 <p>Message <span class="code">B</span>'s payload, which is modeled as the output of the function <span class="mono">msg_a(initiatorIdentity, responderIdentity, sessionId)</span>, is encrypted as <span class="mono">ciphertext2</span>. This invokes the following operations:</p><ul>
 <li><span class="mono">encryptAndHash</span>, which performs an authenticated encryption with added data (AEAD) on the payload, with the session hash as the added data (<span class="mono">encryptWithAd</span>) and <span class="mono">mixHash</span>, which hashes the encrypted payload into the next session hash.</li>
 </ul>
@@ -110,24 +110,24 @@ letfun readMessage_b(me:principal, them:principal, hs:handshakestate, message:bi
 <h4>How each token is processed by the initiator:</h4>
 <ul>
 <li><span class="mono">e</span>: Signals that the initiator is receiving a fresh ephemeral key share as part of this message. This token adds the following state transformations to <span class="mono">readMessage_b</span>:</li>
-<ul>
+<li><ul>
 <li><span class="mono">mixHash</span>, which hashes the new key into the session hash.</li>
-</ul></ul>
+</ul></li></ul>
 <ul>
 <li><span class="mono">ee</span>: Signals that the initiator is calculating a Diffie-Hellman shared secret derived from the initiator's ephemeral key and the responder's ephemeral key as part of this message. This token adds the following state transformations to <span class="mono">readMessage_b</span>:</li>
-<ul>
+<li><ul>
 <li><span class="mono">mixKey</span>, which calls the HKDF function using, as input, the existing <span class="mono">SymmetricState</span> key, and <span class="mono">dh(e, re)</span>, the Diffie-Hellman share calculated from the initiator's ephemeral key and the responder's ephemeral key.</li>
-</ul></ul>
+</ul></li></ul>
 <ul>
 <li><span class="mono">s</span>: Signals that the initiator is receiving a static key share as part of this message. This token adds the following state transformations to <span class="mono">readMessage_b</span>:</li>
-<ul>
+<li><ul>
 <li><span class="mono">encryptAndHash</span> is called on the static public key. If any prior Diffie-Hellman shared secret was established between the sender and the recipient, this allows the responder to communicate their long-term identity with some degree of confidentiality.</li>
-</ul></ul>
+</ul></li></ul>
 <ul>
 <li><span class="mono">es</span>: Signals that the initiator is calculating a Diffie-Hellman shared secret derived from the initiator's ephemeral key and the responder's static key as part of this message. This token adds the following state transformations to <span class="mono">readMessage_b</span>:</li>
-<ul>
+<li><ul>
 <li><span class="mono">mixKey</span>, which calls the HKDF function using, as input, the existing <span class="mono">SymmetricState</span> key, and <span class="mono">dh(e, rs)</span>, the Diffie-Hellman share calculated from the initiator's ephemeral key and the responder's static key.</li>
-</ul></ul>
+</ul></li></ul>
 <p>Message <span class="code">B</span>'s payload, which is modeled as the output of the function <span class="mono">msg_a(initiatorIdentity, responderIdentity, sessionId)</span>, is encrypted as <span class="mono">ciphertext2</span>. This invokes the following operations:</p><ul>
 <li><span class="mono">decryptAndHash</span>, which performs an authenticated decryption with added data (AEAD) on the payload, with the session hash as the added data (<span class="mono">decryptWithAd</span>) and <span class="mono">mixHash</span>, which hashes the encrypted payload into the next session hash.</li>
 </ul>
