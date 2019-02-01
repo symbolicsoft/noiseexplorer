@@ -8,9 +8,9 @@
 	<meta name="description" content="Noise Explorer is an online engine for reasoning about Noise Protocol Framework Handshake Patterns. Noise Explorer allows you to design and validate Noise Handshake Patterns, to generate cryptographic models for formal verification and to explore a compendium of formal verification results for the most popular and relevant Noise Handshake Patterns in use today." />
 	<link rel="image_src" href="https://noiseexplorer.com/res/img/logo.png" />
 	<link rel="icon" type="image/png" href="../res/img/logo.png" />
-	<link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono|IBM+Plex+Sans" rel="stylesheet" />
 	<link href="../res/css/style.css" rel="stylesheet" />
-	<script type="application/javascript">
+	<link href="../res/css/fonts.css" rel="stylesheet" />
+	<script>
 		let $ = (id) => { return document.getElementById(id) };
 		window.addEventListener('load', () => {
 			$('patternSearch').value = '';
@@ -63,31 +63,31 @@
 			<p>Click on a Noise pattern in order to view its full analysis results using the <a href="http://prosecco.gforge.inria.fr/personal/bblanche/proverif/" target="_blank">ProVerif</a> symbolic protocol verifier. Analyses are carried out under both an active and passive attacker with a malicious principal. Security queries include tests for authentication (key compromise impersonation resistance, etc.) and confidentiality (strong forward secrecy, weak forward secrecy, etc.)</p>
 			<input type="text" id="patternSearch" placeholder="Search patterns by name..." />
 			<p id="patternSearchNotFound">Noise Handshake Pattern not found.</p>
-			<a href="IK" class="patternEntry">
+			<a href="/patterns/IK" class="patternEntry">
 				IK:
 				&lt;- s
 				...
 				-&gt; e, es, s, ss
 				&lt;- e, ee, se
 			</a>
-			<a href="IN" class="patternEntry">
+			<a href="/patterns/IN" class="patternEntry">
 				IN:
 				-&gt; e, s
 				&lt;- e, ee, se
 			</a>
-			<a href="IX" class="patternEntry">
+			<a href="/patterns/IX" class="patternEntry">
 				IX:
 				-&gt; e, s
 				&lt;- e, ee, se, s, es
 			</a>
-			<a href="K" class="patternEntry">
+			<a href="/patterns/K" class="patternEntry">
 				K:
 				-&gt; s
 				&lt;- s
 				...
 				-&gt; e, es, ss
 			</a>
-			<a href="KK" class="patternEntry">
+			<a href="/patterns/KK" class="patternEntry">
 				KK:
 				-&gt; s
 				&lt;- s
@@ -95,44 +95,44 @@
 				-&gt; e, es, ss
 				&lt;- e, ee, se
 			</a>
-			<a href="KN" class="patternEntry">
+			<a href="/patterns/KN" class="patternEntry">
 				KN:
 				-&gt; s
 				...
 				-&gt; e
 				&lt;- e, ee, se
 			</a>
-			<a href="KX" class="patternEntry">
+			<a href="/patterns/KX" class="patternEntry">
 				KX:
 				-&gt; s
 				...
 				-&gt; e
 				&lt;- e, ee, se, s, es
 			</a>
-			<a href="N" class="patternEntry">
+			<a href="/patterns/N" class="patternEntry">
 				N:
 				&lt;- s
 				...
 				-&gt; e, es
 			</a>
-			<a href="NK" class="patternEntry">
+			<a href="/patterns/NK" class="patternEntry">
 				NK:
 				&lt;- s
 				...
 				-&gt; e, es 
 				&lt;- e, ee
 			</a>
-			<a href="NN" class="patternEntry">
+			<a href="/patterns/NN" class="patternEntry">
 				NN:
 				-&gt; e
 				&lt;- e, ee
 			</a>
-			<a href="NX" class="patternEntry">
+			<a href="/patterns/NX" class="patternEntry">
 				NX:
 				-&gt; e
 				&lt;- e, ee, s, es
 			</a>
-			<a href="XK" class="patternEntry">
+			<a href="/patterns/XK" class="patternEntry">
 				XK:
 				&lt;- s
 				...
@@ -140,38 +140,38 @@
 				&lt;- e, ee
 				-&gt; s, se
 			</a>
-			<a href="XN" class="patternEntry">
+			<a href="/patterns/XN" class="patternEntry">
 				XN:
 				-&gt; e
 				&lt;- e, ee
 				-&gt; s, se
 			</a>
-			<a href="XX" class="patternEntry">
+			<a href="/patterns/XX" class="patternEntry">
 				XX:
 				-&gt; e
 				&lt;- e, ee, s, es
 				-&gt; s, se
 			</a>
-			<a href="NK1" class="patternEntry">
+			<a href="/patterns/NK1" class="patternEntry">
 				NK1:
 				&lt;- s
 				...
 				-&gt; e
 				&lt;- e, ee, es
 			</a>
-			<a href="NX1" class="patternEntry">
+			<a href="/patterns/NX1" class="patternEntry">
 				NX1:
 				-&gt; e
 				&lt;- e, ee, s
 				-&gt; es
 			</a>
-			<a href="X" class="patternEntry">
+			<a href="/patterns/X" class="patternEntry">
 				X:
 				&lt;- s
 				...
 				-&gt; e, es, s, ss
 			</a>
-			<a href="X1K" class="patternEntry">
+			<a href="/patterns/X1K" class="patternEntry">
 				X1K:
 				&lt;- s
 				...
@@ -180,7 +180,7 @@
 				-&gt; s
 				&lt;- se
 			</a>
-			<a href="XK1" class="patternEntry">
+			<a href="/patterns/XK1" class="patternEntry">
 				XK1:
 				&lt;- s
 				...
@@ -188,7 +188,7 @@
 				&lt;- e, ee, es
 				-&gt; s, se
 			</a>
-			<a href="X1K1" class="patternEntry">
+			<a href="/patterns/X1K1" class="patternEntry">
 				X1K1:
 				&lt;- s
 				...
@@ -197,34 +197,34 @@
 				-&gt; s
 				&lt;- se
 			</a>
-			<a href="X1N" class="patternEntry">
+			<a href="/patterns/X1N" class="patternEntry">
 				X1N:
 				-&gt; e
 				&lt;- e, ee
 				-&gt; s
 				&lt;- se
 			</a>
-			<a href="X1X" class="patternEntry">
+			<a href="/patterns/X1X" class="patternEntry">
 				X1X:
 				-&gt; e
 				&lt;- e, ee, s, es
 				-&gt; s
 				&lt;- se
 			</a>
-			<a href="XX1" class="patternEntry">
+			<a href="/patterns/XX1" class="patternEntry">
 				XX1:
 				-&gt; e
 				&lt;- e, ee, s
 				-&gt; es, s, se
 			</a>
-			<a href="X1X1" class="patternEntry">
+			<a href="/patterns/X1X1" class="patternEntry">
 				X1X1:
 				-&gt; e
 				&lt;- e, ee, s
 				-&gt; es, s
 				&lt;- se
 			</a>
-			<a href="K1N" class="patternEntry">
+			<a href="/patterns/K1N" class="patternEntry">
 				K1N:
 				-&gt; s
 				...
@@ -232,7 +232,7 @@
 				&lt;- e, ee
 				-&gt; se
 			</a>
-			<a href="K1K" class="patternEntry">
+			<a href="/patterns/K1K" class="patternEntry">
 				K1K:
 				-&gt; s
 				&lt;- s
@@ -241,7 +241,7 @@
 				&lt;- e, ee
 				-&gt; se
 			</a>
-			<a href="KK1" class="patternEntry">
+			<a href="/patterns/KK1" class="patternEntry">
 				KK1:
 				-&gt; s
 				&lt;- s
@@ -249,7 +249,7 @@
 				-&gt; e
 				&lt;- e, ee, se, es
 			</a>
-			<a href="K1K1" class="patternEntry">
+			<a href="/patterns/K1K1" class="patternEntry">
 				K1K1:
 				-&gt; s
 				&lt;- s
@@ -258,7 +258,7 @@
 				&lt;- e, ee, es
 				-&gt; se
 			</a>
-			<a href="K1X" class="patternEntry">
+			<a href="/patterns/K1X" class="patternEntry">
 				K1X:
 				-&gt; s
 				...
@@ -266,7 +266,7 @@
 				&lt;- e, ee, s, es
 				-&gt; se
 			</a>
-			<a href="KX1" class="patternEntry">
+			<a href="/patterns/KX1" class="patternEntry">
 				KX1:
 				-&gt; s
 				...
@@ -274,7 +274,7 @@
 				&lt;- e, ee, se, s
 				-&gt; es
 			</a>
-			<a href="K1X1" class="patternEntry">
+			<a href="/patterns/K1X1" class="patternEntry">
 				K1X1:
 				-&gt; s
 				...
@@ -282,13 +282,13 @@
 				&lt;- e, ee, s
 				-&gt; se, es
 			</a>
-			<a href="I1N" class="patternEntry">
+			<a href="/patterns/I1N" class="patternEntry">
 				I1N:
 				-&gt; e, s
 				&lt;- e, ee
 				-&gt; se
 			</a>
-			<a href="I1K" class="patternEntry">
+			<a href="/patterns/I1K" class="patternEntry">
 				I1K:
 				&lt;- s
 				...
@@ -296,14 +296,14 @@
 				&lt;- e, ee
 				-&gt; se
 			</a>
-			<a href="IK1" class="patternEntry">
+			<a href="/patterns/IK1" class="patternEntry">
 				IK1:
 				&lt;- s
 				...
 				-&gt; e, s
 				&lt;- e, ee, se, es
 			</a>
-			<a href="I1K1" class="patternEntry">
+			<a href="/patterns/I1K1" class="patternEntry">
 				I1K1:
 				&lt;- s
 				...
@@ -311,79 +311,79 @@
 				&lt;- e, ee, es
 				-&gt; se
 			</a>
-			<a href="I1X" class="patternEntry">
+			<a href="/patterns/I1X" class="patternEntry">
 				I1X:
 				-&gt; e, s
 				&lt;- e, ee, s, es
 				-&gt; se
 			</a>
-			<a href="IX1" class="patternEntry">
+			<a href="/patterns/IX1" class="patternEntry">
 				IX1:
 				-&gt; e, s
 				&lt;- e, ee, se, s
 				-&gt; es
 			</a>
-			<a href="I1X1" class="patternEntry">
+			<a href="/patterns/I1X1" class="patternEntry">
 				I1X1:
 				-&gt; e, s
 				&lt;- e, ee, s
 				-&gt; se, es
 			</a>
-			<a href="Npsk0" class="patternEntry">
+			<a href="/patterns/Npsk0" class="patternEntry">
 				Npsk0:
 				&lt;- s
 				...
 				-&gt; psk, e, es
 			</a>
-			<a href="Kpsk0" class="patternEntry">
+			<a href="/patterns/Kpsk0" class="patternEntry">
 				Kpsk0:
 				-&gt; s
 				&lt;- s
 				...
 				-&gt; psk, e, es, ss
 			</a>
-			<a href="Xpsk1" class="patternEntry">
+			<a href="/patterns/Xpsk1" class="patternEntry">
 				Xpsk1:
 				&lt;- s
 				...
 				-&gt; e, es, s, ss, psk
 			</a>
-			<a href="NNpsk0" class="patternEntry">
+			<a href="/patterns/NNpsk0" class="patternEntry">
 				NNpsk0:
 				-&gt; psk, e
 				&lt;- e, ee
 			</a>
-			<a href="NNpsk2" class="patternEntry">
+			<a href="/patterns/NNpsk2" class="patternEntry">
 				NNpsk2:
 				-&gt; e
 				&lt;- e, ee, psk
 			</a>
-			<a href="NKpsk0" class="patternEntry">
+			<a href="/patterns/NKpsk0" class="patternEntry">
 				NKpsk0:
 				&lt;- s
 				...
 				-&gt; psk, e, es
 				&lt;- e, ee
 			</a>
-			<a href="NKpsk2" class="patternEntry">
+			<a href="/patterns/NKpsk2" class="patternEntry">
 				NKpsk2:
 				&lt;- s
 				...
 				-&gt; e, es
 				&lt;- e, ee, psk
 			</a>
-			<a href="NXpsk2" class="patternEntry">
+			<a href="/patterns/NXpsk2" class="patternEntry">
 				NXpsk2:
 				-&gt; e
 				&lt;- e, ee, s, es, psk
 			</a>
-			<a href="XNpsk3" class="patternEntry">
+			<a href="/patterns/XNpsk3" class="patternEntry">
 				XNpsk3:
 				-&gt; e
 				&lt;- e, ee
 				-&gt; s, se, psk
 			</a>
-			<a href="XKpsk3" class="patternEntry">
+			<a href="/patterns/XKpsk3" class="patternEntry">
 				XKpsk3:
 				&lt;- s
 				...
@@ -391,27 +391,27 @@
 				&lt;- e, ee
 				-&gt; s, se, psk
 			</a>
-			<a href="XXpsk3" class="patternEntry">
+			<a href="/patterns/XXpsk3" class="patternEntry">
 				XXpsk3:
 				-&gt; e
 				&lt;- e, ee, s, es
 				-&gt; s, se, psk
 			</a>
-			<a href="KNpsk0" class="patternEntry">
+			<a href="/patterns/KNpsk0" class="patternEntry">
 				KNpsk0:
 				-&gt; s
 				...
 				-&gt; psk, e
 				&lt;- e, ee, se
 			</a>
-			<a href="KNpsk2" class="patternEntry">
+			<a href="/patterns/KNpsk2" class="patternEntry">
 				KNpsk2:
 				-&gt; s
 				...
 				-&gt; e
 				&lt;- e, ee, se, psk
 			</a>
-			<a href="KKpsk0" class="patternEntry">
+			<a href="/patterns/KKpsk0" class="patternEntry">
 				KKpsk0:
 				-&gt; s
 				&lt;- s
@@ -419,7 +419,7 @@
 				-&gt; psk, e, es, ss
 				&lt;- e, ee, se
 			</a>
-			<a href="KKpsk2" class="patternEntry">
+			<a href="/patterns/KKpsk2" class="patternEntry">
 				KKpsk2:
 				-&gt; s
 				&lt;- s
@@ -427,32 +427,32 @@
 				-&gt; e, es, ss
 				&lt;- e, ee, se, psk
 			</a>
-			<a href="KXpsk2" class="patternEntry">
+			<a href="/patterns/KXpsk2" class="patternEntry">
 				KXpsk2:
 				-&gt; s
 				...
 				-&gt; e
 				&lt;- e, ee, se, s, es, psk
 			</a>
-			<a href="INpsk1" class="patternEntry">
+			<a href="/patterns/INpsk1" class="patternEntry">
 				INpsk1:
 				-&gt; e, s, psk
 				&lt;- e, ee, se
 			</a>
-			<a href="INpsk2" class="patternEntry">
+			<a href="/patterns/INpsk2" class="patternEntry">
 				INpsk2:
 				-&gt; e, s
 				&lt;- e, ee, se, psk
 			</a>
 			<!--
-			<a href="IKpsk1" class="patternEntry">
+			<a href="/patterns/IKpsk1" class="patternEntry">
 				IKpsk1:
 				&lt;- s
 				...
 				-&gt; e, es, s, ss, psk
 				&lt;- e, ee, se
 			</a>
-			<a href="IKpsk2" class="patternEntry">
+			<a href="/patterns/IKpsk2" class="patternEntry">
 				IKpsk2:
 				&lt;- s
 				...
@@ -460,7 +460,7 @@
 				&lt;- e, ee, se, psk
 			</a>
 			-->
-			<a href="IXpsk2" class="patternEntry">
+			<a href="/patterns/IXpsk2" class="patternEntry">
 				IXpsk2:
 				-&gt; e, s
 				&lt;- e, ee, se, s, es, psk

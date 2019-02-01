@@ -8,18 +8,18 @@
 	<meta name="description" content="Noise Explorer is an online engine for reasoning about Noise Protocol Framework Handshake Patterns. Noise Explorer allows you to design and validate Noise Handshake Patterns, to generate cryptographic models for formal verification and to explore a compendium of formal verification results for the most popular and relevant Noise Handshake Patterns in use today." />
 	<link rel="image_src" href="https://noiseexplorer.com/res/img/logo.png" />
 	<link rel="icon" type="image/png" href="../../res/img/logo.png" />
-	<link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono|IBM+Plex+Sans" rel="stylesheet" />
 	<link href="../../res/css/style.css" rel="stylesheet" />
-	<script type="application/javascript" src="../../res/js/parser/noiseParser.js"></script>
-	<script type="application/javascript" src="../../res/js/parser/noise2Pv.js"></script>
-	<script type="application/javascript" src="../../res/js/parser/noise2Go.js"></script>
-	<script type="application/javascript" src="../../res/js/parser/noiseReader.js"></script>
-	<script type="application/javascript" src="../../res/js/noiseWebIde.js"></script>
-	<script type="application/javascript">
+	<link href="../../res/css/fonts.css" rel="stylesheet" />
+	<script src="../../res/js/parser/noiseParser.js"></script>
+	<script src="../../res/js/parser/noise2Pv.js"></script>
+	<script src="../../res/js/parser/noise2Go.js"></script>
+	<script src="../../res/js/parser/noiseReader.js"></script>
+	<script src="../../res/js/noiseWebIde.js"></script>
+	<script>
 	window.addEventListener('load', () => {
-		pvGen(['KK1:','	-> s','	<- s','	...','	-> e','	<- e, ee, se, es','	->','	<-'].join('\n'), 'active', 'pvActiveLink', false);
-		pvGen(['KK1:','	-> s','	<- s','	...','	-> e','	<- e, ee, se, es','	->','	<-'].join('\n'), 'passive', 'pvPassiveLink', false);
-		goGen(['KK1:','	-> s','	<- s','	...','	-> e','	<- e, ee, se, es','	->','	<-'].join('\n'), 'goLink', false);
+		pvGen(['KK1:','  -> s','  <- s','  ...','  -> e','  <- e, ee, se, es','  ->','  <-'].join('\n'), 'active', 'pvActiveLink', false);
+		pvGen(['KK1:','  -> s','  <- s','  ...','  -> e','  <- e, ee, se, es','  ->','  <-'].join('\n'), 'passive', 'pvPassiveLink', false);
+		goGen(['KK1:','  -> s','  <- s','  ...','  -> e','  <- e, ee, se, es','  ->','  <-'].join('\n'), 'goLink', false);
 	});
 	</script>
 </head>
@@ -80,16 +80,16 @@
 <p>The responder is initialized with a pre-shared long-term static key, which is assumed to be pre-authenticated out of band by the initiator.</p> 
 			
 
-			<h3>Message A <a href="A.html" class="detailedAnalysis">show detailed analysis</a></h3>
+			<h3>Message A <a href="/patterns/KK1/A.html" class="detailedAnalysis">show detailed analysis</a></h3>
 			<p>Message A, sent by the initiator, does not benefit from <em>sender authentication</em> and does not provide <em>message integrity</em>. It could have been sent by any party, including an active attacker. Message contents are sent in cleartext and do not benefit from <em>message secrecy</em> and any <em>forward secrecy</em> is out of the question.  <span class="resultNums">0,0</span></p>
 
-			<h3>Message B <a href="B.html" class="detailedAnalysis">show detailed analysis</a></h3>
+			<h3>Message B <a href="/patterns/KK1/B.html" class="detailedAnalysis">show detailed analysis</a></h3>
 			<p>Message B, sent by the responder, benefits from <em>sender and receiver authentication</em> and is <em>resistant to Key Compromise Impersonation</em>. Assuming the corresponding private keys are secure, this authentication cannot be forged. Message contents benefit from <em>message secrecy</em> and <em>weak forward secrecy</em> under a passive attacker: if the responder's long-term static keys were previously compromised, the later compromise of the initiator's long-term static keys can lead to message contents being decrypted by an attacker.  <span class="resultNums">4,3</span></p>
 
-			<h3>Message C <a href="C.html" class="detailedAnalysis">show detailed analysis</a></h3>
+			<h3>Message C <a href="/patterns/KK1/C.html" class="detailedAnalysis">show detailed analysis</a></h3>
 			<p>Message C, sent by the initiator, benefits from <em>sender and receiver authentication</em> and is <em>resistant to Key Compromise Impersonation</em>. Assuming the corresponding private keys are secure, this authentication cannot be forged. Message contents benefit from <em>message secrecy</em> and <em>strong forward secrecy</em>: if the ephemeral private keys are secure and the responder is not being actively impersonated by an active attacker, message contents cannot be decrypted.  <span class="resultNums">4,5</span></p>
 
-			<h3>Message D <a href="D.html" class="detailedAnalysis">show detailed analysis</a></h3>
+			<h3>Message D <a href="/patterns/KK1/D.html" class="detailedAnalysis">show detailed analysis</a></h3>
 			<p>Message D, sent by the responder, benefits from <em>sender and receiver authentication</em> and is <em>resistant to Key Compromise Impersonation</em>. Assuming the corresponding private keys are secure, this authentication cannot be forged. Message contents benefit from <em>message secrecy</em> and <em>strong forward secrecy</em>: if the ephemeral private keys are secure and the initiator is not being actively impersonated by an active attacker, message contents cannot be decrypted.  <span class="resultNums">4,5</span></p>
 			<h3>Generate Cryptographic Models for Formal Verification</h3>
 			<p>

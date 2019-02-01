@@ -65,7 +65,7 @@ const htmlTemplates = {
 		};
 		return `<p>${phrases[tokens]}</p> \n\t\t\t`;
 	},
-	analysisMessage: (abc, dir, tokens, authentication, confidentiality, sanity) => {
+	analysisMessage: (name, abc, dir, tokens, authentication, confidentiality, sanity) => {
 		let who = (dir === 'send')? 'initiator' : 'responder';
 		let whom = (dir === 'recv')? 'initiator' : 'responder';
 		let authPhrases = {
@@ -88,7 +88,7 @@ const htmlTemplates = {
 			false: `<strong>Sanity of this result could not be verified.</strong>`
 		};
 		let phrase = [
-			`\n\t\t\t<h3>Message ${abc.toUpperCase()} <a href="${abc.toUpperCase()}.html" class="detailedAnalysis">show detailed analysis</a></h3>`,
+			`\n\t\t\t<h3>Message ${abc.toUpperCase()} <a href="/patterns/${name}/${abc.toUpperCase()}.html" class="detailedAnalysis">show detailed analysis</a></h3>`,
 			`<p>Message ${abc.toUpperCase()}, sent by the ${who}, ${authPhrases[authentication]}. ${confPhrases[confidentiality]}. ${sanPhrases[sanity]} <span class="resultNums">${authentication},${confidentiality}</span></p>`
 		].join('\n\t\t\t');
 		return phrase;
@@ -398,6 +398,7 @@ const render = (
 				readResultsActive.sanity
 			);
 			analysisTxt.push(htmlTemplates.analysisMessage(
+				pattern.name,
 				abc, message.dir, message.tokens,
 				authentication, confidentiality, sanity
 			));

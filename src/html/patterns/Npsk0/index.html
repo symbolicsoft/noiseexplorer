@@ -8,14 +8,14 @@
 	<meta name="description" content="Noise Explorer is an online engine for reasoning about Noise Protocol Framework Handshake Patterns. Noise Explorer allows you to design and validate Noise Handshake Patterns, to generate cryptographic models for formal verification and to explore a compendium of formal verification results for the most popular and relevant Noise Handshake Patterns in use today." />
 	<link rel="image_src" href="https://noiseexplorer.com/res/img/logo.png" />
 	<link rel="icon" type="image/png" href="../../res/img/logo.png" />
-	<link href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono|IBM+Plex+Sans" rel="stylesheet" />
 	<link href="../../res/css/style.css" rel="stylesheet" />
-	<script type="application/javascript" src="../../res/js/parser/noiseParser.js"></script>
-	<script type="application/javascript" src="../../res/js/parser/noise2Pv.js"></script>
-	<script type="application/javascript" src="../../res/js/parser/noise2Go.js"></script>
-	<script type="application/javascript" src="../../res/js/parser/noiseReader.js"></script>
-	<script type="application/javascript" src="../../res/js/noiseWebIde.js"></script>
-	<script type="application/javascript">
+	<link href="../../res/css/fonts.css" rel="stylesheet" />
+	<script src="../../res/js/parser/noiseParser.js"></script>
+	<script src="../../res/js/parser/noise2Pv.js"></script>
+	<script src="../../res/js/parser/noise2Go.js"></script>
+	<script src="../../res/js/parser/noiseReader.js"></script>
+	<script src="../../res/js/noiseWebIde.js"></script>
+	<script>
 	window.addEventListener('load', () => {
 		pvGen(['Npsk0:','  <- s','  ...','  -> psk, e, es'].join('\n'), 'active', 'pvActiveLink', false);
 		pvGen(['Npsk0:','  <- s','  ...','  -> psk, e, es'].join('\n'), 'passive', 'pvPassiveLink', false);
@@ -60,7 +60,7 @@
 			<p>The responder is initialized with a pre-shared long-term static key, which is assumed to be pre-authenticated out of band by the initiator.</p> 
 			
 
-			<h3>Message A <a href="A.html" class="detailedAnalysis">show detailed analysis</a></h3>
+			<h3>Message A <a href="/patterns/Npsk0/A.html" class="detailedAnalysis">show detailed analysis</a></h3>
 			<p>Message A, sent by the initiator, benefits from <em>receiver authentication</em> but is <em>vulnerable to Key Compromise Impersonation</em>. If the responder's long-term private key has been compromised, this authentication can be forged. However, if the initiator carries out a separate session with a separate, compromised responder, this other session can be used to forge the authentication of this message with this session's responder. Message contents benefit from <em>message secrecy</em> and some <em>forward secrecy</em>: the compromise of the responder's long-term private keys, even at a later date, will lead to message contents being decrypted by the attacker.  <span class="resultNums">1,2</span></p>
 			<h3>Generate Cryptographic Models for Formal Verification</h3>
 			<p>
