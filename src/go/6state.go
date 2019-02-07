@@ -11,7 +11,7 @@ func hasKey(cs *cipherstate) bool {
 	return !isEmptyKey(cs.k)
 }
 
-func setNonce(cs *cipherstate, newNonce uint64) *cipherstate {
+func setNonce(cs *cipherstate, newNonce uint32) *cipherstate {
 	cs.n = newNonce
 	return cs
 }
@@ -29,7 +29,7 @@ func decryptWithAd(cs *cipherstate, ad []byte, ciphertext []byte) (*cipherstate,
 }
 
 func reKey(cs *cipherstate) *cipherstate {
-	e := encrypt(cs.k, math.MaxUint64, []byte{}, emptyKey[:])
+	e := encrypt(cs.k, math.MaxUint32, []byte{}, emptyKey[:])
 	copy(cs.k[:], e)
 	return cs
 }

@@ -44,7 +44,7 @@ type messagebuffer struct {
 
 type cipherstate struct {
 	k [32]byte
-	n uint64
+	n uint32
 }
 
 type symmetricstate struct {
@@ -86,7 +86,8 @@ var emptyKey = [32]byte{
 	0x00, 0x00, 0x00, 0x00,
 }
 
-var minNonce = uint64(0)
+var minNonce = uint32(0)
+
 /* ---------------------------------------------------------------- *
  * UTILITY FUNCTIONS                                                *
  * ---------------------------------------------------------------- */
@@ -103,7 +104,7 @@ func isEmptyKey(k [32]byte) bool {
  * PRIMITIVES                                                       *
  * ---------------------------------------------------------------- */
 
-func incrementNonce(n uint64) uint64 {
+func incrementNonce(n uint32) uint32 {
 	return n + 1
 }
 
@@ -127,20 +128,20 @@ func generatePublicKey(sk [32]byte) [32]byte {
 	return pk
 }
 
-func encrypt(k [32]byte, n uint64, ad []byte, plaintext []byte) []byte {
+func encrypt(k [32]byte, n uint32, ad []byte, plaintext []byte) []byte {
 	var nonce [12]byte
 	var ciphertext []byte
 	enc, _ := chacha20poly1305.New(k[:])
-	binary.LittleEndian.PutUint64(nonce[4:], n)
+	binary.LittleEndian.PutUint32(nonce[4:], n)
 	ciphertext = enc.Seal(nil, nonce[:], plaintext, ad)
 	return ciphertext
 }
 
-func decrypt(k [32]byte, n uint64, ad []byte, ciphertext []byte) (bool, []byte, []byte) {
+func decrypt(k [32]byte, n uint32, ad []byte, ciphertext []byte) (bool, []byte, []byte) {
 	var nonce [12]byte
 	var plaintext []byte
 	enc, err := chacha20poly1305.New(k[:])
-	binary.LittleEndian.PutUint64(nonce[4:], n)
+	binary.LittleEndian.PutUint32(nonce[4:], n)
 	plaintext, err = enc.Open(nil, nonce[:], ciphertext, ad)
 	return (err == nil), ad, plaintext
 }
@@ -188,7 +189,7 @@ func hasKey(cs *cipherstate) bool {
 	return !isEmptyKey(cs.k)
 }
 
-func setNonce(cs *cipherstate, newNonce uint64) *cipherstate {
+func setNonce(cs *cipherstate, newNonce uint32) *cipherstate {
 	cs.n = newNonce
 	return cs
 }
@@ -206,7 +207,7 @@ func decryptWithAd(cs *cipherstate, ad []byte, ciphertext []byte) (*cipherstate,
 }
 
 func reKey(cs *cipherstate) *cipherstate {
-	e := encrypt(cs.k, math.MaxUint64, []byte{}, emptyKey[:])
+	e := encrypt(cs.k, math.MaxUint32, []byte{}, emptyKey[:])
 	copy(cs.k[:], e)
 	return cs
 }

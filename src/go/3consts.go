@@ -13,4 +13,4 @@ var emptyKey = [32]byte{
 	0x00, 0x00, 0x00, 0x00,
 }
 
-var minNonce = uint64(0)
+var minNonce = uint32(0)
