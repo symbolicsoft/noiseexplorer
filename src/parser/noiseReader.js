@@ -13,6 +13,16 @@ const util = {
 	]
 };
 
+const messagesPsk = (pattern) => {
+	let r = -1;
+	pattern.messages.forEach((message, i) => {
+		if (message.tokens.indexOf('psk') >= 0) {
+			r = i;
+		}
+	});
+	return r;
+};
+
 const readRules = {
 	rawResult: /^RESULT.+(is false|is true|cannot be proved)\.$/
 };
@@ -432,6 +442,7 @@ const renderDetailed = (
 	let who = (dir === 'send')? 'alice' : 'bob';
 	let whom = (dir === 'send')? 'bob' : 'alice';
 	let tokens = pattern.messages[message].tokens;
+	let hasPsk = messagesPsk(pattern) >= 0;
 	let arrowSvg = [];
 	let analysisTxt = [];
 	let writeMessageRegExp = new RegExp(`letfun writeMessage_${abc}[^.]+\.`, '');
@@ -451,17 +462,17 @@ const renderDetailed = (
 	}
 	let queryExplanations = {
 		authentication: ['',
-			`In this query, we test for <em>sender authentication</em> and <em>message integrity</em>. If ${whom[0].toUpperCase()}${whom.substr(1)} receives a valid message from ${who[0].toUpperCase()}${who.substr(1)}, then ${who[0].toUpperCase()}${who.substr(1)} must have sent that message to <em>someone</em>, or ${who[0].toUpperCase()}${who.substr(1)} had their static key compromised before the session began, or ${whom[0].toUpperCase()}${whom.substr(1)} had their static key compromised before the session began.`,
+			`In this query, we test for <em>sender authentication</em> and <em>message integrity</em>. If ${whom[0].toUpperCase()}${whom.substr(1)} receives a valid message from ${who[0].toUpperCase()}${who.substr(1)}, then ${who[0].toUpperCase()}${who.substr(1)} must have sent that message to <em>someone</em>, or ${who[0].toUpperCase()}${who.substr(1)} had their static key ${hasPsk? 'and PSK ' : ''}compromised before the session began, or ${whom[0].toUpperCase()}${whom.substr(1)} had their static key ${hasPsk? 'and PSK ' : ''}compromised before the session began.`,
 			`In this query, we test for <em>sender authentication</em> and is <em>Key Compromise Impersonation</em> resistance. If ${whom[0].toUpperCase()}${whom.substr(1)} receives a valid message from ${who[0].toUpperCase()}${who.substr(1)}, then ${who[0].toUpperCase()}${who.substr(1)} must have sent that message to <em>someone</em>, or ${who[0].toUpperCase()}${who.substr(1)} had their static key compromised before the session began.`,
-			`In this query, we test for <em>sender and receiver authentication</em> and <em>message integrity</em>. If ${whom[0].toUpperCase()}${whom.substr(1)} receives a valid message from ${who[0].toUpperCase()}${who.substr(1)}, then ${who[0].toUpperCase()}${who.substr(1)} must have sent that message to <em>${whom[0].toUpperCase()}${whom.substr(1)} specifically</em>, or ${who[0].toUpperCase()}${who.substr(1)} had their static key compromised before the session began, or ${whom[0].toUpperCase()}${whom.substr(1)} had their static key compromised before the session began.`,
+			`In this query, we test for <em>sender and receiver authentication</em> and <em>message integrity</em>. If ${whom[0].toUpperCase()}${whom.substr(1)} receives a valid message from ${who[0].toUpperCase()}${who.substr(1)}, then ${who[0].toUpperCase()}${who.substr(1)} must have sent that message to <em>${whom[0].toUpperCase()}${whom.substr(1)} specifically</em>, or ${who[0].toUpperCase()}${who.substr(1)} had their static key ${hasPsk? 'and PSK ' : ''}compromised before the session began, or ${whom[0].toUpperCase()}${whom.substr(1)} had their static key ${hasPsk? 'and PSK ' : ''}compromised before the session began.`,
 			`In this query, we test for <em>sender and receiver authentication</em> and is <em>Key Compromise Impersonation</em> resistance. If ${whom[0].toUpperCase()}${whom.substr(1)} receives a valid message from ${who[0].toUpperCase()}${who.substr(1)}, then ${who[0].toUpperCase()}${who.substr(1)} must have sent that message to <em>${whom[0].toUpperCase()}${whom.substr(1)} specifically</em>, or ${who[0].toUpperCase()}${who.substr(1)} had their static key compromised before the session began.`,
 		],
 		confidentiality: ['',
-			`In this query, we test for <em>message secrecy</em> by checking if a passive attacker is able to retrieve the payload plaintext only by compromising ${whom[0].toUpperCase()}${whom.substr(1)}'s static key either before or after the protocol session.`,
-			`In this query, we test for <em>message secrecy</em> by checking if an active attacker is able to retrieve the payload plaintext only by compromising ${whom[0].toUpperCase()}${whom.substr(1)}'s static key either before or after the protocol session.`,
-			`In this query, we test for <em>forward secrecy</em> by checking if a passive attacker is able to retrieve the payload plaintext only by compromising ${whom[0].toUpperCase()}${whom.substr(1)}'s static key before the protocol session, or after the protocol session along with ${who[0].toUpperCase()}${who.substr(1)}'s static public key (at any time.)`,
-			`In this query, we test for <em>weak forward secrecy</em> by checking if an active attacker is able to retrieve the payload plaintext only by compromising ${whom[0].toUpperCase()}${whom.substr(1)}'s static key before the protocol session, or after the protocol session along with ${who[0].toUpperCase()}${who.substr(1)}'s static public key (at any time.)`,
-			`In this query, we test for <em>strong forward secrecy</em> by checking if an active attacker is able to retrieve the payload plaintext only by compromising ${whom[0].toUpperCase()}${whom.substr(1)}'s static key before the protocol session.`,
+			`In this query, we test for <em>message secrecy</em> by checking if a passive attacker is able to retrieve the payload plaintext only by compromising ${whom[0].toUpperCase()}${whom.substr(1)}'s static key ${hasPsk? 'and PSK ' : ''}either before or after the protocol session.`,
+			`In this query, we test for <em>message secrecy</em> by checking if an active attacker is able to retrieve the payload plaintext only by compromising ${whom[0].toUpperCase()}${whom.substr(1)}'s static key ${hasPsk? 'and PSK ' : ''}either before or after the protocol session.`,
+			`In this query, we test for <em>forward secrecy</em> by checking if a passive attacker is able to retrieve the payload plaintext only by compromising ${whom[0].toUpperCase()}${whom.substr(1)}'s static key ${hasPsk? 'and PSK ' : ''}before the protocol session, or after the protocol session along with ${who[0].toUpperCase()}${who.substr(1)}'s static public key (at any time.)`,
+			`In this query, we test for <em>weak forward secrecy</em> by checking if an active attacker is able to retrieve the payload plaintext only by compromising ${whom[0].toUpperCase()}${whom.substr(1)}'s static key ${hasPsk? 'and PSK ' : ''}before the protocol session, or after the protocol session along with ${who[0].toUpperCase()}${who.substr(1)}'s static public key (at any time.)`,
+			`In this query, we test for <em>strong forward secrecy</em> by checking if an active attacker is able to retrieve the payload plaintext only by compromising ${whom[0].toUpperCase()}${whom.substr(1)}'s static key ${hasPsk? 'and PSK ' : ''}before the protocol session.`,
 		]
 	};
 	analysisTxt = [

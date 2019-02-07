@@ -3,7 +3,7 @@
 
 <head>
 	<meta charset="utf-8" />
-	<title>Noise Explorer: KKpsk0 - Message D</title>
+	<title>Noise Explorer: IKpsk2 - Message D</title>
 	<meta name="keywords" content="noise protocol, protocol verification, formal verification, noise protocol framework, symbolic verification" />
 	<meta name="description" content="Noise Explorer is an online engine for reasoning about Noise Protocol Framework Handshake Patterns. Noise Explorer allows you to design and validate Noise Handshake Patterns, to generate cryptographic models for formal verification and to explore a compendium of formal verification results for the most popular and relevant Noise Handshake Patterns in use today." />
 	<link rel="image_src" href="https://noiseexplorer.com/res/img/logo.png" />
@@ -28,7 +28,7 @@
 	</div>
 	<div class="results detailed">
 		<div class="arrowsFrame">
-			<h1 id="patternName"><a href="index.html">KKpsk0</a></h1>
+			<h1 id="patternName"><a href="index.html">IKpsk2</a></h1>
 			<div class="arrows">
 				<svg id="patternArrows">
 					<line data-seclevel="5" x1="5" x2="499" y1="70" y2="70"></line>
@@ -41,7 +41,7 @@
 		</div>
 		<div class="resultsExplanation">
 			<h2>Message Pattern Analysis</h2>
-			<p>Message <span class="mono">D</span> is the fourth message in the <span class="mono">KKpsk0</span> Noise Handshake Pattern. It is sent from the responder to the initiator. In this detailed analysis, we attempt to give you some insight into the protocol logic underlying this message. The insight given here does not fully extend down to fully illustrate the exact state transformations conducted by the formal model, but it does describe them at least informally in order to help illustrate how Message <span class="mono">D</span> affects the protocol.</p>
+			<p>Message <span class="mono">D</span> is the fourth message in the <span class="mono">IKpsk2</span> Noise Handshake Pattern. It is sent from the responder to the initiator. In this detailed analysis, we attempt to give you some insight into the protocol logic underlying this message. The insight given here does not fully extend down to fully illustrate the exact state transformations conducted by the formal model, but it does describe them at least informally in order to help illustrate how Message <span class="mono">D</span> affects the protocol.</p>
 <h3>Sending Message <span class="mono">D</span></h3>
 <p>In the applied pi calculus, the initiator's process prepares Message <span class="mono">D</span> using the following function:</p>
 <p class="proverif">
@@ -79,10 +79,10 @@ Since Message <span class="mono">D</span> contains no tokens, it is considered p
 <h3>Queries and Results</h3>
 Message <span class="mono">D</span> is tested against four authentication queries and five confidentiality queries.
 <h4>Authentication Grade 1: <span class="passed">Passed</span></h4>
-<p class="proverif"><br />RESULT event(RecvMsg(alice,bob,stagepack_d(sid_a),m)) ==> event(SendMsg(bob,c_1308,stagepack_d(sid_b),m)) || (event(LeakS(phase0,bob)) && event(LeakPsk(phase0,alice,bob))) || (event(LeakS(phase0,alice)) && event(LeakPsk(phase0,alice,bob))) is true.</p>
+<p class="proverif"><br />RESULT event(RecvMsg(alice,bob,stagepack_d(sid_a),m)) ==> event(SendMsg(bob,c_1342,stagepack_d(sid_b),m)) || (event(LeakS(phase0,bob)) && event(LeakPsk(phase0,alice,bob))) || (event(LeakS(phase0,alice)) && event(LeakPsk(phase0,alice,bob))) is true.</p>
 <p>In this query, we test for <em>sender authentication</em> and <em>message integrity</em>. If Alice receives a valid message from Bob, then Bob must have sent that message to <em>someone</em>, or Bob had their static key and PSK compromised before the session began, or Alice had their static key and PSK compromised before the session began.</p>
 <h4>Authentication Grade 2: <span class="passed">Passed</span></h4>
-<p class="proverif"><br />RESULT event(RecvMsg(alice,bob,stagepack_d(sid_a),m)) ==> event(SendMsg(bob,c_1308,stagepack_d(sid_b),m)) || event(LeakS(phase0,bob)) is true.</p>
+<p class="proverif"><br />RESULT event(RecvMsg(alice,bob,stagepack_d(sid_a),m)) ==> event(SendMsg(bob,c_1342,stagepack_d(sid_b),m)) || event(LeakS(phase0,bob)) is true.</p>
 <p>In this query, we test for <em>sender authentication</em> and is <em>Key Compromise Impersonation</em> resistance. If Alice receives a valid message from Bob, then Bob must have sent that message to <em>someone</em>, or Bob had their static key compromised before the session began.</p>
 <h4>Authentication Grade 3: <span class="passed">Passed</span></h4>
 <p class="proverif"><br />RESULT event(RecvMsg(alice,bob,stagepack_d(sid_a),m)) ==> event(SendMsg(bob,alice,stagepack_d(sid_b),m)) || (event(LeakS(phase0,bob)) && event(LeakPsk(phase0,alice,bob))) || (event(LeakS(phase0,alice)) && event(LeakPsk(phase0,alice,bob))) is true.</p>
