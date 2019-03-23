@@ -50,7 +50,7 @@ impl CipherState {
 		self.k = in_out;
 	}
 
-	fn writeMessageRegular(&mut self, payload: &[u8]) -> MessageBuffer {
+	fn WriteMessageRegular(&mut self, payload: &[u8]) -> MessageBuffer {
 		MessageBuffer {
 			ne: EMPTY_KEY,
 			ns: Vec::new(),
@@ -58,7 +58,7 @@ impl CipherState {
 		}
 	}
 
-	fn readMessageRegular(&mut self, message: &MessageBuffer) -> Option<Vec<u8>> {
+	fn ReadMessageRegular(&mut self, message: &MessageBuffer) -> Option<Vec<u8>> {
 		self.DecryptWithAd(&zerolen[..], &message.ciphertext)
 	}
 }
@@ -177,9 +177,10 @@ impl SymmetricState {
 }
 
 /* HandshakeState */
-
+impl HandshakeState {
 /* $NOISE2RS_I$ */
 
 /* $NOISE2RS_W$ */
 
 /* $NOISE2RS_R$ */
+}

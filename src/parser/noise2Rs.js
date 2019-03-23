@@ -9,8 +9,8 @@ const params = {
 };
 
 const util = {
-	emptyKey: 'emptyKey',
-	emptyKeyPair: 'keypair{emptyKey, emptyKey}',
+	emptyKey: 'EMPTY_KEY',
+	emptyKeyPair: 'Keypair::new_empty()',
 	abc: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'],
 };
 
@@ -129,24 +129,21 @@ const typeFuns = (pattern) => {
 const initializeFun = (pattern, initiator, suffix) => {
 	let preMessageTokenParsers = {
 		send: {
-			e: `mixHash(&ss, e.pk[:])`,
-			s: `mixHash(&ss, s.pk[:])`,
-			'e, s': `mixHash(mixHash(&ss, e.pk[:]), s.pk[:])`
+			e: `ss.MixHash(&e.pk.0[..]);`,
+			s: `ss.MixHash(&s.pk.0[..]);`,
+			'e, s': `ss.MixHash(&e.pk.0[..]); ss.MixHash(&s.pk.0[..]);`
 		},
 		recv: {
-			e: `mixHash(&ss, re[:])`,
-			s: `mixHash(&ss, rs[:])`,
-			'e, s': `mixHash(&mixHash(ss, re[:]), rs[:])`
+			e: `ss.MixHash(&re[..]);`,
+			s: `ss.MixHash(&rs[..]);`,
+			'e, s': `ss.MixHash(&re[:]); ss.MixHash(&rs[:]);`
 		}
 	};
 	let initFun = [
-		`func initialize${suffix}(prologue []byte, s keypair, rs [32]byte, psk [32]byte) handshakestate {`,
-		`var ss symmetricstate`,
-		`var e keypair`,
-		`var re [32]byte`,
-		`name := []byte("Noise_${pattern.name}_25519_ChaChaPoly_BLAKE2s")`,
-		`ss = initializeSymmetric(name)`,
-		`mixHash(&ss, prologue)`
+		`fn Initialize${suffix}(prologue: &[u8], s: Keypair, rs: [u8; DHLEN], psk: [u8; PSK_LENGTH]) -> HandshakeState {`,
+		`let protocol_name = b"Noise_${pattern.name}_25519_ChaChaPoly_BLAKE2s";`,
+		`let mut ss: SymmetricState = SymmetricState::InitializeSymmetric(&protocol_name[..]);`,
+		`ss.MixHash(prologue);`
 	];
 	pattern.preMessages.forEach((preMessage) => {
 		let dir = preMessage.dir;
@@ -155,7 +152,7 @@ const initializeFun = (pattern, initiator, suffix) => {
 		}
 		initFun.push(preMessageTokenParsers[dir][preMessage.tokens]);
 	});
-	initFun.push(`return handshakestate{ss, s, e, rs, re, psk}`);
+	initFun.push(`HandshakeState{ss, s, e: ${util.emptyKeyPair}, rs, re: ${util.emptyKey}, psk}`);
 	return `${initFun.join('\n\t')}\n}`;
 };
 
@@ -168,35 +165,39 @@ const initializeFuns = (pattern) => {
 
 const writeMessageFun = (message, hasPsk, initiator, isFinal, suffix) => {
 	let ePskFill = hasPsk?
-		`mixKey(&hs.ss, hs.e.pk)` : `/* No PSK, so skipping mixKey */`;
+		`self.ss.MixKey(&self.e.pk.0);` : `/* No PSK, so skipping mixKey */`;
 	let esInitiatorFill = initiator?
-		`mixKey(&hs.ss, dh(hs.e.sk, hs.rs))` : `mixKey(&hs.ss, dh(hs.s.sk, hs.re))`;
+		`self.ss.MixKey(&DH(&self.e, &self.rs));` : `self.ss.MixKey(&DH(&self.s, &self.re));`;
 	let seInitiatorFill = initiator?
-		`mixKey(&hs.ss, dh(hs.s.sk, hs.re))` : `mixKey(&hs.ss, dh(hs.e.sk, hs.rs))`;
+		`self.ss.MixKey(&DH(&self.s, &self.re));` : `self.ss.MixKey(&DH(&self.e, &self.rs));`;
 	let finalFill = isFinal? [
-		`cs1, cs2 := split(&hs.ss)`,
-		`return hs.ss.h, messageBuffer, cs1, cs2`
+		`let (cs1, cs2) = self.ss.Split();`,
+		`let messagebuffer: MessageBuffer = MessageBuffer { ne, ns, ciphertext };`,
+		`(self.ss.h, messagebuffer, cs1, cs2)`
 	] : [
-		`return hs, messageBuffer`
+		`MessageBuffer { ne, ns, ciphertext }`
 	];
 	let isBeyondFinal = (message.tokens.length === 0);
-	let writeFunDeclaration = isBeyondFinal?
-		`func writeMessageRegular(cs *cipherstate, payload []byte) (*cipherstate, messagebuffer) {` :
-		`func writeMessage${suffix}(hs *handshakestate, payload []byte) (${isFinal? `[32]byte, messagebuffer, cipherstate, cipherstate` : `*handshakestate, messagebuffer`}) {`;
+	if (isBeyondFinal) {
+		return ``;
+	}
+	let writeFunDeclaration = `fn WriteMessage${suffix}(&mut self, payload: &[u8]) -> (${isFinal? `([u8; 32], MessageBuffer, CipherState, CipherState)` : `MessageBuffer`}) {`;
 	let messageTokenParsers = {
 		e: [
-			`hs.e = generateKeypair()`,
-			`ne = hs.e.pk`,
-			`mixHash(&hs.ss, ne[:])`,
+			`self.e = GENERATE_KEYPAIR();`,
+			`let ne = self.e.pk.0;`,
+			`let ns: Vec<u8> = Vec::from(&zerolen[..]);`,
+			`self.ss.MixHash(&ne[..]);`,
 			ePskFill
 		].join(`\n\t`),
 		s: [
-			`spk := make([]byte, len(hs.s.pk))`,
-			`copy(spk[:], hs.s.pk[:])`,
-			`_, ns = encryptAndHash(&hs.ss, spk)`,
+			`let mut ns: Vec<u8> = Vec::new();`,
+			`if let Some(x) = self.ss.EncryptAndHash(&self.s.pk.0[..]) {`,
+			`\tns.clone_from(&x);`,
+			`}`
 		].join(`\n\t`),
 		ee: [
-			`mixKey(&hs.ss, dh(hs.e.sk, hs.re))`
+			`self.ss.MixKey(&DH(&self.e, &self.re));`
 		].join(`\n\t`),
 		es: [
 			esInitiatorFill
@@ -205,27 +206,25 @@ const writeMessageFun = (message, hasPsk, initiator, isFinal, suffix) => {
 			seInitiatorFill
 		].join(`\n\t`),
 		ss: [
-			`mixKey(&hs.ss, dh(hs.s.sk, hs.rs))`
+			`self.ss.MixKey(&DH(&self.s, &self.rs));`
 		].join(`\n\t`),
 		psk: [
-			`mixKeyAndHash(&hs.ss, hs.psk)`
+			`self.ss.MixKeyAndHash(&self.psk);`
 		].join(`\n\t`),
 	};
 	let writeFun = [
-		writeFunDeclaration,
-		`ne, ns, ciphertext := emptyKey, []byte{}, []byte{}`
+		writeFunDeclaration
 	];
 	message.tokens.forEach((token) => {
 		writeFun.push(messageTokenParsers[token]);
 	});
-	writeFun = writeFun.concat(isBeyondFinal? [
-		`cs, ciphertext = encryptWithAd(cs, []byte{}, payload)`,
-		`messageBuffer := messagebuffer{ne, ns, ciphertext}`
-	] : [
-		`_, ciphertext = encryptAndHash(&hs.ss, payload)`,
-		`messageBuffer := messagebuffer{ne, ns, ciphertext}`,
+	writeFun = writeFun.concat([
+		`let mut ciphertext: Vec<u8> = Vec::new();`,
+		`if let Some(x) = self.ss.EncryptAndHash(payload) {`,
+		`\tciphertext.clone_from(&x);`,
+		`}`
 	]);
-	writeFun = writeFun.concat(isBeyondFinal? `return cs, messageBuffer` : finalFill);
+	writeFun = writeFun.concat(finalFill);
 	return `${writeFun.join('\n\t')}\n}`;
 };
 
@@ -249,35 +248,38 @@ const writeMessageFuns = (pattern) => {
 
 const readMessageFun = (message, hasPsk, initiator, isFinal, suffix) => {
 	let ePskFill = hasPsk?
-		`mixKey(&hs.ss, hs.re)` : `/* No PSK, so skipping mixKey */`;
+		`self.ss.MixKey(&self.re);` : `/* No PSK, so skipping mixKey */`;
 	let esInitiatorFill = initiator?
-		`mixKey(&hs.ss, dh(hs.e.sk, hs.rs))` : `mixKey(&hs.ss, dh(hs.s.sk, hs.re))`;
+		`self.ss.MixKey(&DH(&self.e, &self.rs));` : `self.ss.MixKey(&DH(&self.s, &self.re));`;
 	let seInitiatorFill = initiator?
-		`mixKey(&hs.ss, dh(hs.s.sk, hs.re))` : `mixKey(&hs.ss, dh(hs.e.sk, hs.rs))`;
+		`self.ss.MixKey(&DH(&self.s, &self.re));` : `self.ss.MixKey(&DH(&self.e, &self.rs));`;
 	let finalFill = isFinal? [
-		`cs1, cs2 := split(&hs.ss)`,
-		`return hs.ss.h, plaintext, (valid1 && valid2), cs1, cs2`
+		`\tlet (cs1, cs2) = self.ss.Split();`,
+		`\treturn Some((self.ss.h, plaintext, cs1, cs2));`
 	] : [
-		`return hs, plaintext, (valid1 && valid2)`
+		`\treturn Some(plaintext);`
 	];
 	let isBeyondFinal = (message.tokens.length === 0);
-	let readFunDeclaration = isBeyondFinal?
-		`func readMessageRegular(cs *cipherstate, message *messagebuffer) (*cipherstate, []byte, bool) {` :
-		`func readMessage${suffix}(hs *handshakestate, message *messagebuffer) (${isFinal? `[32]byte, []byte, bool, cipherstate, cipherstate` : `*handshakestate, []byte, bool`}) {`;
+	if (isBeyondFinal) {
+		return ``;
+	}
+	let readFunDeclaration = `fn ReadMessage${suffix}(&mut self, message: &mut MessageBuffer) -> (${isFinal? `Option<([u8; 32], Vec<u8>, CipherState, CipherState)>` : `Option<Vec<u8>>`}) {`;
 	let messageTokenParsers = {
 		e: [
-			`hs.re = message.ne`,
-			`mixHash(&hs.ss, hs.re[:])`,
+			`self.re.copy_from_slice(&message.ne[..]);`,
+			`self.ss.MixHash(&self.re[..DHLEN]);`,
 			ePskFill
 		].join(`\n\t`),
 		s: [
-			`_, ns, valid1 := decryptAndHash(&hs.ss, message.ns)`,
-			`if valid1 && len(ns) == 32 {`,
-			`\tcopy(hs.rs[:], ns)`,
-			`}`,
+			`if let Some(x) = self.ss.DecryptAndHash(&message.ns) {`,
+			`\tif x.len() != DHLEN {`,
+			`\t\treturn None`,
+			`\t}`,
+			`\tself.rs.copy_from_slice(&x);`,
+			`} else { return None }`,
 		].join(`\n\t`),
 		ee: [
-			`mixKey(&hs.ss, dh(hs.e.sk, hs.re))`
+			`self.ss.MixKey(&DH(&self.e, &self.re));`
 		].join(`\n\t`),
 		es: [
 			esInitiatorFill
@@ -286,25 +288,23 @@ const readMessageFun = (message, hasPsk, initiator, isFinal, suffix) => {
 			seInitiatorFill
 		].join(`\n\t`),
 		ss: [
-			`mixKey(&hs.ss, dh(hs.s.sk, hs.rs))`
+			`self.ss.MixKey(&DH(&self.s, &self.rs));`
 		].join(`\n\t`),
 		psk: [
-			`mixKeyAndHash(&hs.ss, hs.psk)`
+			`self.ss.MixKeyAndHash(&self.psk);`
 		].join(`\n\t`)
 	};
 	let readFun = [
 		readFunDeclaration,
-		isBeyondFinal? `/* No encrypted keys */` : `valid1 := true`
 	];
 	message.tokens.forEach((token) => {
 		readFun.push(messageTokenParsers[token]);
 	});
-	readFun = readFun.concat(isBeyondFinal? [
-		`_, plaintext, valid2 := decryptWithAd(cs, []byte{}, message.ciphertext)`,
-		`return cs, plaintext, valid2`
-	] : [
-		`_, plaintext, valid2 := decryptAndHash(&hs.ss, message.ciphertext)`,
-		`${finalFill.join('\n\t')}`
+	readFun = readFun.concat([
+		`if let Some(plaintext) = self.ss.DecryptAndHash(&message.ciphertext) {`,
+		`${finalFill.join('\n\t')}`,
+		`}`,
+		`None`
 	]);
 	return `${readFun.join('\n\t')}\n}`;
 };
@@ -355,83 +355,140 @@ const processFuns = (pattern, isOneWayPattern) => {
 	let hasPsk = messagesPsk(pattern) >= 0;
 	let finalKex = finalKeyExchangeMessage(pattern);
 	let initSession = [
-		`func InitSession(initiator bool, prologue []byte, s keypair, rs [32]byte${hasPsk? ', psk [32]byte' : ''}) noisesession {`,
-		`\tvar session noisesession`,
-		`\t${hasPsk? '/* PSK defined by user */' : 'psk := emptyKey'}`,
+		`\tpub fn InitSession(initiator: bool, prologue: &[u8], s: Keypair, rs: [u8; DHLEN]${hasPsk? ', psk: [u8; PSK_LENGTH]' : ''}) -> NoiseSession {`,
 		`\tif initiator {`,
-		`\t\tsession.hs = initializeInitiator(prologue, s, rs, psk)`,
+		`\t\tNoiseSession{`,
+		`\t\t\ths: HandshakeState::InitializeInitiator(prologue, s, rs${hasPsk? ', psk' : util.emptyKey}),`,
+		`\t\t\tmc: 0,`,
+		`\t\t\ti: initiator,`,
+		`\t\t\tcs1: CipherState::InitializeKey(&EMPTY_KEY),`,
+		`\t\t\tcs2: CipherState::InitializeKey(&EMPTY_KEY),`,
+		`\t\t\th: [0u8; 32],`,
+		`\t\t}`,
 		`\t} else {`,
-		`\t\tsession.hs = initializeResponder(prologue, s, rs, psk)`,
+		`\t\tNoiseSession {`,
+		`\t\t\ths: HandshakeState::InitializeResponder(prologue, s, rs${hasPsk? ', psk' : util.emptyKey}),`,
+		`\t\t\tmc: 0,`,
+		`\t\t\ti: initiator,`,
+		`\t\t\tcs1: CipherState::InitializeKey(&EMPTY_KEY),`,
+		`\t\t\tcs2: CipherState::InitializeKey(&EMPTY_KEY),`,
+		`\t\t\th: [0u8; 32],`,
+		`\t\t}`,
 		`\t}`,
-		`\tsession.i = initiator`,
-		`\tsession.mc = 0`,
-		`\treturn session`,
 		`}`
 	];
 	let sendMessage = [
-		`\nfunc SendMessage(session *noisesession, message []byte) (*noisesession, messagebuffer) {`,
-		`\tvar messageBuffer messagebuffer`
+		`\n\tpub fn SendMessage(&mut self, message: &[u8]) -> MessageBuffer {`,
+		`\tif self.cs1.n < MAX_NONCE && self.cs2.n < MAX_NONCE`,
+		`\t&& self.hs.ss.cs.n < MAX_NONCE && message.len() < 65535 {`,
+		`\t\tlet mut buffer: MessageBuffer = MessageBuffer {`,
+		`\t\t\tne: EMPTY_KEY,`,
+		`\t\t\tns: Vec::from(&zerolen[..]),`,
+		`\t\t\tciphertext: Vec::from(&zerolen[..]),`,
+		`\t\t};`
 	];
 	let recvMessage = [
-		`\nfunc RecvMessage(session *noisesession, message *messagebuffer) (*noisesession, []byte, bool) {`,
-		`\tvar plaintext []byte`,
-		`\tvar valid bool`
+		`\n\tpub fn RecvMessage(&mut self, message: &mut MessageBuffer) -> Option<Vec<u8>> {`,
+		`\tif self.cs1.n < MAX_NONCE && self.cs2.n < MAX_NONCE`,
+		`\t&& self.hs.ss.cs.n < MAX_NONCE && message.ciphertext.len() < 65535 {`,
+		`\t\tlet mut plaintext: Option<Vec<u8>> = None;`
 	];
 	for (let i = 0; i < pattern.messages.length; i++) {
 		if (i < finalKex) {
 			sendMessage = sendMessage.concat([
-				`\tif session.mc == ${i} {`,
-				`\t\t_, messageBuffer = writeMessage${util.abc[i]}(&session.hs, message)`,
-				`\t}`
+				`\t\tif self.mc == ${i} {`,
+				`\t\t\tbuffer = self.hs.WriteMessage${util.abc[i]}(message);`,
+				`\t\t}`
 			]);
 			recvMessage = recvMessage.concat([
-				`\tif session.mc == ${i} {`,
-				`\t\t_, plaintext, valid = readMessage${util.abc[i]}(&session.hs, message)`,
-				`\t}`
+				`\t\tif self.mc == ${i} {`,
+				`\t\t\tplaintext = self.hs.ReadMessage${util.abc[i]}(message);`,
+				`\t\t}`
 			]);
 		} else if (i == finalKex) {
 			sendMessage = sendMessage.concat([
-				`\tif session.mc == ${i} {`,
-				`\t\tsession.h, messageBuffer, session.cs1, ${isOneWayPattern? `_` : `session.cs2`} = writeMessage${util.abc[i]}(&session.hs, message)`,
-				`\t\tsession.hs = handshakestate{}`,
-				`\t}`
+				`\t\tif self.mc == ${i} {`,
+				`\t\t\tlet temp = self.hs.WriteMessage${util.abc[i]}(message);`,
+				`\t\t\tself.h = temp.0;`,
+				`\t\t\tbuffer = temp.1;`,
+				`\t\t\tself.cs1 = temp.2;`,
+				`\t\t\tself.cs2 = temp.3;`,
+				`\t\t\t// Drop hs here`,
+				`\t\t\tself.hs = HandshakeState {`,
+				`\t\t\t\tss: SymmetricState::InitializeSymmetric(b""),`,
+				`\t\t\t\ts: ${util.emptyKeyPair},`,
+				`\t\t\t\te: ${util.emptyKeyPair},`,
+				`\t\t\t\trs: ${util.emptyKey},`,
+				`\t\t\t\tre: ${util.emptyKey},`,
+				`\t\t\t\tpsk: ${util.emptyKey},`,
+				`\t\t\t};`,
+				`\t\t}`
 			]);
 			recvMessage = recvMessage.concat([
-				`\tif session.mc == ${i} {`,
-				`\t\tsession.h, plaintext, valid, session.cs1, ${isOneWayPattern? `_` : `session.cs2`} = readMessage${util.abc[i]}(&session.hs, message)`,
-				`\t\tsession.hs = handshakestate{}`,
-				`\t}`
+				`\t\tif self.mc == ${i} {`,
+				`\t\t\tif let Some(temp) = self.hs.ReadMessageB(message) {`,
+				`\t\t\t\tself.h = temp.0;`,
+				`\t\t\t\tplaintext = Some(temp.1);`,
+				`\t\t\t\tself.cs1 = temp.2;`,
+				`\t\t\t\tself.cs2 = temp.3;`,
+				`\t\t\t\t// Drop hs here`,
+				`\t\t\t\tself.hs = HandshakeState {`,
+				`\t\t\t\t\tss: SymmetricState::InitializeSymmetric(b""),`,
+				`\t\t\t\t\ts: ${util.emptyKeyPair},`,
+				`\t\t\t\t\te: ${util.emptyKeyPair},`,
+				`\t\t\t\t\trs: ${util.emptyKey},`,
+				`\t\t\t\t\tre: ${util.emptyKey},`,
+				`\t\t\t\t\tpsk: ${util.emptyKey},`,
+				`\t\t\t\t};`,
+				`\t\t\t}`,
+				`\t\t}`
 			]);
 		} else {
 			sendMessage = sendMessage.concat([
-				`\tif session.mc > ${finalKex} {`,
-				`\t\tif session.i {`,
-				`\t\t\t_, messageBuffer = writeMessageRegular(&session.cs1, message)`,
-				`\t\t} else {`,
-				`\t\t\t_, messageBuffer = writeMessageRegular(&session.${isOneWayPattern? `cs1` : `cs2`}, message)`,
-				`\t\t}`,
-				`\t}`
+				`\t\tif self.mc > ${finalKex} {`,
+				`\t\t\tif self.i {`,
+				`\t\t\t\tbuffer = self.cs1.WriteMessageRegular(message);`,
+				`\t\t\t} else {`,
+				`\t\t\t\tbuffer = self.cs2.WriteMessageRegular(message);`,
+				`\t\t\t}`,
+				`\t\t}`
 			]);
 			recvMessage = recvMessage.concat([
-				`\tif session.mc > ${finalKex} {`,
-				`\t\tif session.i {`,
-				`\t\t\t_, plaintext, valid = readMessageRegular(&session.${isOneWayPattern? `cs1` : `cs2`}, message)`,
-				`\t\t} else {`,
-				`\t\t\t_, plaintext, valid = readMessageRegular(&session.cs1, message)`,
-				`\t\t}`,
-				`\t}`
+				`\t\tif self.mc > ${finalKex} {`,
+				`\t\t\tif self.i {`,
+				`\t\t\t\tif let Some(msg) = self.cs2.ReadMessageRegular(message) {`,
+				`\t\t\t\t\tplaintext = Some(msg);`,
+				`\t\t\t\t}`,
+				`\t\t\t} else {`,
+				`\t\t\t\tif let Some(msg) = self.cs1.ReadMessageRegular(message) {`,
+				`\t\t\t\t\tplaintext = Some(msg);`,
+				`\t\t\t\t}`,
+				`\t\t\t}`,
+				`\t\t}`
 			]);
 			break;
 		}
 	}
 	sendMessage = sendMessage.concat([
-		`\tsession.mc = session.mc + 1`,
-		`\treturn session, messageBuffer`,
+		`\t\tself.mc += 1;`,
+		`\t\tbuffer`,
+		`\t} else {`,
+		`\t\tif message.len() > 65535 {`,
+		`\t\t\tpanic!("Message too big.");`,
+		`\t\t}`,
+		`\t\tpanic!("Maximum number of messages reached.");`,
+		`\t}`,
 		`}`
 	]);
 	recvMessage = recvMessage.concat([
-		`\tsession.mc = session.mc + 1`,
-		`\treturn session, plaintext, valid`,
+		`\t\tself.mc += 1;`,
+		`\t\tplaintext`,
+		`\t} else {`,
+		`\t\tif message.ciphertext.len() > 65535 {`,
+		`\t\t\tpanic!("Message too big.");`,
+		`\t\t}`,
+		`\t\tpanic!("Maximum number of messages reached.");`,
+		`\t}`,
 		`}`
 	]);
 	return initSession.concat(sendMessage).concat(recvMessage);
@@ -456,7 +513,7 @@ const parse = (pattern) => {
 	let a = initiatorFun(pattern).join('\n\t');
 	let b = responderFun(pattern).join('\n\t');
 	let k = repeatingKeysQueryFun(pattern).join('\n\t');
-	let p = processFuns(pattern, isOneWayPattern).join('\n');
+	let p = processFuns(pattern, isOneWayPattern).join('\n\t');
 	let q = queries(pattern).join('\n');
 	let parsed = {t, s, i, w, r, e, q, g, a, b, k, p};
 	return parsed;
