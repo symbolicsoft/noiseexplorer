@@ -2,7 +2,7 @@
 ## Version 0.3, based on Noise Protocol Revision 34.
 
 ### Overview
-The Noise Explorer command-line tool can parse Noise Handshake Patterns according to the original specification. It can generate cryptographic models for formal verification, including security queries, top-level processes and malicious principals, for testing against an active or passive attacker. Noise Explorer can also generate fully functional discrete implementations for any Noise Handshake Pattern, written in the [Go programming language](https://golang.org).
+The Noise Explorer command-line tool can parse Noise Handshake Patterns according to the original specification. It can generate cryptographic models for formal verification, including security queries, top-level processes and malicious principals, for testing against an active or passive attacker. Noise Explorer can also generate fully functional discrete implementations for any Noise Handshake Pattern, written in the [Go](https://golang.org) and [Rust](https://www.rust-lang.org/) programming languages.
 
 Noise Explorer can also render results from the ProVerif output into an elegant and easy to read HTML format: the pattern results that can be explored on [Noise Explorer](https://noiseexplorer.com) were generated using the Noise Explorer command-line tool.
 
@@ -10,6 +10,8 @@ Noise Explorer can also render results from the ProVerif output into an elegant 
 - ProVerif: *Reliable*
 - Go: *Reliable*
 - Rust: *Work in Progress, non-functional!*
+
+### Usage
 
 ```
 $> node noiseExplorer --help
