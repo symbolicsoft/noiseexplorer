@@ -6,7 +6,7 @@ for pattern in ../patterns/*.noise; do
 		> ../implementations/go/$(basename "${pattern}").go
 	node noiseExplorer \
 		--generate=rs --pattern=$pattern \
-		> ../implementations/rust/$(basename "${pattern}").rs
+		> ../implementations/rs/$(basename "${pattern}").rs
 done
 cd ../implementations/go
 go get -d ./...
