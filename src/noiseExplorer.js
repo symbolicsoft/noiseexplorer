@@ -6,6 +6,7 @@ const NOISE2GO = require('./parser/noise2Go.js');
 const NOISE2RS = require('./parser/noise2Rs.js');
 const NOISEREADER = require('./parser/noiseReader.js');
 const NOISE2GOTESTGEN = require('./testgen/noise2GoTestGen.js')
+const NOISE2RSTESTGEN = require('./testgen/noise2RsTestGen.js')
 
 const UTIL = {
 	abc: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
@@ -251,7 +252,7 @@ if (
 	let parsedRs = NOISE2RS.parse(json);
 	let output = RSRENDER(pattern, parsedRs);
 	if (ARGV.hasOwnProperty('testgen')) {
-		// console.log(NOISE2RSTESTGEN.generate(output));
+		console.log(NOISE2RSTESTGEN.generate(output));
 	} else {
 		console.log(output);
 	}
