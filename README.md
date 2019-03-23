@@ -43,7 +43,7 @@ Help:
 ### Requirements
 1. [Node](https://nodejs.org) is required for running Noise Explorer locally.
 2. [ProVerif](http://prosecco.gforge.inria.fr/personal/bblanche/proverif/) is required for verifying generated models.
-2. [Go](https://golang.org) is required for running generated implementations.
+2. [Go](https://golang.org) and [Rust](https://www.rust-lang.org) are required for running generated implementations.
 
 ### Preparation
 1. `cd src`
