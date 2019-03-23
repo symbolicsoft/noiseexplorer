@@ -12,7 +12,7 @@ Noise Explorer version 0.3 (specification revision 34)
 Noise Explorer has three individual modes: generation, rendering and web interface.
 
 Generation:
---generate=(json|proverif|go): Specify output format.
+--generate=(json|pv|go|rs): Specify output format.
 --pattern=[file]: Specify input pattern file (required).
 --attacker=(active|passive): Specify ProVerif attacker type (default: active).
 --testgen: Embed test vectors into the generated implementation.

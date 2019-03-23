@@ -3,6 +3,7 @@ const ARGV = require('minimist')(process.argv.slice(2));
 const NOISEPARSER = require('./parser/noiseParser.js');
 const NOISE2PV = require('./parser/noise2Pv.js');
 const NOISE2GO = require('./parser/noise2Go.js');
+const NOISE2RS = require('./parser/noise2Rs.js');
 const NOISEREADER = require('./parser/noiseReader.js');
 const NOISE2GOTESTGEN = require('./testgen/noise2GoTestGen.js')
 
@@ -15,7 +16,7 @@ const HELPTEXT = [
 	'Noise Explorer has three individual modes: generation, rendering and web interface.',
 	'',
 	'Generation:',
-	'--generate=(json|proverif|go): Specify output format.',
+	'--generate=(json|pv|go|rs): Specify output format.',
 	'--pattern=[file]: Specify input pattern file (required).',
 	'--attacker=(active|passive): Specify ProVerif attacker type (default: active).',
 	'--testgen: Embed test vectors into the generated implementation.',
@@ -48,10 +49,10 @@ if (
 		ARGV.hasOwnProperty('activeResults') ||
 		ARGV.hasOwnProperty('passiveResults') ||
 		ARGV.hasOwnProperty('activeModel') ||
-		((ARGV.generate === 'go') &&
+		((/^(go)|(rs)$/).test(ARGV.generate) &&
 			ARGV.hasOwnProperty('attacker')
 		) ||
-		((ARGV.generate != 'go') &&
+		((/^(go)|(rs)$/).test(ARGV.generate) &&
 			ARGV.hasOwnProperty('tests')
 		)
 	)) ||
@@ -153,12 +154,39 @@ const GORENDER = (pattern, parsedGo) => {
 	go[8] = go[8].replace('/* $NOISE2GO_B$ */', parsedGo.b);
 	go[8] = go[8].replace('/* $NOISE2GO_K$ */', parsedGo.k);
 	go[8] = go[8].replace('/* $NOISE2GO_P$ */', parsedGo.p);
-
 	return go.join('\n');
 };
 
+const RSRENDER = (pattern, parsedRs) => {
+	let rs = [
+		READFILE('rs/1params.rs'),
+		READFILE('rs/2types.rs'),
+		READFILE('rs/3consts.rs'),
+		READFILE('rs/4utils.rs'),
+		READFILE('rs/5prims.rs'),
+		READFILE('rs/6state.rs'),
+		READFILE('rs/7channels.rs'),
+		READFILE('rs/8queries.rs'),
+		READFILE('rs/9processes.rs')
+	];
+	rs[0] = rs[0].replace('/* $NOISE2RS_N$ */', `/*\n${pattern}\n*/`);
+	rs[0] = rs[0].replace('/* $NOISE2RS_T$ */', parsedRs.t)
+	rs[1] = rs[1].replace('/* $NOISE2RS_S$ */', parsedRs.s);
+	rs[5] = rs[5].replace('/* $NOISE2RS_I$ */', parsedRs.i);
+	rs[5] = rs[5].replace('/* $NOISE2RS_W$ */', parsedRs.w);
+	rs[5] = rs[5].replace('/* $NOISE2RS_R$ */', parsedRs.r);
+	rs[7] = rs[7].replace('/* $NOISE2RS_E$ */', parsedRs.e);
+	rs[7] = rs[7].replace('/* $NOISE2RS_Q$ */', parsedRs.q);
+	rs[8] = rs[8].replace('/* $NOISE2RS_G$ */', parsedRs.g);
+	rs[8] = rs[8].replace('/* $NOISE2RS_A$ */', parsedRs.a);
+	rs[8] = rs[8].replace('/* $NOISE2RS_B$ */', parsedRs.b);
+	rs[8] = rs[8].replace('/* $NOISE2RS_K$ */', parsedRs.k);
+	rs[8] = rs[8].replace('/* $NOISE2RS_P$ */', parsedRs.p);
+	return rs.join('\n');
+};
+
 if (ARGV.hasOwnProperty('generate')) {
-	if (!(/^(proverif)|(json)|(go)$/).test(ARGV.generate)) {
+	if (!(/^(json)|(pv)|(go)|(rs)$/).test(ARGV.generate)) {
 		throw new Error('[NoiseExplorer] Error: You must specify a valid generation output format.');
 		process.exit();
 	}
@@ -184,7 +212,7 @@ if (
 
 if (
 	ARGV.hasOwnProperty('generate') &&
-	(ARGV.generate === 'proverif')
+	(ARGV.generate === 'pv')
 ) {
 	let passive = false;
 	if (ARGV.attacker === 'passive') {
@@ -208,6 +236,22 @@ if (
 	let output = GORENDER(pattern, parsedGo);
 	if (ARGV.hasOwnProperty('testgen')) {
 		console.log(NOISE2GOTESTGEN.generate(output));
+	} else {
+		console.log(output);
+	}
+	process.exit();
+}
+
+if (
+	ARGV.hasOwnProperty('generate') &&
+	(ARGV.generate === 'rs')
+) {
+	let pattern = READFILE(ARGV.pattern);
+	let json = NOISEPARSER.parse(pattern);
+	let parsedRs = NOISE2RS.parse(json);
+	let output = RSRENDER(pattern, parsedRs);
+	if (ARGV.hasOwnProperty('testgen')) {
+		// console.log(NOISE2RSTESTGEN.generate(output));
 	} else {
 		console.log(output);
 	}
