@@ -676,48 +676,48 @@ fn main() {
 	let initStatic: Keypair = Keypair::new_k(decode_str_32("e61ef9919cde45dd5f82166404bd08e38bceb5dfdfded0a34c8df7ed542214d1"));
 	let respStatic: Keypair = Keypair::new_k(decode_str_32("4a3acbfdb163dec651dfa3194dece676d437029c62a408b4c5ea9114246e4893"));
 	let mut initiatorSession: NoiseSession =
-	NoiseSession::InitSession(true, &prologue, initStatic, respStatic.pk.0, EMPTY_KEY);
+	NoiseSession::InitSession(true, &prologue, initStatic, respStatic.pk.0);
 	let mut responderSession: NoiseSession =
-	NoiseSession::InitSession(false, &prologue, respStatic, EMPTY_KEY, EMPTY_KEY);
-	let payloadA = decode_str("4c756477696720766f6e204d69736573")
+	NoiseSession::InitSession(false, &prologue, respStatic);
+	let payloadA = decode_str("4c756477696720766f6e204d69736573");
 	let mut messageA: MessageBuffer = initiatorSession.SendMessage(&payloadA);
 	let mut validA: bool = false;
-	if let Some(_x) = responderSession.RecvMessage.(&mut messageA) {
+	if let Some(_x) = responderSession.RecvMessage(&mut messageA) {
 	validA = true;
 }
 	let tA: Vec<u8> = decode_str("ca35def5ae56cec33dc2036731ab14896bc4c75dbb07a61f879f8e3afa4c7944d203bb6ff07617535a8ae6edd3453496a5cdd89213abfc0d5548bf2c68caad6d9b6a063f53eb6e5736b93c69e3ac0679739ea6aca4d3dddad5d7c16a40978fbc0bd0cd4269b69233f8e054bc06bfd5b5");
-	let payloadB = decode_str("4d757272617920526f746862617264")
+	let payloadB = decode_str("4d757272617920526f746862617264");
 	let mut messageB: MessageBuffer = responderSession.SendMessage(&payloadB);
 	let mut validB: bool = false;
-	if let Some(_x) = initiatorSession.RecvMessage.(&mut messageB) {
+	if let Some(_x) = initiatorSession.RecvMessage(&mut messageB) {
 	validB = true;
 }
 	let tB: Vec<u8> = decode_str("95ebc60d2b1fa672c1f46a8aa265ef51bfe38e7ccb39ec5be34069f14480884350c8dd93488a51a98e5ab8f923f52558533a2e3e70ee83fcb968b28239446e");
-	let payloadC = decode_str("462e20412e20486179656b")
+	let payloadC = decode_str("462e20412e20486179656b");
 	let mut messageC: MessageBuffer = initiatorSession.SendMessage(&payloadC);
 	let mut validC: bool = false;
-	if let Some(_x) = responderSession.RecvMessage.(&mut messageC) {
+	if let Some(_x) = responderSession.RecvMessage(&mut messageC) {
 	validC = true;
 }
 	let tC: Vec<u8> = decode_str("712ae62c9ad7d33bf98d5447e77ffeee4f3933a66c892b6a76d4d7");
-	let payloadD = decode_str("4361726c204d656e676572")
+	let payloadD = decode_str("4361726c204d656e676572");
 	let mut messageD: MessageBuffer = responderSession.SendMessage(&payloadD);
 	let mut validD: bool = false;
-	if let Some(_x) = initiatorSession.RecvMessage.(&mut messageD) {
+	if let Some(_x) = initiatorSession.RecvMessage(&mut messageD) {
 	validD = true;
 }
 	let tD: Vec<u8> = decode_str("510867587e50c01439f6df4201db76355cb2ea0a46398f64f55a7a");
-	let payloadE = decode_str("4a65616e2d426170746973746520536179")
+	let payloadE = decode_str("4a65616e2d426170746973746520536179");
 	let mut messageE: MessageBuffer = initiatorSession.SendMessage(&payloadE);
 	let mut validE: bool = false;
 	if let Some(_x) = responderSession.RecvMessage.(&mut messageE) {
 	validE = true;
 }
 	let tE: Vec<u8> = decode_str("e96974beb8b4959ef468fc4380539d132a88e775ff70cac15dbcfba6de80e71405");
-	let payloadF = decode_str("457567656e2042f6686d20766f6e2042617765726b")
+	let payloadF = decode_str("457567656e2042f6686d20766f6e2042617765726b");
 	let mut messageF: MessageBuffer = responderSession.SendMessage(&payloadF);
 	let mut validF: bool = false;
-	if let Some(_x) = initiatorSession.RecvMessage.(&mut messageF) {
+	if let Some(_x) = initiatorSession.RecvMessage(&mut messageF) {
 	validF = true;
 }
 	let tF: Vec<u8> = decode_str("3e0da42459f5204cca1b89a7b616a849611a36882902c7de7a9a78ef01da8b644c80ed0f37");
@@ -737,46 +737,46 @@ fn main() {
 	let mut cE: Vec<u8> = messageE.ciphertext;
 	let mut cF: Vec<u8> = messageF.ciphertext;
 	if tA == cA {
-		println!("Test A: PASS")
+		println!("Test A: PASS");
 	} else {
-		println!("Test A: FAIL")
-		println!("Expected:	", tA)
-		println!("Actual:		", cA)
+		println!("Test A: FAIL");
+		println!("Expected:	", tA);
+		println!("Actual:		", cA);
 	}
 	if tB == cB {
-		println!("Test B: PASS")
+		println!("Test B: PASS");
 	} else {
-		println!("Test B: FAIL")
-		println!("Expected:	", tB)
-		println!("Actual:		", cB)
+		println!("Test B: FAIL");
+		println!("Expected:	", tB);
+		println!("Actual:		", cB);
 	}
 	if tC == cC {
-		println!("Test C: PASS")
+		println!("Test C: PASS");
 	} else {
-		println!("Test C: FAIL")
-		println!("Expected:	", tC)
-		println!("Actual:		", cC)
+		println!("Test C: FAIL");
+		println!("Expected:	", tC);
+		println!("Actual:		", cC);
 	}
 	if tD == cD {
-		println!("Test D: PASS")
+		println!("Test D: PASS");
 	} else {
-		println!("Test D: FAIL")
-		println!("Expected:	", tD)
-		println!("Actual:		", cD)
+		println!("Test D: FAIL");
+		println!("Expected:	", tD);
+		println!("Actual:		", cD);
 	}
 	if tE == cE {
-		println!("Test E: PASS")
+		println!("Test E: PASS");
 	} else {
-		println!("Test E: FAIL")
-		println!("Expected:	", tE)
-		println!("Actual:		", cE)
+		println!("Test E: FAIL");
+		println!("Expected:	", tE);
+		println!("Actual:		", cE);
 	}
 	if tF == cF {
-		println!("Test F: PASS")
+		println!("Test F: PASS");
 	} else {
-		println!("Test F: FAIL")
-		println!("Expected:	", tF)
-		println!("Actual:		", cF)
+		println!("Test F: FAIL");
+		println!("Expected:	", tF);
+		println!("Actual:		", cF);
 	}
 	assert_eq!(tA, cA);
 assert_eq!(tB, cB);

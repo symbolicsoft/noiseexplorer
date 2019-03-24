@@ -1,8 +1,12 @@
 /*
-N:
+I1K:
   <- s
   ...
-  -> e, es
+  -> e, es, s
+  <- e, ee
+  -> se
+  <-
+  ->
 */
 
 /* ---------------------------------------------------------------- *
@@ -432,7 +436,7 @@ impl SymmetricState {
 /* HandshakeState */
 impl HandshakeState {
 fn InitializeInitiator(prologue: &[u8], s: Keypair, rs: [u8; DHLEN], psk: [u8; PSK_LENGTH]) -> HandshakeState {
-	let protocol_name = b"Noise_N_25519_ChaChaPoly_BLAKE2s";
+	let protocol_name = b"Noise_I1K_25519_ChaChaPoly_BLAKE2s";
 	let mut ss: SymmetricState = SymmetricState::InitializeSymmetric(&protocol_name[..]);
 	ss.MixHash(prologue);
 	ss.MixHash(&rs[..]);
@@ -440,14 +444,14 @@ fn InitializeInitiator(prologue: &[u8], s: Keypair, rs: [u8; DHLEN], psk: [u8; P
 }
 
 fn InitializeResponder(prologue: &[u8], s: Keypair, rs: [u8; DHLEN], psk: [u8; PSK_LENGTH]) -> HandshakeState {
-	let protocol_name = b"Noise_N_25519_ChaChaPoly_BLAKE2s";
+	let protocol_name = b"Noise_I1K_25519_ChaChaPoly_BLAKE2s";
 	let mut ss: SymmetricState = SymmetricState::InitializeSymmetric(&protocol_name[..]);
 	ss.MixHash(prologue);
 	ss.MixHash(&s.pk.0[..]);
 	HandshakeState{ss, s, e: Keypair::new_empty(), rs, re: EMPTY_KEY, psk}
 }
 
-fn WriteMessageA(&mut self, payload: &[u8]) -> (([u8; 32], MessageBuffer, CipherState, CipherState)) {
+fn WriteMessageA(&mut self, payload: &[u8]) -> (MessageBuffer) {
 	let test_sk = decode_str_32("893e28b9dc6ca8d611ab664754b8ceb7bac5117349a4439a6b0569da977c464a");
 	let test_pk = generate_public_key(&test_sk);
 	self.e = Keypair {
@@ -459,6 +463,38 @@ fn WriteMessageA(&mut self, payload: &[u8]) -> (([u8; 32], MessageBuffer, Cipher
 	self.ss.MixHash(&ne[..]);
 	/* No PSK, so skipping mixKey */
 	self.ss.MixKey(&DH(&self.e, &self.rs));
+	let mut ns: Vec<u8> = Vec::new();
+	if let Some(x) = self.ss.EncryptAndHash(&self.s.pk.0[..]) {
+		ns.clone_from(&x);
+	}
+	let mut ciphertext: Vec<u8> = Vec::new();
+	if let Some(x) = self.ss.EncryptAndHash(payload) {
+		ciphertext.clone_from(&x);
+	}
+	MessageBuffer { ne, ns, ciphertext }
+}
+
+fn WriteMessageB(&mut self, payload: &[u8]) -> (MessageBuffer) {
+	let test_sk = decode_str_32("bbdb4cdbd309f1a1f2e1456967fe288cadd6f712d65dc7b7793d5e63da6b375b");
+	let test_pk = generate_public_key(&test_sk);
+	self.e = Keypair {
+	pk: curve25519::PublicKey(test_pk),
+	sk: curve25519::SecretKey(test_sk),
+};
+	let ne = self.e.pk.0;
+	let ns: Vec<u8> = Vec::from(&zerolen[..]);
+	self.ss.MixHash(&ne[..]);
+	/* No PSK, so skipping mixKey */
+	self.ss.MixKey(&DH(&self.e, &self.re));
+	let mut ciphertext: Vec<u8> = Vec::new();
+	if let Some(x) = self.ss.EncryptAndHash(payload) {
+		ciphertext.clone_from(&x);
+	}
+	MessageBuffer { ne, ns, ciphertext }
+}
+
+fn WriteMessageC(&mut self, payload: &[u8]) -> (([u8; 32], MessageBuffer, CipherState, CipherState)) {
+	self.ss.MixKey(&DH(&self.s, &self.re));
 	let mut ciphertext: Vec<u8> = Vec::new();
 	if let Some(x) = self.ss.EncryptAndHash(payload) {
 		ciphertext.clone_from(&x);
@@ -470,11 +506,36 @@ fn WriteMessageA(&mut self, payload: &[u8]) -> (([u8; 32], MessageBuffer, Cipher
 
 
 
-fn ReadMessageA(&mut self, message: &mut MessageBuffer) -> (Option<([u8; 32], Vec<u8>, CipherState, CipherState)>) {
+fn ReadMessageA(&mut self, message: &mut MessageBuffer) -> (Option<Vec<u8>>) {
 	self.re.copy_from_slice(&message.ne[..]);
 	self.ss.MixHash(&self.re[..DHLEN]);
 	/* No PSK, so skipping mixKey */
 	self.ss.MixKey(&DH(&self.s, &self.re));
+	if let Some(x) = self.ss.DecryptAndHash(&message.ns) {
+		if x.len() != DHLEN {
+			return None
+		}
+		self.rs.copy_from_slice(&x);
+	} else { return None }
+	if let Some(plaintext) = self.ss.DecryptAndHash(&message.ciphertext) {
+		return Some(plaintext);
+	}
+	None
+}
+
+fn ReadMessageB(&mut self, message: &mut MessageBuffer) -> (Option<Vec<u8>>) {
+	self.re.copy_from_slice(&message.ne[..]);
+	self.ss.MixHash(&self.re[..DHLEN]);
+	/* No PSK, so skipping mixKey */
+	self.ss.MixKey(&DH(&self.e, &self.re));
+	if let Some(plaintext) = self.ss.DecryptAndHash(&message.ciphertext) {
+		return Some(plaintext);
+	}
+	None
+}
+
+fn ReadMessageC(&mut self, message: &mut MessageBuffer) -> (Option<([u8; 32], Vec<u8>, CipherState, CipherState)>) {
+	self.ss.MixKey(&DH(&self.e, &self.rs));
 	if let Some(plaintext) = self.ss.DecryptAndHash(&message.ciphertext) {
 		let (cs1, cs2) = self.ss.Split();
 		return Some((self.ss.h, plaintext, cs1, cs2));
@@ -522,7 +583,13 @@ impl NoiseSession {
 				ciphertext: Vec::from(&zerolen[..]),
 			};
 			if self.mc == 0 {
-				let temp = self.hs.WriteMessageA(message);
+				buffer = self.hs.WriteMessageA(message);
+			}
+			if self.mc == 1 {
+				buffer = self.hs.WriteMessageB(message);
+			}
+			if self.mc == 2 {
+				let temp = self.hs.WriteMessageC(message);
 				self.h = temp.0;
 				buffer = temp.1;
 				self.cs1 = temp.2;
@@ -537,7 +604,7 @@ impl NoiseSession {
 					psk: EMPTY_KEY,
 				};
 			}
-			if self.mc > 0 {
+			if self.mc > 2 {
 				if self.i {
 					buffer = self.cs1.WriteMessageRegular(message);
 				} else {
@@ -559,6 +626,12 @@ impl NoiseSession {
 		&& self.hs.ss.cs.n < MAX_NONCE && message.ciphertext.len() < 65535 {
 			let mut plaintext: Option<Vec<u8>> = None;
 			if self.mc == 0 {
+				plaintext = self.hs.ReadMessageA(message);
+			}
+			if self.mc == 1 {
+				plaintext = self.hs.ReadMessageB(message);
+			}
+			if self.mc == 2 {
 				if let Some(temp) = self.hs.ReadMessageB(message) {
 					self.h = temp.0;
 					plaintext = Some(temp.1);
@@ -575,7 +648,7 @@ impl NoiseSession {
 					};
 				}
 			}
-			if self.mc > 0 {
+			if self.mc > 2 {
 				if self.i {
 					if let Some(msg) = self.cs2.ReadMessageRegular(message) {
 						plaintext = Some(msg);
@@ -600,7 +673,7 @@ impl NoiseSession {
 
 fn main() {
 	let prologue = decode_str("4a6f686e2047616c74");
-	let initStatic: Keypair = Keypair::new_k(decode_str_32("EMPTY_KEY"));
+	let initStatic: Keypair = Keypair::new_k(decode_str_32("e61ef9919cde45dd5f82166404bd08e38bceb5dfdfded0a34c8df7ed542214d1"));
 	let respStatic: Keypair = Keypair::new_k(decode_str_32("4a3acbfdb163dec651dfa3194dece676d437029c62a408b4c5ea9114246e4893"));
 	let mut initiatorSession: NoiseSession =
 	NoiseSession::InitSession(true, &prologue, initStatic, respStatic.pk.0);
@@ -612,46 +685,46 @@ fn main() {
 	if let Some(_x) = responderSession.RecvMessage(&mut messageA) {
 	validA = true;
 }
-	let tA: Vec<u8> = decode_str("ca35def5ae56cec33dc2036731ab14896bc4c75dbb07a61f879f8e3afa4c79441b168ed8bbe8220b52bbbde6593d109d78c299b567f6e69276efcf2659c39073");
+	let tA: Vec<u8> = decode_str("ca35def5ae56cec33dc2036731ab14896bc4c75dbb07a61f879f8e3afa4c7944d203bb6ff07617535a8ae6edd3453496a5cdd89213abfc0d5548bf2c68caad6d9b6a063f53eb6e5736b93c69e3ac0679739ea6aca4d3dddad5d7c16a40978fbc0bd0cd4269b69233f8e054bc06bfd5b5");
 	let payloadB = decode_str("4d757272617920526f746862617264");
 	let mut messageB: MessageBuffer = responderSession.SendMessage(&payloadB);
 	let mut validB: bool = false;
 	if let Some(_x) = initiatorSession.RecvMessage(&mut messageB) {
 	validB = true;
 }
-	let tB: Vec<u8> = decode_str("a7b5d1962001e9c4d965ea5f133941e9e6989094bcde637a582c34b954f34a");
+	let tB: Vec<u8> = decode_str("95ebc60d2b1fa672c1f46a8aa265ef51bfe38e7ccb39ec5be34069f14480884350c8dd93488a51a98e5ab8f923f52558533a2e3e70ee83fcb968b28239446e");
 	let payloadC = decode_str("462e20412e20486179656b");
 	let mut messageC: MessageBuffer = initiatorSession.SendMessage(&payloadC);
 	let mut validC: bool = false;
 	if let Some(_x) = responderSession.RecvMessage(&mut messageC) {
 	validC = true;
 }
-	let tC: Vec<u8> = decode_str("16ff2557d5d671abe58c88d2a31b58e3a494ab3a6498124be0ea3f");
+	let tC: Vec<u8> = decode_str("712ae62c9ad7d33bf98d5447e77ffeee4f3933a66c892b6a76d4d7");
 	let payloadD = decode_str("4361726c204d656e676572");
 	let mut messageD: MessageBuffer = responderSession.SendMessage(&payloadD);
 	let mut validD: bool = false;
 	if let Some(_x) = initiatorSession.RecvMessage(&mut messageD) {
 	validD = true;
 }
-	let tD: Vec<u8> = decode_str("1a6e85b0ef71c38db2c2bf3ebef1d41dc93e26bea6899187d5633d");
+	let tD: Vec<u8> = decode_str("510867587e50c01439f6df4201db76355cb2ea0a46398f64f55a7a");
 	let payloadE = decode_str("4a65616e2d426170746973746520536179");
 	let mut messageE: MessageBuffer = initiatorSession.SendMessage(&payloadE);
 	let mut validE: bool = false;
 	if let Some(_x) = responderSession.RecvMessage(&mut messageE) {
 	validE = true;
 }
-	let tE: Vec<u8> = decode_str("00ad2b7d0a03a748d0aefd3accee7bbbcc0bb0ed64d685b2ee8af78997a0245e3f");
+	let tE: Vec<u8> = decode_str("e96974beb8b4959ef468fc4380539d132a88e775ff70cac15dbcfba6de80e71405");
 	let payloadF = decode_str("457567656e2042f6686d20766f6e2042617765726b");
 	let mut messageF: MessageBuffer = responderSession.SendMessage(&payloadF);
 	let mut validF: bool = false;
 	if let Some(_x) = initiatorSession.RecvMessage(&mut messageF) {
 	validF = true;
 }
-	let tF: Vec<u8> = decode_str("5631105c749b9550b27d7926dec0c5b83d4bf207688deccd51b50dd7fc9d5e337bba9c3177");
+	let tF: Vec<u8> = decode_str("3e0da42459f5204cca1b89a7b616a849611a36882902c7de7a9a78ef01da8b644c80ed0f37");
 	if validA && validB && validC && validD && validE && validF {
-		println!("Sanity check PASS for N_25519_ChaChaPoly_BLAKE2s.");
+		println!("Sanity check PASS for I1K_25519_ChaChaPoly_BLAKE2s.");
 	} else {
-		println!("Sanity check FAIL for N_25519_ChaChaPoly_BLAKE2s.");
+		println!("Sanity check FAIL for I1K_25519_ChaChaPoly_BLAKE2s.");
 	}
 	let mut cA: Vec<u8> = Vec::from(&messageA.ne[..]);
 	cA.append(&mut messageA.ns);
