@@ -63,10 +63,10 @@ const gen = (
 		let send = (i % 2 === 0) ? 'initiatorSession' : 'responderSession';
 		let recv = (i % 2 === 0) ? 'responderSession' : 'initiatorSession';
 		rsTestCode.push([
-			`let payload${abc[i]} = decode_str("${messages[i].payload}")`,
+			`let payload${abc[i]} = decode_str("${messages[i].payload}");`,
 			`let mut message${abc[i]}: MessageBuffer = ${send}.SendMessage(&payload${abc[i]});`,
 			`let mut valid${abc[i]}: bool = false;`,
-			`if let Some(_x) = ${recv}.RecvMessage.(&mut message${abc[i]}) {\n\tvalid${abc[i]} = true;\n}`,
+			`if let Some(_x) = ${recv}.RecvMessage(&mut message${abc[i]}) {\n\tvalid${abc[i]} = true;\n}`,
 			`let t${abc[i]}: Vec<u8> = decode_str("${messages[i].ciphertext}");`
 		].join('\n\t'));
 	}
@@ -90,15 +90,15 @@ const gen = (
 	for (let i = 0; i < 6; i++) {
 		rsTestCode.push([
 			`if t${abc[i]} == c${abc[i]} {`,
-			`\tprintln!("Test ${abc[i]}: PASS")`,
+			`\tprintln!("Test ${abc[i]}: PASS");`,
 			`} else {`,
-			`\tprintln!("Test ${abc[i]}: FAIL")`,
-			`\tprintln!("Expected:\t", t${abc[i]})`,
-			`\tprintln!("Actual:\t\t", c${abc[i]})`,
+			`\tprintln!("Test ${abc[i]}: FAIL");`,
+			`\tprintln!("Expected:\t", t${abc[i]});`,
+			`\tprintln!("Actual:\t\t", c${abc[i]});`,
 			`}`,
 		].join('\n\t'));
 	}
-	rsTestCode.push(`assert_eq!(tA, cA);\nassert_eq!(tB, cB);\nassert_eq!(tC, cC);\nassert_eq!(tD, cD);\nassert_eq!(tE, cE);\nassert_eq!(tF, cF);`)
+	rsTestCode.push(`assert_eq!(tA, cA);\n\tassert_eq!(tB, cB);\n\tassert_eq!(tC, cC);\n\tassert_eq!(tD, cD);\n\tassert_eq!(tE, cE);\n\tassert_eq!(tF, cF);`)
 	rsTestCode = `${rsTestCode.join('\n\t')}`;
 	return [rsTestCode, eph];
 }
