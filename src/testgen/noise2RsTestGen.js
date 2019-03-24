@@ -163,7 +163,7 @@ const generate = (code) => {
 			if (tempB[1][1] != "") {
 				code = code.replace(`self.e = GENERATE_KEYPAIR();`, tempB[1][1])
 			}
-			return code.replace(`/*test placeholder*/`, `#[test]\nfn ${patternName}() {\n${tempB[0]}\n}`);
+			return code.replace(`/*test placeholder*/`, `\nfn main() {\n${tempB[0]}\n}`);
 		}
 	}
 }
