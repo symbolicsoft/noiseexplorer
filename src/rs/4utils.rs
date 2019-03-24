@@ -29,3 +29,12 @@ pub fn decode_str_32(s: &str) -> [u8; 32] {
 		panic!("Invalid input length; decode_32");
 	}
 }
+
+// TEST ONLY
+fn decode_str(s: &str) -> Vec<u8> {
+    if let Ok(x) = hex::decode(s) {
+        x
+    } else {
+        panic!("{:X?}", hex::decode(s).err());
+    }
+}
