@@ -1,0 +1,1 @@
+{"rustc":15213319881204273412,"features":"[]","target":11830336484263844282,"profile":13846881912122723292,"path":3258620076505225257,"deps":[["hacl-star-sys v0.0.7","hacl_star_sys",8020036750252672918],["rand_core v0.4.0","rand_core",2707876902047960071]],"local":[{"Precalculated":"0.0.14"}],"rustflags":[],"edition":"Edition2015"}

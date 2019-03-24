@@ -29,23 +29,31 @@ const gen = (
 			].join("\n\t")}`;
 	}
 	rsTestCode.push(`\tlet prologue = decode_str("${initPrologue}");`);
-	if (initStaticSk.length == 0) { initStaticSk = `EMPTY_KEY`;}
-	if (respStaticSk.length == 0) { respStaticSk = `EMPTY_KEY`;} 
+	if (initStaticSk.length == 0) {
+		initStaticSk = `EMPTY_KEY`;
+	}
+	if (respStaticSk.length == 0) {
+		respStaticSk = `EMPTY_KEY`;
+	}
 	rsTestCode.push(`let initStatic: Keypair = Keypair::new_k(decode_str_32("${initStaticSk}"));`);
 	rsTestCode.push(`let respStatic: Keypair = Keypair::new_k(decode_str_32("${respStaticSk}"));`);
-	
-	
-	
-	initRemoteStaticPk.length > 0 ? initInit = `${initInit}, respStatic.pk.0`: initInit = `${initInit}, EMPTY_KEY`;
-	respRemoteStaticPk.length > 0 ? initResp = `${initResp}, initStatic.pk.0`: initResp = `${initResp}, EMPTY_KEY`;
-	
+
+
+
+	if (initRemoteStaticPk.length > 0) {
+		initInit = `${initInit}, respStatic.pk.0`;
+	} 
+	if (respRemoteStaticPk.length > 0) {
+		initResp = `${initResp}, initStatic.pk.0`;
+	}
 	if (psk.length > 0) {
 		rsTestCode.push(`let temp_psk1: [u8; 32] =\n\tdecode_str_32("${psk}")`);
 		rsTestCode.push(`let temp_psk2: [u8; 32] =\n\tdecode_str_32("${psk}")`);
-	}
-	else {
-		initInit = `${initInit}, EMPTY_KEY`;
-		initResp = `${initResp}, EMPTY_KEY`;
+		initInit = `${initInit}, temp_psk1);`;
+		initResp = `${initResp}, temp_psk2);`;
+	} else {
+		initInit = `${initInit});`;
+		initResp = `${initResp});`;
 	}
 	rsTestCode.push([
 		`${initInit}`,

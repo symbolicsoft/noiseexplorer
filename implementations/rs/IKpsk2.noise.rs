@@ -634,3 +634,4 @@ impl NoiseSession {
 	}
 }
 
+fn main() {}

@@ -5,8 +5,14 @@ for pattern in ../patterns/*.noise; do
 		--generate=go --testgen --pattern=$pattern \
 		> ../implementations/go/tests/$(basename "${pattern}").go
 done
-echo " OK"
-echo "[NoiseExplorer] Running Tests..."
+echo " OK (GO TESTS GENERATED)"
+for pattern in ../patterns/*.noise; do
+    node noiseExplorer \
+		--generate=rs --testgen --pattern=$pattern \
+		> ../implementations/rs/tests/$(basename "${pattern}").rs
+done
+echo " OK (RUST TESTS GENERATED)"
+echo "[NoiseExplorer] Running Go Tests..."
 cd ../implementations/go/tests
 go get -d ./...
 cd ../../../src

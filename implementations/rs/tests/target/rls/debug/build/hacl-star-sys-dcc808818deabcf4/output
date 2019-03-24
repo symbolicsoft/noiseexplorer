@@ -1,0 +1,126 @@
+OPT_LEVEL = Some("0")
+TARGET = Some("x86_64-apple-darwin")
+HOST = Some("x86_64-apple-darwin")
+CC_x86_64-apple-darwin = None
+CC_x86_64_apple_darwin = None
+HOST_CC = None
+CC = None
+CFLAGS_x86_64-apple-darwin = None
+CFLAGS_x86_64_apple_darwin = None
+HOST_CFLAGS = None
+CFLAGS = None
+CRATE_CC_NO_DEFAULTS = None
+DEBUG = Some("true")
+CARGO_CFG_TARGET_FEATURE = Some("fxsr,sse,sse2,sse3,ssse3")
+TARGET = Some("x86_64-apple-darwin")
+OPT_LEVEL = Some("0")
+HOST = Some("x86_64-apple-darwin")
+CC_x86_64-apple-darwin = None
+CC_x86_64_apple_darwin = None
+HOST_CC = None
+CC = None
+CFLAGS_x86_64-apple-darwin = None
+CFLAGS_x86_64_apple_darwin = None
+HOST_CFLAGS = None
+CFLAGS = None
+CRATE_CC_NO_DEFAULTS = None
+DEBUG = Some("true")
+CARGO_CFG_TARGET_FEATURE = Some("fxsr,sse,sse2,sse3,ssse3")
+CC_x86_64-apple-darwin = None
+CC_x86_64_apple_darwin = None
+HOST_CC = None
+CC = None
+CFLAGS_x86_64-apple-darwin = None
+CFLAGS_x86_64_apple_darwin = None
+HOST_CFLAGS = None
+CFLAGS = None
+CRATE_CC_NO_DEFAULTS = None
+CARGO_CFG_TARGET_FEATURE = Some("fxsr,sse,sse2,sse3,ssse3")
+CC_x86_64-apple-darwin = None
+CC_x86_64_apple_darwin = None
+HOST_CC = None
+CC = None
+CFLAGS_x86_64-apple-darwin = None
+CFLAGS_x86_64_apple_darwin = None
+HOST_CFLAGS = None
+CFLAGS = None
+CRATE_CC_NO_DEFAULTS = None
+CARGO_CFG_TARGET_FEATURE = Some("fxsr,sse,sse2,sse3,ssse3")
+CC_x86_64-apple-darwin = None
+CC_x86_64_apple_darwin = None
+HOST_CC = None
+CC = None
+CFLAGS_x86_64-apple-darwin = None
+CFLAGS_x86_64_apple_darwin = None
+HOST_CFLAGS = None
+CFLAGS = None
+CRATE_CC_NO_DEFAULTS = None
+CARGO_CFG_TARGET_FEATURE = Some("fxsr,sse,sse2,sse3,ssse3")
+CC_x86_64-apple-darwin = None
+CC_x86_64_apple_darwin = None
+HOST_CC = None
+CC = None
+CFLAGS_x86_64-apple-darwin = None
+CFLAGS_x86_64_apple_darwin = None
+HOST_CFLAGS = None
+CFLAGS = None
+CRATE_CC_NO_DEFAULTS = None
+CARGO_CFG_TARGET_FEATURE = Some("fxsr,sse,sse2,sse3,ssse3")
+CC_x86_64-apple-darwin = None
+CC_x86_64_apple_darwin = None
+HOST_CC = None
+CC = None
+CFLAGS_x86_64-apple-darwin = None
+CFLAGS_x86_64_apple_darwin = None
+HOST_CFLAGS = None
+CFLAGS = None
+CRATE_CC_NO_DEFAULTS = None
+CARGO_CFG_TARGET_FEATURE = Some("fxsr,sse,sse2,sse3,ssse3")
+CC_x86_64-apple-darwin = None
+CC_x86_64_apple_darwin = None
+HOST_CC = None
+CC = None
+CFLAGS_x86_64-apple-darwin = None
+CFLAGS_x86_64_apple_darwin = None
+HOST_CFLAGS = None
+CFLAGS = None
+CRATE_CC_NO_DEFAULTS = None
+CARGO_CFG_TARGET_FEATURE = Some("fxsr,sse,sse2,sse3,ssse3")
+running: "cc" "-O0" "-ffunction-sections" "-fdata-sections" "-fPIC" "-g" "-fno-omit-frame-pointer" "-m64" "-I" "hacl-c" "-Wall" "-Wextra" "-std=gnu11" "-fwrapv" "-fomit-frame-pointer" "-funroll-loops" "-Wno-unused-parameter" "-Wno-unused-variable" "-o" "/Users/georgionicolas/Symbolic Software/Noise Explorer/NoiseExplorer/implementations/rs/tests/target/rls/debug/build/hacl-star-sys-dcc808818deabcf4/out/hacl-c/Hacl_Salsa20.o" "-c" "hacl-c/Hacl_Salsa20.c"
+exit code: 0
+running: "cc" "-O0" "-ffunction-sections" "-fdata-sections" "-fPIC" "-g" "-fno-omit-frame-pointer" "-m64" "-I" "hacl-c" "-Wall" "-Wextra" "-std=gnu11" "-fwrapv" "-fomit-frame-pointer" "-funroll-loops" "-Wno-unused-parameter" "-Wno-unused-variable" "-o" "/Users/georgionicolas/Symbolic Software/Noise Explorer/NoiseExplorer/implementations/rs/tests/target/rls/debug/build/hacl-star-sys-dcc808818deabcf4/out/hacl-c/Hacl_Poly1305_32.o" "-c" "hacl-c/Hacl_Poly1305_32.c"
+exit code: 0
+running: "cc" "-O0" "-ffunction-sections" "-fdata-sections" "-fPIC" "-g" "-fno-omit-frame-pointer" "-m64" "-I" "hacl-c" "-Wall" "-Wextra" "-std=gnu11" "-fwrapv" "-fomit-frame-pointer" "-funroll-loops" "-Wno-unused-parameter" "-Wno-unused-variable" "-o" "/Users/georgionicolas/Symbolic Software/Noise Explorer/NoiseExplorer/implementations/rs/tests/target/rls/debug/build/hacl-star-sys-dcc808818deabcf4/out/hacl-c/Hacl_Poly1305_64.o" "-c" "hacl-c/Hacl_Poly1305_64.c"
+exit code: 0
+running: "cc" "-O0" "-ffunction-sections" "-fdata-sections" "-fPIC" "-g" "-fno-omit-frame-pointer" "-m64" "-I" "hacl-c" "-Wall" "-Wextra" "-std=gnu11" "-fwrapv" "-fomit-frame-pointer" "-funroll-loops" "-Wno-unused-parameter" "-Wno-unused-variable" "-o" "/Users/georgionicolas/Symbolic Software/Noise Explorer/NoiseExplorer/implementations/rs/tests/target/rls/debug/build/hacl-star-sys-dcc808818deabcf4/out/hacl-c/Hacl_Chacha20.o" "-c" "hacl-c/Hacl_Chacha20.c"
+exit code: 0
+running: "cc" "-O0" "-ffunction-sections" "-fdata-sections" "-fPIC" "-g" "-fno-omit-frame-pointer" "-m64" "-I" "hacl-c" "-Wall" "-Wextra" "-std=gnu11" "-fwrapv" "-fomit-frame-pointer" "-funroll-loops" "-Wno-unused-parameter" "-Wno-unused-variable" "-o" "/Users/georgionicolas/Symbolic Software/Noise Explorer/NoiseExplorer/implementations/rs/tests/target/rls/debug/build/hacl-star-sys-dcc808818deabcf4/out/hacl-c/AEAD_Poly1305_64.o" "-c" "hacl-c/AEAD_Poly1305_64.c"
+exit code: 0
+running: "cc" "-O0" "-ffunction-sections" "-fdata-sections" "-fPIC" "-g" "-fno-omit-frame-pointer" "-m64" "-I" "hacl-c" "-Wall" "-Wextra" "-std=gnu11" "-fwrapv" "-fomit-frame-pointer" "-funroll-loops" "-Wno-unused-parameter" "-Wno-unused-variable" "-o" "/Users/georgionicolas/Symbolic Software/Noise Explorer/NoiseExplorer/implementations/rs/tests/target/rls/debug/build/hacl-star-sys-dcc808818deabcf4/out/hacl-c/Hacl_Chacha20Poly1305.o" "-c" "hacl-c/Hacl_Chacha20Poly1305.c"
+exit code: 0
+running: "cc" "-O0" "-ffunction-sections" "-fdata-sections" "-fPIC" "-g" "-fno-omit-frame-pointer" "-m64" "-I" "hacl-c" "-Wall" "-Wextra" "-std=gnu11" "-fwrapv" "-fomit-frame-pointer" "-funroll-loops" "-Wno-unused-parameter" "-Wno-unused-variable" "-o" "/Users/georgionicolas/Symbolic Software/Noise Explorer/NoiseExplorer/implementations/rs/tests/target/rls/debug/build/hacl-star-sys-dcc808818deabcf4/out/hacl-c/Hacl_HMAC_SHA2_256.o" "-c" "hacl-c/Hacl_HMAC_SHA2_256.c"
+exit code: 0
+running: "cc" "-O0" "-ffunction-sections" "-fdata-sections" "-fPIC" "-g" "-fno-omit-frame-pointer" "-m64" "-I" "hacl-c" "-Wall" "-Wextra" "-std=gnu11" "-fwrapv" "-fomit-frame-pointer" "-funroll-loops" "-Wno-unused-parameter" "-Wno-unused-variable" "-o" "/Users/georgionicolas/Symbolic Software/Noise Explorer/NoiseExplorer/implementations/rs/tests/target/rls/debug/build/hacl-star-sys-dcc808818deabcf4/out/hacl-c/Hacl_SHA2_256.o" "-c" "hacl-c/Hacl_SHA2_256.c"
+exit code: 0
+running: "cc" "-O0" "-ffunction-sections" "-fdata-sections" "-fPIC" "-g" "-fno-omit-frame-pointer" "-m64" "-I" "hacl-c" "-Wall" "-Wextra" "-std=gnu11" "-fwrapv" "-fomit-frame-pointer" "-funroll-loops" "-Wno-unused-parameter" "-Wno-unused-variable" "-o" "/Users/georgionicolas/Symbolic Software/Noise Explorer/NoiseExplorer/implementations/rs/tests/target/rls/debug/build/hacl-star-sys-dcc808818deabcf4/out/hacl-c/Hacl_SHA2_384.o" "-c" "hacl-c/Hacl_SHA2_384.c"
+exit code: 0
+running: "cc" "-O0" "-ffunction-sections" "-fdata-sections" "-fPIC" "-g" "-fno-omit-frame-pointer" "-m64" "-I" "hacl-c" "-Wall" "-Wextra" "-std=gnu11" "-fwrapv" "-fomit-frame-pointer" "-funroll-loops" "-Wno-unused-parameter" "-Wno-unused-variable" "-o" "/Users/georgionicolas/Symbolic Software/Noise Explorer/NoiseExplorer/implementations/rs/tests/target/rls/debug/build/hacl-star-sys-dcc808818deabcf4/out/hacl-c/Hacl_SHA2_512.o" "-c" "hacl-c/Hacl_SHA2_512.c"
+exit code: 0
+running: "cc" "-O0" "-ffunction-sections" "-fdata-sections" "-fPIC" "-g" "-fno-omit-frame-pointer" "-m64" "-I" "hacl-c" "-Wall" "-Wextra" "-std=gnu11" "-fwrapv" "-fomit-frame-pointer" "-funroll-loops" "-Wno-unused-parameter" "-Wno-unused-variable" "-o" "/Users/georgionicolas/Symbolic Software/Noise Explorer/NoiseExplorer/implementations/rs/tests/target/rls/debug/build/hacl-star-sys-dcc808818deabcf4/out/hacl-c/Hacl_Ed25519.o" "-c" "hacl-c/Hacl_Ed25519.c"
+exit code: 0
+running: "cc" "-O0" "-ffunction-sections" "-fdata-sections" "-fPIC" "-g" "-fno-omit-frame-pointer" "-m64" "-I" "hacl-c" "-Wall" "-Wextra" "-std=gnu11" "-fwrapv" "-fomit-frame-pointer" "-funroll-loops" "-Wno-unused-parameter" "-Wno-unused-variable" "-o" "/Users/georgionicolas/Symbolic Software/Noise Explorer/NoiseExplorer/implementations/rs/tests/target/rls/debug/build/hacl-star-sys-dcc808818deabcf4/out/hacl-c/Hacl_Curve25519.o" "-c" "hacl-c/Hacl_Curve25519.c"
+exit code: 0
+running: "cc" "-O0" "-ffunction-sections" "-fdata-sections" "-fPIC" "-g" "-fno-omit-frame-pointer" "-m64" "-I" "hacl-c" "-Wall" "-Wextra" "-std=gnu11" "-fwrapv" "-fomit-frame-pointer" "-funroll-loops" "-Wno-unused-parameter" "-Wno-unused-variable" "-o" "/Users/georgionicolas/Symbolic Software/Noise Explorer/NoiseExplorer/implementations/rs/tests/target/rls/debug/build/hacl-star-sys-dcc808818deabcf4/out/hacl-c/kremlib.o" "-c" "hacl-c/kremlib.c"
+exit code: 0
+running: "cc" "-O0" "-ffunction-sections" "-fdata-sections" "-fPIC" "-g" "-fno-omit-frame-pointer" "-m64" "-I" "hacl-c" "-Wall" "-Wextra" "-std=gnu11" "-fwrapv" "-fomit-frame-pointer" "-funroll-loops" "-Wno-unused-parameter" "-Wno-unused-variable" "-o" "/Users/georgionicolas/Symbolic Software/Noise Explorer/NoiseExplorer/implementations/rs/tests/target/rls/debug/build/hacl-star-sys-dcc808818deabcf4/out/hacl-c/Hacl_Policies.o" "-c" "hacl-c/Hacl_Policies.c"
+exit code: 0
+running: "cc" "-O0" "-ffunction-sections" "-fdata-sections" "-fPIC" "-g" "-fno-omit-frame-pointer" "-m64" "-I" "hacl-c" "-Wall" "-Wextra" "-std=gnu11" "-fwrapv" "-fomit-frame-pointer" "-funroll-loops" "-Wno-unused-parameter" "-Wno-unused-variable" "-o" "/Users/georgionicolas/Symbolic Software/Noise Explorer/NoiseExplorer/implementations/rs/tests/target/rls/debug/build/hacl-star-sys-dcc808818deabcf4/out/hacl-c/NaCl.o" "-c" "hacl-c/NaCl.c"
+exit code: 0
+AR_x86_64-apple-darwin = None
+AR_x86_64_apple_darwin = None
+HOST_AR = None
+AR = None
+running: "ar" "crs" "/Users/georgionicolas/Symbolic Software/Noise Explorer/NoiseExplorer/implementations/rs/tests/target/rls/debug/build/hacl-star-sys-dcc808818deabcf4/out/libhacl.a" "/Users/georgionicolas/Symbolic Software/Noise Explorer/NoiseExplorer/implementations/rs/tests/target/rls/debug/build/hacl-star-sys-dcc808818deabcf4/out/hacl-c/Hacl_Salsa20.o" "/Users/georgionicolas/Symbolic Software/Noise Explorer/NoiseExplorer/implementations/rs/tests/target/rls/debug/build/hacl-star-sys-dcc808818deabcf4/out/hacl-c/Hacl_Poly1305_32.o" "/Users/georgionicolas/Symbolic Software/Noise Explorer/NoiseExplorer/implementations/rs/tests/target/rls/debug/build/hacl-star-sys-dcc808818deabcf4/out/hacl-c/Hacl_Poly1305_64.o" "/Users/georgionicolas/Symbolic Software/Noise Explorer/NoiseExplorer/implementations/rs/tests/target/rls/debug/build/hacl-star-sys-dcc808818deabcf4/out/hacl-c/Hacl_Chacha20.o" "/Users/georgionicolas/Symbolic Software/Noise Explorer/NoiseExplorer/implementations/rs/tests/target/rls/debug/build/hacl-star-sys-dcc808818deabcf4/out/hacl-c/AEAD_Poly1305_64.o" "/Users/georgionicolas/Symbolic Software/Noise Explorer/NoiseExplorer/implementations/rs/tests/target/rls/debug/build/hacl-star-sys-dcc808818deabcf4/out/hacl-c/Hacl_Chacha20Poly1305.o" "/Users/georgionicolas/Symbolic Software/Noise Explorer/NoiseExplorer/implementations/rs/tests/target/rls/debug/build/hacl-star-sys-dcc808818deabcf4/out/hacl-c/Hacl_HMAC_SHA2_256.o" "/Users/georgionicolas/Symbolic Software/Noise Explorer/NoiseExplorer/implementations/rs/tests/target/rls/debug/build/hacl-star-sys-dcc808818deabcf4/out/hacl-c/Hacl_SHA2_256.o" "/Users/georgionicolas/Symbolic Software/Noise Explorer/NoiseExplorer/implementations/rs/tests/target/rls/debug/build/hacl-star-sys-dcc808818deabcf4/out/hacl-c/Hacl_SHA2_384.o" "/Users/georgionicolas/Symbolic Software/Noise Explorer/NoiseExplorer/implementations/rs/tests/target/rls/debug/build/hacl-star-sys-dcc808818deabcf4/out/hacl-c/Hacl_SHA2_512.o" "/Users/georgionicolas/Symbolic Software/Noise Explorer/NoiseExplorer/implementations/rs/tests/target/rls/debug/build/hacl-star-sys-dcc808818deabcf4/out/hacl-c/Hacl_Ed25519.o" "/Users/georgionicolas/Symbolic Software/Noise Explorer/NoiseExplorer/implementations/rs/tests/target/rls/debug/build/hacl-star-sys-dcc808818deabcf4/out/hacl-c/Hacl_Curve25519.o" "/Users/georgionicolas/Symbolic Software/Noise Explorer/NoiseExplorer/implementations/rs/tests/target/rls/debug/build/hacl-star-sys-dcc808818deabcf4/out/hacl-c/kremlib.o" "/Users/georgionicolas/Symbolic Software/Noise Explorer/NoiseExplorer/implementations/rs/tests/target/rls/debug/build/hacl-star-sys-dcc808818deabcf4/out/hacl-c/Hacl_Policies.o" "/Users/georgionicolas/Symbolic Software/Noise Explorer/NoiseExplorer/implementations/rs/tests/target/rls/debug/build/hacl-star-sys-dcc808818deabcf4/out/hacl-c/NaCl.o"
+exit code: 0
+cargo:rustc-link-lib=static=hacl
+cargo:rustc-link-search=native=/Users/georgionicolas/Symbolic Software/Noise Explorer/NoiseExplorer/implementations/rs/tests/target/rls/debug/build/hacl-star-sys-dcc808818deabcf4/out
