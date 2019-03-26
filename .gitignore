@@ -4,3 +4,4 @@ package-lock.json
 */*.log
 */target
 implementations/rs/tests/target
+rust-test.code-workspace
