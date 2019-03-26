@@ -1,5 +1,5 @@
 [package]
-name = /*pattern_name*/
+name = "Npsk0"
 version = "0.1.0"
 authors = ["Georgio Nicolas <georgio@symbolic.software>"]
 edition = "2018"

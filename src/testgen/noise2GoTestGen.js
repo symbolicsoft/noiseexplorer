@@ -1,5 +1,5 @@
 const NOISE2GOTESTGEN = {
-	generate: () => { }
+	generate: () => {}
 };
 
 
