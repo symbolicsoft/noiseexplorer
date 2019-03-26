@@ -302,9 +302,6 @@ func initializeResponder(prologue []byte, s keypair, rs [32]byte, psk [32]byte) 
 
 func writeMessageA(hs *handshakestate, payload []byte) (*handshakestate, messagebuffer) {
 	ne, ns, ciphertext := emptyKey, []byte{}, []byte{}
-	
-	
-	
 	hs.e = generateKeypair()
 	ne = hs.e.pk
 	mixHash(&hs.ss, ne[:])
