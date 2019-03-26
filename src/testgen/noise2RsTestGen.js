@@ -163,7 +163,7 @@ const generate = (code) => {
 			if (tempB[1][1] != "") {
 				code = code.replace(`self.e = GENERATE_/*pattern_name*/::Keypair();`, tempB[1][1])
 			}
-			return (code,tempB[0]);
+			return [code,tempB[0]];
 		}
 	}
 }

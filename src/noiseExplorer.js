@@ -273,7 +273,7 @@ if (
 		WRITEFILE(`../implementations/rs/tests/${pattern_name}/Cargo.toml`, cargo);
 		let test_template = READFILE('rs/test.rs');
 		test_template.replace("/*pattern_name*/", json.name);
-		out[1].replaceAll("/*pattern_name*/", json.name);
+		out[1].replace(/\/\*pattern_name\*\//g, json.name);
 		test_template.replace("/*test_code*/", out[1]);
 		WRITEFILE(`../implementations/rs/tests/${pattern_name}/tests/handshake.rs`, test_template);
 	} else {
