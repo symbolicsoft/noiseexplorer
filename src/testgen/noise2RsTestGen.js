@@ -47,8 +47,8 @@ const gen = (
 		initResp = `${initResp}, initStatic.pk.0`;
 	}
 	if (psk.length > 0) {
-		rsTestCode.push(`let temp_psk1: [u8; 32] =\n\t$NOISE2RS_N$::decode_str_32("${psk}")`);
-		rsTestCode.push(`let temp_psk2: [u8; 32] =\n\t$NOISE2RS_N$::decode_str_32("${psk}")`);
+		rsTestCode.push(`let temp_psk1: [u8; 32] =\n\t$NOISE2RS_N$::decode_str_32("${psk}");`);
+		rsTestCode.push(`let temp_psk2: [u8; 32] =\n\t$NOISE2RS_N$::decode_str_32("${psk}");`);
 		initInit = `${initInit}, temp_psk1);`;
 		initResp = `${initResp}, temp_psk2);`;
 	} else {

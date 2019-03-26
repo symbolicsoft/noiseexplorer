@@ -72,7 +72,6 @@ struct HandshakeState {
 	rs: [u8; DHLEN],
 	re: [u8; DHLEN],
 	psk: [u8; DHLEN],
-	// i: bool,
 }
 
 pub struct NoiseSession {

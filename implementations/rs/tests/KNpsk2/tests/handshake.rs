@@ -16,9 +16,9 @@ fn test() {
 	let initStatic: KNpsk2::Keypair = KNpsk2::Keypair::new_k(KNpsk2::decode_str_32("e61ef9919cde45dd5f82166404bd08e38bceb5dfdfded0a34c8df7ed542214d1"));
 	let respStatic: KNpsk2::Keypair = KNpsk2::Keypair::new_k(KNpsk2::decode_str_32("KNpsk2::EMPTY_KEY"));
 	let temp_psk1: [u8; 32] =
-	KNpsk2::decode_str_32("54686973206973206d7920417573747269616e20706572737065637469766521")
+	KNpsk2::decode_str_32("54686973206973206d7920417573747269616e20706572737065637469766521");
 	let temp_psk2: [u8; 32] =
-	KNpsk2::decode_str_32("54686973206973206d7920417573747269616e20706572737065637469766521")
+	KNpsk2::decode_str_32("54686973206973206d7920417573747269616e20706572737065637469766521");
 	let mut initiatorSession: KNpsk2::NoiseSession =
 	KNpsk2::NoiseSession::InitSession(true, &prologue, initStatic, temp_psk1);
 	let mut responderSession: KNpsk2::NoiseSession =
