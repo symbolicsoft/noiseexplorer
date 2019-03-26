@@ -1,9 +1,0 @@
-ERROR 2019-03-24T15:18:42Z: rls::actions: failed to fetch project model, using fallback: failed to read `/Users/georgionicolas/Symbolic Software/Noise Explorer/NoiseExplorer/Cargo.toml`
-ERROR 2019-03-24T15:18:43Z: rls::actions: failed to fetch project model, using fallback: failed to read `/Users/georgionicolas/Symbolic Software/Noise Explorer/NoiseExplorer/Cargo.toml`
-ERROR 2019-03-24T15:18:43Z: rls::actions: failed to fetch project model, using fallback: failed to read `/Users/georgionicolas/Symbolic Software/Noise Explorer/NoiseExplorer/Cargo.toml`
-ERROR 2019-03-24T15:18:43Z: rls::actions: failed to fetch project model, using fallback: failed to read `/Users/georgionicolas/Symbolic Software/Noise Explorer/NoiseExplorer/Cargo.toml`
-ERROR 2019-03-24T15:20:27Z: rls::actions: failed to fetch project model, using fallback: failed to read `/Users/georgionicolas/Symbolic Software/Noise Explorer/NoiseExplorer/Cargo.toml`
-ERROR 2019-03-24T15:20:33Z: rls::actions: failed to fetch project model, using fallback: failed to read `/Users/georgionicolas/Symbolic Software/Noise Explorer/NoiseExplorer/Cargo.toml`
-ERROR 2019-03-24T15:20:40Z: rls::actions: failed to fetch project model, using fallback: failed to read `/Users/georgionicolas/Symbolic Software/Noise Explorer/NoiseExplorer/Cargo.toml`
-ERROR 2019-03-24T15:20:40Z: rls::actions: failed to fetch project model, using fallback: failed to read `/Users/georgionicolas/Symbolic Software/Noise Explorer/NoiseExplorer/Cargo.toml`
-ERROR 2019-03-24T15:20:48Z: rls::actions: failed to fetch project model, using fallback: failed to read `/Users/georgionicolas/Symbolic Software/Noise Explorer/NoiseExplorer/Cargo.toml`
