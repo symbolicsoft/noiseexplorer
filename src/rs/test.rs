@@ -1,6 +1,6 @@
 #![allow(non_snake_case, non_upper_case_globals)]
 
-use /*pattern_name*/;
+use $NOISE2RS_N$;
 
 fn decode_str(s: &str) -> Vec<u8> {
     if let Ok(x) = hex::decode(s) {
@@ -12,5 +12,5 @@ fn decode_str(s: &str) -> Vec<u8> {
 
 #[test]
 fn test() {
-    /*test_code*/
+    $NOISE2RS_T$
 }
