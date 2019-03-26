@@ -269,12 +269,12 @@ if (
 		WRITEFILE(`../implementations/rs/tests/${pattern_name}/src/lib.rs`, out[0]);
 		WRITEFILE(`../implementations/rs/tests/${pattern_name}/src/main.rs`, READFILE('rs/main.rs'));
 		let cargo = READFILE('rs/Cargo.toml');
-		cargo.replace("/*pattern_name*/", json.name);
+		cargo.replace(/\/\*pattern_name\*\//g, json.name);
 		WRITEFILE(`../implementations/rs/tests/${pattern_name}/Cargo.toml`, cargo);
 		let test_template = READFILE('rs/test.rs');
-		test_template.replace("/*pattern_name*/", json.name);
+		test_template.replace(/\/\*pattern_name\*\//g, json.name);
 		out[1].replace(/\/\*pattern_name\*\//g, json.name);
-		test_template.replace("/*test_code*/", out[1]);
+		test_template.replace(/\/\*test_code\*\//g, out[1]);
 		WRITEFILE(`../implementations/rs/tests/${pattern_name}/tests/handshake.rs`, test_template);
 	} else {
 		console.log(output);

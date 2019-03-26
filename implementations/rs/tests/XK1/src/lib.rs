@@ -650,5 +650,3 @@ impl NoiseSession {
 		}
 	}
 }
-
-/*test placeholder*/
