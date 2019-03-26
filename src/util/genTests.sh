@@ -7,7 +7,6 @@ for pattern in ../patterns/*.noise; do
 done
 echo " OK (GO TESTS GENERATED)"
 for pattern in ../patterns/*.noise; do
-	mkdir ../implementations/rs/tests/$(basename "${pattern}")
     node noiseExplorer \
 		--generate=rs --testgen --pattern=$pattern
 done
