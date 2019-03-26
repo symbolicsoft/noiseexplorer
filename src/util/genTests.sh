@@ -7,9 +7,9 @@ for pattern in ../patterns/*.noise; do
 done
 echo " OK (GO TESTS GENERATED)"
 for pattern in ../patterns/*.noise; do
+	mkdir ../implementations/rs/tests/$(basename "${pattern}")
     node noiseExplorer \
-		--generate=rs --testgen --pattern=$pattern \
-		> ../implementations/rs/tests/$(basename "${pattern}").rs
+		--generate=rs --testgen --pattern=$pattern
 done
 echo " OK (RUST TESTS GENERATED)"
 echo "[NoiseExplorer] Running Go Tests..."
@@ -19,5 +19,6 @@ cd ../../../src
 for pattern in ../implementations/go/tests/*.go; do
     go run $pattern
 done
+#run cargo test for each dir
 cd util
 

@@ -252,7 +252,22 @@ if (
 	let parsedRs = NOISE2RS.parse(json);
 	let output = RSRENDER(pattern, parsedRs);
 	if (ARGV.hasOwnProperty('testgen')) {
-		console.log(NOISE2RSTESTGEN.generate(output));
+		let out = NOISE2RSTESTGEN.generate(output);
+		if (!FS.existsSync(`../implementations/rs/tests/${json.name}`)) {
+			FS.mkdirSync(`../implementations/rs/tests/${json.name}`);
+			FS.mkdirSync(`../implementations/rs/tests/${json.name}/src`);
+			FS.mkdirSync(`../implementations/rs/tests/${json.name}/tests`);
+		}
+		WRITEFILE(`../implementations/rs/tests/${json.name}/src/lib.rs`, out[0]);
+		WRITEFILE(`../implementations/rs/tests/${json.name}/src/main.rs`, READFILE('rs/main.rs'));
+		let cargo = READFILE('rs/Cargo.toml');
+		cargo.replace("/*pattern_name*/", json.name);
+		WRITEFILE(`../implementations/rs/tests/${json.name}/Cargo.toml`, cargo);
+		let test_template = read('rs/test.rs');
+		test_template.replace("/*pattern_name*/", json.name);
+		out[1].replaceAll("/*pattern_name*/", json.name);
+		test_template.replace("/*test_code*/", out[1]);
+		WRITEFILE(`../implementations/rs/tests/${json.name}/tests/handshake.rs`, test_template);
 	} else {
 		console.log(output);
 	}
