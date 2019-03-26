@@ -254,21 +254,28 @@ if (
 	let output = RSRENDER(pattern, parsedRs);
 	if (ARGV.hasOwnProperty('testgen')) {
 		let out = NOISE2RSTESTGEN.generate(output);
-		if (!FS.existsSync(`../implementations/rs/tests/pattern_name`)) {
-			FS.mkdirSync(`../implementations/rs/tests/pattern_name`);
-			FS.mkdirSync(`../implementations/rs/tests/pattern_name/src`);
-			FS.mkdirSync(`../implementations/rs/tests/pattern_name/tests`);
+		if (!FS.existsSync(`../implementations/rs/tests`)) {
+			FS.mkdirSync(`../implementations/rs/tests`);
 		}
-		WRITEFILE(`../implementations/rs/tests/pattern_name/src/lib.rs`, out[0]);
-		WRITEFILE(`../implementations/rs/tests/pattern_name/src/main.rs`, READFILE('rs/main.rs'));
+		if (!FS.existsSync(`../implementations/rs/tests/${pattern_name}`)) {
+			FS.mkdirSync(`../implementations/rs/tests/${pattern_name}`);
+		}
+		if (!FS.existsSync(`../implementations/rs/tests/${pattern_name}/src`)) {
+			FS.mkdirSync(`../implementations/rs/tests/${pattern_name}/src`);
+		}
+		if (!FS.existsSync(`../implementations/rs/tests/${pattern_name}/tests`)) {
+			FS.mkdirSync(`../implementations/rs/tests/${pattern_name}/tests`);
+		}
+		WRITEFILE(`../implementations/rs/tests/${pattern_name}/src/lib.rs`, out[0]);
+		WRITEFILE(`../implementations/rs/tests/${pattern_name}/src/main.rs`, READFILE('rs/main.rs'));
 		let cargo = READFILE('rs/Cargo.toml');
 		cargo.replace("/*pattern_name*/", json.name);
-		WRITEFILE(`../implementations/rs/tests/pattern_name/Cargo.toml`, cargo);
-		let test_template = read('rs/test.rs');
+		WRITEFILE(`../implementations/rs/tests/${pattern_name}/Cargo.toml`, cargo);
+		let test_template = READFILE('rs/test.rs');
 		test_template.replace("/*pattern_name*/", json.name);
 		out[1].replaceAll("/*pattern_name*/", json.name);
 		test_template.replace("/*test_code*/", out[1]);
-		WRITEFILE(`../implementations/rs/tests/pattern_name/tests/handshake.rs`, test_template);
+		WRITEFILE(`../implementations/rs/tests/${pattern_name}/tests/handshake.rs`, test_template);
 	} else {
 		console.log(output);
 	}
@@ -375,3 +382,9 @@ if (ARGV.hasOwnProperty('web')) {
 		}
 	}).listen(port);
 }
+
+
+String.prototype.replaceAll = function(search, replacement) {
+    var target = this;
+    return target.split(search).join(replacement);
+};
