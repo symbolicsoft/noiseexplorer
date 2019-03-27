@@ -19,14 +19,14 @@ const gen = (
 			`let test_sk = decode_str_32("${initEphemeralPk}");`,
 			`let test_pk = generate_public_key(&test_sk);`,
 			`self.e = Keypair {\n\tpk: curve25519::PublicKey(test_pk),\n\tsk: curve25519::SecretKey(test_sk),\n};`
-			].join("\n\t")}`;
+		].join("\n\t")}`;
 	}
 	if (respEphemeralPk.length > 0) {
 		eph[1] = `${[
 			`let test_sk = decode_str_32("${respEphemeralPk}");`,
 			`let test_pk = generate_public_key(&test_sk);`,
 			`self.e = Keypair {\n\tpk: curve25519::PublicKey(test_pk),\n\tsk: curve25519::SecretKey(test_sk),\n};`
-			].join("\n\t")}`;
+		].join("\n\t")}`;
 	}
 	rsTestCode.push(`\tlet prologue = decode_str("${initPrologue}");`);
 	if (initStaticSk.length == 0) {
@@ -37,9 +37,6 @@ const gen = (
 	}
 	rsTestCode.push(`let initStatic: $NOISE2RS_N$::Keypair = $NOISE2RS_N$::Keypair::new_k($NOISE2RS_N$::decode_str_32("${initStaticSk}"));`);
 	rsTestCode.push(`let respStatic: $NOISE2RS_N$::Keypair = $NOISE2RS_N$::Keypair::new_k($NOISE2RS_N$::decode_str_32("${respStaticSk}"));`);
-
-
-
 	if (initRemoteStaticPk.length > 0) {
 		initInit = `${initInit}, respStatic.pk.0`;
 	} else {
@@ -172,7 +169,7 @@ const generate = (code) => {
 	}
 }
 
-if (typeof (module) !== 'undefined') {
+if (typeof(module) !== 'undefined') {
 	// Node
 	module.exports = {
 		generate: generate

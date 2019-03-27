@@ -441,6 +441,8 @@ fn InitializeResponder(prologue: &[u8], s: Keypair, rs: [u8; DHLEN], psk: [u8; P
 }
 
 fn WriteMessageA(&mut self, payload: &[u8]) -> (([u8; 32], MessageBuffer, CipherState, CipherState)) {
+	let mut ns: Vec<u8> = Vec::new();
+	let mut ne: [u8; DHLEN] = EMPTY_KEY;
 	self.ss.MixKeyAndHash(&self.psk);
 	let test_sk = decode_str_32("893e28b9dc6ca8d611ab664754b8ceb7bac5117349a4439a6b0569da977c464a");
 	let test_pk = generate_public_key(&test_sk);
@@ -448,8 +450,7 @@ fn WriteMessageA(&mut self, payload: &[u8]) -> (([u8; 32], MessageBuffer, Cipher
 	pk: curve25519::PublicKey(test_pk),
 	sk: curve25519::SecretKey(test_sk),
 };
-	let ne = self.e.pk.0;
-	let ns: Vec<u8> = Vec::from(&zerolen[..]);
+	ne = self.e.pk.0;
 	self.ss.MixHash(&ne[..]);
 	self.ss.MixKey(&self.e.pk.0);
 	self.ss.MixKey(&DH(&self.e, &self.rs));
@@ -459,7 +460,7 @@ fn WriteMessageA(&mut self, payload: &[u8]) -> (([u8; 32], MessageBuffer, Cipher
 		ciphertext.clone_from(&x);
 	}
 	let (cs1, cs2) = self.ss.Split();
-	let messagebuffer: MessageBuffer = MessageBuffer { ne, ns, ciphertext };
+	let messagebuffer = MessageBuffer { ne, ns, ciphertext };
 	(self.ss.h, messagebuffer, cs1, cs2)
 }
 
@@ -556,7 +557,7 @@ impl NoiseSession {
 		&& self.hs.ss.cs.n < MAX_NONCE && message.ciphertext.len() < 65535 {
 			let mut plaintext: Option<Vec<u8>> = None;
 			if self.mc == 0 {
-				if let Some(temp) = self.hs.ReadMessageB(message) {
+				if let Some(temp) = self.hs.ReadMessageA(message) {
 					self.h = temp.0;
 					plaintext = Some(temp.1);
 					self.cs1 = temp.2;

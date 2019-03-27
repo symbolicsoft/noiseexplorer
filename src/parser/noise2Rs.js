@@ -172,7 +172,7 @@ const NOISE2RS = {
 			`self.ss.MixKey(&DH(&self.s, &self.re));` : `self.ss.MixKey(&DH(&self.e, &self.rs));`;
 		let finalFill = isFinal ? [
 			`let (cs1, cs2) = self.ss.Split();`,
-			`let messagebuffer: MessageBuffer = MessageBuffer { ne, ns, ciphertext };`,
+			`let messagebuffer = MessageBuffer { ne, ns, ciphertext };`,
 			`(self.ss.h, messagebuffer, cs1, cs2)`
 		] : [
 			`MessageBuffer { ne, ns, ciphertext }`
@@ -185,13 +185,11 @@ const NOISE2RS = {
 		let messageTokenParsers = {
 			e: [
 				`self.e = GENERATE_KEYPAIR();`,
-				`let ne = self.e.pk.0;`,
-				`let ns: Vec<u8> = Vec::from(&zerolen[..]);`,
+				`ne = self.e.pk.0;`,
 				`self.ss.MixHash(&ne[..]);`,
 				ePskFill
 			].join(`\n\t`),
 			s: [
-				`let mut ns: Vec<u8> = Vec::new();`,
 				`if let Some(x) = self.ss.EncryptAndHash(&self.s.pk.0[..]) {`,
 				`\tns.clone_from(&x);`,
 				`}`
@@ -213,7 +211,9 @@ const NOISE2RS = {
 			].join(`\n\t`),
 		};
 		let writeFun = [
-			writeFunDeclaration
+			writeFunDeclaration,
+			`let mut ns: Vec<u8> = Vec::new();`,
+			`let mut ne: [u8; DHLEN] = ${util.emptyKey};`
 		];
 		message.tokens.forEach((token) => {
 			writeFun.push(messageTokenParsers[token]);
@@ -426,7 +426,7 @@ const NOISE2RS = {
 				]);
 				recvMessage = recvMessage.concat([
 					`\t\tif self.mc == ${i} {`,
-					`\t\t\tif let Some(temp) = self.hs.ReadMessageB(message) {`,
+					`\t\t\tif let Some(temp) = self.hs.ReadMessage${util.abc[i]}(message) {`,
 					`\t\t\t\tself.h = temp.0;`,
 					`\t\t\t\tplaintext = Some(temp.1);`,
 					`\t\t\t\tself.cs1 = temp.2;`,
