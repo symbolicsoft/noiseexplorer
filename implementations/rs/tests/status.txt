@@ -1,0 +1,59 @@
+I1K         
+I1N         
+I1K1        
+I1X         
+I1X1        
+IK          
+IK1         
+IKpsk1      
+IKpsk2      
+IN          
+INpsk1      
+INpsk2      
+IX          
+IX1         
+IXpsk2      
+K           
+K1K         
+K1K1        
+K1N         
+K1X         
+K1X1        
+KK          
+KK1         
+KKpsk0      
+KKpsk2      
+KN          
+KNpsk0      
+KNpsk2      
+Kpsk0       
+KX          
+KX1         
+KXpsk2      
+N           
+NK          
+NK1         
+NKpsk0      
+NKpsk2      
+NN          
+NNpsk0      
+NNpsk2      
+Npsk0       
+NX          
+NX1         
+NXpsk2      
+X           
+X1K         
+X1K1        
+X1N         
+X1X         
+X1X1        Could not compile
+XK          Could not compile
+XK1         Could not compile
+XKpsk3      Could not compile
+XN          Could not compile
+XNpsk3      Could not compile
+Xpsk1       Could not compile
+XX          Could not compile
+XX1         Could not compile
+XXpsk3      Could not compile
