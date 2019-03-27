@@ -1,5 +1,5 @@
 const NOISE2RSTESTGEN = {
-	generate: () => { }
+	generate: () => {}
 };
 
 
@@ -11,57 +11,53 @@ const gen = (
 ) => {
 	let abc = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
 	let rsTestCode = [];
-	let initInit = `initiatorSession := InitSession(true, prologue, initStatic`;
-	let initResp = `responderSession := InitSession(false, prologue, respStatic`;
+	let initInit = `let mut initiatorSession: $NOISE2RS_N$::NoiseSession =\n\t$NOISE2RS_N$::NoiseSession::InitSession(true, &prologue, initStatic`;
+	let initResp = `let mut responderSession: $NOISE2RS_N$::NoiseSession =\n\t$NOISE2RS_N$::NoiseSession::InitSession(false, &prologue, respStatic`;
 	let eph = ["", ""];
 	if (initEphemeralPk.length > 0) {
 		eph[0] = `${[
-			`esk, _ := hex.DecodeString("${initEphemeralPk}")`,
-			`copy(hs.e.sk[:], esk[:])`,
-			`hs.e.pk = generatePublicKey(hs.e.sk)`].join("\n\t")}`;
+			`let test_sk = decode_str_32("${initEphemeralPk}");`,
+			`let test_pk = generate_public_key(&test_sk);`,
+			`self.e = Keypair {\n\tpk: curve25519::PublicKey(test_pk),\n\tsk: curve25519::SecretKey(test_sk),\n};`
+			].join("\n\t")}`;
 	}
 	if (respEphemeralPk.length > 0) {
 		eph[1] = `${[
-			`esk, _ := hex.DecodeString("${respEphemeralPk}")`,
-			`copy(hs.e.sk[:], esk[:])`,
-			`hs.e.pk = generatePublicKey(hs.e.sk)`].join("\n\t")}`;
+			`let test_sk = decode_str_32("${respEphemeralPk}");`,
+			`let test_pk = generate_public_key(&test_sk);`,
+			`self.e = Keypair {\n\tpk: curve25519::PublicKey(test_pk),\n\tsk: curve25519::SecretKey(test_sk),\n};`
+			].join("\n\t")}`;
 	}
-	rsTestCode.push(`\tprologue, _ := hex.DecodeString("${initPrologue}")`);
-	rsTestCode.push(`var initStatic keypair`);
-	if (initStaticSk.length > 0) {
-		rsTestCode.push(`initStaticSk, _ := hex.DecodeString("${initStaticSk}")`);
-	} else {
-		rsTestCode.push(`initStaticSk := emptyKey`);
+	rsTestCode.push(`\tlet prologue = decode_str("${initPrologue}");`);
+	if (initStaticSk.length == 0) {
+		initStaticSk = `$NOISE2RS_N$::EMPTY_KEY`;
 	}
-	rsTestCode.push(`copy(initStatic.sk[:], initStaticSk[:])`);
-	rsTestCode.push(`initStatic.pk = generatePublicKey(initStatic.sk)`);
-	rsTestCode.push(`var respStatic keypair`);
-	if (respStaticSk.length > 0) {
-		rsTestCode.push(`respStaticSk, _ := hex.DecodeString("${respStaticSk}")`);
-	} else {
-		rsTestCode.push(`respStaticSk := emptyKey`);
+	if (respStaticSk.length == 0) {
+		respStaticSk = `$NOISE2RS_N$::EMPTY_KEY`;
 	}
-	rsTestCode.push(`copy(respStatic.sk[:], respStaticSk[:])`);
-	rsTestCode.push(`respStatic.pk = generatePublicKey(respStatic.sk)`);
+	rsTestCode.push(`let initStatic: $NOISE2RS_N$::Keypair = $NOISE2RS_N$::Keypair::new_k($NOISE2RS_N$::decode_str_32("${initStaticSk}"));`);
+	rsTestCode.push(`let respStatic: $NOISE2RS_N$::Keypair = $NOISE2RS_N$::Keypair::new_k($NOISE2RS_N$::decode_str_32("${respStaticSk}"));`);
+
+
+
 	if (initRemoteStaticPk.length > 0) {
-		initInit = `${initInit}, respStatic.pk`;
+		initInit = `${initInit}, respStatic.pk.0`;
 	} else {
-		initInit = `${initInit}, emptyKey`;
+		initInit = `${initInit}, $NOISE2RS_N$::EMPTY_KEY`;
 	}
 	if (respRemoteStaticPk.length > 0) {
-		initResp = `${initResp}, initStatic.pk`;
+		initResp = `${initResp}, initStatic.pk.0`;
 	} else {
-		initResp = `${initResp}, emptyKey`;
+		initResp = `${initResp}, $NOISE2RS_N$::EMPTY_KEY`;
 	}
 	if (psk.length > 0) {
-		rsTestCode.push(`var psk [32]byte`);
-		rsTestCode.push(`pskTemp, _ := hex.DecodeString("${psk}")`);
-		rsTestCode.push(`copy(psk[:], pskTemp[:32])`);
-		initInit = `${initInit}, psk)`;
-		initResp = `${initResp}, psk)`;
+		rsTestCode.push(`let temp_psk1: [u8; 32] =\n\t$NOISE2RS_N$::decode_str_32("${psk}");`);
+		rsTestCode.push(`let temp_psk2: [u8; 32] =\n\t$NOISE2RS_N$::decode_str_32("${psk}");`);
+		initInit = `${initInit}, temp_psk1);`;
+		initResp = `${initResp}, temp_psk2);`;
 	} else {
-		initInit = `${initInit})`;
-		initResp = `${initResp})`;
+		initInit = `${initInit});`;
+		initResp = `${initResp});`;
 	}
 	rsTestCode.push([
 		`${initInit}`,
@@ -71,36 +67,42 @@ const gen = (
 		let send = (i % 2 === 0) ? 'initiatorSession' : 'responderSession';
 		let recv = (i % 2 === 0) ? 'responderSession' : 'initiatorSession';
 		rsTestCode.push([
-			`payload${abc[i]}, _ := hex.DecodeString("${messages[i].payload}")`,
-			`_, message${abc[i]} := SendMessage(&${send}, payload${abc[i]})`,
-			`_, _, valid${abc[i]} := RecvMessage(&${recv}, &message${abc[i]})`,
-			`t${abc[i]} := "${messages[i].ciphertext}"`
+			`let payload${abc[i]} = decode_str("${messages[i].payload}");`,
+			`let mut message${abc[i]}: $NOISE2RS_N$::MessageBuffer = ${send}.SendMessage(&payload${abc[i]});`,
+			`let mut valid${abc[i]}: bool = false;`,
+			`if let Some(_x) = ${recv}.RecvMessage(&mut message${abc[i]}) {\n\tvalid${abc[i]} = true;\n}`,
+			`let t${abc[i]}: Vec<u8> = decode_str("${messages[i].ciphertext}");`
 		].join('\n\t'));
 	}
 	rsTestCode.push([
 		`if validA && validB && validC && validD && validE && validF {`,
-		`\tprintln("Sanity check PASS for ${protocolName}.")`,
+		`\tprintln!("Sanity check PASS for ${protocolName}.");`,
 		`} else {`,
-		`\tprintln("Sanity check FAIL for ${protocolName}.")`,
+		`\tprintln!("Sanity check FAIL for ${protocolName}.");`,
 		`}`,
-		`cA := ${initEphemeralPk.length ? `hex.EncodeToString(messageA.ne[:]) + ` : ``}hex.EncodeToString(messageA.ns) + hex.EncodeToString(messageA.ciphertext)`,
-		`cB := ${respEphemeralPk.length ? `hex.EncodeToString(messageB.ne[:]) + ` : ``}hex.EncodeToString(messageB.ns) + hex.EncodeToString(messageB.ciphertext)`,
-		`cC := hex.EncodeToString(messageC.ns) + hex.EncodeToString(messageC.ciphertext)`,
-		`cD := hex.EncodeToString(messageD.ns) + hex.EncodeToString(messageD.ciphertext)`,
-		`cE := hex.EncodeToString(messageE.ns) + hex.EncodeToString(messageE.ciphertext)`,
-		`cF := hex.EncodeToString(messageF.ns) + hex.EncodeToString(messageF.ciphertext)`
+		`let mut cA: Vec<u8> = Vec::from(&messageA.ne[..]);`,
+		`cA.append(&mut messageA.ns);`,
+		`cA.append(&mut messageA.ciphertext);`,
+		`let mut cB: Vec<u8> = Vec::from(&messageB.ne[..]);`,
+		`cB.append(&mut messageB.ns);`,
+		`cB.append(&mut messageB.ciphertext);`,
+		`let mut cC: Vec<u8> = messageC.ciphertext;`,
+		`let mut cD: Vec<u8> = messageD.ciphertext;`,
+		`let mut cE: Vec<u8> = messageE.ciphertext;`,
+		`let mut cF: Vec<u8> = messageF.ciphertext;`,
 	].join('\n\t'));
 	for (let i = 0; i < 6; i++) {
 		rsTestCode.push([
 			`if t${abc[i]} == c${abc[i]} {`,
-			`\tprintln("Test ${abc[i]}: PASS")`,
+			`\tprintln!("Test ${abc[i]}: PASS");`,
 			`} else {`,
-			`\tprintln("Test ${abc[i]}: FAIL")`,
-			`\tprintln("Expected:\t", t${abc[i]})`,
-			`\tprintln("Actual:\t\t", c${abc[i]})`,
+			`\tprintln!("Test ${abc[i]}: FAIL");`,
+			`\tprintln!("Expected:\t{:X?}", t${abc[i]});`,
+			`\tprintln!("Actual:\t\t{:X?}", c${abc[i]});`,
 			`}`,
 		].join('\n\t'));
 	}
+	rsTestCode.push(`assert_eq!(tA, cA);\n\tassert_eq!(tB, cB);\n\tassert_eq!(tC, cC);\n\tassert_eq!(tD, cD);\n\tassert_eq!(tE, cE);\n\tassert_eq!(tF, cF);`)
 	rsTestCode = `${rsTestCode.join('\n\t')}`;
 	return [rsTestCode, eph];
 }
@@ -161,17 +163,16 @@ const generate = (code) => {
 			testVectors[i].protocol_name.split("_")[4] == 'BLAKE2s'
 		) {
 			let tempB = assign(testVectors[i]);
-			code = code.replace(`\"encoding/binary\"`, `\"encoding/binary\"\n\t\"encoding/hex\"`);
-			code = code.replace(`hs.e = generateKeypair()`, tempB[1][0])
+			code = code.replace('self.e = GENERATE_KEYPAIR();', tempB[1][0]);
 			if (tempB[1][1] != "") {
-				code = code.replace(`hs.e = generateKeypair()`, tempB[1][1])
+				code = code.replace('self.e = GENERATE_KEYPAIR();', tempB[1][1]);
 			}
-			return code.replace(`func main() {}`, `func main() {\n${tempB[0]}\n}`);
+			return [code, tempB[0]];
 		}
 	}
 }
 
-if (typeof(module) !== 'undefined') {
+if (typeof (module) !== 'undefined') {
 	// Node
 	module.exports = {
 		generate: generate

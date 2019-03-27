@@ -252,7 +252,21 @@ if (
 	let parsedRs = NOISE2RS.parse(json);
 	let output = RSRENDER(pattern, parsedRs);
 	if (ARGV.hasOwnProperty('testgen')) {
-		console.log(NOISE2RSTESTGEN.generate(output));
+		if (!FS.existsSync(`../implementations/rs/tests/${json.name}`)) {
+			FS.mkdirSync(`../implementations/rs/tests/${json.name}`);
+			FS.mkdirSync(`../implementations/rs/tests/${json.name}/src`);
+			FS.mkdirSync(`../implementations/rs/tests/${json.name}/tests`);
+		}
+		let testGen = NOISE2RSTESTGEN.generate(output);
+		let cargo = READFILE('rs/Cargo.toml')
+			.replace("$NOISE2RS_N$", json.name);
+		let test = READFILE('rs/test.rs')
+			.replace("$NOISE2RS_T$", testGen[1])
+			.replace(/\$NOISE2RS_N\$/g, json.name);
+		WRITEFILE(`../implementations/rs/tests/${json.name}/src/lib.rs`, testGen[0]);
+		WRITEFILE(`../implementations/rs/tests/${json.name}/src/main.rs`, READFILE('rs/main.rs'));
+		WRITEFILE(`../implementations/rs/tests/${json.name}/Cargo.toml`, cargo);
+		WRITEFILE(`../implementations/rs/tests/${json.name}/tests/handshake.rs`, test);
 	} else {
 		console.log(output);
 	}

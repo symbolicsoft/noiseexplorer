@@ -1,3 +1,10 @@
 node_modules
 package-lock.json
 .DS_Store
+*/*.log
+*.log
+*/target
+implementations/rs/tests/target
+implementations/rs/tests/*/Cargo.lock
+implementations/rs/tests/*/target
+rust-test.code-workspace
