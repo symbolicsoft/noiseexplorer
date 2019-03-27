@@ -297,7 +297,7 @@ impl CipherState {
 		MessageBuffer {
 			ne: EMPTY_KEY,
 			ns: Vec::new(),
-			ciphertext: self.EncryptWithAd(&zerolen[..], payload),
+			ciphertext: self.EncryptWithAd(payload),
 		}
 	}
 
@@ -443,8 +443,8 @@ fn WriteMessageA(&mut self, payload: &[u8]) -> (([u8; 32], MessageBuffer, Cipher
 	let test_sk = decode_str_32("893e28b9dc6ca8d611ab664754b8ceb7bac5117349a4439a6b0569da977c464a");
 	let test_pk = generate_public_key(&test_sk);
 	self.e = Keypair {
-	pk: curve25519::PublicKey(test_pk),
-	sk: curve25519::SecretKey(test_sk),
+		pk: curve25519::PublicKey(test_pk),
+		sk: curve25519::SecretKey(test_sk),
 };
 	ne = self.e.pk.0;
 	self.ss.MixHash(&ne[..]);

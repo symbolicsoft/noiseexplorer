@@ -12,54 +12,55 @@ fn decode_str(s: &str) -> Vec<u8> {
 
 #[test]
 fn test() {
-    	let prologue = decode_str("4a6f686e2047616c74");
-	let initStatic: XX::Keypair = XX::Keypair::new_k(XX::decode_str_32("e61ef9919cde45dd5f82166404bd08e38bceb5dfdfded0a34c8df7ed542214d1"));
+    let prologue = decode_str("4a6f686e2047616c74");
+	let initStaticA: XX::Keypair = XX::Keypair::new_k(XX::decode_str_32("e61ef9919cde45dd5f82166404bd08e38bceb5dfdfded0a34c8df7ed542214d1"));
+	let initStaticB: XX::Keypair = XX::Keypair::new_k(XX::decode_str_32("e61ef9919cde45dd5f82166404bd08e38bceb5dfdfded0a34c8df7ed542214d1"));
 	let respStatic: XX::Keypair = XX::Keypair::new_k(XX::decode_str_32("4a3acbfdb163dec651dfa3194dece676d437029c62a408b4c5ea9114246e4893"));
 	let mut initiatorSession: XX::NoiseSession =
-	XX::NoiseSession::InitSession(true, &prologue, initStatic, XX::EMPTY_KEY);
+	XX::NoiseSession::InitSession(true, &prologue, initStaticA, XX::EMPTY_KEY);
 	let mut responderSession: XX::NoiseSession =
 	XX::NoiseSession::InitSession(false, &prologue, respStatic, XX::EMPTY_KEY);
 	let payloadA = decode_str("4c756477696720766f6e204d69736573");
 	let mut messageA: XX::MessageBuffer = initiatorSession.SendMessage(&payloadA);
 	let mut validA: bool = false;
 	if let Some(_x) = responderSession.RecvMessage(&mut messageA) {
-	validA = true;
-}
+		validA = true;
+	}
 	let tA: Vec<u8> = decode_str("ca35def5ae56cec33dc2036731ab14896bc4c75dbb07a61f879f8e3afa4c79444c756477696720766f6e204d69736573");
 	let payloadB = decode_str("4d757272617920526f746862617264");
 	let mut messageB: XX::MessageBuffer = responderSession.SendMessage(&payloadB);
 	let mut validB: bool = false;
 	if let Some(_x) = initiatorSession.RecvMessage(&mut messageB) {
-	validB = true;
-}
+		validB = true;
+	}
 	let tB: Vec<u8> = decode_str("95ebc60d2b1fa672c1f46a8aa265ef51bfe38e7ccb39ec5be34069f1448088437c365eb362a1c991b0557fe8a7fb187d99346765d93ec63db6c1b01504ebeec55a2298d2dbff80eff034d20595153f63a196a6cead1e11b2bb13e336fa13616dd3e8b0a070c882ed3f1a78c7c06c93");
 	let payloadC = decode_str("462e20412e20486179656b");
 	let mut messageC: XX::MessageBuffer = initiatorSession.SendMessage(&payloadC);
 	let mut validC: bool = false;
 	if let Some(_x) = responderSession.RecvMessage(&mut messageC) {
-	validC = true;
-}
+		validC = true;
+	}
 	let tC: Vec<u8> = decode_str("46c3307de83b014258717d97781c1f50936d8b7d50c0722a1739654d10392d415b670c114f79b9a4f80541570f77ce88802efa4220cff733e7b5668ba38059ec904b4b8eef9448085faf51");
 	let payloadD = decode_str("4361726c204d656e676572");
 	let mut messageD: XX::MessageBuffer = responderSession.SendMessage(&payloadD);
 	let mut validD: bool = false;
 	if let Some(_x) = initiatorSession.RecvMessage(&mut messageD) {
-	validD = true;
-}
+		validD = true;
+	}
 	let tD: Vec<u8> = decode_str("d5e83adfaac5dc324a68f1862df54549e56d209fba707205f328b2");
 	let payloadE = decode_str("4a65616e2d426170746973746520536179");
 	let mut messageE: XX::MessageBuffer = initiatorSession.SendMessage(&payloadE);
 	let mut validE: bool = false;
 	if let Some(_x) = responderSession.RecvMessage(&mut messageE) {
-	validE = true;
-}
+		validE = true;
+	}
 	let tE: Vec<u8> = decode_str("d102c9029b1f55c788f561ba7737afbccef9c9f1bf2f238167fd40ba9c1c134867");
 	let payloadF = decode_str("457567656e2042f6686d20766f6e2042617765726b");
 	let mut messageF: XX::MessageBuffer = responderSession.SendMessage(&payloadF);
 	let mut validF: bool = false;
 	if let Some(_x) = initiatorSession.RecvMessage(&mut messageF) {
-	validF = true;
-}
+		validF = true;
+	}
 	let tF: Vec<u8> = decode_str("cb1ce80960382c6d5d5e740ffb724d1432f0310b200fb6f8424120f506092744baa415e155");
 	if validA && validB && validC && validD && validE && validF {
 		println!("Sanity check PASS for XX_25519_ChaChaPoly_BLAKE2s.");

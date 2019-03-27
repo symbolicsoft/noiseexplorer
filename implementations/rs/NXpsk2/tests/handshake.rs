@@ -12,58 +12,59 @@ fn decode_str(s: &str) -> Vec<u8> {
 
 #[test]
 fn test() {
-    	let prologue = decode_str("4a6f686e2047616c74");
-	let initStatic: NXpsk2::Keypair = NXpsk2::Keypair::new_k(NXpsk2::decode_str_32("NXpsk2::EMPTY_KEY"));
+    let prologue = decode_str("4a6f686e2047616c74");
+	let initStaticA: NXpsk2::Keypair = NXpsk2::Keypair::new_k(NXpsk2::EMPTY_KEY);
+	let initStaticB: NXpsk2::Keypair = NXpsk2::Keypair::new_k(NXpsk2::EMPTY_KEY);
 	let respStatic: NXpsk2::Keypair = NXpsk2::Keypair::new_k(NXpsk2::decode_str_32("4a3acbfdb163dec651dfa3194dece676d437029c62a408b4c5ea9114246e4893"));
 	let temp_psk1: [u8; 32] =
 	NXpsk2::decode_str_32("54686973206973206d7920417573747269616e20706572737065637469766521");
 	let temp_psk2: [u8; 32] =
 	NXpsk2::decode_str_32("54686973206973206d7920417573747269616e20706572737065637469766521");
 	let mut initiatorSession: NXpsk2::NoiseSession =
-	NXpsk2::NoiseSession::InitSession(true, &prologue, initStatic, NXpsk2::EMPTY_KEY, temp_psk1);
+	NXpsk2::NoiseSession::InitSession(true, &prologue, initStaticA, NXpsk2::EMPTY_KEY, temp_psk1);
 	let mut responderSession: NXpsk2::NoiseSession =
 	NXpsk2::NoiseSession::InitSession(false, &prologue, respStatic, NXpsk2::EMPTY_KEY, temp_psk2);
 	let payloadA = decode_str("4c756477696720766f6e204d69736573");
 	let mut messageA: NXpsk2::MessageBuffer = initiatorSession.SendMessage(&payloadA);
 	let mut validA: bool = false;
 	if let Some(_x) = responderSession.RecvMessage(&mut messageA) {
-	validA = true;
-}
+		validA = true;
+	}
 	let tA: Vec<u8> = decode_str("ca35def5ae56cec33dc2036731ab14896bc4c75dbb07a61f879f8e3afa4c794497bdcf5dc128b7bc5b8f2b6ac1a46dff9f9469337cfac0098f87b2a577cece84");
 	let payloadB = decode_str("4d757272617920526f746862617264");
 	let mut messageB: NXpsk2::MessageBuffer = responderSession.SendMessage(&payloadB);
 	let mut validB: bool = false;
 	if let Some(_x) = initiatorSession.RecvMessage(&mut messageB) {
-	validB = true;
-}
+		validB = true;
+	}
 	let tB: Vec<u8> = decode_str("95ebc60d2b1fa672c1f46a8aa265ef51bfe38e7ccb39ec5be34069f144808843c39479e89953f195c89ee9a53f2e291727e15ab09a61b1ca623ee98d3d2549bda7af1881b0ae7ba4bb6e8f71e119927c6c8510ae728cd8c258c6200b71c86e16f934ba80fe35e708f8a52a5e193346");
 	let payloadC = decode_str("462e20412e20486179656b");
 	let mut messageC: NXpsk2::MessageBuffer = initiatorSession.SendMessage(&payloadC);
 	let mut validC: bool = false;
 	if let Some(_x) = responderSession.RecvMessage(&mut messageC) {
-	validC = true;
-}
+		validC = true;
+	}
 	let tC: Vec<u8> = decode_str("499085038a82c4bc9895c069b9a71ead87545a9184a395d74378e1");
 	let payloadD = decode_str("4361726c204d656e676572");
 	let mut messageD: NXpsk2::MessageBuffer = responderSession.SendMessage(&payloadD);
 	let mut validD: bool = false;
 	if let Some(_x) = initiatorSession.RecvMessage(&mut messageD) {
-	validD = true;
-}
+		validD = true;
+	}
 	let tD: Vec<u8> = decode_str("966e81056dafc90a22e1b23039427325cab7791b92bed9a562808e");
 	let payloadE = decode_str("4a65616e2d426170746973746520536179");
 	let mut messageE: NXpsk2::MessageBuffer = initiatorSession.SendMessage(&payloadE);
 	let mut validE: bool = false;
 	if let Some(_x) = responderSession.RecvMessage(&mut messageE) {
-	validE = true;
-}
+		validE = true;
+	}
 	let tE: Vec<u8> = decode_str("f5731b781c54f95e5c75bbd6b9b88113de6097618936495b0ba90d545187a3512c");
 	let payloadF = decode_str("457567656e2042f6686d20766f6e2042617765726b");
 	let mut messageF: NXpsk2::MessageBuffer = responderSession.SendMessage(&payloadF);
 	let mut validF: bool = false;
 	if let Some(_x) = initiatorSession.RecvMessage(&mut messageF) {
-	validF = true;
-}
+		validF = true;
+	}
 	let tF: Vec<u8> = decode_str("1ad6f2ce261f2f6773363a6f3efc2105c98d960b910629da596e394b052389c66ae988bd84");
 	if validA && validB && validC && validD && validE && validF {
 		println!("Sanity check PASS for NXpsk2_25519_ChaChaPoly_BLAKE2s.");

@@ -161,7 +161,7 @@ const generate = (code) => {
 			testVectors[i].protocol_name.split("_")[4] == 'BLAKE2s'
 		) {
 			let tempB = assign(testVectors[i]);
-			code = code.replace(`\"encoding/binary\"`, `\"encoding/binary\"\n\t\"encoding/hex\"`);
+			code = code.replace(`"encoding/binary"`, `"encoding/binary"\n\t"encoding/hex"`);
 			code = code.replace(`hs.e = generateKeypair()`, tempB[1][0])
 			if (tempB[1][1] != "") {
 				code = code.replace(`hs.e = generateKeypair()`, tempB[1][1])

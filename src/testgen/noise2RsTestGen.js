@@ -11,39 +11,46 @@ const gen = (
 ) => {
 	let abc = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
 	let rsTestCode = [];
-	let initInit = `let mut initiatorSession: $NOISE2RS_N$::NoiseSession =\n\t$NOISE2RS_N$::NoiseSession::InitSession(true, &prologue, initStatic`;
+	let initInit = `let mut initiatorSession: $NOISE2RS_N$::NoiseSession =\n\t$NOISE2RS_N$::NoiseSession::InitSession(true, &prologue, initStaticA`;
 	let initResp = `let mut responderSession: $NOISE2RS_N$::NoiseSession =\n\t$NOISE2RS_N$::NoiseSession::InitSession(false, &prologue, respStatic`;
 	let eph = ["", ""];
 	if (initEphemeralPk.length > 0) {
 		eph[0] = `${[
 			`let test_sk = decode_str_32("${initEphemeralPk}");`,
 			`let test_pk = generate_public_key(&test_sk);`,
-			`self.e = Keypair {\n\tpk: curve25519::PublicKey(test_pk),\n\tsk: curve25519::SecretKey(test_sk),\n};`
+			`self.e = Keypair {\n\t\tpk: curve25519::PublicKey(test_pk),\n\t\tsk: curve25519::SecretKey(test_sk),\n};`
 		].join("\n\t")}`;
 	}
 	if (respEphemeralPk.length > 0) {
 		eph[1] = `${[
 			`let test_sk = decode_str_32("${respEphemeralPk}");`,
 			`let test_pk = generate_public_key(&test_sk);`,
-			`self.e = Keypair {\n\tpk: curve25519::PublicKey(test_pk),\n\tsk: curve25519::SecretKey(test_sk),\n};`
+			`self.e = Keypair {\n\t\tpk: curve25519::PublicKey(test_pk),\n\t\tsk: curve25519::SecretKey(test_sk),\n};`
 		].join("\n\t")}`;
 	}
-	rsTestCode.push(`\tlet prologue = decode_str("${initPrologue}");`);
+	rsTestCode.push(`let prologue = decode_str("${initPrologue}");`);
 	if (initStaticSk.length == 0) {
 		initStaticSk = `$NOISE2RS_N$::EMPTY_KEY`;
+	} else {
+		initStaticSk = `$NOISE2RS_N$::decode_str_32("${initStaticSk}")`;
 	}
 	if (respStaticSk.length == 0) {
 		respStaticSk = `$NOISE2RS_N$::EMPTY_KEY`;
+	} else {
+		respStaticSk = `$NOISE2RS_N$::decode_str_32("${respStaticSk}")`;
 	}
-	rsTestCode.push(`let initStatic: $NOISE2RS_N$::Keypair = $NOISE2RS_N$::Keypair::new_k($NOISE2RS_N$::decode_str_32("${initStaticSk}"));`);
-	rsTestCode.push(`let respStatic: $NOISE2RS_N$::Keypair = $NOISE2RS_N$::Keypair::new_k($NOISE2RS_N$::decode_str_32("${respStaticSk}"));`);
+	rsTestCode = rsTestCode.concat([
+		`let initStaticA: $NOISE2RS_N$::Keypair = $NOISE2RS_N$::Keypair::new_k(${initStaticSk});`,
+		`let initStaticB: $NOISE2RS_N$::Keypair = $NOISE2RS_N$::Keypair::new_k(${initStaticSk});`,
+		`let respStatic: $NOISE2RS_N$::Keypair = $NOISE2RS_N$::Keypair::new_k(${respStaticSk});`
+	]);
 	if (initRemoteStaticPk.length > 0) {
 		initInit = `${initInit}, respStatic.pk.0`;
 	} else {
 		initInit = `${initInit}, $NOISE2RS_N$::EMPTY_KEY`;
 	}
 	if (respRemoteStaticPk.length > 0) {
-		initResp = `${initResp}, initStatic.pk.0`;
+		initResp = `${initResp}, initStaticB.pk.0`;
 	} else {
 		initResp = `${initResp}, $NOISE2RS_N$::EMPTY_KEY`;
 	}
@@ -67,7 +74,7 @@ const gen = (
 			`let payload${abc[i]} = decode_str("${messages[i].payload}");`,
 			`let mut message${abc[i]}: $NOISE2RS_N$::MessageBuffer = ${send}.SendMessage(&payload${abc[i]});`,
 			`let mut valid${abc[i]}: bool = false;`,
-			`if let Some(_x) = ${recv}.RecvMessage(&mut message${abc[i]}) {\n\tvalid${abc[i]} = true;\n}`,
+			`if let Some(_x) = ${recv}.RecvMessage(&mut message${abc[i]}) {\n\t\tvalid${abc[i]} = true;\n\t}`,
 			`let t${abc[i]}: Vec<u8> = decode_str("${messages[i].ciphertext}");`
 		].join('\n\t'));
 	}

@@ -12,58 +12,59 @@ fn decode_str(s: &str) -> Vec<u8> {
 
 #[test]
 fn test() {
-    	let prologue = decode_str("4a6f686e2047616c74");
-	let initStatic: XXpsk3::Keypair = XXpsk3::Keypair::new_k(XXpsk3::decode_str_32("e61ef9919cde45dd5f82166404bd08e38bceb5dfdfded0a34c8df7ed542214d1"));
+    let prologue = decode_str("4a6f686e2047616c74");
+	let initStaticA: XXpsk3::Keypair = XXpsk3::Keypair::new_k(XXpsk3::decode_str_32("e61ef9919cde45dd5f82166404bd08e38bceb5dfdfded0a34c8df7ed542214d1"));
+	let initStaticB: XXpsk3::Keypair = XXpsk3::Keypair::new_k(XXpsk3::decode_str_32("e61ef9919cde45dd5f82166404bd08e38bceb5dfdfded0a34c8df7ed542214d1"));
 	let respStatic: XXpsk3::Keypair = XXpsk3::Keypair::new_k(XXpsk3::decode_str_32("4a3acbfdb163dec651dfa3194dece676d437029c62a408b4c5ea9114246e4893"));
 	let temp_psk1: [u8; 32] =
 	XXpsk3::decode_str_32("54686973206973206d7920417573747269616e20706572737065637469766521");
 	let temp_psk2: [u8; 32] =
 	XXpsk3::decode_str_32("54686973206973206d7920417573747269616e20706572737065637469766521");
 	let mut initiatorSession: XXpsk3::NoiseSession =
-	XXpsk3::NoiseSession::InitSession(true, &prologue, initStatic, XXpsk3::EMPTY_KEY, temp_psk1);
+	XXpsk3::NoiseSession::InitSession(true, &prologue, initStaticA, XXpsk3::EMPTY_KEY, temp_psk1);
 	let mut responderSession: XXpsk3::NoiseSession =
 	XXpsk3::NoiseSession::InitSession(false, &prologue, respStatic, XXpsk3::EMPTY_KEY, temp_psk2);
 	let payloadA = decode_str("4c756477696720766f6e204d69736573");
 	let mut messageA: XXpsk3::MessageBuffer = initiatorSession.SendMessage(&payloadA);
 	let mut validA: bool = false;
 	if let Some(_x) = responderSession.RecvMessage(&mut messageA) {
-	validA = true;
-}
+		validA = true;
+	}
 	let tA: Vec<u8> = decode_str("ca35def5ae56cec33dc2036731ab14896bc4c75dbb07a61f879f8e3afa4c7944325ea71699951ece20f284b6ad9604a029eb335bf84564c308b6ade90ae45078");
 	let payloadB = decode_str("4d757272617920526f746862617264");
 	let mut messageB: XXpsk3::MessageBuffer = responderSession.SendMessage(&payloadB);
 	let mut validB: bool = false;
 	if let Some(_x) = initiatorSession.RecvMessage(&mut messageB) {
-	validB = true;
-}
+		validB = true;
+	}
 	let tB: Vec<u8> = decode_str("95ebc60d2b1fa672c1f46a8aa265ef51bfe38e7ccb39ec5be34069f1448088432645535233ffe1432564d66a85227b677ced6fc2730ae0998ff49aa1dc56b8186e31b16e416f5d9c03c71f6c34fd37ec013105020070a8b00c000ce7ed56629c119795f96463274bc05519d5c24dc1");
 	let payloadC = decode_str("462e20412e20486179656b");
 	let mut messageC: XXpsk3::MessageBuffer = initiatorSession.SendMessage(&payloadC);
 	let mut validC: bool = false;
 	if let Some(_x) = responderSession.RecvMessage(&mut messageC) {
-	validC = true;
-}
+		validC = true;
+	}
 	let tC: Vec<u8> = decode_str("adf16c5375ec4172576783fd59f2bfa5c7a320d0a13b759592e1a2ddf5524cce59ccbb92ff5d321fced3bdb2840596df562c0e68aad41b090abd285f6d300130072e06964a6ba494e58d47");
 	let payloadD = decode_str("4361726c204d656e676572");
 	let mut messageD: XXpsk3::MessageBuffer = responderSession.SendMessage(&payloadD);
 	let mut validD: bool = false;
 	if let Some(_x) = initiatorSession.RecvMessage(&mut messageD) {
-	validD = true;
-}
+		validD = true;
+	}
 	let tD: Vec<u8> = decode_str("dcdc045c8e9ec36c8ea4078552e5849f87cb9bdfbd2a4eee3baaf6");
 	let payloadE = decode_str("4a65616e2d426170746973746520536179");
 	let mut messageE: XXpsk3::MessageBuffer = initiatorSession.SendMessage(&payloadE);
 	let mut validE: bool = false;
 	if let Some(_x) = responderSession.RecvMessage(&mut messageE) {
-	validE = true;
-}
+		validE = true;
+	}
 	let tE: Vec<u8> = decode_str("4d11ed1f242e199dbcbc9773495834a95e8a6109e2b555aeb50780e69b152821e4");
 	let payloadF = decode_str("457567656e2042f6686d20766f6e2042617765726b");
 	let mut messageF: XXpsk3::MessageBuffer = responderSession.SendMessage(&payloadF);
 	let mut validF: bool = false;
 	if let Some(_x) = initiatorSession.RecvMessage(&mut messageF) {
-	validF = true;
-}
+		validF = true;
+	}
 	let tF: Vec<u8> = decode_str("4d1e6873ffcc88490be6914928590f63253c2db434f1f206f083f89ca559a3e60a8dcc4f12");
 	if validA && validB && validC && validD && validE && validF {
 		println!("Sanity check PASS for XXpsk3_25519_ChaChaPoly_BLAKE2s.");

@@ -12,58 +12,59 @@ fn decode_str(s: &str) -> Vec<u8> {
 
 #[test]
 fn test() {
-    	let prologue = decode_str("4a6f686e2047616c74");
-	let initStatic: KNpsk0::Keypair = KNpsk0::Keypair::new_k(KNpsk0::decode_str_32("e61ef9919cde45dd5f82166404bd08e38bceb5dfdfded0a34c8df7ed542214d1"));
-	let respStatic: KNpsk0::Keypair = KNpsk0::Keypair::new_k(KNpsk0::decode_str_32("KNpsk0::EMPTY_KEY"));
+    let prologue = decode_str("4a6f686e2047616c74");
+	let initStaticA: KNpsk0::Keypair = KNpsk0::Keypair::new_k(KNpsk0::decode_str_32("e61ef9919cde45dd5f82166404bd08e38bceb5dfdfded0a34c8df7ed542214d1"));
+	let initStaticB: KNpsk0::Keypair = KNpsk0::Keypair::new_k(KNpsk0::decode_str_32("e61ef9919cde45dd5f82166404bd08e38bceb5dfdfded0a34c8df7ed542214d1"));
+	let respStatic: KNpsk0::Keypair = KNpsk0::Keypair::new_k(KNpsk0::EMPTY_KEY);
 	let temp_psk1: [u8; 32] =
 	KNpsk0::decode_str_32("54686973206973206d7920417573747269616e20706572737065637469766521");
 	let temp_psk2: [u8; 32] =
 	KNpsk0::decode_str_32("54686973206973206d7920417573747269616e20706572737065637469766521");
 	let mut initiatorSession: KNpsk0::NoiseSession =
-	KNpsk0::NoiseSession::InitSession(true, &prologue, initStatic, KNpsk0::EMPTY_KEY, temp_psk1);
+	KNpsk0::NoiseSession::InitSession(true, &prologue, initStaticA, KNpsk0::EMPTY_KEY, temp_psk1);
 	let mut responderSession: KNpsk0::NoiseSession =
-	KNpsk0::NoiseSession::InitSession(false, &prologue, respStatic, initStatic.pk.0, temp_psk2);
+	KNpsk0::NoiseSession::InitSession(false, &prologue, respStatic, initStaticB.pk.0, temp_psk2);
 	let payloadA = decode_str("4c756477696720766f6e204d69736573");
 	let mut messageA: KNpsk0::MessageBuffer = initiatorSession.SendMessage(&payloadA);
 	let mut validA: bool = false;
 	if let Some(_x) = responderSession.RecvMessage(&mut messageA) {
-	validA = true;
-}
+		validA = true;
+	}
 	let tA: Vec<u8> = decode_str("ca35def5ae56cec33dc2036731ab14896bc4c75dbb07a61f879f8e3afa4c794483acf0be48f87c43c498f486d7c1874d0747701aa7ec7ab1e36f83c59f9fbb13");
 	let payloadB = decode_str("4d757272617920526f746862617264");
 	let mut messageB: KNpsk0::MessageBuffer = responderSession.SendMessage(&payloadB);
 	let mut validB: bool = false;
 	if let Some(_x) = initiatorSession.RecvMessage(&mut messageB) {
-	validB = true;
-}
+		validB = true;
+	}
 	let tB: Vec<u8> = decode_str("95ebc60d2b1fa672c1f46a8aa265ef51bfe38e7ccb39ec5be34069f1448088439beb9a4b1f2306829aa2435daf14cb7f154f143feae1b87bc93c90fd5496e1");
 	let payloadC = decode_str("462e20412e20486179656b");
 	let mut messageC: KNpsk0::MessageBuffer = initiatorSession.SendMessage(&payloadC);
 	let mut validC: bool = false;
 	if let Some(_x) = responderSession.RecvMessage(&mut messageC) {
-	validC = true;
-}
+		validC = true;
+	}
 	let tC: Vec<u8> = decode_str("f80c04074a17c90c01c97433b4f7b133f9495dfc1e7b1505a825fd");
 	let payloadD = decode_str("4361726c204d656e676572");
 	let mut messageD: KNpsk0::MessageBuffer = responderSession.SendMessage(&payloadD);
 	let mut validD: bool = false;
 	if let Some(_x) = initiatorSession.RecvMessage(&mut messageD) {
-	validD = true;
-}
+		validD = true;
+	}
 	let tD: Vec<u8> = decode_str("cf2fffd0b7b3218b93a7c3b3952e48add6853e9012f050df974642");
 	let payloadE = decode_str("4a65616e2d426170746973746520536179");
 	let mut messageE: KNpsk0::MessageBuffer = initiatorSession.SendMessage(&payloadE);
 	let mut validE: bool = false;
 	if let Some(_x) = responderSession.RecvMessage(&mut messageE) {
-	validE = true;
-}
+		validE = true;
+	}
 	let tE: Vec<u8> = decode_str("3d6cf45526f1e3fbbfcf4d653a99bdd25429895e347fc41e5b6af8d5d0f8abee63");
 	let payloadF = decode_str("457567656e2042f6686d20766f6e2042617765726b");
 	let mut messageF: KNpsk0::MessageBuffer = responderSession.SendMessage(&payloadF);
 	let mut validF: bool = false;
 	if let Some(_x) = initiatorSession.RecvMessage(&mut messageF) {
-	validF = true;
-}
+		validF = true;
+	}
 	let tF: Vec<u8> = decode_str("5cca487eecaeecd6025c5e7ee0cb89a6862c847b6ac42cfb577bf58a3e30b7eab1b7996258");
 	if validA && validB && validC && validD && validE && validF {
 		println!("Sanity check PASS for KNpsk0_25519_ChaChaPoly_BLAKE2s.");
