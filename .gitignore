@@ -4,7 +4,6 @@ package-lock.json
 */*.log
 *.log
 */target
-implementations/rs/tests/target
-implementations/rs/tests/*/Cargo.lock
-implementations/rs/tests/*/target
+implementations/rs/*/target
+implementations/rs/*/Cargo.lock
 rust-test.code-workspace

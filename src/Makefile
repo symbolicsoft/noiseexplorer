@@ -11,23 +11,17 @@ parser:
 	@echo " OK."
 
 models:
-	@echo -n "[NoiseExplorer] Generating models..."
 	@rm -f parser/noiseParser.js
 	@pegjs -o parser/noiseParser.js parser/noiseParser.pegjs
 	@cd util && bash genModels.sh
-	@echo " OK."
 
 implementations:
-	@echo -n "[NoiseExplorer] Generating implementations..."
 	@rm -f parser/noiseParser.js
 	@pegjs -o parser/noiseParser.js parser/noiseParser.pegjs
 	@cd util && bash genImplementations.sh
-	@echo " OK."
 
 tests:
-	@echo -n "[NoiseExplorer] Generating tests..."
 	@cd util && bash genTests.sh
-	@echo " OK."
 
 clean:
 	@echo -n "[NoiseExplorer] Cleaning up... "

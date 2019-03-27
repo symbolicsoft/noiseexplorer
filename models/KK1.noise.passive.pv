@@ -625,4 +625,3 @@ process
 		responder(bob, alice, sid) | responder(bob, charlie, sid)
 		(* | !repeatingKeysQuery() *)
 	)
-

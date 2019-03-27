@@ -20,7 +20,6 @@ const HELPTEXT = [
 	'--generate=(json|pv|go|rs): Specify output format.',
 	'--pattern=[file]: Specify input pattern file (required).',
 	'--attacker=(active|passive): Specify ProVerif attacker type (default: active).',
-	'--testgen: Embed test vectors into the generated implementation.',
 	'',
 	'Rendering:',
 	'--render=(handshake|message): Render results from ProVerif output files into HTML.',
@@ -223,7 +222,7 @@ if (
 	let json = NOISEPARSER.parse(pattern);
 	let parsedPv = NOISE2PV.parse(json, passive);
 	let output = PVRENDER(pattern, parsedPv);
-	console.log(output);
+	WRITEFILE(`../models/${json.name}.noise.${passive? 'passive' : 'active'}.pv`, output);
 	process.exit();
 }
 
@@ -235,11 +234,9 @@ if (
 	let json = NOISEPARSER.parse(pattern);
 	let parsedGo = NOISE2GO.parse(json);
 	let output = GORENDER(pattern, parsedGo);
-	if (ARGV.hasOwnProperty('testgen')) {
-		console.log(NOISE2GOTESTGEN.generate(output));
-	} else {
-		console.log(output);
-	}
+	let testGen = NOISE2GOTESTGEN.generate(output);
+	WRITEFILE(`../implementations/go/tests/${json.name}.noise.go`, testGen);
+	WRITEFILE(`../implementations/go/${json.name}.noise.go`, output);
 	process.exit();
 }
 
@@ -251,25 +248,21 @@ if (
 	let json = NOISEPARSER.parse(pattern);
 	let parsedRs = NOISE2RS.parse(json);
 	let output = RSRENDER(pattern, parsedRs);
-	if (ARGV.hasOwnProperty('testgen')) {
-		if (!FS.existsSync(`../implementations/rs/tests/${json.name}`)) {
-			FS.mkdirSync(`../implementations/rs/tests/${json.name}`);
-			FS.mkdirSync(`../implementations/rs/tests/${json.name}/src`);
-			FS.mkdirSync(`../implementations/rs/tests/${json.name}/tests`);
-		}
-		let testGen = NOISE2RSTESTGEN.generate(output);
-		let cargo = READFILE('rs/Cargo.toml')
-			.replace("$NOISE2RS_N$", json.name);
-		let test = READFILE('rs/test.rs')
-			.replace("$NOISE2RS_T$", testGen[1])
-			.replace(/\$NOISE2RS_N\$/g, json.name);
-		WRITEFILE(`../implementations/rs/tests/${json.name}/src/lib.rs`, testGen[0]);
-		WRITEFILE(`../implementations/rs/tests/${json.name}/src/main.rs`, READFILE('rs/main.rs'));
-		WRITEFILE(`../implementations/rs/tests/${json.name}/Cargo.toml`, cargo);
-		WRITEFILE(`../implementations/rs/tests/${json.name}/tests/handshake.rs`, test);
-	} else {
-		console.log(output);
+	if (!FS.existsSync(`../implementations/rs/${json.name}`)) {
+		FS.mkdirSync(`../implementations/rs/${json.name}`);
+		FS.mkdirSync(`../implementations/rs/${json.name}/src`);
+		FS.mkdirSync(`../implementations/rs/${json.name}/tests`);
 	}
+	let testGen = NOISE2RSTESTGEN.generate(output);
+	let cargo = READFILE('rs/Cargo.toml')
+		.replace("$NOISE2RS_N$", json.name);
+	let test = READFILE('rs/test.rs')
+		.replace("$NOISE2RS_T$", testGen[1])
+		.replace(/\$NOISE2RS_N\$/g, json.name);
+	WRITEFILE(`../implementations/rs/${json.name}/src/lib.rs`, testGen[0]);
+	WRITEFILE(`../implementations/rs/${json.name}/src/main.rs`, READFILE('rs/main.rs'));
+	WRITEFILE(`../implementations/rs/${json.name}/Cargo.toml`, cargo);
+	WRITEFILE(`../implementations/rs/${json.name}/tests/handshake.rs`, test);
 	process.exit();
 }
 
@@ -279,7 +272,6 @@ if (ARGV.hasOwnProperty('render')) {
 		process.exit();
 	}
 	if (ARGV.render === 'handshake') {
-		let passive = (ARGV.attacker === 'passive');
 		let pattern = READFILE(ARGV.pattern);
 		let pvOutputActive = READFILE(ARGV.activeResults);
 		let pvOutputPassive = READFILE(ARGV.passiveResults);
