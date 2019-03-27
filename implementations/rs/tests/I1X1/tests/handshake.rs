@@ -16,9 +16,9 @@ fn test() {
 	let initStatic: I1X1::Keypair = I1X1::Keypair::new_k(I1X1::decode_str_32("e61ef9919cde45dd5f82166404bd08e38bceb5dfdfded0a34c8df7ed542214d1"));
 	let respStatic: I1X1::Keypair = I1X1::Keypair::new_k(I1X1::decode_str_32("4a3acbfdb163dec651dfa3194dece676d437029c62a408b4c5ea9114246e4893"));
 	let mut initiatorSession: I1X1::NoiseSession =
-	I1X1::NoiseSession::InitSession(true, &prologue, initStatic);
+	I1X1::NoiseSession::InitSession(true, &prologue, initStatic, I1X1::EMPTY_KEY);
 	let mut responderSession: I1X1::NoiseSession =
-	I1X1::NoiseSession::InitSession(false, &prologue, respStatic);
+	I1X1::NoiseSession::InitSession(false, &prologue, respStatic, I1X1::EMPTY_KEY);
 	let payloadA = decode_str("4c756477696720766f6e204d69736573");
 	let mut messageA: I1X1::MessageBuffer = initiatorSession.SendMessage(&payloadA);
 	let mut validA: bool = false;

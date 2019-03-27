@@ -16,7 +16,7 @@ fn test() {
 	let initStatic: K1N::Keypair = K1N::Keypair::new_k(K1N::decode_str_32("e61ef9919cde45dd5f82166404bd08e38bceb5dfdfded0a34c8df7ed542214d1"));
 	let respStatic: K1N::Keypair = K1N::Keypair::new_k(K1N::decode_str_32("K1N::EMPTY_KEY"));
 	let mut initiatorSession: K1N::NoiseSession =
-	K1N::NoiseSession::InitSession(true, &prologue, initStatic);
+	K1N::NoiseSession::InitSession(true, &prologue, initStatic, K1N::EMPTY_KEY);
 	let mut responderSession: K1N::NoiseSession =
 	K1N::NoiseSession::InitSession(false, &prologue, respStatic, initStatic.pk.0);
 	let payloadA = decode_str("4c756477696720766f6e204d69736573");

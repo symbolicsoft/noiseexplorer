@@ -20,9 +20,9 @@ fn test() {
 	let temp_psk2: [u8; 32] =
 	INpsk1::decode_str_32("54686973206973206d7920417573747269616e20706572737065637469766521");
 	let mut initiatorSession: INpsk1::NoiseSession =
-	INpsk1::NoiseSession::InitSession(true, &prologue, initStatic, temp_psk1);
+	INpsk1::NoiseSession::InitSession(true, &prologue, initStatic, INpsk1::EMPTY_KEY, temp_psk1);
 	let mut responderSession: INpsk1::NoiseSession =
-	INpsk1::NoiseSession::InitSession(false, &prologue, respStatic, temp_psk2);
+	INpsk1::NoiseSession::InitSession(false, &prologue, respStatic, INpsk1::EMPTY_KEY, temp_psk2);
 	let payloadA = decode_str("4c756477696720766f6e204d69736573");
 	let mut messageA: INpsk1::MessageBuffer = initiatorSession.SendMessage(&payloadA);
 	let mut validA: bool = false;

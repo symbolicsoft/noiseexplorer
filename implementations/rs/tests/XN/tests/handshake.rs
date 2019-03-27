@@ -16,9 +16,9 @@ fn test() {
 	let initStatic: XN::Keypair = XN::Keypair::new_k(XN::decode_str_32("e61ef9919cde45dd5f82166404bd08e38bceb5dfdfded0a34c8df7ed542214d1"));
 	let respStatic: XN::Keypair = XN::Keypair::new_k(XN::decode_str_32("XN::EMPTY_KEY"));
 	let mut initiatorSession: XN::NoiseSession =
-	XN::NoiseSession::InitSession(true, &prologue, initStatic);
+	XN::NoiseSession::InitSession(true, &prologue, initStatic, XN::EMPTY_KEY);
 	let mut responderSession: XN::NoiseSession =
-	XN::NoiseSession::InitSession(false, &prologue, respStatic);
+	XN::NoiseSession::InitSession(false, &prologue, respStatic, XN::EMPTY_KEY);
 	let payloadA = decode_str("4c756477696720766f6e204d69736573");
 	let mut messageA: XN::MessageBuffer = initiatorSession.SendMessage(&payloadA);
 	let mut validA: bool = false;

@@ -20,7 +20,7 @@ fn test() {
 	let temp_psk2: [u8; 32] =
 	KNpsk2::decode_str_32("54686973206973206d7920417573747269616e20706572737065637469766521");
 	let mut initiatorSession: KNpsk2::NoiseSession =
-	KNpsk2::NoiseSession::InitSession(true, &prologue, initStatic, temp_psk1);
+	KNpsk2::NoiseSession::InitSession(true, &prologue, initStatic, KNpsk2::EMPTY_KEY, temp_psk1);
 	let mut responderSession: KNpsk2::NoiseSession =
 	KNpsk2::NoiseSession::InitSession(false, &prologue, respStatic, initStatic.pk.0, temp_psk2);
 	let payloadA = decode_str("4c756477696720766f6e204d69736573");

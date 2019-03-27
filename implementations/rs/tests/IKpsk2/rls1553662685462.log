@@ -1,0 +1,23 @@
+ERROR 2019-03-27T04:58:05Z: rls::actions: failed to fetch project model, using fallback: failed to load source for a dependency on `byteorder`
+ERROR 2019-03-27T04:58:07Z: rls::actions: failed to fetch project model, using fallback: failed to load source for a dependency on `byteorder`
+error: expected expression, found `<eof>`
+
+error: expected expression, found `$`
+ --> <racer-file>:1:15
+  |
+1 | let test_sk = $NOISE2RS_N$::decode_str_32("                                                                ");
+  |               ^ expected expression
+
+error: expected expression, found `$`
+ --> <racer-file>:1:15
+  |
+1 | let test_sk = $NOISE2RS_N$::decode_str_32("                                                                ");
+  |               ^ expected expression
+
+error: expected `where`, `{`, `(`, or `;` after struct name, found `/`
+ --> <stdin>:1:21
+  |
+1 | pub struct PublicKey/publickey(pub [u8; SECRET_LENGTH]);
+  |                     ^ expected `where`, `{`, `(`, or `;` after struct name
+
+ERROR 2019-03-27T05:17:23Z: rls::actions::hover: format_object: error: "Reformat failed to complete successfully", input: "pub struct PublicKey/publickey(pub [u8; SECRET_LENGTH]);"

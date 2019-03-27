@@ -18,7 +18,7 @@ fn test() {
 	let mut initiatorSession: I1K1::NoiseSession =
 	I1K1::NoiseSession::InitSession(true, &prologue, initStatic, respStatic.pk.0);
 	let mut responderSession: I1K1::NoiseSession =
-	I1K1::NoiseSession::InitSession(false, &prologue, respStatic);
+	I1K1::NoiseSession::InitSession(false, &prologue, respStatic, I1K1::EMPTY_KEY);
 	let payloadA = decode_str("4c756477696720766f6e204d69736573");
 	let mut messageA: I1K1::MessageBuffer = initiatorSession.SendMessage(&payloadA);
 	let mut validA: bool = false;

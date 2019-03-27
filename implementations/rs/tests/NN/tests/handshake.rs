@@ -16,9 +16,9 @@ fn test() {
 	let initStatic: NN::Keypair = NN::Keypair::new_k(NN::decode_str_32("NN::EMPTY_KEY"));
 	let respStatic: NN::Keypair = NN::Keypair::new_k(NN::decode_str_32("NN::EMPTY_KEY"));
 	let mut initiatorSession: NN::NoiseSession =
-	NN::NoiseSession::InitSession(true, &prologue, initStatic);
+	NN::NoiseSession::InitSession(true, &prologue, initStatic, NN::EMPTY_KEY);
 	let mut responderSession: NN::NoiseSession =
-	NN::NoiseSession::InitSession(false, &prologue, respStatic);
+	NN::NoiseSession::InitSession(false, &prologue, respStatic, NN::EMPTY_KEY);
 	let payloadA = decode_str("4c756477696720766f6e204d69736573");
 	let mut messageA: NN::MessageBuffer = initiatorSession.SendMessage(&payloadA);
 	let mut validA: bool = false;

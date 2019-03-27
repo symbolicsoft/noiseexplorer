@@ -439,7 +439,12 @@ fn InitializeResponder(prologue: &[u8], s: Keypair, rs: [u8; DHLEN], psk: [u8; P
 }
 
 fn WriteMessageA(&mut self, payload: &[u8]) -> (([u8; 32], MessageBuffer, CipherState, CipherState)) {
-	self.e = GENERATE_KEYPAIR();
+	let test_sk = decode_str_32("893e28b9dc6ca8d611ab664754b8ceb7bac5117349a4439a6b0569da977c464a");
+	let test_pk = generate_public_key(&test_sk);
+	self.e = Keypair {
+	pk: curve25519::PublicKey(test_pk),
+	sk: curve25519::SecretKey(test_sk),
+};
 	let ne = self.e.pk.0;
 	let ns: Vec<u8> = Vec::from(&zerolen[..]);
 	self.ss.MixHash(&ne[..]);

@@ -16,16 +16,16 @@ const gen = (
 	let eph = ["", ""];
 	if (initEphemeralPk.length > 0) {
 		eph[0] = `${[
-			`let test_sk = $NOISE2RS_N$::decode_str_32("${initEphemeralPk}");`,
+			`let test_sk = decode_str_32("${initEphemeralPk}");`,
 			`let test_pk = generate_public_key(&test_sk);`,
-			`self.e = $NOISE2RS_N$::Keypair {\n\tpk: curve25519::PublicKey(test_pk),\n\tsk: curve25519::SecretKey(test_sk),\n};`
+			`self.e = Keypair {\n\tpk: curve25519::PublicKey(test_pk),\n\tsk: curve25519::SecretKey(test_sk),\n};`
 			].join("\n\t")}`;
 	}
 	if (respEphemeralPk.length > 0) {
 		eph[1] = `${[
-			`let test_sk = $NOISE2RS_N$::decode_str_32("${respEphemeralPk}");`,
+			`let test_sk = decode_str_32("${respEphemeralPk}");`,
 			`let test_pk = generate_public_key(&test_sk);`,
-			`self.e = $NOISE2RS_N$::Keypair {\n\tpk: curve25519::PublicKey(test_pk),\n\tsk: curve25519::SecretKey(test_sk),\n};`
+			`self.e = Keypair {\n\tpk: curve25519::PublicKey(test_pk),\n\tsk: curve25519::SecretKey(test_sk),\n};`
 			].join("\n\t")}`;
 	}
 	rsTestCode.push(`\tlet prologue = decode_str("${initPrologue}");`);
@@ -42,9 +42,13 @@ const gen = (
 
 	if (initRemoteStaticPk.length > 0) {
 		initInit = `${initInit}, respStatic.pk.0`;
+	} else {
+		initInit = `${initInit}, $NOISE2RS_N$::EMPTY_KEY`;
 	}
 	if (respRemoteStaticPk.length > 0) {
 		initResp = `${initResp}, initStatic.pk.0`;
+	} else {
+		initResp = `${initResp}, $NOISE2RS_N$::EMPTY_KEY`;
 	}
 	if (psk.length > 0) {
 		rsTestCode.push(`let temp_psk1: [u8; 32] =\n\t$NOISE2RS_N$::decode_str_32("${psk}");`);
@@ -159,16 +163,16 @@ const generate = (code) => {
 			testVectors[i].protocol_name.split("_")[4] == 'BLAKE2s'
 		) {
 			let tempB = assign(testVectors[i]);
-			code = code.replace(`self.e = GENERATE_$NOISE2RS_N$::Keypair();`, tempB[1][0])
+			code = code.replace('self.e = GENERATE_KEYPAIR();', tempB[1][0]);
 			if (tempB[1][1] != "") {
-				code = code.replace(`self.e = GENERATE_$NOISE2RS_N$::Keypair();`, tempB[1][1])
+				code = code.replace('self.e = GENERATE_KEYPAIR();', tempB[1][1]);
 			}
 			return [code, tempB[0]];
 		}
 	}
 }
 
-if (typeof(module) !== 'undefined') {
+if (typeof (module) !== 'undefined') {
 	// Node
 	module.exports = {
 		generate: generate

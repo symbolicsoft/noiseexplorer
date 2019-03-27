@@ -22,7 +22,7 @@ fn test() {
 	let mut initiatorSession: Npsk0::NoiseSession =
 	Npsk0::NoiseSession::InitSession(true, &prologue, initStatic, respStatic.pk.0, temp_psk1);
 	let mut responderSession: Npsk0::NoiseSession =
-	Npsk0::NoiseSession::InitSession(false, &prologue, respStatic, temp_psk2);
+	Npsk0::NoiseSession::InitSession(false, &prologue, respStatic, Npsk0::EMPTY_KEY, temp_psk2);
 	let payloadA = decode_str("4c756477696720766f6e204d69736573");
 	let mut messageA: Npsk0::MessageBuffer = initiatorSession.SendMessage(&payloadA);
 	let mut validA: bool = false;

@@ -20,9 +20,9 @@ fn test() {
 	let temp_psk2: [u8; 32] =
 	XNpsk3::decode_str_32("54686973206973206d7920417573747269616e20706572737065637469766521");
 	let mut initiatorSession: XNpsk3::NoiseSession =
-	XNpsk3::NoiseSession::InitSession(true, &prologue, initStatic, temp_psk1);
+	XNpsk3::NoiseSession::InitSession(true, &prologue, initStatic, XNpsk3::EMPTY_KEY, temp_psk1);
 	let mut responderSession: XNpsk3::NoiseSession =
-	XNpsk3::NoiseSession::InitSession(false, &prologue, respStatic, temp_psk2);
+	XNpsk3::NoiseSession::InitSession(false, &prologue, respStatic, XNpsk3::EMPTY_KEY, temp_psk2);
 	let payloadA = decode_str("4c756477696720766f6e204d69736573");
 	let mut messageA: XNpsk3::MessageBuffer = initiatorSession.SendMessage(&payloadA);
 	let mut validA: bool = false;
