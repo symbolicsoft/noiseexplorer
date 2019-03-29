@@ -573,7 +573,7 @@ impl NoiseSession {
 					self.h = temp.0;
 					plaintext = Some(temp.1);
 					self.cs1 = temp.2;
-				self.cs2 = temp.3;
+					self.cs2 = temp.3;
 					// Drop hs here
 					self.hs = HandshakeState {
 						ss: SymmetricState::InitializeSymmetric(b""),

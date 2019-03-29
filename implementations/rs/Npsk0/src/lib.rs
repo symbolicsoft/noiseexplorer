@@ -545,7 +545,7 @@ impl NoiseSession {
 					self.h = temp.0;
 					plaintext = Some(temp.1);
 					self.cs1 = temp.2;
-				self.cs2 = CipherState{k: [0u8; DHLEN], n: MIN_NONCE};
+					self.cs2 = CipherState{k: [0u8; DHLEN], n: MIN_NONCE};
 					// Drop hs here
 					self.hs = HandshakeState {
 						ss: SymmetricState::InitializeSymmetric(b""),

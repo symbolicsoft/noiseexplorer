@@ -437,7 +437,7 @@ const NOISE2RS = {
 					`\t\t\t\tself.h = temp.0;`,
 					`\t\t\t\tplaintext = Some(temp.1);`,
 					`\t\t\t\tself.cs1 = temp.2;`,
-					`\t\t\tself.cs2 = ${isOneWayPattern? 'CipherState{k: [0u8; DHLEN], n: MIN_NONCE}' : 'temp.3'};`,
+					`\t\t\t\tself.cs2 = ${isOneWayPattern? 'CipherState{k: [0u8; DHLEN], n: MIN_NONCE}' : 'temp.3'};`,
 					`\t\t\t\t// Drop hs here`,
 					`\t\t\t\tself.hs = HandshakeState {`,
 					`\t\t\t\t\tss: SymmetricState::InitializeSymmetric(b""),`,
