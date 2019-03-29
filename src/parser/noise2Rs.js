@@ -185,7 +185,7 @@ const NOISE2RS = {
 		let messageTokenParsers = {
 			e: [
 				`if is_empty(&self.e.sk.0[..]) {`,
-				`self.e = GENERATE_KEYPAIR();`,
+				`\tself.e = GENERATE_KEYPAIR();`,
 				`}`,
 				`ne = self.e.pk.0;`,
 				`self.ss.MixHash(&ne[..]);`,

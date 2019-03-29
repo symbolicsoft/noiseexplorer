@@ -1,6 +1,7 @@
 #![allow(non_snake_case, non_upper_case_globals)]
 
 use NN;
+use hex;
 
 fn decode_str(s: &str) -> Vec<u8> {
     if let Ok(x) = hex::decode(s) {
@@ -8,6 +9,20 @@ fn decode_str(s: &str) -> Vec<u8> {
     } else {
         panic!("{:X?}", hex::decode(s).err());
     }
+}
+
+fn decode_str_32(s: &str) -> [u8; 32] {
+	if let Ok(x) = hex::decode(s) {
+		if x.len() == 32 {
+			let mut temp: [u8; 32] = [0u8; 32];
+			temp.copy_from_slice(&x[..]);
+			temp
+		} else {
+			panic!("Invalid input length; decode_32");
+		}
+	} else {
+		panic!("Invalid input length; decode_32");
+	}
 }
 
 #[test]
@@ -20,6 +35,12 @@ fn test() {
 	NN::NoiseSession::InitSession(true, &prologue, initStaticA, NN::EMPTY_KEY);
 	let mut responderSession: NN::NoiseSession =
 	NN::NoiseSession::InitSession(false, &prologue, respStatic, NN::EMPTY_KEY);
+	initiatorSession.set_ephemeral_keypair(NN::Keypair::new_k(decode_str_32(
+		"893e28b9dc6ca8d611ab664754b8ceb7bac5117349a4439a6b0569da977c464a"
+	)));
+	responderSession.set_ephemeral_keypair(NN::Keypair::new_k(decode_str_32(
+		"bbdb4cdbd309f1a1f2e1456967fe288cadd6f712d65dc7b7793d5e63da6b375b"
+	)));
 	let payloadA = decode_str("4c756477696720766f6e204d69736573");
 	let mut messageA: NN::MessageBuffer = initiatorSession.SendMessage(&payloadA);
 	let mut validA: bool = false;

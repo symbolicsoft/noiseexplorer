@@ -17,7 +17,6 @@ use crypto::blake2s::Blake2s;
 use crypto::digest::Digest;
 use hacl_star::chacha20poly1305;
 use hacl_star::curve25519;
-use hex;
 
 /* ---------------------------------------------------------------- *
  * TYPES                                                            *
@@ -39,7 +38,7 @@ impl Keypair {
 	}
 	pub fn new_empty() -> Keypair {
 		Keypair {
-			pk: curve25519::PublicKey(EMPTY_KEY),
+			pk: curve25519::PublicKey(generate_public_key(&EMPTY_KEY)),
 			sk: curve25519::SecretKey(EMPTY_KEY),
 		}
 	}
@@ -112,19 +111,8 @@ fn from_slice_HASHLEN(bytes: &[u8]) -> [u8; HASHLEN] {
 	array
 }
 
-// TEST ONLY
-pub fn decode_str_32(s: &str) -> [u8; 32] {
-	if let Ok(x) = hex::decode(s) {
-		if x.len() == 32 {
-			let mut temp: [u8; 32] = [0u8; 32];
-			temp.copy_from_slice(&x[..]);
-			temp
-		} else {
-			panic!("Invalid input length; decode_32");
-		}
-	} else {
-		panic!("Invalid input length; decode_32");
-	}
+fn is_empty(k: &[u8]) -> bool {
+	crypto::util::fixed_time_eq(k, &EMPTY_KEY[..])
 }
 /* ---------------------------------------------------------------- *
  * PRIMITIVES                                                       *
@@ -152,7 +140,7 @@ fn generate_public_key(sk: &[u8; DHLEN]) -> [u8; DHLEN] {
 	output.0
 }
 
-pub fn ENCRYPT(k: &[u8; DHLEN], n: u64, ad: &[u8], plaintext: &[u8]) -> Vec<u8> {
+fn ENCRYPT(k: &[u8; DHLEN], n: u64, ad: &[u8], plaintext: &[u8]) -> Vec<u8> {
 	let mut mac: [u8; MAC_LENGTH] = [0u8; MAC_LENGTH];
 	let mut in_out = plaintext.to_owned();
 	let mut nonce: [u8; NONCE_LENGTH] = [0u8; NONCE_LENGTH];
@@ -166,7 +154,7 @@ pub fn ENCRYPT(k: &[u8; DHLEN], n: u64, ad: &[u8], plaintext: &[u8]) -> Vec<u8> 
 	ciphertext
 }
 
-pub fn DECRYPT(k: &[u8; DHLEN], n: u64, ad: &[u8], ciphertext: &[u8]) -> Option<Vec<u8>> {
+fn DECRYPT(k: &[u8; DHLEN], n: u64, ad: &[u8], ciphertext: &[u8]) -> Option<Vec<u8>> {
 	let temp = Vec::from(ciphertext);
 	// Might panic here (if mac has illegal length)
 	let (x, y) = temp.split_at(temp.len() - MAC_LENGTH);
@@ -258,7 +246,7 @@ impl CipherState {
 		}
 	}
 	fn HasKey(&self) -> bool {
-		!crypto::util::fixed_time_eq(&self.k[..], &EMPTY_KEY[..])
+		!is_empty(&self.k[..])
 	}
 	fn SetNonce(&mut self, new_nonce: u64) {
 		self.n = new_nonce;
@@ -440,12 +428,9 @@ fn WriteMessageA(&mut self, payload: &[u8]) -> (MessageBuffer) {
 	let mut ns: Vec<u8> = Vec::new();
 	let mut ne: [u8; DHLEN] = EMPTY_KEY;
 	self.ss.MixKeyAndHash(&self.psk);
-	let test_sk = decode_str_32("893e28b9dc6ca8d611ab664754b8ceb7bac5117349a4439a6b0569da977c464a");
-	let test_pk = generate_public_key(&test_sk);
-	self.e = Keypair {
-		pk: curve25519::PublicKey(test_pk),
-		sk: curve25519::SecretKey(test_sk),
-};
+	if is_empty(&self.e.sk.0[..]) {
+		self.e = GENERATE_KEYPAIR();
+	}
 	ne = self.e.pk.0;
 	self.ss.MixHash(&ne[..]);
 	self.ss.MixKey(&self.e.pk.0);
@@ -459,12 +444,9 @@ fn WriteMessageA(&mut self, payload: &[u8]) -> (MessageBuffer) {
 fn WriteMessageB(&mut self, payload: &[u8]) -> (([u8; 32], MessageBuffer, CipherState, CipherState)) {
 	let mut ns: Vec<u8> = Vec::new();
 	let mut ne: [u8; DHLEN] = EMPTY_KEY;
-	let test_sk = decode_str_32("bbdb4cdbd309f1a1f2e1456967fe288cadd6f712d65dc7b7793d5e63da6b375b");
-	let test_pk = generate_public_key(&test_sk);
-	self.e = Keypair {
-		pk: curve25519::PublicKey(test_pk),
-		sk: curve25519::SecretKey(test_sk),
-};
+	if is_empty(&self.e.sk.0[..]) {
+		self.e = GENERATE_KEYPAIR();
+	}
 	ne = self.e.pk.0;
 	self.ss.MixHash(&ne[..]);
 	self.ss.MixKey(&self.e.pk.0);
@@ -533,6 +515,9 @@ impl NoiseSession {
 			}
 		}
 	}
+		pub fn set_ephemeral_keypair(&mut self, e: Keypair) {
+			self.hs.e = e;
+		}
 	
 	pub fn SendMessage(&mut self, message: &[u8]) -> MessageBuffer {
 		if self.cs1.n < MAX_NONCE && self.cs2.n < MAX_NONCE

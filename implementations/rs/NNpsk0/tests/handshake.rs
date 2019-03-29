@@ -1,6 +1,7 @@
 #![allow(non_snake_case, non_upper_case_globals)]
 
 use NNpsk0;
+use hex;
 
 fn decode_str(s: &str) -> Vec<u8> {
     if let Ok(x) = hex::decode(s) {
@@ -10,6 +11,20 @@ fn decode_str(s: &str) -> Vec<u8> {
     }
 }
 
+fn decode_str_32(s: &str) -> [u8; 32] {
+	if let Ok(x) = hex::decode(s) {
+		if x.len() == 32 {
+			let mut temp: [u8; 32] = [0u8; 32];
+			temp.copy_from_slice(&x[..]);
+			temp
+		} else {
+			panic!("Invalid input length; decode_32");
+		}
+	} else {
+		panic!("Invalid input length; decode_32");
+	}
+}
+
 #[test]
 fn test() {
     let prologue = decode_str("4a6f686e2047616c74");
@@ -17,13 +32,19 @@ fn test() {
 	let initStaticB: NNpsk0::Keypair = NNpsk0::Keypair::new_k(NNpsk0::EMPTY_KEY);
 	let respStatic: NNpsk0::Keypair = NNpsk0::Keypair::new_k(NNpsk0::EMPTY_KEY);
 	let temp_psk1: [u8; 32] =
-	NNpsk0::decode_str_32("54686973206973206d7920417573747269616e20706572737065637469766521");
+	decode_str_32("54686973206973206d7920417573747269616e20706572737065637469766521");
 	let temp_psk2: [u8; 32] =
-	NNpsk0::decode_str_32("54686973206973206d7920417573747269616e20706572737065637469766521");
+	decode_str_32("54686973206973206d7920417573747269616e20706572737065637469766521");
 	let mut initiatorSession: NNpsk0::NoiseSession =
 	NNpsk0::NoiseSession::InitSession(true, &prologue, initStaticA, NNpsk0::EMPTY_KEY, temp_psk1);
 	let mut responderSession: NNpsk0::NoiseSession =
 	NNpsk0::NoiseSession::InitSession(false, &prologue, respStatic, NNpsk0::EMPTY_KEY, temp_psk2);
+	initiatorSession.set_ephemeral_keypair(NNpsk0::Keypair::new_k(decode_str_32(
+		"893e28b9dc6ca8d611ab664754b8ceb7bac5117349a4439a6b0569da977c464a"
+	)));
+	responderSession.set_ephemeral_keypair(NNpsk0::Keypair::new_k(decode_str_32(
+		"bbdb4cdbd309f1a1f2e1456967fe288cadd6f712d65dc7b7793d5e63da6b375b"
+	)));
 	let payloadA = decode_str("4c756477696720766f6e204d69736573");
 	let mut messageA: NNpsk0::MessageBuffer = initiatorSession.SendMessage(&payloadA);
 	let mut validA: bool = false;

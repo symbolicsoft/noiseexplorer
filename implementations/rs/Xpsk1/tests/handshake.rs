@@ -1,6 +1,7 @@
 #![allow(non_snake_case, non_upper_case_globals)]
 
 use Xpsk1;
+use hex;
 
 fn decode_str(s: &str) -> Vec<u8> {
     if let Ok(x) = hex::decode(s) {
@@ -10,20 +11,38 @@ fn decode_str(s: &str) -> Vec<u8> {
     }
 }
 
+fn decode_str_32(s: &str) -> [u8; 32] {
+	if let Ok(x) = hex::decode(s) {
+		if x.len() == 32 {
+			let mut temp: [u8; 32] = [0u8; 32];
+			temp.copy_from_slice(&x[..]);
+			temp
+		} else {
+			panic!("Invalid input length; decode_32");
+		}
+	} else {
+		panic!("Invalid input length; decode_32");
+	}
+}
+
 #[test]
 fn test() {
     let prologue = decode_str("4a6f686e2047616c74");
-	let initStaticA: Xpsk1::Keypair = Xpsk1::Keypair::new_k(Xpsk1::decode_str_32("e61ef9919cde45dd5f82166404bd08e38bceb5dfdfded0a34c8df7ed542214d1"));
-	let initStaticB: Xpsk1::Keypair = Xpsk1::Keypair::new_k(Xpsk1::decode_str_32("e61ef9919cde45dd5f82166404bd08e38bceb5dfdfded0a34c8df7ed542214d1"));
-	let respStatic: Xpsk1::Keypair = Xpsk1::Keypair::new_k(Xpsk1::decode_str_32("4a3acbfdb163dec651dfa3194dece676d437029c62a408b4c5ea9114246e4893"));
+	let initStaticA: Xpsk1::Keypair = Xpsk1::Keypair::new_k(decode_str_32("e61ef9919cde45dd5f82166404bd08e38bceb5dfdfded0a34c8df7ed542214d1"));
+	let initStaticB: Xpsk1::Keypair = Xpsk1::Keypair::new_k(decode_str_32("e61ef9919cde45dd5f82166404bd08e38bceb5dfdfded0a34c8df7ed542214d1"));
+	let respStatic: Xpsk1::Keypair = Xpsk1::Keypair::new_k(decode_str_32("4a3acbfdb163dec651dfa3194dece676d437029c62a408b4c5ea9114246e4893"));
 	let temp_psk1: [u8; 32] =
-	Xpsk1::decode_str_32("54686973206973206d7920417573747269616e20706572737065637469766521");
+	decode_str_32("54686973206973206d7920417573747269616e20706572737065637469766521");
 	let temp_psk2: [u8; 32] =
-	Xpsk1::decode_str_32("54686973206973206d7920417573747269616e20706572737065637469766521");
+	decode_str_32("54686973206973206d7920417573747269616e20706572737065637469766521");
 	let mut initiatorSession: Xpsk1::NoiseSession =
 	Xpsk1::NoiseSession::InitSession(true, &prologue, initStaticA, respStatic.pk.0, temp_psk1);
 	let mut responderSession: Xpsk1::NoiseSession =
 	Xpsk1::NoiseSession::InitSession(false, &prologue, respStatic, Xpsk1::EMPTY_KEY, temp_psk2);
+	initiatorSession.set_ephemeral_keypair(Xpsk1::Keypair::new_k(decode_str_32(
+		"893e28b9dc6ca8d611ab664754b8ceb7bac5117349a4439a6b0569da977c464a"
+	)));
+	
 	let payloadA = decode_str("4c756477696720766f6e204d69736573");
 	let mut messageA: Xpsk1::MessageBuffer = initiatorSession.SendMessage(&payloadA);
 	let mut validA: bool = false;

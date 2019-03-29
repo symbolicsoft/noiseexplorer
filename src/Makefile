@@ -26,6 +26,8 @@ tests:
 clean:
 	@echo -n "[NoiseExplorer] Cleaning up... "
 	@rm -f parser/noiseParser.js
+	@rm -rf ../implementations/rs/*/target
+	@rm -f ../implementations/rs/*/Cargo.lock
 	@echo " OK."
 
 .PHONY: dependencies parser models implementations tests clean

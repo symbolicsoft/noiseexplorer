@@ -16,14 +16,14 @@ const gen = (
 	let eph = [``, ``];
 	if (initEphemeralPk.length > 0) {
 		eph[0] = `${[
-			`initiatorSession.set_ephemeral_keypair(IKpsk2::Keypair::new_k(decode_str_32(`,
+			`initiatorSession.set_ephemeral_keypair($NOISE2RS_N$::Keypair::new_k(decode_str_32(`,
 			`\t"${initEphemeralPk}"`,
 			`)));`
 		].join("\n\t")}`;
 	}
 	if (respEphemeralPk.length > 0) {
 		eph[1] = `${[
-			`responderSession.set_ephemeral_keypair(IKpsk2::Keypair::new_k(decode_str_32(`,
+			`responderSession.set_ephemeral_keypair($NOISE2RS_N$::Keypair::new_k(decode_str_32(`,
 			`\t"${respEphemeralPk}"`,
 			`)));`
 				].join("\n\t")}`;
