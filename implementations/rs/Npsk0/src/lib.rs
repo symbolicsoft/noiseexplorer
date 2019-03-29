@@ -10,7 +10,7 @@ Npsk0:
  * PARAMETERS                                                       *
  * ---------------------------------------------------------------- */
 
-#![allow(non_snake_case, non_upper_case_globals)]
+#![allow(non_snake_case, non_upper_case_globals, dead_code)]
 
 use byteorder::{ByteOrder, LittleEndian};
 use crypto::blake2s::Blake2s;

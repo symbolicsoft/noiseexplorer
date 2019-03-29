@@ -11,48 +11,48 @@ const gen = (
 ) => {
 	let abc = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
 	let rsTestCode = [];
-	let initInit = `let mut initiatorSession: $NOISE2RS_N$::NoiseSession =\n\t$NOISE2RS_N$::NoiseSession::InitSession(true, &prologue, initStaticA`;
-	let initResp = `let mut responderSession: $NOISE2RS_N$::NoiseSession =\n\t$NOISE2RS_N$::NoiseSession::InitSession(false, &prologue, respStatic`;
+	let initInit = `let mut initiatorSession: noiseexplorer_$NOISE2RS_N$::NoiseSession =\n\tnoiseexplorer_$NOISE2RS_N$::NoiseSession::InitSession(true, &prologue, initStaticA`;
+	let initResp = `let mut responderSession: noiseexplorer_$NOISE2RS_N$::NoiseSession =\n\tnoiseexplorer_$NOISE2RS_N$::NoiseSession::InitSession(false, &prologue, respStatic`;
 	let eph = [``, ``];
 	if (initEphemeralPk.length > 0) {
 		eph[0] = `${[
-			`initiatorSession.set_ephemeral_keypair($NOISE2RS_N$::Keypair::new_k(decode_str_32(`,
+			`initiatorSession.set_ephemeral_keypair(noiseexplorer_$NOISE2RS_N$::Keypair::new_k(decode_str_32(`,
 			`\t"${initEphemeralPk}"`,
 			`)));`
 		].join("\n\t")}`;
 	}
 	if (respEphemeralPk.length > 0) {
 		eph[1] = `${[
-			`responderSession.set_ephemeral_keypair($NOISE2RS_N$::Keypair::new_k(decode_str_32(`,
+			`responderSession.set_ephemeral_keypair(noiseexplorer_$NOISE2RS_N$::Keypair::new_k(decode_str_32(`,
 			`\t"${respEphemeralPk}"`,
 			`)));`
 				].join("\n\t")}`;
 	}
 	rsTestCode.push(`let prologue = decode_str("${initPrologue}");`);
 	if (initStaticSk.length == 0) {
-		initStaticSk = `$NOISE2RS_N$::EMPTY_KEY`;
+		initStaticSk = `noiseexplorer_$NOISE2RS_N$::EMPTY_KEY`;
 	} else {
 		initStaticSk = `decode_str_32("${initStaticSk}")`;
 	}
 	if (respStaticSk.length == 0) {
-		respStaticSk = `$NOISE2RS_N$::EMPTY_KEY`;
+		respStaticSk = `noiseexplorer_$NOISE2RS_N$::EMPTY_KEY`;
 	} else {
 		respStaticSk = `decode_str_32("${respStaticSk}")`;
 	}
 	rsTestCode = rsTestCode.concat([
-		`let initStaticA: $NOISE2RS_N$::Keypair = $NOISE2RS_N$::Keypair::new_k(${initStaticSk});`,
-		`let respStatic: $NOISE2RS_N$::Keypair = $NOISE2RS_N$::Keypair::new_k(${respStaticSk});`
+		`let initStaticA: noiseexplorer_$NOISE2RS_N$::Keypair = noiseexplorer_$NOISE2RS_N$::Keypair::new_k(${initStaticSk});`,
+		`let respStatic: noiseexplorer_$NOISE2RS_N$::Keypair = noiseexplorer_$NOISE2RS_N$::Keypair::new_k(${respStaticSk});`
 	]);
 	if (initRemoteStaticPk.length > 0) {
 		initInit = `${initInit}, respStatic.pk.0`;
 	} else {
-		initInit = `${initInit}, $NOISE2RS_N$::EMPTY_KEY`;
+		initInit = `${initInit}, noiseexplorer_$NOISE2RS_N$::EMPTY_KEY`;
 	}
 	if (respRemoteStaticPk.length > 0) {
-		rsTestCode.push(`let initStaticB: $NOISE2RS_N$::Keypair = $NOISE2RS_N$::Keypair::new_k(${initStaticSk});`);
+		rsTestCode.push(`let initStaticB: noiseexplorer_$NOISE2RS_N$::Keypair = noiseexplorer_$NOISE2RS_N$::Keypair::new_k(${initStaticSk});`);
 		initResp = `${initResp}, initStaticB.pk.0`;
 	} else {
-		initResp = `${initResp}, $NOISE2RS_N$::EMPTY_KEY`;
+		initResp = `${initResp}, noiseexplorer_$NOISE2RS_N$::EMPTY_KEY`;
 	}
 	if (psk.length > 0) {
 		rsTestCode.push(`let temp_psk1: [u8; 32] =\n\tdecode_str_32("${psk}");`);
@@ -74,7 +74,7 @@ const gen = (
 		let recv = (i % 2 === 0) ? 'responderSession' : 'initiatorSession';
 		rsTestCode.push([
 			`let payload${abc[i]} = decode_str("${messages[i].payload}");`,
-			`let mut message${abc[i]}: $NOISE2RS_N$::MessageBuffer = ${send}.SendMessage(&payload${abc[i]});`,
+			`let mut message${abc[i]}: noiseexplorer_$NOISE2RS_N$::MessageBuffer = ${send}.SendMessage(&payload${abc[i]});`,
 			`let mut valid${abc[i]}: bool = false;`,
 			`if let Some(_x) = ${recv}.RecvMessage(&mut message${abc[i]}) {\n\t\tvalid${abc[i]} = true;\n\t}`,
 			`let t${abc[i]}: Vec<u8> = decode_str("${messages[i].ciphertext}");`

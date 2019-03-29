@@ -255,10 +255,10 @@ if (
 	}
 	let testGen = NOISE2RSTESTGEN.generate(json, output);
 	let cargo = READFILE('rs/Cargo.toml')
-		.replace("$NOISE2RS_N$", json.name);
+		.replace("$NOISE2RS_N$", json.name.toLowerCase());
 	let test = READFILE('rs/test.rs')
 		.replace("$NOISE2RS_T$", testGen[1])
-		.replace(/\$NOISE2RS_N\$/g, json.name);
+		.replace(/\$NOISE2RS_N\$/g, json.name.toLowerCase());
 	WRITEFILE(`../implementations/rs/${json.name}/src/lib.rs`, testGen[0]);
 	WRITEFILE(`../implementations/rs/${json.name}/src/main.rs`, READFILE('rs/main.rs'));
 	WRITEFILE(`../implementations/rs/${json.name}/Cargo.toml`, cargo);

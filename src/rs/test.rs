@@ -1,6 +1,6 @@
 #![allow(non_snake_case, non_upper_case_globals)]
 
-use $NOISE2RS_N$;
+use noiseexplorer_$NOISE2RS_N$;
 use hex;
 
 fn decode_str(s: &str) -> Vec<u8> {

@@ -1,6 +1,6 @@
 #![allow(non_snake_case, non_upper_case_globals)]
 
-use IXpsk2;
+use noiseexplorer_ixpsk2;
 use hex;
 
 fn decode_str(s: &str) -> Vec<u8> {
@@ -28,59 +28,59 @@ fn decode_str_32(s: &str) -> [u8; 32] {
 #[test]
 fn test() {
     let prologue = decode_str("4a6f686e2047616c74");
-	let initStaticA: IXpsk2::Keypair = IXpsk2::Keypair::new_k(decode_str_32("e61ef9919cde45dd5f82166404bd08e38bceb5dfdfded0a34c8df7ed542214d1"));
-	let respStatic: IXpsk2::Keypair = IXpsk2::Keypair::new_k(decode_str_32("4a3acbfdb163dec651dfa3194dece676d437029c62a408b4c5ea9114246e4893"));
+	let initStaticA: noiseexplorer_ixpsk2::Keypair = noiseexplorer_ixpsk2::Keypair::new_k(decode_str_32("e61ef9919cde45dd5f82166404bd08e38bceb5dfdfded0a34c8df7ed542214d1"));
+	let respStatic: noiseexplorer_ixpsk2::Keypair = noiseexplorer_ixpsk2::Keypair::new_k(decode_str_32("4a3acbfdb163dec651dfa3194dece676d437029c62a408b4c5ea9114246e4893"));
 	let temp_psk1: [u8; 32] =
 	decode_str_32("54686973206973206d7920417573747269616e20706572737065637469766521");
 	let temp_psk2: [u8; 32] =
 	decode_str_32("54686973206973206d7920417573747269616e20706572737065637469766521");
-	let mut initiatorSession: IXpsk2::NoiseSession =
-	IXpsk2::NoiseSession::InitSession(true, &prologue, initStaticA, IXpsk2::EMPTY_KEY, temp_psk1);
-	let mut responderSession: IXpsk2::NoiseSession =
-	IXpsk2::NoiseSession::InitSession(false, &prologue, respStatic, IXpsk2::EMPTY_KEY, temp_psk2);
-	initiatorSession.set_ephemeral_keypair(IXpsk2::Keypair::new_k(decode_str_32(
+	let mut initiatorSession: noiseexplorer_ixpsk2::NoiseSession =
+	noiseexplorer_ixpsk2::NoiseSession::InitSession(true, &prologue, initStaticA, noiseexplorer_ixpsk2::EMPTY_KEY, temp_psk1);
+	let mut responderSession: noiseexplorer_ixpsk2::NoiseSession =
+	noiseexplorer_ixpsk2::NoiseSession::InitSession(false, &prologue, respStatic, noiseexplorer_ixpsk2::EMPTY_KEY, temp_psk2);
+	initiatorSession.set_ephemeral_keypair(noiseexplorer_ixpsk2::Keypair::new_k(decode_str_32(
 		"893e28b9dc6ca8d611ab664754b8ceb7bac5117349a4439a6b0569da977c464a"
 	)));
-	responderSession.set_ephemeral_keypair(IXpsk2::Keypair::new_k(decode_str_32(
+	responderSession.set_ephemeral_keypair(noiseexplorer_ixpsk2::Keypair::new_k(decode_str_32(
 		"bbdb4cdbd309f1a1f2e1456967fe288cadd6f712d65dc7b7793d5e63da6b375b"
 	)));
 	let payloadA = decode_str("4c756477696720766f6e204d69736573");
-	let mut messageA: IXpsk2::MessageBuffer = initiatorSession.SendMessage(&payloadA);
+	let mut messageA: noiseexplorer_ixpsk2::MessageBuffer = initiatorSession.SendMessage(&payloadA);
 	let mut validA: bool = false;
 	if let Some(_x) = responderSession.RecvMessage(&mut messageA) {
 		validA = true;
 	}
 	let tA: Vec<u8> = decode_str("ca35def5ae56cec33dc2036731ab14896bc4c75dbb07a61f879f8e3afa4c7944c8d2ef6130dbd187858adbd6cbf5281bcbd8ed8253e496e2be8f83c38a03ae1075e06f2fd04fe41b76a52f2b9ed57fbdd1c3c468603b6d942fe1568198a424d65e64498e9ccd9441632cafad7ce6eb5a");
 	let payloadB = decode_str("4d757272617920526f746862617264");
-	let mut messageB: IXpsk2::MessageBuffer = responderSession.SendMessage(&payloadB);
+	let mut messageB: noiseexplorer_ixpsk2::MessageBuffer = responderSession.SendMessage(&payloadB);
 	let mut validB: bool = false;
 	if let Some(_x) = initiatorSession.RecvMessage(&mut messageB) {
 		validB = true;
 	}
 	let tB: Vec<u8> = decode_str("95ebc60d2b1fa672c1f46a8aa265ef51bfe38e7ccb39ec5be34069f144808843558e79dd0608c24bb316b7fc9d9bf26bcb90e1cd3020e2bac84a563d7bd2bff4f29d1354443b13730c5828e687fc5de3964690435faef56fcc0449b352a6b8ba6abf71077221a40ad8030f431e4601");
 	let payloadC = decode_str("462e20412e20486179656b");
-	let mut messageC: IXpsk2::MessageBuffer = initiatorSession.SendMessage(&payloadC);
+	let mut messageC: noiseexplorer_ixpsk2::MessageBuffer = initiatorSession.SendMessage(&payloadC);
 	let mut validC: bool = false;
 	if let Some(_x) = responderSession.RecvMessage(&mut messageC) {
 		validC = true;
 	}
 	let tC: Vec<u8> = decode_str("cdd4dfd488c6958f8c12f622b4a73e771037d9d7b04df36292bad5");
 	let payloadD = decode_str("4361726c204d656e676572");
-	let mut messageD: IXpsk2::MessageBuffer = responderSession.SendMessage(&payloadD);
+	let mut messageD: noiseexplorer_ixpsk2::MessageBuffer = responderSession.SendMessage(&payloadD);
 	let mut validD: bool = false;
 	if let Some(_x) = initiatorSession.RecvMessage(&mut messageD) {
 		validD = true;
 	}
 	let tD: Vec<u8> = decode_str("79b9b105e77aa3b1960f2369d31bd2d771bd327dbcf4b7339aa040");
 	let payloadE = decode_str("4a65616e2d426170746973746520536179");
-	let mut messageE: IXpsk2::MessageBuffer = initiatorSession.SendMessage(&payloadE);
+	let mut messageE: noiseexplorer_ixpsk2::MessageBuffer = initiatorSession.SendMessage(&payloadE);
 	let mut validE: bool = false;
 	if let Some(_x) = responderSession.RecvMessage(&mut messageE) {
 		validE = true;
 	}
 	let tE: Vec<u8> = decode_str("5a51ac5826e9cdeb8c1f53fa098f443ad7caceebb0201390a05612275d456cd1df");
 	let payloadF = decode_str("457567656e2042f6686d20766f6e2042617765726b");
-	let mut messageF: IXpsk2::MessageBuffer = responderSession.SendMessage(&payloadF);
+	let mut messageF: noiseexplorer_ixpsk2::MessageBuffer = responderSession.SendMessage(&payloadF);
 	let mut validF: bool = false;
 	if let Some(_x) = initiatorSession.RecvMessage(&mut messageF) {
 		validF = true;
