@@ -102,43 +102,43 @@ fn test() {
 		println!("Test A: PASS");
 	} else {
 		println!("Test A: FAIL");
-		println!("Expected:	{:X?}", tA);
-		println!("Actual:		{:X?}", cA);
+		println!("Expected: {:X?}", tA);
+		println!("Actual:   {:X?}", cA);
 	}
 	if tB == cB {
 		println!("Test B: PASS");
 	} else {
 		println!("Test B: FAIL");
-		println!("Expected:	{:X?}", tB);
-		println!("Actual:		{:X?}", cB);
+		println!("Expected: {:X?}", tB);
+		println!("Actual:   {:X?}", cB);
 	}
 	if tC == cC {
 		println!("Test C: PASS");
 	} else {
 		println!("Test C: FAIL");
-		println!("Expected:	{:X?}", tC);
-		println!("Actual:		{:X?}", cC);
+		println!("Expected: {:X?}", tC);
+		println!("Actual:   {:X?}", cC);
 	}
 	if tD == cD {
 		println!("Test D: PASS");
 	} else {
 		println!("Test D: FAIL");
-		println!("Expected:	{:X?}", tD);
-		println!("Actual:		{:X?}", cD);
+		println!("Expected: {:X?}", tD);
+		println!("Actual:   {:X?}", cD);
 	}
 	if tE == cE {
 		println!("Test E: PASS");
 	} else {
 		println!("Test E: FAIL");
-		println!("Expected:	{:X?}", tE);
-		println!("Actual:		{:X?}", cE);
+		println!("Expected: {:X?}", tE);
+		println!("Actual:   {:X?}", cE);
 	}
 	if tF == cF {
 		println!("Test F: PASS");
 	} else {
 		println!("Test F: FAIL");
-		println!("Expected:	{:X?}", tF);
-		println!("Actual:		{:X?}", cF);
+		println!("Expected: {:X?}", tF);
+		println!("Actual:   {:X?}", cF);
 	}
 	assert_eq!(tA, cA);
 	assert_eq!(tB, cB);

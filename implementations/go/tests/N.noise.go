@@ -442,42 +442,42 @@ func main() {
 		println("Test A: PASS")
 	} else {
 		println("Test A: FAIL")
-		println("Expected:	", tA)
-		println("Actual:		", cA)
+		println("Expected: ", tA)
+		println("Actual:   ", cA)
 	}
 	if tB == cB {
 		println("Test B: PASS")
 	} else {
 		println("Test B: FAIL")
-		println("Expected:	", tB)
-		println("Actual:		", cB)
+		println("Expected: ", tB)
+		println("Actual:   ", cB)
 	}
 	if tC == cC {
 		println("Test C: PASS")
 	} else {
 		println("Test C: FAIL")
-		println("Expected:	", tC)
-		println("Actual:		", cC)
+		println("Expected: ", tC)
+		println("Actual:   ", cC)
 	}
 	if tD == cD {
 		println("Test D: PASS")
 	} else {
 		println("Test D: FAIL")
-		println("Expected:	", tD)
-		println("Actual:		", cD)
+		println("Expected: ", tD)
+		println("Actual:   ", cD)
 	}
 	if tE == cE {
 		println("Test E: PASS")
 	} else {
 		println("Test E: FAIL")
-		println("Expected:	", tE)
-		println("Actual:		", cE)
+		println("Expected: ", tE)
+		println("Actual:   ", cE)
 	}
 	if tF == cF {
 		println("Test F: PASS")
 	} else {
 		println("Test F: FAIL")
-		println("Expected:	", tF)
-		println("Actual:		", cF)
+		println("Expected: ", tF)
+		println("Actual:   ", cF)
 	}
 }

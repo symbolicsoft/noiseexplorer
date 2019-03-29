@@ -105,8 +105,8 @@ const gen = (
 			`\tprintln!("Test ${abc[i]}: PASS");`,
 			`} else {`,
 			`\tprintln!("Test ${abc[i]}: FAIL");`,
-			`\tprintln!("Expected:\t{:X?}", t${abc[i]});`,
-			`\tprintln!("Actual:\t\t{:X?}", c${abc[i]});`,
+			`\tprintln!("Expected: {:X?}", t${abc[i]});`,
+			`\tprintln!("Actual:   {:X?}", c${abc[i]});`,
 			`}`,
 		].join('\n\t'));
 	}
