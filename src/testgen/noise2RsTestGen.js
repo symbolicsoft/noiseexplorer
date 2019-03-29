@@ -13,31 +13,31 @@ const gen = (
 	let rsTestCode = [];
 	let initInit = `let mut initiatorSession: $NOISE2RS_N$::NoiseSession =\n\t$NOISE2RS_N$::NoiseSession::InitSession(true, &prologue, initStaticA`;
 	let initResp = `let mut responderSession: $NOISE2RS_N$::NoiseSession =\n\t$NOISE2RS_N$::NoiseSession::InitSession(false, &prologue, respStatic`;
-	let eph = ["", ""];
+	let eph = [``, ``];
 	if (initEphemeralPk.length > 0) {
 		eph[0] = `${[
-			`let test_sk = decode_str_32("${initEphemeralPk}");`,
-			`let test_pk = generate_public_key(&test_sk);`,
-			`self.e = Keypair {\n\t\tpk: curve25519::PublicKey(test_pk),\n\t\tsk: curve25519::SecretKey(test_sk),\n};`
+			`initiatorSession.set_ephemeral_keypair(IKpsk2::Keypair::new_k(decode_str_32(`,
+			`\t"${initEphemeralPk}"`,
+			`)));`
 		].join("\n\t")}`;
 	}
 	if (respEphemeralPk.length > 0) {
 		eph[1] = `${[
-			`let test_sk = decode_str_32("${respEphemeralPk}");`,
-			`let test_pk = generate_public_key(&test_sk);`,
-			`self.e = Keypair {\n\t\tpk: curve25519::PublicKey(test_pk),\n\t\tsk: curve25519::SecretKey(test_sk),\n};`
-		].join("\n\t")}`;
+			`responderSession.set_ephemeral_keypair(IKpsk2::Keypair::new_k(decode_str_32(`,
+			`\t"${respEphemeralPk}"`,
+			`)));`
+				].join("\n\t")}`;
 	}
 	rsTestCode.push(`let prologue = decode_str("${initPrologue}");`);
 	if (initStaticSk.length == 0) {
 		initStaticSk = `$NOISE2RS_N$::EMPTY_KEY`;
 	} else {
-		initStaticSk = `$NOISE2RS_N$::decode_str_32("${initStaticSk}")`;
+		initStaticSk = `decode_str_32("${initStaticSk}")`;
 	}
 	if (respStaticSk.length == 0) {
 		respStaticSk = `$NOISE2RS_N$::EMPTY_KEY`;
 	} else {
-		respStaticSk = `$NOISE2RS_N$::decode_str_32("${respStaticSk}")`;
+		respStaticSk = `decode_str_32("${respStaticSk}")`;
 	}
 	rsTestCode = rsTestCode.concat([
 		`let initStaticA: $NOISE2RS_N$::Keypair = $NOISE2RS_N$::Keypair::new_k(${initStaticSk});`,
@@ -55,8 +55,8 @@ const gen = (
 		initResp = `${initResp}, $NOISE2RS_N$::EMPTY_KEY`;
 	}
 	if (psk.length > 0) {
-		rsTestCode.push(`let temp_psk1: [u8; 32] =\n\t$NOISE2RS_N$::decode_str_32("${psk}");`);
-		rsTestCode.push(`let temp_psk2: [u8; 32] =\n\t$NOISE2RS_N$::decode_str_32("${psk}");`);
+		rsTestCode.push(`let temp_psk1: [u8; 32] =\n\tdecode_str_32("${psk}");`);
+		rsTestCode.push(`let temp_psk2: [u8; 32] =\n\tdecode_str_32("${psk}");`);
 		initInit = `${initInit}, temp_psk1);`;
 		initResp = `${initResp}, temp_psk2);`;
 	} else {
@@ -67,6 +67,8 @@ const gen = (
 		`${initInit}`,
 		`${initResp}`
 	].join('\n\t'));
+	rsTestCode.push(eph[0]);
+	rsTestCode.push(eph[1]);
 	for (let i = 0; i < 6; i++) {
 		let send = (i % 2 === 0) ? 'initiatorSession' : 'responderSession';
 		let recv = (i % 2 === 0) ? 'responderSession' : 'initiatorSession';
@@ -108,7 +110,7 @@ const gen = (
 	}
 	rsTestCode.push(`assert_eq!(tA, cA);\n\tassert_eq!(tB, cB);\n\tassert_eq!(tC, cC);\n\tassert_eq!(tD, cD);\n\tassert_eq!(tE, cE);\n\tassert_eq!(tF, cF);`)
 	rsTestCode = `${rsTestCode.join('\n\t')}`;
-	return [rsTestCode, eph];
+	return rsTestCode;
 }
 
 const assign = (data) => {
@@ -166,12 +168,8 @@ const generate = (code) => {
 			testVectors[i].protocol_name.split("_")[3] === 'ChaChaPoly' &&
 			testVectors[i].protocol_name.split("_")[4] == 'BLAKE2s'
 		) {
-			let tempB = assign(testVectors[i]);
-			code = code.replace('self.e = GENERATE_KEYPAIR();', tempB[1][0]);
-			if (tempB[1][1] != "") {
-				code = code.replace('self.e = GENERATE_KEYPAIR();', tempB[1][1]);
-			}
-			return [code, tempB[0]];
+			let test = assign(testVectors[i]);
+			return [code, test];
 		}
 	}
 }

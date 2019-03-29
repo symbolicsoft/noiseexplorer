@@ -14,7 +14,7 @@ impl CipherState {
 		}
 	}
 	fn HasKey(&self) -> bool {
-		!crypto::util::fixed_time_eq(&self.k[..], &EMPTY_KEY[..])
+		!is_empty(&self.k[..])
 	}
 	fn SetNonce(&mut self, new_nonce: u64) {
 		self.n = new_nonce;

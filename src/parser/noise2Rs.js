@@ -184,7 +184,9 @@ const NOISE2RS = {
 		let writeFunDeclaration = `fn WriteMessage${suffix}(&mut self, payload: &[u8]) -> (${isFinal? `([u8; 32], MessageBuffer, CipherState, CipherState)` : `MessageBuffer`}) {`;
 		let messageTokenParsers = {
 			e: [
+				`if is_empty(&self.e.sk.0[..]) {`,
 				`self.e = GENERATE_KEYPAIR();`,
+				`}`,
 				`ne = self.e.pk.0;`,
 				`self.ss.MixHash(&ne[..]);`,
 				ePskFill
@@ -377,6 +379,11 @@ const NOISE2RS = {
 			`\t}`,
 			`}`
 		];
+		let setEphemeral = [
+			`\tpub fn set_ephemeral_keypair(&mut self, e: Keypair) {`,
+			`\t\tself.hs.e = e;`,
+			`\t}`
+		];
 		let sendMessage = [
 			`\n\tpub fn SendMessage(&mut self, message: &[u8]) -> MessageBuffer {`,
 			`\tif self.cs1.n < MAX_NONCE && self.cs2.n < MAX_NONCE`,
@@ -491,7 +498,7 @@ const NOISE2RS = {
 			`\t}`,
 			`}`
 		]);
-		return initSession.concat(sendMessage).concat(recvMessage);
+		return initSession.concat(setEphemeral).concat(sendMessage).concat(recvMessage);
 	};
 
 	const parse = (pattern) => {

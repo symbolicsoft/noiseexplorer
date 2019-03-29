@@ -18,7 +18,7 @@ impl Keypair {
 	}
 	pub fn new_empty() -> Keypair {
 		Keypair {
-			pk: curve25519::PublicKey(EMPTY_KEY),
+			pk: curve25519::PublicKey(generate_public_key(&EMPTY_KEY)),
 			sk: curve25519::SecretKey(EMPTY_KEY),
 		}
 	}

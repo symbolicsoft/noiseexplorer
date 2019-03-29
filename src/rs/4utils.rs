@@ -15,17 +15,6 @@ fn from_slice_HASHLEN(bytes: &[u8]) -> [u8; HASHLEN] {
 	array
 }
 
-// TEST ONLY
-pub fn decode_str_32(s: &str) -> [u8; 32] {
-	if let Ok(x) = hex::decode(s) {
-		if x.len() == 32 {
-			let mut temp: [u8; 32] = [0u8; 32];
-			temp.copy_from_slice(&x[..]);
-			temp
-		} else {
-			panic!("Invalid input length; decode_32");
-		}
-	} else {
-		panic!("Invalid input length; decode_32");
-	}
+fn is_empty(k: &[u8]) -> bool {
+	crypto::util::fixed_time_eq(k, &EMPTY_KEY[..])
 }

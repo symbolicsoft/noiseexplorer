@@ -24,7 +24,7 @@ fn generate_public_key(sk: &[u8; DHLEN]) -> [u8; DHLEN] {
 	output.0
 }
 
-pub fn ENCRYPT(k: &[u8; DHLEN], n: u64, ad: &[u8], plaintext: &[u8]) -> Vec<u8> {
+fn ENCRYPT(k: &[u8; DHLEN], n: u64, ad: &[u8], plaintext: &[u8]) -> Vec<u8> {
 	let mut mac: [u8; MAC_LENGTH] = [0u8; MAC_LENGTH];
 	let mut in_out = plaintext.to_owned();
 	let mut nonce: [u8; NONCE_LENGTH] = [0u8; NONCE_LENGTH];
@@ -38,7 +38,7 @@ pub fn ENCRYPT(k: &[u8; DHLEN], n: u64, ad: &[u8], plaintext: &[u8]) -> Vec<u8> 
 	ciphertext
 }
 
-pub fn DECRYPT(k: &[u8; DHLEN], n: u64, ad: &[u8], ciphertext: &[u8]) -> Option<Vec<u8>> {
+fn DECRYPT(k: &[u8; DHLEN], n: u64, ad: &[u8], ciphertext: &[u8]) -> Option<Vec<u8>> {
 	let temp = Vec::from(ciphertext);
 	// Might panic here (if mac has illegal length)
 	let (x, y) = temp.split_at(temp.len() - MAC_LENGTH);
