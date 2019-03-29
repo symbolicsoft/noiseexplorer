@@ -427,8 +427,8 @@ fn InitializeResponder(prologue: &[u8], s: Keypair, rs: [u8; DHLEN], psk: [u8; P
 }
 
 fn WriteMessageA(&mut self, payload: &[u8]) -> (MessageBuffer) {
-	let mut ns: Vec<u8> = Vec::new();
-	let mut ne: [u8; DHLEN] = EMPTY_KEY;
+	let ns: Vec<u8> = Vec::new();
+	let ne: [u8; DHLEN];
 	if is_empty(&self.e.sk.0[..]) {
 		self.e = GENERATE_KEYPAIR();
 	}
@@ -443,8 +443,8 @@ fn WriteMessageA(&mut self, payload: &[u8]) -> (MessageBuffer) {
 }
 
 fn WriteMessageB(&mut self, payload: &[u8]) -> (MessageBuffer) {
-	let mut ns: Vec<u8> = Vec::new();
-	let mut ne: [u8; DHLEN] = EMPTY_KEY;
+	let ns: Vec<u8> = Vec::new();
+	let ne: [u8; DHLEN];
 	if is_empty(&self.e.sk.0[..]) {
 		self.e = GENERATE_KEYPAIR();
 	}
@@ -461,7 +461,7 @@ fn WriteMessageB(&mut self, payload: &[u8]) -> (MessageBuffer) {
 
 fn WriteMessageC(&mut self, payload: &[u8]) -> (MessageBuffer) {
 	let mut ns: Vec<u8> = Vec::new();
-	let mut ne: [u8; DHLEN] = EMPTY_KEY;
+	let ne: [u8; DHLEN] = EMPTY_KEY;
 	if let Some(x) = self.ss.EncryptAndHash(&self.s.pk.0[..]) {
 		ns.clone_from(&x);
 	}
@@ -473,8 +473,8 @@ fn WriteMessageC(&mut self, payload: &[u8]) -> (MessageBuffer) {
 }
 
 fn WriteMessageD(&mut self, payload: &[u8]) -> (([u8; 32], MessageBuffer, CipherState, CipherState)) {
-	let mut ns: Vec<u8> = Vec::new();
-	let mut ne: [u8; DHLEN] = EMPTY_KEY;
+	let ns: Vec<u8> = Vec::new();
+	let ne: [u8; DHLEN] = EMPTY_KEY;
 	self.ss.MixKey(&DH(&self.e, &self.rs));
 	let mut ciphertext: Vec<u8> = Vec::new();
 	if let Some(x) = self.ss.EncryptAndHash(payload) {

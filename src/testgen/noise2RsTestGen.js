@@ -4,7 +4,7 @@ const NOISE2RSTESTGEN = {
 
 
 const gen = (
-	protocolName,
+	json, protocolName,
 	initPrologue, initStaticSk, initEphemeralPk, initRemoteStaticPk,
 	respRemoteStaticPk, respStaticSk, respEphemeralPk,
 	psk, messages
@@ -41,7 +41,6 @@ const gen = (
 	}
 	rsTestCode = rsTestCode.concat([
 		`let initStaticA: $NOISE2RS_N$::Keypair = $NOISE2RS_N$::Keypair::new_k(${initStaticSk});`,
-		`let initStaticB: $NOISE2RS_N$::Keypair = $NOISE2RS_N$::Keypair::new_k(${initStaticSk});`,
 		`let respStatic: $NOISE2RS_N$::Keypair = $NOISE2RS_N$::Keypair::new_k(${respStaticSk});`
 	]);
 	if (initRemoteStaticPk.length > 0) {
@@ -50,6 +49,7 @@ const gen = (
 		initInit = `${initInit}, $NOISE2RS_N$::EMPTY_KEY`;
 	}
 	if (respRemoteStaticPk.length > 0) {
+		rsTestCode.push(`let initStaticB: $NOISE2RS_N$::Keypair = $NOISE2RS_N$::Keypair::new_k(${initStaticSk});`);
 		initResp = `${initResp}, initStaticB.pk.0`;
 	} else {
 		initResp = `${initResp}, $NOISE2RS_N$::EMPTY_KEY`;
@@ -86,17 +86,19 @@ const gen = (
 		`} else {`,
 		`\tprintln!("Sanity check FAIL for ${protocolName}.");`,
 		`}`,
-		`let mut cA: Vec<u8> = Vec::from(&messageA.ne[..]);`,
-		`cA.append(&mut messageA.ns);`,
-		`cA.append(&mut messageA.ciphertext);`,
-		`let mut cB: Vec<u8> = Vec::from(&messageB.ne[..]);`,
-		`cB.append(&mut messageB.ns);`,
-		`cB.append(&mut messageB.ciphertext);`,
-		`let mut cC: Vec<u8> = messageC.ciphertext;`,
-		`let mut cD: Vec<u8> = messageD.ciphertext;`,
-		`let mut cE: Vec<u8> = messageE.ciphertext;`,
-		`let mut cF: Vec<u8> = messageF.ciphertext;`,
 	].join('\n\t'));
+	for (let i = 0; i < 6; i++) {
+		rsTestCode.push(`let mut c${abc[i]}: Vec<u8> = Vec::new();`);
+		if (json.messages.length > i) {
+			if (json.messages[i].tokens.indexOf('e') >= 0) {
+				rsTestCode.push(`c${abc[i]}.append(&mut Vec::from(&message${abc[i]}.ne[..]));`);
+			}
+			if (json.messages[i].tokens.indexOf('s') >= 0) {
+				rsTestCode.push(`c${abc[i]}.append(&mut message${abc[i]}.ns);`);
+			}	
+		}
+		rsTestCode.push(`c${abc[i]}.append(&mut message${abc[i]}.ciphertext);`);
+	}	
 	for (let i = 0; i < 6; i++) {
 		rsTestCode.push([
 			`if t${abc[i]} == c${abc[i]} {`,
@@ -108,12 +110,13 @@ const gen = (
 			`}`,
 		].join('\n\t'));
 	}
-	rsTestCode.push(`assert_eq!(tA, cA);\n\tassert_eq!(tB, cB);\n\tassert_eq!(tC, cC);\n\tassert_eq!(tD, cD);\n\tassert_eq!(tE, cE);\n\tassert_eq!(tF, cF);`)
-	rsTestCode = `${rsTestCode.join('\n\t')}`;
-	return rsTestCode;
+	for (let i = 0; i < 6; i++) {
+		rsTestCode.push(`assert_eq!(t${abc[i]}, c${abc[i]});`);
+	}
+	return rsTestCode.join('\n\t');
 }
 
-const assign = (data) => {
+const assign = (json, data) => {
 	let [prologue, psk] = ['', ''];
 	let [initStaticSk, initEphemeralPk, initRemoteStaticPk] = ['', '', ''];
 	let [respRemoteStaticPk, respStaticSk, respEphemeralPk] = ['', '', ''];
@@ -147,14 +150,14 @@ const assign = (data) => {
 	}
 	messages = data.messages;
 	return gen(
-		protocolName, prologue,
+		json, protocolName, prologue,
 		initStaticSk, initEphemeralPk, initRemoteStaticPk,
 		respRemoteStaticPk, respStaticSk, respEphemeralPk,
 		psk, messages
 	);
 };
 
-const generate = (code) => {
+const generate = (json, code) => {
 	const fs = require('fs');
 	const testVectors = JSON.parse(
 		fs.readFileSync('../tests/cacophony.json', 'utf-8')
@@ -168,7 +171,7 @@ const generate = (code) => {
 			testVectors[i].protocol_name.split("_")[3] === 'ChaChaPoly' &&
 			testVectors[i].protocol_name.split("_")[4] == 'BLAKE2s'
 		) {
-			let test = assign(testVectors[i]);
+			let test = assign(json, testVectors[i]);
 			return [code, test];
 		}
 	}

@@ -4,7 +4,7 @@ const NOISE2GOTESTGEN = {
 
 
 const gen = (
-	protocolName,
+	json, protocolName,
 	initPrologue, initStaticSk, initEphemeralPk, initRemoteStaticPk,
 	respRemoteStaticPk, respStaticSk, respEphemeralPk,
 	psk, messages
@@ -105,7 +105,7 @@ const gen = (
 	return [goTestCode, eph];
 }
 
-const assign = (data) => {
+const assign = (json, data) => {
 	let [prologue, psk] = ['', ''];
 	let [initStaticSk, initEphemeralPk, initRemoteStaticPk] = ['', '', ''];
 	let [respRemoteStaticPk, respStaticSk, respEphemeralPk] = ['', '', ''];
@@ -139,14 +139,14 @@ const assign = (data) => {
 	}
 	messages = data.messages;
 	return gen(
-		protocolName, prologue,
+		json, protocolName, prologue,
 		initStaticSk, initEphemeralPk, initRemoteStaticPk,
 		respRemoteStaticPk, respStaticSk, respEphemeralPk,
 		psk, messages
 	);
 };
 
-const generate = (code) => {
+const generate = (json, code) => {
 	const fs = require('fs');
 	const testVectors = JSON.parse(
 		fs.readFileSync('../tests/cacophony.json', 'utf-8')
@@ -160,7 +160,7 @@ const generate = (code) => {
 			testVectors[i].protocol_name.split("_")[3] === 'ChaChaPoly' &&
 			testVectors[i].protocol_name.split("_")[4] == 'BLAKE2s'
 		) {
-			let tempB = assign(testVectors[i]);
+			let tempB = assign(assign, testVectors[i]);
 			code = code.replace(`"encoding/binary"`, `"encoding/binary"\n\t"encoding/hex"`);
 			code = code.replace(`hs.e = generateKeypair()`, tempB[1][0])
 			if (tempB[1][1] != "") {

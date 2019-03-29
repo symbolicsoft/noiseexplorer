@@ -214,8 +214,8 @@ const NOISE2RS = {
 		};
 		let writeFun = [
 			writeFunDeclaration,
-			`let mut ns: Vec<u8> = Vec::new();`,
-			`let mut ne: [u8; DHLEN] = ${util.emptyKey};`
+			`let ${(message.tokens.indexOf('s') >= 0)? 'mut ': ''}ns: Vec<u8> = Vec::new();`,
+			`let ne: [u8; DHLEN]${(message.tokens.indexOf('e') >= 0)? '': ` = ${util.emptyKey}`};`
 		];
 		message.tokens.forEach((token) => {
 			writeFun.push(messageTokenParsers[token]);

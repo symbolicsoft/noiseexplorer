@@ -4,9 +4,9 @@ const NOISEPARSER = require('./parser/noiseParser.js');
 const NOISE2PV = require('./parser/noise2Pv.js');
 const NOISE2GO = require('./parser/noise2Go.js');
 const NOISE2RS = require('./parser/noise2Rs.js');
+const NOISE2GOTESTGEN = require('./testgen/noise2GoTestGen.js');
+const NOISE2RSTESTGEN = require('./testgen/noise2RsTestGen.js');
 const NOISEREADER = require('./parser/noiseReader.js');
-const NOISE2GOTESTGEN = require('./testgen/noise2GoTestGen.js')
-const NOISE2RSTESTGEN = require('./testgen/noise2RsTestGen.js')
 
 const UTIL = {
 	abc: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
@@ -234,7 +234,7 @@ if (
 	let json = NOISEPARSER.parse(pattern);
 	let parsedGo = NOISE2GO.parse(json);
 	let output = GORENDER(pattern, parsedGo);
-	let testGen = NOISE2GOTESTGEN.generate(output);
+	let testGen = NOISE2GOTESTGEN.generate(json, output);
 	WRITEFILE(`../implementations/go/tests/${json.name}.noise.go`, testGen);
 	WRITEFILE(`../implementations/go/${json.name}.noise.go`, output);
 	process.exit();
@@ -253,7 +253,7 @@ if (
 		FS.mkdirSync(`../implementations/rs/${json.name}/src`);
 		FS.mkdirSync(`../implementations/rs/${json.name}/tests`);
 	}
-	let testGen = NOISE2RSTESTGEN.generate(output);
+	let testGen = NOISE2RSTESTGEN.generate(json, output);
 	let cargo = READFILE('rs/Cargo.toml')
 		.replace("$NOISE2RS_N$", json.name);
 	let test = READFILE('rs/test.rs')

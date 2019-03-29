@@ -29,7 +29,6 @@ fn decode_str_32(s: &str) -> [u8; 32] {
 fn test() {
     let prologue = decode_str("4a6f686e2047616c74");
 	let initStaticA: NKpsk2::Keypair = NKpsk2::Keypair::new_k(NKpsk2::EMPTY_KEY);
-	let initStaticB: NKpsk2::Keypair = NKpsk2::Keypair::new_k(NKpsk2::EMPTY_KEY);
 	let respStatic: NKpsk2::Keypair = NKpsk2::Keypair::new_k(decode_str_32("4a3acbfdb163dec651dfa3194dece676d437029c62a408b4c5ea9114246e4893"));
 	let temp_psk1: [u8; 32] =
 	decode_str_32("54686973206973206d7920417573747269616e20706572737065637469766521");
@@ -92,16 +91,20 @@ fn test() {
 	} else {
 		println!("Sanity check FAIL for NKpsk2_25519_ChaChaPoly_BLAKE2s.");
 	}
-	let mut cA: Vec<u8> = Vec::from(&messageA.ne[..]);
-	cA.append(&mut messageA.ns);
+	let mut cA: Vec<u8> = Vec::new();
+	cA.append(&mut Vec::from(&messageA.ne[..]));
 	cA.append(&mut messageA.ciphertext);
-	let mut cB: Vec<u8> = Vec::from(&messageB.ne[..]);
-	cB.append(&mut messageB.ns);
+	let mut cB: Vec<u8> = Vec::new();
+	cB.append(&mut Vec::from(&messageB.ne[..]));
 	cB.append(&mut messageB.ciphertext);
-	let mut cC: Vec<u8> = messageC.ciphertext;
-	let mut cD: Vec<u8> = messageD.ciphertext;
-	let mut cE: Vec<u8> = messageE.ciphertext;
-	let mut cF: Vec<u8> = messageF.ciphertext;
+	let mut cC: Vec<u8> = Vec::new();
+	cC.append(&mut messageC.ciphertext);
+	let mut cD: Vec<u8> = Vec::new();
+	cD.append(&mut messageD.ciphertext);
+	let mut cE: Vec<u8> = Vec::new();
+	cE.append(&mut messageE.ciphertext);
+	let mut cF: Vec<u8> = Vec::new();
+	cF.append(&mut messageF.ciphertext);
 	if tA == cA {
 		println!("Test A: PASS");
 	} else {

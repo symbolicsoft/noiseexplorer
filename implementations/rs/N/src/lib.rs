@@ -426,8 +426,8 @@ fn InitializeResponder(prologue: &[u8], s: Keypair, rs: [u8; DHLEN], psk: [u8; P
 }
 
 fn WriteMessageA(&mut self, payload: &[u8]) -> (([u8; 32], MessageBuffer, CipherState, CipherState)) {
-	let mut ns: Vec<u8> = Vec::new();
-	let mut ne: [u8; DHLEN] = EMPTY_KEY;
+	let ns: Vec<u8> = Vec::new();
+	let ne: [u8; DHLEN];
 	if is_empty(&self.e.sk.0[..]) {
 		self.e = GENERATE_KEYPAIR();
 	}

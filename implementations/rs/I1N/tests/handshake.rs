@@ -29,7 +29,6 @@ fn decode_str_32(s: &str) -> [u8; 32] {
 fn test() {
     let prologue = decode_str("4a6f686e2047616c74");
 	let initStaticA: I1N::Keypair = I1N::Keypair::new_k(decode_str_32("e61ef9919cde45dd5f82166404bd08e38bceb5dfdfded0a34c8df7ed542214d1"));
-	let initStaticB: I1N::Keypair = I1N::Keypair::new_k(decode_str_32("e61ef9919cde45dd5f82166404bd08e38bceb5dfdfded0a34c8df7ed542214d1"));
 	let respStatic: I1N::Keypair = I1N::Keypair::new_k(I1N::EMPTY_KEY);
 	let mut initiatorSession: I1N::NoiseSession =
 	I1N::NoiseSession::InitSession(true, &prologue, initStaticA, I1N::EMPTY_KEY);
@@ -88,16 +87,21 @@ fn test() {
 	} else {
 		println!("Sanity check FAIL for I1N_25519_ChaChaPoly_BLAKE2s.");
 	}
-	let mut cA: Vec<u8> = Vec::from(&messageA.ne[..]);
+	let mut cA: Vec<u8> = Vec::new();
+	cA.append(&mut Vec::from(&messageA.ne[..]));
 	cA.append(&mut messageA.ns);
 	cA.append(&mut messageA.ciphertext);
-	let mut cB: Vec<u8> = Vec::from(&messageB.ne[..]);
-	cB.append(&mut messageB.ns);
+	let mut cB: Vec<u8> = Vec::new();
+	cB.append(&mut Vec::from(&messageB.ne[..]));
 	cB.append(&mut messageB.ciphertext);
-	let mut cC: Vec<u8> = messageC.ciphertext;
-	let mut cD: Vec<u8> = messageD.ciphertext;
-	let mut cE: Vec<u8> = messageE.ciphertext;
-	let mut cF: Vec<u8> = messageF.ciphertext;
+	let mut cC: Vec<u8> = Vec::new();
+	cC.append(&mut messageC.ciphertext);
+	let mut cD: Vec<u8> = Vec::new();
+	cD.append(&mut messageD.ciphertext);
+	let mut cE: Vec<u8> = Vec::new();
+	cE.append(&mut messageE.ciphertext);
+	let mut cF: Vec<u8> = Vec::new();
+	cF.append(&mut messageF.ciphertext);
 	if tA == cA {
 		println!("Test A: PASS");
 	} else {
