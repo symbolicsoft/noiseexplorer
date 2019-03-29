@@ -217,7 +217,6 @@ fn HKDF(
 	if outputs == 1 {
 		return;
 	}
-
 	let mut in2 = [0u8; HASHLEN + 1];
 	copy_slices!(&out1[0..HASHLEN], &mut in2);
 	in2[HASHLEN] = 2;
@@ -225,7 +224,6 @@ fn HKDF(
 	if outputs == 2 {
 		return;
 	}
-
 	let mut in3 = [0u8; HASHLEN + 1];
 	copy_slices!(&out2[0..HASHLEN], &mut in3);
 	in3[HASHLEN] = 3;
@@ -411,117 +409,115 @@ impl SymmetricState {
 
 /* HandshakeState */
 impl HandshakeState {
-fn InitializeInitiator(prologue: &[u8], s: Keypair, rs: [u8; DHLEN], psk: [u8; PSK_LENGTH]) -> HandshakeState {
-	let protocol_name = b"Noise_XX1_25519_ChaChaPoly_BLAKE2s";
-	let mut ss: SymmetricState = SymmetricState::InitializeSymmetric(&protocol_name[..]);
-	ss.MixHash(prologue);
-	HandshakeState{ss, s, e: Keypair::new_empty(), rs, re: EMPTY_KEY, psk}
-}
-
-fn InitializeResponder(prologue: &[u8], s: Keypair, rs: [u8; DHLEN], psk: [u8; PSK_LENGTH]) -> HandshakeState {
-	let protocol_name = b"Noise_XX1_25519_ChaChaPoly_BLAKE2s";
-	let mut ss: SymmetricState = SymmetricState::InitializeSymmetric(&protocol_name[..]);
-	ss.MixHash(prologue);
-	HandshakeState{ss, s, e: Keypair::new_empty(), rs, re: EMPTY_KEY, psk}
-}
-
-fn WriteMessageA(&mut self, payload: &[u8]) -> (MessageBuffer) {
-	let ns: Vec<u8> = Vec::new();
-	let ne: [u8; DHLEN];
-	if is_empty(&self.e.sk.0[..]) {
-		self.e = GENERATE_KEYPAIR();
+	fn InitializeInitiator(prologue: &[u8], s: Keypair, rs: [u8; DHLEN], psk: [u8; PSK_LENGTH]) -> HandshakeState {
+		let protocol_name = b"Noise_XX1_25519_ChaChaPoly_BLAKE2s";
+		let mut ss: SymmetricState = SymmetricState::InitializeSymmetric(&protocol_name[..]);
+		ss.MixHash(prologue);
+		HandshakeState{ss, s, e: Keypair::new_empty(), rs, re: EMPTY_KEY, psk}
 	}
-	ne = self.e.pk.0;
-	self.ss.MixHash(&ne[..]);
-	/* No PSK, so skipping mixKey */
-	let mut ciphertext: Vec<u8> = Vec::new();
-	if let Some(x) = self.ss.EncryptAndHash(payload) {
-		ciphertext.clone_from(&x);
-	}
-	MessageBuffer { ne, ns, ciphertext }
-}
 
-fn WriteMessageB(&mut self, payload: &[u8]) -> (MessageBuffer) {
-	let mut ns: Vec<u8> = Vec::new();
-	let ne: [u8; DHLEN];
-	if is_empty(&self.e.sk.0[..]) {
-		self.e = GENERATE_KEYPAIR();
+	fn InitializeResponder(prologue: &[u8], s: Keypair, rs: [u8; DHLEN], psk: [u8; PSK_LENGTH]) -> HandshakeState {
+		let protocol_name = b"Noise_XX1_25519_ChaChaPoly_BLAKE2s";
+		let mut ss: SymmetricState = SymmetricState::InitializeSymmetric(&protocol_name[..]);
+		ss.MixHash(prologue);
+		HandshakeState{ss, s, e: Keypair::new_empty(), rs, re: EMPTY_KEY, psk}
 	}
-	ne = self.e.pk.0;
-	self.ss.MixHash(&ne[..]);
-	/* No PSK, so skipping mixKey */
-	self.ss.MixKey(&DH(&self.e, &self.re));
-	if let Some(x) = self.ss.EncryptAndHash(&self.s.pk.0[..]) {
-		ns.clone_from(&x);
-	}
-	let mut ciphertext: Vec<u8> = Vec::new();
-	if let Some(x) = self.ss.EncryptAndHash(payload) {
-		ciphertext.clone_from(&x);
-	}
-	MessageBuffer { ne, ns, ciphertext }
-}
-
-fn WriteMessageC(&mut self, payload: &[u8]) -> (([u8; 32], MessageBuffer, CipherState, CipherState)) {
-	let mut ns: Vec<u8> = Vec::new();
-	let ne: [u8; DHLEN] = EMPTY_KEY;
-	self.ss.MixKey(&DH(&self.e, &self.rs));
-	if let Some(x) = self.ss.EncryptAndHash(&self.s.pk.0[..]) {
-		ns.clone_from(&x);
-	}
-	self.ss.MixKey(&DH(&self.s, &self.re));
-	let mut ciphertext: Vec<u8> = Vec::new();
-	if let Some(x) = self.ss.EncryptAndHash(payload) {
-		ciphertext.clone_from(&x);
-	}
-	let (cs1, cs2) = self.ss.Split();
-	let messagebuffer = MessageBuffer { ne, ns, ciphertext };
-	(self.ss.h, messagebuffer, cs1, cs2)
-}
-
-
-
-fn ReadMessageA(&mut self, message: &mut MessageBuffer) -> (Option<Vec<u8>>) {
-	self.re.copy_from_slice(&message.ne[..]);
-	self.ss.MixHash(&self.re[..DHLEN]);
-	/* No PSK, so skipping mixKey */
-	if let Some(plaintext) = self.ss.DecryptAndHash(&message.ciphertext) {
-		return Some(plaintext);
-	}
-	None
-}
-
-fn ReadMessageB(&mut self, message: &mut MessageBuffer) -> (Option<Vec<u8>>) {
-	self.re.copy_from_slice(&message.ne[..]);
-	self.ss.MixHash(&self.re[..DHLEN]);
-	/* No PSK, so skipping mixKey */
-	self.ss.MixKey(&DH(&self.e, &self.re));
-	if let Some(x) = self.ss.DecryptAndHash(&message.ns) {
-		if x.len() != DHLEN {
-			return None
+	fn WriteMessageA(&mut self, payload: &[u8]) -> (MessageBuffer) {
+		let ns: Vec<u8> = Vec::new();
+		let ne: [u8; DHLEN];
+		if is_empty(&self.e.sk.0[..]) {
+			self.e = GENERATE_KEYPAIR();
 		}
-		self.rs.copy_from_slice(&x);
-	} else { return None }
-	if let Some(plaintext) = self.ss.DecryptAndHash(&message.ciphertext) {
-		return Some(plaintext);
-	}
-	None
-}
-
-fn ReadMessageC(&mut self, message: &mut MessageBuffer) -> (Option<([u8; 32], Vec<u8>, CipherState, CipherState)>) {
-	self.ss.MixKey(&DH(&self.s, &self.re));
-	if let Some(x) = self.ss.DecryptAndHash(&message.ns) {
-		if x.len() != DHLEN {
-			return None
+		ne = self.e.pk.0;
+		self.ss.MixHash(&ne[..]);
+		/* No PSK, so skipping mixKey */
+		let mut ciphertext: Vec<u8> = Vec::new();
+		if let Some(x) = self.ss.EncryptAndHash(payload) {
+			ciphertext.clone_from(&x);
 		}
-		self.rs.copy_from_slice(&x);
-	} else { return None }
-	self.ss.MixKey(&DH(&self.e, &self.rs));
-	if let Some(plaintext) = self.ss.DecryptAndHash(&message.ciphertext) {
+		MessageBuffer { ne, ns, ciphertext }
+	}
+
+	fn WriteMessageB(&mut self, payload: &[u8]) -> (MessageBuffer) {
+		let mut ns: Vec<u8> = Vec::new();
+		let ne: [u8; DHLEN];
+		if is_empty(&self.e.sk.0[..]) {
+			self.e = GENERATE_KEYPAIR();
+		}
+		ne = self.e.pk.0;
+		self.ss.MixHash(&ne[..]);
+		/* No PSK, so skipping mixKey */
+		self.ss.MixKey(&DH(&self.e, &self.re));
+		if let Some(x) = self.ss.EncryptAndHash(&self.s.pk.0[..]) {
+			ns.clone_from(&x);
+		}
+		let mut ciphertext: Vec<u8> = Vec::new();
+		if let Some(x) = self.ss.EncryptAndHash(payload) {
+			ciphertext.clone_from(&x);
+		}
+		MessageBuffer { ne, ns, ciphertext }
+	}
+
+	fn WriteMessageC(&mut self, payload: &[u8]) -> (([u8; 32], MessageBuffer, CipherState, CipherState)) {
+		let mut ns: Vec<u8> = Vec::new();
+		let ne: [u8; DHLEN] = EMPTY_KEY;
+		self.ss.MixKey(&DH(&self.e, &self.rs));
+		if let Some(x) = self.ss.EncryptAndHash(&self.s.pk.0[..]) {
+			ns.clone_from(&x);
+		}
+		self.ss.MixKey(&DH(&self.s, &self.re));
+		let mut ciphertext: Vec<u8> = Vec::new();
+		if let Some(x) = self.ss.EncryptAndHash(payload) {
+			ciphertext.clone_from(&x);
+		}
 		let (cs1, cs2) = self.ss.Split();
-		return Some((self.ss.h, plaintext, cs1, cs2));
+		let messagebuffer = MessageBuffer { ne, ns, ciphertext };
+		(self.ss.h, messagebuffer, cs1, cs2)
 	}
-	None
-}
+
+
+	fn ReadMessageA(&mut self, message: &mut MessageBuffer) -> (Option<Vec<u8>>) {
+		self.re.copy_from_slice(&message.ne[..]);
+		self.ss.MixHash(&self.re[..DHLEN]);
+		/* No PSK, so skipping mixKey */
+		if let Some(plaintext) = self.ss.DecryptAndHash(&message.ciphertext) {
+			return Some(plaintext);
+		}
+		None
+	}
+
+	fn ReadMessageB(&mut self, message: &mut MessageBuffer) -> (Option<Vec<u8>>) {
+		self.re.copy_from_slice(&message.ne[..]);
+		self.ss.MixHash(&self.re[..DHLEN]);
+		/* No PSK, so skipping mixKey */
+		self.ss.MixKey(&DH(&self.e, &self.re));
+		if let Some(x) = self.ss.DecryptAndHash(&message.ns) {
+			if x.len() != DHLEN {
+				return None
+			}
+			self.rs.copy_from_slice(&x);
+		} else { return None }
+		if let Some(plaintext) = self.ss.DecryptAndHash(&message.ciphertext) {
+			return Some(plaintext);
+		}
+		None
+	}
+
+	fn ReadMessageC(&mut self, message: &mut MessageBuffer) -> (Option<([u8; 32], Vec<u8>, CipherState, CipherState)>) {
+		self.ss.MixKey(&DH(&self.s, &self.re));
+		if let Some(x) = self.ss.DecryptAndHash(&message.ns) {
+			if x.len() != DHLEN {
+				return None
+			}
+			self.rs.copy_from_slice(&x);
+		} else { return None }
+		self.ss.MixKey(&DH(&self.e, &self.rs));
+		if let Some(plaintext) = self.ss.DecryptAndHash(&message.ciphertext) {
+			let (cs1, cs2) = self.ss.Split();
+		return Some((self.ss.h, plaintext, cs1, cs2));
+		}
+		None
+	}
 
 
 }
@@ -553,9 +549,9 @@ impl NoiseSession {
 			}
 		}
 	}
-		pub fn set_ephemeral_keypair(&mut self, e: Keypair) {
-			self.hs.e = e;
-		}
+	pub fn set_ephemeral_keypair(&mut self, e: Keypair) {
+		self.hs.e = e;
+	}
 	
 	pub fn SendMessage(&mut self, message: &[u8]) -> MessageBuffer {
 		if self.cs1.n < MAX_NONCE && self.cs2.n < MAX_NONCE

@@ -100,7 +100,6 @@ fn HKDF(
 	if outputs == 1 {
 		return;
 	}
-
 	let mut in2 = [0u8; HASHLEN + 1];
 	copy_slices!(&out1[0..HASHLEN], &mut in2);
 	in2[HASHLEN] = 2;
@@ -108,7 +107,6 @@ fn HKDF(
 	if outputs == 2 {
 		return;
 	}
-
 	let mut in3 = [0u8; HASHLEN + 1];
 	copy_slices!(&out2[0..HASHLEN], &mut in3);
 	in3[HASHLEN] = 3;

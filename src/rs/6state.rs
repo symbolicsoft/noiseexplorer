@@ -179,8 +179,6 @@ impl SymmetricState {
 /* HandshakeState */
 impl HandshakeState {
 /* $NOISE2RS_I$ */
-
 /* $NOISE2RS_W$ */
-
 /* $NOISE2RS_R$ */
 }

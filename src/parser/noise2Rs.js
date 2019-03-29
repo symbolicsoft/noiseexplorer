@@ -140,7 +140,7 @@ const NOISE2RS = {
 			}
 		};
 		let initFun = [
-			`fn Initialize${suffix}(prologue: &[u8], s: Keypair, rs: [u8; DHLEN], psk: [u8; PSK_LENGTH]) -> HandshakeState {`,
+			`\tfn Initialize${suffix}(prologue: &[u8], s: Keypair, rs: [u8; DHLEN], psk: [u8; PSK_LENGTH]) -> HandshakeState {`,
 			`let protocol_name = b"Noise_${pattern.name}_25519_ChaChaPoly_BLAKE2s";`,
 			`let mut ss: SymmetricState = SymmetricState::InitializeSymmetric(&protocol_name[..]);`,
 			`ss.MixHash(prologue);`
@@ -153,7 +153,7 @@ const NOISE2RS = {
 			initFun.push(preMessageTokenParsers[dir][preMessage.tokens]);
 		});
 		initFun.push(`HandshakeState{ss, s, e: ${util.emptyKeyPair}, rs, re: ${util.emptyKey}, psk}`);
-		return `${initFun.join('\n\t')}\n}`;
+		return `${initFun.join('\n\t\t')}\n\t}`;
 	};
 
 	const initializeFuns = (pattern) => {
@@ -181,7 +181,7 @@ const NOISE2RS = {
 		if (isBeyondFinal) {
 			return ``;
 		}
-		let writeFunDeclaration = `fn WriteMessage${suffix}(&mut self, payload: &[u8]) -> (${isFinal? `([u8; 32], MessageBuffer, CipherState, CipherState)` : `MessageBuffer`}) {`;
+		let writeFunDeclaration = `\tfn WriteMessage${suffix}(&mut self, payload: &[u8]) -> (${isFinal? `([u8; 32], MessageBuffer, CipherState, CipherState)` : `MessageBuffer`}) {`;
 		let messageTokenParsers = {
 			e: [
 				`if is_empty(&self.e.sk.0[..]) {`,
@@ -190,27 +190,27 @@ const NOISE2RS = {
 				`ne = self.e.pk.0;`,
 				`self.ss.MixHash(&ne[..]);`,
 				ePskFill
-			].join(`\n\t`),
+			].join(`\n\t\t`),
 			s: [
 				`if let Some(x) = self.ss.EncryptAndHash(&self.s.pk.0[..]) {`,
 				`\tns.clone_from(&x);`,
 				`}`
-			].join(`\n\t`),
+			].join(`\n\t\t`),
 			ee: [
 				`self.ss.MixKey(&DH(&self.e, &self.re));`
-			].join(`\n\t`),
+			].join(`\n\t\t`),
 			es: [
 				esInitiatorFill
-			].join(`\n\t`),
+			].join(`\n\t\t`),
 			se: [
 				seInitiatorFill
-			].join(`\n\t`),
+			].join(`\n\t\t`),
 			ss: [
 				`self.ss.MixKey(&DH(&self.s, &self.rs));`
-			].join(`\n\t`),
+			].join(`\n\t\t`),
 			psk: [
 				`self.ss.MixKeyAndHash(&self.psk);`
-			].join(`\n\t`),
+			].join(`\n\t\t`),
 		};
 		let writeFun = [
 			writeFunDeclaration,
@@ -227,7 +227,7 @@ const NOISE2RS = {
 			`}`
 		]);
 		writeFun = writeFun.concat(finalFill);
-		return `${writeFun.join('\n\t')}\n}`;
+		return `${writeFun.join('\n\t\t')}\n\t}`;
 	};
 
 	const writeMessageFuns = (pattern) => {
@@ -265,13 +265,13 @@ const NOISE2RS = {
 		if (isBeyondFinal) {
 			return ``;
 		}
-		let readFunDeclaration = `fn ReadMessage${suffix}(&mut self, message: &mut MessageBuffer) -> (${isFinal? `Option<([u8; 32], Vec<u8>, CipherState, CipherState)>` : `Option<Vec<u8>>`}) {`;
+		let readFunDeclaration = `\tfn ReadMessage${suffix}(&mut self, message: &mut MessageBuffer) -> (${isFinal? `Option<([u8; 32], Vec<u8>, CipherState, CipherState)>` : `Option<Vec<u8>>`}) {`;
 		let messageTokenParsers = {
 			e: [
 				`self.re.copy_from_slice(&message.ne[..]);`,
 				`self.ss.MixHash(&self.re[..DHLEN]);`,
 				ePskFill
-			].join(`\n\t`),
+			].join(`\n\t\t`),
 			s: [
 				`if let Some(x) = self.ss.DecryptAndHash(&message.ns) {`,
 				`\tif x.len() != DHLEN {`,
@@ -279,22 +279,22 @@ const NOISE2RS = {
 				`\t}`,
 				`\tself.rs.copy_from_slice(&x);`,
 				`} else { return None }`,
-			].join(`\n\t`),
+			].join(`\n\t\t`),
 			ee: [
 				`self.ss.MixKey(&DH(&self.e, &self.re));`
-			].join(`\n\t`),
+			].join(`\n\t\t`),
 			es: [
 				esInitiatorFill
-			].join(`\n\t`),
+			].join(`\n\t\t`),
 			se: [
 				seInitiatorFill
-			].join(`\n\t`),
+			].join(`\n\t\t`),
 			ss: [
 				`self.ss.MixKey(&DH(&self.s, &self.rs));`
-			].join(`\n\t`),
+			].join(`\n\t\t`),
 			psk: [
 				`self.ss.MixKeyAndHash(&self.psk);`
-			].join(`\n\t`)
+			].join(`\n\t\t`)
 		};
 		let readFun = [
 			readFunDeclaration,
@@ -308,7 +308,7 @@ const NOISE2RS = {
 			`}`,
 			`None`
 		]);
-		return `${readFun.join('\n\t')}\n}`;
+		return `${readFun.join('\n\t\t')}\n\t}`;
 	};
 
 	const readMessageFuns = (pattern) => {
@@ -380,9 +380,9 @@ const NOISE2RS = {
 			`}`
 		];
 		let setEphemeral = [
-			`\tpub fn set_ephemeral_keypair(&mut self, e: Keypair) {`,
-			`\t\tself.hs.e = e;`,
-			`\t}`
+			`pub fn set_ephemeral_keypair(&mut self, e: Keypair) {`,
+			`\tself.hs.e = e;`,
+			`}`
 		];
 		let sendMessage = [
 			`\n\tpub fn SendMessage(&mut self, message: &[u8]) -> MessageBuffer {`,

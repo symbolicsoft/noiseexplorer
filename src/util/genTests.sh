@@ -14,5 +14,3 @@ for pattern in ./*; do
     cargo test
     cd ..
 done
-cd util
-
