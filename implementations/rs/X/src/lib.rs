@@ -516,7 +516,7 @@ impl NoiseSession {
 				self.h = temp.0;
 				buffer = temp.1;
 				self.cs1 = temp.2;
-				self.cs2 = temp.3;
+				self.cs2 = CipherState{k: [0u8; DHLEN], n: MIN_NONCE};
 				// Drop hs here
 				self.hs = HandshakeState {
 					ss: SymmetricState::InitializeSymmetric(b""),
@@ -531,7 +531,7 @@ impl NoiseSession {
 				if self.i {
 					buffer = self.cs1.WriteMessageRegular(message);
 				} else {
-					buffer = self.cs2.WriteMessageRegular(message);
+					buffer = self.cs1.WriteMessageRegular(message);
 				}
 			}
 			self.mc += 1;
@@ -553,7 +553,7 @@ impl NoiseSession {
 					self.h = temp.0;
 					plaintext = Some(temp.1);
 					self.cs1 = temp.2;
-					self.cs2 = temp.3;
+				self.cs2 = CipherState{k: [0u8; DHLEN], n: MIN_NONCE};
 					// Drop hs here
 					self.hs = HandshakeState {
 						ss: SymmetricState::InitializeSymmetric(b""),
@@ -567,7 +567,7 @@ impl NoiseSession {
 			}
 			if self.mc > 0 {
 				if self.i {
-					if let Some(msg) = self.cs2.ReadMessageRegular(message) {
+					if let Some(msg) = self.cs1.ReadMessageRegular(message) {
 						plaintext = Some(msg);
 					}
 				} else {
