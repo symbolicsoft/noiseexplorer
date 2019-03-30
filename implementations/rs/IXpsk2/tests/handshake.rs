@@ -26,7 +26,7 @@ fn decode_str_32(s: &str) -> [u8; 32] {
 }
 
 #[test]
-fn test() {
+fn ixpsk2() {
     let prologue = decode_str("4a6f686e2047616c74");
 	let initStaticA: noiseexplorer_ixpsk2::Keypair = noiseexplorer_ixpsk2::Keypair::new_k(decode_str_32("e61ef9919cde45dd5f82166404bd08e38bceb5dfdfded0a34c8df7ed542214d1"));
 	let respStatic: noiseexplorer_ixpsk2::Keypair = noiseexplorer_ixpsk2::Keypair::new_k(decode_str_32("4a3acbfdb163dec651dfa3194dece676d437029c62a408b4c5ea9114246e4893"));
@@ -86,11 +86,10 @@ fn test() {
 		validF = true;
 	}
 	let tF: Vec<u8> = decode_str("c69fa1a246b2dfe63b4c006ef602bea55a44f68c1826fe6c82956110373ce50863cd3abf50");
-	if validA && validB && validC && validD && validE && validF {
-		println!("Sanity check PASS for IXpsk2_25519_ChaChaPoly_BLAKE2s.");
-	} else {
-		println!("Sanity check FAIL for IXpsk2_25519_ChaChaPoly_BLAKE2s.");
-	}
+	assert!(
+		validA && validB && validC && validD && validE && validF,
+		"Sanity check FAIL for IXpsk2_25519_ChaChaPoly_BLAKE2s."
+	);
 	let mut cA: Vec<u8> = Vec::new();
 	cA.append(&mut Vec::from(&messageA.ne[..]));
 	cA.append(&mut messageA.ns);
@@ -107,52 +106,10 @@ fn test() {
 	cE.append(&mut messageE.ciphertext);
 	let mut cF: Vec<u8> = Vec::new();
 	cF.append(&mut messageF.ciphertext);
-	if tA == cA {
-		println!("Test A: PASS");
-	} else {
-		println!("Test A: FAIL");
-		println!("Expected: {:X?}", tA);
-		println!("Actual:   {:X?}", cA);
-	}
-	if tB == cB {
-		println!("Test B: PASS");
-	} else {
-		println!("Test B: FAIL");
-		println!("Expected: {:X?}", tB);
-		println!("Actual:   {:X?}", cB);
-	}
-	if tC == cC {
-		println!("Test C: PASS");
-	} else {
-		println!("Test C: FAIL");
-		println!("Expected: {:X?}", tC);
-		println!("Actual:   {:X?}", cC);
-	}
-	if tD == cD {
-		println!("Test D: PASS");
-	} else {
-		println!("Test D: FAIL");
-		println!("Expected: {:X?}", tD);
-		println!("Actual:   {:X?}", cD);
-	}
-	if tE == cE {
-		println!("Test E: PASS");
-	} else {
-		println!("Test E: FAIL");
-		println!("Expected: {:X?}", tE);
-		println!("Actual:   {:X?}", cE);
-	}
-	if tF == cF {
-		println!("Test F: PASS");
-	} else {
-		println!("Test F: FAIL");
-		println!("Expected: {:X?}", tF);
-		println!("Actual:   {:X?}", cF);
-	}
-	assert_eq!(tA, cA);
-	assert_eq!(tB, cB);
-	assert_eq!(tC, cC);
-	assert_eq!(tD, cD);
-	assert_eq!(tE, cE);
-	assert_eq!(tF, cF);
+	assert!(tA == cA,"\n\n\nTest A: FAIL\n\nExpected:\n{:X?}\n\nActual:\n{:X?}\n\n\n", tA, cA);
+	assert!(tB == cB,"\n\n\nTest B: FAIL\n\nExpected:\n{:X?}\n\nActual:\n{:X?}\n\n\n", tB, cB);
+	assert!(tC == cC,"\n\n\nTest C: FAIL\n\nExpected:\n{:X?}\n\nActual:\n{:X?}\n\n\n", tC, cC);
+	assert!(tD == cD,"\n\n\nTest D: FAIL\n\nExpected:\n{:X?}\n\nActual:\n{:X?}\n\n\n", tD, cD);
+	assert!(tE == cE,"\n\n\nTest E: FAIL\n\nExpected:\n{:X?}\n\nActual:\n{:X?}\n\n\n", tE, cE);
+	assert!(tF == cF,"\n\n\nTest F: FAIL\n\nExpected:\n{:X?}\n\nActual:\n{:X?}\n\n\n", tF, cF);
 }

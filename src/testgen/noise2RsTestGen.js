@@ -81,11 +81,10 @@ const gen = (
 		].join('\n\t'));
 	}
 	rsTestCode.push([
-		`if validA && validB && validC && validD && validE && validF {`,
-		`\tprintln!("Sanity check PASS for ${protocolName}.");`,
-		`} else {`,
-		`\tprintln!("Sanity check FAIL for ${protocolName}.");`,
-		`}`,
+		`assert!(`,
+		`\tvalidA && validB && validC && validD && validE && validF,`,
+		`\t"Sanity check FAIL for ${protocolName}."`,
+		`);`
 	].join('\n\t'));
 	for (let i = 0; i < 6; i++) {
 		rsTestCode.push(`let mut c${abc[i]}: Vec<u8> = Vec::new();`);
@@ -95,23 +94,12 @@ const gen = (
 			}
 			if (json.messages[i].tokens.indexOf('s') >= 0) {
 				rsTestCode.push(`c${abc[i]}.append(&mut message${abc[i]}.ns);`);
-			}	
+			}
 		}
 		rsTestCode.push(`c${abc[i]}.append(&mut message${abc[i]}.ciphertext);`);
-	}	
-	for (let i = 0; i < 6; i++) {
-		rsTestCode.push([
-			`if t${abc[i]} == c${abc[i]} {`,
-			`\tprintln!("Test ${abc[i]}: PASS");`,
-			`} else {`,
-			`\tprintln!("Test ${abc[i]}: FAIL");`,
-			`\tprintln!("Expected: {:X?}", t${abc[i]});`,
-			`\tprintln!("Actual:   {:X?}", c${abc[i]});`,
-			`}`,
-		].join('\n\t'));
 	}
 	for (let i = 0; i < 6; i++) {
-		rsTestCode.push(`assert_eq!(t${abc[i]}, c${abc[i]});`);
+		rsTestCode.push(String.raw`assert!(t${abc[i]} == c${abc[i]},"\n\n\nTest ${abc[i]}: FAIL\n\nExpected:\n{:X?}\n\nActual:\n{:X?}\n\n\n", t${abc[i]}, c${abc[i]});`);
 	}
 	return rsTestCode.join('\n\t');
 }
@@ -177,7 +165,7 @@ const generate = (json, code) => {
 	}
 }
 
-if (typeof(module) !== 'undefined') {
+if (typeof (module) !== 'undefined') {
 	// Node
 	module.exports = {
 		generate: generate

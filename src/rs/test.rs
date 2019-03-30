@@ -26,6 +26,6 @@ fn decode_str_32(s: &str) -> [u8; 32] {
 }
 
 #[test]
-fn test() {
+fn $NOISE2RS_N$() {
     $NOISE2RS_T$
 }
