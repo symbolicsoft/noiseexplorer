@@ -26,7 +26,7 @@ fn decode_str_32(s: &str) -> [u8; 32] {
 }
 
 #[test]
-fn nk1() {
+fn noiseexplorer_test_nk1() {
     let prologue = decode_str("4a6f686e2047616c74");
 	let initStaticA: noiseexplorer_nk1::Keypair = noiseexplorer_nk1::Keypair::new_k(noiseexplorer_nk1::EMPTY_KEY);
 	let respStatic: noiseexplorer_nk1::Keypair = noiseexplorer_nk1::Keypair::new_k(decode_str_32("4a3acbfdb163dec651dfa3194dece676d437029c62a408b4c5ea9114246e4893"));
