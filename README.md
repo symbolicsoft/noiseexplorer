@@ -7,7 +7,7 @@ The Noise Explorer command-line tool can parse Noise Handshake Patterns accordin
 Noise Explorer can also render results from the ProVerif output into an elegant and easy to read HTML format: the pattern results that can be explored on [Noise Explorer](https://noiseexplorer.com) were generated using the Noise Explorer command-line tool.
 
 ### Status
-| Output   | Functional | Reliable | Unit Tests |
+| Output   | Functional | Reliable | Tests      |
 |----------|------------|----------|------------|
 | ProVerif | ✔️          | ✔️        | ✔️          |
 | Go       | ✔️          | ✔️        | ✔️          |
