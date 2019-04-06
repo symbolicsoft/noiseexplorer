@@ -3,8 +3,8 @@
  * ---------------------------------------------------------------- */
 
 type keypair struct {
-	pk [32]byte
-	sk [32]byte
+	public_key  [32]byte
+	private_key [32]byte
 }
 
 type messagebuffer struct {

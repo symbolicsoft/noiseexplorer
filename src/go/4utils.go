@@ -3,7 +3,7 @@
  * ---------------------------------------------------------------- */
 
 func getPublicKey(kp *keypair) [32]byte {
-	return kp.pk
+	return kp.public_key
 }
 
 func isEmptyKey(k [32]byte) bool {

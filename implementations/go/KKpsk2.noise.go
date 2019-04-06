@@ -33,8 +33,8 @@ import (
  * ---------------------------------------------------------------- */
 
 type keypair struct {
-	pk [32]byte
-	sk [32]byte
+	public_key  [32]byte
+	private_key [32]byte
 }
 
 type messagebuffer struct {
@@ -94,7 +94,7 @@ var minNonce = uint32(0)
  * ---------------------------------------------------------------- */
 
 func getPublicKey(kp *keypair) [32]byte {
-	return kp.pk
+	return kp.public_key
 }
 
 func isEmptyKey(k [32]byte) bool {
@@ -109,24 +109,24 @@ func incrementNonce(n uint32) uint32 {
 	return n + 1
 }
 
-func dh(sk [32]byte, pk [32]byte) [32]byte {
+func dh(private_key [32]byte, public_key [32]byte) [32]byte {
 	var ss [32]byte
-	curve25519.ScalarMult(&ss, &sk, &pk)
+	curve25519.ScalarMult(&ss, &private_key, &public_key)
 	return ss
 }
 
 func generateKeypair() keypair {
-	var pk [32]byte
-	var sk [32]byte
-	_, _ = rand.Read(sk[:])
-	curve25519.ScalarBaseMult(&pk, &sk)
-	return keypair{pk, sk}
+	var public_key [32]byte
+	var private_key [32]byte
+	_, _ = rand.Read(private_key[:])
+	curve25519.ScalarBaseMult(&public_key, &private_key)
+	return keypair{public_key, private_key}
 }
 
-func generatePublicKey(sk [32]byte) [32]byte {
-	var pk [32]byte
-	curve25519.ScalarBaseMult(&pk, &sk)
-	return pk
+func generatePublicKey(private_key [32]byte) [32]byte {
+	var public_key [32]byte
+	curve25519.ScalarBaseMult(&public_key, &private_key)
+	return public_key
 }
 
 func encrypt(k [32]byte, n uint32, ad []byte, plaintext []byte) []byte {
@@ -286,7 +286,7 @@ func initializeInitiator(prologue []byte, s keypair, rs [32]byte, psk [32]byte) 
 	name := []byte("Noise_KKpsk2_25519_ChaChaPoly_BLAKE2s")
 	ss = initializeSymmetric(name)
 	mixHash(&ss, prologue)
-	mixHash(&ss, s.pk[:])
+	mixHash(&ss, s.public_key[:])
 	mixHash(&ss, rs[:])
 	return handshakestate{ss, s, e, rs, re, psk}
 }
@@ -299,18 +299,18 @@ func initializeResponder(prologue []byte, s keypair, rs [32]byte, psk [32]byte) 
 	ss = initializeSymmetric(name)
 	mixHash(&ss, prologue)
 	mixHash(&ss, rs[:])
-	mixHash(&ss, s.pk[:])
+	mixHash(&ss, s.public_key[:])
 	return handshakestate{ss, s, e, rs, re, psk}
 }
 
 func writeMessageA(hs *handshakestate, payload []byte) (*handshakestate, messagebuffer) {
 	ne, ns, ciphertext := emptyKey, []byte{}, []byte{}
 	hs.e = generateKeypair()
-	ne = hs.e.pk
+	ne = hs.e.public_key
 	mixHash(&hs.ss, ne[:])
-	mixKey(&hs.ss, hs.e.pk)
-	mixKey(&hs.ss, dh(hs.e.sk, hs.rs))
-	mixKey(&hs.ss, dh(hs.s.sk, hs.rs))
+	mixKey(&hs.ss, hs.e.public_key)
+	mixKey(&hs.ss, dh(hs.e.private_key, hs.rs))
+	mixKey(&hs.ss, dh(hs.s.private_key, hs.rs))
 	_, ciphertext = encryptAndHash(&hs.ss, payload)
 	messageBuffer := messagebuffer{ne, ns, ciphertext}
 	return hs, messageBuffer
@@ -319,11 +319,11 @@ func writeMessageA(hs *handshakestate, payload []byte) (*handshakestate, message
 func writeMessageB(hs *handshakestate, payload []byte) ([32]byte, messagebuffer, cipherstate, cipherstate) {
 	ne, ns, ciphertext := emptyKey, []byte{}, []byte{}
 	hs.e = generateKeypair()
-	ne = hs.e.pk
+	ne = hs.e.public_key
 	mixHash(&hs.ss, ne[:])
-	mixKey(&hs.ss, hs.e.pk)
-	mixKey(&hs.ss, dh(hs.e.sk, hs.re))
-	mixKey(&hs.ss, dh(hs.e.sk, hs.rs))
+	mixKey(&hs.ss, hs.e.public_key)
+	mixKey(&hs.ss, dh(hs.e.private_key, hs.re))
+	mixKey(&hs.ss, dh(hs.e.private_key, hs.rs))
 	mixKeyAndHash(&hs.ss, hs.psk)
 	_, ciphertext = encryptAndHash(&hs.ss, payload)
 	messageBuffer := messagebuffer{ne, ns, ciphertext}
@@ -343,8 +343,8 @@ func readMessageA(hs *handshakestate, message *messagebuffer) (*handshakestate, 
 	hs.re = message.ne
 	mixHash(&hs.ss, hs.re[:])
 	mixKey(&hs.ss, hs.re)
-	mixKey(&hs.ss, dh(hs.s.sk, hs.re))
-	mixKey(&hs.ss, dh(hs.s.sk, hs.rs))
+	mixKey(&hs.ss, dh(hs.s.private_key, hs.re))
+	mixKey(&hs.ss, dh(hs.s.private_key, hs.rs))
 	_, plaintext, valid2 := decryptAndHash(&hs.ss, message.ciphertext)
 	return hs, plaintext, (valid1 && valid2)
 }
@@ -354,8 +354,8 @@ func readMessageB(hs *handshakestate, message *messagebuffer) ([32]byte, []byte,
 	hs.re = message.ne
 	mixHash(&hs.ss, hs.re[:])
 	mixKey(&hs.ss, hs.re)
-	mixKey(&hs.ss, dh(hs.e.sk, hs.re))
-	mixKey(&hs.ss, dh(hs.s.sk, hs.re))
+	mixKey(&hs.ss, dh(hs.e.private_key, hs.re))
+	mixKey(&hs.ss, dh(hs.s.private_key, hs.re))
 	mixKeyAndHash(&hs.ss, hs.psk)
 	_, plaintext, valid2 := decryptAndHash(&hs.ss, message.ciphertext)
 	cs1, cs2 := split(&hs.ss)

@@ -17,14 +17,14 @@ const gen = (
 	if (initEphemeralPk.length > 0) {
 		eph[0] = `${[
 			`esk, _ := hex.DecodeString("${initEphemeralPk}")`,
-			`copy(hs.e.sk[:], esk[:])`,
-			`hs.e.pk = generatePublicKey(hs.e.sk)`].join("\n\t")}`;
+			`copy(hs.e.private_key[:], esk[:])`,
+			`hs.e.public_key = generatePublicKey(hs.e.private_key)`].join("\n\t")}`;
 	}
 	if (respEphemeralPk.length > 0) {
 		eph[1] = `${[
 			`esk, _ := hex.DecodeString("${respEphemeralPk}")`,
-			`copy(hs.e.sk[:], esk[:])`,
-			`hs.e.pk = generatePublicKey(hs.e.sk)`].join("\n\t")}`;
+			`copy(hs.e.private_key[:], esk[:])`,
+			`hs.e.public_key = generatePublicKey(hs.e.private_key)`].join("\n\t")}`;
 	}
 	goTestCode.push(`\tprologue, _ := hex.DecodeString("${initPrologue}")`);
 	goTestCode.push(`var initStatic keypair`);
@@ -33,23 +33,23 @@ const gen = (
 	} else {
 		goTestCode.push(`initStaticSk := emptyKey`);
 	}
-	goTestCode.push(`copy(initStatic.sk[:], initStaticSk[:])`);
-	goTestCode.push(`initStatic.pk = generatePublicKey(initStatic.sk)`);
+	goTestCode.push(`copy(initStatic.private_key[:], initStaticSk[:])`);
+	goTestCode.push(`initStatic.public_key = generatePublicKey(initStatic.private_key)`);
 	goTestCode.push(`var respStatic keypair`);
 	if (respStaticSk.length > 0) {
 		goTestCode.push(`respStaticSk, _ := hex.DecodeString("${respStaticSk}")`);
 	} else {
 		goTestCode.push(`respStaticSk := emptyKey`);
 	}
-	goTestCode.push(`copy(respStatic.sk[:], respStaticSk[:])`);
-	goTestCode.push(`respStatic.pk = generatePublicKey(respStatic.sk)`);
+	goTestCode.push(`copy(respStatic.private_key[:], respStaticSk[:])`);
+	goTestCode.push(`respStatic.public_key = generatePublicKey(respStatic.private_key)`);
 	if (initRemoteStaticPk.length > 0) {
-		initInit = `${initInit}, respStatic.pk`;
+		initInit = `${initInit}, respStatic.public_key`;
 	} else {
 		initInit = `${initInit}, emptyKey`;
 	}
 	if (respRemoteStaticPk.length > 0) {
-		initResp = `${initResp}, initStatic.pk`;
+		initResp = `${initResp}, initStatic.public_key`;
 	} else {
 		initResp = `${initResp}, emptyKey`;
 	}

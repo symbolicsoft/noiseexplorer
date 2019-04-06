@@ -6,24 +6,24 @@ func incrementNonce(n uint32) uint32 {
 	return n + 1
 }
 
-func dh(sk [32]byte, pk [32]byte) [32]byte {
+func dh(private_key [32]byte, public_key [32]byte) [32]byte {
 	var ss [32]byte
-	curve25519.ScalarMult(&ss, &sk, &pk)
+	curve25519.ScalarMult(&ss, &private_key, &public_key)
 	return ss
 }
 
 func generateKeypair() keypair {
-	var pk [32]byte
-	var sk [32]byte
-	_, _ = rand.Read(sk[:])
-	curve25519.ScalarBaseMult(&pk, &sk)
-	return keypair{pk, sk}
+	var public_key [32]byte
+	var private_key [32]byte
+	_, _ = rand.Read(private_key[:])
+	curve25519.ScalarBaseMult(&public_key, &private_key)
+	return keypair{public_key, private_key}
 }
 
-func generatePublicKey(sk [32]byte) [32]byte {
-	var pk [32]byte
-	curve25519.ScalarBaseMult(&pk, &sk)
-	return pk
+func generatePublicKey(private_key [32]byte) [32]byte {
+	var public_key [32]byte
+	curve25519.ScalarBaseMult(&public_key, &private_key)
+	return public_key
 }
 
 func encrypt(k [32]byte, n uint32, ad []byte, plaintext []byte) []byte {

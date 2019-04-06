@@ -129,9 +129,9 @@ const NOISE2GO = {
 	const initializeFun = (pattern, initiator, suffix) => {
 		let preMessageTokenParsers = {
 			send: {
-				e: `mixHash(&ss, e.pk[:])`,
-				s: `mixHash(&ss, s.pk[:])`,
-				'e, s': `mixHash(mixHash(&ss, e.pk[:]), s.pk[:])`
+				e: `mixHash(&ss, e.public_key[:])`,
+				s: `mixHash(&ss, s.public_key[:])`,
+				'e, s': `mixHash(mixHash(&ss, e.public_key[:]), s.public_key[:])`
 			},
 			recv: {
 				e: `mixHash(&ss, re[:])`,
@@ -168,11 +168,11 @@ const NOISE2GO = {
 
 	const writeMessageFun = (message, hasPsk, initiator, isFinal, suffix) => {
 		let ePskFill = hasPsk ?
-			`mixKey(&hs.ss, hs.e.pk)` : `/* No PSK, so skipping mixKey */`;
+			`mixKey(&hs.ss, hs.e.public_key)` : `/* No PSK, so skipping mixKey */`;
 		let esInitiatorFill = initiator ?
-			`mixKey(&hs.ss, dh(hs.e.sk, hs.rs))` : `mixKey(&hs.ss, dh(hs.s.sk, hs.re))`;
+			`mixKey(&hs.ss, dh(hs.e.private_key, hs.rs))` : `mixKey(&hs.ss, dh(hs.s.private_key, hs.re))`;
 		let seInitiatorFill = initiator ?
-			`mixKey(&hs.ss, dh(hs.s.sk, hs.re))` : `mixKey(&hs.ss, dh(hs.e.sk, hs.rs))`;
+			`mixKey(&hs.ss, dh(hs.s.private_key, hs.re))` : `mixKey(&hs.ss, dh(hs.e.private_key, hs.rs))`;
 		let finalFill = isFinal ? [
 			`cs1, cs2 := split(&hs.ss)`,
 			`return hs.ss.h, messageBuffer, cs1, cs2`
@@ -186,17 +186,17 @@ const NOISE2GO = {
 		let messageTokenParsers = {
 			e: [
 				`hs.e = generateKeypair()`,
-				`ne = hs.e.pk`,
+				`ne = hs.e.public_key`,
 				`mixHash(&hs.ss, ne[:])`,
 				ePskFill
 			].join(`\n\t`),
 			s: [
-				`spk := make([]byte, len(hs.s.pk))`,
-				`copy(spk[:], hs.s.pk[:])`,
+				`spk := make([]byte, len(hs.s.public_key))`,
+				`copy(spk[:], hs.s.public_key[:])`,
 				`_, ns = encryptAndHash(&hs.ss, spk)`,
 			].join(`\n\t`),
 			ee: [
-				`mixKey(&hs.ss, dh(hs.e.sk, hs.re))`
+				`mixKey(&hs.ss, dh(hs.e.private_key, hs.re))`
 			].join(`\n\t`),
 			es: [
 				esInitiatorFill
@@ -205,7 +205,7 @@ const NOISE2GO = {
 				seInitiatorFill
 			].join(`\n\t`),
 			ss: [
-				`mixKey(&hs.ss, dh(hs.s.sk, hs.rs))`
+				`mixKey(&hs.ss, dh(hs.s.private_key, hs.rs))`
 			].join(`\n\t`),
 			psk: [
 				`mixKeyAndHash(&hs.ss, hs.psk)`
@@ -251,9 +251,9 @@ const NOISE2GO = {
 		let ePskFill = hasPsk ?
 			`mixKey(&hs.ss, hs.re)` : `/* No PSK, so skipping mixKey */`;
 		let esInitiatorFill = initiator ?
-			`mixKey(&hs.ss, dh(hs.e.sk, hs.rs))` : `mixKey(&hs.ss, dh(hs.s.sk, hs.re))`;
+			`mixKey(&hs.ss, dh(hs.e.private_key, hs.rs))` : `mixKey(&hs.ss, dh(hs.s.private_key, hs.re))`;
 		let seInitiatorFill = initiator ?
-			`mixKey(&hs.ss, dh(hs.s.sk, hs.re))` : `mixKey(&hs.ss, dh(hs.e.sk, hs.rs))`;
+			`mixKey(&hs.ss, dh(hs.s.private_key, hs.re))` : `mixKey(&hs.ss, dh(hs.e.private_key, hs.rs))`;
 		let finalFill = isFinal ? [
 			`cs1, cs2 := split(&hs.ss)`,
 			`return hs.ss.h, plaintext, (valid1 && valid2), cs1, cs2`
@@ -277,7 +277,7 @@ const NOISE2GO = {
 				`}`,
 			].join(`\n\t`),
 			ee: [
-				`mixKey(&hs.ss, dh(hs.e.sk, hs.re))`
+				`mixKey(&hs.ss, dh(hs.e.private_key, hs.re))`
 			].join(`\n\t`),
 			es: [
 				esInitiatorFill
@@ -286,7 +286,7 @@ const NOISE2GO = {
 				seInitiatorFill
 			].join(`\n\t`),
 			ss: [
-				`mixKey(&hs.ss, dh(hs.s.sk, hs.rs))`
+				`mixKey(&hs.ss, dh(hs.s.private_key, hs.rs))`
 			].join(`\n\t`),
 			psk: [
 				`mixKeyAndHash(&hs.ss, hs.psk)`
