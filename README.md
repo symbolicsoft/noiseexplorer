@@ -59,4 +59,4 @@ To quickly translate all Noise handshake patterns in the `patterns` folder to Pr
 To quickly translate all Noise handshake patterns in the `patterns` folder to Go and Rust implementations, simply run `make implementations` after completing the steps outlined in the Preparation section of this document. The software will be available in the `implementations` folder. Running `make tests` will verify these implementations against test vectors obtained from [Cacophony](https://github.com/centromere/cacophony), a Haskell implementation of the Noise Protocol Framework.
 
 ### Contributors and License
-Authored by [Nadim Kobeissi](https://nadim.computer) and [Georgio Nicholas](https://georgio.xyz). Released under the GNU General Public License, version 3.
+Authored by [Symbolic Software](https://symbolic.software). Released under the GNU General Public License, version 3.

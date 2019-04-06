@@ -2,7 +2,7 @@
   "name": "NoiseExplorer",
   "version": "0.3.0",
   "description": "Noise Pattern Formal Verification Model Generator.",
-  "author": "Nadim Kobeissi",
+  "author": "Symbolic Software",
   "main": "noiseExplorer.js",
   "repository": "https://github.com/symbolicsoft/noiseexplorer",
   "license": "All rights reserved.",
