@@ -2,7 +2,6 @@ const NOISE2GOTESTGEN = {
 	generate: () => {}
 };
 
-
 const gen = (
 	json, protocolName,
 	initPrologue, initStaticSk, initEphemeralPk, initRemoteStaticPk,

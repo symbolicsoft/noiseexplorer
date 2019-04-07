@@ -51,9 +51,15 @@ let goRender = (patternInput, parsedPattern, go) => {
 
 let getPv = (patternInput, parsedPattern, passive, cb) => {
 	let pvTemplates = [
-		'1params', '2types', '3consts',
-		'4utils', '5prims', '6state',
-		'7channels', '8queries', '9processes'
+		'0params',
+		'1types',
+		'2consts',
+		'3utils',
+		'4prims',
+		'5state',
+		'6channels',
+		'7queries',
+		'8processes'
 	];
 	let pv = ['', '', '', '', '', '', '', '', ''];
 	pvTemplates.forEach((templateFile, i) => {
@@ -81,9 +87,13 @@ let getPv = (patternInput, parsedPattern, passive, cb) => {
 
 let getGo = (patternInput, parsedPattern, cb) => {
 	let goTemplates = [
-		'1params', '2types', '3consts',
-		'4utils', '5prims', '6state',
-		'7processes'
+		'0params',
+		'1types',
+		'2consts',
+		'3utils',
+		'4prims',
+		'5state',
+		'6processes'
 	];
 	let go = ['', '', '', '', '', '', ''];
 	goTemplates.forEach((templateFile, i) => {

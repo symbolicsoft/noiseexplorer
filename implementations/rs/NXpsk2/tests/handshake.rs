@@ -1,91 +1,59 @@
 #![allow(non_snake_case, non_upper_case_globals)]
 
-use noiseexplorer_nxpsk2;
-use hex;
-
-fn decode_str(s: &str) -> Vec<u8> {
-    if let Ok(x) = hex::decode(s) {
-        x
-    } else {
-        panic!("{:X?}", hex::decode(s).err());
-    }
-}
-
-fn decode_str_32(s: &str) -> [u8; 32] {
-	if let Ok(x) = hex::decode(s) {
-		if x.len() == 32 {
-			let mut temp: [u8; 32] = [0u8; 32];
-			temp.copy_from_slice(&x[..]);
-			temp
-		} else {
-			panic!("Invalid input length; decode_32");
-		}
-	} else {
-		panic!("Invalid input length; decode_32");
-	}
-}
+use noiseexplorer_nxpsk2::{
+	noisesession::NoiseSession,
+	types::{Keypair, Message, MessageBuffer, PrivateKey, Psk, PublicKey},
+};
 
 #[test]
 fn noiseexplorer_test_nxpsk2() {
-    let prologue = decode_str("4a6f686e2047616c74");
-	let initStaticA: noiseexplorer_nxpsk2::Keypair = noiseexplorer_nxpsk2::Keypair::new_k(noiseexplorer_nxpsk2::EMPTY_KEY);
-	let respStatic: noiseexplorer_nxpsk2::Keypair = noiseexplorer_nxpsk2::Keypair::new_k(decode_str_32("4a3acbfdb163dec651dfa3194dece676d437029c62a408b4c5ea9114246e4893"));
-	let temp_psk1: [u8; 32] =
-	decode_str_32("54686973206973206d7920417573747269616e20706572737065637469766521");
-	let temp_psk2: [u8; 32] =
-	decode_str_32("54686973206973206d7920417573747269616e20706572737065637469766521");
-	let mut initiatorSession: noiseexplorer_nxpsk2::NoiseSession =
-	noiseexplorer_nxpsk2::NoiseSession::InitSession(true, &prologue, initStaticA, noiseexplorer_nxpsk2::EMPTY_KEY, temp_psk1);
-	let mut responderSession: noiseexplorer_nxpsk2::NoiseSession =
-	noiseexplorer_nxpsk2::NoiseSession::InitSession(false, &prologue, respStatic, noiseexplorer_nxpsk2::EMPTY_KEY, temp_psk2);
-	initiatorSession.set_ephemeral_keypair(noiseexplorer_nxpsk2::Keypair::new_k(decode_str_32(
-		"893e28b9dc6ca8d611ab664754b8ceb7bac5117349a4439a6b0569da977c464a"
-	)));
-	responderSession.set_ephemeral_keypair(noiseexplorer_nxpsk2::Keypair::new_k(decode_str_32(
-		"bbdb4cdbd309f1a1f2e1456967fe288cadd6f712d65dc7b7793d5e63da6b375b"
-	)));
-	let payloadA = decode_str("4c756477696720766f6e204d69736573");
-	let mut messageA: noiseexplorer_nxpsk2::MessageBuffer = initiatorSession.SendMessage(&payloadA);
+    let prologueA: Message = Message::from_str("4a6f686e2047616c74");
+	let prologueB: Message = Message::from_str("4a6f686e2047616c74");
+	let initStaticA: PrivateKey = PublicKey::empty();
+	let respStatic_private: PrivateKey = PrivateKey::from_str("4a3acbfdb163dec651dfa3194dece676d437029c62a408b4c5ea9114246e4893");
+	let respStatic_public: PublicKey = PrivateKey::from_str("4a3acbfdb163dec651dfa3194dece676d437029c62a408b4c5ea9114246e4893").generate_public_key();
+	let pskA: Psk = Psk::from_str("54686973206973206d7920417573747269616e20706572737065637469766521");
+	let pskB: Psk = Psk::from_str("54686973206973206d7920417573747269616e20706572737065637469766521");
+	let mut initiatorSession: NoiseSession = NoiseSession::init_session(true, prologueA, Keypair::from_private_key(initStaticA), PublicKey::empty(), pskA);
+	let mut responderSession: NoiseSession = NoiseSession::init_session(false, prologueB, Keypair::from_private_key(respStatic_private), PublicKey::empty(), pskB);
+	initiatorSession.set_ephemeral_keypair(Keypair::from_private_key(PrivateKey::from_str("893e28b9dc6ca8d611ab664754b8ceb7bac5117349a4439a6b0569da977c464a")));
+	responderSession.set_ephemeral_keypair(Keypair::from_private_key(PrivateKey::from_str("bbdb4cdbd309f1a1f2e1456967fe288cadd6f712d65dc7b7793d5e63da6b375b")));
+	let mut messageA: MessageBuffer = initiatorSession.send_message(Message::from_str("4c756477696720766f6e204d69736573"));
 	let mut validA: bool = false;
-	if let Some(_x) = responderSession.RecvMessage(&mut messageA) {
+	if let Some(_x) = responderSession.recv_message(&mut messageA) {
 		validA = true;
 	}
-	let tA: Vec<u8> = decode_str("ca35def5ae56cec33dc2036731ab14896bc4c75dbb07a61f879f8e3afa4c794497bdcf5dc128b7bc5b8f2b6ac1a46dff9f9469337cfac0098f87b2a577cece84");
-	let payloadB = decode_str("4d757272617920526f746862617264");
-	let mut messageB: noiseexplorer_nxpsk2::MessageBuffer = responderSession.SendMessage(&payloadB);
+	let tA: Message = Message::from_str("ca35def5ae56cec33dc2036731ab14896bc4c75dbb07a61f879f8e3afa4c794497bdcf5dc128b7bc5b8f2b6ac1a46dff9f9469337cfac0098f87b2a577cece84");
+	let mut messageB: MessageBuffer = responderSession.send_message(Message::from_str("4d757272617920526f746862617264"));
 	let mut validB: bool = false;
-	if let Some(_x) = initiatorSession.RecvMessage(&mut messageB) {
+	if let Some(_x) = initiatorSession.recv_message(&mut messageB) {
 		validB = true;
 	}
-	let tB: Vec<u8> = decode_str("95ebc60d2b1fa672c1f46a8aa265ef51bfe38e7ccb39ec5be34069f144808843c39479e89953f195c89ee9a53f2e291727e15ab09a61b1ca623ee98d3d2549bda7af1881b0ae7ba4bb6e8f71e119927c6c8510ae728cd8c258c6200b71c86e16f934ba80fe35e708f8a52a5e193346");
-	let payloadC = decode_str("462e20412e20486179656b");
-	let mut messageC: noiseexplorer_nxpsk2::MessageBuffer = initiatorSession.SendMessage(&payloadC);
+	let tB: Message = Message::from_str("95ebc60d2b1fa672c1f46a8aa265ef51bfe38e7ccb39ec5be34069f144808843c39479e89953f195c89ee9a53f2e291727e15ab09a61b1ca623ee98d3d2549bda7af1881b0ae7ba4bb6e8f71e119927c6c8510ae728cd8c258c6200b71c86e16f934ba80fe35e708f8a52a5e193346");
+	let mut messageC: MessageBuffer = initiatorSession.send_message(Message::from_str("462e20412e20486179656b"));
 	let mut validC: bool = false;
-	if let Some(_x) = responderSession.RecvMessage(&mut messageC) {
+	if let Some(_x) = responderSession.recv_message(&mut messageC) {
 		validC = true;
 	}
-	let tC: Vec<u8> = decode_str("499085038a82c4bc9895c069b9a71ead87545a9184a395d74378e1");
-	let payloadD = decode_str("4361726c204d656e676572");
-	let mut messageD: noiseexplorer_nxpsk2::MessageBuffer = responderSession.SendMessage(&payloadD);
+	let tC: Message = Message::from_str("499085038a82c4bc9895c069b9a71ead87545a9184a395d74378e1");
+	let mut messageD: MessageBuffer = responderSession.send_message(Message::from_str("4361726c204d656e676572"));
 	let mut validD: bool = false;
-	if let Some(_x) = initiatorSession.RecvMessage(&mut messageD) {
+	if let Some(_x) = initiatorSession.recv_message(&mut messageD) {
 		validD = true;
 	}
-	let tD: Vec<u8> = decode_str("966e81056dafc90a22e1b23039427325cab7791b92bed9a562808e");
-	let payloadE = decode_str("4a65616e2d426170746973746520536179");
-	let mut messageE: noiseexplorer_nxpsk2::MessageBuffer = initiatorSession.SendMessage(&payloadE);
+	let tD: Message = Message::from_str("966e81056dafc90a22e1b23039427325cab7791b92bed9a562808e");
+	let mut messageE: MessageBuffer = initiatorSession.send_message(Message::from_str("4a65616e2d426170746973746520536179"));
 	let mut validE: bool = false;
-	if let Some(_x) = responderSession.RecvMessage(&mut messageE) {
+	if let Some(_x) = responderSession.recv_message(&mut messageE) {
 		validE = true;
 	}
-	let tE: Vec<u8> = decode_str("f5731b781c54f95e5c75bbd6b9b88113de6097618936495b0ba90d545187a3512c");
-	let payloadF = decode_str("457567656e2042f6686d20766f6e2042617765726b");
-	let mut messageF: noiseexplorer_nxpsk2::MessageBuffer = responderSession.SendMessage(&payloadF);
+	let tE: Message = Message::from_str("f5731b781c54f95e5c75bbd6b9b88113de6097618936495b0ba90d545187a3512c");
+	let mut messageF: MessageBuffer = responderSession.send_message(Message::from_str("457567656e2042f6686d20766f6e2042617765726b"));
 	let mut validF: bool = false;
-	if let Some(_x) = initiatorSession.RecvMessage(&mut messageF) {
+	if let Some(_x) = initiatorSession.recv_message(&mut messageF) {
 		validF = true;
 	}
-	let tF: Vec<u8> = decode_str("1ad6f2ce261f2f6773363a6f3efc2105c98d960b910629da596e394b052389c66ae988bd84");
+	let tF: Message = Message::from_str("1ad6f2ce261f2f6773363a6f3efc2105c98d960b910629da596e394b052389c66ae988bd84");
 	assert!(
 		validA && validB && validC && validD && validE && validF,
 		"Sanity check FAIL for NXpsk2_25519_ChaChaPoly_BLAKE2s."
@@ -105,10 +73,34 @@ fn noiseexplorer_test_nxpsk2() {
 	cE.append(&mut messageE.ciphertext);
 	let mut cF: Vec<u8> = Vec::new();
 	cF.append(&mut messageF.ciphertext);
-	assert!(tA == cA,"\n\n\nTest A: FAIL\n\nExpected:\n{:X?}\n\nActual:\n{:X?}\n\n\n", tA, cA);
-	assert!(tB == cB,"\n\n\nTest B: FAIL\n\nExpected:\n{:X?}\n\nActual:\n{:X?}\n\n\n", tB, cB);
-	assert!(tC == cC,"\n\n\nTest C: FAIL\n\nExpected:\n{:X?}\n\nActual:\n{:X?}\n\n\n", tC, cC);
-	assert!(tD == cD,"\n\n\nTest D: FAIL\n\nExpected:\n{:X?}\n\nActual:\n{:X?}\n\n\n", tD, cD);
-	assert!(tE == cE,"\n\n\nTest E: FAIL\n\nExpected:\n{:X?}\n\nActual:\n{:X?}\n\n\n", tE, cE);
-	assert!(tF == cF,"\n\n\nTest F: FAIL\n\nExpected:\n{:X?}\n\nActual:\n{:X?}\n\n\n", tF, cF);
+	assert!(tA.as_bytes() == &cA,
+		"\n\n\nTest A: FAIL\n\nExpected:\n{:X?}\n\nActual:\n{:X?}\n\n\n",
+		tA.as_bytes(),
+		&cB
+	);
+	assert!(tB.as_bytes() == &cB,
+		"\n\n\nTest B: FAIL\n\nExpected:\n{:X?}\n\nActual:\n{:X?}\n\n\n",
+		tB.as_bytes(),
+		&cB
+	);
+	assert!(tC.as_bytes() == &cC,
+		"\n\n\nTest C: FAIL\n\nExpected:\n{:X?}\n\nActual:\n{:X?}\n\n\n",
+		tC.as_bytes(),
+		&cB
+	);
+	assert!(tD.as_bytes() == &cD,
+		"\n\n\nTest D: FAIL\n\nExpected:\n{:X?}\n\nActual:\n{:X?}\n\n\n",
+		tD.as_bytes(),
+		&cB
+	);
+	assert!(tE.as_bytes() == &cE,
+		"\n\n\nTest E: FAIL\n\nExpected:\n{:X?}\n\nActual:\n{:X?}\n\n\n",
+		tE.as_bytes(),
+		&cB
+	);
+	assert!(tF.as_bytes() == &cF,
+		"\n\n\nTest F: FAIL\n\nExpected:\n{:X?}\n\nActual:\n{:X?}\n\n\n",
+		tF.as_bytes(),
+		&cB
+	);
 }

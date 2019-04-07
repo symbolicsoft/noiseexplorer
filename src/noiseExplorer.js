@@ -103,15 +103,15 @@ const WRITEFILE = (path, data) => {
 
 const PVRENDER = (pattern, parsedPv) => {
 	let pv = [
-		READFILE('pv/1params.pv'),
-		READFILE('pv/2types.pv'),
-		READFILE('pv/3consts.pv'),
-		READFILE('pv/4utils.pv'),
-		READFILE('pv/5prims.pv'),
-		READFILE('pv/6state.pv'),
-		READFILE('pv/7channels.pv'),
-		READFILE('pv/8queries.pv'),
-		READFILE('pv/9processes.pv')
+		READFILE('pv/0params.pv'),
+		READFILE('pv/1types.pv'),
+		READFILE('pv/2consts.pv'),
+		READFILE('pv/3utils.pv'),
+		READFILE('pv/4prims.pv'),
+		READFILE('pv/5state.pv'),
+		READFILE('pv/6channels.pv'),
+		READFILE('pv/7queries.pv'),
+		READFILE('pv/8processes.pv')
 	];
 	pv[0] = pv[0].replace('(* $NOISE2PV_T$ *)', parsedPv.t)
 	pv[1] = pv[1].replace('(* $NOISE2PV_S$ *)', parsedPv.s);
@@ -126,59 +126,43 @@ const PVRENDER = (pattern, parsedPv) => {
 	pv[8] = pv[8].replace('(* $NOISE2PV_B$ *)', parsedPv.b);
 	pv[8] = pv[8].replace('(* $NOISE2PV_K$ *)', parsedPv.k);
 	pv[8] = pv[8].replace('(* $NOISE2PV_P$ *)', parsedPv.p);
-	return pv.join('\n');
+	return pv;
 };
 
 const GORENDER = (pattern, parsedGo) => {
 	let go = [
-		READFILE('go/1params.go'),
-		READFILE('go/2types.go'),
-		READFILE('go/3consts.go'),
-		READFILE('go/4utils.go'),
-		READFILE('go/5prims.go'),
-		READFILE('go/6state.go'),
-		READFILE('go/7processes.go')
+		READFILE('go/0params.go'),
+		READFILE('go/1types.go'),
+		READFILE('go/2consts.go'),
+		READFILE('go/3utils.go'),
+		READFILE('go/4prims.go'),
+		READFILE('go/5state.go'),
+		READFILE('go/6processes.go')
 	];
 	go[0] = go[0].replace('/* $NOISE2GO_N$ */', `/*\n${pattern}\n*/`);
-	go[0] = go[0].replace('/* $NOISE2GO_T$ */', parsedGo.t)
-	go[1] = go[1].replace('/* $NOISE2GO_S$ */', parsedGo.s);
 	go[5] = go[5].replace('/* $NOISE2GO_I$ */', parsedGo.i);
 	go[5] = go[5].replace('/* $NOISE2GO_W$ */', parsedGo.w);
 	go[5] = go[5].replace('/* $NOISE2GO_R$ */', parsedGo.r);
-	go[6] = go[6].replace('/* $NOISE2GO_G$ */', parsedGo.g);
-	go[6] = go[6].replace('/* $NOISE2GO_A$ */', parsedGo.a);
-	go[6] = go[6].replace('/* $NOISE2GO_B$ */', parsedGo.b);
-	go[6] = go[6].replace('/* $NOISE2GO_K$ */', parsedGo.k);
 	go[6] = go[6].replace('/* $NOISE2GO_P$ */', parsedGo.p);
-	return go.join('\n');
+	return go;
 };
 
 const RSRENDER = (pattern, parsedRs) => {
 	let rs = [
-		READFILE('rs/1params.rs'),
-		READFILE('rs/2types.rs'),
-		READFILE('rs/3consts.rs'),
-		READFILE('rs/4utils.rs'),
-		READFILE('rs/5prims.rs'),
-		READFILE('rs/6state.rs'),
-		READFILE('rs/7channels.rs'),
-		READFILE('rs/8queries.rs'),
-		READFILE('rs/9processes.rs')
+		READFILE('rs/0params.rs'),
+		READFILE('rs/1types.rs'),
+		READFILE('rs/2consts.rs'),
+		READFILE('rs/3utils.rs'),
+		READFILE('rs/4prims.rs'),
+		READFILE('rs/5state.rs'),
+		READFILE('rs/6processes.rs')
 	];
 	rs[0] = rs[0].replace('/* $NOISE2RS_N$ */', `/*\n${pattern}\n*/`);
-	rs[0] = rs[0].replace('/* $NOISE2RS_T$ */', parsedRs.t)
-	rs[1] = rs[1].replace('/* $NOISE2RS_S$ */', parsedRs.s);
 	rs[5] = rs[5].replace('/* $NOISE2RS_I$ */', parsedRs.i);
 	rs[5] = rs[5].replace('/* $NOISE2RS_W$ */', parsedRs.w);
 	rs[5] = rs[5].replace('/* $NOISE2RS_R$ */', parsedRs.r);
-	rs[7] = rs[7].replace('/* $NOISE2RS_E$ */', parsedRs.e);
-	rs[7] = rs[7].replace('/* $NOISE2RS_Q$ */', parsedRs.q);
-	rs[8] = rs[8].replace('/* $NOISE2RS_G$ */', parsedRs.g);
-	rs[8] = rs[8].replace('/* $NOISE2RS_A$ */', parsedRs.a);
-	rs[8] = rs[8].replace('/* $NOISE2RS_B$ */', parsedRs.b);
-	rs[8] = rs[8].replace('/* $NOISE2RS_K$ */', parsedRs.k);
-	rs[8] = rs[8].replace('/* $NOISE2RS_P$ */', parsedRs.p);
-	return rs.join('\n');
+	rs[6] = rs[6].replace('/* $NOISE2RS_P$ */', parsedRs.p);
+	return rs;
 };
 
 if (ARGV.hasOwnProperty('generate')) {
@@ -218,7 +202,7 @@ if (
 	let json = NOISEPARSER.parse(pattern);
 	let parsedPv = NOISE2PV.parse(json, passive);
 	let output = PVRENDER(pattern, parsedPv);
-	WRITEFILE(`../models/${json.name}.noise.${passive? 'passive' : 'active'}.pv`, output);
+	WRITEFILE(`../models/${json.name}.noise.${passive? 'passive' : 'active'}.pv`, output.join('\n'));
 	process.exit();
 }
 
@@ -230,9 +214,12 @@ if (
 	let json = NOISEPARSER.parse(pattern);
 	let parsedGo = NOISE2GO.parse(json);
 	let output = GORENDER(pattern, parsedGo);
-	let testGen = NOISE2GOTESTGEN.generate(json, output);
+	let testGen = NOISE2GOTESTGEN.generate(json, output.join('\n'));
+	if (!FS.existsSync(`../implementations/go/tests`)) {
+		FS.mkdirSync(`../implementations/go/tests/`);
+	}
 	WRITEFILE(`../implementations/go/tests/${json.name}.noise.go`, testGen);
-	WRITEFILE(`../implementations/go/${json.name}.noise.go`, output);
+	WRITEFILE(`../implementations/go/${json.name}.noise.go`, output.join('\n'));
 	process.exit();
 }
 
@@ -244,19 +231,24 @@ if (
 	let json = NOISEPARSER.parse(pattern);
 	let parsedRs = NOISE2RS.parse(json);
 	let output = RSRENDER(pattern, parsedRs);
+	let cargo = READFILE('rs/Cargo.toml')
+		.replace("$NOISE2RS_N$", json.name.toLowerCase());
+	let testGen = NOISE2RSTESTGEN.generate(json, output);
+	let test = READFILE('rs/test.rs')
+		.replace("$NOISE2RS_T$", testGen)
+		.replace(/\$NOISE2RS_N\$/g, json.name.toLowerCase());
 	if (!FS.existsSync(`../implementations/rs/${json.name}`)) {
 		FS.mkdirSync(`../implementations/rs/${json.name}`);
 		FS.mkdirSync(`../implementations/rs/${json.name}/src`);
 		FS.mkdirSync(`../implementations/rs/${json.name}/tests`);
 	}
-	let testGen = NOISE2RSTESTGEN.generate(json, output);
-	let cargo = READFILE('rs/Cargo.toml')
-		.replace("$NOISE2RS_N$", json.name.toLowerCase());
-	let test = READFILE('rs/test.rs')
-		.replace("$NOISE2RS_T$", testGen[1])
-		.replace(/\$NOISE2RS_N\$/g, json.name.toLowerCase());
-	WRITEFILE(`../implementations/rs/${json.name}/src/lib.rs`, testGen[0]);
-	WRITEFILE(`../implementations/rs/${json.name}/src/main.rs`, READFILE('rs/main.rs'));
+	WRITEFILE(`../implementations/rs/${json.name}/src/lib.rs`, output[0]);
+	WRITEFILE(`../implementations/rs/${json.name}/src/types.rs`, output[1]);
+	WRITEFILE(`../implementations/rs/${json.name}/src/consts.rs`, output[2]);
+	WRITEFILE(`../implementations/rs/${json.name}/src/macros.rs`, output[3]);
+	WRITEFILE(`../implementations/rs/${json.name}/src/prims.rs`, output[4]);
+	WRITEFILE(`../implementations/rs/${json.name}/src/state.rs`, output[5]);
+	WRITEFILE(`../implementations/rs/${json.name}/src/noisesession.rs`, output[6]);
 	WRITEFILE(`../implementations/rs/${json.name}/Cargo.toml`, cargo);
 	WRITEFILE(`../implementations/rs/${json.name}/tests/handshake.rs`, test);
 	process.exit();

@@ -2,7 +2,6 @@ const NOISE2RSTESTGEN = {
 	generate: () => {}
 };
 
-
 const gen = (
 	json, protocolName,
 	initPrologue, initStaticSk, initEphemeralPk, initRemoteStaticPk,
@@ -11,54 +10,48 @@ const gen = (
 ) => {
 	let abc = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
 	let rsTestCode = [];
-	let initInit = `let mut initiatorSession: noiseexplorer_$NOISE2RS_N$::NoiseSession =\n\tnoiseexplorer_$NOISE2RS_N$::NoiseSession::InitSession(true, &prologue, initStaticA`;
-	let initResp = `let mut responderSession: noiseexplorer_$NOISE2RS_N$::NoiseSession =\n\tnoiseexplorer_$NOISE2RS_N$::NoiseSession::InitSession(false, &prologue, respStatic`;
+	let initInit = `let mut initiatorSession: NoiseSession = NoiseSession::init_session(true, prologueA, Keypair::from_private_key(initStaticA)`;
+	let initResp = `let mut responderSession: NoiseSession = NoiseSession::init_session(false, prologueB, Keypair::from_private_key(respStatic_private)`;
 	let eph = [``, ``];
 	if (initEphemeralPk.length > 0) {
-		eph[0] = `${[
-			`initiatorSession.set_ephemeral_keypair(noiseexplorer_$NOISE2RS_N$::Keypair::new_k(decode_str_32(`,
-			`\t"${initEphemeralPk}"`,
-			`)));`
-		].join("\n\t")}`;
+		eph[0] = `initiatorSession.set_ephemeral_keypair(Keypair::from_private_key(PrivateKey::from_str("${initEphemeralPk}")));`;
 	}
 	if (respEphemeralPk.length > 0) {
-		eph[1] = `${[
-			`responderSession.set_ephemeral_keypair(noiseexplorer_$NOISE2RS_N$::Keypair::new_k(decode_str_32(`,
-			`\t"${respEphemeralPk}"`,
-			`)));`
-				].join("\n\t")}`;
+		eph[1] = `responderSession.set_ephemeral_keypair(Keypair::from_private_key(PrivateKey::from_str("${respEphemeralPk}")));`;
 	}
-	rsTestCode.push(`let prologue = decode_str("${initPrologue}");`);
+	rsTestCode.push(`let prologueA: Message = Message::from_str("${initPrologue}");`);
+	rsTestCode.push(`let prologueB: Message = Message::from_str("${initPrologue}");`);
 	if (initStaticSk.length == 0) {
-		initStaticSk = `noiseexplorer_$NOISE2RS_N$::EMPTY_KEY`;
+		initStaticSk = `PublicKey::empty()`;
 	} else {
-		initStaticSk = `decode_str_32("${initStaticSk}")`;
+		initStaticSk = `PrivateKey::from_str("${initStaticSk}")`;
 	}
 	if (respStaticSk.length == 0) {
-		respStaticSk = `noiseexplorer_$NOISE2RS_N$::EMPTY_KEY`;
+		respStaticSk = `PrivateKey::from_str("0000000000000000000000000000000000000000000000000000000000000001")`;
 	} else {
-		respStaticSk = `decode_str_32("${respStaticSk}")`;
+		respStaticSk = `PrivateKey::from_str("${respStaticSk}")`;
 	}
 	rsTestCode = rsTestCode.concat([
-		`let initStaticA: noiseexplorer_$NOISE2RS_N$::Keypair = noiseexplorer_$NOISE2RS_N$::Keypair::new_k(${initStaticSk});`,
-		`let respStatic: noiseexplorer_$NOISE2RS_N$::Keypair = noiseexplorer_$NOISE2RS_N$::Keypair::new_k(${respStaticSk});`
+		`let initStaticA: PrivateKey = ${initStaticSk};`,
+		`let respStatic_private: PrivateKey = ${respStaticSk};`,
+		`let respStatic_public: PublicKey = ${respStaticSk}.generate_public_key();`
 	]);
 	if (initRemoteStaticPk.length > 0) {
-		initInit = `${initInit}, respStatic.pk.0`;
+		initInit = `${initInit}, respStatic_public`;
 	} else {
-		initInit = `${initInit}, noiseexplorer_$NOISE2RS_N$::EMPTY_KEY`;
+		initInit = `${initInit}, PublicKey::empty()`;
 	}
 	if (respRemoteStaticPk.length > 0) {
-		rsTestCode.push(`let initStaticB: noiseexplorer_$NOISE2RS_N$::Keypair = noiseexplorer_$NOISE2RS_N$::Keypair::new_k(${initStaticSk});`);
-		initResp = `${initResp}, initStaticB.pk.0`;
+		rsTestCode.push(`let initStaticB: Keypair = Keypair::from_private_key(${initStaticSk});`);
+		initResp = `${initResp}, PublicKey::from_str("${respRemoteStaticPk}")`;
 	} else {
-		initResp = `${initResp}, noiseexplorer_$NOISE2RS_N$::EMPTY_KEY`;
+		initResp = `${initResp}, PublicKey::empty()`;
 	}
 	if (psk.length > 0) {
-		rsTestCode.push(`let temp_psk1: [u8; 32] =\n\tdecode_str_32("${psk}");`);
-		rsTestCode.push(`let temp_psk2: [u8; 32] =\n\tdecode_str_32("${psk}");`);
-		initInit = `${initInit}, temp_psk1);`;
-		initResp = `${initResp}, temp_psk2);`;
+		rsTestCode.push(`let pskA: Psk = Psk::from_str("${psk}");`);
+		rsTestCode.push(`let pskB: Psk = Psk::from_str("${psk}");`);
+		initInit = `${initInit}, pskA);`;
+		initResp = `${initResp}, pskB);`;
 	} else {
 		initInit = `${initInit});`;
 		initResp = `${initResp});`;
@@ -73,11 +66,10 @@ const gen = (
 		let send = (i % 2 === 0) ? 'initiatorSession' : 'responderSession';
 		let recv = (i % 2 === 0) ? 'responderSession' : 'initiatorSession';
 		rsTestCode.push([
-			`let payload${abc[i]} = decode_str("${messages[i].payload}");`,
-			`let mut message${abc[i]}: noiseexplorer_$NOISE2RS_N$::MessageBuffer = ${send}.SendMessage(&payload${abc[i]});`,
+			`let mut message${abc[i]}: MessageBuffer = ${send}.send_message(Message::from_str("${messages[i].payload}"));`,
 			`let mut valid${abc[i]}: bool = false;`,
-			`if let Some(_x) = ${recv}.RecvMessage(&mut message${abc[i]}) {\n\t\tvalid${abc[i]} = true;\n\t}`,
-			`let t${abc[i]}: Vec<u8> = decode_str("${messages[i].ciphertext}");`
+			`if let Some(_x) = ${recv}.recv_message(&mut message${abc[i]}) {\n\t\tvalid${abc[i]} = true;\n\t}`,
+			`let t${abc[i]}: Message = Message::from_str("${messages[i].ciphertext}");`
 		].join('\n\t'));
 	}
 	rsTestCode.push([
@@ -99,7 +91,13 @@ const gen = (
 		rsTestCode.push(`c${abc[i]}.append(&mut message${abc[i]}.ciphertext);`);
 	}
 	for (let i = 0; i < 6; i++) {
-		rsTestCode.push(String.raw`assert!(t${abc[i]} == c${abc[i]},"\n\n\nTest ${abc[i]}: FAIL\n\nExpected:\n{:X?}\n\nActual:\n{:X?}\n\n\n", t${abc[i]}, c${abc[i]});`);
+		rsTestCode.push([
+			`assert!(t${abc[i]}.as_bytes() == &c${abc[i]},`,
+			`\t\t${String.raw`"\n\n\nTest ${abc[i]}: FAIL\n\nExpected:\n{:X?}\n\nActual:\n{:X?}\n\n\n"`},`,
+			`\t\tt${abc[i]}.as_bytes(),`,
+			`\t\t&cB`,
+			`\t);`
+		].join(`\n`));
 	}
 	return rsTestCode.join('\n\t');
 }
@@ -145,22 +143,21 @@ const assign = (json, data) => {
 	);
 };
 
-const generate = (json, code) => {
+const generate = (json) => {
 	const fs = require('fs');
 	const testVectors = JSON.parse(
 		fs.readFileSync('../tests/cacophony.json', 'utf-8')
 	).vectors;
 	for (let i = 0; i < testVectors.length; i++) {
-		let patternName = code.split('\n')[1].slice(0, -1);
 		let tempA = testVectors[i].protocol_name.split('_');
 		if (
-			tempA[1] === patternName &&
+			tempA[1] === json.name &&
 			tempA[2] === '25519' &&
 			testVectors[i].protocol_name.split("_")[3] === 'ChaChaPoly' &&
 			testVectors[i].protocol_name.split("_")[4] == 'BLAKE2s'
 		) {
 			let test = assign(json, testVectors[i]);
-			return [code, test];
+			return test;
 		}
 	}
 }

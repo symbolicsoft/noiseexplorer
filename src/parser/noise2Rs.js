@@ -11,7 +11,7 @@ const NOISE2RS = {
 	const util = {
 		emptyKey: 'EMPTY_KEY',
 		emptyKeyPair: 'Keypair::new_empty()',
-		abc: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'],
+		abc: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'],
 	};
 
 	const preMessagesSendStatic = (pattern) => {
@@ -129,21 +129,21 @@ const NOISE2RS = {
 	const initializeFun = (pattern, initiator, suffix) => {
 		let preMessageTokenParsers = {
 			send: {
-				e: `ss.MixHash(&e.pk.0[..]);`,
-				s: `ss.MixHash(&s.pk.0[..]);`,
-				'e, s': `ss.MixHash(&e.pk.0[..]); ss.MixHash(&s.pk.0[..]);`
+				e: `ss.mix_hash(&self.e.get_public_key().as_bytes());`,
+				s: `ss.mix_hash(&s.get_public_key().as_bytes()[..]);`,
+				'e, s': `ss.mix_hash(&self.e.get_public_key().as_bytes()); ss.mix_hash(&s.get_public_key().as_bytes()[..]);`
 			},
 			recv: {
-				e: `ss.MixHash(&re[..]);`,
-				s: `ss.MixHash(&rs[..]);`,
-				'e, s': `ss.MixHash(&re[:]); ss.MixHash(&rs[:]);`
+				e: `ss.mix_hash(&self.re.as_bytes()[..DHLEN]);`,
+				s: `ss.mix_hash(&rs.as_bytes()[..]);`,
+				'e, s': `ss.mix_hash(&self.re.as_bytes()[..DHLEN]); ss.mix_hash(&rs.as_bytes()[..]);`
 			}
 		};
 		let initFun = [
-			`\tfn Initialize${suffix}(prologue: &[u8], s: Keypair, rs: [u8; DHLEN], psk: [u8; PSK_LENGTH]) -> HandshakeState {`,
+			`\tpub(crate) fn initialize_${suffix}(prologue: &[u8], s: Keypair, rs: PublicKey, psk: Psk) -> HandshakeState {`,
 			`let protocol_name = b"Noise_${pattern.name}_25519_ChaChaPoly_BLAKE2s";`,
-			`let mut ss: SymmetricState = SymmetricState::InitializeSymmetric(&protocol_name[..]);`,
-			`ss.MixHash(prologue);`
+			`let mut ss: SymmetricState = SymmetricState::initialize_symmetric(&protocol_name[..]);`,
+			`ss.mix_hash(prologue);`
 		];
 		pattern.preMessages.forEach((preMessage) => {
 			let dir = preMessage.dir;
@@ -152,28 +152,30 @@ const NOISE2RS = {
 			}
 			initFun.push(preMessageTokenParsers[dir][preMessage.tokens]);
 		});
-		initFun.push(`HandshakeState{ss, s, e: ${util.emptyKeyPair}, rs, re: ${util.emptyKey}, psk}`);
+		initFun.push(`HandshakeState{ss, s, e: ${util.emptyKeyPair}, rs, re: PublicKey::empty(), psk}`);
 		return `${initFun.join('\n\t\t')}\n\t}`;
 	};
 
 	const initializeFuns = (pattern) => {
 		return [
-			initializeFun(pattern, true, 'Initiator'),
-			initializeFun(pattern, false, 'Responder')
+			initializeFun(pattern, true, 'initiator'),
+			initializeFun(pattern, false, 'responder')
 		];
 	};
 
 	const writeMessageFun = (message, hasPsk, initiator, isFinal, suffix) => {
 		let ePskFill = hasPsk ?
-			`self.ss.MixKey(&self.e.pk.0);` : `/* No PSK, so skipping mixKey */`;
+			`self.ss.mix_key(&self.e.get_public_key().as_bytes());` : `/* No PSK, so skipping mixKey */`;
 		let esInitiatorFill = initiator ?
-			`self.ss.MixKey(&DH(&self.e, &self.rs));` : `self.ss.MixKey(&DH(&self.s, &self.re));`;
+			`self.ss.mix_key(&self.e.dh(&self.rs.as_bytes()));` : `self.ss.mix_key(&self.s.dh(&self.re.as_bytes()));`;
 		let seInitiatorFill = initiator ?
-			`self.ss.MixKey(&DH(&self.s, &self.re));` : `self.ss.MixKey(&DH(&self.e, &self.rs));`;
+			`self.ss.mix_key(&self.s.dh(&self.re.as_bytes()));` : `self.ss.mix_key(&self.e.dh(&self.rs.as_bytes()));`;
 		let finalFill = isFinal ? [
-			`let (cs1, cs2) = self.ss.Split();`,
+			`let h: Hash = Hash::new(from_slice_hashlen(self.ss.h.as_bytes()));`,
+			`let (cs1, cs2) = self.ss.split();`,
+			`self.ss.clear();`,
 			`let messagebuffer = MessageBuffer { ne, ns, ciphertext };`,
-			`(self.ss.h, messagebuffer, cs1, cs2)`
+			`(h, messagebuffer, cs1, cs2)`
 		] : [
 			`MessageBuffer { ne, ns, ciphertext }`
 		];
@@ -181,23 +183,23 @@ const NOISE2RS = {
 		if (isBeyondFinal) {
 			return ``;
 		}
-		let writeFunDeclaration = `\tfn WriteMessage${suffix}(&mut self, payload: &[u8]) -> (${isFinal? `([u8; 32], MessageBuffer, CipherState, CipherState)` : `MessageBuffer`}) {`;
+		let writeFunDeclaration = `\tpub(crate) fn write_message_${suffix}(&mut self, payload: &[u8]) -> (${isFinal? `(Hash, MessageBuffer, CipherState, CipherState)` : `MessageBuffer`}) {`;
 		let messageTokenParsers = {
 			e: [
-				`if is_empty(&self.e.sk.0[..]) {`,
-				`\tself.e = GENERATE_KEYPAIR();`,
+				`if self.e.is_empty() {`,
+				`\tself.e = Keypair::new();`,
 				`}`,
-				`ne = self.e.pk.0;`,
-				`self.ss.MixHash(&ne[..]);`,
+				`ne = self.e.get_public_key().as_bytes();`,
+				`self.ss.mix_hash(&ne[..]);`,
 				ePskFill
 			].join(`\n\t\t`),
 			s: [
-				`if let Some(x) = self.ss.EncryptAndHash(&self.s.pk.0[..]) {`,
+				`if let Some(x) = self.ss.encrypt_and_hash(&self.s.get_public_key().as_bytes()[..]) {`,
 				`\tns.clone_from(&x);`,
 				`}`
 			].join(`\n\t\t`),
 			ee: [
-				`self.ss.MixKey(&DH(&self.e, &self.re));`
+				`self.ss.mix_key(&self.e.dh(&self.re.as_bytes()));`
 			].join(`\n\t\t`),
 			es: [
 				esInitiatorFill
@@ -206,10 +208,10 @@ const NOISE2RS = {
 				seInitiatorFill
 			].join(`\n\t\t`),
 			ss: [
-				`self.ss.MixKey(&DH(&self.s, &self.rs));`
+				`self.ss.mix_key(&self.s.dh(&self.rs.as_bytes())[..]);`
 			].join(`\n\t\t`),
 			psk: [
-				`self.ss.MixKeyAndHash(&self.psk);`
+				`self.ss.mix_key_and_hash(&self.psk.as_bytes());`
 			].join(`\n\t\t`),
 		};
 		let writeFun = [
@@ -222,7 +224,7 @@ const NOISE2RS = {
 		});
 		writeFun = writeFun.concat([
 			`let mut ciphertext: Vec<u8> = Vec::new();`,
-			`if let Some(x) = self.ss.EncryptAndHash(payload) {`,
+			`if let Some(x) = self.ss.encrypt_and_hash(payload) {`,
 			`\tciphertext.clone_from(&x);`,
 			`}`
 		]);
@@ -250,14 +252,16 @@ const NOISE2RS = {
 
 	const readMessageFun = (message, hasPsk, initiator, isFinal, suffix) => {
 		let ePskFill = hasPsk ?
-			`self.ss.MixKey(&self.re);` : `/* No PSK, so skipping mixKey */`;
+			`self.ss.mix_key(&self.re.as_bytes());` : `/* No PSK, so skipping mixKey */`;
 		let esInitiatorFill = initiator ?
-			`self.ss.MixKey(&DH(&self.e, &self.rs));` : `self.ss.MixKey(&DH(&self.s, &self.re));`;
+			`self.ss.mix_key(&self.e.dh(&self.rs.as_bytes()));` : `self.ss.mix_key(&self.s.dh(&self.re.as_bytes()));`;
 		let seInitiatorFill = initiator ?
-			`self.ss.MixKey(&DH(&self.s, &self.re));` : `self.ss.MixKey(&DH(&self.e, &self.rs));`;
+			`self.ss.mix_key(&self.s.dh(&self.re.as_bytes()));` : `self.ss.mix_key(&self.e.dh(&self.rs.as_bytes()));`;
 		let finalFill = isFinal ? [
-			`\tlet (cs1, cs2) = self.ss.Split();`,
-			`\treturn Some((self.ss.h, plaintext, cs1, cs2));`
+			`\tlet h: Hash = Hash::new(from_slice_hashlen(self.ss.h.as_bytes()));`,
+			`\tlet (cs1, cs2) = self.ss.split();`,
+			`\tself.ss.clear();`,
+			`\treturn Some((h, plaintext, cs1, cs2));`
 		] : [
 			`\treturn Some(plaintext);`
 		];
@@ -265,23 +269,23 @@ const NOISE2RS = {
 		if (isBeyondFinal) {
 			return ``;
 		}
-		let readFunDeclaration = `\tfn ReadMessage${suffix}(&mut self, message: &mut MessageBuffer) -> (${isFinal? `Option<([u8; 32], Vec<u8>, CipherState, CipherState)>` : `Option<Vec<u8>>`}) {`;
+		let readFunDeclaration = `\tpub(crate) fn read_message_${suffix}(&mut self, message: &mut MessageBuffer) -> (${isFinal? ` Option<(Hash, Vec<u8>, CipherState, CipherState)>` : `Option<Vec<u8>>`}) {`;
 		let messageTokenParsers = {
 			e: [
-				`self.re.copy_from_slice(&message.ne[..]);`,
-				`self.ss.MixHash(&self.re[..DHLEN]);`,
+				`self.re = PublicKey::from_bytes(message.ne);`,
+				`self.ss.mix_hash(&self.re.as_bytes()[..DHLEN]);`,
 				ePskFill
 			].join(`\n\t\t`),
 			s: [
-				`if let Some(x) = self.ss.DecryptAndHash(&message.ns) {`,
+				`if let Some(x) = self.ss.decrypt_and_hash(&message.ns) {`,
 				`\tif x.len() != DHLEN {`,
 				`\t\treturn None`,
 				`\t}`,
-				`\tself.rs.copy_from_slice(&x);`,
+				`\tself.rs = PublicKey::from_bytes(from_slice_hashlen(&x[..]));`,
 				`} else { return None }`,
 			].join(`\n\t\t`),
 			ee: [
-				`self.ss.MixKey(&DH(&self.e, &self.re));`
+				`self.ss.mix_key(&self.e.dh(&self.re.as_bytes()));`
 			].join(`\n\t\t`),
 			es: [
 				esInitiatorFill
@@ -290,10 +294,10 @@ const NOISE2RS = {
 				seInitiatorFill
 			].join(`\n\t\t`),
 			ss: [
-				`self.ss.MixKey(&DH(&self.s, &self.rs));`
+				`self.ss.mix_key(&self.s.dh(&self.rs.as_bytes()));`
 			].join(`\n\t\t`),
 			psk: [
-				`self.ss.MixKeyAndHash(&self.psk);`
+				`self.ss.mix_key_and_hash(&self.psk.as_bytes());`
 			].join(`\n\t\t`)
 		};
 		let readFun = [
@@ -303,8 +307,8 @@ const NOISE2RS = {
 			readFun.push(messageTokenParsers[token]);
 		});
 		readFun = readFun.concat([
-			`if let Some(plaintext) = self.ss.DecryptAndHash(&message.ciphertext) {`,
-			`${finalFill.join('\n\t')}`,
+			`if let Some(plaintext) = self.ss.decrypt_and_hash(&message.ciphertext) {`,
+			`${finalFill.join('\n\t\t')}`,
 			`}`,
 			`None`
 		]);
@@ -357,148 +361,108 @@ const NOISE2RS = {
 		let hasPsk = messagesPsk(pattern) >= 0;
 		let finalKex = finalKeyExchangeMessage(pattern);
 		let initSession = [
-			`\tpub fn InitSession(initiator: bool, prologue: &[u8], s: Keypair, rs: [u8; DHLEN]${hasPsk? ', psk: [u8; PSK_LENGTH]' : ''}) -> NoiseSession {`,
+			`\tpub fn init_session(initiator: bool, prologue: Message, s: Keypair, rs: PublicKey${hasPsk? ', psk: Psk' : ''}) -> NoiseSession {`,
 			`\tif initiator {`,
 			`\t\tNoiseSession{`,
-			`\t\t\ths: HandshakeState::InitializeInitiator(prologue, s, rs, ${hasPsk? 'psk' : util.emptyKey}),`,
+			`\t\t\ths: HandshakeState::initialize_initiator(prologue.as_bytes(), s, rs, ${hasPsk? 'psk' : 'Psk::new()'}),`,
 			`\t\t\tmc: 0,`,
 			`\t\t\ti: initiator,`,
-			`\t\t\tcs1: CipherState::InitializeKey(&EMPTY_KEY),`,
-			`\t\t\tcs2: CipherState::InitializeKey(&EMPTY_KEY),`,
-			`\t\t\th: [0u8; 32],`,
+			`\t\t\tcs1: CipherState::new(),`,
+			`\t\t\tcs2: CipherState::new(),`,
+			`\t\t\th: Hash::empty(),`,
 			`\t\t}`,
 			`\t} else {`,
 			`\t\tNoiseSession {`,
-			`\t\t\ths: HandshakeState::InitializeResponder(prologue, s, rs, ${hasPsk? 'psk' : util.emptyKey}),`,
+			`\t\t\ths: HandshakeState::initialize_responder(prologue.as_bytes(), s, rs, ${hasPsk? 'psk' : 'Psk::new()'}),`,
 			`\t\t\tmc: 0,`,
 			`\t\t\ti: initiator,`,
-			`\t\t\tcs1: CipherState::InitializeKey(&EMPTY_KEY),`,
-			`\t\t\tcs2: CipherState::InitializeKey(&EMPTY_KEY),`,
-			`\t\t\th: [0u8; 32],`,
+			`\t\t\tcs1: CipherState::new(),`,
+			`\t\t\tcs2: CipherState::new(),`,
+			`\t\t\th: Hash::empty(),`,
 			`\t\t}`,
 			`\t}`,
 			`}`
 		];
-		let setEphemeral = [
-			`pub fn set_ephemeral_keypair(&mut self, e: Keypair) {`,
-			`\tself.hs.e = e;`,
-			`}`
-		];
 		let sendMessage = [
-			`\n\tpub fn SendMessage(&mut self, message: &[u8]) -> MessageBuffer {`,
-			`\tif self.cs1.n < MAX_NONCE && self.cs2.n < MAX_NONCE`,
-			`\t&& self.hs.ss.cs.n < MAX_NONCE && message.len() < 65535 {`,
-			`\t\tlet mut buffer: MessageBuffer = MessageBuffer {`,
-			`\t\t\tne: EMPTY_KEY,`,
-			`\t\t\tns: Vec::from(&zerolen[..]),`,
-			`\t\t\tciphertext: Vec::from(&zerolen[..]),`,
-			`\t\t};`
+			`\n\tpub fn send_message(&mut self, message: Message) -> MessageBuffer {`
 		];
 		let recvMessage = [
-			`\n\tpub fn RecvMessage(&mut self, message: &mut MessageBuffer) -> Option<Vec<u8>> {`,
-			`\tif self.cs1.n < MAX_NONCE && self.cs2.n < MAX_NONCE`,
-			`\t&& self.hs.ss.cs.n < MAX_NONCE && message.ciphertext.len() < 65535 {`,
-			`\t\tlet mut plaintext: Option<Vec<u8>> = None;`
+			`\n\tpub fn recv_message(&mut self, message: &mut MessageBuffer) -> Option<Vec<u8>> {`,
+			`\tlet mut plaintext: Option<Vec<u8>> = None;`
 		];
 		for (let i = 0; i < pattern.messages.length; i++) {
 			if (i < finalKex) {
 				sendMessage = sendMessage.concat([
-					`\t\tif self.mc == ${i} {`,
-					`\t\t\tbuffer = self.hs.WriteMessage${util.abc[i]}(message);`,
-					`\t\t}`
+					`\t${i > 0? 'else ' : ''}if self.mc == ${i} {`,
+					`\t\tself.mc += 1;`,
+					`\t\tself.hs.write_message_${util.abc[i]}(&message.as_bytes()[..])`,
+					`\t}`
 				]);
 				recvMessage = recvMessage.concat([
-					`\t\tif self.mc == ${i} {`,
-					`\t\t\tplaintext = self.hs.ReadMessage${util.abc[i]}(message);`,
-					`\t\t}`
+					`\t${i > 0? 'else ' : ''}if self.mc == ${i} {`,
+					`\t\tplaintext = self.hs.read_message_${util.abc[i]}(message);`,
+					`\t}`
 				]);
 			} else if (i == finalKex) {
 				sendMessage = sendMessage.concat([
-					`\t\tif self.mc == ${i} {`,
-					`\t\t\tlet temp = self.hs.WriteMessage${util.abc[i]}(message);`,
-					`\t\t\tself.h = temp.0;`,
-					`\t\t\tbuffer = temp.1;`,
-					`\t\t\tself.cs1 = temp.2;`,
-					`\t\t\tself.cs2 = ${isOneWayPattern? 'CipherState{k: [0u8; DHLEN], n: MIN_NONCE}' : 'temp.3'};`,
-					`\t\t\t// Drop hs here`,
-					`\t\t\tself.hs = HandshakeState {`,
-					`\t\t\t\tss: SymmetricState::InitializeSymmetric(b""),`,
-					`\t\t\t\ts: ${util.emptyKeyPair},`,
-					`\t\t\t\te: ${util.emptyKeyPair},`,
-					`\t\t\t\trs: ${util.emptyKey},`,
-					`\t\t\t\tre: ${util.emptyKey},`,
-					`\t\t\t\tpsk: ${util.emptyKey},`,
-					`\t\t\t};`,
-					`\t\t}`
+					`\t${!isOneWayPattern? 'else ' : ''}if self.mc == ${i} {`,
+					`\t\tlet temp = self.hs.write_message_${util.abc[i]}(&message.as_bytes()[..]);`,
+					`\t\tself.h = temp.0;`,
+					`\t\tself.cs1 = temp.2;`,
+					`\t\tself.cs2 = ${isOneWayPattern? 'CipherState::new()' : 'temp.3'};`,
+					`\t\tself.hs.clear();`,
+					`\t\tself.mc += 1;`,
+					`\t\ttemp.1`,
+					`\t}`
 				]);
 				recvMessage = recvMessage.concat([
-					`\t\tif self.mc == ${i} {`,
-					`\t\t\tif let Some(temp) = self.hs.ReadMessage${util.abc[i]}(message) {`,
-					`\t\t\t\tself.h = temp.0;`,
-					`\t\t\t\tplaintext = Some(temp.1);`,
-					`\t\t\t\tself.cs1 = temp.2;`,
-					`\t\t\t\tself.cs2 = ${isOneWayPattern? 'CipherState{k: [0u8; DHLEN], n: MIN_NONCE}' : 'temp.3'};`,
-					`\t\t\t\t// Drop hs here`,
-					`\t\t\t\tself.hs = HandshakeState {`,
-					`\t\t\t\t\tss: SymmetricState::InitializeSymmetric(b""),`,
-					`\t\t\t\t\ts: ${util.emptyKeyPair},`,
-					`\t\t\t\t\te: ${util.emptyKeyPair},`,
-					`\t\t\t\t\trs: ${util.emptyKey},`,
-					`\t\t\t\t\tre: ${util.emptyKey},`,
-					`\t\t\t\t\tpsk: ${util.emptyKey},`,
-					`\t\t\t\t};`,
-					`\t\t\t}`,
-					`\t\t}`
+					`\t${!isOneWayPattern? 'else ' : ''}if self.mc == ${i} {`,
+					`\t\tif let Some(temp) = self.hs.read_message_${util.abc[i]}(message) {`,
+					`\t\t\tself.h = temp.0;`,
+					`\t\t\tplaintext = Some(temp.1);`,
+					`\t\t\tself.cs1 = temp.2;`,
+					`\t\t\tself.cs2 = ${isOneWayPattern? 'CipherState::new()' : 'temp.3'};`,
+					`\t\t\tself.hs.clear();`,
+					`\t\t}`,
+					`\t}`
 				]);
 			} else {
 				sendMessage = sendMessage.concat([
-					`\t\tif self.mc > ${finalKex} {`,
-					`\t\t\tif self.i {`,
-					`\t\t\t\tbuffer = self.cs1.WriteMessageRegular(message);`,
-					`\t\t\t} else {`,
-					`\t\t\t\tbuffer = self.${isOneWayPattern? 'cs1' : 'cs2'}.WriteMessageRegular(message);`,
-					`\t\t\t}`,
-					`\t\t}`
+					`\telse if self.i {`,
+					`\t\tlet buffer = self.cs1.write_message_regular(&message.as_bytes()[..]);`,
+					`\t\tself.mc += 1;`,
+					`\t\tbuffer`,
+					`\t} else {`,
+					`\t\tlet buffer = self.${isOneWayPattern? 'cs1' : 'cs2'}.write_message_regular(&message.as_bytes()[..]);`,
+					`\t\tself.mc += 1;`,
+					`\t\tbuffer`,
+					`\t}`,
 				]);
 				recvMessage = recvMessage.concat([
-					`\t\tif self.mc > ${finalKex} {`,
-					`\t\t\tif self.i {`,
-					`\t\t\t\tif let Some(msg) = self.${isOneWayPattern? 'cs1' : 'cs2'}.ReadMessageRegular(message) {`,
-					`\t\t\t\t\tplaintext = Some(msg);`,
-					`\t\t\t\t}`,
-					`\t\t\t} else {`,
-					`\t\t\t\tif let Some(msg) = self.cs1.ReadMessageRegular(message) {`,
-					`\t\t\t\t\tplaintext = Some(msg);`,
-					`\t\t\t\t}`,
+					`\telse if self.mc > ${finalKex} {`,
+					`\t\tif self.i {`,
+					`\t\t\tif let Some(msg) = &self.${isOneWayPattern? 'cs1' : 'cs2'}.read_message_regular(message) {`,
+					`\t\t\t\tplaintext = Some(msg.to_owned());`,
 					`\t\t\t}`,
-					`\t\t}`
+					`\t\t} else {`,
+					`\t\t\tif let Some(msg) = &self.cs1.read_message_regular(message) {`,
+					`\t\t\t\tplaintext = Some(msg.to_owned());`,
+					`\t\t\t}`,
+					`\t\t}`,
+					`\t}`,
+					`\tself.mc += 1;`,
+					`\tplaintext`
 				]);
 				break;
 			}
 		}
 		sendMessage = sendMessage.concat([
-			`\t\tself.mc += 1;`,
-			`\t\tbuffer`,
-			`\t} else {`,
-			`\t\tif message.len() > 65535 {`,
-			`\t\t\tpanic!("Message too big.");`,
-			`\t\t}`,
-			`\t\tpanic!("Maximum number of messages reached.");`,
-			`\t}`,
 			`}`
 		]);
 		recvMessage = recvMessage.concat([
-			`\t\tself.mc += 1;`,
-			`\t\tplaintext`,
-			`\t} else {`,
-			`\t\tif message.ciphertext.len() > 65535 {`,
-			`\t\t\tpanic!("Message too big.");`,
-			`\t\t}`,
-			`\t\tpanic!("Maximum number of messages reached.");`,
-			`\t}`,
 			`}`
 		]);
-		return initSession.concat(setEphemeral).concat(sendMessage).concat(recvMessage);
+		return initSession.concat(sendMessage).concat(recvMessage);
 	};
 
 	const parse = (pattern) => {

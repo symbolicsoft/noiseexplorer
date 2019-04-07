@@ -1,85 +1,57 @@
 #![allow(non_snake_case, non_upper_case_globals)]
 
-use noiseexplorer_x;
-use hex;
-
-fn decode_str(s: &str) -> Vec<u8> {
-    if let Ok(x) = hex::decode(s) {
-        x
-    } else {
-        panic!("{:X?}", hex::decode(s).err());
-    }
-}
-
-fn decode_str_32(s: &str) -> [u8; 32] {
-	if let Ok(x) = hex::decode(s) {
-		if x.len() == 32 {
-			let mut temp: [u8; 32] = [0u8; 32];
-			temp.copy_from_slice(&x[..]);
-			temp
-		} else {
-			panic!("Invalid input length; decode_32");
-		}
-	} else {
-		panic!("Invalid input length; decode_32");
-	}
-}
+use noiseexplorer_x::{
+	noisesession::NoiseSession,
+	types::{Keypair, Message, MessageBuffer, PrivateKey, Psk, PublicKey},
+};
 
 #[test]
 fn noiseexplorer_test_x() {
-    let prologue = decode_str("4a6f686e2047616c74");
-	let initStaticA: noiseexplorer_x::Keypair = noiseexplorer_x::Keypair::new_k(decode_str_32("e61ef9919cde45dd5f82166404bd08e38bceb5dfdfded0a34c8df7ed542214d1"));
-	let respStatic: noiseexplorer_x::Keypair = noiseexplorer_x::Keypair::new_k(decode_str_32("4a3acbfdb163dec651dfa3194dece676d437029c62a408b4c5ea9114246e4893"));
-	let mut initiatorSession: noiseexplorer_x::NoiseSession =
-	noiseexplorer_x::NoiseSession::InitSession(true, &prologue, initStaticA, respStatic.pk.0);
-	let mut responderSession: noiseexplorer_x::NoiseSession =
-	noiseexplorer_x::NoiseSession::InitSession(false, &prologue, respStatic, noiseexplorer_x::EMPTY_KEY);
-	initiatorSession.set_ephemeral_keypair(noiseexplorer_x::Keypair::new_k(decode_str_32(
-		"893e28b9dc6ca8d611ab664754b8ceb7bac5117349a4439a6b0569da977c464a"
-	)));
+    let prologueA: Message = Message::from_str("4a6f686e2047616c74");
+	let prologueB: Message = Message::from_str("4a6f686e2047616c74");
+	let initStaticA: PrivateKey = PrivateKey::from_str("e61ef9919cde45dd5f82166404bd08e38bceb5dfdfded0a34c8df7ed542214d1");
+	let respStatic_private: PrivateKey = PrivateKey::from_str("4a3acbfdb163dec651dfa3194dece676d437029c62a408b4c5ea9114246e4893");
+	let respStatic_public: PublicKey = PrivateKey::from_str("4a3acbfdb163dec651dfa3194dece676d437029c62a408b4c5ea9114246e4893").generate_public_key();
+	let mut initiatorSession: NoiseSession = NoiseSession::init_session(true, prologueA, Keypair::from_private_key(initStaticA), respStatic_public);
+	let mut responderSession: NoiseSession = NoiseSession::init_session(false, prologueB, Keypair::from_private_key(respStatic_private), PublicKey::empty());
+	initiatorSession.set_ephemeral_keypair(Keypair::from_private_key(PrivateKey::from_str("893e28b9dc6ca8d611ab664754b8ceb7bac5117349a4439a6b0569da977c464a")));
 	
-	let payloadA = decode_str("4c756477696720766f6e204d69736573");
-	let mut messageA: noiseexplorer_x::MessageBuffer = initiatorSession.SendMessage(&payloadA);
+	let mut messageA: MessageBuffer = initiatorSession.send_message(Message::from_str("4c756477696720766f6e204d69736573"));
 	let mut validA: bool = false;
-	if let Some(_x) = responderSession.RecvMessage(&mut messageA) {
+	if let Some(_x) = responderSession.recv_message(&mut messageA) {
 		validA = true;
 	}
-	let tA: Vec<u8> = decode_str("ca35def5ae56cec33dc2036731ab14896bc4c75dbb07a61f879f8e3afa4c79448bc3b729d16d3944f1bfae9fa98e0d306234bfadc44880f99a69c6e55b6c1458e9c9dacab3f29aac44b435c57dc436d0830ae461a4479228789a38085be55b13e0128564987994de842e73dd0a5c328b");
-	let payloadB = decode_str("4d757272617920526f746862617264");
-	let mut messageB: noiseexplorer_x::MessageBuffer = responderSession.SendMessage(&payloadB);
+	let tA: Message = Message::from_str("ca35def5ae56cec33dc2036731ab14896bc4c75dbb07a61f879f8e3afa4c79448bc3b729d16d3944f1bfae9fa98e0d306234bfadc44880f99a69c6e55b6c1458e9c9dacab3f29aac44b435c57dc436d0830ae461a4479228789a38085be55b13e0128564987994de842e73dd0a5c328b");
+	let mut messageB: MessageBuffer = responderSession.send_message(Message::from_str("4d757272617920526f746862617264"));
 	let mut validB: bool = false;
-	if let Some(_x) = initiatorSession.RecvMessage(&mut messageB) {
+	if let Some(_x) = initiatorSession.recv_message(&mut messageB) {
 		validB = true;
 	}
-	let tB: Vec<u8> = decode_str("aee89720731c98ccf15f4495ae3f6f2f7ed8e2164a1494c9e785b076e69cfc");
-	let payloadC = decode_str("462e20412e20486179656b");
-	let mut messageC: noiseexplorer_x::MessageBuffer = initiatorSession.SendMessage(&payloadC);
+	let tB: Message = Message::from_str("aee89720731c98ccf15f4495ae3f6f2f7ed8e2164a1494c9e785b076e69cfc");
+	let mut messageC: MessageBuffer = initiatorSession.send_message(Message::from_str("462e20412e20486179656b"));
 	let mut validC: bool = false;
-	if let Some(_x) = responderSession.RecvMessage(&mut messageC) {
+	if let Some(_x) = responderSession.recv_message(&mut messageC) {
 		validC = true;
 	}
-	let tC: Vec<u8> = decode_str("c88787701dc4365fe9dee7c0f23d91afdc214a459eadbc9f1d0220");
-	let payloadD = decode_str("4361726c204d656e676572");
-	let mut messageD: noiseexplorer_x::MessageBuffer = responderSession.SendMessage(&payloadD);
+	let tC: Message = Message::from_str("c88787701dc4365fe9dee7c0f23d91afdc214a459eadbc9f1d0220");
+	let mut messageD: MessageBuffer = responderSession.send_message(Message::from_str("4361726c204d656e676572"));
 	let mut validD: bool = false;
-	if let Some(_x) = initiatorSession.RecvMessage(&mut messageD) {
+	if let Some(_x) = initiatorSession.recv_message(&mut messageD) {
 		validD = true;
 	}
-	let tD: Vec<u8> = decode_str("d784542b85444798fb7d5bd1317f61ad701b43dd63fe3503efb267");
-	let payloadE = decode_str("4a65616e2d426170746973746520536179");
-	let mut messageE: noiseexplorer_x::MessageBuffer = initiatorSession.SendMessage(&payloadE);
+	let tD: Message = Message::from_str("d784542b85444798fb7d5bd1317f61ad701b43dd63fe3503efb267");
+	let mut messageE: MessageBuffer = initiatorSession.send_message(Message::from_str("4a65616e2d426170746973746520536179"));
 	let mut validE: bool = false;
-	if let Some(_x) = responderSession.RecvMessage(&mut messageE) {
+	if let Some(_x) = responderSession.recv_message(&mut messageE) {
 		validE = true;
 	}
-	let tE: Vec<u8> = decode_str("fd60a2da59e84a83e247f291752c71036b01f5ca996d8c24f324bf9260b6809d02");
-	let payloadF = decode_str("457567656e2042f6686d20766f6e2042617765726b");
-	let mut messageF: noiseexplorer_x::MessageBuffer = responderSession.SendMessage(&payloadF);
+	let tE: Message = Message::from_str("fd60a2da59e84a83e247f291752c71036b01f5ca996d8c24f324bf9260b6809d02");
+	let mut messageF: MessageBuffer = responderSession.send_message(Message::from_str("457567656e2042f6686d20766f6e2042617765726b"));
 	let mut validF: bool = false;
-	if let Some(_x) = initiatorSession.RecvMessage(&mut messageF) {
+	if let Some(_x) = initiatorSession.recv_message(&mut messageF) {
 		validF = true;
 	}
-	let tF: Vec<u8> = decode_str("1897139789b0cf8063b7ae9eba73d1e49e753ab7bb3f19316e54d3e20c69f25e819789c85f");
+	let tF: Message = Message::from_str("1897139789b0cf8063b7ae9eba73d1e49e753ab7bb3f19316e54d3e20c69f25e819789c85f");
 	assert!(
 		validA && validB && validC && validD && validE && validF,
 		"Sanity check FAIL for X_25519_ChaChaPoly_BLAKE2s."
@@ -98,10 +70,34 @@ fn noiseexplorer_test_x() {
 	cE.append(&mut messageE.ciphertext);
 	let mut cF: Vec<u8> = Vec::new();
 	cF.append(&mut messageF.ciphertext);
-	assert!(tA == cA,"\n\n\nTest A: FAIL\n\nExpected:\n{:X?}\n\nActual:\n{:X?}\n\n\n", tA, cA);
-	assert!(tB == cB,"\n\n\nTest B: FAIL\n\nExpected:\n{:X?}\n\nActual:\n{:X?}\n\n\n", tB, cB);
-	assert!(tC == cC,"\n\n\nTest C: FAIL\n\nExpected:\n{:X?}\n\nActual:\n{:X?}\n\n\n", tC, cC);
-	assert!(tD == cD,"\n\n\nTest D: FAIL\n\nExpected:\n{:X?}\n\nActual:\n{:X?}\n\n\n", tD, cD);
-	assert!(tE == cE,"\n\n\nTest E: FAIL\n\nExpected:\n{:X?}\n\nActual:\n{:X?}\n\n\n", tE, cE);
-	assert!(tF == cF,"\n\n\nTest F: FAIL\n\nExpected:\n{:X?}\n\nActual:\n{:X?}\n\n\n", tF, cF);
+	assert!(tA.as_bytes() == &cA,
+		"\n\n\nTest A: FAIL\n\nExpected:\n{:X?}\n\nActual:\n{:X?}\n\n\n",
+		tA.as_bytes(),
+		&cB
+	);
+	assert!(tB.as_bytes() == &cB,
+		"\n\n\nTest B: FAIL\n\nExpected:\n{:X?}\n\nActual:\n{:X?}\n\n\n",
+		tB.as_bytes(),
+		&cB
+	);
+	assert!(tC.as_bytes() == &cC,
+		"\n\n\nTest C: FAIL\n\nExpected:\n{:X?}\n\nActual:\n{:X?}\n\n\n",
+		tC.as_bytes(),
+		&cB
+	);
+	assert!(tD.as_bytes() == &cD,
+		"\n\n\nTest D: FAIL\n\nExpected:\n{:X?}\n\nActual:\n{:X?}\n\n\n",
+		tD.as_bytes(),
+		&cB
+	);
+	assert!(tE.as_bytes() == &cE,
+		"\n\n\nTest E: FAIL\n\nExpected:\n{:X?}\n\nActual:\n{:X?}\n\n\n",
+		tE.as_bytes(),
+		&cB
+	);
+	assert!(tF.as_bytes() == &cF,
+		"\n\n\nTest F: FAIL\n\nExpected:\n{:X?}\n\nActual:\n{:X?}\n\n\n",
+		tF.as_bytes(),
+		&cB
+	);
 }
