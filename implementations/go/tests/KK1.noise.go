@@ -369,8 +369,6 @@ func readMessageRegular(cs *cipherstate, message *messagebuffer) (*cipherstate, 
 	return cs, plaintext, valid2
 }
 
-
-
 /* ---------------------------------------------------------------- *
  * PROCESSES                                                        *
  * ---------------------------------------------------------------- */

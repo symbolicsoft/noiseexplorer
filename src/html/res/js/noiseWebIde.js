@@ -73,7 +73,7 @@ let getPv = (patternInput, parsedPattern, passive, cb) => {
 			pv.forEach((slot) => {
 				slot.length? full++ : full;
 			});
-			if (full === 9) {
+			if (full === pv.length) {
 				cb(pvRender(patternInput, parsedPattern, passive, pv));
 			}
 		};
@@ -85,9 +85,9 @@ let getGo = (patternInput, parsedPattern, cb) => {
 	let goTemplates = [
 		'1params', '2types', '3consts',
 		'4utils', '5prims', '6state',
-		'7channels', '8queries', '9processes'
+		'7processes'
 	];
-	let go = ['', '', '', '', '', '', '', '', ''];
+	let go = ['', '', '', '', '', '', ''];
 	goTemplates.forEach((templateFile, i) => {
 		let xhr = new XMLHttpRequest();
 		xhr.open('GET', `/res/go/${templateFile}.go`);
@@ -103,7 +103,7 @@ let getGo = (patternInput, parsedPattern, cb) => {
 			go.forEach((slot) => {
 				slot.length? full++ : full;
 			});
-			if (full === 7) {
+			if (full === go.length) {
 				cb(goRender(patternInput, parsedPattern, go));
 			}
 		};

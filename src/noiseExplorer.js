@@ -137,9 +137,7 @@ const GORENDER = (pattern, parsedGo) => {
 		READFILE('go/4utils.go'),
 		READFILE('go/5prims.go'),
 		READFILE('go/6state.go'),
-		READFILE('go/7channels.go'),
-		READFILE('go/8queries.go'),
-		READFILE('go/9processes.go')
+		READFILE('go/7processes.go')
 	];
 	go[0] = go[0].replace('/* $NOISE2GO_N$ */', `/*\n${pattern}\n*/`);
 	go[0] = go[0].replace('/* $NOISE2GO_T$ */', parsedGo.t)
@@ -147,13 +145,11 @@ const GORENDER = (pattern, parsedGo) => {
 	go[5] = go[5].replace('/* $NOISE2GO_I$ */', parsedGo.i);
 	go[5] = go[5].replace('/* $NOISE2GO_W$ */', parsedGo.w);
 	go[5] = go[5].replace('/* $NOISE2GO_R$ */', parsedGo.r);
-	go[7] = go[7].replace('/* $NOISE2GO_E$ */', parsedGo.e);
-	go[7] = go[7].replace('/* $NOISE2GO_Q$ */', parsedGo.q);
-	go[8] = go[8].replace('/* $NOISE2GO_G$ */', parsedGo.g);
-	go[8] = go[8].replace('/* $NOISE2GO_A$ */', parsedGo.a);
-	go[8] = go[8].replace('/* $NOISE2GO_B$ */', parsedGo.b);
-	go[8] = go[8].replace('/* $NOISE2GO_K$ */', parsedGo.k);
-	go[8] = go[8].replace('/* $NOISE2GO_P$ */', parsedGo.p);
+	go[6] = go[6].replace('/* $NOISE2GO_G$ */', parsedGo.g);
+	go[6] = go[6].replace('/* $NOISE2GO_A$ */', parsedGo.a);
+	go[6] = go[6].replace('/* $NOISE2GO_B$ */', parsedGo.b);
+	go[6] = go[6].replace('/* $NOISE2GO_K$ */', parsedGo.k);
+	go[6] = go[6].replace('/* $NOISE2GO_P$ */', parsedGo.p);
 	return go.join('\n');
 };
 
