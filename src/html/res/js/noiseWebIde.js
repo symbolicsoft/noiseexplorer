@@ -41,13 +41,11 @@ let goRender = (patternInput, parsedPattern, go) => {
 	go[5] = go[5].replace('/* $NOISE2GO_I$ */', parsedGo.i);
 	go[5] = go[5].replace('/* $NOISE2GO_W$ */', parsedGo.w);
 	go[5] = go[5].replace('/* $NOISE2GO_R$ */', parsedGo.r);
-	go[7] = go[7].replace('/* $NOISE2GO_E$ */', parsedGo.e);
-	go[7] = go[7].replace('/* $NOISE2GO_Q$ */', parsedGo.q);
-	go[8] = go[8].replace('/* $NOISE2GO_G$ */', parsedGo.g);
-	go[8] = go[8].replace('/* $NOISE2GO_A$ */', parsedGo.a);
-	go[8] = go[8].replace('/* $NOISE2GO_B$ */', parsedGo.b);
-	go[8] = go[8].replace('/* $NOISE2GO_K$ */', parsedGo.k);
-	go[8] = go[8].replace('/* $NOISE2GO_P$ */', parsedGo.p);
+	go[6] = go[6].replace('/* $NOISE2GO_G$ */', parsedGo.g);
+	go[6] = go[6].replace('/* $NOISE2GO_A$ */', parsedGo.a);
+	go[6] = go[6].replace('/* $NOISE2GO_B$ */', parsedGo.b);
+	go[6] = go[6].replace('/* $NOISE2GO_K$ */', parsedGo.k);
+	go[6] = go[6].replace('/* $NOISE2GO_P$ */', parsedGo.p);
 	return go.join('\n');
 };
 
