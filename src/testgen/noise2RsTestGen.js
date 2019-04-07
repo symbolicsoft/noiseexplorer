@@ -22,7 +22,7 @@ const gen = (
 	rsTestCode.push(`let prologueA: Message = Message::from_str("${initPrologue}");`);
 	rsTestCode.push(`let prologueB: Message = Message::from_str("${initPrologue}");`);
 	if (initStaticSk.length == 0) {
-		initStaticSk = `PublicKey::empty()`;
+		initStaticSk = `PrivateKey::from_str("0000000000000000000000000000000000000000000000000000000000000001")`;
 	} else {
 		initStaticSk = `PrivateKey::from_str("${initStaticSk}")`;
 	}

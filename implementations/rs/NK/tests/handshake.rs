@@ -9,7 +9,7 @@ use noiseexplorer_nk::{
 fn noiseexplorer_test_nk() {
     let prologueA: Message = Message::from_str("4a6f686e2047616c74");
 	let prologueB: Message = Message::from_str("4a6f686e2047616c74");
-	let initStaticA: PrivateKey = PublicKey::empty();
+	let initStaticA: PrivateKey = PrivateKey::from_str("0000000000000000000000000000000000000000000000000000000000000001");
 	let respStatic_private: PrivateKey = PrivateKey::from_str("4a3acbfdb163dec651dfa3194dece676d437029c62a408b4c5ea9114246e4893");
 	let respStatic_public: PublicKey = PrivateKey::from_str("4a3acbfdb163dec651dfa3194dece676d437029c62a408b4c5ea9114246e4893").generate_public_key();
 	let mut initiatorSession: NoiseSession = NoiseSession::init_session(true, prologueA, Keypair::from_private_key(initStaticA), respStatic_public);
