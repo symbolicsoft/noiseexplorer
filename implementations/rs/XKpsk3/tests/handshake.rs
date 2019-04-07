@@ -2,55 +2,55 @@
 
 use noiseexplorer_xkpsk3::{
 	noisesession::NoiseSession,
-	types::{Keypair, Message, MessageBuffer, PrivateKey, Psk, PublicKey},
+	types::{Keypair, Message, MessageBuffer, PrivateKey, PublicKey, Psk},
 };
 
 #[test]
 fn noiseexplorer_test_xkpsk3() {
     let prologueA: Message = Message::from_str("4a6f686e2047616c74");
 	let prologueB: Message = Message::from_str("4a6f686e2047616c74");
-	let initStaticA: PrivateKey = PrivateKey::from_str("e61ef9919cde45dd5f82166404bd08e38bceb5dfdfded0a34c8df7ed542214d1");
-	let respStatic_private: PrivateKey = PrivateKey::from_str("4a3acbfdb163dec651dfa3194dece676d437029c62a408b4c5ea9114246e4893");
-	let respStatic_public: PublicKey = PrivateKey::from_str("4a3acbfdb163dec651dfa3194dece676d437029c62a408b4c5ea9114246e4893").generate_public_key();
+	let init_static_a: PrivateKey = PrivateKey::from_str("e61ef9919cde45dd5f82166404bd08e38bceb5dfdfded0a34c8df7ed542214d1");
+	let resp_static_private: PrivateKey = PrivateKey::from_str("4a3acbfdb163dec651dfa3194dece676d437029c62a408b4c5ea9114246e4893");
+	let resp_static_public: PublicKey = PrivateKey::from_str("4a3acbfdb163dec651dfa3194dece676d437029c62a408b4c5ea9114246e4893").generate_public_key();
 	let pskA: Psk = Psk::from_str("54686973206973206d7920417573747269616e20706572737065637469766521");
 	let pskB: Psk = Psk::from_str("54686973206973206d7920417573747269616e20706572737065637469766521");
-	let mut initiatorSession: NoiseSession = NoiseSession::init_session(true, prologueA, Keypair::from_private_key(initStaticA), respStatic_public, pskA);
-	let mut responderSession: NoiseSession = NoiseSession::init_session(false, prologueB, Keypair::from_private_key(respStatic_private), PublicKey::empty(), pskB);
-	initiatorSession.set_ephemeral_keypair(Keypair::from_private_key(PrivateKey::from_str("893e28b9dc6ca8d611ab664754b8ceb7bac5117349a4439a6b0569da977c464a")));
-	responderSession.set_ephemeral_keypair(Keypair::from_private_key(PrivateKey::from_str("bbdb4cdbd309f1a1f2e1456967fe288cadd6f712d65dc7b7793d5e63da6b375b")));
-	let mut messageA: MessageBuffer = initiatorSession.send_message(Message::from_str("4c756477696720766f6e204d69736573"));
+	let mut initiator_session: NoiseSession = NoiseSession::init_session(true, prologueA, Keypair::from_private_key(init_static_a), resp_static_public, pskA);
+	let mut responder_session: NoiseSession = NoiseSession::init_session(false, prologueB, Keypair::from_private_key(resp_static_private), PublicKey::empty(), pskB);
+	initiator_session.set_ephemeral_keypair(Keypair::from_private_key(PrivateKey::from_str("893e28b9dc6ca8d611ab664754b8ceb7bac5117349a4439a6b0569da977c464a")));
+	responder_session.set_ephemeral_keypair(Keypair::from_private_key(PrivateKey::from_str("bbdb4cdbd309f1a1f2e1456967fe288cadd6f712d65dc7b7793d5e63da6b375b")));
+	let mut messageA: MessageBuffer = initiator_session.send_message(Message::from_str("4c756477696720766f6e204d69736573"));
 	let mut validA: bool = false;
-	if let Some(_x) = responderSession.recv_message(&mut messageA) {
+	if let Some(_x) = responder_session.recv_message(&mut messageA) {
 		validA = true;
 	}
 	let tA: Message = Message::from_str("ca35def5ae56cec33dc2036731ab14896bc4c75dbb07a61f879f8e3afa4c79446f78efab3dd17dddf573d7f399c41a491e3d4a8c643e419bdf51d1933b652b3a");
-	let mut messageB: MessageBuffer = responderSession.send_message(Message::from_str("4d757272617920526f746862617264"));
+	let mut messageB: MessageBuffer = responder_session.send_message(Message::from_str("4d757272617920526f746862617264"));
 	let mut validB: bool = false;
-	if let Some(_x) = initiatorSession.recv_message(&mut messageB) {
+	if let Some(_x) = initiator_session.recv_message(&mut messageB) {
 		validB = true;
 	}
 	let tB: Message = Message::from_str("95ebc60d2b1fa672c1f46a8aa265ef51bfe38e7ccb39ec5be34069f14480884363bbc83fb0e2a44b36feb19c5ce545adb9cc59b96cc6b987ec62c8bb0db6e6");
-	let mut messageC: MessageBuffer = initiatorSession.send_message(Message::from_str("462e20412e20486179656b"));
+	let mut messageC: MessageBuffer = initiator_session.send_message(Message::from_str("462e20412e20486179656b"));
 	let mut validC: bool = false;
-	if let Some(_x) = responderSession.recv_message(&mut messageC) {
+	if let Some(_x) = responder_session.recv_message(&mut messageC) {
 		validC = true;
 	}
 	let tC: Message = Message::from_str("285922ecd27adc8258a798d4f85ad5fcc86e7862210ea3dfa3cb23659a19630c6c2ff6890a0485e793a3620d87a652e527a394ac202551878895c866e86c74ab489720317c7dea72d8e652");
-	let mut messageD: MessageBuffer = responderSession.send_message(Message::from_str("4361726c204d656e676572"));
+	let mut messageD: MessageBuffer = responder_session.send_message(Message::from_str("4361726c204d656e676572"));
 	let mut validD: bool = false;
-	if let Some(_x) = initiatorSession.recv_message(&mut messageD) {
+	if let Some(_x) = initiator_session.recv_message(&mut messageD) {
 		validD = true;
 	}
 	let tD: Message = Message::from_str("fc97959e232b766114c282617cda61c902ed282468130ec94e0efa");
-	let mut messageE: MessageBuffer = initiatorSession.send_message(Message::from_str("4a65616e2d426170746973746520536179"));
+	let mut messageE: MessageBuffer = initiator_session.send_message(Message::from_str("4a65616e2d426170746973746520536179"));
 	let mut validE: bool = false;
-	if let Some(_x) = responderSession.recv_message(&mut messageE) {
+	if let Some(_x) = responder_session.recv_message(&mut messageE) {
 		validE = true;
 	}
 	let tE: Message = Message::from_str("78d7d2f41577b2ff7b1b2c62df539b3b0b45acd5ccb01d07e6e889c5f7a7682f06");
-	let mut messageF: MessageBuffer = responderSession.send_message(Message::from_str("457567656e2042f6686d20766f6e2042617765726b"));
+	let mut messageF: MessageBuffer = responder_session.send_message(Message::from_str("457567656e2042f6686d20766f6e2042617765726b"));
 	let mut validF: bool = false;
-	if let Some(_x) = initiatorSession.recv_message(&mut messageF) {
+	if let Some(_x) = initiator_session.recv_message(&mut messageF) {
 		validF = true;
 	}
 	let tF: Message = Message::from_str("8040fee7bccafbb0ffbeffd38f1df4fdc0ac0c7ec182df49c81245d97838638df46d77158e");

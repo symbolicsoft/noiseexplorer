@@ -2,7 +2,7 @@
 
 use noiseexplorer_$NOISE2RS_N$::{
 	noisesession::NoiseSession,
-	types::{Keypair, Message, MessageBuffer, PrivateKey, Psk, PublicKey},
+	types::{Keypair, Message, MessageBuffer, PrivateKey, PublicKey$NOISE2RS_S$},
 };
 
 #[test]

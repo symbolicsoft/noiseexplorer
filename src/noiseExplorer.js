@@ -229,12 +229,19 @@ if (
 ) {
 	let pattern = READFILE(ARGV.pattern);
 	let json = NOISEPARSER.parse(pattern);
+	let psk = '';
+	json.messages.forEach((message, i) => {
+		if (message.tokens.indexOf('psk') >= 0) {
+			psk = ', Psk';
+		}
+	});
 	let parsedRs = NOISE2RS.parse(json);
 	let output = RSRENDER(pattern, parsedRs);
 	let cargo = READFILE('rs/Cargo.toml')
 		.replace("$NOISE2RS_N$", json.name.toLowerCase());
 	let testGen = NOISE2RSTESTGEN.generate(json, output);
 	let test = READFILE('rs/test.rs')
+		.replace("$NOISE2RS_S$", psk)
 		.replace("$NOISE2RS_T$", testGen)
 		.replace(/\$NOISE2RS_N\$/g, json.name.toLowerCase());
 	if (!FS.existsSync(`../implementations/rs/${json.name}`)) {

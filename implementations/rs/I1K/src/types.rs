@@ -100,6 +100,7 @@ impl Psk {
 		}
 		Psk::from_bytes(psk)
 	}
+	#[allow(dead_code)]
 	pub(crate) fn as_bytes(&self) -> [u8; DHLEN] {
 		self.psk
 	}

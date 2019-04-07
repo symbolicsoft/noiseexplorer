@@ -10,14 +10,14 @@ const gen = (
 ) => {
 	let abc = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
 	let rsTestCode = [];
-	let initInit = `let mut initiatorSession: NoiseSession = NoiseSession::init_session(true, prologueA, Keypair::from_private_key(initStaticA)`;
-	let initResp = `let mut responderSession: NoiseSession = NoiseSession::init_session(false, prologueB, Keypair::from_private_key(respStatic_private)`;
+	let initInit = `let mut initiator_session: NoiseSession = NoiseSession::init_session(true, prologueA, Keypair::from_private_key(init_static_a)`;
+	let initResp = `let mut responder_session: NoiseSession = NoiseSession::init_session(false, prologueB, Keypair::from_private_key(resp_static_private)`;
 	let eph = [``, ``];
 	if (initEphemeralPk.length > 0) {
-		eph[0] = `initiatorSession.set_ephemeral_keypair(Keypair::from_private_key(PrivateKey::from_str("${initEphemeralPk}")));`;
+		eph[0] = `initiator_session.set_ephemeral_keypair(Keypair::from_private_key(PrivateKey::from_str("${initEphemeralPk}")));`;
 	}
 	if (respEphemeralPk.length > 0) {
-		eph[1] = `responderSession.set_ephemeral_keypair(Keypair::from_private_key(PrivateKey::from_str("${respEphemeralPk}")));`;
+		eph[1] = `responder_session.set_ephemeral_keypair(Keypair::from_private_key(PrivateKey::from_str("${respEphemeralPk}")));`;
 	}
 	rsTestCode.push(`let prologueA: Message = Message::from_str("${initPrologue}");`);
 	rsTestCode.push(`let prologueB: Message = Message::from_str("${initPrologue}");`);
@@ -32,17 +32,16 @@ const gen = (
 		respStaticSk = `PrivateKey::from_str("${respStaticSk}")`;
 	}
 	rsTestCode = rsTestCode.concat([
-		`let initStaticA: PrivateKey = ${initStaticSk};`,
-		`let respStatic_private: PrivateKey = ${respStaticSk};`,
-		`let respStatic_public: PublicKey = ${respStaticSk}.generate_public_key();`
+		`let init_static_a: PrivateKey = ${initStaticSk};`,
+		`let resp_static_private: PrivateKey = ${respStaticSk};`
 	]);
 	if (initRemoteStaticPk.length > 0) {
-		initInit = `${initInit}, respStatic_public`;
+		rsTestCode.push(`let resp_static_public: PublicKey = ${respStaticSk}.generate_public_key();`);
+		initInit = `${initInit}, resp_static_public`;
 	} else {
 		initInit = `${initInit}, PublicKey::empty()`;
 	}
 	if (respRemoteStaticPk.length > 0) {
-		rsTestCode.push(`let initStaticB: Keypair = Keypair::from_private_key(${initStaticSk});`);
 		initResp = `${initResp}, PublicKey::from_str("${respRemoteStaticPk}")`;
 	} else {
 		initResp = `${initResp}, PublicKey::empty()`;
@@ -63,8 +62,8 @@ const gen = (
 	rsTestCode.push(eph[0]);
 	rsTestCode.push(eph[1]);
 	for (let i = 0; i < 6; i++) {
-		let send = (i % 2 === 0) ? 'initiatorSession' : 'responderSession';
-		let recv = (i % 2 === 0) ? 'responderSession' : 'initiatorSession';
+		let send = (i % 2 === 0) ? 'initiator_session' : 'responder_session';
+		let recv = (i % 2 === 0) ? 'responder_session' : 'initiator_session';
 		rsTestCode.push([
 			`let mut message${abc[i]}: MessageBuffer = ${send}.send_message(Message::from_str("${messages[i].payload}"));`,
 			`let mut valid${abc[i]}: bool = false;`,
