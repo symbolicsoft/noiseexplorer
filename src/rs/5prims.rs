@@ -2,29 +2,20 @@
  * PRIMITIVES                                                       *
  * ---------------------------------------------------------------- */
 
-fn increment_nonce(n: u64) -> u64 {
-	n + 1
+use crate::{
+	consts::{BLOCKLEN, DHLEN, HASHLEN, MAC_LENGTH, NONCE_LENGTH},
+	types::Keypair,
+};
+use byteorder::{ByteOrder, LittleEndian};
+use crypto::{blake2s::Blake2s, digest::Digest};
+use hacl_star::chacha20poly1305;
+
+#[allow(dead_code)]
+pub fn generate_keypair() -> Keypair {
+	Keypair::new()
 }
 
-fn DH(kp: &Keypair, pk: &[u8; DHLEN]) -> [u8; DHLEN] {
-	let mut output: [u8; DHLEN] = EMPTY_KEY;
-	curve25519::scalarmult(&mut output, &kp.sk.0, pk);
-	output
-}
-
-fn GENERATE_KEYPAIR() -> Keypair {
-	let a: (curve25519::SecretKey, curve25519::PublicKey) = curve25519::keypair(rand::thread_rng());
-	Keypair { sk: a.0, pk: a.1 }
-}
-
-fn generate_public_key(sk: &[u8; DHLEN]) -> [u8; DHLEN] {
-	let mut output: [u8; DHLEN] = EMPTY_KEY;
-	output.copy_from_slice(sk);
-	let output = curve25519::SecretKey(output).get_public();
-	output.0
-}
-
-fn ENCRYPT(k: &[u8; DHLEN], n: u64, ad: &[u8], plaintext: &[u8]) -> Vec<u8> {
+pub fn encrypt(k: [u8; DHLEN], n: u64, ad: &[u8], plaintext: &[u8]) -> Vec<u8> {
 	let mut mac: [u8; MAC_LENGTH] = [0u8; MAC_LENGTH];
 	let mut in_out = plaintext.to_owned();
 	let mut nonce: [u8; NONCE_LENGTH] = [0u8; NONCE_LENGTH];
@@ -38,9 +29,8 @@ fn ENCRYPT(k: &[u8; DHLEN], n: u64, ad: &[u8], plaintext: &[u8]) -> Vec<u8> {
 	ciphertext
 }
 
-fn DECRYPT(k: &[u8; DHLEN], n: u64, ad: &[u8], ciphertext: &[u8]) -> Option<Vec<u8>> {
+pub fn decrypt(k: [u8; DHLEN], n: u64, ad: &[u8], ciphertext: &[u8]) -> Option<Vec<u8>> {
 	let temp = Vec::from(ciphertext);
-	// Might panic here (if mac has illegal length)
 	let (x, y) = temp.split_at(temp.len() - MAC_LENGTH);
 	let mut in_out = x.to_owned();
 	let mut mac: [u8; MAC_LENGTH] = [0u8; MAC_LENGTH];
@@ -58,7 +48,7 @@ fn DECRYPT(k: &[u8; DHLEN], n: u64, ad: &[u8], ciphertext: &[u8]) -> Option<Vec<
 	}
 }
 
-fn HASH(data: &[u8]) -> Vec<u8> {
+pub fn hash(data: &[u8]) -> Vec<u8> {
 	let mut blake2s: Blake2s = Blake2s::new(HASHLEN);
 	blake2s.input(&data[..]);
 	let digest_res: &mut [u8] = &mut [0u8; HASHLEN];
@@ -67,7 +57,7 @@ fn HASH(data: &[u8]) -> Vec<u8> {
 	Vec::from(digest_res)
 }
 
-fn hmac(key: &[u8], data: &[u8], out: &mut [u8]) {
+pub fn hmac(key: &[u8], data: &[u8], out: &mut [u8]) {
 	let mut blake2s: Blake2s = Blake2s::new(HASHLEN);
 	let mut ipad = [0x36u8; BLOCKLEN];
 	let mut opad = [0x5cu8; BLOCKLEN];
@@ -86,7 +76,7 @@ fn hmac(key: &[u8], data: &[u8], out: &mut [u8]) {
 	blake2s.result(out);
 }
 
-fn HKDF(
+pub fn hkdf(
 	chaining_key: &[u8],
 	input_key_material: &[u8],
 	outputs: usize,
