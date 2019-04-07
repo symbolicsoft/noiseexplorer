@@ -360,7 +360,8 @@ textarea#patternInput.parseInvalid {
 
 a#pvActiveLink,
 a#pvPassiveLink,
-a#goLink {
+a#goLink,
+a#rsLink {
 	display: inline-block;
 	padding: 10px;
 	border: 1px solid var(--noiseDarkGray);
@@ -383,14 +384,16 @@ a#pvPassiveLink {
 	background-size: 45px;
 }
 
-a#goLink {
+a#goLink,
+a#rsLink {
 	background-image: url('/res/img/implementations.svg');
 	background-size: 45px;
 }
 
 a#pvActiveLink.parseInvalid,
 a#pvPassiveLink.parseInvalid,
-a#goLink.parseInvalid {
+a#goLink.parseInvalid,
+a#rsLink.parseInvalid {
 	background-color: var(--noiseRed) !important;
 }
 

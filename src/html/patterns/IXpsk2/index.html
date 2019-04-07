@@ -13,13 +13,16 @@
 	<script src="../../res/js/parser/noiseParser.js"></script>
 	<script src="../../res/js/parser/noise2Pv.js"></script>
 	<script src="../../res/js/parser/noise2Go.js"></script>
+	<script src="../../res/js/parser/noise2Rs.js"></script>
 	<script src="../../res/js/parser/noiseReader.js"></script>
+	<script src="../../res/js/jszip.js"></script>
 	<script src="../../res/js/noiseWebIde.js"></script>
 	<script>
 	window.addEventListener('load', () => {
 		pvGen(['IXpsk2:','  -> e, s','  <- e, ee, se, s, es, psk','  ->','  <-'].join('\n'), 'active', 'pvActiveLink', false);
 		pvGen(['IXpsk2:','  -> e, s','  <- e, ee, se, s, es, psk','  ->','  <-'].join('\n'), 'passive', 'pvPassiveLink', false);
 		goGen(['IXpsk2:','  -> e, s','  <- e, ee, se, s, es, psk','  ->','  <-'].join('\n'), 'goLink', false);
+		rsGen(['IXpsk2:','  -> e, s','  <- e, ee, se, s, es, psk','  ->','  <-'].join('\n'), 'rsLink', false);
 	});
 	</script>
 </head>
@@ -95,6 +98,10 @@
 				<a href="#" id="goLink">
 					Get Implementation
 					<span class="modelType">written in go</span>
+				</a>
+				<a href="#" id="rsLink">
+					Get Implementation
+					<span class="modelType">written in rust</span>
 				</a>
 			</p>
 		</div>

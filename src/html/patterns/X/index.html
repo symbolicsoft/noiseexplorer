@@ -13,13 +13,16 @@
 	<script src="../../res/js/parser/noiseParser.js"></script>
 	<script src="../../res/js/parser/noise2Pv.js"></script>
 	<script src="../../res/js/parser/noise2Go.js"></script>
+	<script src="../../res/js/parser/noise2Rs.js"></script>
 	<script src="../../res/js/parser/noiseReader.js"></script>
+	<script src="../../res/js/jszip.js"></script>
 	<script src="../../res/js/noiseWebIde.js"></script>
 	<script>
 	window.addEventListener('load', () => {
 		pvGen(['X:','  <- s','  ...','  -> e, es, s, ss'].join('\n'), 'active', 'pvActiveLink', false);
 		pvGen(['X:','  <- s','  ...','  -> e, es, s, ss'].join('\n'), 'passive', 'pvPassiveLink', false);
 		goGen(['X:','  <- s','  ...','  -> e, es, s, ss'].join('\n'), 'goLink', false);
+		rsGen(['X:','  <- s','  ...','  -> e, es, s, ss'].join('\n'), 'rsLink', false);
 	});
 	</script>
 </head>
@@ -78,6 +81,10 @@
 				<a href="#" id="goLink">
 					Get Implementation
 					<span class="modelType">written in go</span>
+				</a>
+				<a href="#" id="rsLink">
+					Get Implementation
+					<span class="modelType">written in rust</span>
 				</a>
 			</p>
 		</div>

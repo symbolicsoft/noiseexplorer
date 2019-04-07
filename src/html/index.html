@@ -13,7 +13,9 @@
 	<script src="res/js/parser/noiseParser.js"></script>
 	<script src="res/js/parser/noise2Pv.js"></script>
 	<script src="res/js/parser/noise2Go.js"></script>
+	<script src="res/js/parser/noise2Rs.js"></script>
 	<script src="res/js/parser/noiseReader.js"></script>
+	<script src="res/js/jszip.js"></script>
 	<script src="res/js/noiseWebIde.js"></script>
 	<script>
 		window.addEventListener('load', () => {
@@ -32,6 +34,9 @@
 			});
 			$('goLink').addEventListener('click', (event) => {
 				goGen($('patternInput').value, 'goLink', true);
+			});
+			$('rsLink').addEventListener('click', (event) => {
+				rsGen($('patternInput').value, 'rsLink', true);
 			});
 			$('patternInput').focus();
 			processPatternInput($('patternInput').value);
@@ -98,6 +103,10 @@ IKpsk2:
 				<a href="#" id="goLink">
 					Get Implementation
 					<span class="modelType">written in go</span>
+				</a>
+				<a href="#" id="rsLink">
+					Get Implementation
+					<span class="modelType">written in rust</span>
 				</a>
 			</p>
 		</div>

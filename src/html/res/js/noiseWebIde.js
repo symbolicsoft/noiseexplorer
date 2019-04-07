@@ -3,7 +3,8 @@ let genReady = {
 		active: false,
 		passive: false
 	},
-	go: false
+	go: false,
+	rs: false
 };
 
 let $ = (id) => { return document.getElementById(id) };
@@ -30,23 +31,27 @@ let pvRender = (patternInput, parsedPattern, passive, pv) => {
 	pv[8] = pv[8].replace('(* $NOISE2PV_B$ *)', parsedPv.b);
 	pv[8] = pv[8].replace('(* $NOISE2PV_K$ *)', parsedPv.k);
 	pv[8] = pv[8].replace('(* $NOISE2PV_P$ *)', parsedPv.p);
-	return pv.join('\n');
+	return pv;
 };
 
 let goRender = (patternInput, parsedPattern, go) => {
 	let parsedGo = NOISE2GO.parse(parsedPattern);
 	go[0] = go[0].replace('/* $NOISE2GO_N$ */', `/*\n${patternInput}\n*/`);
-	go[0] = go[0].replace('/* $NOISE2GO_T$ */', parsedGo.t)
-	go[1] = go[1].replace('/* $NOISE2GO_S$ */', parsedGo.s);
 	go[5] = go[5].replace('/* $NOISE2GO_I$ */', parsedGo.i);
 	go[5] = go[5].replace('/* $NOISE2GO_W$ */', parsedGo.w);
 	go[5] = go[5].replace('/* $NOISE2GO_R$ */', parsedGo.r);
-	go[6] = go[6].replace('/* $NOISE2GO_G$ */', parsedGo.g);
-	go[6] = go[6].replace('/* $NOISE2GO_A$ */', parsedGo.a);
-	go[6] = go[6].replace('/* $NOISE2GO_B$ */', parsedGo.b);
-	go[6] = go[6].replace('/* $NOISE2GO_K$ */', parsedGo.k);
 	go[6] = go[6].replace('/* $NOISE2GO_P$ */', parsedGo.p);
-	return go.join('\n');
+	return go;
+};
+
+let rsRender = (patternInput, parsedPattern, rs) => {
+	let parsedRs = NOISE2RS.parse(parsedPattern);
+	rs[0] = rs[0].replace('/* $NOISE2RS_N$ */', `/*\n${patternInput}\n*/`);
+	rs[5] = rs[5].replace('/* $NOISE2RS_I$ */', parsedRs.i);
+	rs[5] = rs[5].replace('/* $NOISE2RS_W$ */', parsedRs.w);
+	rs[5] = rs[5].replace('/* $NOISE2RS_R$ */', parsedRs.r);
+	rs[6] = rs[6].replace('/* $NOISE2RS_P$ */', parsedRs.p);
+	return rs;
 };
 
 let getPv = (patternInput, parsedPattern, passive, cb) => {
@@ -78,7 +83,8 @@ let getPv = (patternInput, parsedPattern, passive, cb) => {
 				slot.length? full++ : full;
 			});
 			if (full === pv.length) {
-				cb(pvRender(patternInput, parsedPattern, passive, pv));
+				let output = pvRender(patternInput, parsedPattern, passive, pv); 
+				cb(output.join('\n'));
 			}
 		};
 		xhr.send();
@@ -112,7 +118,43 @@ let getGo = (patternInput, parsedPattern, cb) => {
 				slot.length? full++ : full;
 			});
 			if (full === go.length) {
-				cb(goRender(patternInput, parsedPattern, go));
+				let output = goRender(patternInput, parsedPattern, go);
+				cb(output.join('\n'));
+			}
+		};
+		xhr.send();
+	});
+};
+
+let getRs = (patternInput, parsedPattern, cb) => {
+	let rsTemplates = [
+		'0params',
+		'1types',
+		'2consts',
+		'3utils',
+		'4prims',
+		'5state',
+		'6processes'
+	];
+	let rs = ['', '', '', '', '', '', ''];
+	rsTemplates.forEach((templateFile, i) => {
+		let xhr = new XMLHttpRequest();
+		xhr.open('GET', `/res/rs/${templateFile}.rs`);
+		xhr.onreadystatechange = () => {
+			if (
+				(xhr.readyState !== 4) ||
+				(xhr.status !== 200)
+			) {
+				return false;
+			}
+			rs[i] = xhr.responseText;
+			let full = 0;
+			rs.forEach((slot) => {
+				slot.length? full++ : full;
+			});
+			if (full === rs.length) {
+				let output = rsRender(patternInput, parsedPattern, rs);
+				cb(output);
 			}
 		};
 		xhr.send();
@@ -202,3 +244,52 @@ let goGen = (patternInput, aId, autoClick) => {
 	});
 	return false;
 };
+
+let rsGen = (patternInput, aId, autoClick) => {
+	let parsedPattern = {};
+	if (genReady.rs) {
+		return true;
+	}
+	try {
+		parsedPattern = peg$parse(patternInput);
+	} catch (e) {
+		alert('Please first ensure that your Noise pattern is valid.');
+		return false;
+	}
+	getRs(patternInput, parsedPattern, (rs) => {
+		let xhr = new XMLHttpRequest();
+		xhr.open('GET', `/res/rs/Cargo.toml`);
+		xhr.onreadystatechange = () => {
+			if (
+				(xhr.readyState !== 4) ||
+				(xhr.status !== 200)
+			) {
+				return false;
+			}
+			let cargo = xhr.responseText
+				.replace('$NOISE2RS_N$', parsedPattern.name.toLowerCase());
+			let zip = new JSZip();
+			let src = zip.folder('src');
+			zip.file('Cargo.toml', cargo);
+			src.file('lib.rs', rs[0]);
+			src.file('types.rs', rs[1]);
+			src.file('consts.rs', rs[2]);
+			src.file('macros.rs', rs[3]);
+			src.file('prims.rs', rs[4]);
+			src.file('state.rs', rs[5]);
+			src.file('noisesession.rs', rs[6]);
+			zip.generateAsync({
+				type:'blob'
+			}).then((blob) => {
+				let rsBlob = window.URL.createObjectURL(blob);
+				genReady.rs = true;
+				$(aId).href = rsBlob;
+				$(aId).download = `${parsedPattern.name}.noise.rs.zip`;
+				autoClick? $(aId).click() : false;
+			});
+		};
+		xhr.send();
+	});
+	return false;
+};
+
