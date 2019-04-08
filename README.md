@@ -11,7 +11,7 @@ Noise Explorer can also render results from the ProVerif output into an elegant 
 |----------|------------|----------|------------|
 | ProVerif | ✔️          | ✔️        | ✔️          |
 | Go       | ✔️          | ✔️        | ✔️          |
-| Rust     | ✔️          | ❌       | ✔️          |
+| Rust     | ✔️          | ✔️        | ✔️          |
 
 ### Usage
 
