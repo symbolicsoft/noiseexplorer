@@ -171,7 +171,7 @@ const NOISE2RS = {
 		let seInitiatorFill = initiator ?
 			`self.ss.mix_key(&self.s.dh(&self.re.as_bytes()));` : `self.ss.mix_key(&self.e.dh(&self.rs.as_bytes()));`;
 		let finalFill = isFinal ? [
-			`let h: Hash = Hash::new(from_slice_hashlen(self.ss.h.as_bytes()));`,
+			`let h: Hash = Hash::from_bytes(from_slice_hashlen(&self.ss.h.as_bytes()));`,
 			`let (cs1, cs2) = self.ss.split();`,
 			`self.ss.clear();`,
 			`let messagebuffer = MessageBuffer { ne, ns, ciphertext };`,
@@ -258,7 +258,7 @@ const NOISE2RS = {
 		let seInitiatorFill = initiator ?
 			`self.ss.mix_key(&self.s.dh(&self.re.as_bytes()));` : `self.ss.mix_key(&self.e.dh(&self.rs.as_bytes()));`;
 		let finalFill = isFinal ? [
-			`\tlet h: Hash = Hash::new(from_slice_hashlen(self.ss.h.as_bytes()));`,
+			`\tlet h: Hash = Hash::from_bytes(from_slice_hashlen(&self.ss.h.as_bytes()));`,
 			`\tlet (cs1, cs2) = self.ss.split();`,
 			`\tself.ss.clear();`,
 			`\treturn Some((h, plaintext, cs1, cs2));`
@@ -364,21 +364,21 @@ const NOISE2RS = {
 			`\tpub fn init_session(initiator: bool, prologue: Message, s: Keypair, rs: PublicKey${hasPsk? ', psk: Psk' : ''}) -> NoiseSession {`,
 			`\tif initiator {`,
 			`\t\tNoiseSession{`,
-			`\t\t\ths: HandshakeState::initialize_initiator(prologue.as_bytes(), s, rs, ${hasPsk? 'psk' : 'Psk::new()'}),`,
+			`\t\t\ths: HandshakeState::initialize_initiator(&prologue.as_bytes(), s, rs, ${hasPsk? 'psk' : 'Psk::new()'}),`,
 			`\t\t\tmc: 0,`,
 			`\t\t\ti: initiator,`,
 			`\t\t\tcs1: CipherState::new(),`,
 			`\t\t\tcs2: CipherState::new(),`,
-			`\t\t\th: Hash::empty(),`,
+			`\t\t\th: Hash::new(),`,
 			`\t\t}`,
 			`\t} else {`,
 			`\t\tNoiseSession {`,
-			`\t\t\ths: HandshakeState::initialize_responder(prologue.as_bytes(), s, rs, ${hasPsk? 'psk' : 'Psk::new()'}),`,
+			`\t\t\ths: HandshakeState::initialize_responder(&prologue.as_bytes(), s, rs, ${hasPsk? 'psk' : 'Psk::new()'}),`,
 			`\t\t\tmc: 0,`,
 			`\t\t\ti: initiator,`,
 			`\t\t\tcs1: CipherState::new(),`,
 			`\t\t\tcs2: CipherState::new(),`,
-			`\t\t\th: Hash::empty(),`,
+			`\t\t\th: Hash::new(),`,
 			`\t\t}`,
 			`\t}`,
 			`}`
@@ -444,10 +444,8 @@ const NOISE2RS = {
 					`\t\t\tif let Some(msg) = &self.${isOneWayPattern? 'cs1' : 'cs2'}.read_message_regular(message) {`,
 					`\t\t\t\tplaintext = Some(msg.to_owned());`,
 					`\t\t\t}`,
-					`\t\t} else {`,
-					`\t\t\tif let Some(msg) = &self.cs1.read_message_regular(message) {`,
+					`\t\t} else if let Some(msg) = &self.cs1.read_message_regular(message) {`,
 					`\t\t\t\tplaintext = Some(msg.to_owned());`,
-					`\t\t\t}`,
 					`\t\t}`,
 					`\t}`,
 					`\tself.mc += 1;`,

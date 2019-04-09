@@ -34,17 +34,17 @@ pub(crate) struct Hash {
 	h: [u8; HASHLEN],
 }
 impl Hash {
-	pub fn clear(&mut self) {
+	pub(crate) fn clear(&mut self) {
 		self.h.zeroize();
 	}
-	pub fn new(hash: [u8; HASHLEN]) -> Hash {
+	pub(crate) fn from_bytes(hash: [u8; HASHLEN]) -> Hash {
 		Hash { h: hash }
 	}
-	pub fn as_bytes(&self) -> &[u8; DHLEN] {
-		&self.h
+	pub(crate) fn as_bytes(&self) -> [u8; DHLEN] {
+		self.h
 	}
-	pub fn empty() -> Hash {
-		Hash::new([0u8; HASHLEN])
+	pub(crate) fn new() -> Hash {
+		Hash::from_bytes([0u8; HASHLEN])
 	}
 }
 
@@ -65,8 +65,8 @@ impl Key {
 	pub fn from_str(key: &str) -> Key {
 		Key::from_bytes(decode_str_32(key))
 	}
-	pub(crate) fn as_bytes(&self) -> &[u8; DHLEN] {
-		&self.k
+	pub(crate) fn as_bytes(&self) -> [u8; DHLEN] {
+		self.k
 	}
 	pub fn is_empty(&self) -> bool {
 		crypto::util::fixed_time_eq(&self.k[..], &EMPTY_KEY)
@@ -129,8 +129,8 @@ impl PrivateKey {
 	pub fn from_str(key: &str) -> PrivateKey {
 		PrivateKey::from_hacl_secret_key(curve25519::SecretKey(decode_str_32(key)))
 	}
-	pub(crate) fn as_bytes(&self) -> &[u8; DHLEN] {
-		&self.k
+	pub(crate) fn as_bytes(&self) -> [u8; DHLEN] {
+		self.k
 	}
 	pub fn is_empty(&self) -> bool {
 		crypto::util::fixed_time_eq(&self.k[..], &EMPTY_KEY)

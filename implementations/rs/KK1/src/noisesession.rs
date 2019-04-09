@@ -23,21 +23,21 @@ impl NoiseSession {
 	pub fn init_session(initiator: bool, prologue: Message, s: Keypair, rs: PublicKey) -> NoiseSession {
 		if initiator {
 			NoiseSession{
-				hs: HandshakeState::initialize_initiator(prologue.as_bytes(), s, rs, Psk::new()),
+				hs: HandshakeState::initialize_initiator(&prologue.as_bytes(), s, rs, Psk::new()),
 				mc: 0,
 				i: initiator,
 				cs1: CipherState::new(),
 				cs2: CipherState::new(),
-				h: Hash::empty(),
+				h: Hash::new(),
 			}
 		} else {
 			NoiseSession {
-				hs: HandshakeState::initialize_responder(prologue.as_bytes(), s, rs, Psk::new()),
+				hs: HandshakeState::initialize_responder(&prologue.as_bytes(), s, rs, Psk::new()),
 				mc: 0,
 				i: initiator,
 				cs1: CipherState::new(),
 				cs2: CipherState::new(),
-				h: Hash::empty(),
+				h: Hash::new(),
 			}
 		}
 	}
@@ -86,10 +86,8 @@ impl NoiseSession {
 				if let Some(msg) = &self.cs2.read_message_regular(message) {
 					plaintext = Some(msg.to_owned());
 				}
-			} else {
-				if let Some(msg) = &self.cs1.read_message_regular(message) {
+			} else if let Some(msg) = &self.cs1.read_message_regular(message) {
 					plaintext = Some(msg.to_owned());
-				}
 			}
 		}
 		self.mc += 1;
