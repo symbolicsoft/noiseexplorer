@@ -5,8 +5,9 @@ authors = ["Georgio Nicolas <georgio@symbolic.software>"]
 edition = "2018"
 
 [dependencies]
+blake2-rfc = "0.2.18"
+rust-crypto = "0.2.36"
 hacl-star = ">=0.0.14"
 hex = ">=0.3.2"
 rand = ">=0.6.5"
-rust-crypto = ">=0.2.36"
 zeroize = ">=0.6.0"

@@ -9,7 +9,7 @@ use crate::{
 };
 use hacl_star::chacha20poly1305;
 
-fn from_slice_hashlen(bytes: &[u8]) -> [u8; HASHLEN] {
+pub(crate) fn from_slice_hashlen(bytes: &[u8]) -> [u8; HASHLEN] {
 	let mut array = EMPTY_HASH;
 	let bytes = &bytes[..array.len()];
 	array.copy_from_slice(bytes);

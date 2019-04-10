@@ -4,9 +4,10 @@
 
 use crate::{
 	consts::{BLOCKLEN, DHLEN, EMPTY_HASH, HASHLEN, MAC_LENGTH, NONCE_LENGTH},
+	state::from_slice_hashlen,
 	types::Keypair,
 };
-use crypto::{blake2s::Blake2s, digest::Digest};
+use blake2_rfc::blake2s::Blake2s;
 use hacl_star::chacha20poly1305;
 
 #[allow(dead_code)]
@@ -47,31 +48,27 @@ pub fn decrypt(k: [u8; DHLEN], n: u64, ad: &[u8], ciphertext: &[u8]) -> Option<V
 }
 
 pub fn hash(data: &[u8]) -> [u8; HASHLEN] {
-	let mut blake2s: Blake2s = Blake2s::new(HASHLEN);
-	blake2s.input(&data[..]);
-	let mut digest_res: [u8; HASHLEN] = EMPTY_HASH;
-	blake2s.result(&mut digest_res);
-	blake2s.reset();
-	digest_res
+	let mut context = Blake2s::new(HASHLEN);
+	context.update(data);
+	let hash = context.finalize();
+	from_slice_hashlen(&hash.as_bytes()[..])
 }
 
 pub fn hmac(key: &[u8], data: &[u8], out: &mut [u8]) {
-	let mut blake2s: Blake2s = Blake2s::new(HASHLEN);
+	let mut context = Blake2s::new(HASHLEN);
 	let mut ipad = [0x36u8; BLOCKLEN];
 	let mut opad = [0x5cu8; BLOCKLEN];
 	for count in 0..key.len() {
 		ipad[count] ^= key[count];
 		opad[count] ^= key[count];
 	}
-	blake2s.reset();
-	blake2s.input(&ipad[..BLOCKLEN]);
-	blake2s.input(data);
-	let mut inner_output = EMPTY_HASH;
-	blake2s.result(&mut inner_output);
-	blake2s.reset();
-	blake2s.input(&opad[..BLOCKLEN]);
-	blake2s.input(&inner_output[..HASHLEN]);
-	blake2s.result(out);
+	context.update(&ipad[..BLOCKLEN]);
+	context.update(data);
+	let inner_output = context.finalize();
+	context = Blake2s::new(HASHLEN);
+	context.update(&opad[..BLOCKLEN]);
+	context.update(&inner_output.as_bytes()[..HASHLEN]);
+	out.copy_from_slice(context.finalize().as_bytes());
 }
 
 pub fn hkdf(
