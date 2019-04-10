@@ -29,8 +29,7 @@ pub fn encrypt(k: [u8; DHLEN], n: u64, ad: &[u8], plaintext: &[u8]) -> Vec<u8> {
 }
 
 pub fn decrypt(k: [u8; DHLEN], n: u64, ad: &[u8], ciphertext: &[u8]) -> Option<Vec<u8>> {
-	let temp = Vec::from(ciphertext);
-	let (x, y) = temp.split_at(temp.len() - MAC_LENGTH);
+	let (x, y) = ciphertext.split_at(ciphertext.len() - MAC_LENGTH);
 	let mut in_out = x.to_owned();
 	let mut mac: [u8; MAC_LENGTH] = [0u8; MAC_LENGTH];
 	mac.copy_from_slice(y);

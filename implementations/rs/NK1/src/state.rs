@@ -172,8 +172,7 @@ impl SymmetricState {
 		from_slice_hashlen(&self.h.as_bytes()[..])
 	}
 	pub(crate) fn encrypt_and_hash(&mut self, plaintext: &[u8]) -> Option<Vec<u8>> {
-		let ciphertext: Vec<u8> =
-			Vec::from(&self.cs.encrypt_with_ad(&self.h.as_bytes()[..], plaintext)[..]);
+		let ciphertext: Vec<u8> = self.cs.encrypt_with_ad(&self.h.as_bytes()[..], plaintext);
 		self.mix_hash(&ciphertext);
 		Some(ciphertext)
 	}
