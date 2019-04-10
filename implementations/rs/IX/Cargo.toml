@@ -5,7 +5,6 @@ authors = ["Georgio Nicolas <georgio@symbolic.software>"]
 edition = "2018"
 
 [dependencies]
-byteorder = ">=1.3.1"
 hacl-star = ">=0.0.14"
 hex = ">=0.3.2"
 rand = ">=0.6.5"

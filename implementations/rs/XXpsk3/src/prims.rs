@@ -6,7 +6,6 @@ use crate::{
 	consts::{BLOCKLEN, DHLEN, EMPTY_HASH, HASHLEN, MAC_LENGTH, NONCE_LENGTH},
 	types::Keypair,
 };
-use byteorder::{ByteOrder, LittleEndian};
 use crypto::{blake2s::Blake2s, digest::Digest};
 use hacl_star::chacha20poly1305;
 
@@ -19,7 +18,7 @@ pub fn encrypt(k: [u8; DHLEN], n: u64, ad: &[u8], plaintext: &[u8]) -> Vec<u8> {
 	let mut mac: [u8; MAC_LENGTH] = [0u8; MAC_LENGTH];
 	let mut in_out = plaintext.to_owned();
 	let mut nonce: [u8; NONCE_LENGTH] = [0u8; NONCE_LENGTH];
-	LittleEndian::write_u64(&mut nonce[4..], n);
+	nonce[4..].copy_from_slice(&n.to_le_bytes());
 	chacha20poly1305::key(&k)
 		.nonce(&nonce)
 		.encrypt(&ad, &mut in_out[..], &mut mac);
@@ -35,7 +34,7 @@ pub fn decrypt(k: [u8; DHLEN], n: u64, ad: &[u8], ciphertext: &[u8]) -> Option<V
 	let mut mac: [u8; MAC_LENGTH] = [0u8; MAC_LENGTH];
 	mac.copy_from_slice(y);
 	let mut nonce: [u8; NONCE_LENGTH] = [0u8; NONCE_LENGTH];
-	LittleEndian::write_u64(&mut nonce[4..], n);
+	nonce[4..].copy_from_slice(&n.to_le_bytes());
 	let decryption_status =
 		chacha20poly1305::key(&k)
 			.nonce(&nonce)
