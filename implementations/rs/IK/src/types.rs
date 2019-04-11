@@ -212,10 +212,10 @@ impl Message {
 		Message { payload: m }
 	}
 	pub fn from_str(m: &str) -> Message {
-		if m.len() > MAX_MESSAGE {
-			panic!("Message > {} bytes", MAX_MESSAGE);
-		}
 		Message::from_vec(decode_str(m))
+	}
+	pub fn from_bytes(m: &[u8]) -> Message {
+		Message::from_vec(Vec::from(m))
 	}
 	pub fn as_bytes(&self) -> &Vec<u8> {
 		&self.payload
