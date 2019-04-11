@@ -29,6 +29,10 @@ impl CipherState {
 	pub(crate) fn clear_key(&mut self) {
 		self.k.clear();
 	}
+	pub(crate) fn clear(&mut self) {
+		self.k.clear();
+		self.n = Nonce::new();
+	}
 	pub(crate) fn from_key(k: Key) -> CipherState {
 		let nonce: Nonce = Nonce::new();
 		CipherState { k: k, n: nonce }
