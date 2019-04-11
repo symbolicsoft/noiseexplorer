@@ -79,7 +79,7 @@
 			
 
 			<h3>Message A <a href="/patterns/IKpsk2/A.html" class="detailedAnalysis">show detailed analysis</a></h3>
-			<p>Message A, sent by the initiator, does not benefit from <em>sender authentication</em> and does not provide <em>message integrity</em>. It could have been sent by any party, including an active attacker. Message contents are sent in cleartext and do not benefit from <em>message secrecy</em> and any <em>forward secrecy</em> is out of the question.  <span class="resultNums">0,0</span></p>
+			<p>Message A, sent by the initiator, does not benefit from <em>sender authentication</em> and does not provide <em>message integrity</em>. It could have been sent by any party, including an active attacker. Message contents do not benefit from <em>message secrecy</em> even against a purely passive attacker and any <em>forward secrecy</em> is out of the question.  <span class="resultNums">0,0</span></p>
 
 			<h3>Message B <a href="/patterns/IKpsk2/B.html" class="detailedAnalysis">show detailed analysis</a></h3>
 			<p>Message B, sent by the responder, benefits from <em>sender and receiver authentication</em> and is <em>resistant to Key Compromise Impersonation</em>. Assuming the corresponding private keys are secure, this authentication cannot be forged. Message contents benefit from <em>message secrecy</em> and <em>weak forward secrecy</em> under a passive attacker: if the responder's long-term static keys were previously compromised, the later compromise of the initiator's long-term static keys can lead to message contents being decrypted by an attacker.  <span class="resultNums">4,3</span></p>

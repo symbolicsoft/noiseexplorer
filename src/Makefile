@@ -23,6 +23,9 @@ implementations:
 tests:
 	@cd util && bash genTests.sh
 
+html:
+	@cd util && bash genHtml.sh
+
 clean:
 	@echo -n "[NoiseExplorer] Cleaning up... "
 	@rm -f parser/noiseParser.js
@@ -30,4 +33,4 @@ clean:
 	@rm -f ../implementations/rs/*/Cargo.lock
 	@echo " OK."
 
-.PHONY: dependencies parser models implementations tests clean
+.PHONY: dependencies parser models implementations tests html clean

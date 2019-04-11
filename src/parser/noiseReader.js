@@ -86,7 +86,7 @@ const NOISEREADER = {
 				4: `benefits from <em>sender and receiver authentication</em> and is <em>resistant to Key Compromise Impersonation</em>. Assuming the corresponding private keys are secure, this authentication cannot be forged`
 			};
 			let confPhrases = {
-				0: `Message contents are sent in cleartext and do not benefit from <em>message secrecy</em> and any <em>forward secrecy</em> is out of the question`,
+				0: `Message contents do not benefit from <em>message secrecy</em> even against a purely passive attacker and any <em>forward secrecy</em> is out of the question`,
 				1: `Message contents benefit from some <em>message secrecy</em> and some <em>forward secrecy</em>, but not sufficiently to resist any active attacker`,
 				2: `Message contents benefit from <em>message secrecy</em> and some <em>forward secrecy</em>: the compromise of the ${whom}'s long-term private keys, even at a later date, will lead to message contents being decrypted by the attacker`,
 				3: `Message contents benefit from <em>message secrecy</em> and <em>weak forward secrecy</em> under a passive attacker: if the ${who}'s long-term static keys were previously compromised, the later compromise of the ${whom}'s long-term static keys can lead to message contents being decrypted by an attacker`,
