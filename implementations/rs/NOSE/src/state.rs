@@ -226,24 +226,22 @@ impl HandshakeState {
         self.e = e;
     }
 	pub(crate) fn initialize_initiator(prologue: &[u8], s: Keypair, rs: PublicKey, psk: Psk) -> HandshakeState {
-		let protocol_name = b"Noise_KK_25519_ChaChaPoly_BLAKE2s";
+		let protocol_name = b"Noise_NOSE_25519_ChaChaPoly_BLAKE2s";
 		let mut ss: SymmetricState = SymmetricState::initialize_symmetric(&protocol_name[..]);
 		ss.mix_hash(prologue);
-		ss.mix_hash(&s.get_public_key().as_bytes()[..]);
 		ss.mix_hash(&rs.as_bytes()[..]);
 		HandshakeState{ss, s, e: Keypair::new_empty(), rs, re: PublicKey::empty(), psk}
 	}
 
 	pub(crate) fn initialize_responder(prologue: &[u8], s: Keypair, rs: PublicKey, psk: Psk) -> HandshakeState {
-		let protocol_name = b"Noise_KK_25519_ChaChaPoly_BLAKE2s";
+		let protocol_name = b"Noise_NOSE_25519_ChaChaPoly_BLAKE2s";
 		let mut ss: SymmetricState = SymmetricState::initialize_symmetric(&protocol_name[..]);
 		ss.mix_hash(prologue);
-		ss.mix_hash(&rs.as_bytes()[..]);
 		ss.mix_hash(&s.get_public_key().as_bytes()[..]);
 		HandshakeState{ss, s, e: Keypair::new_empty(), rs, re: PublicKey::empty(), psk}
 	}
 	pub(crate) fn write_message_a(&mut self, payload: &[u8]) -> (MessageBuffer) {
-		let ns: Vec<u8> = Vec::new();
+		let mut ns: Vec<u8> = Vec::new();
 		let ne: [u8; DHLEN];
 		if self.e.is_empty() {
 			self.e = Keypair::new();
@@ -251,6 +249,9 @@ impl HandshakeState {
 		ne = self.e.get_public_key().as_bytes();
 		self.ss.mix_hash(&ne[..]);
 		/* No PSK, so skipping mixKey */
+		if let Some(x) = self.ss.encrypt_and_hash(&self.s.get_public_key().as_bytes()[..]) {
+			ns.clone_from(&x);
+		}
 		self.ss.mix_key(&self.e.dh(&self.rs.as_bytes()));
 		self.ss.mix_key(&self.s.dh(&self.rs.as_bytes())[..]);
 		let mut ciphertext: Vec<u8> = Vec::new();
@@ -270,7 +271,6 @@ impl HandshakeState {
 		self.ss.mix_hash(&ne[..]);
 		/* No PSK, so skipping mixKey */
 		self.ss.mix_key(&self.e.dh(&self.re.as_bytes()));
-		self.ss.mix_key(&self.e.dh(&self.rs.as_bytes()));
 		let mut ciphertext: Vec<u8> = Vec::new();
 		if let Some(x) = self.ss.encrypt_and_hash(payload) {
 			ciphertext.clone_from(&x);
@@ -287,6 +287,12 @@ impl HandshakeState {
 		self.re = PublicKey::from_bytes(message.ne);
 		self.ss.mix_hash(&self.re.as_bytes()[..DHLEN]);
 		/* No PSK, so skipping mixKey */
+		if let Some(x) = self.ss.decrypt_and_hash(&message.ns) {
+			if x.len() != DHLEN {
+				return None
+			}
+			self.rs = PublicKey::from_bytes(from_slice_hashlen(&x[..]));
+		} else { return None }
 		self.ss.mix_key(&self.s.dh(&self.re.as_bytes()));
 		self.ss.mix_key(&self.s.dh(&self.rs.as_bytes()));
 		if let Some(plaintext) = self.ss.decrypt_and_hash(&message.ciphertext) {
@@ -300,7 +306,6 @@ impl HandshakeState {
 		self.ss.mix_hash(&self.re.as_bytes()[..DHLEN]);
 		/* No PSK, so skipping mixKey */
 		self.ss.mix_key(&self.e.dh(&self.re.as_bytes()));
-		self.ss.mix_key(&self.s.dh(&self.re.as_bytes()));
 		if let Some(plaintext) = self.ss.decrypt_and_hash(&message.ciphertext) {
 			let h: Hash = Hash::from_bytes(from_slice_hashlen(&self.ss.h.as_bytes()));
 			let (cs1, cs2) = self.ss.split();

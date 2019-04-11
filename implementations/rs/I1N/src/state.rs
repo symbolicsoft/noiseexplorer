@@ -106,7 +106,6 @@ impl SymmetricState {
 	pub(crate) fn clear(&mut self) {
 		self.cs.clear_key();
 		self.ck.clear();
-		self.h.clear();
 	}
 	pub fn initialize_symmetric(protocol_name: &[u8]) -> SymmetricState {
 		let h: Hash;
