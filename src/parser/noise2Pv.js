@@ -368,11 +368,9 @@ const NOISE2PV = {
 				return (s || p) ? `${s}${a}${p}` : 'false';
 			}
 			let conf43 = () => {
-				let x = (recv === 'alice') ? recvs : sends;
-				let y = (send === 'alice') ? sends : recvs;
-				let s = (y >= 0) ? `${leakS('phase0', 'phase0', false, true)}` : '';
-				let p = (y >= 0) ? `${leakS('px', 'py', false, true)}` : '';
-				let b = (x >= 0) ? `${leakS('pz', 'pz', true, false)}` : '';
+				let s = `${leakS('phase0', 'phase0', false, true)}`;
+				let p = `${leakS('px', 'py', false, true)}`;
+				let b = `${leakS('pz', 'pz', true, false)}`;
 				let a = (s.length && p.length) ? ` || ` : '';
 				let d = (p.length && b.length) ? ` && ` : '';
 				return ((s.length > 5) && (b.length > 5)) ? `(${s})${a}(${p}${d}${b})` : (s.length > 5) ? `(${s})${a}(${p})` : (b.length > 5) ? `(${b})` : 'false';

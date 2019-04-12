@@ -391,7 +391,7 @@ query c:principal, m:bitstring, sid_a:sessionid, sid_b:sessionid, s:stage, b:bit
 (* Message a: Confidentiality 1 *)
 	attacker(msg_a(alice, bob, sid_a)) ==> ((event(LeakPsk(phase0, alice, bob))) || (event(LeakPsk(phase1, alice, bob))));
 (* Message a: Confidentiality 3 *)
-	attacker(msg_a(alice, bob, sid_a)) ==> false;
+	attacker(msg_a(alice, bob, sid_a)) ==> ((event(LeakPsk(phase0, alice, bob)))) || ((event(LeakPsk(py, alice, bob))));
 (* Message a: Confidentiality 5 *)
 	attacker(msg_a(alice, bob, sid_a)) ==> ((event(LeakPsk(phase0, alice, bob))));
 (* Message b: Authentication sanity *)
@@ -409,7 +409,7 @@ query c:principal, m:bitstring, sid_a:sessionid, sid_b:sessionid, s:stage, b:bit
 (* Message b: Confidentiality 1 *)
 	attacker(msg_b(bob, alice, sid_b)) ==> ((event(LeakPsk(phase0, alice, bob))) || (event(LeakPsk(phase1, alice, bob))));
 (* Message b: Confidentiality 3 *)
-	attacker(msg_b(bob, alice, sid_b)) ==> false;
+	attacker(msg_b(bob, alice, sid_b)) ==> ((event(LeakPsk(phase0, alice, bob)))) || ((event(LeakPsk(py, alice, bob))));
 (* Message b: Confidentiality 5 *)
 	attacker(msg_b(bob, alice, sid_b)) ==> ((event(LeakPsk(phase0, alice, bob))));
 (* Message c: Authentication sanity *)
@@ -427,7 +427,7 @@ query c:principal, m:bitstring, sid_a:sessionid, sid_b:sessionid, s:stage, b:bit
 (* Message c: Confidentiality 1 *)
 	attacker(msg_c(alice, bob, sid_a)) ==> ((event(LeakPsk(phase0, alice, bob))) || (event(LeakPsk(phase1, alice, bob))));
 (* Message c: Confidentiality 3 *)
-	attacker(msg_c(alice, bob, sid_a)) ==> false;
+	attacker(msg_c(alice, bob, sid_a)) ==> ((event(LeakPsk(phase0, alice, bob)))) || ((event(LeakPsk(py, alice, bob))));
 (* Message c: Confidentiality 5 *)
 	attacker(msg_c(alice, bob, sid_a)) ==> ((event(LeakPsk(phase0, alice, bob))));
 (* Message d: Authentication sanity *)
@@ -445,7 +445,7 @@ query c:principal, m:bitstring, sid_a:sessionid, sid_b:sessionid, s:stage, b:bit
 (* Message d: Confidentiality 1 *)
 	attacker(msg_d(bob, alice, sid_b)) ==> ((event(LeakPsk(phase0, alice, bob))) || (event(LeakPsk(phase1, alice, bob))));
 (* Message d: Confidentiality 3 *)
-	attacker(msg_d(bob, alice, sid_b)) ==> false;
+	attacker(msg_d(bob, alice, sid_b)) ==> ((event(LeakPsk(phase0, alice, bob)))) || ((event(LeakPsk(py, alice, bob))));
 (* Message d: Confidentiality 5 *)
 	attacker(msg_d(bob, alice, sid_b)) ==> ((event(LeakPsk(phase0, alice, bob))));
 (* Repeating keys *)
