@@ -94,11 +94,12 @@ const NOISE2PV = {
 
 	const messagesPsk = (pattern) => {
 		let r = -1;
-		pattern.messages.forEach((message, i) => {
-			if (message.tokens.indexOf('psk') >= 0) {
+		for (let i = 0; i < pattern.messages.length; i++) {
+			if (pattern.messages[i].tokens.indexOf('psk') >= 0) {
 				r = i;
+				break;
 			}
-		});
+		}
 		return r;
 	};
 
@@ -356,14 +357,14 @@ const NOISE2PV = {
 				let x = isSend ? send : recv;
 				let y = (x === 'alice') ? sends : recvs;
 				let s = (y >= 0) ? `(event(LeakS(${px}, ${x})))` : '';
-				let p = (includePsk && (psk >= i)) ? `(event(LeakPsk(${py}, alice, bob)))` : '';
+				let p = (includePsk && (psk <= i)) ? `(event(LeakPsk(${py}, alice, bob)))` : '';
 				let a = (s.length && p.length) ? ` && ` : '';
 				return (s || p) ? `${s}${a}${p}` : 'false';
 			};
 			let conf21 = () => {
 				let y = (recv === 'alice') ? sends : recvs;
 				let s = (y >= 0) ? `((event(LeakS(phase0, ${recv}))) || (event(LeakS(phase1, ${recv}))))` : '';
-				let p = (psk >= 0) ? `((event(LeakPsk(phase0, alice, bob))) || (event(LeakPsk(phase1, alice, bob))))` : '';
+				let p = (psk <= i) ? `((event(LeakPsk(phase0, alice, bob))) || (event(LeakPsk(phase1, alice, bob))))` : '';
 				let a = (s.length && p.length) ? ` && ` : '';
 				return (s || p) ? `${s}${a}${p}` : 'false';
 			}
