@@ -340,7 +340,7 @@ const NOISE2PV = {
 
 	const queries = (pattern) => {
 		let quer = [
-			`query c:principal, m:bitstring, sid_a:sessionid, sid_b:sessionid, s:stage, b:bitstring, px:phasen;`,
+			`query c:principal, m:bitstring, sid_a:sessionid, sid_b:sessionid, s:stage, b:bitstring, px:phasen, py:phasen, pz:phasen;`,
 		];
 		let sends = preMessagesSendStatic(pattern) ? 0 : messagesSendStatic(pattern);
 		let recvs = preMessagesRecvStatic(pattern) ? 0 : messagesRecvStatic(pattern);
@@ -368,8 +368,8 @@ const NOISE2PV = {
 			}
 			let conf43 = () => {
 				let s = leakS('phase0', 'phase0', false, true);
-				let p = leakS('phase1', 'phase1', false, true);
-				let b = leakS('px', 'px', true, false);
+				let p = leakS('px', 'py', false, true);
+				let b = leakS('pz', 'pz', true, false);
 				let a = (s.length && p.length) ? ` || ` : '';
 				let d = (p.length && b.length) ? ` && ` : '';
 				return ((s.length > 5) && (b.length > 5)) ? `(${s})${a}(${p}${d}${b})` : (s.length > 5) ? `(${s})${a}(${p})` : (b.length > 5) ? `(${b})` : 'false';

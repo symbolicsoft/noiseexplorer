@@ -381,7 +381,7 @@ event RepeatingKey_b(principal).
 event RepeatingKey_c(principal).
 event RepeatingKey_d(principal).
 
-query c:principal, m:bitstring, sid_a:sessionid, sid_b:sessionid, s:stage, b:bitstring, px:phasen;
+query c:principal, m:bitstring, sid_a:sessionid, sid_b:sessionid, s:stage, b:bitstring, px:phasen, py:phasen, pz:phasen;
 (* Message a: Authentication sanity *)
 	event(RecvMsg(bob, alice, stagepack_a(sid_b), m)) ==> (event(SendMsg(alice, bob, stagepack_a(sid_a), m)));
 (* Message a: Authentication 1 *)
@@ -397,7 +397,7 @@ query c:principal, m:bitstring, sid_a:sessionid, sid_b:sessionid, s:stage, b:bit
 (* Message a: Confidentiality 2 *)
 	attacker(msg_a(alice, bob, sid_a)) ==> ((event(LeakS(phase0, bob))) || (event(LeakS(phase1, bob))));
 (* Message a: Confidentiality 4 *)
-	attacker(msg_a(alice, bob, sid_a)) ==> ((event(LeakS(phase0, bob)))) || ((event(LeakS(phase1, bob))) && (event(LeakS(px, alice))));
+	attacker(msg_a(alice, bob, sid_a)) ==> ((event(LeakS(phase0, bob)))) || ((event(LeakS(px, bob))) && (event(LeakS(pz, alice))));
 (* Message a: Confidentiality 5 *)
 	attacker(msg_a(alice, bob, sid_a)) ==> ((event(LeakS(phase0, bob))));
 (* Message b: Authentication sanity *)
@@ -415,7 +415,7 @@ query c:principal, m:bitstring, sid_a:sessionid, sid_b:sessionid, s:stage, b:bit
 (* Message b: Confidentiality 2 *)
 	attacker(msg_b(bob, alice, sid_b)) ==> ((event(LeakS(phase0, alice))) || (event(LeakS(phase1, alice)))) && ((event(LeakPsk(phase0, alice, bob))) || (event(LeakPsk(phase1, alice, bob))));
 (* Message b: Confidentiality 4 *)
-	attacker(msg_b(bob, alice, sid_b)) ==> ((event(LeakS(phase0, alice))) && (event(LeakPsk(phase0, alice, bob)))) || ((event(LeakS(phase1, alice))) && (event(LeakPsk(phase1, alice, bob))) && (event(LeakS(px, bob))));
+	attacker(msg_b(bob, alice, sid_b)) ==> ((event(LeakS(phase0, alice))) && (event(LeakPsk(phase0, alice, bob)))) || ((event(LeakS(px, alice))) && (event(LeakPsk(py, alice, bob))) && (event(LeakS(pz, bob))));
 (* Message b: Confidentiality 5 *)
 	attacker(msg_b(bob, alice, sid_b)) ==> ((event(LeakS(phase0, alice))) && (event(LeakPsk(phase0, alice, bob))));
 (* Message c: Authentication sanity *)
@@ -433,7 +433,7 @@ query c:principal, m:bitstring, sid_a:sessionid, sid_b:sessionid, s:stage, b:bit
 (* Message c: Confidentiality 2 *)
 	attacker(msg_c(alice, bob, sid_a)) ==> ((event(LeakS(phase0, bob))) || (event(LeakS(phase1, bob)))) && ((event(LeakPsk(phase0, alice, bob))) || (event(LeakPsk(phase1, alice, bob))));
 (* Message c: Confidentiality 4 *)
-	attacker(msg_c(alice, bob, sid_a)) ==> ((event(LeakS(phase0, bob))) && (event(LeakPsk(phase0, alice, bob)))) || ((event(LeakS(phase1, bob))) && (event(LeakPsk(phase1, alice, bob))) && (event(LeakS(px, alice))));
+	attacker(msg_c(alice, bob, sid_a)) ==> ((event(LeakS(phase0, bob))) && (event(LeakPsk(phase0, alice, bob)))) || ((event(LeakS(px, bob))) && (event(LeakPsk(py, alice, bob))) && (event(LeakS(pz, alice))));
 (* Message c: Confidentiality 5 *)
 	attacker(msg_c(alice, bob, sid_a)) ==> ((event(LeakS(phase0, bob))) && (event(LeakPsk(phase0, alice, bob))));
 (* Message d: Authentication sanity *)
@@ -451,7 +451,7 @@ query c:principal, m:bitstring, sid_a:sessionid, sid_b:sessionid, s:stage, b:bit
 (* Message d: Confidentiality 2 *)
 	attacker(msg_d(bob, alice, sid_b)) ==> ((event(LeakS(phase0, alice))) || (event(LeakS(phase1, alice)))) && ((event(LeakPsk(phase0, alice, bob))) || (event(LeakPsk(phase1, alice, bob))));
 (* Message d: Confidentiality 4 *)
-	attacker(msg_d(bob, alice, sid_b)) ==> ((event(LeakS(phase0, alice))) && (event(LeakPsk(phase0, alice, bob)))) || ((event(LeakS(phase1, alice))) && (event(LeakPsk(phase1, alice, bob))) && (event(LeakS(px, bob))));
+	attacker(msg_d(bob, alice, sid_b)) ==> ((event(LeakS(phase0, alice))) && (event(LeakPsk(phase0, alice, bob)))) || ((event(LeakS(px, alice))) && (event(LeakPsk(py, alice, bob))) && (event(LeakS(pz, bob))));
 (* Message d: Confidentiality 5 *)
 	attacker(msg_d(bob, alice, sid_b)) ==> ((event(LeakS(phase0, alice))) && (event(LeakPsk(phase0, alice, bob))));
 (* Repeating keys *)
