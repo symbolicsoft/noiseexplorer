@@ -306,7 +306,7 @@ event LeakS(phasen, principal).
 event LeakPsk(phasen, principal, principal).
 event RepeatingKey_a(principal).
 
-query c:principal, m:bitstring, sid_a:sessionid, sid_b:sessionid, s:stage, b:bitstring, px:phasen, py:phasen, pz:phasen;
+query c:principal, m:bitstring, sid_a:sessionid, sid_b:sessionid, s:stage, b:bitstring, px:phasen;
 (* Message a: Authentication sanity *)
 	event(RecvMsg(bob, alice, stagepack_a(sid_b), m)) ==> (event(SendMsg(alice, bob, stagepack_a(sid_a), m)));
 (* Message a: Authentication 1 *)
@@ -322,7 +322,7 @@ query c:principal, m:bitstring, sid_a:sessionid, sid_b:sessionid, s:stage, b:bit
 (* Message a: Confidentiality 1 *)
 	attacker(msg_a(alice, bob, sid_a)) ==> ((event(LeakS(phase0, bob))) || (event(LeakS(phase1, bob))));
 (* Message a: Confidentiality 3 *)
-	attacker(msg_a(alice, bob, sid_a)) ==> ((event(LeakS(phase0, bob)))) || ((event(LeakS(px, bob))) && (event(LeakS(pz, alice))));
+	attacker(msg_a(alice, bob, sid_a)) ==> ((event(LeakS(phase0, bob)))) || ((event(LeakS(phase1, bob))) && (event(LeakS(px, alice))));
 (* Message a: Confidentiality 5 *)
 	attacker(msg_a(alice, bob, sid_a)) ==> ((event(LeakS(phase0, bob))));
 (* Repeating keys *)

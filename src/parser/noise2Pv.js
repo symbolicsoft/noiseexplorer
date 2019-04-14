@@ -340,7 +340,7 @@ const NOISE2PV = {
 
 	const queries = (pattern) => {
 		let quer = [
-			`query c:principal, m:bitstring, sid_a:sessionid, sid_b:sessionid, s:stage, b:bitstring, px:phasen, py:phasen, pz:phasen;`,
+			`query c:principal, m:bitstring, sid_a:sessionid, sid_b:sessionid, s:stage, b:bitstring, px:phasen;`,
 		];
 		let sends = preMessagesSendStatic(pattern) ? 0 : messagesSendStatic(pattern);
 		let recvs = preMessagesRecvStatic(pattern) ? 0 : messagesRecvStatic(pattern);
@@ -355,23 +355,21 @@ const NOISE2PV = {
 			let confQuery43 = (params.attacker === 'active') ? '4' : '3';
 			let leakS = (px, py, isSend, includePsk) => {
 				let x = isSend ? send : recv;
-				let y = (x === 'alice') ? sends : recvs;
-				let s = (y >= 0) ? `(event(LeakS(${px}, ${x})))` : '';
+				let s = `(event(LeakS(${px}, ${x})))`;
 				let p = (includePsk && (psk >= 0) && (psk <= i)) ? `(event(LeakPsk(${py}, alice, bob)))` : '';
 				let a = (s.length && p.length) ? ` && ` : '';
-				return (s || p) ? `${s}${a}${p}` : 'false';
+				return `${s}${a}${p}`;
 			};
 			let conf21 = () => {
-				let y = (recv === 'alice') ? sends : recvs;
-				let s = (y >= 0) ? `((event(LeakS(phase0, ${recv}))) || (event(LeakS(phase1, ${recv}))))` : '';
+				let s = `((event(LeakS(phase0, ${recv}))) || (event(LeakS(phase1, ${recv}))))`;
 				let p = ((psk >= 0) && (psk <= i)) ? `((event(LeakPsk(phase0, alice, bob))) || (event(LeakPsk(phase1, alice, bob))))` : '';
 				let a = (s.length && p.length) ? ` && ` : '';
-				return (s || p) ? `${s}${a}${p}` : 'false';
+				return `${s}${a}${p}`;
 			}
 			let conf43 = () => {
-				let s = `${leakS('phase0', 'phase0', false, true)}`;
-				let p = `${leakS('px', 'py', false, true)}`;
-				let b = `${leakS('pz', 'pz', true, false)}`;
+				let s = leakS('phase0', 'phase0', false, true);
+				let p = leakS('phase1', 'phase1', false, true);
+				let b = leakS('px', 'px', true, false);
 				let a = (s.length && p.length) ? ` || ` : '';
 				let d = (p.length && b.length) ? ` && ` : '';
 				return ((s.length > 5) && (b.length > 5)) ? `(${s})${a}(${p}${d}${b})` : (s.length > 5) ? `(${s})${a}(${p})` : (b.length > 5) ? `(${b})` : 'false';
