@@ -40,11 +40,11 @@
 			<a href="../../cmd">Command-Line Tool</a>
 		</div>
 	</div>
-	<div class="results" style="height: 470px;">
+	<div class="results" style="height: 420px;">
 		<div class="arrowsFrame">
 			<h1 id="patternName">Npsk0</h1>
-			<div class="arrows" style="height: 470px;">
-				<svg id="patternArrows" style="height: 470px;">
+			<div class="arrows" style="height: 420px;">
+				<svg id="patternArrows" style="height: 420px;">
 					<line x2="248" y1="30" y2="30"></line>
 					<polyline  points="10 20 1 30 10 40"></polyline>
 					<text class="tokens" x="120" y="22">s</text>
@@ -52,19 +52,19 @@
 				<text class="ellipsis" x="120" y="160">...</text>
 <line data-seclevel="2" x1="1" x2="248" y1="290" y2="290"></line>
 					<polyline data-seclevel="2" points="237 280 248 290 237 300"></polyline>
-					<circle data-seclevel="1" cx="17" cy="290" r="15"></circle>
+					<circle data-seclevel="0" cx="17" cy="290" r="15"></circle>
 					<text class="msg" x="16" y="295">a</text>
 					<text class="tokens" x="120" y="282">psk, e, es</text>
 				</svg>
 			</div>
 		</div>
-		<div class="resultsExplanation" style="height: 470px;">
+		<div class="resultsExplanation" style="height: 420px;">
 			<h2>Handshake Pattern Analysis</h2>
 			<p>The responder is initialized with a pre-shared long-term static key, which is assumed to be pre-authenticated out of band by the initiator.</p> 
 			
 
 			<h3>Message A <a href="/patterns/Npsk0/A.html" class="detailedAnalysis">show detailed analysis</a></h3>
-			<p>Message A, sent by the initiator, benefits from <em>receiver authentication</em> but is <em>vulnerable to Key Compromise Impersonation</em>. If the responder's long-term private key has been compromised, this authentication can be forged. However, if the initiator carries out a separate session with a separate, compromised responder, this other session can be used to forge the authentication of this message with this session's responder. Message contents benefit from <em>message secrecy</em> and some <em>forward secrecy</em>: the compromise of the responder's long-term private keys, even at a later date, will lead to message contents being decrypted by the attacker.  <span class="resultNums">1,2</span></p>
+			<p>Message A, sent by the initiator, does not benefit from <em>sender authentication</em> and does not provide <em>message integrity</em>. It could have been sent by any party, including an active attacker. Message contents benefit from <em>message secrecy</em> and some <em>forward secrecy</em>: the compromise of the responder's long-term private keys, even at a later date, will lead to message contents being decrypted by the attacker.  <span class="resultNums">0,2</span></p>
 			<h3>Generate Cryptographic Models for Formal Verification</h3>
 			<p>
 				<a href="#" id="pvActiveLink">
