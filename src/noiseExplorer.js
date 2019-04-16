@@ -22,9 +22,9 @@ const HELPTEXT = [
 	'--attacker=(active|passive): Specify ProVerif attacker type (default: active).',
 	'',
 	'Rendering:',
-	'--render=(handshake|message): Render results from ProVerif output files into HTML.',
+	'--render: Render results from ProVerif output files into HTML.',
 	'--pattern=[file]: Specify input pattern file (required).',
-	'--activeModel=[file]: Specify ProVerif active attacker model (required for --render=message).',
+	'--activeModel=[file]: Specify ProVerif active attacker model.',
 	'--activeResults=[file]: Specify active results file for --render (required).',
 	'--passiveResults=[file]: Specify passive results file for --render (required).',
 	'',
@@ -62,10 +62,7 @@ if (
 		!ARGV.hasOwnProperty('pattern') ||
 		ARGV.hasOwnProperty('attacker') ||
 		!ARGV.hasOwnProperty('activeResults') ||
-		!ARGV.hasOwnProperty('passiveResults') ||
-		((ARGV.render === 'message') &&
-			!ARGV.hasOwnProperty('activeModel')
-		)
+		!ARGV.hasOwnProperty('passiveResults')
 	)) ||
 	(ARGV.hasOwnProperty('web') && (
 		ARGV.hasOwnProperty('generate') ||
@@ -262,65 +259,48 @@ if (
 }
 
 if (ARGV.hasOwnProperty('render')) {
-	if (!(/^(handshake)|(message)$/).test(ARGV.render)) {
-		throw new Error('[NoiseExplorer] Error: You must specify a valid rendering output format.');
-		process.exit();
+	let pattern = READFILE(ARGV.pattern);
+	let pvOutputActive = READFILE(ARGV.activeResults);
+	let pvOutputPassive = READFILE(ARGV.passiveResults);
+	let activeModel = READFILE(ARGV.activeModel);
+	let json = NOISEPARSER.parse(pattern);
+	let [readResultsActive, rawResultsActive] = NOISEREADER.read(pvOutputActive);
+	let [readResultsPassive, rawResultsPassive] = NOISEREADER.read(pvOutputPassive);
+	let html = NOISEREADER.render(
+		json, readResultsActive, readResultsPassive,
+		rawResultsActive, rawResultsPassive
+	);
+	let patternSplit = pattern.replace(/(\r\n\t|\n|\r\t)/gm, '\n').split('\n');
+	let patternSplitS = '[';
+	patternSplit.forEach((line) => {
+		if (line.length) {
+			patternSplitS = `${patternSplitS}'${line}',`;
+		}
+	});
+	patternSplitS = `${patternSplitS.slice(0, -1)}].join('\\n')`;
+	let output = READFILE('html/patterns/template.html')
+		.replace(/\$NOISERENDER_T\$/g, json.name)
+		.replace(/\$NOISERENDER_H\$/g, html.totalHeight)
+		.replace(/\$NOISERENDER_R\$/g, html.arrowSvg)
+		.replace(/\$NOISERENDER_A\$/g, html.analysisTxt)
+		.replace(/\$NOISERENDER_M\$/g, patternSplitS);
+	if (!FS.existsSync(`html/patterns/${json.name}`)) {
+		FS.mkdirSync(`html/patterns/${json.name}`);
 	}
-	if (ARGV.render === 'handshake') {
-		let pattern = READFILE(ARGV.pattern);
-		let pvOutputActive = READFILE(ARGV.activeResults);
-		let pvOutputPassive = READFILE(ARGV.passiveResults);
-		let json = NOISEPARSER.parse(pattern);
-		let [readResultsActive, rawResultsActive] = NOISEREADER.read(pvOutputActive);
-		let [readResultsPassive, rawResultsPassive] = NOISEREADER.read(pvOutputPassive);
-		let html = NOISEREADER.render(
-			json, readResultsActive, readResultsPassive,
+	WRITEFILE(`html/patterns/${json.name}/index.html`, output);
+	json.messages.forEach((message, i) => {
+		html = NOISEREADER.renderDetailed(
+			activeModel, json, i, readResultsActive, readResultsPassive,
 			rawResultsActive, rawResultsPassive
 		);
-		let patternSplit = pattern.replace(/(\r\n\t|\n|\r\t)/gm, '\n').split('\n');
-		let patternSplitS = '[';
-		patternSplit.forEach((line) => {
-			if (line.length) {
-				patternSplitS = `${patternSplitS}'${line}',`;
-			}
-		});
-		patternSplitS = `${patternSplitS.slice(0, -1)}].join('\\n')`;
-		let output = READFILE('html/patterns/template.html')
+		let output = READFILE('html/patterns/templateDetailed.html')
 			.replace(/\$NOISERENDER_T\$/g, json.name)
-			.replace(/\$NOISERENDER_H\$/g, html.totalHeight)
 			.replace(/\$NOISERENDER_R\$/g, html.arrowSvg)
 			.replace(/\$NOISERENDER_A\$/g, html.analysisTxt)
-			.replace(/\$NOISERENDER_M\$/g, patternSplitS);
-		if (!FS.existsSync(`html/patterns/${json.name}`)) {
-			FS.mkdirSync(`html/patterns/${json.name}`);
-		}
-		WRITEFILE(`html/patterns/${json.name}/index.html`, output);
-		process.exit();
-	} else if (ARGV.render === 'message') {
-		let activeModel = READFILE(ARGV.activeModel);
-		let pattern = READFILE(ARGV.pattern);
-		let pvOutputActive = READFILE(ARGV.activeResults);
-		let pvOutputPassive = READFILE(ARGV.passiveResults);
-		let json = NOISEPARSER.parse(pattern);
-		let [readResultsActive, rawResultsActive] = NOISEREADER.read(pvOutputActive);
-		let [readResultsPassive, rawResultsPassive] = NOISEREADER.read(pvOutputPassive);
-		json.messages.forEach((message, i) => {
-			let html = NOISEREADER.renderDetailed(
-				activeModel, json, i, readResultsActive, readResultsPassive,
-				rawResultsActive, rawResultsPassive
-			);
-			let output = READFILE('html/patterns/templateDetailed.html')
-				.replace(/\$NOISERENDER_T\$/g, json.name)
-				.replace(/\$NOISERENDER_R\$/g, html.arrowSvg)
-				.replace(/\$NOISERENDER_A\$/g, html.analysisTxt)
-				.replace(/\$NOISERENDER_I\$/g, html.title);
-			if (!FS.existsSync(`html/patterns/${json.name}`)) {
-				FS.mkdirSync(`html/patterns/${json.name}`);
-			}
-			WRITEFILE(`html/patterns/${json.name}/${UTIL.abc[i].toUpperCase()}.html`, output);
-		});
-		process.exit();
-	}
+			.replace(/\$NOISERENDER_I\$/g, html.title);
+		WRITEFILE(`html/patterns/${json.name}/${UTIL.abc[i].toUpperCase()}.html`, output);
+	});
+	process.exit();
 }
 
 if (ARGV.hasOwnProperty('web')) {
