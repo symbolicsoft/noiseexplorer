@@ -29,6 +29,7 @@ const errMsg = {
 	tooManyMessages: 'Noise Handshake Patterns with a maximum of 8 message patterns are currently supported.',
 	moreThanOnePsk: 'Noise Handshake Patterns with a maximum of one PSK are currently supported.',
 	// Below are validity rules which we are not exactly sure are shared by the Noise Protocol Framework (but likely are.)
+	tokenOrderIncorrect: 'Public key tokens must be ordered in a message to appear before Diffie-Hellman operations that implicate them.',
 	transportNotLast: 'Noise Handshake Patterns can only contain transport handshake messages at the very bottom of the pattern.',
 	transportOnly: 'Noise Handshake Patterns cannot consist purely of transport messages.',
 	unusedKeySent: 'Noise Handshake Patterns should not contain key shares that are not subsequently used in any Diffie-Hellman operation.',
@@ -76,9 +77,47 @@ const check = {
 				error(errMsg.tooManyTokens);
 			}
 			if (message.tokens.indexOf('s') >= 0) {
+				if (((message.dir === 'send') && (
+					(
+						(message.tokens.indexOf('se') >= 0) &&
+						(message.tokens.indexOf('se') < message.tokens.indexOf('s'))
+					) || (
+						(message.tokens.indexOf('ss') >= 0) &&
+						(message.tokens.indexOf('ss') < message.tokens.indexOf('s'))
+					)
+				)) || ((message.dir === 'recv') && (
+					(
+						(message.tokens.indexOf('es') >= 0) &&
+						(message.tokens.indexOf('es') < message.tokens.indexOf('s'))
+					) || (
+						(message.tokens.indexOf('ss') >= 0) &&
+						(message.tokens.indexOf('ss') < message.tokens.indexOf('s'))
+					)
+				))) {
+					error(errMsg.tokenOrderIncorrect);
+				}
 				(message.dir === 'send')? g.s++ : g.rs++;
 			}
 			if (message.tokens.indexOf('e') >= 0) {
+				if (((message.dir === 'send') && (
+					(
+						(message.tokens.indexOf('es') >= 0) &&
+						(message.tokens.indexOf('es') < message.tokens.indexOf('e'))
+					) || (
+						(message.tokens.indexOf('ee') >= 0) &&
+						(message.tokens.indexOf('ee') < message.tokens.indexOf('e'))
+					)
+				)) || ((message.dir === 'recv') && (
+					(
+						(message.tokens.indexOf('se') >= 0) &&
+						(message.tokens.indexOf('se') < message.tokens.indexOf('e'))
+					) || (
+						(message.tokens.indexOf('ee') >= 0) &&
+						(message.tokens.indexOf('ee') < message.tokens.indexOf('e'))
+					)
+				))) {
+					error(errMsg.tokenOrderIncorrect);
+				}
 				(message.dir === 'send')? g.e++ : g.re++;
 			}
 			if (message.tokens.indexOf('ss') >= 0) {
