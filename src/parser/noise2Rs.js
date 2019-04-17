@@ -361,6 +361,12 @@ const NOISE2RS = {
 		let hasPsk = messagesPsk(pattern) >= 0;
 		let finalKex = finalKeyExchangeMessage(pattern);
 		let initSession = [
+			`\t/// Instantiates  a \`NoiseSession\` object. Takes the following as parameters:`,
+			`\t/// - \`initiator\`: \`bool\` variable. To be set as \`true\` when initiating a handshake with a remote party, or \`false\` otherwise.`,
+			`\t/// - \`prologue\`: \`Message\` object. Could optionally contain the name of the protocol to be used.`,
+			`\t/// - \`s\`: \`Keypair\` object. Contains local party's static keypair.`,
+			`\t/// - \`rs\`: \`PublicKey\` object. Contains the remote party's static public key.`,
+			`${hasPsk? '\t/// - \`psk\`: \`Psk\` object. Contains the pre-shared key.' : ''}`,
 			`\tpub fn init_session(initiator: bool, prologue: Message, s: Keypair, rs: PublicKey${hasPsk? ', psk: Psk' : ''}) -> NoiseSession {`,
 			`\tif initiator {`,
 			`\t\tNoiseSession{`,
@@ -384,9 +390,17 @@ const NOISE2RS = {
 			`}`
 		];
 		let sendMessage = [
+			`\n\t/// Takes a \`Message\` object containing plaintext as a parameter.`,
+			`\n\t/// Returns a \`MessageBuffer\` object containing the corresponding ciphertext.`,
+			`\n\t///`,
+			`\n\t/// _Note that while \`mc\` <= 1 the ciphertext will be included as a payload for handshake messages and thus will not offer the same guarantees offered by post-handshake messages._`,
 			`\n\tpub fn send_message(&mut self, message: Message) -> MessageBuffer {`
 		];
 		let recvMessage = [
+			`\n/// Takes a \`MessageBuffer\` object received from the remote party as a parameter.`,
+			`\n\t/// Returns an \`Option<Vec<u8>>\` containing plaintext upon successful decryption, and \`None\` otherwise.`,
+			`\n\t///`,
+			`\n\t/// _Note that while \`mc\` <= 1 the ciphertext will be included as a payload for handshake messages and thus will not offer the same guarantees offered by post-handshake messages._`,
 			`\n\tpub fn recv_message(&mut self, message: &mut MessageBuffer) -> Option<Vec<u8>> {`,
 			`\tlet mut plaintext: Option<Vec<u8>> = None;`
 		];
