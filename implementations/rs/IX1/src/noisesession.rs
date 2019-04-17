@@ -22,7 +22,7 @@ pub struct NoiseSession {
     h: Hash,
     cs1: CipherState,
     cs2: CipherState,
-    mc: u32,
+    mc: u128,
     i: bool,
 }
 impl NoiseSession {
