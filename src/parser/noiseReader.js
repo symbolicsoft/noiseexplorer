@@ -478,7 +478,7 @@ const NOISEREADER = {
 		let who = (dir === 'send') ? 'alice' : 'bob';
 		let whom = (dir === 'send') ? 'bob' : 'alice';
 		let tokens = pattern.messages[message].tokens;
-		let hasPsk = messagesPsk(pattern) <= message;
+		let hasPsk = (messagesPsk(pattern) >= 0) && (messagesPsk(pattern) <= message);
 		let arrowSvg = [];
 		let analysisTxt = [];
 		let writeMessageRegExp = new RegExp(`letfun writeMessage_${abc}[^.]+\.`, '');

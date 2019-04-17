@@ -26,9 +26,9 @@ Generation:
 --attacker=(active|passive): Specify ProVerif attacker type (default: active).
 
 Rendering:
---render=(handshake|message): Render results from ProVerif output files into HTML.
+--render: Render results from ProVerif output files into HTML.
 --pattern=[file]: Specify input pattern file (required).
---activeModel=[file]: Specify ProVerif active attacker model (required for --render=message).
+--activeModel=[file]: Specify ProVerif active attacker model.
 --activeResults=[file]: Specify active results file for --render (required).
 --passiveResults=[file]: Specify passive results file for --render (required).
 
