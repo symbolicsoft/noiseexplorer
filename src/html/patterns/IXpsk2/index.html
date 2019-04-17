@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<title>Noise Explorer: IXpsk2</title>
+	<meta name="keywords" content="noise protocol, protocol verification, formal verification, noise protocol framework, symbolic verification" />
+	<meta name="description" content="Noise Explorer is an online engine for reasoning about Noise Protocol Framework Handshake Patterns. Noise Explorer allows you to design and validate Noise Handshake Patterns, to generate cryptographic models for formal verification and to explore a compendium of formal verification results for the most popular and relevant Noise Handshake Patterns in use today." />
+	<link rel="image_src" href="https://noiseexplorer.com/res/img/logo.png" />
+	<link rel="icon" type="image/png" href="../../res/img/logo.png" />
+	<link href="../../res/css/style.css" rel="stylesheet" />
+	<link href="../../res/css/fonts.css" rel="stylesheet" />
+	<script src="../../res/js/parser/noiseParser.js"></script>
+	<script src="../../res/js/parser/noise2Pv.js"></script>
+	<script src="../../res/js/parser/noise2Go.js"></script>
+	<script src="../../res/js/parser/noise2Rs.js"></script>
+	<script src="../../res/js/parser/noiseReader.js"></script>
+	<script src="../../res/js/jszip.js"></script>
+	<script src="../../res/js/noiseWebIde.js"></script>
+	<script>
+	window.addEventListener('load', () => {
+		pvGen(['IXpsk2:','  -> e, s','  <- e, ee, se, s, es, psk','  ->','  <-'].join('\n'), 'active', 'pvActiveLink', false);
+		pvGen(['IXpsk2:','  -> e, s','  <- e, ee, se, s, es, psk','  ->','  <-'].join('\n'), 'passive', 'pvPassiveLink', false);
+		goGen(['IXpsk2:','  -> e, s','  <- e, ee, se, s, es, psk','  ->','  <-'].join('\n'), 'goLink', false);
+		rsGen(['IXpsk2:','  -> e, s','  <- e, ee, se, s, es, psk','  ->','  <-'].join('\n'), 'rsLink', false);
+	});
+	</script>
+</head>
+
+<body>
+	<div class="header">
+		<img id="logo" src="../../res/img/logo.png" alt="" />
+		<h1>Noise Explorer <span class="beta">beta</span></h1>
+	</div>
+	<div class="nav">
+		<span class="menu">menu</span>
+		<div class="navLinks">
+			<a href="../..">Design New Pattern</a>
+			<a href="../../patterns" class="currentNav">Explore Patterns</a>
+			<a href="../../cmd">Command-Line Tool</a>
+		</div>
+	</div>
+	<div class="results" style="height: 670px;">
+		<div class="arrowsFrame">
+			<h1 id="patternName">IXpsk2</h1>
+			<div class="arrows" style="height: 670px;">
+				<svg id="patternArrows" style="height: 670px;">
+					<line data-seclevel="0" x1="1" x2="248" y1="30" y2="30"></line>
+					<polyline data-seclevel="0" points="237 20 248 30 237 40"></polyline>
+					<circle data-seclevel="0" cx="17" cy="30" r="15"></circle>
+					<text class="msg" x="16" y="35">a</text>
+					<text class="tokens" x="120" y="22">e, s</text>
+<line data-seclevel="3" x1="2" x2="250" y1="160" y2="160"></line>
+					<polyline data-seclevel="3" points="12 150 2 160 12 170"></polyline>
+					<circle data-seclevel="4" cx="234" cy="160" r="15"></circle>
+					<text class="msg" x="233" y="165">b</text>
+					<text class="tokens" x="120" y="152">e, ee, se, s, es, psk</text>
+<line data-seclevel="5" x1="1" x2="248" y1="290" y2="290"></line>
+					<polyline data-seclevel="5" points="237 280 248 290 237 300"></polyline>
+					<circle data-seclevel="4" cx="17" cy="290" r="15"></circle>
+					<text class="msg" x="16" y="295">c</text>
+					<text class="tokens" x="120" y="282"></text>
+<line data-seclevel="5" x1="2" x2="250" y1="420" y2="420"></line>
+					<polyline data-seclevel="5" points="12 410 2 420 12 430"></polyline>
+					<circle data-seclevel="4" cx="234" cy="420" r="15"></circle>
+					<text class="msg" x="233" y="425">d</text>
+					<text class="tokens" x="120" y="412"></text>
+				</svg>
+			</div>
+		</div>
+		<div class="resultsExplanation" style="height: 670px;">
+			<h2>Handshake Pattern Analysis</h2>
+			
+			<h3>Message A <a href="/patterns/IXpsk2/A.html" class="detailedAnalysis">show detailed analysis</a></h3>
+			<p>Message A, sent by the initiator, does not benefit from <em>sender authentication</em> and does not provide <em>message integrity</em>. It could have been sent by any party, including an active attacker. Message contents do not benefit from <em>message secrecy</em> even against a purely passive attacker and any <em>forward secrecy</em> is out of the question.  <span class="resultNums">0,0</span></p>
+
+			<h3>Message B <a href="/patterns/IXpsk2/B.html" class="detailedAnalysis">show detailed analysis</a></h3>
+			<p>Message B, sent by the responder, benefits from <em>sender and receiver authentication</em> and is <em>resistant to Key Compromise Impersonation</em>. Assuming the corresponding private keys are secure, this authentication cannot be forged. Message contents benefit from <em>message secrecy</em> and <em>weak forward secrecy</em> under a passive attacker: if the responder's long-term static keys were previously compromised, the later compromise of the initiator's long-term static keys can lead to message contents being decrypted by an attacker.  <span class="resultNums">4,3</span></p>
+
+			<h3>Message C <a href="/patterns/IXpsk2/C.html" class="detailedAnalysis">show detailed analysis</a></h3>
+			<p>Message C, sent by the initiator, benefits from <em>sender and receiver authentication</em> and is <em>resistant to Key Compromise Impersonation</em>. Assuming the corresponding private keys are secure, this authentication cannot be forged. Message contents benefit from <em>message secrecy</em> and <em>strong forward secrecy</em>: if the ephemeral private keys are secure and the responder is not being actively impersonated by an active attacker, message contents cannot be decrypted.  <span class="resultNums">4,5</span></p>
+
+			<h3>Message D <a href="/patterns/IXpsk2/D.html" class="detailedAnalysis">show detailed analysis</a></h3>
+			<p>Message D, sent by the responder, benefits from <em>sender and receiver authentication</em> and is <em>resistant to Key Compromise Impersonation</em>. Assuming the corresponding private keys are secure, this authentication cannot be forged. Message contents benefit from <em>message secrecy</em> and <em>strong forward secrecy</em>: if the ephemeral private keys are secure and the initiator is not being actively impersonated by an active attacker, message contents cannot be decrypted.  <span class="resultNums">4,5</span></p>
+			<h3>Generate Cryptographic Models for Formal Verification</h3>
+			<p>
+				<a href="#" id="pvActiveLink">
+					Get Model
+					<span class="modelType">active attacker</span>
+				</a>
+				<a href="#" id="pvPassiveLink">
+					Get Model
+					<span class="modelType">passive attacker</span>
+				</a>
+			</p>
+			<h3>Generate Secure Protocol Implementation Code</h3>
+			<p>
+				<a href="#" id="goLink">
+					Get Implementation
+					<span class="modelType">written in go</span>
+				</a>
+				<a href="#" id="rsLink">
+					Get Implementation
+					<span class="modelType">written in rust</span>
+				</a>
+			</p>
+		</div>
+	</div>
+	<div class="footer">
+		<span class="about">about</span>
+		<span>Noise Explorer</span>
+		<span style="float:right"><a href="https://symbolic.software" target="_blank">Symbolic Software</a> | <a href="http://prosecco.gforge.inria.fr/" target="_blank">INRIA</a></span>
+	</div>
+</body>
+
+</html>
