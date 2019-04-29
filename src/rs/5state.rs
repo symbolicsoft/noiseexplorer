@@ -5,7 +5,7 @@
 use crate::{
 	consts::{DHLEN, EMPTY_HASH, EMPTY_KEY, HASHLEN, NONCE_LENGTH, ZEROLEN},
 	prims::{decrypt, encrypt, hash, hkdf},
-	types::{Hash, Key, Keypair, MessageBuffer, Nonce, Psk, PublicKey},
+	types::{Hash, Key, Keypair, Nonce, Psk, PublicKey},
 };
 use hacl_star::chacha20poly1305;
 
@@ -87,15 +87,11 @@ impl CipherState {
 		self.k.clear();
 		self.k = Key::from_bytes(in_out);
 	}
-	pub(crate) fn write_message_regular(&mut self, payload: &[u8]) -> MessageBuffer {
-		MessageBuffer {
-			ne: EMPTY_KEY,
-			ns: Vec::new(),
-			ciphertext: self.encrypt_with_ad(&ZEROLEN[..], payload),
-		}
+	pub(crate) fn write_message_regular(&mut self, payload: &[u8]) -> Vec<u8> {
+		self.encrypt_with_ad(&ZEROLEN[..], payload)
 	}
-	pub(crate) fn read_message_regular(&mut self, message: &MessageBuffer) -> Option<Vec<u8>> {
-		self.decrypt_with_ad(&ZEROLEN[..], &message.ciphertext)
+	pub(crate) fn read_message_regular(&mut self, message: &Vec<u8>) -> Option<Vec<u8>> {
+		self.decrypt_with_ad(&ZEROLEN[..], &message)
 	}
 }
 

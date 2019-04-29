@@ -174,29 +174,29 @@ const NOISE2RS = {
 			`let h: Hash = Hash::from_bytes(from_slice_hashlen(&self.ss.h.as_bytes()));`,
 			`let (cs1, cs2) = self.ss.split();`,
 			`self.ss.clear();`,
-			`let messagebuffer = MessageBuffer { ne, ns, ciphertext };`,
-			`(h, messagebuffer, cs1, cs2)`
+			`(h, output, cs1, cs2)`
 		] : [
-			`MessageBuffer { ne, ns, ciphertext }`
+			`output`
 		];
 		let isBeyondFinal = (message.tokens.length === 0);
 		if (isBeyondFinal) {
 			return ``;
 		}
-		let writeFunDeclaration = `\tpub(crate) fn write_message_${suffix}(&mut self, payload: &[u8]) -> (${isFinal? `(Hash, MessageBuffer, CipherState, CipherState)` : `MessageBuffer`}) {`;
+		let writeFunDeclaration = `\tpub(crate) fn write_message_${suffix}(&mut self, payload: &[u8]) -> (${isFinal? `(Hash, Vec<u8>, CipherState, CipherState)` : `Vec<u8>`}) {`;
 		let messageTokenParsers = {
 			e: [
 				`if self.e.is_empty() {`,
 				`\tself.e = Keypair::new();`,
 				`}`,
-				`ne = self.e.get_public_key().as_bytes();`,
+				`let ne = self.e.get_public_key().as_bytes();`,
 				`self.ss.mix_hash(&ne[..]);`,
-				ePskFill
+				ePskFill,
+				`output.append(&mut Vec::from(&ne[..]));`
 			].join(`\n\t\t`),
 			s: [
-				`if let Some(x) = self.ss.encrypt_and_hash(&self.s.get_public_key().as_bytes()[..]) {`,
-				`\tns.clone_from(&x);`,
-				`}`
+				`if let Some(mut ns) = self.ss.encrypt_and_hash(&self.s.get_public_key().as_bytes()[..]) {`,
+				`\toutput.append(&mut ns);`,
+				`}`,
 			].join(`\n\t\t`),
 			ee: [
 				`self.ss.mix_key(&self.e.dh(&self.re.as_bytes()));`
@@ -216,8 +216,7 @@ const NOISE2RS = {
 		};
 		let writeFun = [
 			writeFunDeclaration,
-			`let ${(message.tokens.indexOf('s') >= 0)? 'mut ': ''}ns: Vec<u8> = Vec::new();`,
-			`let ne: [u8; DHLEN]${(message.tokens.indexOf('e') >= 0)? '': ` = ${util.emptyKey}`};`
+			`let mut output: Vec<u8> = Vec::new();`
 		];
 		message.tokens.forEach((token) => {
 			writeFun.push(messageTokenParsers[token]);
@@ -226,7 +225,8 @@ const NOISE2RS = {
 			`let mut ciphertext: Vec<u8> = Vec::new();`,
 			`if let Some(x) = self.ss.encrypt_and_hash(payload) {`,
 			`\tciphertext.clone_from(&x);`,
-			`}`
+			`}`,
+			`output.append(&mut ciphertext);`
 		]);
 		writeFun = writeFun.concat(finalFill);
 		return `${writeFun.join('\n\t\t')}\n\t}`;
@@ -269,15 +269,18 @@ const NOISE2RS = {
 		if (isBeyondFinal) {
 			return ``;
 		}
-		let readFunDeclaration = `\tpub(crate) fn read_message_${suffix}(&mut self, message: &mut MessageBuffer) -> (${isFinal? ` Option<(Hash, Vec<u8>, CipherState, CipherState)>` : `Option<Vec<u8>>`}) {`;
+		let readFunDeclaration = `\tpub(crate) fn read_message_${suffix}(&mut self, input: &mut Vec<u8>) -> (${isFinal? ` Option<(Hash, Vec<u8>, CipherState, CipherState)>` : `Option<Vec<u8>>`}) {`;
 		let messageTokenParsers = {
 			e: [
-				`self.re = PublicKey::from_bytes(message.ne);`,
+				`let (vre, rest) = rest.split_at(32);`,
+				`self.re = PublicKey::from_bytes(from_slice_hashlen(&vre.to_owned()[..]));`,
 				`self.ss.mix_hash(&self.re.as_bytes()[..DHLEN]);`,
 				ePskFill
 			].join(`\n\t\t`),
 			s: [
-				`if let Some(x) = self.ss.decrypt_and_hash(&message.ns) {`,
+				`${(message.tokens.indexOf('e') >= 0)? 'let (vrs, rest) = rest.split_at(32);' : 'let (vrs, rest) = rest.split_at(32);'}`,
+				`let ns = vrs.to_owned();`,
+				`if let Some(x) = self.ss.decrypt_and_hash(&ns) {`,
 				`\tif x.len() != DHLEN {`,
 				`\t\treturn None`,
 				`\t}`,
@@ -302,12 +305,13 @@ const NOISE2RS = {
 		};
 		let readFun = [
 			readFunDeclaration,
+			`let rest = input;`
 		];
 		message.tokens.forEach((token) => {
 			readFun.push(messageTokenParsers[token]);
 		});
 		readFun = readFun.concat([
-			`if let Some(plaintext) = self.ss.decrypt_and_hash(&message.ciphertext) {`,
+			`if let Some(plaintext) = self.ss.decrypt_and_hash(&rest) {`,
 			`${finalFill.join('\n\t\t')}`,
 			`}`,
 			`None`
@@ -361,13 +365,13 @@ const NOISE2RS = {
 		let hasPsk = messagesPsk(pattern) >= 0;
 		let finalKex = finalKeyExchangeMessage(pattern);
 		let initSession = [
-			`\t/// Instantiates  a \`NoiseSession\` object. Takes the following as parameters:`,
-			`\t/// - \`initiator\`: \`bool\` variable. To be set as \`true\` when initiating a handshake with a remote party, or \`false\` otherwise.`,
-			`\t/// - \`prologue\`: \`Message\` object. Could optionally contain the name of the protocol to be used.`,
-			`\t/// - \`s\`: \`Keypair\` object. Contains local party's static keypair.`,
-			`\t/// - \`rs\`: \`PublicKey\` object. Contains the remote party's static public key.`,
-			`${hasPsk? '\t/// - \`psk\`: \`Psk\` object. Contains the pre-shared key.' : ''}`,
-			`\tpub fn init_session(initiator: bool, prologue: Message, s: Keypair, rs: PublicKey${hasPsk? ', psk: Psk' : ''}) -> NoiseSession {`,
+			`\t/// Instantiates a \`NoiseSession\` object. Takes the following as parameters:`,
+			`/// - \`initiator\`: \`bool\` variable. To be set as \`true\` when initiating a handshake with a remote party, or \`false\` otherwise.`,
+			`/// - \`prologue\`: \`Message\` object. Could optionally contain the name of the protocol to be used.`,
+			`/// - \`s\`: \`Keypair\` object. Contains local party's static keypair.`,
+			`/// - \`rs\`: \`PublicKey\` object. Contains the remote party's static public key.`,
+			`${hasPsk? '/// - \`psk\`: \`Psk\` object. Contains the pre-shared key.' : ''}`,
+			`pub fn init_session(initiator: bool, prologue: Message, s: Keypair, rs: PublicKey${hasPsk? ', psk: Psk' : ''}) -> NoiseSession {`,
 			`\tif initiator {`,
 			`\t\tNoiseSession{`,
 			`\t\t\ths: HandshakeState::initialize_initiator(&prologue.as_bytes(), s, rs, ${hasPsk? 'psk' : 'Psk::new()'}),`,
@@ -390,18 +394,18 @@ const NOISE2RS = {
 			`}`
 		];
 		let sendMessage = [
-			`\n\t/// Takes a \`Message\` object containing plaintext as a parameter.`,
-			`\n\t/// Returns a \`MessageBuffer\` object containing the corresponding ciphertext.`,
-			`\n\t///`,
-			`\n\t/// _Note that while \`mc\` <= 1 the ciphertext will be included as a payload for handshake messages and thus will not offer the same guarantees offered by post-handshake messages._`,
-			`\n\tpub fn send_message(&mut self, message: Message) -> MessageBuffer {`
+			`/// Takes a \`Message\` object containing plaintext as a parameter.`,
+			`/// Returns a \`Vec<u8>\` containing the corresponding ciphertext.`,
+			`///`,
+			`/// _Note that while \`mc\` <= 1 the ciphertext will be included as a payload for handshake messages and thus will not offer the same guarantees offered by post-handshake messages._`,
+			`\n\tpub fn send_message(&mut self, message: Message) -> Vec<u8> {`
 		];
 		let recvMessage = [
-			`\n/// Takes a \`MessageBuffer\` object received from the remote party as a parameter.`,
-			`\n\t/// Returns an \`Option<Vec<u8>>\` containing plaintext upon successful decryption, and \`None\` otherwise.`,
-			`\n\t///`,
-			`\n\t/// _Note that while \`mc\` <= 1 the ciphertext will be included as a payload for handshake messages and thus will not offer the same guarantees offered by post-handshake messages._`,
-			`\n\tpub fn recv_message(&mut self, message: &mut MessageBuffer) -> Option<Vec<u8>> {`,
+			`/// Takes a \`Vec<u8>\` received from the remote party as a parameter.`,
+			`/// Returns an \`Option<Vec<u8>>\` containing plaintext upon successful decryption, and \`None\` otherwise.`,
+			`///`,
+			`/// _Note that while \`mc\` <= 1 the ciphertext will be included as a payload for handshake messages and thus will not offer the same guarantees offered by post-handshake messages._`,
+			`pub fn recv_message(&mut self, input: &mut Vec<u8>) -> Option<Vec<u8>> {`,
 			`\tlet mut plaintext: Option<Vec<u8>> = None;`
 		];
 		for (let i = 0; i < pattern.messages.length; i++) {
@@ -414,7 +418,7 @@ const NOISE2RS = {
 				]);
 				recvMessage = recvMessage.concat([
 					`\t${i > 0? 'else ' : ''}if self.mc == ${i} {`,
-					`\t\tplaintext = self.hs.read_message_${util.abc[i]}(message);`,
+					`\t\tplaintext = self.hs.read_message_${util.abc[i]}(input);`,
 					`\t}`
 				]);
 			} else if (i == finalKex) {
@@ -431,7 +435,7 @@ const NOISE2RS = {
 				]);
 				recvMessage = recvMessage.concat([
 					`\t${!isOneWayPattern? 'else ' : ''}if self.mc == ${i} {`,
-					`\t\tif let Some(temp) = self.hs.read_message_${util.abc[i]}(message) {`,
+					`\t\tif let Some(temp) = self.hs.read_message_${util.abc[i]}(input) {`,
 					`\t\t\tself.h = temp.0;`,
 					`\t\t\tplaintext = Some(temp.1);`,
 					`\t\t\tself.cs1 = temp.2;`,
@@ -455,10 +459,10 @@ const NOISE2RS = {
 				recvMessage = recvMessage.concat([
 					`\telse if self.mc > ${finalKex} {`,
 					`\t\tif self.i {`,
-					`\t\t\tif let Some(msg) = &self.${isOneWayPattern? 'cs1' : 'cs2'}.read_message_regular(message) {`,
+					`\t\t\tif let Some(msg) = &self.${isOneWayPattern? 'cs1' : 'cs2'}.read_message_regular(input) {`,
 					`\t\t\t\tplaintext = Some(msg.to_owned());`,
 					`\t\t\t}`,
-					`\t\t} else if let Some(msg) = &self.cs1.read_message_regular(message) {`,
+					`\t\t} else if let Some(msg) = &self.cs1.read_message_regular(input) {`,
 					`\t\t\t\tplaintext = Some(msg.to_owned());`,
 					`\t\t}`,
 					`\t}`,

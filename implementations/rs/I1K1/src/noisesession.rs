@@ -5,7 +5,7 @@
 use crate::{
     consts::HASHLEN,
     state::{CipherState, HandshakeState},
-    types::{Hash, Keypair, Message, MessageBuffer, Psk, PublicKey},
+    types::{Hash, Keypair, Message, Psk, PublicKey},
 };
 /// A `NoiseSession` object is used to keep track of the states of both local and remote parties before, during, and after a handshake.
 ///
@@ -51,13 +51,13 @@ impl NoiseSession {
 	pub fn set_ephemeral_keypair(&mut self, e: Keypair) {
         self.hs.set_ephemeral_keypair(e);
     }
-	/// Instantiates  a `NoiseSession` object. Takes the following as parameters:
-		/// - `initiator`: `bool` variable. To be set as `true` when initiating a handshake with a remote party, or `false` otherwise.
-		/// - `prologue`: `Message` object. Could optionally contain the name of the protocol to be used.
-		/// - `s`: `Keypair` object. Contains local party's static keypair.
-		/// - `rs`: `PublicKey` object. Contains the remote party's static public key.
+	/// Instantiates a `NoiseSession` object. Takes the following as parameters:
+	/// - `initiator`: `bool` variable. To be set as `true` when initiating a handshake with a remote party, or `false` otherwise.
+	/// - `prologue`: `Message` object. Could optionally contain the name of the protocol to be used.
+	/// - `s`: `Keypair` object. Contains local party's static keypair.
+	/// - `rs`: `PublicKey` object. Contains the remote party's static public key.
 	
-		pub fn init_session(initiator: bool, prologue: Message, s: Keypair, rs: PublicKey) -> NoiseSession {
+	pub fn init_session(initiator: bool, prologue: Message, s: Keypair, rs: PublicKey) -> NoiseSession {
 		if initiator {
 			NoiseSession{
 				hs: HandshakeState::initialize_initiator(&prologue.as_bytes(), s, rs, Psk::new()),
@@ -78,16 +78,12 @@ impl NoiseSession {
 			}
 		}
 	}
-	
 	/// Takes a `Message` object containing plaintext as a parameter.
-	
-	/// Returns a `MessageBuffer` object containing the corresponding ciphertext.
-	
+	/// Returns a `Vec<u8>` containing the corresponding ciphertext.
 	///
-	
 	/// _Note that while `mc` <= 1 the ciphertext will be included as a payload for handshake messages and thus will not offer the same guarantees offered by post-handshake messages._
 	
-	pub fn send_message(&mut self, message: Message) -> MessageBuffer {
+	pub fn send_message(&mut self, message: Message) -> Vec<u8> {
 		if self.mc == 0 {
 			self.mc += 1;
 			self.hs.write_message_a(&message.as_bytes()[..])
@@ -115,25 +111,20 @@ impl NoiseSession {
 			buffer
 		}
 	}
-	
-/// Takes a `MessageBuffer` object received from the remote party as a parameter.
-	
+	/// Takes a `Vec<u8>` received from the remote party as a parameter.
 	/// Returns an `Option<Vec<u8>>` containing plaintext upon successful decryption, and `None` otherwise.
-	
 	///
-	
 	/// _Note that while `mc` <= 1 the ciphertext will be included as a payload for handshake messages and thus will not offer the same guarantees offered by post-handshake messages._
-	
-	pub fn recv_message(&mut self, message: &mut MessageBuffer) -> Option<Vec<u8>> {
+	pub fn recv_message(&mut self, input: &mut Vec<u8>) -> Option<Vec<u8>> {
 		let mut plaintext: Option<Vec<u8>> = None;
 		if self.mc == 0 {
-			plaintext = self.hs.read_message_a(message);
+			plaintext = self.hs.read_message_a(input);
 		}
 		else if self.mc == 1 {
-			plaintext = self.hs.read_message_b(message);
+			plaintext = self.hs.read_message_b(input);
 		}
 		else if self.mc == 2 {
-			if let Some(temp) = self.hs.read_message_c(message) {
+			if let Some(temp) = self.hs.read_message_c(input) {
 				self.h = temp.0;
 				plaintext = Some(temp.1);
 				self.cs1 = temp.2;
@@ -143,10 +134,10 @@ impl NoiseSession {
 		}
 		else if self.mc > 2 {
 			if self.i {
-				if let Some(msg) = &self.cs2.read_message_regular(message) {
+				if let Some(msg) = &self.cs2.read_message_regular(input) {
 					plaintext = Some(msg.to_owned());
 				}
-			} else if let Some(msg) = &self.cs1.read_message_regular(message) {
+			} else if let Some(msg) = &self.cs1.read_message_regular(input) {
 					plaintext = Some(msg.to_owned());
 			}
 		}

@@ -283,14 +283,6 @@ impl Nonce {
 }
 
 #[derive(Clone)]
-/// Data structure to be used 
-pub struct MessageBuffer {
-	pub ne: [u8; DHLEN],
-	pub ns: Vec<u8>,
-	pub ciphertext: Vec<u8>,
-}
-
-#[derive(Clone)]
 pub struct Message {
 	payload: Vec<u8>,
 }

@@ -65,7 +65,7 @@ const gen = (
 		let send = (i % 2 === 0) ? 'initiator_session' : 'responder_session';
 		let recv = (i % 2 === 0) ? 'responder_session' : 'initiator_session';
 		rsTestCode.push([
-			`let mut message${abc[i]}: MessageBuffer = ${send}.send_message(Message::from_str("${messages[i].payload}"));`,
+			`let mut message${abc[i]}: Vec<u8> = ${send}.send_message(Message::from_str("${messages[i].payload}"));`,
 			`let mut valid${abc[i]}: bool = false;`,
 			`if let Some(_x) = ${recv}.recv_message(&mut message${abc[i]}) {\n\t\tvalid${abc[i]} = true;\n\t}`,
 			`let t${abc[i]}: Message = Message::from_str("${messages[i].ciphertext}");`
@@ -78,23 +78,11 @@ const gen = (
 		`);`
 	].join('\n\t'));
 	for (let i = 0; i < 6; i++) {
-		rsTestCode.push(`let mut c${abc[i]}: Vec<u8> = Vec::new();`);
-		if (json.messages.length > i) {
-			if (json.messages[i].tokens.indexOf('e') >= 0) {
-				rsTestCode.push(`c${abc[i]}.append(&mut Vec::from(&message${abc[i]}.ne[..]));`);
-			}
-			if (json.messages[i].tokens.indexOf('s') >= 0) {
-				rsTestCode.push(`c${abc[i]}.append(&mut message${abc[i]}.ns);`);
-			}
-		}
-		rsTestCode.push(`c${abc[i]}.append(&mut message${abc[i]}.ciphertext);`);
-	}
-	for (let i = 0; i < 6; i++) {
 		rsTestCode.push([
-			`assert!(t${abc[i]}.as_bytes() == &c${abc[i]},`,
+			`assert!(t${abc[i]}.as_bytes() == &message${abc[i]},`,
 			`\t\t${String.raw`"\n\n\nTest ${abc[i]}: FAIL\n\nExpected:\n{:X?}\n\nActual:\n{:X?}\n\n\n"`},`,
 			`\t\tt${abc[i]}.as_bytes(),`,
-			`\t\t&cB`,
+			`\t\t&message${abc[i]}`,
 			`\t);`
 		].join(`\n`));
 	}

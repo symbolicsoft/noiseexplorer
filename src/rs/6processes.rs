@@ -5,7 +5,7 @@
 use crate::{
     consts::HASHLEN,
     state::{CipherState, HandshakeState},
-    types::{Hash, Keypair, Message, MessageBuffer, Psk, PublicKey},
+    types::{Hash, Keypair, Message, Psk, PublicKey},
 };
 /// A `NoiseSession` object is used to keep track of the states of both local and remote parties before, during, and after a handshake.
 ///
