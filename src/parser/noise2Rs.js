@@ -102,6 +102,30 @@ const NOISE2RS = {
 		return r;
 	};
 
+	const firstCanEncryptMessage = (pattern) => {
+		let r = -1;
+		for (let i = 0; i < pattern.messages.length; i++) {
+			if (
+				(pattern.messages[i].tokens.indexOf('ee') >= 0) ||
+				(pattern.messages[i].tokens.indexOf('es') >= 0) ||
+				(pattern.messages[i].tokens.indexOf('se') >= 0) ||
+				(pattern.messages[i].tokens.indexOf('ss') >= 0) ||
+				(pattern.messages[i].tokens.indexOf('psk') >= 0)
+			) {
+				r = i;
+				break;
+			}
+			if (
+				(pattern.messages[i].tokens.indexOf('e') >= 0) &&
+				(messagesPsk(pattern) >= 0)
+			) {
+				r = i;
+				break;
+			}
+		}
+		return r;
+	}
+
 	const finalKeyExchangeMessage = (pattern) => {
 		let r = 0;
 		for (let i = 0; i < pattern.messages.length; i++) {
@@ -250,7 +274,7 @@ const NOISE2RS = {
 		return writeFuns;
 	};
 
-	const readMessageFun = (message, hasPsk, initiator, isFinal, suffix) => {
+	const readMessageFun = (message, hasPsk, initiator, alreadyDh, isFinal, suffix) => {
 		let ePskFill = hasPsk ?
 			`self.ss.mix_key(&self.re.as_bytes());` : `/* No PSK, so skipping mixKey */`;
 		let esInitiatorFill = initiator ?
@@ -269,6 +293,7 @@ const NOISE2RS = {
 		if (isBeyondFinal) {
 			return ``;
 		}
+		let nsLength = alreadyDh? '48' : '32';
 		let readFunDeclaration = `\tpub(crate) fn read_message_${suffix}(&mut self, input: &mut Vec<u8>) -> (${isFinal? ` Option<(Hash, Vec<u8>, CipherState, CipherState)>` : `Option<Vec<u8>>`}) {`;
 		let messageTokenParsers = {
 			e: [
@@ -278,7 +303,7 @@ const NOISE2RS = {
 				ePskFill
 			].join(`\n\t\t`),
 			s: [
-				`${(message.tokens.indexOf('e') >= 0)? 'let (vrs, rest) = rest.split_at(32);' : 'let (vrs, rest) = rest.split_at(32);'}`,
+				`${(message.tokens.indexOf('e') >= 0)? `let (vrs, rest) = rest.split_at(${nsLength});` : `let (vrs, rest) = rest.split_at(${nsLength});`}`,
 				`let ns = vrs.to_owned();`,
 				`if let Some(x) = self.ss.decrypt_and_hash(&ns) {`,
 				`\tif x.len() != DHLEN {`,
@@ -327,8 +352,12 @@ const NOISE2RS = {
 			let hasPsk = messagesPsk(pattern) >= 0;
 			let initiator = (message.dir === 'recv');
 			let isFinal = (i === finalKex);
+			let alreadyDh = (
+				(firstCanEncryptMessage(pattern) >= 0) &&
+				(firstCanEncryptMessage(pattern) <= i)
+			);
 			readFuns.push(
-				readMessageFun(message, hasPsk, initiator, isFinal, util.abc[i])
+				readMessageFun(message, hasPsk, initiator, alreadyDh, isFinal, util.abc[i])
 			);
 			if (i > finalKex) {
 				break;

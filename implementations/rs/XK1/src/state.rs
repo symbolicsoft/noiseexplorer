@@ -322,7 +322,7 @@ impl HandshakeState {
 
 	pub(crate) fn read_message_c(&mut self, input: &mut Vec<u8>) -> ( Option<(Hash, Vec<u8>, CipherState, CipherState)>) {
 		let rest = input;
-		let (vrs, rest) = rest.split_at(32);
+		let (vrs, rest) = rest.split_at(48);
 		let ns = vrs.to_owned();
 		if let Some(x) = self.ss.decrypt_and_hash(&ns) {
 			if x.len() != DHLEN {

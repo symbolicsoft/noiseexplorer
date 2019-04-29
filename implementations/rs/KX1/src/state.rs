@@ -314,7 +314,7 @@ impl HandshakeState {
 		/* No PSK, so skipping mixKey */
 		self.ss.mix_key(&self.e.dh(&self.re.as_bytes()));
 		self.ss.mix_key(&self.s.dh(&self.re.as_bytes()));
-		let (vrs, rest) = rest.split_at(32);
+		let (vrs, rest) = rest.split_at(48);
 		let ns = vrs.to_owned();
 		if let Some(x) = self.ss.decrypt_and_hash(&ns) {
 			if x.len() != DHLEN {
