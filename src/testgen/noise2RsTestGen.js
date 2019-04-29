@@ -79,9 +79,9 @@ const gen = (
 	].join('\n\t'));
 	for (let i = 0; i < 6; i++) {
 		rsTestCode.push([
-			`assert!(t${abc[i]}.as_bytes() == &message${abc[i]},`,
+			`assert!(t${abc[i]} == message${abc[i]},`,
 			`\t\t${String.raw`"\n\n\nTest ${abc[i]}: FAIL\n\nExpected:\n{:X?}\n\nActual:\n{:X?}\n\n\n"`},`,
-			`\t\tt${abc[i]}.as_bytes(),`,
+			`\t\tt${abc[i]},`,
 			`\t\t&message${abc[i]}`,
 			`\t);`
 		].join(`\n`));

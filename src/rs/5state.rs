@@ -4,8 +4,9 @@
 
 use crate::{
 	consts::{DHLEN, EMPTY_HASH, EMPTY_KEY, HASHLEN, NONCE_LENGTH, ZEROLEN},
+	error::NoiseError,
 	prims::{decrypt, encrypt, hash, hkdf},
-	types::{Hash, Key, Keypair, Nonce, Psk, PublicKey},
+	types::{Hash, Key, Keypair, Message, Nonce, Psk, PublicKey},
 };
 use hacl_star::chacha20poly1305;
 
@@ -87,11 +88,13 @@ impl CipherState {
 		self.k.clear();
 		self.k = Key::from_bytes(in_out);
 	}
-	pub(crate) fn write_message_regular(&mut self, payload: &[u8]) -> Vec<u8> {
-		self.encrypt_with_ad(&ZEROLEN[..], payload)
+	pub(crate) fn write_message_regular(&mut self, payload: &[u8]) -> Result<Vec<u8>, NoiseError> {
+		let output = self.encrypt_with_ad(&ZEROLEN[..], payload)?;
+		Ok(output)
 	}
-	pub(crate) fn read_message_regular(&mut self, message: &Vec<u8>) -> Option<Vec<u8>> {
-		self.decrypt_with_ad(&ZEROLEN[..], &message)
+	pub(crate) fn read_message_regular(&mut self, message: &[u8]) -> Result<Vec<u8>, NoiseError> {
+		let out = self.decrypt_with_ad(&ZEROLEN[..], message)?;
+		Ok(out)
 	}
 }
 
@@ -228,9 +231,4 @@ impl HandshakeState {
 /* $NOISE2RS_I$ */
 /* $NOISE2RS_W$ */
 /* $NOISE2RS_R$ */
-}
-
-#[test]
-fn initkey_test() {
-	CipherState::new();
 }

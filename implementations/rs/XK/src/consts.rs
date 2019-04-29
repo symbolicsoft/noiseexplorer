@@ -15,5 +15,4 @@ pub const MAC_LENGTH: usize = chacha20poly1305::MAC_LENGTH;
 pub const MAX_MESSAGE: usize = 65535;
 pub const MAX_NONCE: u64 = u64::max_value();
 pub const NONCE_LENGTH: usize = chacha20poly1305::NONCE_LENGTH;
-pub const PSK_LENGTH: usize = 32;
 pub const ZEROLEN: [u8; 0] = [0u8; 0];

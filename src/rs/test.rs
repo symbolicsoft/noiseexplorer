@@ -1,6 +1,7 @@
 #![allow(non_snake_case, non_upper_case_globals)]
 
 use noiseexplorer_$NOISE2RS_N$::{
+	error::NoiseError,
 	noisesession::NoiseSession,
 	types::{Keypair, Message, PrivateKey, PublicKey$NOISE2RS_S$},
 };

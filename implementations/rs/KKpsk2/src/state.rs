@@ -4,8 +4,9 @@
 
 use crate::{
 	consts::{DHLEN, EMPTY_HASH, EMPTY_KEY, HASHLEN, NONCE_LENGTH, ZEROLEN},
+	error::NoiseError,
 	prims::{decrypt, encrypt, hash, hkdf},
-	types::{Hash, Key, Keypair, Nonce, Psk, PublicKey},
+	types::{Hash, Key, Keypair, Message, Nonce, Psk, PublicKey},
 };
 use hacl_star::chacha20poly1305;
 
@@ -87,11 +88,13 @@ impl CipherState {
 		self.k.clear();
 		self.k = Key::from_bytes(in_out);
 	}
-	pub(crate) fn write_message_regular(&mut self, payload: &[u8]) -> Vec<u8> {
-		self.encrypt_with_ad(&ZEROLEN[..], payload)
+	pub(crate) fn write_message_regular(&mut self, payload: &[u8]) -> Result<Vec<u8>, NoiseError> {
+		let output = self.encrypt_with_ad(&ZEROLEN[..], payload)?;
+		Ok(output)
 	}
-	pub(crate) fn read_message_regular(&mut self, message: &Vec<u8>) -> Option<Vec<u8>> {
-		self.decrypt_with_ad(&ZEROLEN[..], &message)
+	pub(crate) fn read_message_regular(&mut self, message: &[u8]) -> Result<Vec<u8>, NoiseError> {
+		let out = self.decrypt_with_ad(&ZEROLEN[..], message)?;
+		Ok(out)
 	}
 }
 
@@ -242,7 +245,7 @@ impl HandshakeState {
 		ss.mix_hash(&s.get_public_key().as_bytes()[..]);
 		HandshakeState{ss, s, e: Keypair::new_empty(), rs, re: PublicKey::empty(), psk}
 	}
-	pub(crate) fn write_message_a(&mut self, payload: &[u8]) -> (Vec<u8>) {
+	pub(crate) fn write_message_a(&mut self, input: &[u8]) -> Result<Vec<u8>, NoiseError> {
 		let mut output: Vec<u8> = Vec::new();
 		if self.e.is_empty() {
 			self.e = Keypair::new();
@@ -253,15 +256,12 @@ impl HandshakeState {
 		output.append(&mut Vec::from(&ne[..]));
 		self.ss.mix_key(&self.e.dh(&self.rs.as_bytes()));
 		self.ss.mix_key(&self.s.dh(&self.rs.as_bytes())[..]);
-		let mut ciphertext: Vec<u8> = Vec::new();
-		if let Some(x) = self.ss.encrypt_and_hash(payload) {
-			ciphertext.clone_from(&x);
-		}
+		let mut ciphertext = self.ss.encrypt_and_hash(input)?;
 		output.append(&mut ciphertext);
-		output
+		Ok(output)
 	}
 
-	pub(crate) fn write_message_b(&mut self, payload: &[u8]) -> ((Hash, Vec<u8>, CipherState, CipherState)) {
+	pub(crate) fn write_message_b(&mut self, input: &[u8]) -> Result<(Hash, Vec<u8>, CipherState, CipherState), NoiseError> {
 		let mut output: Vec<u8> = Vec::new();
 		if self.e.is_empty() {
 			self.e = Keypair::new();
@@ -273,54 +273,40 @@ impl HandshakeState {
 		self.ss.mix_key(&self.e.dh(&self.re.as_bytes()));
 		self.ss.mix_key(&self.e.dh(&self.rs.as_bytes()));
 		self.ss.mix_key_and_hash(&self.psk.as_bytes());
-		let mut ciphertext: Vec<u8> = Vec::new();
-		if let Some(x) = self.ss.encrypt_and_hash(payload) {
-			ciphertext.clone_from(&x);
-		}
+		let mut ciphertext = self.ss.encrypt_and_hash(input)?;
 		output.append(&mut ciphertext);
 		let h: Hash = Hash::from_bytes(from_slice_hashlen(&self.ss.h.as_bytes()));
 		let (cs1, cs2) = self.ss.split();
 		self.ss.clear();
-		(h, output, cs1, cs2)
+		Ok((h, output, cs1, cs2))
 	}
 
 
-	pub(crate) fn read_message_a(&mut self, input: &mut Vec<u8>) -> (Option<Vec<u8>>) {
-		let rest = input;
-		let (vre, rest) = rest.split_at(32);
-		self.re = PublicKey::from_bytes(from_slice_hashlen(&vre.to_owned()[..]));
+	pub(crate) fn read_message_a(&mut self, input: &[u8]) -> Result<Vec<u8>, NoiseError> {
+		let (vre, rest) = input.split_at(32);
+		self.re = PublicKey::from_bytes(from_slice_hashlen(vre))?;
 		self.ss.mix_hash(&self.re.as_bytes()[..DHLEN]);
 		self.ss.mix_key(&self.re.as_bytes());
 		self.ss.mix_key(&self.s.dh(&self.re.as_bytes()));
 		self.ss.mix_key(&self.s.dh(&self.rs.as_bytes()));
-		if let Some(plaintext) = self.ss.decrypt_and_hash(&rest) {
-			return Some(plaintext);
-		}
-		None
+		let output = self.ss.decrypt_and_hash(rest)?;
+		Ok(output)
 	}
 
-	pub(crate) fn read_message_b(&mut self, input: &mut Vec<u8>) -> ( Option<(Hash, Vec<u8>, CipherState, CipherState)>) {
-		let rest = input;
-		let (vre, rest) = rest.split_at(32);
-		self.re = PublicKey::from_bytes(from_slice_hashlen(&vre.to_owned()[..]));
+	pub(crate) fn read_message_b(&mut self, input: &[u8]) ->  Result<(Hash, Vec<u8>, CipherState, CipherState), NoiseError> {
+		let (vre, rest) = input.split_at(32);
+		self.re = PublicKey::from_bytes(from_slice_hashlen(vre))?;
 		self.ss.mix_hash(&self.re.as_bytes()[..DHLEN]);
 		self.ss.mix_key(&self.re.as_bytes());
 		self.ss.mix_key(&self.e.dh(&self.re.as_bytes()));
 		self.ss.mix_key(&self.s.dh(&self.re.as_bytes()));
 		self.ss.mix_key_and_hash(&self.psk.as_bytes());
-		if let Some(plaintext) = self.ss.decrypt_and_hash(&rest) {
-			let h: Hash = Hash::from_bytes(from_slice_hashlen(&self.ss.h.as_bytes()));
-			let (cs1, cs2) = self.ss.split();
-			self.ss.clear();
-			return Some((h, plaintext, cs1, cs2));
-		}
-		None
+		let output = self.ss.decrypt_and_hash(rest)?;
+		let h: Hash = Hash::from_bytes(from_slice_hashlen(&self.ss.h.as_bytes()));
+		let (cs1, cs2) = self.ss.split();
+		self.ss.clear();
+		Ok(h, output, cs1, cs2)
 	}
 
 
-}
-
-#[test]
-fn initkey_test() {
-	CipherState::new();
 }

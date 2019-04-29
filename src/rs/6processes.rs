@@ -4,6 +4,7 @@
 
 use crate::{
     consts::HASHLEN,
+    error::NoiseError,
     state::{CipherState, HandshakeState},
     types::{Hash, Keypair, Message, Psk, PublicKey},
 };

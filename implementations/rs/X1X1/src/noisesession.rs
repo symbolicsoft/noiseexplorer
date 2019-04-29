@@ -4,6 +4,7 @@
 
 use crate::{
     consts::HASHLEN,
+    error::NoiseError,
     state::{CipherState, HandshakeState},
     types::{Hash, Keypair, Message, Psk, PublicKey},
 };
@@ -79,76 +80,65 @@ impl NoiseSession {
 		}
 	}
 	/// Takes a `Message` object containing plaintext as a parameter.
-	/// Returns a `Vec<u8>` containing the corresponding ciphertext.
+	/// Returns a `Message` object containing the corresponding ciphertext.
 	///
 	/// _Note that while `mc` <= 1 the ciphertext will be included as a payload for handshake messages and thus will not offer the same guarantees offered by post-handshake messages._
 	
-	pub fn send_message(&mut self, message: Message) -> Vec<u8> {
+	pub fn send_message(&mut self, message: Message) -> Result<Message, NoiseError> {
 		if self.mc == 0 {
-			self.mc += 1;
-			self.hs.write_message_a(&message.as_bytes()[..])
+			out = self.hs.write_message_a(message.as_bytes())?;
 		}
 		else if self.mc == 1 {
-			self.mc += 1;
-			self.hs.write_message_b(&message.as_bytes()[..])
+			out = self.hs.write_message_b(message.as_bytes())?;
 		}
 		else if self.mc == 2 {
-			self.mc += 1;
-			self.hs.write_message_c(&message.as_bytes()[..])
+			out = self.hs.write_message_c(message.as_bytes())?;
 		}
 		else if self.mc == 3 {
-			let temp = self.hs.write_message_d(&message.as_bytes()[..]);
+			let temp = self.hs.write_message_d(message.as_bytes)?;
 			self.h = temp.0;
 			self.cs1 = temp.2;
 			self.cs2 = temp.3;
 			self.hs.clear();
-			self.mc += 1;
-			temp.1
+			out = temp.1;
 		}
 		else if self.i {
-			let buffer = self.cs1.write_message_regular(&message.as_bytes()[..]);
-			self.mc += 1;
-			buffer
+			out = self.cs1.write_message_regular(message.as_bytes())?;
 		} else {
-			let buffer = self.cs2.write_message_regular(&message.as_bytes()[..]);
-			self.mc += 1;
-			buffer
+			out = self.cs2.write_message_regular(message.as_bytes())?;
 		}
 	}
-	/// Takes a `Vec<u8>` received from the remote party as a parameter.
-	/// Returns an `Option<Vec<u8>>` containing plaintext upon successful decryption, and `None` otherwise.
+	/// Takes a `Message` object received from the remote party as a parameter.
+	/// Returns an `Message` object containing plaintext upon successful decryption, and `None` otherwise.
 	///
 	/// _Note that while `mc` <= 1 the ciphertext will be included as a payload for handshake messages and thus will not offer the same guarantees offered by post-handshake messages._
-	pub fn recv_message(&mut self, input: &mut Vec<u8>) -> Option<Vec<u8>> {
-		let mut plaintext: Option<Vec<u8>> = None;
+	pub fn recv_message(&mut self, input: Message) -> Result<Message, NoiseError> {
+		let out: Vec<u8>;
 		if self.mc == 0 {
-			plaintext = self.hs.read_message_a(input);
+		out = self.hs.read_message_a(message.as_bytes())?;
 		}
 		else if self.mc == 1 {
-			plaintext = self.hs.read_message_b(input);
+		out = self.hs.read_message_b(message.as_bytes())?;
 		}
 		else if self.mc == 2 {
-			plaintext = self.hs.read_message_c(input);
+		out = self.hs.read_message_c(message.as_bytes())?;
 		}
 		else if self.mc == 3 {
-			if let Some(temp) = self.hs.read_message_d(input) {
+			out = self.hs.read_message_d(message.as_bytes())?;
 				self.h = temp.0;
-				plaintext = Some(temp.1);
 				self.cs1 = temp.2;
 				self.cs2 = temp.3;
 				self.hs.clear();
+				out = temp.1;
 			}
 		}
-		else if self.mc > 3 {
-			if self.i {
-				if let Some(msg) = &self.cs2.read_message_regular(input) {
-					plaintext = Some(msg.to_owned());
-				}
-			} else if let Some(msg) = &self.cs1.read_message_regular(input) {
-					plaintext = Some(msg.to_owned());
-			}
+		} else if self.i {
+			if out = self.cs2.read_message_regular(message.as_bytes())?;
+		} else {
+				out = self.cs1.read_message_regular(message.as_bytes())?;
 		}
+		let out: Message = Message::from_vec(out)?;
 		self.mc += 1;
-		plaintext
+		Ok(out)
 	}
 }

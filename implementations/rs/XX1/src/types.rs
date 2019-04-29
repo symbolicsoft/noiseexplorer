@@ -2,31 +2,32 @@
  * TYPES                                                            *
  * ---------------------------------------------------------------- */
 
-use crate::consts::{DHLEN, EMPTY_KEY, HASHLEN, MAX_MESSAGE, MAX_NONCE, PSK_LENGTH};
+use crate::{
+	consts::{DHLEN, EMPTY_KEY, HASHLEN, MAX_MESSAGE, MAX_NONCE},
+	error::NoiseError,
+};
 use hacl_star::curve25519;
+
 use rand;
 use zeroize::Zeroize;
 
-fn decode_str_32(s: &str) -> [u8; DHLEN] {
+fn decode_str_32(s: &str) -> Result<[u8; DHLEN], NoiseError> {
 	if let Ok(x) = hex::decode(s) {
 		if x.len() == DHLEN {
 			let mut temp: [u8; DHLEN] = [0u8; DHLEN];
 			temp.copy_from_slice(&x[..]);
-			temp
+			Ok(temp)
 		} else {
-			panic!("Invalid input length; decode_32");
+			return Err(NoiseError::InvalidInputError);
 		}
 	} else {
-		panic!("Invalid input length; decode_32");
+		return Err(NoiseError::InvalidInputError);
 	}
 }
 
-fn decode_str(s: &str) -> Vec<u8> {
-	if let Ok(x) = hex::decode(s) {
-		x
-	} else {
-		panic!("{:X?}", hex::decode(s).err());
-	}
+fn decode_str(s: &str) -> Result<Vec<u8>, NoiseError> {
+	let res = hex::decode(s)?;
+	Ok(res)
 }
 
 #[derive(Clone)]
@@ -72,8 +73,9 @@ impl Key {
 	///
 	/// println!("{:?}", pk.as_bytes());
 	/// ```
-	pub fn from_str(key: &str) -> Key {
-		Key::from_bytes(decode_str_32(key))
+	pub fn from_str(key: &str) -> Result<Key, NoiseError> {
+		let a = decode_str_32(key)?;
+		Ok(Key::from_bytes(a))
 	}
 	pub(crate) fn as_bytes(&self) -> [u8; DHLEN] {
 		self.k
@@ -126,12 +128,9 @@ impl Psk {
 	///
 	/// println!("{:?}", pk.as_bytes());
 	/// ```
-	pub fn from_str(k: &str) -> Psk {
-		let psk = decode_str_32(k);
-		if psk.len() != PSK_LENGTH {
-			panic!("Invalid PSK Length");
-		}
-		Psk::from_bytes(psk)
+	pub fn from_str(k: &str) -> Result<Psk, NoiseError> {
+		let psk = decode_str_32(k)?;
+		Ok(Psk::from_bytes(psk))
 	}
 	#[allow(dead_code)]
 	pub(crate) fn as_bytes(&self) -> [u8; DHLEN] {
@@ -181,8 +180,9 @@ impl PrivateKey {
 	///
 	/// println!("{:?}", pk.as_bytes());
 	/// ```
-	pub fn from_str(key: &str) -> PrivateKey {
-		PrivateKey::from_hacl_secret_key(curve25519::SecretKey(decode_str_32(key)))
+	pub fn from_str(key: &str) -> Result<PrivateKey,NoiseError> {
+		let k = decode_str_32(key)?;
+		Ok(PrivateKey::from_hacl_secret_key(curve25519::SecretKey(k)))
 	}
 	pub(crate) fn as_bytes(&self) -> [u8; DHLEN] {
 		self.k
@@ -203,13 +203,13 @@ impl PrivateKey {
 		crypto::util::fixed_time_eq(&self.k[..], &EMPTY_KEY)
 	}
 	/// Derives a `PublicKey` from the `PrivateKey` and returns it.
-	pub fn generate_public_key(&self) -> PublicKey {
+	pub fn generate_public_key(&self) -> Result<PublicKey, NoiseError> {
 		if self.is_empty() {
-			panic!("Private Key is EMPTY_KEY");
+			return Err(NoiseError::InvalidKeyError);
 		}
-		PublicKey {
+		Ok(PublicKey {
 			k: curve25519::SecretKey(self.k).get_public().0,
-		}
+		})
 	}
 }
 
@@ -237,8 +237,9 @@ impl PublicKey {
 	///
 	/// println!("{:?}", pk.as_bytes());
 	/// ```
-	pub fn from_str(key: &str) -> PublicKey {
-		PublicKey::from_hacl_public_key(curve25519::PublicKey(decode_str_32(key)))
+	pub fn from_str(key: &str) -> Result<PublicKey,NoiseError> {
+		let pk = decode_str_32(key)?;
+		Ok(PublicKey::from_hacl_public_key(curve25519::PublicKey(pk)))
 	}
 	pub(crate) fn from_hacl_public_key(hacl_public: curve25519::PublicKey) -> PublicKey {
 		PublicKey { k: hacl_public.0 }
@@ -274,32 +275,40 @@ impl Nonce {
 	pub(crate) fn increment(&mut self) {
 		self.n += 1;
 	}
-	pub(crate) fn get_value(self) -> u64 {
+	pub(crate) fn get_value(self) -> Result<u64, NoiseError> {
 		if self.n == MAX_NONCE {
-			panic!("MAX NONCE");
+			return Err(NoiseError::ExhaustedNonceError);
 		}
-		self.n
+		Ok(self.n)
 	}
 }
 
 #[derive(Clone)]
+/// Data structure to be used
+pub struct MessageBuffer {
+	pub ne: [u8; DHLEN],
+	pub ns: Vec<u8>,
+	pub ciphertext: Vec<u8>,
+}
+
 pub struct Message {
 	payload: Vec<u8>,
 }
 impl Message {
 	/// Instanciates a new `Message` from a `Vec<u8>`.
-	pub fn from_vec(m: Vec<u8>) -> Message {
-		if m.len() > MAX_MESSAGE {
-			panic!("Message > {} bytes", MAX_MESSAGE);
+	pub fn from_vec(m: Vec<u8>) -> Result<Message, NoiseError> {
+		if m.len() > MAX_MESSAGE || m.len() == 0 {
+			return Err(NoiseError::UnsupportedMessageLengthError);
 		}
-		Message { payload: m }
+		Ok(Message { payload: m })
 	}
 	/// Instanciates a new `Message` from a `&str`.
-	pub fn from_str(m: &str) -> Message {
-		Message::from_vec(decode_str(m))
+	pub fn from_str(m: &str) -> Result<Message, NoiseError> {
+		let msg = decode_str(m)?;
+		Message::from_vec(msg)
 	}
 	/// Instanciates a new `Message` from a `&[u8]`.
-	pub fn from_bytes(m: &[u8]) -> Message {
+	pub fn from_bytes(m: &[u8]) -> Result<Message, NoiseError> {
 		Message::from_vec(Vec::from(m))
 	}
 	/// View the `Message` payload as a `Vec<u8>`.
@@ -309,6 +318,23 @@ impl Message {
 	/// Returns a `usize` value that represents the `Message` payload length in bytes.
 	pub fn len(&self) -> usize {
 		self.payload.len()
+	}
+}
+impl Clone for Message {
+	fn clone (&self) -> Self {
+		Message {
+			payload: self.as_bytes().to_owned()
+			}
+	}
+}
+impl PartialEq for Message {
+	fn eq(&self, other: &Message) -> bool {
+		self.payload == other.payload
+	}
+}
+impl std::fmt::Debug for Message {
+	fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+        write!(f, "({:X?})", self.payload)
 	}
 }
 
@@ -349,15 +375,15 @@ impl Keypair {
 		self.private_key.is_empty()
 	}
 	/// Derives a `PublicKey` from a `Key` and returns a `Keypair` containing the previous two values.
-	pub fn from_key(k: PrivateKey) -> Keypair {
-		let public_key: PublicKey = k.generate_public_key();
-		Keypair {
+	pub fn from_key(k: PrivateKey) -> Result<Keypair, NoiseError> {
+		let public_key: PublicKey = k.generate_public_key()?;
+		Ok(Keypair {
 			private_key: k,
 			public_key: public_key,
-		}
+		})
 	}
 	/// Derives a `PublicKey` from a `PrivateKey` and returns a `Keypair` containing the previous two values.
-	pub fn from_private_key(k: PrivateKey) -> Keypair {
+	pub fn from_private_key(k: PrivateKey) -> Result<Keypair,NoiseError> {
 		Keypair::from_key(k)
 	}
 	/// Returns the `PublicKey` value from the `Keypair`
