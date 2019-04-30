@@ -6,7 +6,7 @@ use crate::{
 	consts::{DHLEN, EMPTY_HASH, EMPTY_KEY, HASHLEN, NONCE_LENGTH, ZEROLEN},
 	error::NoiseError,
 	prims::{decrypt, encrypt, hash, hkdf},
-	types::{Hash, Key, Keypair, Message, Nonce, Psk, PublicKey},
+	types::{Hash, Key, Keypair, Nonce, Psk, PublicKey},
 };
 use hacl_star::chacha20poly1305;
 
@@ -49,34 +49,43 @@ impl CipherState {
 	pub(crate) fn get_nonce(&self) -> Nonce {
 		self.n
 	}
-	pub(crate) fn encrypt_with_ad(&mut self, ad: &[u8], plaintext: &[u8]) -> Vec<u8> {
+	pub(crate) fn encrypt_with_ad(
+		&mut self,
+		ad: &[u8],
+		plaintext: &[u8],
+	) -> Result<Vec<u8>, NoiseError> {
+		let nonce = self.n.get_value()?;
 		if !self.has_key() {
-			Vec::from(plaintext)
+			Ok(Vec::from(plaintext))
 		} else {
 			let ciphertext: Vec<u8> = encrypt(
 				from_slice_hashlen(&self.k.as_bytes()[..]),
-				self.n.get_value(),
+				nonce,
 				ad,
 				plaintext,
 			);
 			self.n.increment();
-			ciphertext
+			Ok(ciphertext)
 		}
 	}
-	pub(crate) fn decrypt_with_ad(&mut self, ad: &[u8], ciphertext: &[u8]) -> Option<Vec<u8>> {
+	pub(crate) fn decrypt_with_ad(
+		&mut self,
+		ad: &[u8],
+		ciphertext: &[u8],
+	) -> Result<Vec<u8>, NoiseError> {
+		let nonce = self.n.get_value()?;
 		if !self.has_key() {
-			Some(Vec::from(ciphertext))
+			Ok(Vec::from(ciphertext))
 		} else if let Some(plaintext) = decrypt(
 			from_slice_hashlen(&self.k.as_bytes()[..]),
-			self.n.get_value(),
+			nonce,
 			ad,
 			ciphertext,
 		) {
 			self.n.increment();
-			Some(plaintext)
+			Ok(plaintext)
 		} else {
-			println!("Unsuccessful Decryption, problem with ad, nonce not incremented\n\nDECRYPT({:X?}, {:X?}, {:X?}, {:X?})", from_slice_hashlen(&self.k.as_bytes()[..]), self.n.get_value(), ad, ciphertext);
-			None
+			Err(NoiseError::DecryptionError)
 		}
 	}
 	#[allow(dead_code)]
@@ -88,7 +97,10 @@ impl CipherState {
 		self.k.clear();
 		self.k = Key::from_bytes(in_out);
 	}
-	pub(crate) fn write_message_regular(&mut self, payload: &[u8]) -> Result<Vec<u8>, NoiseError> {
+	pub(crate) fn write_message_regular(
+		&mut self,
+		payload: &[u8],
+	) -> Result<Vec<u8>, NoiseError> {
 		let output = self.encrypt_with_ad(&ZEROLEN[..], payload)?;
 		Ok(output)
 	}
@@ -173,18 +185,15 @@ impl SymmetricState {
 	pub(crate) fn get_handshake_hash(&self) -> [u8; HASHLEN] {
 		from_slice_hashlen(&self.h.as_bytes()[..])
 	}
-	pub(crate) fn encrypt_and_hash(&mut self, plaintext: &[u8]) -> Option<Vec<u8>> {
-		let ciphertext: Vec<u8> = self.cs.encrypt_with_ad(&self.h.as_bytes()[..], plaintext);
+	pub(crate) fn encrypt_and_hash(&mut self, plaintext: &[u8]) -> Result<Vec<u8>, NoiseError> {
+		let ciphertext: Vec<u8> = self.cs.encrypt_with_ad(&self.h.as_bytes()[..], plaintext)?;
 		self.mix_hash(&ciphertext);
-		Some(ciphertext)
+		Ok(ciphertext)
 	}
-	pub(crate) fn decrypt_and_hash(&mut self, ciphertext: &[u8]) -> Option<Vec<u8>> {
-		if let Some(plaintext) = self.cs.decrypt_with_ad(&self.h.as_bytes()[..], &ciphertext) {
+	pub(crate) fn decrypt_and_hash(&mut self, ciphertext: &[u8]) -> Result<Vec<u8>, NoiseError> {
+		let plaintext = self.cs.decrypt_with_ad(&self.h.as_bytes()[..], &ciphertext)?;
 			self.mix_hash(ciphertext);
-			return Some(Vec::from(&plaintext[..]));
-		} else {
-			panic!("Invalid ad");
-		}
+			Ok(plaintext)
 	}
 	pub(crate) fn split(&mut self) -> (CipherState, CipherState) {
 		let mut temp_k1: [u8; HASHLEN] = EMPTY_HASH;
@@ -219,15 +228,15 @@ pub struct HandshakeState {
 /* HandshakeState */
 impl HandshakeState {
 	pub(crate) fn clear(&mut self) {
-        self.s.clear();
-        self.e.clear();
-        self.rs.clear();
-        self.re.clear();
-        self.psk.clear();
-    }
+		self.s.clear();
+		self.e.clear();
+		self.rs.clear();
+		self.re.clear();
+		self.psk.clear();
+	}
 	pub(crate) fn set_ephemeral_keypair(&mut self, e: Keypair) {
-        self.e = e;
-    }
+		self.e = e;
+	}
 	pub(crate) fn initialize_initiator(prologue: &[u8], s: Keypair, rs: PublicKey, psk: Psk) -> HandshakeState {
 		let protocol_name = b"Noise_XN_25519_ChaChaPoly_BLAKE2s";
 		let mut ss: SymmetricState = SymmetricState::initialize_symmetric(&protocol_name[..]);
@@ -272,7 +281,7 @@ impl HandshakeState {
 
 	pub(crate) fn write_message_c(&mut self, input: &[u8]) -> Result<(Hash, Vec<u8>, CipherState, CipherState), NoiseError> {
 		let mut output: Vec<u8> = Vec::new();
-		let ns = self.ss.encrypt_and_hash(&self.s.get_public_key().as_bytes()[..])?;
+		let mut ns = self.ss.encrypt_and_hash(&self.s.get_public_key().as_bytes()[..])?;
 		output.append(&mut ns);
 		self.ss.mix_key(&self.s.dh(&self.re.as_bytes()));
 		let mut ciphertext = self.ss.encrypt_and_hash(input)?;
@@ -285,8 +294,9 @@ impl HandshakeState {
 
 
 	pub(crate) fn read_message_a(&mut self, input: &[u8]) -> Result<Vec<u8>, NoiseError> {
-		let (vre, rest) = input.split_at(32);
-		self.re = PublicKey::from_bytes(from_slice_hashlen(vre))?;
+		let rest = input;
+		let (vre, rest) = rest.split_at(32);
+		self.re = PublicKey::from_bytes(from_slice_hashlen(vre));
 		self.ss.mix_hash(&self.re.as_bytes()[..DHLEN]);
 		/* No PSK, so skipping mixKey */
 		let output = self.ss.decrypt_and_hash(rest)?;
@@ -294,8 +304,9 @@ impl HandshakeState {
 	}
 
 	pub(crate) fn read_message_b(&mut self, input: &[u8]) -> Result<Vec<u8>, NoiseError> {
-		let (vre, rest) = input.split_at(32);
-		self.re = PublicKey::from_bytes(from_slice_hashlen(vre))?;
+		let rest = input;
+		let (vre, rest) = rest.split_at(32);
+		self.re = PublicKey::from_bytes(from_slice_hashlen(vre));
 		self.ss.mix_hash(&self.re.as_bytes()[..DHLEN]);
 		/* No PSK, so skipping mixKey */
 		self.ss.mix_key(&self.e.dh(&self.re.as_bytes()));
@@ -304,6 +315,7 @@ impl HandshakeState {
 	}
 
 	pub(crate) fn read_message_c(&mut self, input: &[u8]) ->  Result<(Hash, Vec<u8>, CipherState, CipherState), NoiseError> {
+		let rest = input;
 		let (vrs, rest) = rest.split_at(48);
 		let x = self.ss.decrypt_and_hash(vrs)?;
 		self.rs = PublicKey::from_bytes(from_slice_hashlen(&x[..]));
@@ -312,7 +324,7 @@ impl HandshakeState {
 		let h: Hash = Hash::from_bytes(from_slice_hashlen(&self.ss.h.as_bytes()));
 		let (cs1, cs2) = self.ss.split();
 		self.ss.clear();
-		Ok(h, output, cs1, cs2)
+		Ok((h, output, cs1, cs2))
 	}
 
 

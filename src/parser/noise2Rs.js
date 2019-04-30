@@ -218,7 +218,7 @@ const NOISE2RS = {
 				`output.append(&mut Vec::from(&ne[..]));`
 			].join(`\n\t\t`),
 			s: [
-				`let ns = self.ss.encrypt_and_hash(&self.s.get_public_key().as_bytes()[..])?;`,
+				`let mut ns = self.ss.encrypt_and_hash(&self.s.get_public_key().as_bytes()[..])?;`,
 				`output.append(&mut ns);`
 			].join(`\n\t\t`),
 			ee: [
@@ -281,7 +281,7 @@ const NOISE2RS = {
 			`let h: Hash = Hash::from_bytes(from_slice_hashlen(&self.ss.h.as_bytes()));`,
 			`let (cs1, cs2) = self.ss.split();`,
 			`self.ss.clear();`,
-			`Ok(h, output, cs1, cs2)`
+			`Ok((h, output, cs1, cs2))`
 		] : [
 			`Ok(output)`
 		];
@@ -293,8 +293,8 @@ const NOISE2RS = {
 		let readFunDeclaration = `\tpub(crate) fn read_message_${suffix}(&mut self, input: &[u8]) -> ${isFinal? ` Result<(Hash, Vec<u8>, CipherState, CipherState), NoiseError>` : `Result<Vec<u8>, NoiseError>`} {`;
 		let messageTokenParsers = {
 			e: [
-				`let (vre, rest) = input.split_at(32);`,
-				`self.re = PublicKey::from_bytes(from_slice_hashlen(vre))?;`,
+				`let (vre, rest) = rest.split_at(32);`,
+				`self.re = PublicKey::from_bytes(from_slice_hashlen(vre));`,
 				`self.ss.mix_hash(&self.re.as_bytes()[..DHLEN]);`,
 				ePskFill
 			].join(`\n\t\t`),
@@ -321,6 +321,7 @@ const NOISE2RS = {
 		};
 		let readFun = [
 			readFunDeclaration,
+			`let rest = input;`
 		];
 		message.tokens.forEach((token) => {
 			readFun.push(messageTokenParsers[token]);
@@ -412,17 +413,18 @@ const NOISE2RS = {
 		];
 		let sendMessage = [
 			`/// Takes a \`Message\` object containing plaintext as a parameter.`,
-			`/// Returns a \`Message\` object containing the corresponding ciphertext.`,
+			`/// Returns a \`Ok(Message)\` object containing the corresponding ciphertext upon successful encryption, and \`Err(NoiseError)\` otherwise`,
 			`///`,
 			`/// _Note that while \`mc\` <= 1 the ciphertext will be included as a payload for handshake messages and thus will not offer the same guarantees offered by post-handshake messages._`,
-			`\n\tpub fn send_message(&mut self, message: Message) -> Result<Message, NoiseError> {`
+			`\n\tpub fn send_message(&mut self, message: Message) -> Result<Message, NoiseError> {`,
+			`\tlet out: Vec<u8>;`
 		];
 		let recvMessage = [
 			`/// Takes a \`Message\` object received from the remote party as a parameter.`,
-			`/// Returns an \`Message\` object containing plaintext upon successful decryption, and \`None\` otherwise.`,
+			`/// Returns a \`Ok(Message)\` object containing plaintext upon successful decryption, and \`Err(NoiseError)\` otherwise.`,
 			`///`,
 			`/// _Note that while \`mc\` <= 1 the ciphertext will be included as a payload for handshake messages and thus will not offer the same guarantees offered by post-handshake messages._`,
-			`pub fn recv_message(&mut self, input: Message) -> Result<Message, NoiseError> {`,
+			`pub fn recv_message(&mut self, message: Message) -> Result<Message, NoiseError> {`,
 			`\tlet out: Vec<u8>;`
 		];
 		for (let i = 0; i < pattern.messages.length; i++) {
@@ -434,42 +436,42 @@ const NOISE2RS = {
 				]);
 				recvMessage = recvMessage.concat([
 					`\t${i > 0? 'else ' : ''}if self.mc == ${i} {`,
-					`\t\out = self.hs.read_message_${util.abc[i]}(message.as_bytes())?;`,
+					`\t\tout = self.hs.read_message_${util.abc[i]}(message.as_bytes())?;`,
 					`\t}`
 				]);
 			} else if (i == finalKex) {
 				sendMessage = sendMessage.concat([
 					`\t${!isOneWayPattern? 'else ' : ''}if self.mc == ${i} {`,
-					`\t\tlet temp = self.hs.write_message_${util.abc[i]}(message.as_bytes)?;`,
+					`\t\tlet temp = self.hs.write_message_${util.abc[i]}(message.as_bytes())?;`,
 					`\t\tself.h = temp.0;`,
 					`\t\tself.cs1 = temp.2;`,
 					`\t\tself.cs2 = ${isOneWayPattern? 'CipherState::new()' : 'temp.3'};`,
 					`\t\tself.hs.clear();`,
 					`\t\tout = temp.1;`,
-					`\t}`
 				]);
 				recvMessage = recvMessage.concat([
 					`\t${!isOneWayPattern? 'else ' : ''}if self.mc == ${i} {`,
-					`\t\tout = self.hs.read_message_${util.abc[i]}(message.as_bytes())?;`,
+					`\t\tlet temp = self.hs.read_message_${util.abc[i]}(message.as_bytes())?;`,
 					`\t\t\tself.h = temp.0;`,
 					`\t\t\tself.cs1 = temp.2;`,
 					`\t\t\tself.cs2 = ${isOneWayPattern? 'CipherState::new()' : 'temp.3'};`,
 					`\t\t\tself.hs.clear();`,
 					`\t\t\tout = temp.1;`,
-					`\t\t}`,
-					`\t}`
 				]);
 			} else {
 				sendMessage = sendMessage.concat([
-					`\telse if self.i {`,
+					`\t} else if self.i {`,
 					`\t\tout = self.cs1.write_message_regular(message.as_bytes())?;`,
 					`\t} else {`,
 					`\t\tout = self.${isOneWayPattern? 'cs1' : 'cs2'}.write_message_regular(message.as_bytes())?;`,
 					`\t}`,
+					`\tlet out: Message = Message::from_vec(out)?;`,
+					`\tself.mc += 1;`,
+					`\tOk(out)`
 				]);
 				recvMessage = recvMessage.concat([
 					`\t} else if self.i {`,
-					`\t\tif out = self.${isOneWayPattern? 'cs1' : 'cs2'}.read_message_regular(message.as_bytes())?;`,
+					`\t\tout = self.${isOneWayPattern? 'cs1' : 'cs2'}.read_message_regular(message.as_bytes())?;`,
 					`\t} else {`,
 					`\t\t\tout = self.cs1.read_message_regular(message.as_bytes())?;`,
 					`\t}`,

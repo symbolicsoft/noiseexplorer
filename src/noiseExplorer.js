@@ -152,7 +152,8 @@ const RSRENDER = (pattern, parsedRs) => {
 		READFILE('rs/3utils.rs'),
 		READFILE('rs/4prims.rs'),
 		READFILE('rs/5state.rs'),
-		READFILE('rs/6processes.rs')
+		READFILE('rs/6processes.rs'),
+		READFILE('rs/7error.rs')
 	];
 	rs[0] = rs[0].replace('/* $NOISE2RS_N$ */', `/*\n${pattern}\n*/`);
 	rs[5] = rs[5].replace('/* $NOISE2RS_I$ */', parsedRs.i);
@@ -253,6 +254,7 @@ if (
 	WRITEFILE(`../implementations/rs/${json.name}/src/prims.rs`, output[4]);
 	WRITEFILE(`../implementations/rs/${json.name}/src/state.rs`, output[5]);
 	WRITEFILE(`../implementations/rs/${json.name}/src/noisesession.rs`, output[6]);
+	WRITEFILE(`../implementations/rs/${json.name}/src/error.rs`, output[7]);
 	WRITEFILE(`../implementations/rs/${json.name}/Cargo.toml`, cargo);
 	WRITEFILE(`../implementations/rs/${json.name}/tests/handshake.rs`, test);
 	process.exit();

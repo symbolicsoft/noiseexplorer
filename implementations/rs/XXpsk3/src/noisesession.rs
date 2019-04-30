@@ -85,6 +85,7 @@ impl NoiseSession {
 	/// _Note that while `mc` <= 1 the ciphertext will be included as a payload for handshake messages and thus will not offer the same guarantees offered by post-handshake messages._
 	
 	pub fn send_message(&mut self, message: Message) -> Result<Message, NoiseError> {
+		let out: Vec<u8>;
 		if self.mc == 0 {
 			out = self.hs.write_message_a(message.as_bytes())?;
 		}
@@ -92,42 +93,42 @@ impl NoiseSession {
 			out = self.hs.write_message_b(message.as_bytes())?;
 		}
 		else if self.mc == 2 {
-			let temp = self.hs.write_message_c(message.as_bytes)?;
+			let temp = self.hs.write_message_c(message.as_bytes())?;
 			self.h = temp.0;
 			self.cs1 = temp.2;
 			self.cs2 = temp.3;
 			self.hs.clear();
 			out = temp.1;
-		}
-		else if self.i {
+		} else if self.i {
 			out = self.cs1.write_message_regular(message.as_bytes())?;
 		} else {
 			out = self.cs2.write_message_regular(message.as_bytes())?;
 		}
+		let out: Message = Message::from_vec(out)?;
+		self.mc += 1;
+		Ok(out)
 	}
 	/// Takes a `Message` object received from the remote party as a parameter.
 	/// Returns an `Message` object containing plaintext upon successful decryption, and `None` otherwise.
 	///
 	/// _Note that while `mc` <= 1 the ciphertext will be included as a payload for handshake messages and thus will not offer the same guarantees offered by post-handshake messages._
-	pub fn recv_message(&mut self, input: Message) -> Result<Message, NoiseError> {
+	pub fn recv_message(&mut self, message: Message) -> Result<Message, NoiseError> {
 		let out: Vec<u8>;
 		if self.mc == 0 {
-		out = self.hs.read_message_a(message.as_bytes())?;
+			out = self.hs.read_message_a(message.as_bytes())?;
 		}
 		else if self.mc == 1 {
-		out = self.hs.read_message_b(message.as_bytes())?;
+			out = self.hs.read_message_b(message.as_bytes())?;
 		}
 		else if self.mc == 2 {
-			out = self.hs.read_message_c(message.as_bytes())?;
+			let temp = self.hs.read_message_c(message.as_bytes())?;
 				self.h = temp.0;
 				self.cs1 = temp.2;
 				self.cs2 = temp.3;
 				self.hs.clear();
 				out = temp.1;
-			}
-		}
 		} else if self.i {
-			if out = self.cs2.read_message_regular(message.as_bytes())?;
+			out = self.cs2.read_message_regular(message.as_bytes())?;
 		} else {
 				out = self.cs1.read_message_regular(message.as_bytes())?;
 		}

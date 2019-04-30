@@ -104,7 +104,6 @@ impl Key {
 	}
 }
 
-#[derive(Clone)]
 pub struct Psk {
 	psk: [u8; DHLEN],
 }
@@ -150,6 +149,13 @@ impl Psk {
 	/// ```
 	pub fn is_empty(&self) -> bool {
 		crypto::util::fixed_time_eq(&self.psk[..], &EMPTY_KEY)
+	}
+}
+impl Clone for Psk {
+		fn clone (&self) -> Self {
+		Psk {
+			psk: self.as_bytes().to_owned()
+			}
 	}
 }
 

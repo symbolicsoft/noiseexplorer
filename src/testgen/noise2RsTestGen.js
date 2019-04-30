@@ -10,47 +10,52 @@ const gen = (
 ) => {
 	let abc = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
 	let rsTestCode = [];
-	let initInit = `let mut initiator_session: NoiseSession = NoiseSession::init_session(true, prologueA, Keypair::from_private_key(init_static_a)`;
-	let initResp = `let mut responder_session: NoiseSession = NoiseSession::init_session(false, prologueB, Keypair::from_private_key(resp_static_private)`;
+	let lastLine = [];
+	let initInit = `\nlet mut initiator_session: NoiseSession = NoiseSession::init_session(true, prologue.clone(), init_static_kp`;
+	let initResp = `let mut responder_session: NoiseSession = NoiseSession::init_session(false, prologue, resp_static_kp`;
 	let eph = [``, ``];
 	if (initEphemeralPk.length > 0) {
-		eph[0] = `initiator_session.set_ephemeral_keypair(Keypair::from_private_key(PrivateKey::from_str("${initEphemeralPk}")));`;
+		eph[0] = `if let Ok(initiator_ephemeral_private) = PrivateKey::from_str("${initEphemeralPk}") {\nif let Ok(init_ephemeral_kp) = Keypair::from_private_key(initiator_ephemeral_private) {\ninitiator_session.set_ephemeral_keypair(init_ephemeral_kp);`;
+		lastLine.push(`}`);
+		lastLine.push(`}`);
 	}
 	if (respEphemeralPk.length > 0) {
-		eph[1] = `responder_session.set_ephemeral_keypair(Keypair::from_private_key(PrivateKey::from_str("${respEphemeralPk}")));`;
+		eph[1] = `if let Ok(responder_ephemeral_private) = PrivateKey::from_str("${initPrologue}") {\nif let Ok(responder_ephemeral_kp) = Keypair::from_private_key(responder_ephemeral_private) {\nresponder_session.set_ephemeral_keypair(responder_ephemeral_kp);`;
+		lastLine.push(`}`);
+		lastLine.push(`}`);
 	}
-	rsTestCode.push(`let prologueA: Message = Message::from_str("${initPrologue}");`);
-	rsTestCode.push(`let prologueB: Message = Message::from_str("${initPrologue}");`);
+	rsTestCode.push(`if let Ok(prologue) = Message::from_str("${initPrologue}") {`);
 	if (initStaticSk.length == 0) {
-		initStaticSk = `PrivateKey::from_str("0000000000000000000000000000000000000000000000000000000000000001")`;
+		rsTestCode.push(`if let Ok(init_static_private) = PrivateKey::from_str("0000000000000000000000000000000000000000000000000000000000000001") {`);
 	} else {
-		initStaticSk = `PrivateKey::from_str("${initStaticSk}")`;
+		rsTestCode.push(`if let Ok(init_static_private) = PrivateKey::from_str("${initStaticSk}") {`);
 	}
 	if (respStaticSk.length == 0) {
-		respStaticSk = `PrivateKey::from_str("0000000000000000000000000000000000000000000000000000000000000001")`;
+		rsTestCode.push(`if let Ok(resp_static_private) = PrivateKey::from_str("0000000000000000000000000000000000000000000000000000000000000001") {`);
 	} else {
-		respStaticSk = `PrivateKey::from_str("${respStaticSk}")`;
+		rsTestCode.push(`if let Ok(resp_static_private) = PrivateKey::from_str("${respStaticSk}") {`);
 	}
-	rsTestCode = rsTestCode.concat([
-		`let init_static_a: PrivateKey = ${initStaticSk};`,
-		`let resp_static_private: PrivateKey = ${respStaticSk};`
-	]);
 	if (initRemoteStaticPk.length > 0) {
-		rsTestCode.push(`let resp_static_public: PublicKey = ${respStaticSk}.generate_public_key();`);
+		rsTestCode.push(`if let Ok(resp_static_public) = resp_static_private.generate_public_key() { `);
+		lastLine.push(`}`);
 		initInit = `${initInit}, resp_static_public`;
 	} else {
 		initInit = `${initInit}, PublicKey::empty()`;
 	}
 	if (respRemoteStaticPk.length > 0) {
-		initResp = `${initResp}, PublicKey::from_str("${respRemoteStaticPk}")`;
+		rsTestCode.push(`if let Ok(init_static_public_key) = init_static_private.generate_public_key() {`);
+		lastLine.push(`}`);
+		initResp = `${initResp}, init_static_public_key`;
 	} else {
 		initResp = `${initResp}, PublicKey::empty()`;
 	}
+	rsTestCode.push(`if let Ok(init_static_kp) = Keypair::from_private_key(init_static_private) {`);
+	rsTestCode.push(`if let Ok(resp_static_kp) = Keypair::from_private_key(resp_static_private) {`);
 	if (psk.length > 0) {
-		rsTestCode.push(`let pskA: Psk = Psk::from_str("${psk}");`);
-		rsTestCode.push(`let pskB: Psk = Psk::from_str("${psk}");`);
-		initInit = `${initInit}, pskA);`;
-		initResp = `${initResp}, pskB);`;
+		rsTestCode.push(`if let Ok(psk) = Psk::from_str("${psk}") {`);
+		lastLine.push(`}`);
+		initInit = `${initInit}, psk.clone());`;
+		initResp = `${initResp}, psk);`;
 	} else {
 		initInit = `${initInit});`;
 		initResp = `${initResp});`;
@@ -65,27 +70,20 @@ const gen = (
 		let send = (i % 2 === 0) ? 'initiator_session' : 'responder_session';
 		let recv = (i % 2 === 0) ? 'responder_session' : 'initiator_session';
 		rsTestCode.push([
-			`let mut message${abc[i]}: Vec<u8> = ${send}.send_message(Message::from_str("${messages[i].payload}"));`,
-			`let mut valid${abc[i]}: bool = false;`,
-			`if let Some(_x) = ${recv}.recv_message(&mut message${abc[i]}) {\n\t\tvalid${abc[i]} = true;\n\t}`,
-			`let t${abc[i]}: Message = Message::from_str("${messages[i].ciphertext}");`
+			`if let Ok(m${abc[i]}) = Message::from_str("${messages[i].payload}") {`,
+			`if let Ok(t${abc[i]}) = Message::from_str("${messages[i].ciphertext}") {`
+		].join(`\n\t`));
+		rsTestCode.push([
+			`if let Ok(message${abc[i]}) = ${send}.send_message(m${abc[i]}) {`,
+			`if let Ok(_x) = ${recv}.recv_message(message${abc[i]}.clone()) {`
 		].join('\n\t'));
 	}
-	rsTestCode.push([
-		`assert!(`,
-		`\tvalidA && validB && validC && validD && validE && validF,`,
-		`\t"Sanity check FAIL for ${protocolName}."`,
-		`);`
-	].join('\n\t'));
+
 	for (let i = 0; i < 6; i++) {
-		rsTestCode.push([
-			`assert!(t${abc[i]} == message${abc[i]},`,
-			`\t\t${String.raw`"\n\n\nTest ${abc[i]}: FAIL\n\nExpected:\n{:X?}\n\nActual:\n{:X?}\n\n\n"`},`,
-			`\t\tt${abc[i]},`,
-			`\t\t&message${abc[i]}`,
-			`\t);`
-		].join(`\n`));
+		rsTestCode.push(`assert!(t${abc[i]} == message${abc[i]}, ${String.raw`"\n\n\nTest ${abc[i]}: FAIL\n\nExpected:\n{:X?}\n\nActual:\n{:X?}"`}, t${abc[i]}, message${abc[i]});`);
 	}
+	rsTestCode.push(lastLine.join(``));
+	rsTestCode.push(`}}}}}}}}}}}}}}}}}}}}}}}}}}}}}`);
 	return rsTestCode.join('\n\t');
 }
 
