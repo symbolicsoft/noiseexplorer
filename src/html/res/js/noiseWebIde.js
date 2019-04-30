@@ -134,9 +134,10 @@ let getRs = (patternInput, parsedPattern, cb) => {
 		'3utils',
 		'4prims',
 		'5state',
-		'6processes'
+		'6processes',
+		'7error'
 	];
-	let rs = ['', '', '', '', '', '', ''];
+	let rs = ['', '', '', '', '', '', '', ''];
 	rsTemplates.forEach((templateFile, i) => {
 		let xhr = new XMLHttpRequest();
 		xhr.open('GET', `/res/rs/${templateFile}.rs`);
@@ -278,6 +279,7 @@ let rsGen = (patternInput, aId, autoClick) => {
 			src.file('prims.rs', rs[4]);
 			src.file('state.rs', rs[5]);
 			src.file('noisesession.rs', rs[6]);
+			src.file('error.rs', rs[7]);
 			zip.generateAsync({
 				type:'blob'
 			}).then((blob) => {
