@@ -93,10 +93,10 @@ letfun readMessage_c(me:principal, them:principal, hs:handshakestate, message:bi
 <h3>Queries and Results</h3>
 Message <span class="mono">C</span> is tested against four authentication queries and five confidentiality queries.
 <h4>Authentication Grade 1: <span class="passed">Passed</span></h4>
-<p class="proverif"><br />RESULT event(RecvMsg(bob,alice,stagepack_c(sid_b),m)) ==> event(SendMsg(alice,c_1272,stagepack_c(sid_a),m)) || event(LeakS(phase0,alice)) || event(LeakS(phase0,bob)) is true.</p>
+<p class="proverif"><br />RESULT event(RecvMsg(bob,alice,stagepack_c(sid_b),m)) ==> event(SendMsg(alice,c_1277,stagepack_c(sid_a),m)) || event(LeakS(phase0,alice)) || event(LeakS(phase0,bob)) is true.</p>
 <p>In this query, we test for <em>sender authentication</em> and <em>message integrity</em>. If Bob receives a valid message from Alice, then Alice must have sent that message to <em>someone</em>, or Alice had their static key compromised before the session began, or Bob had their static key compromised before the session began.</p>
 <h4>Authentication Grade 2: <span class="passed">Passed</span></h4>
-<p class="proverif"><br />RESULT event(RecvMsg(bob,alice,stagepack_c(sid_b),m)) ==> event(SendMsg(alice,c_1272,stagepack_c(sid_a),m)) || event(LeakS(phase0,alice)) is true.</p>
+<p class="proverif"><br />RESULT event(RecvMsg(bob,alice,stagepack_c(sid_b),m)) ==> event(SendMsg(alice,c_1277,stagepack_c(sid_a),m)) || event(LeakS(phase0,alice)) is true.</p>
 <p>In this query, we test for <em>sender authentication</em> and is <em>Key Compromise Impersonation</em> resistance. If Bob receives a valid message from Alice, then Alice must have sent that message to <em>someone</em>, or Alice had their static key compromised before the session began.</p>
 <h4>Authentication Grade 3: <span class="passed">Passed</span></h4>
 <p class="proverif"><br />RESULT event(RecvMsg(bob,alice,stagepack_c(sid_b),m)) ==> event(SendMsg(alice,bob,stagepack_c(sid_a),m)) || event(LeakS(phase0,alice)) || event(LeakS(phase0,bob)) is true.</p>
@@ -111,10 +111,10 @@ Message <span class="mono">C</span> is tested against four authentication querie
 <p class="proverif"><br />RESULT attacker_p1(msg_c(alice,bob,sid_a)) ==> event(LeakS(phase0,bob)) || event(LeakS(phase1,bob)) is true.</p>
 <p>In this query, we test for <em>message secrecy</em> by checking if an active attacker is able to retrieve the payload plaintext only by compromising Bob's static key either before or after the protocol session.</p>
 <h4>Confidentiality Grade 3: <span class="passed">Passed</span></h4>
-<p class="proverif"><br />RESULT attacker_p1(msg_c(alice,bob,sid_a)) ==> event(LeakS(phase0,bob)) || (event(LeakS(phase1,bob)) && event(LeakS(p,alice))) is true.</p>
+<p class="proverif"><br />RESULT attacker_p1(msg_c(alice,bob,sid_a)) ==> event(LeakS(phase0,bob)) || (event(LeakS(px,bob)) && event(LeakS(pz,alice))) is true.</p>
 <p>In this query, we test for <em>forward secrecy</em> by checking if a passive attacker is able to retrieve the payload plaintext only by compromising Bob's static key before the protocol session, or after the protocol session along with Alice's static public key (at any time.)</p>
 <h4>Confidentiality Grade 4: <span class="failed">Failed</span></h4>
-<p class="proverif"><br />RESULT attacker_p1(msg_c(alice,bob,sid_a)) ==> event(LeakS(phase0,bob)) || (event(LeakS(phase1,bob)) && event(LeakS(p,alice))) cannot be proved.</p>
+<p class="proverif"><br />RESULT attacker_p1(msg_c(alice,bob,sid_a)) ==> event(LeakS(phase0,bob)) || (event(LeakS(px,bob)) && event(LeakS(pz,alice))) cannot be proved.</p>
 <p>In this query, we test for <em>weak forward secrecy</em> by checking if an active attacker is able to retrieve the payload plaintext only by compromising Bob's static key before the protocol session, or after the protocol session along with Alice's static public key (at any time.)</p>
 <h4>Confidentiality Grade 5: <span class="failed">Failed</span></h4>
 <p class="proverif"><br />RESULT attacker_p1(msg_c(alice,bob,sid_a)) ==> event(LeakS(phase0,bob)) cannot be proved.</p>
