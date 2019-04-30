@@ -80,7 +80,7 @@ impl NoiseSession {
 		}
 	}
 	/// Takes a `Message` object containing plaintext as a parameter.
-	/// Returns a `Message` object containing the corresponding ciphertext.
+	/// Returns a `Ok(Message)` object containing the corresponding ciphertext upon successful encryption, and `Err(NoiseError)` otherwise
 	///
 	/// _Note that while `mc` <= 1 the ciphertext will be included as a payload for handshake messages and thus will not offer the same guarantees offered by post-handshake messages._
 	
@@ -106,7 +106,7 @@ impl NoiseSession {
 		Ok(out)
 	}
 	/// Takes a `Message` object received from the remote party as a parameter.
-	/// Returns an `Message` object containing plaintext upon successful decryption, and `None` otherwise.
+	/// Returns a `Ok(Message)` object containing plaintext upon successful decryption, and `Err(NoiseError)` otherwise.
 	///
 	/// _Note that while `mc` <= 1 the ciphertext will be included as a payload for handshake messages and thus will not offer the same guarantees offered by post-handshake messages._
 	pub fn recv_message(&mut self, message: Message) -> Result<Message, NoiseError> {

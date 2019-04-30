@@ -69,7 +69,7 @@ impl Key {
 	/// # Example
 	///
 	/// ```
-	/// let pk = Key::from_str("4a3acbfdb163dec651dfa3194dece676d437029c62a408b4c5ea9114246e4893");
+	/// let Ok(pk) = Key::from_str("4a3acbfdb163dec651dfa3194dece676d437029c62a408b4c5ea9114246e4893")?;
 	///
 	/// println!("{:?}", pk.as_bytes());
 	/// ```
@@ -123,7 +123,7 @@ impl Psk {
 	/// # Example
 	///
 	/// ```
-	/// let pk = Key::from_str("4a3acbfdb163dec651dfa3194dece676d437029c62a408b4c5ea9114246e4893");
+	/// let Ok(pk) = Key::from_str("4a3acbfdb163dec651dfa3194dece676d437029c62a408b4c5ea9114246e4893")?;
 	///
 	/// println!("{:?}", pk.as_bytes());
 	/// ```
@@ -182,7 +182,7 @@ impl PrivateKey {
 	/// # Example
 	///
 	/// ```
-	/// let pk = PrivateKey::from_str("4a3acbfdb163dec651dfa3194dece676d437029c62a408b4c5ea9114246e4893");
+	/// let Ok(pk) = PrivateKey::from_str("4a3acbfdb163dec651dfa3194dece676d437029c62a408b4c5ea9114246e4893")?;
 	///
 	/// println!("{:?}", pk.as_bytes());
 	/// ```
@@ -208,7 +208,7 @@ impl PrivateKey {
 	pub fn is_empty(&self) -> bool {
 		crypto::util::fixed_time_eq(&self.k[..], &EMPTY_KEY)
 	}
-	/// Derives a `PublicKey` from the `PrivateKey` and returns it.
+	/// Derives a `PublicKey` from the `PrivateKey` then returns `Ok(PublicKey)` when successful and `Err(NoiseError)` otherwise.
 	pub fn generate_public_key(&self) -> Result<PublicKey, NoiseError> {
 		if self.is_empty() {
 			return Err(NoiseError::InvalidKeyError);
@@ -236,10 +236,11 @@ impl PublicKey {
 		self.k.zeroize();
 	}
 	/// Instanciates a new `PublicKey` from a string of hexadecimal values.
+	/// Returns `Ok(PublicKey)` when successful and `Err(NoiseError)` otherwise.
 	/// # Example
 	///
 	/// ```
-	/// let pk = PublicKey::from_str("4a3acbfdb163dec651dfa3194dece676d437029c62a408b4c5ea9114246e4893");
+	/// let Ok(pk) = PublicKey::from_str("4a3acbfdb163dec651dfa3194dece676d437029c62a408b4c5ea9114246e4893")?;
 	///
 	/// println!("{:?}", pk.as_bytes());
 	/// ```
@@ -314,6 +315,7 @@ impl Message {
 		Message::from_vec(msg)
 	}
 	/// Instanciates a new `Message` from a `&[u8]`.
+	/// Returns `Ok(Message)` when successful and `Err(NoiseError)` otherwise.
 	pub fn from_bytes(m: &[u8]) -> Result<Message, NoiseError> {
 		Message::from_vec(Vec::from(m))
 	}
@@ -380,7 +382,8 @@ impl Keypair {
 	pub fn is_empty(&self) -> bool {
 		self.private_key.is_empty()
 	}
-	/// Derives a `PublicKey` from a `Key` and returns a `Keypair` containing the previous two values.
+	/// Derives a `PublicKey` from a `Key` object.
+	/// Returns a `Ok(Keypair)` containing the previous two values and `Err(NoiseError)` otherwise.
 	pub fn from_key(k: PrivateKey) -> Result<Keypair, NoiseError> {
 		let public_key: PublicKey = k.generate_public_key()?;
 		Ok(Keypair {
@@ -388,7 +391,8 @@ impl Keypair {
 			public_key: public_key,
 		})
 	}
-	/// Derives a `PublicKey` from a `PrivateKey` and returns a `Keypair` containing the previous two values.
+	/// Derives a `PublicKey` from a `PrivateKey`.
+	/// Returns a `Ok(Keypair)` containing the previous two values and `Err(NoiseError)` otherwise.
 	pub fn from_private_key(k: PrivateKey) -> Result<Keypair,NoiseError> {
 		Keypair::from_key(k)
 	}
