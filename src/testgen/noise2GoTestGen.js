@@ -148,7 +148,7 @@ const assign = (json, data) => {
 const generate = (json, code) => {
 	const fs = require('fs');
 	const testVectors = JSON.parse(
-		fs.readFileSync('../tests/cacophony.json', 'utf-8')
+		fs.readFileSync('../implementations/tests/cacophony.json', 'utf-8')
 	).vectors;
 	for (let i = 0; i < testVectors.length; i++) {
 		let patternName = code.split('\n')[1].slice(0, -1);

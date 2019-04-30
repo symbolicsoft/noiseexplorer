@@ -280,27 +280,27 @@ if (ARGV.hasOwnProperty('render')) {
 		}
 	});
 	patternSplitS = `${patternSplitS.slice(0, -1)}].join('\\n')`;
-	let output = READFILE('html/patterns/template.html')
+	let output = READFILE('html/template.html')
 		.replace(/\$NOISERENDER_T\$/g, json.name)
 		.replace(/\$NOISERENDER_H\$/g, html.totalHeight)
 		.replace(/\$NOISERENDER_R\$/g, html.arrowSvg)
 		.replace(/\$NOISERENDER_A\$/g, html.analysisTxt)
 		.replace(/\$NOISERENDER_M\$/g, patternSplitS);
-	if (!FS.existsSync(`html/patterns/${json.name}`)) {
-		FS.mkdirSync(`html/patterns/${json.name}`);
+	if (!FS.existsSync(`../html/patterns/${json.name}`)) {
+		FS.mkdirSync(`../html/patterns/${json.name}`);
 	}
-	WRITEFILE(`html/patterns/${json.name}/index.html`, output);
+	WRITEFILE(`../html/patterns/${json.name}/index.html`, output);
 	json.messages.forEach((message, i) => {
 		html = NOISEREADER.renderDetailed(
 			activeModel, json, i, readResultsActive, readResultsPassive,
 			rawResultsActive, rawResultsPassive
 		);
-		let output = READFILE('html/patterns/templateDetailed.html')
+		let output = READFILE('html/templateDetailed.html')
 			.replace(/\$NOISERENDER_T\$/g, json.name)
 			.replace(/\$NOISERENDER_R\$/g, html.arrowSvg)
 			.replace(/\$NOISERENDER_A\$/g, html.analysisTxt)
 			.replace(/\$NOISERENDER_I\$/g, html.title);
-		WRITEFILE(`html/patterns/${json.name}/${UTIL.abc[i].toUpperCase()}.html`, output);
+		WRITEFILE(`../html/patterns/${json.name}/${UTIL.abc[i].toUpperCase()}.html`, output);
 	});
 	process.exit();
 }
@@ -323,7 +323,7 @@ if (ARGV.hasOwnProperty('web')) {
 	const URL = require('url');
 	HTTP.createServer((req, res) => {
 		try {
-			let fsPath = PATH.join(PATH.join(__dirname, 'html'), URL.parse(req.url).pathname);
+			let fsPath = PATH.join(PATH.join(__dirname, '../html'), URL.parse(req.url).pathname);
 			if (PATH.extname(fsPath).length === 0) {
 				fsPath = PATH.join(fsPath, 'index.html');
 			}

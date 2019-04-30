@@ -131,7 +131,7 @@ const assign = (json, data) => {
 const generate = (json) => {
 	const fs = require('fs');
 	const testVectors = JSON.parse(
-		fs.readFileSync('../tests/cacophony.json', 'utf-8')
+		fs.readFileSync('../implementations/tests/cacophony.json', 'utf-8')
 	).vectors;
 	for (let i = 0; i < testVectors.length; i++) {
 		let tempA = testVectors[i].protocol_name.split('_');
