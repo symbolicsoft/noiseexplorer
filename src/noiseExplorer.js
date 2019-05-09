@@ -24,7 +24,7 @@ const HELPTEXT = [
 	'Rendering:',
 	'--render: Render results from ProVerif output files into HTML.',
 	'--pattern=[file]: Specify input pattern file (required).',
-	'--activeModel=[file]: Specify ProVerif active attacker model.',
+	'--activeModel=[file]: Specify ProVerif active attacker model (required).',
 	'--activeResults=[file]: Specify active results file for --render (required).',
 	'--passiveResults=[file]: Specify passive results file for --render (required).',
 	'',
@@ -61,6 +61,7 @@ if (
 		ARGV.hasOwnProperty('web') ||
 		!ARGV.hasOwnProperty('pattern') ||
 		ARGV.hasOwnProperty('attacker') ||
+		!ARGV.hasOwnProperty('activeModel') ||
 		!ARGV.hasOwnProperty('activeResults') ||
 		!ARGV.hasOwnProperty('passiveResults')
 	)) ||

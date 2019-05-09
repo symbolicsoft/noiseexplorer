@@ -355,17 +355,15 @@ const NOISE2PV = {
 			let confQuery43 = (params.attacker === 'active') ? '4' : '3';
 			let leakS = (px, py, isSend, includePsk) => {
 				let x = isSend ? send : recv;
-				let s = `(event(LeakS(${px}, ${x})))`;
+				let y = (x === 'alice') ? sends : recvs;
+				let s = (y >= 0) ? `(event(LeakS(${px}, ${x})))` : '';
 				let p = (includePsk && (psk >= 0) && (psk <= i)) ? `(event(LeakPsk(${py}, alice, bob)))` : '';
 				let a = (s.length && p.length) ? ` && ` : '';
 				return `${s}${a}${p}`;
 			};
 			let conf21 = () => {
-				let s = `((event(LeakS(phase0, ${recv}))) || (event(LeakS(phase1, ${recv}))))`;
-				let p = ((psk >= 0) && (psk <= i)) ? `((event(LeakPsk(phase0, alice, bob))) || (event(LeakPsk(phase1, alice, bob))))` : '';
-				let a = (s.length && p.length) ? ` && ` : '';
-				return `${s}${a}${p}`;
-			}
+				return leakS('px', 'py', false, true) || 'false';
+			};
 			let conf43 = () => {
 				let s = leakS('phase0', 'phase0', false, true);
 				let p = leakS('px', 'py', false, true);
@@ -373,19 +371,21 @@ const NOISE2PV = {
 				let a = (s.length && p.length) ? ` || ` : '';
 				let d = (p.length && b.length) ? ` && ` : '';
 				return ((s.length > 5) && (b.length > 5)) ? `(${s})${a}(${p}${d}${b})` : (s.length > 5) ? `(${s})${a}(${p})` : (b.length > 5) ? `(${b})` : 'false';
-
+			};
+			let conf5 = () => {
+				return leakS('phase0', 'phase0', false, true) || 'false';
 			};
 			quer = quer.concat([
 				`(* Message ${abc}: Authentication sanity *)`,
 				`\tevent(RecvMsg(${recv}, ${send}, stagepack_${abc}(${recvsid}), m)) ==> (event(SendMsg(${send}, ${recv}, stagepack_${abc}(${sendsid}), m)));`,
 				`(* Message ${abc}: Authentication 1 *)`,
-				`\tevent(RecvMsg(${recv}, ${send}, stagepack_${abc}(${recvsid}), m)) ==> (event(SendMsg(${send}, c, stagepack_${abc}(${sendsid}), m))) || (${leakS('phase0', 'phase0', true, true)}) || (${leakS('phase0', 'phase0', false, true)});`,
+				`\tevent(RecvMsg(${recv}, ${send}, stagepack_${abc}(${recvsid}), m)) ==> (event(SendMsg(${send}, c, stagepack_${abc}(${sendsid}), m))) || (${leakS('phase0', 'phase0', true, true) || 'false'}) || (${leakS('phase0', 'phase0', false, true) || 'false'});`,
 				`(* Message ${abc}: Authentication 2 *)`,
-				`\tevent(RecvMsg(${recv}, ${send}, stagepack_${abc}(${recvsid}), m)) ==> (event(SendMsg(${send}, c, stagepack_${abc}(${sendsid}), m))) || (${leakS('phase0', 'phase0', true, false)});`,
+				`\tevent(RecvMsg(${recv}, ${send}, stagepack_${abc}(${recvsid}), m)) ==> (event(SendMsg(${send}, c, stagepack_${abc}(${sendsid}), m))) || (${leakS('phase0', 'phase0', true, true) || 'false'});`,
 				`(* Message ${abc}: Authentication 3 *)`,
-				`\tevent(RecvMsg(${recv}, ${send}, stagepack_${abc}(${recvsid}), m)) ==> (event(SendMsg(${send}, ${recv}, stagepack_${abc}(${sendsid}), m))) || (${leakS('phase0', 'phase0', true, true)}) || (${leakS('phase0', 'phase0', false, true)});`,
+				`\tevent(RecvMsg(${recv}, ${send}, stagepack_${abc}(${recvsid}), m)) ==> (event(SendMsg(${send}, ${recv}, stagepack_${abc}(${sendsid}), m))) || (${leakS('phase0', 'phase0', true, true) || 'false'}) || (${leakS('phase0', 'phase0', false, true) || 'false'});`,
 				`(* Message ${abc}: Authentication 4 *)`,
-				`\tevent(RecvMsg(${recv}, ${send}, stagepack_${abc}(${recvsid}), m)) ==> (event(SendMsg(${send}, ${recv}, stagepack_${abc}(${sendsid}), m))) || (${leakS('phase0', 'phase0', true, false)});`
+				`\tevent(RecvMsg(${recv}, ${send}, stagepack_${abc}(${recvsid}), m)) ==> (event(SendMsg(${send}, ${recv}, stagepack_${abc}(${sendsid}), m))) || (${leakS('phase0', 'phase0', true, true) || 'false'});`
 			]);
 			quer = quer.concat([
 				`(* Message ${abc}: Confidentiality sanity *)`,
@@ -395,7 +395,7 @@ const NOISE2PV = {
 				`(* Message ${abc}: Confidentiality ${confQuery43} *)`,
 				`\tattacker(msg_${abc}(${send}, ${recv}, ${sendsid})) ==> ${conf43()};`,
 				`(* Message ${abc}: Confidentiality 5 *)`,
-				`\tattacker(msg_${abc}(${send}, ${recv}, ${sendsid})) ==> (${leakS('phase0', 'phase0', false, true)});`
+				`\tattacker(msg_${abc}(${send}, ${recv}, ${sendsid})) ==> (${conf5()});`
 			]);
 		});
 		pattern.messages.forEach((message, i) => {

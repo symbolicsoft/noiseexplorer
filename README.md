@@ -28,7 +28,7 @@ Generation:
 Rendering:
 --render: Render results from ProVerif output files into HTML.
 --pattern=[file]: Specify input pattern file (required).
---activeModel=[file]: Specify ProVerif active attacker model.
+--activeModel=[file]: Specify ProVerif active attacker model (required).
 --activeResults=[file]: Specify active results file for --render (required).
 --passiveResults=[file]: Specify passive results file for --render (required).
 
