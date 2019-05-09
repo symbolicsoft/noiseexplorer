@@ -147,7 +147,7 @@ const generate = (json) => {
 	}
 }
 
-if (typeof (module) !== 'undefined') {
+if (typeof(module) !== 'undefined') {
 	// Node
 	module.exports = {
 		generate: generate

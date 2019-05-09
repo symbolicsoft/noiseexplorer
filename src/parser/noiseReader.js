@@ -38,7 +38,7 @@ const NOISEREADER = {
 		});
 		return r;
 	};
-	
+
 	const messagesSendStatic = (pattern) => {
 		let r = -1;
 		pattern.messages.forEach((message, i) => {
@@ -575,7 +575,7 @@ const NOISEREADER = {
 				} else if (hasPsk) {
 					r[i] = `${r[i]}PSK`;
 				} else if (r[i].length === 0) {
-					r[i] = 'long term keys, which do not exist,';
+					r[i] = 'long term keys, which are not used,';
 				}
 			});
 			return r;

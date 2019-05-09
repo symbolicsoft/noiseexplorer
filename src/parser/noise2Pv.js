@@ -353,39 +353,39 @@ const NOISE2PV = {
 			let abc = util.abc[i];
 			let confQuery21 = (params.attacker === 'active') ? '2' : '1';
 			let confQuery43 = (params.attacker === 'active') ? '4' : '3';
-			let leakS = (px, py, isSend, includePsk) => {
+			let leakS = (px, py, isSend, includePsk, force) => {
 				let x = isSend ? send : recv;
 				let y = (x === 'alice') ? sends : recvs;
-				let s = (y >= 0) ? `(event(LeakS(${px}, ${x})))` : '';
+				let s = ((y >= 0) || force) ? `(event(LeakS(${px}, ${x})))` : '';
 				let p = (includePsk && (psk >= 0) && (psk <= i)) ? `(event(LeakPsk(${py}, alice, bob)))` : '';
 				let a = (s.length && p.length) ? ` && ` : '';
 				return `${s}${a}${p}`;
 			};
 			let conf21 = () => {
-				return leakS('px', 'py', false, true) || 'false';
+				return leakS('px', 'py', false, true, false) || 'false';
 			};
 			let conf43 = () => {
-				let s = leakS('phase0', 'phase0', false, true);
-				let p = leakS('px', 'py', false, true);
-				let b = leakS('pz', 'pz', true, false);
+				let s = leakS('phase0', 'phase0', false, true, true);
+				let p = leakS('px', 'py', false, true, true);
+				let b = leakS('pz', 'pz', true, false, true);
 				let a = (s.length && p.length) ? ` || ` : '';
 				let d = (p.length && b.length) ? ` && ` : '';
-				return ((s.length > 5) && (b.length > 5)) ? `(${s})${a}(${p}${d}${b})` : (s.length > 5) ? `(${s})${a}(${p})` : (b.length > 5) ? `(${b})` : 'false';
+				return (s.length && b.length > 5) ? `(${s})${a}(${p}${d}${b})` : s.length ? `(${s})${a}(${p})` : b.length ? `(${b})` : 'false';
 			};
 			let conf5 = () => {
-				return leakS('phase0', 'phase0', false, true) || 'false';
+				return leakS('phase0', 'phase0', false, true, false) || 'false';
 			};
 			quer = quer.concat([
 				`(* Message ${abc}: Authentication sanity *)`,
 				`\tevent(RecvMsg(${recv}, ${send}, stagepack_${abc}(${recvsid}), m)) ==> (event(SendMsg(${send}, ${recv}, stagepack_${abc}(${sendsid}), m)));`,
 				`(* Message ${abc}: Authentication 1 *)`,
-				`\tevent(RecvMsg(${recv}, ${send}, stagepack_${abc}(${recvsid}), m)) ==> (event(SendMsg(${send}, c, stagepack_${abc}(${sendsid}), m))) || (${leakS('phase0', 'phase0', true, true) || 'false'}) || (${leakS('phase0', 'phase0', false, true) || 'false'});`,
+				`\tevent(RecvMsg(${recv}, ${send}, stagepack_${abc}(${recvsid}), m)) ==> (event(SendMsg(${send}, c, stagepack_${abc}(${sendsid}), m))) || (${leakS('phase0', 'phase0', true, true, false) || 'false'}) || (${leakS('phase0', 'phase0', false, true) || 'false'});`,
 				`(* Message ${abc}: Authentication 2 *)`,
-				`\tevent(RecvMsg(${recv}, ${send}, stagepack_${abc}(${recvsid}), m)) ==> (event(SendMsg(${send}, c, stagepack_${abc}(${sendsid}), m))) || (${leakS('phase0', 'phase0', true, true) || 'false'});`,
+				`\tevent(RecvMsg(${recv}, ${send}, stagepack_${abc}(${recvsid}), m)) ==> (event(SendMsg(${send}, c, stagepack_${abc}(${sendsid}), m))) || (${leakS('phase0', 'phase0', true, true, false) || 'false'});`,
 				`(* Message ${abc}: Authentication 3 *)`,
-				`\tevent(RecvMsg(${recv}, ${send}, stagepack_${abc}(${recvsid}), m)) ==> (event(SendMsg(${send}, ${recv}, stagepack_${abc}(${sendsid}), m))) || (${leakS('phase0', 'phase0', true, true) || 'false'}) || (${leakS('phase0', 'phase0', false, true) || 'false'});`,
+				`\tevent(RecvMsg(${recv}, ${send}, stagepack_${abc}(${recvsid}), m)) ==> (event(SendMsg(${send}, ${recv}, stagepack_${abc}(${sendsid}), m))) || (${leakS('phase0', 'phase0', true, true, false) || 'false'}) || (${leakS('phase0', 'phase0', false, true) || 'false'});`,
 				`(* Message ${abc}: Authentication 4 *)`,
-				`\tevent(RecvMsg(${recv}, ${send}, stagepack_${abc}(${recvsid}), m)) ==> (event(SendMsg(${send}, ${recv}, stagepack_${abc}(${sendsid}), m))) || (${leakS('phase0', 'phase0', true, true) || 'false'});`
+				`\tevent(RecvMsg(${recv}, ${send}, stagepack_${abc}(${recvsid}), m)) ==> (event(SendMsg(${send}, ${recv}, stagepack_${abc}(${sendsid}), m))) || (${leakS('phase0', 'phase0', true, true, false) || 'false'});`
 			]);
 			quer = quer.concat([
 				`(* Message ${abc}: Confidentiality sanity *)`,

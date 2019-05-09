@@ -289,7 +289,7 @@ const NOISE2RS = {
 		if (isBeyondFinal) {
 			return ``;
 		}
-		let nsLength = alreadyDh? '48' : '32';
+		let nsLength = alreadyDh ? '48' : '32';
 		let readFunDeclaration = `\tpub(crate) fn read_message_${suffix}(&mut self, input: &[u8]) -> ${isFinal? ` Result<(Hash, Vec<u8>, CipherState, CipherState), NoiseError>` : `Result<Vec<u8>, NoiseError>`} {`;
 		let messageTokenParsers = {
 			e: [
