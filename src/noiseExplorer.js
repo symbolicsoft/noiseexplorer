@@ -238,6 +238,9 @@ if (
 	let output = RSRENDER(pattern, parsedRs);
 	let cargo = READFILE('rs/Cargo.toml')
 		.replace("$NOISE2RS_N$", json.name.toLowerCase());
+	output[1] =  output[1]
+		.replace(/\$NOISE2RS_N\$/g, json.name.toLowerCase());
+	let rustfmt = READFILE('rs/.rustfmt.toml');
 	let testGen = NOISE2RSTESTGEN.generate(json, output);
 	let test = READFILE('rs/test.rs')
 		.replace("$NOISE2RS_S$", psk)
@@ -257,6 +260,7 @@ if (
 	WRITEFILE(`../implementations/rs/${json.name}/src/noisesession.rs`, output[6]);
 	WRITEFILE(`../implementations/rs/${json.name}/src/error.rs`, output[7]);
 	WRITEFILE(`../implementations/rs/${json.name}/Cargo.toml`, cargo);
+	WRITEFILE(`../implementations/rs/${json.name}/.rustfmt.toml`, rustfmt);
 	WRITEFILE(`../implementations/rs/${json.name}/tests/handshake.rs`, test);
 	process.exit();
 }
