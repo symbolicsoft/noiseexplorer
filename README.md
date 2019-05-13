@@ -56,7 +56,10 @@ Help:
 To quickly translate all Noise handshake patterns in the `patterns` folder to ProVerif models, simply run `make models` after completing the steps outlined in the Preparation section of this document. The models will be available in the `models` folder.
 
 ### Implementation Generation
-To quickly translate all Noise handshake patterns in the `patterns` folder to Go and Rust implementations, simply run `make implementations` after completing the steps outlined in the Preparation section of this document. The software will be available in the `implementations` folder. Running `make tests` will verify these implementations against test vectors obtained from [Cacophony](https://github.com/centromere/cacophony), a Haskell implementation of the Noise Protocol Framework. To view the documentation of a generated Rust implementation, navigate to the directory of the desired pattern and run `cargo doc --open --no-deps`.
+To quickly translate all Noise handshake patterns in the `patterns` folder to Go and Rust implementations, simply run `make implementations` after completing the steps outlined in the Preparation section of this document. The software will be available in the `implementations` folder. Running `make tests` will verify these implementations against test vectors obtained from [Cacophony](https://github.com/centromere/cacophony), a Haskell implementation of the Noise Protocol Framework.
+
+### Implementation Documentation
+To view the documentation of a generated Rust implementation, navigate to the directory of the desired pattern and run `cargo doc --open --no-deps`.
 
 ### Contributors and License
 Authored by [Symbolic Software](https://symbolic.software). Released under the GNU General Public License, version 3.

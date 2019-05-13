@@ -240,7 +240,6 @@ if (
 		.replace("$NOISE2RS_N$", json.name.toLowerCase());
 	output[1] =  output[1]
 		.replace(/\$NOISE2RS_N\$/g, json.name.toLowerCase());
-	let rustfmt = READFILE('rs/.rustfmt.toml');
 	let testGen = NOISE2RSTESTGEN.generate(json, output);
 	let test = READFILE('rs/test.rs')
 		.replace("$NOISE2RS_S$", psk)
@@ -251,6 +250,7 @@ if (
 		FS.mkdirSync(`../implementations/rs/${json.name}/src`);
 		FS.mkdirSync(`../implementations/rs/${json.name}/tests`);
 	}
+	WRITEFILE(`../implementations/rs/${json.name}/Cargo.toml`, cargo);
 	WRITEFILE(`../implementations/rs/${json.name}/src/lib.rs`, output[0]);
 	WRITEFILE(`../implementations/rs/${json.name}/src/types.rs`, output[1]);
 	WRITEFILE(`../implementations/rs/${json.name}/src/consts.rs`, output[2]);
@@ -259,8 +259,6 @@ if (
 	WRITEFILE(`../implementations/rs/${json.name}/src/state.rs`, output[5]);
 	WRITEFILE(`../implementations/rs/${json.name}/src/noisesession.rs`, output[6]);
 	WRITEFILE(`../implementations/rs/${json.name}/src/error.rs`, output[7]);
-	WRITEFILE(`../implementations/rs/${json.name}/Cargo.toml`, cargo);
-	WRITEFILE(`../implementations/rs/${json.name}/.rustfmt.toml`, rustfmt);
 	WRITEFILE(`../implementations/rs/${json.name}/tests/handshake.rs`, test);
 	process.exit();
 }

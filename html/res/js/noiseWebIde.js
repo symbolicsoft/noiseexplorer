@@ -270,8 +270,8 @@ let rsGen = (patternInput, aId, autoClick) => {
 			let cargo = xhr.responseText
 				.replace('$NOISE2RS_N$', parsedPattern.name.toLowerCase());
 			let zip = new JSZip();
-			let src = zip.folder('src');
 			zip.file('Cargo.toml', cargo);
+			let src = zip.folder('src');
 			src.file('lib.rs', rs[0]);
 			src.file('types.rs', rs[1]);
 			src.file('consts.rs', rs[2]);
