@@ -1,20 +1,26 @@
 #![allow(non_snake_case, non_upper_case_globals)]
 
 use noiseexplorer_kpsk0::{
-	noisesession::NoiseSession,
-	types::{Keypair, Message, PrivateKey, PublicKey, Psk},
+    noisesession::NoiseSession,
+    types::{Keypair, Message, PrivateKey, Psk, PublicKey},
 };
 
 #[test]
 fn noiseexplorer_test_kpsk0() {
     if let Ok(prologue) = Message::from_str("4a6f686e2047616c74") {
-	if let Ok(init_static_private) = PrivateKey::from_str("e61ef9919cde45dd5f82166404bd08e38bceb5dfdfded0a34c8df7ed542214d1") {
-	if let Ok(resp_static_private) = PrivateKey::from_str("4a3acbfdb163dec651dfa3194dece676d437029c62a408b4c5ea9114246e4893") {
-	if let Ok(resp_static_public) = resp_static_private.generate_public_key() { 
-	if let Ok(init_static_public_key) = init_static_private.generate_public_key() {
-	if let Ok(init_static_kp) = Keypair::from_private_key(init_static_private) {
-	if let Ok(resp_static_kp) = Keypair::from_private_key(resp_static_private) {
-	if let Ok(psk) = Psk::from_str("54686973206973206d7920417573747269616e20706572737065637469766521") {
+        if let Ok(init_static_private) =
+            PrivateKey::from_str("e61ef9919cde45dd5f82166404bd08e38bceb5dfdfded0a34c8df7ed542214d1")
+        {
+            if let Ok(resp_static_private) = PrivateKey::from_str(
+                "4a3acbfdb163dec651dfa3194dece676d437029c62a408b4c5ea9114246e4893",
+            ) {
+                if let Ok(resp_static_public) = resp_static_private.generate_public_key() {
+                    if let Ok(init_static_public_key) = init_static_private.generate_public_key() {
+                        if let Ok(init_static_kp) = Keypair::from_private_key(init_static_private) {
+                            if let Ok(resp_static_kp) =
+                                Keypair::from_private_key(resp_static_private)
+                            {
+                                if let Ok(psk) = Psk::from_str("54686973206973206d7920417573747269616e20706572737065637469766521") {
 	
 let mut initiator_session: NoiseSession = NoiseSession::init_session(true, prologue.clone(), init_static_kp, resp_static_public, psk.clone());
 	let mut responder_session: NoiseSession = NoiseSession::init_session(false, prologue, resp_static_kp, init_static_public_key, psk);
@@ -53,5 +59,12 @@ initiator_session.set_ephemeral_keypair(init_ephemeral_kp);
 	assert!(tE == messageE, "\n\n\nTest E: FAIL\n\nExpected:\n{:X?}\n\nActual:\n{:X?}", tE, messageE);
 	assert!(tF == messageF, "\n\n\nTest F: FAIL\n\nExpected:\n{:X?}\n\nActual:\n{:X?}", tF, messageF);
 	}}}}}
-	}}}}}}}}}}}}}}}}}}}}}}}}}}}}}
+	}}}}}}}}}}}}}}}}}}}}}}
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

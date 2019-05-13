@@ -249,14 +249,18 @@ impl HandshakeState {
 	pub(crate) fn clear(&mut self,) {
 		self.s.clear();
 		self.e.clear();
-		self.rs.clear();
 		self.re.clear();
 		self.psk.clear();
 	}
 
+    pub fn get_remote_static_public_key(&self) -> PublicKey {
+         self.rs
+    }
+
 	pub(crate) fn set_ephemeral_keypair(&mut self, e: Keypair,) {
 		self.e = e;
 	}
+
 /* $NOISE2RS_I$ */
 /* $NOISE2RS_W$ */
 /* $NOISE2RS_R$ */

@@ -61,5 +61,10 @@ impl NoiseSession {
 	pub fn set_ephemeral_keypair(&mut self, e: Keypair,) {
 		self.hs.set_ephemeral_keypair(e,);
 	}
+
+      pub fn get_remote_static_public_key(&self) -> PublicKey {
+         self.hs.get_remote_static_public_key()
+     }
+
 /* $NOISE2RS_P$ */
 }
