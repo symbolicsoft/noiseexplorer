@@ -5,7 +5,7 @@
   "author": "Symbolic Software",
   "main": "noiseExplorer.js",
   "repository": "https://github.com/symbolicsoft/noiseexplorer",
-  "license": "All rights reserved.",
+  "license": "GPL-3.0",
   "dependencies": {
     "minimist": "latest"
   }
