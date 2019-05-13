@@ -383,7 +383,7 @@ const NOISE2RS = {
 		let hasPsk = messagesPsk(pattern) >= 0;
 		let finalKex = finalKeyExchangeMessage(pattern);
 		let initSession = [
-			`\t/// Instantiates a \`NoiseSession\` object. Takes the following as parameters:`,
+			`\n\t/// Instantiates a \`NoiseSession\` object. Takes the following as parameters:`,
 			`/// - \`initiator\`: \`bool\` variable. To be set as \`true\` when initiating a handshake with a remote party, or \`false\` otherwise.`,
 			`/// - \`prologue\`: \`Message\` object. Could optionally contain the name of the protocol to be used.`,
 			`/// - \`s\`: \`Keypair\` object. Contains local party's static keypair.`,
@@ -409,14 +409,15 @@ const NOISE2RS = {
 			`\t\t\th: Hash::new(),`,
 			`\t\t}`,
 			`\t}`,
-			`}`
+			`}`,
+			``
 		];
 		let sendMessage = [
 			`/// Takes a \`Message\` object containing plaintext as a parameter.`,
 			`/// Returns a \`Ok(Message)\` object containing the corresponding ciphertext upon successful encryption, and \`Err(NoiseError)\` otherwise`,
 			`///`,
 			`/// _Note that while \`mc\` <= 1 the ciphertext will be included as a payload for handshake messages and thus will not offer the same guarantees offered by post-handshake messages._`,
-			`\n\tpub fn send_message(&mut self, message: Message) -> Result<Message, NoiseError> {`,
+			`pub fn send_message(&mut self, message: Message) -> Result<Message, NoiseError> {`,
 			`\tlet out: Vec<u8>;`
 		];
 		let recvMessage = [
@@ -483,7 +484,8 @@ const NOISE2RS = {
 			}
 		}
 		sendMessage = sendMessage.concat([
-			`}`
+			`}`,
+			``
 		]);
 		recvMessage = recvMessage.concat([
 			`}`

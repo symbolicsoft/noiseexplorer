@@ -61,6 +61,7 @@ impl NoiseSession {
 	pub fn set_ephemeral_keypair(&mut self, e: Keypair,) {
 		self.hs.set_ephemeral_keypair(e,);
 	}
+
 	/// Instantiates a `NoiseSession` object. Takes the following as parameters:
 	/// - `initiator`: `bool` variable. To be set as `true` when initiating a handshake with a remote party, or `false` otherwise.
 	/// - `prologue`: `Message` object. Could optionally contain the name of the protocol to be used.
@@ -88,11 +89,11 @@ impl NoiseSession {
 			}
 		}
 	}
+	
 	/// Takes a `Message` object containing plaintext as a parameter.
 	/// Returns a `Ok(Message)` object containing the corresponding ciphertext upon successful encryption, and `Err(NoiseError)` otherwise
 	///
 	/// _Note that while `mc` <= 1 the ciphertext will be included as a payload for handshake messages and thus will not offer the same guarantees offered by post-handshake messages._
-	
 	pub fn send_message(&mut self, message: Message) -> Result<Message, NoiseError> {
 		let out: Vec<u8>;
 		if self.mc == 0 {
@@ -114,6 +115,7 @@ impl NoiseSession {
 		self.mc += 1;
 		Ok(out)
 	}
+	
 	/// Takes a `Message` object received from the remote party as a parameter.
 	/// Returns a `Ok(Message)` object containing plaintext upon successful decryption, and `Err(NoiseError)` otherwise.
 	///

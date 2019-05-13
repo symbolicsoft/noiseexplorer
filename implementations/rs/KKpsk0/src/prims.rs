@@ -68,8 +68,7 @@ pub(crate) fn hmac(key: &[u8], data: &[u8], out: &mut [u8],) {
 pub(crate) fn hkdf(
 	chaining_key: &[u8], input_key_material: &[u8], outputs: usize, out1: &mut [u8],
 	out2: &mut [u8], out3: &mut [u8],
-)
-{
+) {
 	let mut temp_key = EMPTY_HASH;
 	hmac(chaining_key, input_key_material, &mut temp_key,);
 	hmac(&temp_key, &[1u8,], out1,);
