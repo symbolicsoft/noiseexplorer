@@ -34,7 +34,6 @@ const HELPTEXT = [
 	'Help:',
 	'--help: View this help text.'
 ].join('\n');
-const ERRMSG = [];
 
 if (
 	ARGV.hasOwnProperty('help') ||
