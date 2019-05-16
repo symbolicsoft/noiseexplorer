@@ -150,7 +150,7 @@ const NOISE2RS = {
 		return [''];
 	};
 
-	const initializeFun = (pattern, initiator, suffix) => {
+	const initializeFun = (pattern, initiator, suffix, rs) => {
 		let preMessageTokenParsers = {
 			send: {
 				e: `ss.mix_hash(&self.e.get_public_key().as_bytes());`,
@@ -164,11 +164,14 @@ const NOISE2RS = {
 			}
 		};
 		let initFun = [
-			`\tpub(crate) fn initialize_${suffix}(prologue: &[u8], s: Keypair, rs: PublicKey, psk: Psk) -> HandshakeState {`,
+			`\tpub(crate) fn initialize_${suffix}(prologue: &[u8], s: Keypair${rs?', rs: PublicKey':''}, psk: Psk) -> HandshakeState {`,
 			`let protocol_name = b"Noise_${pattern.name}_25519_ChaChaPoly_BLAKE2s";`,
 			`let mut ss: SymmetricState = SymmetricState::initialize_symmetric(&protocol_name[..]);`,
 			`ss.mix_hash(prologue);`
 		];
+		if (!rs) { 
+			initFun.push(`let rs = PublicKey::empty();`);
+		}
 		pattern.preMessages.forEach((preMessage) => {
 			let dir = preMessage.dir;
 			if (!initiator) {
@@ -182,8 +185,8 @@ const NOISE2RS = {
 
 	const initializeFuns = (pattern) => {
 		return [
-			initializeFun(pattern, true, 'initiator'),
-			initializeFun(pattern, false, 'responder')
+			initializeFun(pattern, true, 'initiator', preMessagesRecvStatic(pattern)),
+			initializeFun(pattern, false, 'responder', preMessagesSendStatic(pattern))
 		];
 	};
 
@@ -381,18 +384,20 @@ const NOISE2RS = {
 
 	const processFuns = (pattern, isOneWayPattern) => {
 		let hasPsk = messagesPsk(pattern) >= 0;
+		let sendRs = preMessagesSendStatic(pattern);
+		let recvRs = preMessagesRecvStatic(pattern);
 		let finalKex = finalKeyExchangeMessage(pattern);
 		let initSession = [
 			`\n\t/// Instantiates a \`NoiseSession\` object. Takes the following as parameters:`,
 			`/// - \`initiator\`: \`bool\` variable. To be set as \`true\` when initiating a handshake with a remote party, or \`false\` otherwise.`,
 			`/// - \`prologue\`: \`Message\` object. Could optionally contain the name of the protocol to be used.`,
 			`/// - \`s\`: \`Keypair\` object. Contains local party's static keypair.`,
-			`/// - \`rs\`: \`PublicKey\` object. Contains the remote party's static public key.`,
+			`${sendRs||recvRs?`/// - \`rs\`: \`Option<PublicKey>\`. Contains the remote party's static public key.	Tip: use \`Some(rs_value)\` in case a remote static key exists and \`None\` otherwise.`:''}`,
 			`${hasPsk? '/// - \`psk\`: \`Psk\` object. Contains the pre-shared key.' : ''}`,
-			`pub fn init_session(initiator: bool, prologue: Message, s: Keypair, rs: PublicKey${hasPsk? ', psk: Psk' : ''}) -> NoiseSession {`,
+			`pub fn init_session(initiator: bool, prologue: Message, s: Keypair${sendRs||recvRs?', rs: Option<PublicKey>':''}${hasPsk? ', psk: Psk' : ''}) -> NoiseSession {`,
 			`\tif initiator {`,
 			`\t\tNoiseSession{`,
-			`\t\t\ths: HandshakeState::initialize_initiator(&prologue.as_bytes(), s, rs, ${hasPsk? 'psk' : 'Psk::new()'}),`,
+			`\t\t\ths: HandshakeState::initialize_initiator(&prologue.as_bytes(), s${recvRs? ', rs.unwrap_or(PublicKey::empty())': ''}, ${hasPsk? 'psk' : 'Psk::new()'}),`,
 			`\t\t\tmc: 0,`,
 			`\t\t\ti: initiator,`,
 			`\t\t\tcs1: CipherState::new(),`,
@@ -401,7 +406,7 @@ const NOISE2RS = {
 			`\t\t}`,
 			`\t} else {`,
 			`\t\tNoiseSession {`,
-			`\t\t\ths: HandshakeState::initialize_responder(&prologue.as_bytes(), s, rs, ${hasPsk? 'psk' : 'Psk::new()'}),`,
+			`\t\t\ths: HandshakeState::initialize_responder(&prologue.as_bytes(), s${sendRs? ', rs.unwrap_or(PublicKey::empty())': ''}, ${hasPsk? 'psk' : 'Psk::new()'}),`,
 			`\t\t\tmc: 0,`,
 			`\t\t\ti: initiator,`,
 			`\t\t\tcs1: CipherState::new(),`,

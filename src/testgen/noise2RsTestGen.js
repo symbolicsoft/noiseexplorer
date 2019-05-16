@@ -35,19 +35,22 @@ const gen = (
 	} else {
 		rsTestCode.push(`if let Ok(resp_static_private) = PrivateKey::from_str("${respStaticSk}") {`);
 	}
-	if (initRemoteStaticPk.length > 0) {
-		rsTestCode.push(`if let Ok(resp_static_public) = resp_static_private.generate_public_key() { `);
-		lastLine.push(`}`);
-		initInit = `${initInit}, resp_static_public`;
-	} else {
-		initInit = `${initInit}, PublicKey::empty()`;
-	}
-	if (respRemoteStaticPk.length > 0) {
-		rsTestCode.push(`if let Ok(init_static_public_key) = init_static_private.generate_public_key() {`);
-		lastLine.push(`}`);
-		initResp = `${initResp}, init_static_public_key`;
-	} else {
-		initResp = `${initResp}, PublicKey::empty()`;
+	if (initRemoteStaticPk || respRemoteStaticPk) {
+		if (initRemoteStaticPk) {
+			rsTestCode.push(`if let Ok(resp_static_public) = resp_static_private.generate_public_key() { `);
+			lastLine.push(`}`);
+			initInit = `${initInit}, Some(resp_static_public)`;
+		} else {
+			initInit = `${initInit}, None`;
+		}
+		if (respRemoteStaticPk) {
+			rsTestCode.push(`if let Ok(init_static_public_key) = init_static_private.generate_public_key() {`);
+			lastLine.push(`}`);
+			initResp = `${initResp}, Some(init_static_public_key)`;
+		}
+		else {
+			initResp = `${initResp}, None`;
+		}
 	}
 	rsTestCode.push(`if let Ok(init_static_kp) = Keypair::from_private_key(init_static_private) {`);
 	rsTestCode.push(`if let Ok(resp_static_kp) = Keypair::from_private_key(resp_static_private) {`);

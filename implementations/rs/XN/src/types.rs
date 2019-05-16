@@ -17,10 +17,12 @@ fn decode_str_32(s: &str) -> Result<[u8; DHLEN], NoiseError> {
             let mut temp: [u8; DHLEN] = [0_u8; DHLEN];
             temp.copy_from_slice(&x[..]);
             Ok(temp)
-        } else {
+        }
+        else {
             return Err(NoiseError::InvalidInputError);
         }
-    } else {
+    }
+    else {
         return Err(NoiseError::InvalidInputError);
     }
 }
@@ -39,7 +41,9 @@ impl Hash {
         self.h.zeroize();
     }
     pub(crate) fn from_bytes(hash: [u8; HASHLEN]) -> Self {
-        Self { h: hash }
+        Self {
+            h: hash,
+        }
     }
     pub(crate) fn as_bytes(&self) -> [u8; DHLEN] {
         self.h
@@ -63,7 +67,9 @@ impl Key {
     }
     /// Instanciates a new `Key` from an array of `DHLEN` bytes.
     pub fn from_bytes(key: [u8; DHLEN]) -> Self {
-        Self { k: key }
+        Self {
+            k: key,
+        }
     }
     /// Instanciates a new `Key` from a string of hexadecimal values.
     /// # Example
@@ -117,7 +123,9 @@ impl Key {
         let mut output: [u8; DHLEN] = EMPTY_KEY;
         output.copy_from_slice(private_key);
         let output = curve25519::SecretKey(output).get_public();
-        PublicKey { k: output.0 }
+        PublicKey {
+            k: output.0,
+        }
     }
 }
 
@@ -134,7 +142,9 @@ impl Psk {
     }
     /// Instanciates a new `Psk` from an array of `DHLEN` bytes.
     pub fn from_bytes(k: [u8; DHLEN]) -> Self {
-        Self { psk: k }
+        Self {
+            psk: k,
+        }
     }
     /// Instanciates a new `Psk` from a string of hexadecimal values.
     /// # Example
@@ -203,14 +213,18 @@ impl PrivateKey {
     }
     /// Instanciates a new empty `PrivateKey`.
     pub fn empty() -> Self {
-        Self { k: EMPTY_KEY }
+        Self {
+            k: EMPTY_KEY,
+        }
     }
     /// Instanciates a new `PrivateKey` from an array of `DHLEN` bytes.
     pub fn from_bytes(k: [u8; DHLEN]) -> Self {
         Self::from_hacl_secret_key(curve25519::SecretKey(k))
     }
     pub(crate) fn from_hacl_secret_key(hacl_secret: curve25519::SecretKey) -> Self {
-        Self { k: hacl_secret.0 }
+        Self {
+            k: hacl_secret.0,
+        }
     }
     /// Instanciates a new `PrivateKey` from a string of hexadecimal values.
     /// # Example
@@ -277,11 +291,15 @@ pub struct PublicKey {
 impl PublicKey {
     /// Instanciates a new empty `PublicKey`.
     pub fn empty() -> Self {
-        Self { k: EMPTY_KEY }
+        Self {
+            k: EMPTY_KEY,
+        }
     }
     /// Instanciates a new `PublicKey` from an array of `DHLEN` bytes.
     pub fn from_bytes(k: [u8; DHLEN]) -> Self {
-        Self { k }
+        Self {
+            k,
+        }
     }
     pub(crate) fn clear(&mut self) {
         self.k.zeroize();
@@ -309,7 +327,9 @@ impl PublicKey {
         Ok(Self::from_hacl_public_key(curve25519::PublicKey(pk)))
     }
     pub(crate) fn from_hacl_public_key(hacl_public: curve25519::PublicKey) -> Self {
-        Self { k: hacl_public.0 }
+        Self {
+            k: hacl_public.0,
+        }
     }
     pub fn as_bytes(&self) -> [u8; DHLEN] {
         self.k
@@ -346,7 +366,9 @@ pub(crate) struct Nonce {
 }
 impl Nonce {
     pub(crate) fn new() -> Self {
-        Self { n: 0_u64 }
+        Self {
+            n: 0_u64,
+        }
     }
     pub(crate) fn increment(&mut self) {
         self.n += 1;
@@ -376,7 +398,9 @@ impl Message {
         if m.len() > MAX_MESSAGE || m.is_empty() {
             return Err(NoiseError::UnsupportedMessageLengthError);
         }
-        Ok(Self { payload: m })
+        Ok(Self {
+            payload: m,
+        })
     }
     /// Instanciates a new `Message` from a `&str`.
     pub fn from_str(m: &str) -> Result<Self, NoiseError> {

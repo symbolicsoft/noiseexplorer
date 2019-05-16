@@ -11,7 +11,6 @@ echo "[NoiseExplorer] Running Rust Tests..."
 cd ../implementations/rs
 for pattern in ./*; do
     cd $pattern
-    cargo fmt
-    cargo test --test handshake
+    cargo test
     cd ..
 done
