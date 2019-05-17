@@ -2,6 +2,7 @@
  * TYPES                                                            *
  * ---------------------------------------------------------------- */
 
+use constant_time_eq::constant_time_eq;
 use crate::{
     consts::{DHLEN, EMPTY_KEY, HASHLEN, MAX_MESSAGE, MAX_NONCE},
     error::NoiseError,
@@ -116,7 +117,7 @@ impl Key {
     /// # }
     /// ```
     pub fn is_empty(&self) -> bool {
-        crypto::util::fixed_time_eq(&self.k[..], &EMPTY_KEY)
+        constant_time_eq(&self.k[..], &EMPTY_KEY)
     }
     /// Derives a `PublicKey` from the `Key` and returns it.
     pub fn generate_public_key(private_key: &[u8; DHLEN]) -> PublicKey {
@@ -192,7 +193,7 @@ impl Psk {
     /// # }
     /// ```
     pub fn is_empty(&self) -> bool {
-        crypto::util::fixed_time_eq(&self.psk[..], &EMPTY_KEY)
+        constant_time_eq(&self.psk[..], &EMPTY_KEY)
     }
 }
 impl Clone for Psk {
@@ -271,7 +272,7 @@ impl PrivateKey {
     /// # }
     /// ```
     pub fn is_empty(&self) -> bool {
-        crypto::util::fixed_time_eq(&self.k[..], &EMPTY_KEY)
+        constant_time_eq(&self.k[..], &EMPTY_KEY)
     }
     /// Derives a `PublicKey` from the `PrivateKey` then returns `Ok(PublicKey)` when successful and `Err(NoiseError)` otherwise.
     pub fn generate_public_key(&self) -> Result<PublicKey, NoiseError> {
@@ -356,7 +357,7 @@ impl PublicKey {
     /// # }
     /// ```
     pub fn is_empty(&self) -> bool {
-        crypto::util::fixed_time_eq(&self.k[..], &EMPTY_KEY)
+        constant_time_eq(&self.k[..], &EMPTY_KEY)
     }
 }
 
