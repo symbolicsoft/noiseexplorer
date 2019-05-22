@@ -33,17 +33,17 @@ pub struct NoiseSession {
 }
 impl NoiseSession {
 	/// Clears `cs1`.
-	pub fn clear_local_cipherstate(&mut self,) {
+	pub fn clear_local_cipherstate(&mut self) {
 		self.cs1.clear();
 	}
 
 	/// Clears `cs2`.
-	pub fn clear_remote_cipherstate(&mut self,) {
+	pub fn clear_remote_cipherstate(&mut self) {
 		self.cs2.clear();
 	}
 
 	/// `NoiseSession` destructor function.
-	pub fn end_session(mut self,) {
+	pub fn end_session(mut self) {
 		self.hs.clear();
 		self.clear_local_cipherstate();
 		self.clear_remote_cipherstate();
@@ -53,13 +53,13 @@ impl NoiseSession {
 	}
 
 	/// Returns `h`.
-	pub fn get_handshake_hash(&self,) -> [u8; HASHLEN] {
+	pub fn get_handshake_hash(&self) -> [u8; HASHLEN] {
 		self.h.as_bytes()
 	}
 
 	/// Sets the value of the local ephemeral keypair as the parameter `e`.
-	pub fn set_ephemeral_keypair(&mut self, e: Keypair,) {
-		self.hs.set_ephemeral_keypair(e,);
+	pub fn set_ephemeral_keypair(&mut self, e: Keypair) {
+		self.hs.set_ephemeral_keypair(e);
 	}
 
       pub fn get_remote_static_public_key(&self) -> PublicKey {

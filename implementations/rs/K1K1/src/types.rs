@@ -28,11 +28,6 @@ fn decode_str_32(s: &str) -> Result<[u8; DHLEN], NoiseError> {
     }
 }
 
-fn decode_str(s: &str) -> Result<Vec<u8>, NoiseError> {
-    let res = hex::decode(s)?;
-    Ok(res)
-}
-
 #[derive(Clone)]
 pub(crate) struct Hash {
     h: [u8; HASHLEN],
@@ -382,59 +377,42 @@ impl Nonce {
     }
 }
 
-#[derive(Clone)]
-/// Data structure to be used
-pub(crate) struct MessageBuffer {
-    pub(crate) ne: [u8; DHLEN],
-    pub(crate) ns: Vec<u8>,
-    pub(crate) ciphertext: Vec<u8>,
+pub struct Message<'a> {
+    payload: &'a [u8],
 }
-
-pub struct Message {
-    payload: Vec<u8>,
-}
-impl Message {
-    /// Instanciates a new `Message` from a `Vec<u8>`.
-    pub fn from_vec(m: Vec<u8>) -> Result<Self, NoiseError> {
-        if m.len() > MAX_MESSAGE || m.is_empty() {
+impl<'a> Message<'a> {
+    /// Instanciates a new `Message` from a `&[u8]`.
+    /// Returns `Ok(Message)` when successful and `Err(NoiseError)` otherwise.
+    pub fn from_bytes(m: &'a [u8]) -> Result<Self, NoiseError> {
+       if m.len() > MAX_MESSAGE || m.is_empty() {
             return Err(NoiseError::UnsupportedMessageLengthError);
         }
         Ok(Self {
             payload: m,
         })
     }
-    /// Instanciates a new `Message` from a `&str`.
-    pub fn from_str(m: &str) -> Result<Self, NoiseError> {
-        let msg = decode_str(m)?;
-        Self::from_vec(msg)
-    }
-    /// Instanciates a new `Message` from a `&[u8]`.
-    /// Returns `Ok(Message)` when successful and `Err(NoiseError)` otherwise.
-    pub fn from_bytes(m: &[u8]) -> Result<Self, NoiseError> {
-        Self::from_vec(Vec::from(m))
-    }
-    /// View the `Message` payload as a `Vec<u8>`.
-    pub fn as_bytes(&self) -> &Vec<u8> {
-        &self.payload
+    /// View the `Message` payload as a `&[u8]`.
+    pub fn as_bytes(&self) -> &[u8] {
+        self.payload
     }
     /// Returns a `usize` value that represents the `Message` payload length in bytes.
     pub fn len(&self) -> usize {
         self.payload.len()
     }
 }
-impl Clone for Message {
+impl<'a> Clone for Message<'a> {
     fn clone(&self) -> Self {
         Self {
-            payload: self.as_bytes().to_owned(),
+            payload: self.payload,
         }
     }
 }
-impl PartialEq for Message {
+impl<'a> PartialEq for Message<'a> {
     fn eq(&self, other: &Self) -> bool {
-        self.payload == other.payload
+        constant_time_eq(self.payload, other.payload)
     }
 }
-impl std::fmt::Debug for Message {
+impl<'a> std::fmt::Debug for Message<'a> {
     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
         write!(f, "({:X?})", self.payload)
     }

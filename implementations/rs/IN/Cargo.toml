@@ -5,6 +5,7 @@ authors = ["Symbolic Software <georgio@symbolic.software>"]
 edition = "2018"
 
 [dependencies]
+arrayref = "0.3.5"
 blake2-rfc = "0.2.18"
 constant_time_eq = "0.1.3"
 hacl-star = "0.0.14"

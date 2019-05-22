@@ -1,13 +1,20 @@
 #![allow(non_snake_case, non_upper_case_globals, unused_imports)]
 
 use noiseexplorer_xn::{
+	consts::DHLEN,
+	error::NoiseError,
 	noisesession::NoiseSession,
 	types::{Keypair, Message, PrivateKey, PublicKey},
 };
 
+fn decode_str(s: &str) -> Vec<u8> {
+ 	hex::decode(s).unwrap()
+ }
+
 #[test]
 fn noiseexplorer_test_xn() {
-    if let Ok(prologue) = Message::from_str("4a6f686e2047616c74") {
+    let mut buffer = [0u8; 65535];
+	if let Ok(prologue) = Message::from_bytes(&decode_str("4a6f686e2047616c74")[..]) {
 	if let Ok(init_static_private) = PrivateKey::from_str("e61ef9919cde45dd5f82166404bd08e38bceb5dfdfded0a34c8df7ed542214d1") {
 	if let Ok(resp_static_private) = PrivateKey::from_str("0000000000000000000000000000000000000000000000000000000000000001") {
 	if let Ok(init_static_kp) = Keypair::from_private_key(init_static_private) {
@@ -21,30 +28,36 @@ initiator_session.set_ephemeral_keypair(init_ephemeral_kp);
 	if let Ok(responder_ephemeral_private) = PrivateKey::from_str("4a6f686e2047616c74") {
 if let Ok(responder_ephemeral_kp) = Keypair::from_private_key(responder_ephemeral_private) {
 responder_session.set_ephemeral_keypair(responder_ephemeral_kp);
-	if let Ok(mA) = Message::from_str("4c756477696720766f6e204d69736573") {
-	if let Ok(tA) = Message::from_str("ca35def5ae56cec33dc2036731ab14896bc4c75dbb07a61f879f8e3afa4c79444c756477696720766f6e204d69736573") {
-	if let Ok(messageA) = initiator_session.send_message(mA) {
-	if let Ok(_x) = responder_session.recv_message(messageA.clone()) {
-	if let Ok(mB) = Message::from_str("4d757272617920526f746862617264") {
-	if let Ok(tB) = Message::from_str("95ebc60d2b1fa672c1f46a8aa265ef51bfe38e7ccb39ec5be34069f144808843dc00ccf629492772082cf28c171db3ec2dbc406aa59cca67a7a174501ccdca") {
-	if let Ok(messageB) = responder_session.send_message(mB) {
-	if let Ok(_x) = initiator_session.recv_message(messageB.clone()) {
-	if let Ok(mC) = Message::from_str("462e20412e20486179656b") {
-	if let Ok(tC) = Message::from_str("0bb0ae2b390d37a5aea005ffac23173e212f2234bbb4da3013ba0ad8ad8ec2f8a1e941c22a19c6904bee596238ecc6f5fadbb2881461b78ad9230a7838743e6160919412061d383a547510") {
-	if let Ok(messageC) = initiator_session.send_message(mC) {
-	if let Ok(_x) = responder_session.recv_message(messageC.clone()) {
-	if let Ok(mD) = Message::from_str("4361726c204d656e676572") {
-	if let Ok(tD) = Message::from_str("a378ce38a1df8f3e80a85c5a8709f3a17581ff8a2888e2a8446f65") {
-	if let Ok(messageD) = responder_session.send_message(mD) {
-	if let Ok(_x) = initiator_session.recv_message(messageD.clone()) {
-	if let Ok(mE) = Message::from_str("4a65616e2d426170746973746520536179") {
-	if let Ok(tE) = Message::from_str("c9df700a1e9c118572703d0d7f55c33fe4b07be30914a7a804a4cd6fdae90a486e") {
-	if let Ok(messageE) = initiator_session.send_message(mE) {
-	if let Ok(_x) = responder_session.recv_message(messageE.clone()) {
-	if let Ok(mF) = Message::from_str("457567656e2042f6686d20766f6e2042617765726b") {
-	if let Ok(tF) = Message::from_str("e371be686b36e1a101a7989f805d8e1520fc031b3a4a6085df1e386da28bac940d615cd9bb") {
-	if let Ok(messageF) = responder_session.send_message(mF) {
-	if let Ok(_x) = initiator_session.recv_message(messageF.clone()) {
+	if let Ok(mA) = Message::from_bytes(&decode_str("4c756477696720766f6e204d69736573")[..]) {
+	if let Ok(tA) = Message::from_bytes(&decode_str("ca35def5ae56cec33dc2036731ab14896bc4c75dbb07a61f879f8e3afa4c79444c756477696720766f6e204d69736573")[..]) {
+	if let Ok(_x) = initiator_session.send_message(mA, &mut buffer[..]) {
+	if let Ok(messageA) = Message::from_bytes(&buffer.clone()[..]) {
+	if let Ok(_x) = responder_session.recv_message(messageA.clone(), &mut buffer[..]) {
+	if let Ok(mB) = Message::from_bytes(&decode_str("4d757272617920526f746862617264")[..]) {
+	if let Ok(tB) = Message::from_bytes(&decode_str("95ebc60d2b1fa672c1f46a8aa265ef51bfe38e7ccb39ec5be34069f144808843dc00ccf629492772082cf28c171db3ec2dbc406aa59cca67a7a174501ccdca")[..]) {
+	if let Ok(_x) = responder_session.send_message(mB, &mut buffer[..]) {
+	if let Ok(messageB) = Message::from_bytes(&buffer.clone()[..]) {
+	if let Ok(_x) = initiator_session.recv_message(messageB.clone(), &mut buffer[..]) {
+	if let Ok(mC) = Message::from_bytes(&decode_str("462e20412e20486179656b")[..]) {
+	if let Ok(tC) = Message::from_bytes(&decode_str("0bb0ae2b390d37a5aea005ffac23173e212f2234bbb4da3013ba0ad8ad8ec2f8a1e941c22a19c6904bee596238ecc6f5fadbb2881461b78ad9230a7838743e6160919412061d383a547510")[..]) {
+	if let Ok(_x) = initiator_session.send_message(mC, &mut buffer[..]) {
+	if let Ok(messageC) = Message::from_bytes(&buffer.clone()[..]) {
+	if let Ok(_x) = responder_session.recv_message(messageC.clone(), &mut buffer[..]) {
+	if let Ok(mD) = Message::from_bytes(&decode_str("4361726c204d656e676572")[..]) {
+	if let Ok(tD) = Message::from_bytes(&decode_str("a378ce38a1df8f3e80a85c5a8709f3a17581ff8a2888e2a8446f65")[..]) {
+	if let Ok(_x) = responder_session.send_message(mD, &mut buffer[..]) {
+	if let Ok(messageD) = Message::from_bytes(&buffer.clone()[..]) {
+	if let Ok(_x) = initiator_session.recv_message(messageD.clone(), &mut buffer[..]) {
+	if let Ok(mE) = Message::from_bytes(&decode_str("4a65616e2d426170746973746520536179")[..]) {
+	if let Ok(tE) = Message::from_bytes(&decode_str("c9df700a1e9c118572703d0d7f55c33fe4b07be30914a7a804a4cd6fdae90a486e")[..]) {
+	if let Ok(_x) = initiator_session.send_message(mE, &mut buffer[..]) {
+	if let Ok(messageE) = Message::from_bytes(&buffer.clone()[..]) {
+	if let Ok(_x) = responder_session.recv_message(messageE.clone(), &mut buffer[..]) {
+	if let Ok(mF) = Message::from_bytes(&decode_str("457567656e2042f6686d20766f6e2042617765726b")[..]) {
+	if let Ok(tF) = Message::from_bytes(&decode_str("e371be686b36e1a101a7989f805d8e1520fc031b3a4a6085df1e386da28bac940d615cd9bb")[..]) {
+	if let Ok(_x) = responder_session.send_message(mF, &mut buffer[..]) {
+	if let Ok(messageF) = Message::from_bytes(&buffer.clone()[..]) {
+	if let Ok(_x) = initiator_session.recv_message(messageF.clone(), &mut buffer[..]) {
 	assert!(tA == messageA, "\n\n\nTest A: FAIL\n\nExpected:\n{:X?}\n\nActual:\n{:X?}", tA, messageA);
 	assert!(tB == messageB, "\n\n\nTest B: FAIL\n\nExpected:\n{:X?}\n\nActual:\n{:X?}", tB, messageB);
 	assert!(tC == messageC, "\n\n\nTest C: FAIL\n\nExpected:\n{:X?}\n\nActual:\n{:X?}", tC, messageC);
@@ -52,5 +65,5 @@ responder_session.set_ephemeral_keypair(responder_ephemeral_kp);
 	assert!(tE == messageE, "\n\n\nTest E: FAIL\n\nExpected:\n{:X?}\n\nActual:\n{:X?}", tE, messageE);
 	assert!(tF == messageF, "\n\n\nTest F: FAIL\n\nExpected:\n{:X?}\n\nActual:\n{:X?}", tF, messageF);
 	}}}}
-	}}}}}}}}}}}}}}}}}}}}}}}}}}}}}
+	}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}
 }

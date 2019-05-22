@@ -24,7 +24,7 @@ const gen = (
 		lastLine.push(`}`);
 		lastLine.push(`}`);
 	}
-	rsTestCode.push(`if let Ok(prologue) = Message::from_str("${initPrologue}") {`);
+	rsTestCode.push(`if let Ok(prologue) = Message::from_bytes(&decode_str("${initPrologue}")[..]) {`);
 	if (initStaticSk.length == 0) {
 		rsTestCode.push(`if let Ok(init_static_private) = PrivateKey::from_str("0000000000000000000000000000000000000000000000000000000000000001") {`);
 	} else {
@@ -73,12 +73,13 @@ const gen = (
 		let send = (i % 2 === 0) ? 'initiator_session' : 'responder_session';
 		let recv = (i % 2 === 0) ? 'responder_session' : 'initiator_session';
 		rsTestCode.push([
-			`if let Ok(m${abc[i]}) = Message::from_str("${messages[i].payload}") {`,
-			`if let Ok(t${abc[i]}) = Message::from_str("${messages[i].ciphertext}") {`
+			`if let Ok(m${abc[i]}) = Message::from_bytes(&decode_str("${messages[i].payload}")[..]) {`,
+			`if let Ok(t${abc[i]}) = Message::from_bytes(&decode_str("${messages[i].ciphertext}")[..]) {`
 		].join(`\n\t`));
 		rsTestCode.push([
-			`if let Ok(message${abc[i]}) = ${send}.send_message(m${abc[i]}) {`,
-			`if let Ok(_x) = ${recv}.recv_message(message${abc[i]}.clone()) {`
+			`if let Ok(_x) = ${send}.send_message(m${abc[i]}, &mut buffer[..]) {`,
+			`if let Ok(message${abc[i]}) = Message::from_bytes(&buffer.clone()[..]) {`,
+			`if let Ok(_x) = ${recv}.recv_message(message${abc[i]}.clone(), &mut buffer[..]) {`
 		].join('\n\t'));
 	}
 
@@ -86,7 +87,7 @@ const gen = (
 		rsTestCode.push(`assert!(t${abc[i]} == message${abc[i]}, ${String.raw`"\n\n\nTest ${abc[i]}: FAIL\n\nExpected:\n{:X?}\n\nActual:\n{:X?}"`}, t${abc[i]}, message${abc[i]});`);
 	}
 	rsTestCode.push(lastLine.join(``));
-	rsTestCode.push(`}}}}}}}}}}}}}}}}}}}}}}}}}}}}}`);
+	rsTestCode.push(`}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}`);
 	return rsTestCode.join('\n\t');
 }
 
