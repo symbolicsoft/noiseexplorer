@@ -1,14 +1,14 @@
 dependencies:
-	@echo -n "[NoiseExplorer] Installing dependencies..."
+	@/bin/echo -n "[NoiseExplorer] Installing dependencies..."
 	@npm install -g pegjs
 	@npm install
-	@echo " OK."
+	@/bin/echo " OK."
 
 parser:
-	@echo -n "[NoiseExplorer] Generating NoiseParser..."
+	@/bin/echo -n "[NoiseExplorer] Generating NoiseParser..."
 	@rm -f parser/noiseParser.js
 	@pegjs -o parser/noiseParser.js parser/noiseParser.pegjs
-	@echo " OK."
+	@/bin/echo " OK."
 
 models:
 	@rm -f parser/noiseParser.js
@@ -27,10 +27,10 @@ html:
 	@cd util && bash genHtml.sh
 
 clean:
-	@echo -n "[NoiseExplorer] Cleaning up... "
+	@/bin/echo -n "[NoiseExplorer] Cleaning up... "
 	@rm -f parser/noiseParser.js
 	@rm -rf ../implementations/rs/*/target
 	@rm -f ../implementations/rs/*/Cargo.lock
-	@echo " OK."
+	@/bin/echo " OK."
 
 .PHONY: dependencies parser models implementations tests html clean
