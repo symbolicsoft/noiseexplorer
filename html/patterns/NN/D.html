@@ -97,10 +97,10 @@ Message <span class="mono">D</span> is tested against four authentication querie
 <p class="proverif"><br />RESULT not attacker(msg_d(bob,alice,sid_b)) cannot be proved.</p>
 <p>In this query, we test for <em>message secrecy</em> by checking if an active attacker is able to retrieve the payload plaintext only by compromising Alice's long term keys, which are not used, either before or after the protocol session.</p>
 <h4>Confidentiality Grade 3: <span class="passed">Passed</span></h4>
-<p class="proverif"><br />RESULT not attacker(msg_d(bob,alice,sid_b)) is true.</p>
+<p class="proverif"><br />RESULT attacker(msg_d(bob,alice,sid_b)) ==> event(LeakS(phase0,alice)) || (event(LeakS(px,alice)) && event(LeakS(pz,bob))) is true.</p>
 <p>In this query, we test for <em>forward secrecy</em> by checking if a passive attacker is able to retrieve the payload plaintext only by compromising Alice's long term keys, which are not used, before the protocol session, or after the protocol session along with Bob's long term keys, which are not used, at any time.</p>
 <h4>Confidentiality Grade 4: <span class="failed">Failed</span></h4>
-<p class="proverif"><br />RESULT not attacker(msg_d(bob,alice,sid_b)) cannot be proved.</p>
+<p class="proverif"><br />RESULT attacker(msg_d(bob,alice,sid_b)) ==> event(LeakS(phase0,alice)) || (event(LeakS(px,alice)) && event(LeakS(pz,bob))) cannot be proved.</p>
 <p>In this query, we test for <em>weak forward secrecy</em> by checking if an active attacker is able to retrieve the payload plaintext only by compromising Alice's long term keys, which are not used, before the protocol session, or after the protocol session along with Bob's long term keys, which are not used, at any time.</p>
 <h4>Confidentiality Grade 5: <span class="failed">Failed</span></h4>
 <p class="proverif"><br />RESULT not attacker(msg_d(bob,alice,sid_b)) cannot be proved.</p>

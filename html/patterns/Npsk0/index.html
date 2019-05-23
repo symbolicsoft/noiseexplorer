@@ -52,7 +52,7 @@
 				<text class="ellipsis" x="120" y="160">...</text>
 <line data-seclevel="2" x1="1" x2="248" y1="290" y2="290"></line>
 					<polyline data-seclevel="2" points="237 280 248 290 237 300"></polyline>
-					<circle data-seclevel="0" cx="17" cy="290" r="15"></circle>
+					<circle data-seclevel="4" cx="17" cy="290" r="15"></circle>
 					<text class="msg" x="16" y="295">a</text>
 					<text class="tokens" x="120" y="282">psk, e, es</text>
 				</svg>
@@ -64,7 +64,7 @@
 			
 
 			<h3>Message A <a href="/patterns/Npsk0/A.html" class="detailedAnalysis">show detailed analysis</a></h3>
-			<p>Message A, sent by the initiator, does not benefit from <em>sender authentication</em> and does not provide <em>message integrity</em>. It could have been sent by any party, including an active attacker. Message contents benefit from <em>message secrecy</em> and some <em>forward secrecy</em>: the compromise of the responder's long-term private keys, even at a later date, will lead to message contents being decrypted by the attacker.  <span class="resultNums">0,2</span></p>
+			<p>Message A, sent by the initiator, benefits from <em>sender and receiver authentication</em> and is <em>resistant to Key Compromise Impersonation</em>. Assuming the corresponding private keys are secure, this authentication cannot be forged. Message contents benefit from <em>message secrecy</em> and some <em>forward secrecy</em>: the compromise of the responder's long-term private keys, even at a later date, will lead to message contents being decrypted by the attacker.  <span class="resultNums">4,2</span></p>
 			<h3>Generate Cryptographic Models for Formal Verification</h3>
 			<p>
 				<a href="#" id="pvActiveLink">

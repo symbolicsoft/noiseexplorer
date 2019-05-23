@@ -91,10 +91,10 @@ Message <span class="mono">F</span> is tested against four authentication querie
 <p class="proverif"><br />RESULT event(RecvMsg(alice,bob,stagepack_f(sid_a),m)) ==> event(SendMsg(bob,alice,stagepack_f(sid_b),m)) || event(LeakS(phase0,bob)) is true.</p>
 <p>In this query, we test for <em>sender and receiver authentication</em> and is <em>Key Compromise Impersonation</em> resistance. If Alice receives a valid message from Bob, then Bob must have sent that message to <em>Alice specifically</em>, or Bob had their static key compromised before the session began.</p>
 <h4>Confidentiality Grade 1: <span class="passed">Passed</span></h4>
-<p class="proverif"><br />RESULT attacker_p1(msg_f(bob,alice,sid_b)) ==> event(LeakS(phase0,alice)) || event(LeakS(phase1,alice)) is true.</p>
+<p class="proverif"><br />RESULT attacker_p1(msg_f(bob,alice,sid_b)) ==> event(LeakS(px,alice)) is true.</p>
 <p>In this query, we test for <em>message secrecy</em> by checking if a passive attacker is able to retrieve the payload plaintext only by compromising Alice's static key either before or after the protocol session.</p>
 <h4>Confidentiality Grade 2: <span class="passed">Passed</span></h4>
-<p class="proverif"><br />RESULT attacker_p1(msg_f(bob,alice,sid_b)) ==> event(LeakS(phase0,alice)) || event(LeakS(phase1,alice)) is true.</p>
+<p class="proverif"><br />RESULT attacker_p1(msg_f(bob,alice,sid_b)) ==> event(LeakS(px,alice)) is true.</p>
 <p>In this query, we test for <em>message secrecy</em> by checking if an active attacker is able to retrieve the payload plaintext only by compromising Alice's static key either before or after the protocol session.</p>
 <h4>Confidentiality Grade 3: <span class="passed">Passed</span></h4>
 <p class="proverif"><br />RESULT attacker_p1(msg_f(bob,alice,sid_b)) ==> event(LeakS(phase0,alice)) || (event(LeakS(px,alice)) && event(LeakS(pz,bob))) is true.</p>
