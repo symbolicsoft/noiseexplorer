@@ -2,18 +2,12 @@
  * STATE MANAGEMENT                                                 *
  * ---------------------------------------------------------------- */
 
-use crate::{consts::{DHLEN, EMPTY_HASH, EMPTY_KEY, HASHLEN, NONCE_LENGTH, ZEROLEN},
+use crate::{consts::{DHLEN, EMPTY_HASH, EMPTY_KEY, HASHLEN, MAC_LENGTH, NONCE_LENGTH, ZEROLEN},
 			error::NoiseError,
 			prims::{decrypt, encrypt, hash, hash_with_context, hkdf},
-			types::{Hash, Key, Keypair, Nonce, Psk, PublicKey}};
+			types::{Hash, Key, Keypair, Nonce, Psk, PublicKey},
+			utils::from_slice_hashlen};
 use hacl_star::chacha20poly1305;
-
-pub(crate) fn from_slice_hashlen(bytes: &[u8]) -> [u8; HASHLEN] {
-	let mut array = EMPTY_HASH;
-	let bytes = &bytes[..array.len()];
-	array.copy_from_slice(bytes);
-	array
-}
 
 #[derive(Clone)]
 pub(crate) struct CipherState {
@@ -35,10 +29,10 @@ impl CipherState {
 		self.n = Nonce::new();
 	}
 
-	pub(crate) fn from_key(k: Key) -> Self {
+	pub(crate) fn from_key(key: Key) -> Self {
 		let nonce: Nonce = Nonce::new();
 		Self {
-			k,
+			k: key,
 			n: nonce,
 		}
 	}
@@ -58,40 +52,28 @@ impl CipherState {
 	}
 
 	pub(crate) fn encrypt_with_ad(
-		&mut self, ad: &[u8], plaintext: &[u8], output: &mut [u8]
-	) -> Result<usize, NoiseError> {
+		&mut self, ad: &[u8], in_out: &mut [u8], mac: &mut [u8; MAC_LENGTH]) -> Result<(), NoiseError> {
 		let nonce = self.n.get_value()?;
-		if !self.has_key() {
-			//this might panic
-			output.copy_from_slice(plaintext);
-			//Check error handling here
-			//What to do when encrypting with empty key
-		}
-		else {
-			let _ = encrypt(from_slice_hashlen(&self.k.as_bytes()[..]), nonce, ad, plaintext, output);
+		if self.has_key() {
+			encrypt(from_slice_hashlen(&self.k.as_bytes()[..]), nonce, ad, in_out, mac);
 			self.n.increment();
+			return Ok(());
 		}
-		Ok(output.len())
+			Err(NoiseError::EmptyKeyError)
 	}
 
 	pub(crate) fn decrypt_with_ad(
-		&mut self, ad: &[u8], input: &[u8], plaintext: &mut [u8]
-	) -> Result<usize, NoiseError> {
+		&mut self, ad: &[u8], in_out: &mut [u8], mac: &mut [u8; MAC_LENGTH]
+	) -> Result<(), NoiseError> {
 		let nonce = self.n.get_value()?;
-		if !self.has_key() {
-			//this might panic
-			//see what to do here
-			Ok(input.len())
+		if self.has_key() {
+			if decrypt(from_slice_hashlen(&self.k.as_bytes()[..]), nonce, ad, in_out, mac) {
+				self.n.increment();
+				return Ok(());
+			}
+			return Err(NoiseError::DecryptionError);
 		}
-		else if let Some(len) =
-			decrypt(from_slice_hashlen(&self.k.as_bytes()[..]), nonce, ad, input, plaintext)
-		{
-			self.n.increment();
-			Ok(len)
-		}
-		else {
-			Err(NoiseError::DecryptionError)
-		}
+			Err(NoiseError::EmptyKeyError)
 	}
 
 	#[allow(dead_code)]
@@ -107,20 +89,26 @@ impl CipherState {
 	}
 
 	pub(crate) fn write_message_regular(
-		&mut self, plaintext: &[u8], ciphertext: &mut [u8]
-	) -> Result<usize, NoiseError> {
-		let output = self.encrypt_with_ad(&ZEROLEN[..], plaintext, ciphertext)?;
-		Ok(output)
+		&mut self, in_out: &mut [u8]
+	) -> Result<(), NoiseError> {
+		let (in_out, mac) = in_out.split_at_mut(in_out.len()-MAC_LENGTH);
+		let mut temp_mac: [u8; MAC_LENGTH] = [0u8; MAC_LENGTH];
+		self.encrypt_with_ad(&ZEROLEN[..], in_out, &mut temp_mac)?;
+		mac.copy_from_slice(&temp_mac[..]);
+		Ok(())
 	}
 
 	pub(crate) fn read_message_regular(
-		&mut self, ciphertext: &[u8], plaintext: &mut [u8]
-	) -> Result<usize, NoiseError> {
-		let out = self.decrypt_with_ad(&ZEROLEN[..], ciphertext, plaintext)?;
-		Ok(out)
+		&mut self, in_out: &mut [u8]
+	) -> Result<(), NoiseError> {
+		let (in_out, mac) = in_out.split_at_mut(in_out.len()-MAC_LENGTH);
+		let mut temp_mac: [u8; MAC_LENGTH] = [0u8; MAC_LENGTH];
+		temp_mac.copy_from_slice(mac);
+		self.decrypt_with_ad(&ZEROLEN[..], in_out, &mut temp_mac)?;
+		temp_mac.copy_from_slice(&[0u8; MAC_LENGTH][..]);
+		Ok(())
 	}
 }
-
 #[derive(Clone)]
 pub struct SymmetricState {
 	cs: CipherState,
@@ -196,6 +184,9 @@ impl SymmetricState {
 		self.mix_hash(&temp_h[..]);
 		temp_k.copy_from_slice(&out2[..32]);
 		self.cs = CipherState::from_key(Key::from_bytes(temp_k));
+		out0.copy_from_slice(&EMPTY_HASH[..]);
+		out1.copy_from_slice(&EMPTY_HASH[..]);
+		out2.copy_from_slice(&EMPTY_HASH[..]);
 	}
 
 	#[allow(dead_code)]
@@ -203,16 +194,24 @@ impl SymmetricState {
 		from_slice_hashlen(&self.h.as_bytes()[..])
 	}
 
-	pub(crate) fn encrypt_and_hash(&mut self, plaintext: &[u8], ciphertext: &mut [u8]) -> Result<usize, NoiseError> {
-		let len = self.cs.encrypt_with_ad(&self.h.as_bytes()[..], plaintext, ciphertext)?;
-		self.mix_hash(ciphertext);
-		Ok(len)
+	pub(crate) fn encrypt_and_hash(&mut self, in_out: &mut [u8]) -> Result<(), NoiseError> {
+			let mut temp_mac: [u8; MAC_LENGTH] = [0u8;MAC_LENGTH];
+			let (plaintext, mac) = in_out.split_at_mut(in_out.len()-MAC_LENGTH);
+			self.cs.encrypt_with_ad(&self.h.as_bytes()[..], plaintext, &mut temp_mac)?;
+			mac.copy_from_slice(&temp_mac[..]);
+			self.mix_hash(in_out);
+			Ok(())
 	}
 
-	pub(crate) fn decrypt_and_hash(&mut self, ciphertext: &[u8], plaintext: &mut [u8]) -> Result<usize, NoiseError> {
-		let len = self.cs.decrypt_with_ad(&self.h.as_bytes()[..], ciphertext, plaintext)?;
-		self.mix_hash(ciphertext);
-		Ok(len)
+	pub(crate) fn decrypt_and_hash(&mut self, in_out: &mut [u8]) -> Result<(), NoiseError> {
+			let mut temp: [u8; 2048] = [0u8; 2048];
+			temp[..in_out.len()].copy_from_slice(in_out);
+			let (ciphertext, mac) = in_out.split_at_mut(in_out.len()-MAC_LENGTH);
+			let mut temp_mac: [u8; MAC_LENGTH] = [0u8;MAC_LENGTH];
+			temp_mac.copy_from_slice(mac);
+			self.cs.decrypt_with_ad(&self.h.as_bytes()[..], ciphertext, &mut temp_mac)?;
+			self.mix_hash(&temp[..in_out.len()]);
+			Ok(())
 	}
 
 	pub(crate) fn split(&mut self) -> (CipherState, CipherState) {
@@ -229,8 +228,10 @@ impl SymmetricState {
 		);
 		let cs1: CipherState =
 			CipherState::from_key(Key::from_bytes(from_slice_hashlen(&temp_k1[..32])));
+		temp_k1.copy_from_slice(&EMPTY_HASH[..]);
 		let cs2: CipherState =
 			CipherState::from_key(Key::from_bytes(from_slice_hashlen(&temp_k2[..32])));
+		temp_k2.copy_from_slice(&EMPTY_HASH[..]);
 		(cs1, cs2)
 	}
 }
@@ -277,71 +278,99 @@ impl HandshakeState {
 		let rs = PublicKey::empty();
 		HandshakeState{ss, s, e: Keypair::new_empty(), rs, re: PublicKey::empty(), psk}
 	}
-	pub(crate) fn write_message_a(&mut self, input: &[u8], output: &mut [u8]) -> Result<usize, NoiseError> {
+	pub(crate) fn write_message_a(&mut self, in_out: &mut [u8]) -> Result<(), NoiseError> {
+		if in_out.len() < DHLEN {
+			return Err(NoiseError::MissingneError);
+		}
 		if self.e.is_empty() {
 			self.e = Keypair::new();
 		}
-		self.ss.mix_hash(&self.e.get_public_key().as_bytes()[..]);
+		let (ne, in_out) = in_out.split_at_mut(DHLEN);
+		ne.copy_from_slice(&self.e.get_public_key().as_bytes()[..]);
+		self.ss.mix_hash(ne);
 		/* No PSK, so skipping mixKey */
-		output[..DHLEN].copy_from_slice(&self.e.get_public_key().as_bytes()[..]);
-		let mut ns: [u8; DHLEN] = [0u8; DHLEN];
-		let _len = self.ss.encrypt_and_hash(&self.s.get_public_key().as_bytes()[..], &mut ns)?;
-		output[DHLEN..65].copy_from_slice(&ns[..]);
-		let len = self.ss.encrypt_and_hash(input, &mut output[DHLEN..])?;
-		Ok(len)
+		//if in_out.len() < DHLEN {
+		//	return Err(NoiseError::MissingnsError);
+		//}
+		let (ns, in_out) = in_out.split_at_mut(DHLEN);
+		ns[..DHLEN].copy_from_slice(&self.s.get_public_key().as_bytes()[..]);
+		self.ss.mix_hash(ns);
+		self.ss.mix_hash(in_out);
+		return Ok(());
 	}
 
-	pub(crate) fn write_message_b(&mut self, input: &[u8], output: &mut [u8]) -> Result<(Hash, usize, CipherState, CipherState), NoiseError> {
+	pub(crate) fn write_message_b(&mut self, in_out: &mut [u8]) -> Result<(Hash, CipherState, CipherState), NoiseError> {
+		if in_out.len() < DHLEN {
+			return Err(NoiseError::MissingneError);
+		}
 		if self.e.is_empty() {
 			self.e = Keypair::new();
 		}
-		self.ss.mix_hash(&self.e.get_public_key().as_bytes()[..]);
+		let (ne, in_out) = in_out.split_at_mut(DHLEN);
+		ne.copy_from_slice(&self.e.get_public_key().as_bytes()[..]);
+		self.ss.mix_hash(ne);
 		/* No PSK, so skipping mixKey */
-		output[..DHLEN].copy_from_slice(&self.e.get_public_key().as_bytes()[..]);
 		self.ss.mix_key(&self.e.dh(&self.re.as_bytes()));
 		self.ss.mix_key(&self.e.dh(&self.rs.as_bytes()));
-		let mut ns: [u8; DHLEN] = [0u8; DHLEN];
-		let _len = self.ss.encrypt_and_hash(&self.s.get_public_key().as_bytes()[..], &mut ns)?;
-		output[DHLEN..81].copy_from_slice(&ns[..]);
+		//if in_out.len() < DHLEN {
+		//	return Err(NoiseError::MissingnsError);
+		//}
+		let (ns, in_out) = in_out.split_at_mut(DHLEN+MAC_LENGTH);
+		ns[..DHLEN].copy_from_slice(&self.s.get_public_key().as_bytes()[..]);
+		self.ss.encrypt_and_hash(ns)?;
 		self.ss.mix_key(&self.s.dh(&self.re.as_bytes()));
-		let len = self.ss.encrypt_and_hash(input, &mut output[DHLEN..])?;
+		self.ss.encrypt_and_hash(in_out)?;
 		let h: Hash = Hash::from_bytes(from_slice_hashlen(&self.ss.h.as_bytes()));
 		let (cs1, cs2) = self.ss.split();
 		self.ss.clear();
-		Ok((h, len, cs1, cs2))
+		Ok((h, cs1, cs2))
 	}
 
 
-	pub(crate) fn read_message_a(&mut self, input: &[u8], output: &mut [u8]) -> Result<usize, NoiseError> {
-		let (vre, input) = input.split_at(DHLEN);
-		self.re = PublicKey::from_bytes(from_slice_hashlen(vre));
+	pub(crate) fn read_message_a(&mut self, in_out: &mut [u8]) -> Result<(), NoiseError> {
+		if in_out.len() < MAC_LENGTH+DHLEN {
+			//missing re
+		return 	Err(NoiseError::MissingreError);
+		}
+		let (re, in_out) = in_out.split_at_mut(DHLEN);
+		self.re = PublicKey::from_bytes(from_slice_hashlen(re))?;
 		self.ss.mix_hash(&self.re.as_bytes()[..DHLEN]);
 		/* No PSK, so skipping mixKey */
-		let (vrs, input) = input.split_at(DHLEN);
-		let mut x = [0u8; DHLEN];
-		let _a = self.ss.decrypt_and_hash(vrs, &mut x[..])?;
-		self.rs = PublicKey::from_bytes(from_slice_hashlen(&x[..]));
-		let len = self.ss.decrypt_and_hash(input, output)?;
-		Ok(len)
+		if in_out.len() < DHLEN {
+			//missing rs
+			return Err(NoiseError::MissingrsError);
+		}
+		let (rs, in_out) = in_out.split_at_mut(DHLEN);
+		self.ss.mix_hash(rs);
+		self.rs = PublicKey::from_bytes(from_slice_hashlen(rs))?;
+		self.ss.mix_hash(in_out);
+		return Ok(());
 	}
 
-	pub(crate) fn read_message_b(&mut self, input: &[u8], output: &mut [u8]) ->  Result<(Hash, usize, CipherState, CipherState), NoiseError> {
-		let (vre, input) = input.split_at(DHLEN);
-		self.re = PublicKey::from_bytes(from_slice_hashlen(vre));
+	pub(crate) fn read_message_b(&mut self, in_out: &mut [u8]) ->  Result<(Hash, CipherState, CipherState), NoiseError> {
+		if in_out.len() < MAC_LENGTH+DHLEN {
+			//missing re
+		return 	Err(NoiseError::MissingreError);
+		}
+		let (re, in_out) = in_out.split_at_mut(DHLEN);
+		self.re = PublicKey::from_bytes(from_slice_hashlen(re))?;
 		self.ss.mix_hash(&self.re.as_bytes()[..DHLEN]);
 		/* No PSK, so skipping mixKey */
 		self.ss.mix_key(&self.e.dh(&self.re.as_bytes()));
 		self.ss.mix_key(&self.s.dh(&self.re.as_bytes()));
-		let (vrs, input) = input.split_at(crate::consts::MAC_LENGTH+DHLEN);
-		let mut x = [0u8; DHLEN];
-		let _a = self.ss.decrypt_and_hash(vrs, &mut x[..])?;
-		self.rs = PublicKey::from_bytes(from_slice_hashlen(&x[..]));
+		if in_out.len() < MAC_LENGTH+DHLEN {
+			//missing rs
+			return Err(NoiseError::MissingrsError);
+		}
+		let (rs, in_out) = in_out.split_at_mut(MAC_LENGTH+DHLEN);
+		self.ss.decrypt_and_hash(rs)?;
+		self.rs = PublicKey::from_bytes(from_slice_hashlen(rs))?;
 		self.ss.mix_key(&self.e.dh(&self.rs.as_bytes()));
-		let len = self.ss.decrypt_and_hash(input, output)?;
+		self.ss.decrypt_and_hash(in_out)?;
 		let h: Hash = Hash::from_bytes(from_slice_hashlen(&self.ss.h.as_bytes()));
 		let (cs1, cs2) = self.ss.split();
 		self.ss.clear();
-		Ok((h, len, cs1, cs2))
+		Ok((h, cs1, cs2))
 	}
 
 

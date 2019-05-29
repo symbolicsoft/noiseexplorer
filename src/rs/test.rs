@@ -1,10 +1,10 @@
-#![allow(non_snake_case, non_upper_case_globals, unused_imports)]
+#![allow(non_snake_case, non_upper_case_globals, unused_assignments, unused_imports)]
 
 use noiseexplorer_$NOISE2RS_N$::{
-	consts::DHLEN,
+	consts::{DHLEN, MAC_LENGTH},
 	error::NoiseError,
 	noisesession::NoiseSession,
-	types::{Keypair, Message, PrivateKey, PublicKey$NOISE2RS_S$},
+	types::{Keypair, PrivateKey, PublicKey$NOISE2RS_S$},
 };
 
 fn decode_str(s: &str) -> Vec<u8> {
@@ -13,6 +13,20 @@ fn decode_str(s: &str) -> Vec<u8> {
 
 #[test]
 fn noiseexplorer_test_$NOISE2RS_N$() {
-    let mut buffer = [0u8; 65535];
+
+	let mut prologue: Vec<u8> = Vec::new();
+	// length = message length + mac length + ne length (32) 
+	let mut messageA: Vec<u8> = Vec::new();
+	// length = message length + mac length +
+	let mut messageB: Vec<u8> = Vec::new();
+	// length = message length + mac length +
+	let mut messageC: Vec<u8> = Vec::new();
+	// length = message length + mac length +
+	let mut messageD: Vec<u8> = Vec::new();
+	// length = message length + mac length +
+	let mut messageE: Vec<u8> = Vec::new();
+	// length = message length + mac length +
+	let mut messageF: Vec<u8> = Vec::new();
+
 	$NOISE2RS_T$
 }

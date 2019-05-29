@@ -2,43 +2,17 @@
  * PRIMITIVES                                                       *
  * ---------------------------------------------------------------- */
 
-use crate::{consts::{BLOCKLEN, DHLEN, EMPTY_HASH, HASHLEN, MAC_LENGTH, NONCE_LENGTH},
-			state::from_slice_hashlen,
-			types::Keypair};
+use crate::{consts::{BLOCKLEN, DHLEN, EMPTY_HASH, HASHLEN, MAC_LENGTH},
+			utils::{from_slice_hashlen, prep_nonce}};
 use blake2_rfc::blake2s::Blake2s;
 use hacl_star::chacha20poly1305;
-use arrayref::array_mut_ref;
 
-#[allow(dead_code)]
-pub fn generate_keypair() -> Keypair {
-	Keypair::new()
+pub(crate) fn encrypt(k: [u8; DHLEN], n: u64, ad: &[u8], in_out: &mut [u8], mac: &mut [u8; MAC_LENGTH]) {
+	chacha20poly1305::key(&k).nonce(&prep_nonce(n)).encrypt(ad, in_out, mac)
 }
 
-pub(crate) fn encrypt(k: [u8; DHLEN], n: u64, ad: &[u8], plaintext: &[u8], output: &mut [u8]) -> usize {
-	let mut nonce: [u8; NONCE_LENGTH] = [0_u8; NONCE_LENGTH];
-	nonce[4..].copy_from_slice(&n.to_le_bytes());
-	let (in_out, mac) = output.split_at_mut(plaintext.len());
-	let mac = array_mut_ref!(mac, 0, MAC_LENGTH);
-	in_out.copy_from_slice(plaintext);
-	chacha20poly1305::key(&k).nonce(&nonce).encrypt(ad, in_out, mac);
-	output.len()
-}
-
-pub(crate) fn decrypt(k: [u8; DHLEN], n: u64, ad: &[u8], ciphertext: &[u8], output: &mut[u8]) -> Option<usize> {
-	let mut nonce: [u8; NONCE_LENGTH] = [0_u8; NONCE_LENGTH];
-	nonce[4..].copy_from_slice(&n.to_le_bytes());
-
-	let (in_out, mac) = output.split_at_mut(ciphertext.len() - MAC_LENGTH);
-	let mac = array_mut_ref!(mac, 0, MAC_LENGTH);
-	in_out.copy_from_slice(ciphertext);
-	let decryption_status =
-		chacha20poly1305::key(&k).nonce(&nonce).decrypt(ad, in_out, mac);
-	if decryption_status {
-		Some(ciphertext.len())
-	}
-	else {
-		None
-	}
+pub(crate) fn decrypt(k: [u8; DHLEN], n: u64, ad: &[u8], in_out: &mut [u8], mac: &[u8; MAC_LENGTH]) -> bool {
+	chacha20poly1305::key(&k).nonce(&prep_nonce(n)).decrypt(ad, in_out, mac)
 }
 
 pub(crate) fn hash(data: &[u8]) -> [u8; HASHLEN] {
@@ -55,8 +29,6 @@ pub(crate) fn hash_with_context(con: &[u8], data: &[u8]) -> [u8; HASHLEN] {
 	let hash = context.finalize();
 	from_slice_hashlen(&hash.as_bytes()[..])
 }
-
-
 
 pub(crate) fn hmac(key: &[u8], data: &[u8], out: &mut [u8]) {
 	let mut context = Blake2s::new(HASHLEN);

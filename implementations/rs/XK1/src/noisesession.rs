@@ -2,10 +2,10 @@
  * PROCESSES                                                        *
  * ---------------------------------------------------------------- */
 
-use crate::{consts::HASHLEN,
-            error::NoiseError,
-            state::{CipherState, HandshakeState},
-            types::{Hash, Keypair, Message, Psk, PublicKey}};
+use crate::{consts::{HASHLEN, MAC_LENGTH, MAX_MESSAGE},
+			error::NoiseError,
+			state::{CipherState, HandshakeState},
+			types::{Hash, Keypair, Psk, PublicKey}};
 /// A `NoiseSession` object is used to keep track of the states of both local
 /// and remote parties before, during, and after a handshake.
 ///
@@ -30,8 +30,13 @@ pub struct NoiseSession {
 	cs2: CipherState,
 	mc:  u128,
 	i:   bool,
+	is_transport: bool,
 }
 impl NoiseSession {
+	/// Returns `true` if a handshake has been successfully performed and the session is in transport mode, or false otherwise.
+	pub fn is_transport(&self) -> bool {
+		self.is_transport
+	}
 	/// Clears `cs1`.
 	pub fn clear_local_cipherstate(&mut self) {
 		self.cs1.clear();
@@ -53,8 +58,11 @@ impl NoiseSession {
 	}
 
 	/// Returns `h`.
-	pub fn get_handshake_hash(&self) -> [u8; HASHLEN] {
-		self.h.as_bytes()
+	pub fn get_handshake_hash(&self) -> Option<[u8; HASHLEN]> {
+		if self.is_transport {
+			return Some(self.h.as_bytes());
+		}
+			None
 	}
 
 	/// Sets the value of the local ephemeral keypair as the parameter `e`.
@@ -62,9 +70,9 @@ impl NoiseSession {
 		self.hs.set_ephemeral_keypair(e);
 	}
 
-      pub fn get_remote_static_public_key(&self) -> PublicKey {
-         self.hs.get_remote_static_public_key()
-     }
+	pub fn get_remote_static_public_key(&self) -> PublicKey {
+		self.hs.get_remote_static_public_key()
+	}
 
 
 	/// Instantiates a `NoiseSession` object. Takes the following as parameters:
@@ -73,24 +81,26 @@ impl NoiseSession {
 	/// - `s`: `Keypair` object. Contains local party's static keypair.
 	/// - `rs`: `Option<PublicKey>`. Contains the remote party's static public key.	Tip: use `Some(rs_value)` in case a remote static key exists and `None` otherwise.
 	
-	pub fn init_session(initiator: bool, prologue: Message, s: Keypair, rs: Option<PublicKey>) -> NoiseSession {
+	pub fn init_session(initiator: bool, prologue: &[u8], s: Keypair, rs: Option<PublicKey>) -> NoiseSession {
 		if initiator {
 			NoiseSession{
-				hs: HandshakeState::initialize_initiator(&prologue.as_bytes(), s, rs.unwrap_or(PublicKey::empty()), Psk::new()),
+				hs: HandshakeState::initialize_initiator(prologue, s, rs.unwrap_or(PublicKey::empty()), Psk::new()),
 				mc: 0,
 				i: initiator,
 				cs1: CipherState::new(),
 				cs2: CipherState::new(),
 				h: Hash::new(),
+				is_transport: false,
 			}
 		} else {
 			NoiseSession {
-				hs: HandshakeState::initialize_responder(&prologue.as_bytes(), s, Psk::new()),
+				hs: HandshakeState::initialize_responder(prologue, s, Psk::new()),
 				mc: 0,
 				i: initiator,
 				cs1: CipherState::new(),
 				cs2: CipherState::new(),
 				h: Hash::new(),
+				is_transport: false,
 			}
 		}
 	}
@@ -99,55 +109,59 @@ impl NoiseSession {
 	/// Returns a `Ok(usize)` object containing the size of the corresponding ciphertext upon successful encryption, and `Err(NoiseError)` otherwise
 	///
 	/// _Note that while `mc` <= 1 the ciphertext will be included as a payload for handshake messages and thus will not offer the same guarantees offered by post-handshake messages._
-	pub fn send_message(&mut self, message: Message, output: &mut [u8]) -> Result<usize, NoiseError> {
-		let out: usize;
+	pub fn send_message(&mut self, in_out: &mut [u8]) -> Result<(), NoiseError> {
+		if in_out.len() < MAC_LENGTH || in_out.len() > MAX_MESSAGE {
+			return Err(NoiseError::UnsupportedMessageLengthError);
+		}
 		if self.mc == 0 {
-			out = self.hs.write_message_a(message.as_bytes(), output)?;
+			self.hs.write_message_a(in_out)?;
 		}
 		else if self.mc == 1 {
-			out = self.hs.write_message_b(message.as_bytes(), output)?;
+			self.hs.write_message_b(in_out)?;
 		}
 		else if self.mc == 2 {
-			let temp = self.hs.write_message_c(message.as_bytes(), output)?;
+			let temp = self.hs.write_message_c(in_out)?;
 			self.h = temp.0;
-			self.cs1 = temp.2;
-			self.cs2 = temp.3;
+			self.is_transport = true;
+			self.cs1 = temp.1;
+			self.cs2 = temp.2;
 			self.hs.clear();
-			out = temp.1;
 		} else if self.i {
-			out = self.cs1.write_message_regular(message.as_bytes(), output)?;
+			self.cs1.write_message_regular(in_out)?;
 		} else {
-			out = self.cs2.write_message_regular(message.as_bytes(), output)?;
+			self.cs2.write_message_regular(in_out)?;
 		}
 		self.mc += 1;
-		Ok(out)
+		Ok(())
 	}
 	
 	/// Takes a `Message` object received from the remote party, and an output placeholder `&[u8]` as parameters.
 	/// Returns a `Ok(usize)` object containing the size of the plaintext, and `Err(NoiseError)` otherwise.
 	///
 	/// _Note that while `mc` <= 1 the ciphertext will be included as a payload for handshake messages and thus will not offer the same guarantees offered by post-handshake messages._
-	pub fn recv_message(&mut self, message: Message, output: &mut [u8]) -> Result<usize, NoiseError> {
-		let out: usize;
+	pub fn recv_message(&mut self, in_out: &mut [u8]) -> Result<(), NoiseError> {
+		if in_out.len() < MAC_LENGTH || in_out.len() > MAX_MESSAGE {
+			return Err(NoiseError::UnsupportedMessageLengthError);
+		}
 		if self.mc == 0 {
-			out = self.hs.read_message_a(message.as_bytes(), output)?;
+			self.hs.read_message_a(in_out)?;
 		}
 		else if self.mc == 1 {
-			out = self.hs.read_message_b(message.as_bytes(), output)?;
+			self.hs.read_message_b(in_out)?;
 		}
 		else if self.mc == 2 {
-			let temp = self.hs.read_message_c(message.as_bytes(), output)?;
+			let temp = self.hs.read_message_c(in_out)?;
 				self.h = temp.0;
-				self.cs1 = temp.2;
-				self.cs2 = temp.3;
+			self.is_transport = true;
+				self.cs1 = temp.1;
+				self.cs2 = temp.2;
 				self.hs.clear();
-				out = temp.1;
 		} else if self.i {
-			out = self.cs2.read_message_regular(message.as_bytes(), output)?;
+			self.cs2.read_message_regular(in_out)?;
 		} else {
-				out = self.cs1.read_message_regular(message.as_bytes(), output)?;
+				self.cs1.read_message_regular(in_out)?;
 		}
 		self.mc += 1;
-		Ok(out)
+		Ok(())
 	}
 }

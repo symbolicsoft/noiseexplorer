@@ -2,10 +2,10 @@
  * PROCESSES                                                        *
  * ---------------------------------------------------------------- */
 
-use crate::{consts::HASHLEN,
-            error::NoiseError,
-            state::{CipherState, HandshakeState},
-            types::{Hash, Keypair, Message, Psk, PublicKey}};
+use crate::{consts::{HASHLEN, MAC_LENGTH, MAX_MESSAGE},
+			error::NoiseError,
+			state::{CipherState, HandshakeState},
+			types::{Hash, Keypair, Psk, PublicKey}};
 /// A `NoiseSession` object is used to keep track of the states of both local
 /// and remote parties before, during, and after a handshake.
 ///
@@ -30,8 +30,13 @@ pub struct NoiseSession {
 	cs2: CipherState,
 	mc:  u128,
 	i:   bool,
+	is_transport: bool,
 }
 impl NoiseSession {
+	/// Returns `true` if a handshake has been successfully performed and the session is in transport mode, or false otherwise.
+	pub fn is_transport(&self) -> bool {
+		self.is_transport
+	}
 	/// Clears `cs1`.
 	pub fn clear_local_cipherstate(&mut self) {
 		self.cs1.clear();
@@ -53,8 +58,11 @@ impl NoiseSession {
 	}
 
 	/// Returns `h`.
-	pub fn get_handshake_hash(&self) -> [u8; HASHLEN] {
-		self.h.as_bytes()
+	pub fn get_handshake_hash(&self) -> Option<[u8; HASHLEN]> {
+		if self.is_transport {
+			return Some(self.h.as_bytes());
+		}
+			None
 	}
 
 	/// Sets the value of the local ephemeral keypair as the parameter `e`.
@@ -62,9 +70,9 @@ impl NoiseSession {
 		self.hs.set_ephemeral_keypair(e);
 	}
 
-      pub fn get_remote_static_public_key(&self) -> PublicKey {
-         self.hs.get_remote_static_public_key()
-     }
+	pub fn get_remote_static_public_key(&self) -> PublicKey {
+		self.hs.get_remote_static_public_key()
+	}
 
 /* $NOISE2RS_P$ */
 }

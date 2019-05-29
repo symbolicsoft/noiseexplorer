@@ -135,7 +135,8 @@ let getRs = (patternInput, parsedPattern, cb) => {
 		'4prims',
 		'5state',
 		'6processes',
-		'7error'
+		'7error',
+		'8macros'
 	];
 	let rs = ['', '', '', '', '', '', '', ''];
 	rsTemplates.forEach((templateFile, i) => {
@@ -275,11 +276,12 @@ let rsGen = (patternInput, aId, autoClick) => {
 			src.file('lib.rs', rs[0]);
 			src.file('types.rs', rs[1]);
 			src.file('consts.rs', rs[2]);
-			src.file('macros.rs', rs[3]);
+			src.file('utils.rs', rs[3]);
 			src.file('prims.rs', rs[4]);
 			src.file('state.rs', rs[5]);
 			src.file('noisesession.rs', rs[6]);
 			src.file('error.rs', rs[7]);
+			src.file('macros.rs', rs[8]);
 			zip.generateAsync({
 				type:'blob'
 			}).then((blob) => {

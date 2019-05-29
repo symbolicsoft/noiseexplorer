@@ -153,7 +153,8 @@ const RSRENDER = (pattern, parsedRs) => {
 		READFILE('rs/4prims.rs'),
 		READFILE('rs/5state.rs'),
 		READFILE('rs/6processes.rs'),
-		READFILE('rs/7error.rs')
+		READFILE('rs/7error.rs'),
+		READFILE('rs/8macros.rs')
 	];
 	rs[0] = rs[0].replace('/* $NOISE2RS_N$ */', `/*\n${pattern}\n*/`);
 	rs[5] = rs[5].replace('/* $NOISE2RS_I$ */', parsedRs.i);
@@ -239,7 +240,7 @@ if (
 		.replace("$NOISE2RS_N$", json.name.toLowerCase());
 	output[1] =  output[1]
 		.replace(/\$NOISE2RS_N\$/g, json.name.toLowerCase());
-	let testGen = NOISE2RSTESTGEN.generate(json, output);
+	let testGen = NOISE2RSTESTGEN.generate(json, pattern);
 	let test = READFILE('rs/test.rs')
 		.replace("$NOISE2RS_S$", psk)
 		.replace("$NOISE2RS_T$", testGen)
@@ -253,11 +254,12 @@ if (
 	WRITEFILE(`../implementations/rs/${json.name}/src/lib.rs`, output[0]);
 	WRITEFILE(`../implementations/rs/${json.name}/src/types.rs`, output[1]);
 	WRITEFILE(`../implementations/rs/${json.name}/src/consts.rs`, output[2]);
-	WRITEFILE(`../implementations/rs/${json.name}/src/macros.rs`, output[3]);
+	WRITEFILE(`../implementations/rs/${json.name}/src/utils.rs`, output[3]);
 	WRITEFILE(`../implementations/rs/${json.name}/src/prims.rs`, output[4]);
 	WRITEFILE(`../implementations/rs/${json.name}/src/state.rs`, output[5]);
 	WRITEFILE(`../implementations/rs/${json.name}/src/noisesession.rs`, output[6]);
 	WRITEFILE(`../implementations/rs/${json.name}/src/error.rs`, output[7]);
+	WRITEFILE(`../implementations/rs/${json.name}/src/macros.rs`, output[8]);
 	WRITEFILE(`../implementations/rs/${json.name}/tests/handshake.rs`, test);
 	process.exit();
 }

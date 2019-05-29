@@ -9,3 +9,4 @@ implementations/rs/*/target
 implementations/rs/*/Cargo.lock
 rust-test.code-workspace
 .vscode
+src/parser/noiseParser.js

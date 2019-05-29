@@ -1,14 +1,13 @@
 /* ---------------------------------------------------------------- *
  * TYPES                                                            *
  * ---------------------------------------------------------------- */
-
+// TODO clean up here
 use constant_time_eq::constant_time_eq;
 use crate::{
-    consts::{DHLEN, EMPTY_KEY, HASHLEN, MAX_MESSAGE, MAX_NONCE},
+    consts::{DHLEN, EMPTY_KEY, HASHLEN, MAX_NONCE},
     error::NoiseError,
 };
 use hacl_star::curve25519;
-
 use rand;
 use zeroize::Zeroize;
 
@@ -292,10 +291,14 @@ impl PublicKey {
         }
     }
     /// Instanciates a new `PublicKey` from an array of `DHLEN` bytes.
-    pub fn from_bytes(k: [u8; DHLEN]) -> Self {
-        Self {
+    pub fn from_bytes(k: [u8; DHLEN]) -> Result<Self, NoiseError> {
+        // TODO check if public key is a valid point on the curve
+        // if false {
+        //     Err(NoiseError::InvalidPublicKeyError)
+        // }
+        Ok(Self {
             k,
-        }
+        })
     }
     pub(crate) fn clear(&mut self) {
         self.k.zeroize();
@@ -374,47 +377,6 @@ impl Nonce {
             return Err(NoiseError::ExhaustedNonceError);
         }
         Ok(self.n)
-    }
-}
-
-pub struct Message<'a> {
-    payload: &'a [u8],
-}
-impl<'a> Message<'a> {
-    /// Instanciates a new `Message` from a `&[u8]`.
-    /// Returns `Ok(Message)` when successful and `Err(NoiseError)` otherwise.
-    pub fn from_bytes(m: &'a [u8]) -> Result<Self, NoiseError> {
-       if m.len() > MAX_MESSAGE || m.is_empty() {
-            return Err(NoiseError::UnsupportedMessageLengthError);
-        }
-        Ok(Self {
-            payload: m,
-        })
-    }
-    /// View the `Message` payload as a `&[u8]`.
-    pub fn as_bytes(&self) -> &[u8] {
-        self.payload
-    }
-    /// Returns a `usize` value that represents the `Message` payload length in bytes.
-    pub fn len(&self) -> usize {
-        self.payload.len()
-    }
-}
-impl<'a> Clone for Message<'a> {
-    fn clone(&self) -> Self {
-        Self {
-            payload: self.payload,
-        }
-    }
-}
-impl<'a> PartialEq for Message<'a> {
-    fn eq(&self, other: &Self) -> bool {
-        constant_time_eq(self.payload, other.payload)
-    }
-}
-impl<'a> std::fmt::Debug for Message<'a> {
-    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
-        write!(f, "({:X?})", self.payload)
     }
 }
 
