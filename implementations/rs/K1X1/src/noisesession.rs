@@ -50,6 +50,16 @@ impl NoiseSession {
 		self.cs2.clear();
 	}
 
+	/// Calls the [Rekey](https://noiseprotocol.org/noise.html#rekey) method for `cs1`
+	pub fn rekey_local_cipherstate(&mut self) {
+		self.cs1.rekey()
+	}
+
+	/// Calls the [Rekey](https://noiseprotocol.org/noise.html#rekey) method for `cs2`
+	pub fn rekey_remote_cipherstate(&mut self) {
+		self.cs1.rekey()
+	}
+	
 	/// `NoiseSession` destructor function.
 	pub fn end_session(mut self) {
 		self.hs.clear();
