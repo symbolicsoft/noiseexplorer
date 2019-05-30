@@ -10,18 +10,21 @@ use crate::{consts::{HASHLEN, MAC_LENGTH, MAX_MESSAGE},
 /// and remote parties before, during, and after a handshake.
 ///
 /// It contains:
-/// - `h`:  Stores the handshake hash output after a successful handshake in a
-///   Hash object. Is initialized as array of 0 bytes.
-/// - `mc`:  Keeps track of the total number of incoming and outgoing messages,
-///   including those sent during a handshake.
-/// - `i`: `bool` value that indicates whether this session corresponds to the
-///   local or remote party.
 /// - `hs`: Keeps track of the local party's state while a handshake is being
 ///   performed.
+/// - `h`:  Stores the handshake hash output after a successful handshake in a
+///   Hash object. Is initialized as array of 0 bytes.
 /// - `cs1`: Keeps track of the local party's post-handshake state. Contains a
 ///   cryptographic key and a nonce.
 /// - `cs2`: Keeps track of the remote party's post-handshake state. Contains a
 ///   cryptographic key and a nonce.
+/// - `mc`:  Keeps track of the total number of incoming and outgoing messages,
+///   including those sent during a handshake.
+/// - `i`: `bool` value that indicates whether this session corresponds to the
+///   local or remote party.
+/// - `is_transport`: `bool` value that indicates whether a handshake has been
+///   performed succesfully with a remote session and the session is in transport mode.
+
 #[derive(Clone)]
 pub struct NoiseSession {
 	hs:  HandshakeState,
@@ -64,14 +67,25 @@ impl NoiseSession {
 		}
 			None
 	}
+	
+	/// Returns `mc`.
+	pub fn get_message_count(&self) -> u128 {
+		self.mc
+	}
 
 	/// Sets the value of the local ephemeral keypair as the parameter `e`.
 	pub fn set_ephemeral_keypair(&mut self, e: Keypair) {
 		self.hs.set_ephemeral_keypair(e);
 	}
-
-	pub fn get_remote_static_public_key(&self) -> PublicKey {
-		self.hs.get_remote_static_public_key()
+	
+	/// Returns a `Option<PublicKey>` object that contains the remote party's static `PublicKey`.
+	/// Note that this function returns `None` before a handshake is successfuly performed and
+	/// the session is in transport mode.
+	pub fn get_remote_static_public_key(&self) -> Option<PublicKey> {
+		if self.is_transport {
+			return Some(self.hs.get_remote_static_public_key());
+		}
+		None
 	}
 
 
@@ -105,10 +119,14 @@ impl NoiseSession {
 		}
 	}
 	
-	/// Takes a `Message` object containing plaintext, and an output placeholder `&[u8]` as parameters.
-	/// Returns a `Ok(usize)` object containing the size of the corresponding ciphertext upon successful encryption, and `Err(NoiseError)` otherwise
-	///
-	/// _Note that while `mc` <= 1 the ciphertext will be included as a payload for handshake messages and thus will not offer the same guarantees offered by post-handshake messages._
+	/// Takes a `&mut [u8]` containing plaintext as a parameter.
+	/// This method returns a `Ok(()))` upon successful encryption, and `Err(NoiseError)` otherwise
+	/// _Note that for security reasons and for better performance, `send_message` overwrites the bytes containing the plaintext with the ciphertext. For this reason and to account for the fact that ciphertext and handshake messages encapsulate important values, a pattern specific padding of zero bytes must be added to the following messages.
+	/// For transport messages:
+	/// All messages must be appended with 16 empty bytes that act as a placeholder for the MAC (Message Authentication Code). These 16 bytes will be overwritten by `send_message`
+	/// For handshake messages:
+	/// Kindly use the message lengths listed in the test file under `../tests/handshake.rs`, where examples and notes are also provided.
+	/// _Also Note that while `is_transport` is false the ciphertext will be included as a payload for handshake messages and thus will not offer the same guarantees offered by post-handshake messages._
 	pub fn send_message(&mut self, in_out: &mut [u8]) -> Result<(), NoiseError> {
 		if in_out.len() < MAC_LENGTH || in_out.len() > MAX_MESSAGE {
 			return Err(NoiseError::UnsupportedMessageLengthError);
@@ -129,10 +147,15 @@ impl NoiseSession {
 		Ok(())
 	}
 	
-	/// Takes a `Message` object received from the remote party, and an output placeholder `&[u8]` as parameters.
-	/// Returns a `Ok(usize)` object containing the size of the plaintext, and `Err(NoiseError)` otherwise.
+	/// Takes a `&mut [u8]` received from the remote party as a parameter.
+	/// This method returns a `Ok(()))` upon successful decrytion. and `Err(NoiseError)` otherwise.
+	/// _Note that for security reasons and for better performance, `recv_message` overwrites the bytes containing the ciphertext with the plaintext and clears the MAC from them last 16 bytes of the message, and other keys that might be encapsulated while performing a handshake.
+	/// For transport messages:
+	/// You should expect to find the plaintext in the same array you passed a reference of as a parameter. The last 16 bytes of this array will be zero bytes and can be safely ignored.
+	/// For handshake messages:
+	/// Kindly use the message lengths listed in the test file under `../tests/handshake.rs`, where examples and notes are also provided.
 	///
-	/// _Note that while `mc` <= 1 the ciphertext will be included as a payload for handshake messages and thus will not offer the same guarantees offered by post-handshake messages._
+	/// _Note that while `is_transport` is false the ciphertext will be included as a payload for handshake messages and thus will not offer the same guarantees offered by post-handshake messages._
 	pub fn recv_message(&mut self, in_out: &mut [u8]) -> Result<(), NoiseError> {
 		if in_out.len() < MAC_LENGTH || in_out.len() > MAX_MESSAGE {
 			return Err(NoiseError::UnsupportedMessageLengthError);

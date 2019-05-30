@@ -10,18 +10,21 @@ use crate::{consts::{HASHLEN, MAC_LENGTH, MAX_MESSAGE},
 /// and remote parties before, during, and after a handshake.
 ///
 /// It contains:
-/// - `h`:  Stores the handshake hash output after a successful handshake in a
-///   Hash object. Is initialized as array of 0 bytes.
-/// - `mc`:  Keeps track of the total number of incoming and outgoing messages,
-///   including those sent during a handshake.
-/// - `i`: `bool` value that indicates whether this session corresponds to the
-///   local or remote party.
 /// - `hs`: Keeps track of the local party's state while a handshake is being
 ///   performed.
+/// - `h`:  Stores the handshake hash output after a successful handshake in a
+///   Hash object. Is initialized as array of 0 bytes.
 /// - `cs1`: Keeps track of the local party's post-handshake state. Contains a
 ///   cryptographic key and a nonce.
 /// - `cs2`: Keeps track of the remote party's post-handshake state. Contains a
 ///   cryptographic key and a nonce.
+/// - `mc`:  Keeps track of the total number of incoming and outgoing messages,
+///   including those sent during a handshake.
+/// - `i`: `bool` value that indicates whether this session corresponds to the
+///   local or remote party.
+/// - `is_transport`: `bool` value that indicates whether a handshake has been
+///   performed succesfully with a remote session and the session is in transport mode.
+
 #[derive(Clone)]
 pub struct NoiseSession {
 	hs:  HandshakeState,
@@ -64,14 +67,25 @@ impl NoiseSession {
 		}
 			None
 	}
+	
+	/// Returns `mc`.
+	pub fn get_message_count(&self) -> u128 {
+		self.mc
+	}
 
 	/// Sets the value of the local ephemeral keypair as the parameter `e`.
 	pub fn set_ephemeral_keypair(&mut self, e: Keypair) {
 		self.hs.set_ephemeral_keypair(e);
 	}
-
-	pub fn get_remote_static_public_key(&self) -> PublicKey {
-		self.hs.get_remote_static_public_key()
+	
+	/// Returns a `Option<PublicKey>` object that contains the remote party's static `PublicKey`.
+	/// Note that this function returns `None` before a handshake is successfuly performed and
+	/// the session is in transport mode.
+	pub fn get_remote_static_public_key(&self) -> Option<PublicKey> {
+		if self.is_transport {
+			return Some(self.hs.get_remote_static_public_key());
+		}
+		None
 	}
 
 /* $NOISE2RS_P$ */

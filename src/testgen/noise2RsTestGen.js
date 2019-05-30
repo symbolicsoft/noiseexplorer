@@ -17,7 +17,6 @@ const firstCanEncryptMessage = (json) => {
 		}
 		if (
 			(json.messages[i].tokens.indexOf('e') >= 0) &&
-			// (messagesPsk(json) >= 0)
 			(json.messages[i].tokens.indexOf('psk') >= 0)
 		) {
 			r = i;

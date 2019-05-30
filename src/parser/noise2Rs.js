@@ -437,20 +437,30 @@ const NOISE2RS = {
 			``
 		];
 		let sendMessage = [
-			`/// Takes a \`Message\` object containing plaintext, and an output placeholder \`&[u8]\` as parameters.`,
-			`/// Returns a \`Ok(usize)\` object containing the size of the corresponding ciphertext upon successful encryption, and \`Err(NoiseError)\` otherwise`,
-			`///`,
-			`/// _Note that while \`mc\` <= 1 the ciphertext will be included as a payload for handshake messages and thus will not offer the same guarantees offered by post-handshake messages._`,
+			`/// Takes a \`&mut [u8]\` containing plaintext as a parameter.`,
+			`/// This method returns a \`Ok(()))\` upon successful encryption, and \`Err(NoiseError)\` otherwise`,
+			`/// _Note that for security reasons and for better performance, \`send_message\` overwrites the bytes containing the plaintext with the ciphertext. For this reason and to account for the fact that ciphertext and handshake messages encapsulate important values, a pattern specific padding of zero bytes must be added to the following messages.`,
+			`/// For transport messages:`,
+			`/// All messages must be appended with 16 empty bytes that act as a placeholder for the MAC (Message Authentication Code). These 16 bytes will be overwritten by \`send_message\``,
+			`/// For handshake messages:`,
+			`/// Kindly use the message lengths listed in the test file under \`../tests/handshake.rs\`, where examples and notes are also provided.`,
+			`/// _Also Note that while \`is_transport\` is false the ciphertext will be included as a payload for handshake messages and thus will not offer the same guarantees offered by post-handshake messages._`,
 			`pub fn send_message(&mut self, in_out: &mut [u8]) -> Result<(), NoiseError> {`,
 			`\tif in_out.len() < MAC_LENGTH || in_out.len() > MAX_MESSAGE {`,
 			`\t\treturn Err(NoiseError::UnsupportedMessageLengthError);`,
 			`\t}`,
 		];
 		let recvMessage = [
-			`/// Takes a \`Message\` object received from the remote party, and an output placeholder \`&[u8]\` as parameters.`,
-			`/// Returns a \`Ok(usize)\` object containing the size of the plaintext, and \`Err(NoiseError)\` otherwise.`,
+			`/// Takes a \`&mut [u8]\` received from the remote party as a parameter.`,
+			`/// This method returns a \`Ok(()))\` upon successful decrytion. and \`Err(NoiseError)\` otherwise.`,
+			`/// _Note that for security reasons and for better performance, \`recv_message\` overwrites the bytes containing the ciphertext with the plaintext and clears the MAC from them last 16 bytes of the message, and other keys that might be encapsulated while performing a handshake.`,
+			`/// For transport messages:`,
+			`/// You should expect to find the plaintext in the same array you passed a reference of as a parameter. The last 16 bytes of this array will be zero bytes and can be safely ignored.`,
+			`/// For handshake messages:`,
+			`/// Kindly use the message lengths listed in the test file under \`../tests/handshake.rs\`, where examples and notes are also provided.`,
 			`///`,
-			`/// _Note that while \`mc\` <= 1 the ciphertext will be included as a payload for handshake messages and thus will not offer the same guarantees offered by post-handshake messages._`,
+			`/// _Note that while \`is_transport\` is false the ciphertext will be included as a payload for handshake messages and thus will not offer the same guarantees offered by post-handshake messages._`,
+			
 			`pub fn recv_message(&mut self, in_out: &mut [u8]) -> Result<(), NoiseError> {`,
 			`\tif in_out.len() < MAC_LENGTH || in_out.len() > MAX_MESSAGE {`,
 			`\t\treturn Err(NoiseError::UnsupportedMessageLengthError);`,

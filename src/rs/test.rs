@@ -15,17 +15,11 @@ fn decode_str(s: &str) -> Vec<u8> {
 fn noiseexplorer_test_$NOISE2RS_N$() {
 
 	let mut prologue: Vec<u8> = Vec::new();
-	// length = message length + mac length + ne length (32) 
-	let mut messageA: Vec<u8> = Vec::new();
-	// length = message length + mac length +
+	let mut messageA: Vec<u8> = Vec::new();	
 	let mut messageB: Vec<u8> = Vec::new();
-	// length = message length + mac length +
 	let mut messageC: Vec<u8> = Vec::new();
-	// length = message length + mac length +
-	let mut messageD: Vec<u8> = Vec::new();
-	// length = message length + mac length +
+	let mut messageD: Vec<u8> = Vec::new();	
 	let mut messageE: Vec<u8> = Vec::new();
-	// length = message length + mac length +
 	let mut messageF: Vec<u8> = Vec::new();
 
 	$NOISE2RS_T$
