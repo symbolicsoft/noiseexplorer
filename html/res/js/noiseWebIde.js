@@ -149,7 +149,7 @@ let getRs = (patternInput, parsedPattern, cb) => {
 		'7error',
 		'8macros'
 	];
-	let rs = ['', '', '', '', '', '', '', ''];
+	let rs = ['', '', '', '', '', '', '', '', ''];
 	rsTemplates.forEach((templateFile, i) => {
 		let xhr = new XMLHttpRequest();
 		xhr.open('GET', `/res/rs/${templateFile}.rs`);
@@ -186,7 +186,7 @@ let getWasm = (patternInput, parsedPattern, cb) => {
 		'7error',
 		'8macros'
 	];
-	let wasm = ['', '', '', '', '', '', '', ''];
+	let wasm = ['', '', '', '', '', '', '', '', ''];
 	wasmTemplates.forEach((templateFile, i) => {
 		let xhr = new XMLHttpRequest();
 		xhr.open('GET', `/res/wasm/${templateFile}.rs`);
@@ -219,6 +219,8 @@ let processPatternInput = (patternInput) => {
 	$('pvActiveLink').href = '#';
 	$('pvPassiveLink').href = '#';
 	$('goLink').href = '#';
+	$('rsLink').href = '#';
+	$('wasmLink').href = '#';
 	try {
 		parsedPattern = peg$parse(patternInput);
 	} catch (e) {
@@ -228,6 +230,8 @@ let processPatternInput = (patternInput) => {
 		$('pvActiveLink').classList.add('parseInvalid');
 		$('pvPassiveLink').classList.add('parseInvalid');
 		$('goLink').classList.add('parseInvalid');
+		$('rsLink').classList.add('parseInvalid');
+		$('wasmLink').classList.add('parseInvalid');
 		return false;
 	}
 	let arrowSvg = getArrows(parsedPattern);
@@ -237,6 +241,8 @@ let processPatternInput = (patternInput) => {
 	$('pvActiveLink').classList.remove('parseInvalid');
 	$('pvPassiveLink').classList.remove('parseInvalid');
 	$('goLink').classList.remove('parseInvalid');
+	$('rsLink').classList.remove('parseInvalid');
+	$('wasmLink').classList.remove('parseInvalid');
 	$('patternName').innerText = parsedPattern.name;
 	$('patternArrows').innerHTML = arrowSvg;
 	return true;
