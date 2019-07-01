@@ -4,8 +4,10 @@ const NOISEPARSER = require('./parser/noiseParser.js');
 const NOISE2PV = require('./parser/noise2Pv.js');
 const NOISE2GO = require('./parser/noise2Go.js');
 const NOISE2RS = require('./parser/noise2Rs.js');
+const NOISE2WASM = require('./parser/noise2Wasm.js');
 const NOISE2GOTESTGEN = require('./testgen/noise2GoTestGen.js');
 const NOISE2RSTESTGEN = require('./testgen/noise2RsTestGen.js');
+const NOISE2WASMTESTGEN = require('./testgen/noise2WasmTestGen.js');
 const NOISEREADER = require('./parser/noiseReader.js');
 
 const UTIL = {
@@ -17,7 +19,7 @@ const HELPTEXT = [
 	'Noise Explorer has three individual modes: generation, rendering and web interface.',
 	'',
 	'Generation:',
-	'--generate=(json|pv|go|rs): Specify output format.',
+	'--generate=(json|pv|go|rs|wasm): Specify output format.',
 	'--pattern=[file]: Specify input pattern file (required).',
 	'--attacker=(active|passive): Specify ProVerif attacker type (default: active).',
 	'',
@@ -48,10 +50,10 @@ if (
 		ARGV.hasOwnProperty('activeResults') ||
 		ARGV.hasOwnProperty('passiveResults') ||
 		ARGV.hasOwnProperty('activeModel') ||
-		((/^(go)|(rs)$/).test(ARGV.generate) &&
+		((/^(go)|(rs)|(wasm)$/).test(ARGV.generate) &&
 			ARGV.hasOwnProperty('attacker')
 		) ||
-		((/^(go)|(rs)$/).test(ARGV.generate) &&
+		((/^(go)|(rs)|(wasm)$/).test(ARGV.generate) &&
 			ARGV.hasOwnProperty('tests')
 		)
 	)) ||
@@ -164,8 +166,28 @@ const RSRENDER = (pattern, parsedRs) => {
 	return rs;
 };
 
+const WASMRENDER = (pattern, parsedWasm) => {
+	let wasm = [
+		READFILE('wasm/0params.rs'),
+		READFILE('wasm/1types.rs'),
+		READFILE('wasm/2consts.rs'),
+		READFILE('wasm/3utils.rs'),
+		READFILE('wasm/4prims.rs'),
+		READFILE('wasm/5state.rs'),
+		READFILE('wasm/6processes.rs'),
+		READFILE('wasm/7error.rs'),
+		READFILE('wasm/8macros.rs')
+	];
+	wasm[0] = wasm[0].replace('/* $NOISE2WASM_N$ */', `/*\n${pattern}\n*/`);
+	wasm[5] = wasm[5].replace('/* $NOISE2WASM_I$ */', parsedWasm.i);
+	wasm[5] = wasm[5].replace('/* $NOISE2WASM_W$ */', parsedWasm.w);
+	wasm[5] = wasm[5].replace('/* $NOISE2WASM_R$ */', parsedWasm.r);
+	wasm[6] = wasm[6].replace('/* $NOISE2WASM_P$ */', parsedWasm.p);
+	return rs;
+};
+
 if (ARGV.hasOwnProperty('generate')) {
-	if (!(/^(json)|(pv)|(go)|(rs)$/).test(ARGV.generate)) {
+	if (!(/^(json)|(pv)|(go)|(rs)|(wasm)$/).test(ARGV.generate)) {
 		throw new Error('[NoiseExplorer] Error: You must specify a valid generation output format.');
 		process.exit();
 	}
@@ -261,6 +283,49 @@ if (
 	WRITEFILE(`../implementations/rs/${json.name}/src/error.rs`, output[7]);
 	WRITEFILE(`../implementations/rs/${json.name}/src/macros.rs`, output[8]);
 	WRITEFILE(`../implementations/rs/${json.name}/tests/handshake.rs`, test);
+	process.exit();
+}
+
+if (
+	ARGV.hasOwnProperty('generate') &&
+	(ARGV.generate === 'wasm')
+) {
+	let pattern = READFILE(ARGV.pattern);
+	let json = NOISEPARSER.parse(pattern);
+	let psk = '';
+	json.messages.forEach((message, i) => {
+		if (message.tokens.indexOf('psk') >= 0) {
+			psk = ', Psk';
+		}
+	});
+	let parsedWasm = NOISE2WASM.parse(json);
+	let output = WASMRENDER(pattern, parsedWasm);
+	let cargo = READFILE('wasm/Cargo.toml')
+		.replace("$NOISE2WASM_N$", json.name.toLowerCase());
+	output[1] =  output[1]
+		.replace(/\$NOISE2WASM_N\$/g, json.name.toLowerCase());
+	let testGen = NOISE2WASMTESTGEN.generate(json, pattern);
+	let test = READFILE('wasm/test.rs')
+		.replace("$NOISE2WASM_S$", psk)
+		.replace("$NOISE2WASM_T$", testGen)
+		.replace(/\$NOISE2WASM_N\$/g, json.name.toLowerCase());
+	if (!FS.existsSync(`../implementations/wasm/${json.name}`)) {
+		FS.mkdirSync(`../implementations/wasm/${json.name}`);
+		FS.mkdirSync(`../implementations/wasm/${json.name}/src`);
+		FS.mkdirSync(`../implementations/wasm/${json.name}/tests`);
+		FS.mkdirSync(`../implementations/wasm/${json.name}/chacha20poly1305`);
+	}
+	WRITEFILE(`../implementations/wasm/${json.name}/Cargo.toml`, cargo);
+	WRITEFILE(`../implementations/wasm/${json.name}/src/lib.rs`, output[0]);
+	WRITEFILE(`../implementations/wasm/${json.name}/src/types.rs`, output[1]);
+	WRITEFILE(`../implementations/wasm/${json.name}/src/consts.rs`, output[2]);
+	WRITEFILE(`../implementations/wasm/${json.name}/src/utils.rs`, output[3]);
+	WRITEFILE(`../implementations/wasm/${json.name}/src/prims.rs`, output[4]);
+	WRITEFILE(`../implementations/wasm/${json.name}/src/state.rs`, output[5]);
+	WRITEFILE(`../implementations/wasm/${json.name}/src/noisesession.rs`, output[6]);
+	WRITEFILE(`../implementations/wasm/${json.name}/src/error.rs`, output[7]);
+	WRITEFILE(`../implementations/wasm/${json.name}/src/macros.rs`, output[8]);
+	WRITEFILE(`../implementations/wasm/${json.name}/tests/handshake.rs`, test);
 	process.exit();
 }
 

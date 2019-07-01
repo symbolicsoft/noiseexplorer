@@ -1,0 +1,15 @@
+{
+  "name": "@noiseexplorer_ikpsk2/noiseexplorer_nn",
+  "collaborators": [
+    "Symbolic Software <georgio@symbolic.software>"
+  ],
+  "version": "0.1.2",
+  "files": [
+    "noiseexplorer_nn_bg.wasm",
+    "noiseexplorer_nn.js",
+    "noiseexplorer_nn.d.ts"
+  ],
+  "module": "noiseexplorer_nn.js",
+  "types": "noiseexplorer_nn.d.ts",
+  "sideEffects": "false"
+}
