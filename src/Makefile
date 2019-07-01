@@ -2,6 +2,7 @@ dependencies:
 	@/bin/echo -n "[NoiseExplorer] Installing dependencies..."
 	@npm install -g pegjs
 	@npm install
+	@curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
 	@/bin/echo " OK."
 
 parser:
@@ -19,6 +20,9 @@ implementations:
 	@rm -f parser/noiseParser.js
 	@pegjs -o parser/noiseParser.js parser/noiseParser.pegjs
 	@cd util && bash genImplementations.sh
+
+wasm:
+	@cd util && bash genWasmBins.sh
 
 tests:
 	@cd util && bash genTests.sh
