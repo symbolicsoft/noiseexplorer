@@ -14,6 +14,7 @@
 	<script src="res/js/parser/noise2Pv.js"></script>
 	<script src="res/js/parser/noise2Go.js"></script>
 	<script src="res/js/parser/noise2Rs.js"></script>
+	<script src="res/js/parser/noise2Wasm.js"></script>
 	<script src="res/js/parser/noiseReader.js"></script>
 	<script src="res/js/jszip.js"></script>
 	<script src="res/js/noiseWebIde.js"></script>
@@ -38,6 +39,9 @@
 			$('rsLink').addEventListener('click', (event) => {
 				rsGen($('patternInput').value, 'rsLink', true);
 			});
+			$('wasmLink').addEventListener('click', (event) => {
+				wasmGen($('patternInput').value, 'wasmLink', true);
+			});
 			$('patternInput').focus();
 			processPatternInput($('patternInput').value);
 		});
@@ -58,14 +62,14 @@
 			<a href="https://eprint.iacr.org/2018/766">Scientific Paper</a>
 		</div>
 	</div>
-	<div class="results" style="height: 770px;">
+	<div class="results" style="height: 870px;">
 		<div class="arrowsFrame">
 			<h1 id="patternName">IKpsk2</h1>
-			<div class="arrows" style="height: 770px;">
-				<svg id="patternArrows" class="noColor" style="height: 770px;"></svg>
+			<div class="arrows" style="height: 870px;">
+				<svg id="patternArrows" class="noColor" style="height: 870px;"></svg>
 			</div>
 		</div>
-		<div class="resultsExplanation" style="height: 770px;">
+		<div class="resultsExplanation" style="height: 870px;">
 			<h2>Design and Explore Noise Handshake Patterns</h2>
 			<p>
 				Noise Explorer is an online engine for reasoning about <a href="http://noiseprotocol.org/" target="_blank">Noise Protocol Framework</a> (revision 34) Handshake Patterns. Noise Explorer allows you to:
@@ -107,6 +111,13 @@ IKpsk2:
 					<span class="modelType">written in go</span>
 				</a>
 				<a href="#" id="rsLink">
+					Get Implementation
+					<span class="modelType">written in rust</span>
+				</a>
+			</p>
+			<h3>Generate WASM-Friendly Secure Protocol Implementation Code</h3>
+			<p>
+				<a href="#" id="wasmLink">
 					Get Implementation
 					<span class="modelType">written in rust</span>
 				</a>

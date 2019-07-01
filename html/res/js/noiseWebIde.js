@@ -4,7 +4,8 @@ let genReady = {
 		passive: false
 	},
 	go: false,
-	rs: false
+	rs: false,
+	wasm: false
 };
 
 let $ = (id) => { return document.getElementById(id) };
@@ -52,6 +53,16 @@ let rsRender = (patternInput, parsedPattern, rs) => {
 	rs[5] = rs[5].replace('/* $NOISE2RS_R$ */', parsedRs.r);
 	rs[6] = rs[6].replace('/* $NOISE2RS_P$ */', parsedRs.p);
 	return rs;
+};
+
+let wasmRender = (patternInput, parsedPattern, wasm) => {
+	let parsedWasm = NOISE2WASM.parse(parsedPattern);
+	wasm[0] = wasm[0].replace('/* $NOISE2WASM_N$ */', `/*\n${patternInput}\n*/`);
+	wasm[5] = wasm[5].replace('/* $NOISE2WASM_I$ */', parsedWasm.i);
+	wasm[5] = wasm[5].replace('/* $NOISE2WASM_W$ */', parsedWasm.w);
+	wasm[5] = wasm[5].replace('/* $NOISE2WASM_R$ */', parsedWasm.r);
+	wasm[6] = wasm[6].replace('/* $NOISE2WASM_P$ */', parsedWasm.p);
+	return wasm;
 };
 
 let getPv = (patternInput, parsedPattern, passive, cb) => {
@@ -156,6 +167,43 @@ let getRs = (patternInput, parsedPattern, cb) => {
 			});
 			if (full === rs.length) {
 				let output = rsRender(patternInput, parsedPattern, rs);
+				cb(output);
+			}
+		};
+		xhr.send();
+	});
+};
+
+let getWasm = (patternInput, parsedPattern, cb) => {
+	let wasmTemplates = [
+		'0params',
+		'1types',
+		'2consts',
+		'3utils',
+		'4prims',
+		'5state',
+		'6processes',
+		'7error',
+		'8macros'
+	];
+	let wasm = ['', '', '', '', '', '', '', ''];
+	wasmTemplates.forEach((templateFile, i) => {
+		let xhr = new XMLHttpRequest();
+		xhr.open('GET', `/res/wasm/${templateFile}.rs`);
+		xhr.onreadystatechange = () => {
+			if (
+				(xhr.readyState !== 4) ||
+				(xhr.status !== 200)
+			) {
+				return false;
+			}
+			wasm[i] = xhr.responseText;
+			let full = 0;
+			wasm.forEach((slot) => {
+				slot.length? full++ : full;
+			});
+			if (full === wasm.length) {
+				let output = wasmRender(patternInput, parsedPattern, wasm);
 				cb(output);
 			}
 		};
@@ -289,6 +337,56 @@ let rsGen = (patternInput, aId, autoClick) => {
 				genReady.rs = true;
 				$(aId).href = rsBlob;
 				$(aId).download = `${parsedPattern.name}.noise.rs.zip`;
+				autoClick? $(aId).click() : false;
+			});
+		};
+		xhr.send();
+	});
+	return false;
+};
+
+let wasmGen = (patternInput, aId, autoClick) => {
+	let parsedPattern = {};
+	if (genReady.wasm) {
+		return true;
+	}
+	try {
+		parsedPattern = peg$parse(patternInput);
+	} catch (e) {
+		alert('Please first ensure that your Noise pattern is valid.');
+		return false;
+	}
+	getWasm(patternInput, parsedPattern, (wasm) => {
+		let xhr = new XMLHttpRequest();
+		xhr.open('GET', `/res/wasm/Cargo.toml`);
+		xhr.onreadystatechange = () => {
+			if (
+				(xhr.readyState !== 4) ||
+				(xhr.status !== 200)
+			) {
+				return false;
+			}
+			let cargo = xhr.responseText
+				.replace('$NOISE2WASM_N$', parsedPattern.name.toLowerCase());
+			let zip = new JSZip();
+			zip.file('Cargo.toml', cargo);
+			let src = zip.folder('src');
+			src.file('lib.rs', wasm[0]);
+			src.file('types.rs', wasm[1]);
+			src.file('consts.rs', wasm[2]);
+			src.file('utils.rs', wasm[3]);
+			src.file('prims.rs', wasm[4]);
+			src.file('state.rs', wasm[5]);
+			src.file('noisesession.rs', wasm[6]);
+			src.file('error.rs', wasm[7]);
+			src.file('macros.rs', wasm[8]);
+			zip.generateAsync({
+				type:'blob'
+			}).then((blob) => {
+				let wasmBlob = window.URL.createObjectURL(blob);
+				genReady.wasm = true;
+				$(aId).href = wasmBlob;
+				$(aId).download = `${parsedPattern.name}.noise.wasm.zip`;
 				autoClick? $(aId).click() : false;
 			});
 		};
