@@ -1,12 +1,20 @@
+# Node
 node_modules
 package-lock.json
+
+# Noise Parser
 noiseParser.js
+
+# macOS
 .DS_Store
+
+# Rust
 */*.log
 *.log
 */target
 implementations/rs/*/target
 implementations/rs/*/Cargo.lock
+
+# Visual Studio Code
 rust-test.code-workspace
 .vscode
-src/parser/noiseParser.js
