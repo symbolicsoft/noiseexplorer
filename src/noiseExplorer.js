@@ -183,7 +183,7 @@ const WASMRENDER = (pattern, parsedWasm) => {
 	wasm[5] = wasm[5].replace('/* $NOISE2WASM_W$ */', parsedWasm.w);
 	wasm[5] = wasm[5].replace('/* $NOISE2WASM_R$ */', parsedWasm.r);
 	wasm[6] = wasm[6].replace('/* $NOISE2WASM_P$ */', parsedWasm.p);
-	return rs;
+	return wasm;
 };
 
 if (ARGV.hasOwnProperty('generate')) {

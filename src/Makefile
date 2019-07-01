@@ -37,4 +37,4 @@ clean:
 	@rm -f ../implementations/rs/*/Cargo.lock
 	@/bin/echo " OK."
 
-.PHONY: dependencies parser models implementations tests html clean
+.PHONY: dependencies parser models implementations wasm tests html clean
