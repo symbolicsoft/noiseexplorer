@@ -169,7 +169,7 @@ const NOISE2WASM = {
 			`let mut ss: SymmetricState = SymmetricState::initialize_symmetric(&protocol_name[..]);`,
 			`ss.mix_hash(prologue);`
 		];
-		if (!rs) { 
+		if (!rs) {
 			initFun.push(`let rs = PublicKey::empty();`);
 		}
 		pattern.preMessages.forEach((preMessage) => {

@@ -169,7 +169,7 @@ const NOISE2RS = {
 			`let mut ss: SymmetricState = SymmetricState::initialize_symmetric(&protocol_name[..]);`,
 			`ss.mix_hash(prologue);`
 		];
-		if (!rs) { 
+		if (!rs) {
 			initFun.push(`let rs = PublicKey::empty();`);
 		}
 		pattern.preMessages.forEach((preMessage) => {
@@ -460,7 +460,7 @@ const NOISE2RS = {
 			`/// Kindly use the message lengths listed in the test file under \`../tests/handshake.rs\`, where examples and notes are also provided.`,
 			`///`,
 			`/// _Note that while \`is_transport\` is false the ciphertext will be included as a payload for handshake messages and thus will not offer the same guarantees offered by post-handshake messages._`,
-			
+
 			`pub fn recv_message(&mut self, in_out: &mut [u8]) -> Result<(), NoiseError> {`,
 			`\tif in_out.len() < MAC_LENGTH || in_out.len() > MAX_MESSAGE {`,
 			`\t\treturn Err(NoiseError::UnsupportedMessageLengthError);`,
