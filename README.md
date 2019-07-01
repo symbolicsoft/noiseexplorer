@@ -12,7 +12,7 @@ Noise Explorer can also render results from the ProVerif output into an elegant 
 | ProVerif | ✔️          | ✔️        | ✔️          |
 | Go       | ✔️          | ✔️        | ✔️          |
 | Rust     | ✔️          | ✔️        | ✔️          |
-| WASM     | ✔️          | ✔️        | ✔️          |
+| Wasm     | ✔️          | ✔️        | ✔️          |
 
 ### Usage
 
@@ -58,7 +58,7 @@ Help:
 To quickly translate all Noise handshake patterns in the `patterns` folder to ProVerif models, simply run `make models` after completing the steps outlined in the Preparation section of this document. The models will be available in the `models` folder.
 
 ### Implementation Generation
-To quickly translate all Noise handshake patterns in the `patterns` folder to Go and Rust implementations, simply run `make implementations` after completing the steps outlined in the Preparation section of this document. The software will be available in the `implementations` folder. Note that the implementations found under `implementations/wasm` and the ones found under `implementations/rust` use different cryptographic libraries for compaltibility purposes.
+To quickly translate all Noise handshake patterns in the `patterns` folder to Go, Rust and Wasm implementations, simply run `make implementations` after completing the steps outlined in the Preparation section of this document. The software will be available in the `implementations` folder. Note that the implementations found under `implementations/wasm` and the ones found under `implementations/rust` use different cryptographic libraries for compatibility purposes.
 
 ### WebAssembly Binaries
 Wasm binaries and relevant helper files are found under `implementations/wasm/*/pkg`. To re-compile the Wasm binaries run `make wasm` after generating implementations using `make implementations`. 
