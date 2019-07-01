@@ -166,8 +166,8 @@ const RSRENDER = (pattern, parsedRs) => {
 	return rs;
 };
 
-const WASMRENDER = (pattern, parsedRs) => {
-	let rs = [
+const WASMRENDER = (pattern, parsedWasm) => {
+	let wasm = [
 		READFILE('wasm/0params.rs'),
 		READFILE('wasm/1types.rs'),
 		READFILE('wasm/2consts.rs'),
@@ -178,11 +178,11 @@ const WASMRENDER = (pattern, parsedRs) => {
 		READFILE('wasm/7error.rs'),
 		READFILE('wasm/8macros.rs')
 	];
-	rs[0] = rs[0].replace('/* $NOISE2WASM_N$ */', `/*\n${pattern}\n*/`);
-	rs[5] = rs[5].replace('/* $NOISE2WASM_I$ */', parsedRs.i);
-	rs[5] = rs[5].replace('/* $NOISE2WASM_W$ */', parsedRs.w);
-	rs[5] = rs[5].replace('/* $NOISE2WASM_R$ */', parsedRs.r);
-	rs[6] = rs[6].replace('/* $NOISE2WASM_P$ */', parsedRs.p);
+	wasm[0] = wasm[0].replace('/* $NOISE2WASM_N$ */', `/*\n${pattern}\n*/`);
+	wasm[5] = wasm[5].replace('/* $NOISE2WASM_I$ */', parsedWasm.i);
+	wasm[5] = wasm[5].replace('/* $NOISE2WASM_W$ */', parsedWasm.w);
+	wasm[5] = wasm[5].replace('/* $NOISE2WASM_R$ */', parsedWasm.r);
+	wasm[6] = wasm[6].replace('/* $NOISE2WASM_P$ */', parsedWasm.p);
 	return rs;
 };
 
@@ -298,8 +298,8 @@ if (
 			psk = ', Psk';
 		}
 	});
-	let parsedRs = NOISE2WASM.parse(json);
-	let output = WASMRENDER(pattern, parsedRs);
+	let parsedWasm = NOISE2WASM.parse(json);
+	let output = WASMRENDER(pattern, parsedWasm);
 	let cargo = READFILE('wasm/Cargo.toml')
 		.replace("$NOISE2WASM_N$", json.name.toLowerCase());
 	output[1] =  output[1]
