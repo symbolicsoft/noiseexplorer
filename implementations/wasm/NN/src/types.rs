@@ -72,7 +72,7 @@ impl Key {
     /// # Example
     ///
     /// ```
-    /// # use noiseexplorenn::{
+    /// #  use noiseexplorer_nn_wasm::{
     /// #   error::NoiseError,
     /// #   types::Key,
     /// # };
@@ -95,7 +95,7 @@ impl Key {
     /// # Example
     ///
     /// ```
-    /// # use noiseexplorenn::{
+    /// #  use noiseexplorer_nn_wasm::{
     /// #   error::NoiseError,
     /// #   types::Key,
     /// # };
@@ -145,7 +145,7 @@ impl Psk {
     /// # Example
     ///
     /// ```
-    /// # use noiseexplorenn::{
+    /// #   use noiseexplorer_nn_wasm::{
     /// #   error::NoiseError,
     /// #   types::Psk,
     /// # };
@@ -169,7 +169,7 @@ impl Psk {
     /// # Example
     ///
     /// ```
-    /// # use noiseexplorenn::{
+    /// #   use noiseexplorer_nn_wasm::{
     /// #   error::NoiseError,
     /// #   types::Psk,
     /// # };
@@ -221,7 +221,7 @@ impl PrivateKey {
     /// # Example
     ///
     /// ```
-    /// # use noiseexplorenn::{
+    /// #   use noiseexplorer_nn_wasm::{
     /// #   error::NoiseError,
     /// #   types::PrivateKey,
     /// # };
@@ -244,7 +244,7 @@ impl PrivateKey {
     /// # Example
     ///
     /// ```
-    /// # use noiseexplorenn::{
+    /// #   use noiseexplorer_nn_wasm::{
     /// #   error::NoiseError,
     /// #   types::PrivateKey,
     /// # };
@@ -303,7 +303,7 @@ impl PublicKey {
     /// # Example
     ///
     /// ```
-    /// # use noiseexplorenn::{
+    /// #   use noiseexplorer_nn_wasm::{
     /// #   error::NoiseError,
     /// #   types::PublicKey,
     /// # };
@@ -327,7 +327,7 @@ impl PublicKey {
     /// # Example
     ///
     /// ```
-    /// # use noiseexplorenn::{
+    /// #   use noiseexplorer_nn_wasm::{
     /// #   error::NoiseError,
     /// #   types::PublicKey,
     /// # };

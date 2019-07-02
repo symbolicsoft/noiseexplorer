@@ -9,11 +9,9 @@ noiseParser.js
 .DS_Store
 
 # Rust
-*/*.log
+Cargo.lock
 *.log
-*/target
-implementations/rs/*/target
-implementations/rs/*/Cargo.lock
+target/
 
 # Visual Studio Code
 rust-test.code-workspace

@@ -3,7 +3,7 @@ use wasm_bindgen_test::*;
 
 wasm_bindgen_test_configure!(run_in_browser);
 
-use noiseexplorer_$NOISE2WASM_N$::{
+use noiseexplorer_$NOISE2WASM_N$_wasm::{
 	consts::{DHLEN, MAC_LENGTH},
 	error::NoiseError,
 	noisesession::NoiseSession,

@@ -1,5 +1,5 @@
 [package]
-name = "noiseexplorer_$NOISE2WASM_N$"
+name = "noiseexplorer_$NOISE2WASM_N$_wasm"
 version = "0.1.2"
 authors = ["Symbolic Software <georgio@symbolic.software>"]
 edition = "2018"

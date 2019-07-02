@@ -315,6 +315,13 @@ if (
 		FS.mkdirSync(`../implementations/wasm/${json.name}/tests`);
 		FS.mkdirSync(`../implementations/wasm/${json.name}/chacha20poly1305`);
 	}
+	let makefile = READFILE('wasm/Makefile')
+		.replace(/\$NOISE2WASM_N\$/g, json.name.toLowerCase());
+	let readme = READFILE('wasm/README.md')
+		.replace(/\$NOISE2WASM_N\$/g, json.name.toLowerCase());
+
+	WRITEFILE(`../implementations/wasm/${json.name}/README.md`, readme);
+	WRITEFILE(`../implementations/wasm/${json.name}/Makefile`, makefile);
 	WRITEFILE(`../implementations/wasm/${json.name}/Cargo.toml`, cargo);
 	WRITEFILE(`../implementations/wasm/${json.name}/src/lib.rs`, output[0]);
 	WRITEFILE(`../implementations/wasm/${json.name}/src/types.rs`, output[1]);
