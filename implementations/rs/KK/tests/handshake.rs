@@ -39,45 +39,45 @@ fn noiseexplorer_test_kk() {
 	let responder_ephemeral_kp = Keypair::from_private_key(responder_ephemeral_private).unwrap();
 	responder_session.set_ephemeral_keypair(responder_ephemeral_kp);
 	messageA.extend_from_slice(&[0u8; DHLEN][..]);
-	messageA.extend_from_slice(&decode_str("4c756477696720766f6e204d69736573")[..]);
+	messageA.append(&mut decode_str("4c756477696720766f6e204d69736573"));
 	messageA.extend_from_slice(&[0u8; MAC_LENGTH][..]);
-	let tA: Vec<u8> = Vec::from(&decode_str("ca35def5ae56cec33dc2036731ab14896bc4c75dbb07a61f879f8e3afa4c7944266a5f53784aa3becb0f7485c2759c328937867a4cbaafef07422b0725e098be")[..]);
+	let tA: Vec<u8> = decode_str("ca35def5ae56cec33dc2036731ab14896bc4c75dbb07a61f879f8e3afa4c7944266a5f53784aa3becb0f7485c2759c328937867a4cbaafef07422b0725e098be");
 	// messageA length is 48 + payload length,
 	// payload starts at index 32
 	initiator_session.send_message(&mut messageA[..]).unwrap();
 	responder_session.recv_message(&mut messageA.clone()[..]).unwrap();
 	messageB.extend_from_slice(&[0u8; DHLEN][..]);
-	messageB.extend_from_slice(&decode_str("4d757272617920526f746862617264")[..]);
+	messageB.append(&mut decode_str("4d757272617920526f746862617264"));
 	messageB.extend_from_slice(&[0u8; MAC_LENGTH][..]);
-	let tB: Vec<u8> = Vec::from(&decode_str("95ebc60d2b1fa672c1f46a8aa265ef51bfe38e7ccb39ec5be34069f144808843008aeea5d76d6abcbab87a18502c8a8352d9933ac11e2a7d228038d721e31e")[..]);
+	let tB: Vec<u8> = decode_str("95ebc60d2b1fa672c1f46a8aa265ef51bfe38e7ccb39ec5be34069f144808843008aeea5d76d6abcbab87a18502c8a8352d9933ac11e2a7d228038d721e31e");
 	// messageB length is 48 + payload length,
 	// payload starts at index 32
 	responder_session.send_message(&mut messageB[..]).unwrap();
 	initiator_session.recv_message(&mut messageB.clone()[..]).unwrap();
-	messageC.extend_from_slice(&decode_str("462e20412e20486179656b")[..]);
+	messageC.append(&mut decode_str("462e20412e20486179656b"));
 	messageC.extend_from_slice(&[0u8; MAC_LENGTH][..]);
-	let tC: Vec<u8> = Vec::from(&decode_str("5f92113edf78c3e56e6d67201f5f9e0c8f2930c3e1ffb64ede0358")[..]);
+	let tC: Vec<u8> = decode_str("5f92113edf78c3e56e6d67201f5f9e0c8f2930c3e1ffb64ede0358");
 	// messageC length is 16 + payload length,
 	// payload starts at index 0
 	initiator_session.send_message(&mut messageC[..]).unwrap();
 	responder_session.recv_message(&mut messageC.clone()[..]).unwrap();
-	messageD.extend_from_slice(&decode_str("4361726c204d656e676572")[..]);
+	messageD.append(&mut decode_str("4361726c204d656e676572"));
 	messageD.extend_from_slice(&[0u8; MAC_LENGTH][..]);
-	let tD: Vec<u8> = Vec::from(&decode_str("30ebbd9cdcef7f40d99c8cd11e880dac28f5c9e5032c1059b3b56a")[..]);
+	let tD: Vec<u8> = decode_str("30ebbd9cdcef7f40d99c8cd11e880dac28f5c9e5032c1059b3b56a");
 	// messageD length is 16 + payload length,
 	// payload starts at index 0
 	responder_session.send_message(&mut messageD[..]).unwrap();
 	initiator_session.recv_message(&mut messageD.clone()[..]).unwrap();
-	messageE.extend_from_slice(&decode_str("4a65616e2d426170746973746520536179")[..]);
+	messageE.append(&mut decode_str("4a65616e2d426170746973746520536179"));
 	messageE.extend_from_slice(&[0u8; MAC_LENGTH][..]);
-	let tE: Vec<u8> = Vec::from(&decode_str("b011620dc31f88abd1788db50912952fe45da56e9d0907ab2cbce5f609b58b1cf2")[..]);
+	let tE: Vec<u8> = decode_str("b011620dc31f88abd1788db50912952fe45da56e9d0907ab2cbce5f609b58b1cf2");
 	// messageE length is 16 + payload length,
 	// payload starts at index 0
 	initiator_session.send_message(&mut messageE[..]).unwrap();
 	responder_session.recv_message(&mut messageE.clone()[..]).unwrap();
-	messageF.extend_from_slice(&decode_str("457567656e2042f6686d20766f6e2042617765726b")[..]);
+	messageF.append(&mut decode_str("457567656e2042f6686d20766f6e2042617765726b"));
 	messageF.extend_from_slice(&[0u8; MAC_LENGTH][..]);
-	let tF: Vec<u8> = Vec::from(&decode_str("a0661971e9047b28a815c7b1f62fefb471e4d34bc2a5b48149e7f80c3772b8e4aae8b44baa")[..]);
+	let tF: Vec<u8> = decode_str("a0661971e9047b28a815c7b1f62fefb471e4d34bc2a5b48149e7f80c3772b8e4aae8b44baa");
 	// messageF length is 16 + payload length,
 	// payload starts at index 0
 	responder_session.send_message(&mut messageF[..]).unwrap();

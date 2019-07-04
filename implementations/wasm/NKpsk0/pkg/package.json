@@ -1,15 +1,15 @@
 {
-  "name": "@noiseexplorer_ikpsk2/noiseexplorer_nkpsk0",
+  "name": "@noiseexplorer_./NKpsk0/noiseexplorer_nkpsk0_wasm",
   "collaborators": [
     "Symbolic Software <georgio@symbolic.software>"
   ],
   "version": "0.1.2",
   "files": [
-    "noiseexplorer_nkpsk0_bg.wasm",
-    "noiseexplorer_nkpsk0.js",
-    "noiseexplorer_nkpsk0.d.ts"
+    "noiseexplorer_nkpsk0_wasm_bg.wasm",
+    "noiseexplorer_nkpsk0_wasm.js",
+    "noiseexplorer_nkpsk0_wasm.d.ts"
   ],
-  "module": "noiseexplorer_nkpsk0.js",
-  "types": "noiseexplorer_nkpsk0.d.ts",
+  "module": "noiseexplorer_nkpsk0_wasm.js",
+  "types": "noiseexplorer_nkpsk0_wasm.d.ts",
   "sideEffects": "false"
 }

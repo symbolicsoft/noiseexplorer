@@ -304,8 +304,7 @@ impl HandshakeState {
 
 	pub(crate) fn read_message_a(&mut self, in_out: &mut [u8]) ->  Result<(Hash, CipherState, CipherState), NoiseError> {
 		if in_out.len() < MAC_LENGTH+DHLEN {
-			//missing re
-		return 	Err(NoiseError::MissingreError);
+			return Err(NoiseError::MissingreError);
 		}
 		let (re, in_out) = in_out.split_at_mut(DHLEN);
 		self.re = PublicKey::from_bytes(from_slice_hashlen(re))?;

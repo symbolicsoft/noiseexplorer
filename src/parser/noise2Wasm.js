@@ -225,9 +225,6 @@ const NOISE2WASM = {
 				ePskFill,
 			].join(`\n\t\t`),
 			s: [
-				`//if in_out.len() < DHLEN {`,
-				`//\treturn Err(NoiseError::MissingnsError);`,
-				`//}`,
 				`let (ns, in_out) = in_out.split_at_mut(${nsLength});`,
 				`ns[..DHLEN].copy_from_slice(&self.s.get_public_key().as_bytes()[..]);`,
 				`${alreadyDh ?'self.ss.encrypt_and_hash(ns)?;':'self.ss.mix_hash(ns);'}`
@@ -305,8 +302,7 @@ const NOISE2WASM = {
 		let messageTokenParsers = {
 			e: [
 				`if in_out.len() < MAC_LENGTH+DHLEN {`,
-				`\t//missing re`,
-				`return \tErr(NoiseError::MissingreError);`,
+				`\treturn Err(NoiseError::MissingreError);`,
 				`}`,
 				`let (re, in_out) = in_out.split_at_mut(DHLEN);`,
 				`self.re = PublicKey::from_bytes(from_slice_hashlen(re))?;`,
@@ -315,7 +311,6 @@ const NOISE2WASM = {
 			].join(`\n\t\t`),
 			s: [
 				`if in_out.len() < ${nsLength} {`,
-				`\t//missing rs`,
 				`\treturn Err(NoiseError::MissingrsError);`,
 				`}`,
 				`let (rs, in_out) = in_out.split_at_mut(${nsLength});`,

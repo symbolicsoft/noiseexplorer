@@ -116,9 +116,9 @@ const gen = (
 		}
 		if (firstCanEncryptMessage(json) <= i || (psk.length > 0) ) {
 		rsTestCode.push([
-			`message${abc[i]}.extend_from_slice(&decode_str("${messages[i].payload}")[..]);`,
+			`message${abc[i]}.append(&mut decode_str("${messages[i].payload}"));`,
 			`message${abc[i]}.extend_from_slice(&[0u8; MAC_LENGTH][..]);`,
-			`let t${abc[i]}: Vec<u8> = Vec::from(&decode_str("${messages[i].ciphertext}")[..]);`,
+			`let t${abc[i]}: Vec<u8> = decode_str("${messages[i].ciphertext}");`,
 			`// message${abc[i]} length is ${16+messageLength} + payload length,`,
 			`// payload starts at index ${messageLength}`,
 
@@ -126,8 +126,8 @@ const gen = (
 	}
 		else {
 		rsTestCode.push([
-			`message${abc[i]}.extend_from_slice(&decode_str("${messages[i].payload}")[..]);`,
-			`let t${abc[i]}: Vec<u8> = Vec::from(&decode_str("${messages[i].ciphertext}")[..]);`,
+			`message${abc[i]}.append(&mut decode_str("${messages[i].payload}"));`,
+			`let t${abc[i]}: Vec<u8> = decode_str("${messages[i].ciphertext}");`,
 			`// message${abc[i]} length is ${messageLength} + payload length,`,
 			`// payload starts at index ${messageLength}`,
 

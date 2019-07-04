@@ -293,9 +293,6 @@ impl HandshakeState {
 		ne.copy_from_slice(&self.e.get_public_key().as_bytes()[..]);
 		self.ss.mix_hash(ne);
 		/* No PSK, so skipping mixKey */
-		//if in_out.len() < DHLEN {
-		//	return Err(NoiseError::MissingnsError);
-		//}
 		let (ns, in_out) = in_out.split_at_mut(DHLEN);
 		ns[..DHLEN].copy_from_slice(&self.s.get_public_key().as_bytes()[..]);
 		self.ss.mix_hash(ns);
@@ -327,15 +324,13 @@ impl HandshakeState {
 
 	pub(crate) fn read_message_a(&mut self, in_out: &mut [u8]) -> Result<(), NoiseError> {
 		if in_out.len() < MAC_LENGTH+DHLEN {
-			//missing re
-		return 	Err(NoiseError::MissingreError);
+			return Err(NoiseError::MissingreError);
 		}
 		let (re, in_out) = in_out.split_at_mut(DHLEN);
 		self.re = PublicKey::from_bytes(from_slice_hashlen(re))?;
 		self.ss.mix_hash(&self.re.as_bytes()[..DHLEN]);
 		/* No PSK, so skipping mixKey */
 		if in_out.len() < DHLEN {
-			//missing rs
 			return Err(NoiseError::MissingrsError);
 		}
 		let (rs, in_out) = in_out.split_at_mut(DHLEN);
@@ -347,8 +342,7 @@ impl HandshakeState {
 
 	pub(crate) fn read_message_b(&mut self, in_out: &mut [u8]) ->  Result<(Hash, CipherState, CipherState), NoiseError> {
 		if in_out.len() < MAC_LENGTH+DHLEN {
-			//missing re
-		return 	Err(NoiseError::MissingreError);
+			return Err(NoiseError::MissingreError);
 		}
 		let (re, in_out) = in_out.split_at_mut(DHLEN);
 		self.re = PublicKey::from_bytes(from_slice_hashlen(re))?;

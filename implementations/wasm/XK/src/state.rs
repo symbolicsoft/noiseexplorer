@@ -315,9 +315,6 @@ impl HandshakeState {
 	}
 
 	pub(crate) fn write_message_c(&mut self, in_out: &mut [u8]) -> Result<(Hash, CipherState, CipherState), NoiseError> {
-		//if in_out.len() < DHLEN {
-		//	return Err(NoiseError::MissingnsError);
-		//}
 		let (ns, in_out) = in_out.split_at_mut(DHLEN+MAC_LENGTH);
 		ns[..DHLEN].copy_from_slice(&self.s.get_public_key().as_bytes()[..]);
 		self.ss.encrypt_and_hash(ns)?;
@@ -332,8 +329,7 @@ impl HandshakeState {
 
 	pub(crate) fn read_message_a(&mut self, in_out: &mut [u8]) -> Result<(), NoiseError> {
 		if in_out.len() < MAC_LENGTH+DHLEN {
-			//missing re
-		return 	Err(NoiseError::MissingreError);
+			return Err(NoiseError::MissingreError);
 		}
 		let (re, in_out) = in_out.split_at_mut(DHLEN);
 		self.re = PublicKey::from_bytes(from_slice_hashlen(re))?;
@@ -346,8 +342,7 @@ impl HandshakeState {
 
 	pub(crate) fn read_message_b(&mut self, in_out: &mut [u8]) -> Result<(), NoiseError> {
 		if in_out.len() < MAC_LENGTH+DHLEN {
-			//missing re
-		return 	Err(NoiseError::MissingreError);
+			return Err(NoiseError::MissingreError);
 		}
 		let (re, in_out) = in_out.split_at_mut(DHLEN);
 		self.re = PublicKey::from_bytes(from_slice_hashlen(re))?;
@@ -360,7 +355,6 @@ impl HandshakeState {
 
 	pub(crate) fn read_message_c(&mut self, in_out: &mut [u8]) ->  Result<(Hash, CipherState, CipherState), NoiseError> {
 		if in_out.len() < MAC_LENGTH+DHLEN {
-			//missing rs
 			return Err(NoiseError::MissingrsError);
 		}
 		let (rs, in_out) = in_out.split_at_mut(MAC_LENGTH+DHLEN);

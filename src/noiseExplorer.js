@@ -156,13 +156,16 @@ const RSRENDER = (pattern, parsedRs) => {
 		READFILE('rs/5state.rs'),
 		READFILE('rs/6processes.rs'),
 		READFILE('rs/7error.rs'),
-		READFILE('rs/8macros.rs')
+		READFILE('rs/8macros.rs'),
+		READFILE('rs/9Cargo.toml')
 	];
 	rs[0] = rs[0].replace('/* $NOISE2RS_N$ */', `/*\n${pattern}\n*/`);
+	rs[1] = rs[1].replace(/\$NOISE2RS_N\$/g, `${NOISEPARSER.parse(pattern).name.toLowerCase()}`);
 	rs[5] = rs[5].replace('/* $NOISE2RS_I$ */', parsedRs.i);
 	rs[5] = rs[5].replace('/* $NOISE2RS_W$ */', parsedRs.w);
 	rs[5] = rs[5].replace('/* $NOISE2RS_R$ */', parsedRs.r);
 	rs[6] = rs[6].replace('/* $NOISE2RS_P$ */', parsedRs.p);
+	rs[9] = rs[9].replace(/\$NOISE2RS_N\$/g, `${NOISEPARSER.parse(pattern).name.toLowerCase()}`);
 	return rs;
 };
 
@@ -176,13 +179,20 @@ const WASMRENDER = (pattern, parsedWasm) => {
 		READFILE('wasm/5state.rs'),
 		READFILE('wasm/6processes.rs'),
 		READFILE('wasm/7error.rs'),
-		READFILE('wasm/8macros.rs')
+		READFILE('wasm/8macros.rs'),
+		READFILE('wasm/9Cargo.toml'),
+		READFILE('wasm/10Makefile.m'),
+		READFILE('wasm/11README.md')
 	];
 	wasm[0] = wasm[0].replace('/* $NOISE2WASM_N$ */', `/*\n${pattern}\n*/`);
+	wasm[1] = wasm[1].replace(/\$NOISE2WASM_N\$/g, `${NOISEPARSER.parse(pattern).name.toLowerCase()}`);
 	wasm[5] = wasm[5].replace('/* $NOISE2WASM_I$ */', parsedWasm.i);
 	wasm[5] = wasm[5].replace('/* $NOISE2WASM_W$ */', parsedWasm.w);
 	wasm[5] = wasm[5].replace('/* $NOISE2WASM_R$ */', parsedWasm.r);
 	wasm[6] = wasm[6].replace('/* $NOISE2WASM_P$ */', parsedWasm.p);
+	wasm[9] = wasm[9].replace(/\$NOISE2WASM_N\$/g, `${NOISEPARSER.parse(pattern).name.toLowerCase()}`);
+	wasm[10] = wasm[10].replace(/\$NOISE2WASM_N\$/g, `${NOISEPARSER.parse(pattern).name.toLowerCase()}`);
+	wasm[11] = wasm[11].replace(/\$NOISE2WASM_N\$/g, `${NOISEPARSER.parse(pattern).name.toLowerCase()}`);
 	return wasm;
 };
 
@@ -258,21 +268,18 @@ if (
 	});
 	let parsedRs = NOISE2RS.parse(json);
 	let output = RSRENDER(pattern, parsedRs);
-	let cargo = READFILE('rs/Cargo.toml')
-		.replace("$NOISE2RS_N$", json.name.toLowerCase());
-	output[1] =  output[1]
-		.replace(/\$NOISE2RS_N\$/g, json.name.toLowerCase());
+
 	let testGen = NOISE2RSTESTGEN.generate(json, pattern);
 	let test = READFILE('rs/test.rs')
 		.replace("$NOISE2RS_S$", psk)
 		.replace("$NOISE2RS_T$", testGen)
 		.replace(/\$NOISE2RS_N\$/g, json.name.toLowerCase());
+
 	if (!FS.existsSync(`../implementations/rs/${json.name}`)) {
 		FS.mkdirSync(`../implementations/rs/${json.name}`);
 		FS.mkdirSync(`../implementations/rs/${json.name}/src`);
 		FS.mkdirSync(`../implementations/rs/${json.name}/tests`);
 	}
-	WRITEFILE(`../implementations/rs/${json.name}/Cargo.toml`, cargo);
 	WRITEFILE(`../implementations/rs/${json.name}/src/lib.rs`, output[0]);
 	WRITEFILE(`../implementations/rs/${json.name}/src/types.rs`, output[1]);
 	WRITEFILE(`../implementations/rs/${json.name}/src/consts.rs`, output[2]);
@@ -282,6 +289,7 @@ if (
 	WRITEFILE(`../implementations/rs/${json.name}/src/noisesession.rs`, output[6]);
 	WRITEFILE(`../implementations/rs/${json.name}/src/error.rs`, output[7]);
 	WRITEFILE(`../implementations/rs/${json.name}/src/macros.rs`, output[8]);
+	WRITEFILE(`../implementations/rs/${json.name}/Cargo.toml`, output[9]);
 	WRITEFILE(`../implementations/rs/${json.name}/tests/handshake.rs`, test);
 	process.exit();
 }
@@ -300,29 +308,20 @@ if (
 	});
 	let parsedWasm = NOISE2WASM.parse(json);
 	let output = WASMRENDER(pattern, parsedWasm);
-	let cargo = READFILE('wasm/Cargo.toml')
-		.replace("$NOISE2WASM_N$", json.name.toLowerCase());
-	output[1] =  output[1]
-		.replace(/\$NOISE2WASM_N\$/g, json.name.toLowerCase());
+	
+	
 	let testGen = NOISE2WASMTESTGEN.generate(json, pattern);
 	let test = READFILE('wasm/test.rs')
 		.replace("$NOISE2WASM_S$", psk)
 		.replace("$NOISE2WASM_T$", testGen)
 		.replace(/\$NOISE2WASM_N\$/g, json.name.toLowerCase());
+		
 	if (!FS.existsSync(`../implementations/wasm/${json.name}`)) {
 		FS.mkdirSync(`../implementations/wasm/${json.name}`);
 		FS.mkdirSync(`../implementations/wasm/${json.name}/src`);
 		FS.mkdirSync(`../implementations/wasm/${json.name}/tests`);
-		FS.mkdirSync(`../implementations/wasm/${json.name}/chacha20poly1305`);
 	}
-	let makefile = READFILE('wasm/Makefile')
-		.replace(/\$NOISE2WASM_N\$/g, json.name.toLowerCase());
-	let readme = READFILE('wasm/README.md')
-		.replace(/\$NOISE2WASM_N\$/g, json.name.toLowerCase());
 
-	WRITEFILE(`../implementations/wasm/${json.name}/README.md`, readme);
-	WRITEFILE(`../implementations/wasm/${json.name}/Makefile`, makefile);
-	WRITEFILE(`../implementations/wasm/${json.name}/Cargo.toml`, cargo);
 	WRITEFILE(`../implementations/wasm/${json.name}/src/lib.rs`, output[0]);
 	WRITEFILE(`../implementations/wasm/${json.name}/src/types.rs`, output[1]);
 	WRITEFILE(`../implementations/wasm/${json.name}/src/consts.rs`, output[2]);
@@ -333,6 +332,9 @@ if (
 	WRITEFILE(`../implementations/wasm/${json.name}/src/error.rs`, output[7]);
 	WRITEFILE(`../implementations/wasm/${json.name}/src/macros.rs`, output[8]);
 	WRITEFILE(`../implementations/wasm/${json.name}/tests/handshake.rs`, test);
+	WRITEFILE(`../implementations/wasm/${json.name}/Cargo.toml`, output[9]);
+	WRITEFILE(`../implementations/wasm/${json.name}/Makefile`, output[10]);
+	WRITEFILE(`../implementations/wasm/${json.name}/README.md`, output[11]);
 	process.exit();
 }
 

@@ -52,6 +52,7 @@ let rsRender = (patternInput, parsedPattern, rs) => {
 	rs[5] = rs[5].replace('/* $NOISE2RS_W$ */', parsedRs.w);
 	rs[5] = rs[5].replace('/* $NOISE2RS_R$ */', parsedRs.r);
 	rs[6] = rs[6].replace('/* $NOISE2RS_P$ */', parsedRs.p);
+	rs[9] = rs[9].replace(/\$NOISE2RS_N\$/g, parsedPattern.name.toLowerCase());
 	return rs;
 };
 
@@ -62,6 +63,9 @@ let wasmRender = (patternInput, parsedPattern, wasm) => {
 	wasm[5] = wasm[5].replace('/* $NOISE2WASM_W$ */', parsedWasm.w);
 	wasm[5] = wasm[5].replace('/* $NOISE2WASM_R$ */', parsedWasm.r);
 	wasm[6] = wasm[6].replace('/* $NOISE2WASM_P$ */', parsedWasm.p);
+	wasm[9] = wasm[9].replace(/\$NOISE2WASM_N\$/g, parsedPattern.name.toLowerCase());
+	wasm[10] = wasm[10].replace(/\$NOISE2WASM_N\$/g, parsedPattern.name.toLowerCase());
+	wasm[11] = wasm[11].replace(/\$NOISE2WASM_N\$/g, parsedPattern.name.toLowerCase());
 	return wasm;
 };
 
@@ -139,20 +143,21 @@ let getGo = (patternInput, parsedPattern, cb) => {
 
 let getRs = (patternInput, parsedPattern, cb) => {
 	let rsTemplates = [
-		'0params',
-		'1types',
-		'2consts',
-		'3utils',
-		'4prims',
-		'5state',
-		'6processes',
-		'7error',
-		'8macros'
+		'0params.rs',
+		'1types.rs',
+		'2consts.rs',
+		'3utils.rs',
+		'4prims.rs',
+		'5state.rs',
+		'6processes.rs',
+		'7error.rs',
+		'8macros.rs',
+		'9Cargo.toml',
 	];
-	let rs = ['', '', '', '', '', '', '', '', ''];
+	let rs = ['', '', '', '', '', '', '', '', '', ''];
 	rsTemplates.forEach((templateFile, i) => {
 		let xhr = new XMLHttpRequest();
-		xhr.open('GET', `/res/rs/${templateFile}.rs`);
+		xhr.open('GET', `/res/rs/${templateFile}`);
 		xhr.onreadystatechange = () => {
 			if (
 				(xhr.readyState !== 4) ||
@@ -176,20 +181,23 @@ let getRs = (patternInput, parsedPattern, cb) => {
 
 let getWasm = (patternInput, parsedPattern, cb) => {
 	let wasmTemplates = [
-		'0params',
-		'1types',
-		'2consts',
-		'3utils',
-		'4prims',
-		'5state',
-		'6processes',
-		'7error',
-		'8macros'
+		'0params.rs',
+		'1types.rs',
+		'2consts.rs',
+		'3utils.rs',
+		'4prims.rs',
+		'5state.rs',
+		'6processes.rs',
+		'7error.rs',
+		'8macros.rs',
+		'9Cargo.toml',
+		'10Makefile.m',
+		'11README.md'
 	];
-	let wasm = ['', '', '', '', '', '', '', '', ''];
+	let wasm = ['', '', '', '', '', '', '', '', '', '', '', ''];
 	wasmTemplates.forEach((templateFile, i) => {
 		let xhr = new XMLHttpRequest();
-		xhr.open('GET', `/res/wasm/${templateFile}.rs`);
+		xhr.open('GET', `/res/wasm/${templateFile}`);
 		xhr.onreadystatechange = () => {
 			if (
 				(xhr.readyState !== 4) ||
@@ -313,19 +321,7 @@ let rsGen = (patternInput, aId, autoClick) => {
 		return false;
 	}
 	getRs(patternInput, parsedPattern, (rs) => {
-		let xhr = new XMLHttpRequest();
-		xhr.open('GET', `/res/rs/Cargo.toml`);
-		xhr.onreadystatechange = () => {
-			if (
-				(xhr.readyState !== 4) ||
-				(xhr.status !== 200)
-			) {
-				return false;
-			}
-			let cargo = xhr.responseText
-				.replace('$NOISE2RS_N$', parsedPattern.name.toLowerCase());
 			let zip = new JSZip();
-			zip.file('Cargo.toml', cargo);
 			let src = zip.folder('src');
 			src.file('lib.rs', rs[0]);
 			src.file('types.rs', rs[1]);
@@ -336,6 +332,7 @@ let rsGen = (patternInput, aId, autoClick) => {
 			src.file('noisesession.rs', rs[6]);
 			src.file('error.rs', rs[7]);
 			src.file('macros.rs', rs[8]);
+			zip.file('Cargo.toml', rs[9]);
 			zip.generateAsync({
 				type:'blob'
 			}).then((blob) => {
@@ -345,8 +342,6 @@ let rsGen = (patternInput, aId, autoClick) => {
 				$(aId).download = `${parsedPattern.name}.noise.rs.zip`;
 				autoClick? $(aId).click() : false;
 			});
-		};
-		xhr.send();
 	});
 	return false;
 };
@@ -363,19 +358,7 @@ let wasmGen = (patternInput, aId, autoClick) => {
 		return false;
 	}
 	getWasm(patternInput, parsedPattern, (wasm) => {
-		let xhr = new XMLHttpRequest();
-		xhr.open('GET', `/res/wasm/Cargo.toml`);
-		xhr.onreadystatechange = () => {
-			if (
-				(xhr.readyState !== 4) ||
-				(xhr.status !== 200)
-			) {
-				return false;
-			}
-			let cargo = xhr.responseText
-				.replace('$NOISE2WASM_N$', parsedPattern.name.toLowerCase());
 			let zip = new JSZip();
-			zip.file('Cargo.toml', cargo);
 			let src = zip.folder('src');
 			src.file('lib.rs', wasm[0]);
 			src.file('types.rs', wasm[1]);
@@ -386,6 +369,9 @@ let wasmGen = (patternInput, aId, autoClick) => {
 			src.file('noisesession.rs', wasm[6]);
 			src.file('error.rs', wasm[7]);
 			src.file('macros.rs', wasm[8]);
+			zip.file('Cargo.toml', wasm[9]);
+			zip.file('Makefile', wasm[10]);
+			zip.file('README.md', wasm[11]);
 			zip.generateAsync({
 				type:'blob'
 			}).then((blob) => {
@@ -395,9 +381,6 @@ let wasmGen = (patternInput, aId, autoClick) => {
 				$(aId).download = `${parsedPattern.name}.noise.wasm.zip`;
 				autoClick? $(aId).click() : false;
 			});
-		};
-		xhr.send();
 	});
 	return false;
-};
-
+};xs
