@@ -6,6 +6,7 @@ use noiseexplorer_$NOISE2RS_N$::{
 	noisesession::NoiseSession,
 	types::{Keypair, PrivateKey, PublicKey$NOISE2RS_S$},
 };
+use std::str::FromStr;
 
 fn decode_str(s: &str) -> Vec<u8> {
  	hex::decode(s).unwrap()

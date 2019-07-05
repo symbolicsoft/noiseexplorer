@@ -203,7 +203,7 @@ const NOISE2WASM = {
 			`self.ss.clear();`,
 			`Ok((h, cs1, cs2))`
 		] : [
-			`return Ok(());`
+			`Ok(())`
 		];
 		let isBeyondFinal = (message.tokens.length === 0);
 		if (isBeyondFinal) {
@@ -217,7 +217,7 @@ const NOISE2WASM = {
 				`\treturn Err(NoiseError::MissingneError);`,
 				`}`,
 				`if self.e.is_empty() {`,
-				`\tself.e = Keypair::new();`,
+				`\tself.e = Keypair::default();`,
 				`}`,
 				`let (ne, in_out) = in_out.split_at_mut(DHLEN);`,
 				`ne.copy_from_slice(&self.e.get_public_key().as_bytes()[..]);`,
@@ -291,7 +291,7 @@ const NOISE2WASM = {
 			`self.ss.clear();`,
 			`Ok((h, cs1, cs2))`
 		] : [
-			`return Ok(());`
+			`Ok(())`
 		];
 		let isBeyondFinal = (message.tokens.length === 0);
 		if (isBeyondFinal) {
@@ -409,7 +409,7 @@ const NOISE2WASM = {
 			`pub fn init_session(initiator: bool, prologue: &[u8], s: Keypair${sendRs||recvRs?', rs: Option<PublicKey>':''}${hasPsk? ', psk: Psk' : ''}) -> NoiseSession {`,
 			`\tif initiator {`,
 			`\t\tNoiseSession{`,
-			`\t\t\ths: HandshakeState::initialize_initiator(prologue, s${recvRs? ', rs.unwrap_or(PublicKey::empty())': ''}, ${hasPsk? 'psk' : 'Psk::new()'}),`,
+			`\t\t\ths: HandshakeState::initialize_initiator(prologue, s${recvRs? ', rs.unwrap_or(PublicKey::empty())': ''}, ${hasPsk? 'psk' : 'Psk::default()'}),`,
 			`\t\t\tmc: 0,`,
 			`\t\t\ti: initiator,`,
 			`\t\t\tcs1: CipherState::new(),`,
@@ -419,7 +419,7 @@ const NOISE2WASM = {
 			`\t\t}`,
 			`\t} else {`,
 			`\t\tNoiseSession {`,
-			`\t\t\ths: HandshakeState::initialize_responder(prologue, s${sendRs? ', rs.unwrap_or(PublicKey::empty())': ''}, ${hasPsk? 'psk' : 'Psk::new()'}),`,
+			`\t\t\ths: HandshakeState::initialize_responder(prologue, s${sendRs? ', rs.unwrap_or(PublicKey::empty())': ''}, ${hasPsk? 'psk' : 'Psk::default()'}),`,
 			`\t\t\tmc: 0,`,
 			`\t\t\ti: initiator,`,
 			`\t\t\tcs1: CipherState::new(),`,

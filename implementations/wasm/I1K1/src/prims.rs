@@ -21,7 +21,7 @@ pub(crate) fn decrypt(k: [u8; DHLEN], n: u64, ad: &[u8], plaintext: &mut [u8], c
 		plaintext.copy_from_slice(&plain_text[..]);
 		return true;
 	}
-	return false;
+	false
 }
 
 pub(crate) fn hash(data: &[u8]) -> [u8; HASHLEN] {

@@ -287,7 +287,7 @@ impl HandshakeState {
 			return Err(NoiseError::MissingneError);
 		}
 		if self.e.is_empty() {
-			self.e = Keypair::new();
+			self.e = Keypair::default();
 		}
 		let (ne, in_out) = in_out.split_at_mut(DHLEN);
 		ne.copy_from_slice(&self.e.get_public_key().as_bytes()[..]);
@@ -295,7 +295,7 @@ impl HandshakeState {
 		/* No PSK, so skipping mixKey */
 		self.ss.mix_key(&self.e.dh(&self.rs.as_bytes()));
 		self.ss.encrypt_and_hash(in_out)?;
-		return Ok(());
+		Ok(())
 	}
 
 	pub(crate) fn write_message_b(&mut self, in_out: &mut [u8]) -> Result<(), NoiseError> {
@@ -303,7 +303,7 @@ impl HandshakeState {
 			return Err(NoiseError::MissingneError);
 		}
 		if self.e.is_empty() {
-			self.e = Keypair::new();
+			self.e = Keypair::default();
 		}
 		let (ne, in_out) = in_out.split_at_mut(DHLEN);
 		ne.copy_from_slice(&self.e.get_public_key().as_bytes()[..]);
@@ -311,7 +311,7 @@ impl HandshakeState {
 		/* No PSK, so skipping mixKey */
 		self.ss.mix_key(&self.e.dh(&self.re.as_bytes()));
 		self.ss.encrypt_and_hash(in_out)?;
-		return Ok(());
+		Ok(())
 	}
 
 	pub(crate) fn write_message_c(&mut self, in_out: &mut [u8]) -> Result<(), NoiseError> {
@@ -319,7 +319,7 @@ impl HandshakeState {
 		ns[..DHLEN].copy_from_slice(&self.s.get_public_key().as_bytes()[..]);
 		self.ss.encrypt_and_hash(ns)?;
 		self.ss.encrypt_and_hash(in_out)?;
-		return Ok(());
+		Ok(())
 	}
 
 	pub(crate) fn write_message_d(&mut self, in_out: &mut [u8]) -> Result<(Hash, CipherState, CipherState), NoiseError> {
@@ -342,7 +342,7 @@ impl HandshakeState {
 		/* No PSK, so skipping mixKey */
 		self.ss.mix_key(&self.s.dh(&self.re.as_bytes()));
 		self.ss.decrypt_and_hash(in_out)?;
-		return Ok(());
+		Ok(())
 	}
 
 	pub(crate) fn read_message_b(&mut self, in_out: &mut [u8]) -> Result<(), NoiseError> {
@@ -355,7 +355,7 @@ impl HandshakeState {
 		/* No PSK, so skipping mixKey */
 		self.ss.mix_key(&self.e.dh(&self.re.as_bytes()));
 		self.ss.decrypt_and_hash(in_out)?;
-		return Ok(());
+		Ok(())
 	}
 
 	pub(crate) fn read_message_c(&mut self, in_out: &mut [u8]) -> Result<(), NoiseError> {
@@ -366,7 +366,7 @@ impl HandshakeState {
 		self.ss.decrypt_and_hash(rs)?;
 		self.rs = PublicKey::from_bytes(from_slice_hashlen(rs))?;
 		self.ss.decrypt_and_hash(in_out)?;
-		return Ok(());
+		Ok(())
 	}
 
 	pub(crate) fn read_message_d(&mut self, in_out: &mut [u8]) ->  Result<(Hash, CipherState, CipherState), NoiseError> {

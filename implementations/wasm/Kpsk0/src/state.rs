@@ -289,7 +289,7 @@ impl HandshakeState {
 			return Err(NoiseError::MissingneError);
 		}
 		if self.e.is_empty() {
-			self.e = Keypair::new();
+			self.e = Keypair::default();
 		}
 		let (ne, in_out) = in_out.split_at_mut(DHLEN);
 		ne.copy_from_slice(&self.e.get_public_key().as_bytes()[..]);

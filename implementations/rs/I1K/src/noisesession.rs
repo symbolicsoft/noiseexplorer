@@ -108,7 +108,7 @@ impl NoiseSession {
 	pub fn init_session(initiator: bool, prologue: &[u8], s: Keypair, rs: Option<PublicKey>) -> NoiseSession {
 		if initiator {
 			NoiseSession{
-				hs: HandshakeState::initialize_initiator(prologue, s, rs.unwrap_or(PublicKey::empty()), Psk::new()),
+				hs: HandshakeState::initialize_initiator(prologue, s, rs.unwrap_or(PublicKey::empty()), Psk::default()),
 				mc: 0,
 				i: initiator,
 				cs1: CipherState::new(),
@@ -118,7 +118,7 @@ impl NoiseSession {
 			}
 		} else {
 			NoiseSession {
-				hs: HandshakeState::initialize_responder(prologue, s, Psk::new()),
+				hs: HandshakeState::initialize_responder(prologue, s, Psk::default()),
 				mc: 0,
 				i: initiator,
 				cs1: CipherState::new(),

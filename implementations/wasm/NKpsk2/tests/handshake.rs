@@ -9,6 +9,7 @@ use noiseexplorer_nkpsk2_wasm::{
 	noisesession::NoiseSession,
 	types::{Keypair, PrivateKey, PublicKey, Psk},
 };
+use std::str::FromStr;
 
 fn decode_str(s: &str) -> Vec<u8> {
  	hex::decode(s).unwrap()
