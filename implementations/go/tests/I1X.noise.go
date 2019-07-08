@@ -100,6 +100,29 @@ func isEmptyKey(k [32]byte) bool {
 	return subtle.ConstantTimeCompare(k[:], emptyKey[:]) == 1
 }
 
+func validatePublicKey(k []byte) bool {
+	forbiddenCurveValues := [12][]byte{
+		{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		{224, 235, 122, 124, 59, 65, 184, 174, 22, 86, 227, 250, 241, 159, 196, 106, 218, 9, 141, 235, 156, 50, 177, 253, 134, 98, 5, 22, 95, 73, 184, 0},
+		{95, 156, 149, 188, 163, 80, 140, 36, 177, 208, 177, 85, 156, 131, 239, 91, 4, 68, 92, 196, 88, 28, 142, 134, 216, 34, 78, 221, 208, 159, 17, 87},
+		{236, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 127},
+		{237, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 127},
+		{238, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 127},
+		{205, 235, 122, 124, 59, 65, 184, 174, 22, 86, 227, 250, 241, 159, 196, 106, 218, 9, 141, 235, 156, 50, 177, 253, 134, 98, 5, 22, 95, 73, 184, 128},
+		{76, 156, 149, 188, 163, 80, 140, 36, 177, 208, 177, 85, 156, 131, 239, 91, 4, 68, 92, 196, 88, 28, 142, 134, 216, 34, 78, 221, 208, 159, 17, 215},
+		{217, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255},
+		{218, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255},
+		{219, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 25},
+	}
+
+	for _, testValue := range forbiddenCurveValues {
+		if subtle.ConstantTimeCompare(k[:], testValue[:]) == 1 {
+			panic("Invalid public key")
+		}
+	}
+	return true
+}
 /* ---------------------------------------------------------------- *
  * PRIMITIVES                                                       *
  * ---------------------------------------------------------------- */
@@ -119,7 +142,10 @@ func generateKeypair() keypair {
 	var private_key [32]byte
 	_, _ = rand.Read(private_key[:])
 	curve25519.ScalarBaseMult(&public_key, &private_key)
-	return keypair{public_key, private_key}
+	if validatePublicKey(public_key[:]) {
+		return keypair{public_key, private_key}
+	}
+	return generateKeypair()
 }
 
 func generatePublicKey(private_key [32]byte) [32]byte {
@@ -350,11 +376,13 @@ func writeMessageRegular(cs *cipherstate, payload []byte) (*cipherstate, message
 
 func readMessageA(hs *handshakestate, message *messagebuffer) (*handshakestate, []byte, bool) {
 	valid1 := true
-	hs.re = message.ne
+	if validatePublicKey(message.ne[:]) {
+		hs.re = message.ne
+	}
 	mixHash(&hs.ss, hs.re[:])
 	/* No PSK, so skipping mixKey */
 	_, ns, valid1 := decryptAndHash(&hs.ss, message.ns)
-	if valid1 && len(ns) == 32 {
+	if valid1 && len(ns) == 32 && validatePublicKey(message.ns[:]) {
 		copy(hs.rs[:], ns)
 	}
 	_, plaintext, valid2 := decryptAndHash(&hs.ss, message.ciphertext)
@@ -363,12 +391,14 @@ func readMessageA(hs *handshakestate, message *messagebuffer) (*handshakestate, 
 
 func readMessageB(hs *handshakestate, message *messagebuffer) (*handshakestate, []byte, bool) {
 	valid1 := true
-	hs.re = message.ne
+	if validatePublicKey(message.ne[:]) {
+		hs.re = message.ne
+	}
 	mixHash(&hs.ss, hs.re[:])
 	/* No PSK, so skipping mixKey */
 	mixKey(&hs.ss, dh(hs.e.private_key, hs.re))
 	_, ns, valid1 := decryptAndHash(&hs.ss, message.ns)
-	if valid1 && len(ns) == 32 {
+	if valid1 && len(ns) == 32 && validatePublicKey(message.ns[:]) {
 		copy(hs.rs[:], ns)
 	}
 	mixKey(&hs.ss, dh(hs.e.private_key, hs.rs))

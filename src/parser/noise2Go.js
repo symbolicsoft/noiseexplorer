@@ -266,13 +266,15 @@ const NOISE2GO = {
 			`func readMessage${suffix}(hs *handshakestate, message *messagebuffer) (${isFinal? `[32]byte, []byte, bool, cipherstate, cipherstate` : `*handshakestate, []byte, bool`}) {`;
 		let messageTokenParsers = {
 			e: [
-				`hs.re = message.ne`,
+				`if validatePublicKey(message.ne[:]) {`,
+				`\ths.re = message.ne`,
+				`}`,
 				`mixHash(&hs.ss, hs.re[:])`,
 				ePskFill
 			].join(`\n\t`),
 			s: [
 				`_, ns, valid1 := decryptAndHash(&hs.ss, message.ns)`,
-				`if valid1 && len(ns) == 32 {`,
+				`if valid1 && len(ns) == 32 && validatePublicKey(message.ns[:]) {`,
 				`\tcopy(hs.rs[:], ns)`,
 				`}`,
 			].join(`\n\t`),

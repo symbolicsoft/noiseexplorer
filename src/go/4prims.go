@@ -17,7 +17,10 @@ func generateKeypair() keypair {
 	var private_key [32]byte
 	_, _ = rand.Read(private_key[:])
 	curve25519.ScalarBaseMult(&public_key, &private_key)
-	return keypair{public_key, private_key}
+	if validatePublicKey(public_key[:]) {
+		return keypair{public_key, private_key}
+	}
+	return generateKeypair()
 }
 
 func generatePublicKey(private_key [32]byte) [32]byte {
