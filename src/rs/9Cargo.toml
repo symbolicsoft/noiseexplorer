@@ -1,6 +1,6 @@
 [package]
 name = "noiseexplorer_$NOISE2RS_N$"
-version = "0.1.2"
+version = "$NOISE2RS_V$"
 authors = ["Symbolic Software <georgio@symbolic.software>"]
 edition = "2018"
 

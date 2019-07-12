@@ -1,3 +1,16 @@
+## Noise Explorer v1.0.0
+- Miscelaneous:
+	- _Added initial automation scripts._
+	- _Added Rust testing pipeline._
+	- _Reorganized generated Go tests and made minor changes to ``make tests`._
+	- _Generated new implementations._
+	- _Updated Travis-CI config. All implementations are passing tests in the pipeline.._
+	- _Implementation versions now depend on src/versions.json._
+	- _Updated pipeline script and added commit formatting._
+	- _Generated new implementations._
+	- _Fixed README.md for WASM implementations._
+	- _Added script for automated changelog messages and version increments._
+
 ## Noise Explorer 0.3 (?)
 - Now based on Noise Protocol Framework revision 34.
 - Generate Go implementations and test-injected implementations.

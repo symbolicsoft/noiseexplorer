@@ -10,6 +10,15 @@ let genReady = {
 
 let $ = (id) => { return document.getElementById(id) };
 
+let VER;
+
+fetch('res/js/versions.json').then(response => {
+	if (!response.ok) {
+		throw new Error("HTTP error " + response.status);
+	}
+	return response.json();
+}).then(json => { VER = json; });
+
 let getArrows = (parsedPattern) => {
 	let renderData = NOISEREADER.render(
 		parsedPattern, [], [], [], []
@@ -38,6 +47,7 @@ let pvRender = (patternInput, parsedPattern, passive, pv) => {
 let goRender = (patternInput, parsedPattern, go) => {
 	let parsedGo = NOISE2GO.parse(parsedPattern);
 	go[0] = go[0].replace('/* $NOISE2GO_N$ */', `/*\n${patternInput}\n*/`);
+	go[0] = go[0].replace('/* $NOISE2GO_V$ */', `${VER.major_go}.${VER.minor_go}.${VER.patch_go}`);
 	go[5] = go[5].replace('/* $NOISE2GO_I$ */', parsedGo.i);
 	go[5] = go[5].replace('/* $NOISE2GO_W$ */', parsedGo.w);
 	go[5] = go[5].replace('/* $NOISE2GO_R$ */', parsedGo.r);
@@ -53,6 +63,7 @@ let rsRender = (patternInput, parsedPattern, rs) => {
 	rs[5] = rs[5].replace('/* $NOISE2RS_R$ */', parsedRs.r);
 	rs[6] = rs[6].replace('/* $NOISE2RS_P$ */', parsedRs.p);
 	rs[9] = rs[9].replace(/\$NOISE2RS_N\$/g, parsedPattern.name.toLowerCase());
+	rs[9] = rs[9].replace(/\$NOISE2RS_V\$/g, `${VER.major_rust}.${VER.minor_rust}.${VER.patch_rust}`);
 	return rs;
 };
 
@@ -64,8 +75,10 @@ let wasmRender = (patternInput, parsedPattern, wasm) => {
 	wasm[5] = wasm[5].replace('/* $NOISE2WASM_R$ */', parsedWasm.r);
 	wasm[6] = wasm[6].replace('/* $NOISE2WASM_P$ */', parsedWasm.p);
 	wasm[9] = wasm[9].replace(/\$NOISE2WASM_N\$/g, parsedPattern.name.toLowerCase());
+	wasm[9] = wasm[9].replace(/\$NOISE2WASM_V\$/g, `${VER.major_wasm}.${VER.minor_wasm}.${VER.patch_wasm}`);
 	wasm[10] = wasm[10].replace(/\$NOISE2WASM_N\$/g, parsedPattern.name.toLowerCase());
 	wasm[11] = wasm[11].replace(/\$NOISE2WASM_N\$/g, parsedPattern.name.toLowerCase());
+	wasm[11] = wasm[11].replace(/\$NOISE2WASM_V\$/g, `${VER.major_wasm}.${VER.minor_wasm}.${VER.patch_wasm}`);
 	return wasm;
 };
 
@@ -383,4 +396,4 @@ let wasmGen = (patternInput, aId, autoClick) => {
 			});
 	});
 	return false;
-};xs
+};

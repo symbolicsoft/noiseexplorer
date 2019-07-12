@@ -1,6 +1,6 @@
 dependencies:
 	@/bin/echo -n "[NoiseExplorer] Installing dependencies..."
-	@npm install -g pegjs
+	@npm install --save pegjs conventional-commits-parser 
 	@npm install
 	@curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
 	@/bin/echo " OK."

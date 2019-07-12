@@ -9,13 +9,14 @@ const NOISE2GOTESTGEN = require('./testgen/noise2GoTestGen.js');
 const NOISE2RSTESTGEN = require('./testgen/noise2RsTestGen.js');
 const NOISE2WASMTESTGEN = require('./testgen/noise2WasmTestGen.js');
 const NOISEREADER = require('./parser/noiseReader.js');
+const VER = require('./versions.json');
 
 const UTIL = {
 	abc: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
 };
 
 const HELPTEXT = [
-	'Noise Explorer version 0.3 (specification revision 34)',
+	`Noise Explorer version ${VER.major_engine}.${VER.minor_engine}.${VER.patch_engine} (specification revision 34)`,
 	'Noise Explorer has three individual modes: generation, rendering and web interface.',
 	'',
 	'Generation:',
@@ -139,6 +140,7 @@ const GORENDER = (pattern, parsedGo) => {
 		READFILE('go/6processes.go')
 	];
 	go[0] = go[0].replace('/* $NOISE2GO_N$ */', `/*\n${pattern}\n*/`);
+	go[0] = go[0].replace('/* $NOISE2GO_V$ */', `${VER.major_go}.${VER.minor_go}.${VER.patch_go}`);
 	go[5] = go[5].replace('/* $NOISE2GO_I$ */', parsedGo.i);
 	go[5] = go[5].replace('/* $NOISE2GO_W$ */', parsedGo.w);
 	go[5] = go[5].replace('/* $NOISE2GO_R$ */', parsedGo.r);
@@ -166,6 +168,7 @@ const RSRENDER = (pattern, parsedRs) => {
 	rs[5] = rs[5].replace('/* $NOISE2RS_R$ */', parsedRs.r);
 	rs[6] = rs[6].replace('/* $NOISE2RS_P$ */', parsedRs.p);
 	rs[9] = rs[9].replace(/\$NOISE2RS_N\$/g, `${NOISEPARSER.parse(pattern).name.toLowerCase()}`);
+	rs[9] = rs[9].replace(/\$NOISE2RS_V\$/g, `${VER.major_rust}.${VER.minor_rust}.${VER.patch_rust}`);
 	return rs;
 };
 
@@ -191,8 +194,10 @@ const WASMRENDER = (pattern, parsedWasm) => {
 	wasm[5] = wasm[5].replace('/* $NOISE2WASM_R$ */', parsedWasm.r);
 	wasm[6] = wasm[6].replace('/* $NOISE2WASM_P$ */', parsedWasm.p);
 	wasm[9] = wasm[9].replace(/\$NOISE2WASM_N\$/g, `${NOISEPARSER.parse(pattern).name.toLowerCase()}`);
+	wasm[9] = wasm[9].replace(/\$NOISE2WASM_V\$/g, `${VER.major_wasm}.${VER.minor_wasm}.${VER.patch_wasm}`);
 	wasm[10] = wasm[10].replace(/\$NOISE2WASM_N\$/g, `${NOISEPARSER.parse(pattern).name.toLowerCase()}`);
 	wasm[11] = wasm[11].replace(/\$NOISE2WASM_N\$/g, `${NOISEPARSER.parse(pattern).name.toLowerCase()}`);
+	wasm[11] = wasm[11].replace(/\$NOISE2WASM_V\$/g, `${VER.major_wasm}.${VER.minor_wasm}.${VER.patch_wasm}`);
 	return wasm;
 };
 
@@ -246,10 +251,16 @@ if (
 	let parsedGo = NOISE2GO.parse(json);
 	let output = GORENDER(pattern, parsedGo);
 	let testGen = NOISE2GOTESTGEN.generate(json, output.join('\n'));
+	if (!FS.existsSync(`../implementations/go`)) {
+		FS.mkdirSync(`../implementations/go/`);
+	}
 	if (!FS.existsSync(`../implementations/go/tests`)) {
 		FS.mkdirSync(`../implementations/go/tests/`);
 	}
-	WRITEFILE(`../implementations/go/tests/${json.name}.noise.go`, testGen);
+	if (!FS.existsSync(`../implementations/go/tests/${json.name}`)) {
+		FS.mkdirSync(`../implementations/go/tests/${json.name}/`);
+	}
+	WRITEFILE(`../implementations/go/tests/${json.name}/${json.name}.noise.go`, testGen);
 	WRITEFILE(`../implementations/go/${json.name}.noise.go`, output.join('\n'));
 	process.exit();
 }

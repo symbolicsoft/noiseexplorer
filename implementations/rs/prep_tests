@@ -1,0 +1,5 @@
+#!/bin/bash
+
+for pattern in ./*; do
+    cp $pattern/tests/handshake.rs ./tests/$pattern.rs  2>/dev/null || :
+done

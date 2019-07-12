@@ -1,0 +1,58 @@
+{
+    "branch": "next",
+    "repositoryUrl": "https://github.com/georgio/noiseexplorer",
+    "tagFormat": "v${version}",
+    "plugins": [
+        [
+            "@semantic-release/commit-analyzer",
+            {
+                "preset": "angular",
+                "releaseRules": [
+                    {
+                        "type": "feat",
+                        "release": "patch"
+                    },
+                    {
+                        "type": "fix",
+                        "release": "patch"
+                    },
+                    {
+                        "type": "docs",
+                        "release": false
+                    },
+                    {
+                        "type": "style",
+                        "release": false
+                    },
+                    {
+                        "type": "refactor",
+                        "release": "patch"
+                    },
+                    {
+                        "type": "opt",
+                        "release": "patch"
+                    },
+                    {
+                        "type": "perf",
+                        "release": "minor"
+                    },
+                    {
+                        "type": "test",
+                        "release": "patch"
+                    },
+                    {
+                        "type": "dep",
+                        "release": "patch"
+                    }
+                ],
+                "parserOpts": {
+                    "noteKeywords": [
+                        "BREAKING CHANGE",
+                        "BREAKING CHANGES"
+                    ]
+                }
+            }
+        ]
+    ],
+    "ci": true
+}
