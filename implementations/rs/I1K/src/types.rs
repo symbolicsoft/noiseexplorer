@@ -212,7 +212,6 @@ impl std::str::FromStr for Psk {
     }
 }
 
-#[derive(Clone)]
 pub struct PrivateKey {
     k: [u8; DHLEN],
 }
@@ -405,7 +404,6 @@ impl Nonce {
     }
 }
 
-#[derive(Clone)]
 pub struct Keypair {
     private_key: PrivateKey,
     public_key: PublicKey,

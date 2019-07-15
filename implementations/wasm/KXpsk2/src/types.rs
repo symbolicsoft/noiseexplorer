@@ -49,7 +49,7 @@ impl Hash {
 }
 
 #[wasm_bindgen]
-#[derive(Clone, Default)]
+#[derive(Default)]
 pub struct Key {
     k: [u8; DHLEN],
 }
@@ -208,7 +208,6 @@ impl std::str::FromStr for Psk {
 }
 
 #[wasm_bindgen]
-#[derive(Clone)]
 pub struct PrivateKey {
     k: [u8; DHLEN],
 }
@@ -390,7 +389,6 @@ impl Nonce {
 }
 
 #[wasm_bindgen]
-#[derive(Clone)]
 pub struct Keypair {
     private_key: PrivateKey,
     public_key: PublicKey,

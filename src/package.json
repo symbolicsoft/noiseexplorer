@@ -8,6 +8,7 @@
   "license": "GPL-3.0",
   "dependencies": {
     "conventional-commits-parser": "^3.0.1",
-    "minimist": "latest"
+    "minimist": "latest",
+    "pegjs": "^0.10.0"
   }
 }

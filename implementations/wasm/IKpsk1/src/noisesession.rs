@@ -27,7 +27,6 @@ use wasm_bindgen::prelude::*;
 ///   performed succesfully with a remote session and the session is in transport mode.
 
 #[wasm_bindgen]
-#[derive(Clone)]
 pub struct NoiseSession {
 	hs:  HandshakeState,
 	h:   Hash,

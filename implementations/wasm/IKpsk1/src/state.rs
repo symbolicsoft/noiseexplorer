@@ -10,7 +10,6 @@ use crate::{consts::{DHLEN, EMPTY_HASH, EMPTY_KEY, HASHLEN, MAC_LENGTH, NONCE_LE
 use crypto::chacha20poly1305::ChaCha20Poly1305;
 use crypto::aead::AeadEncryptor;
 
-#[derive(Clone)]
 pub(crate) struct CipherState {
 	k: Key,
 	n: Nonce,
@@ -112,7 +111,7 @@ impl CipherState {
 		Ok(())
 	}
 }
-#[derive(Clone)]
+
 pub(crate) struct SymmetricState {
 	cs: CipherState,
 	ck: Hash,
@@ -239,7 +238,6 @@ impl SymmetricState {
 	}
 }
 
-#[derive(Clone)]
 pub struct HandshakeState {
 	ss:  SymmetricState,
 	s:   Keypair,
@@ -249,7 +247,6 @@ pub struct HandshakeState {
 	psk: Psk,
 }
 
-/* HandshakeState */
 impl HandshakeState {
 	pub(crate) fn clear(&mut self) {
 		self.s.clear();

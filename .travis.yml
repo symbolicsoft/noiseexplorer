@@ -18,16 +18,16 @@ matrix:
         -  cd $TRAVIS_BUILD_DIR/implementations/go/tests
       script:
         - for pattern in ./*; do cd $pattern; go get -d ./...; go run *; cd ../; done
-    - language: rust
-      rust:
-        -  stable
-        -  beta
-        -  nightly
-      cache: cargo
-      addons:
-        firefox: latest
-      script:
-        -  sudo curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
-        -  cd $TRAVIS_BUILD_DIR/implementations/wasm
-        -  for pattern in ./*; do cd $pattern; wasm-pack test --firefox --headless; cd ..; done;
-        -  cd $TRAVIS_BUILD_DIR
+    # - language: rust
+    #   rust:
+    #     -  stable
+    #     -  beta
+    #     -  nightly
+    #   cache: cargo
+    #   addons:
+    #     firefox: latest
+    #   script:
+    #     -  sudo curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
+    #     -  cd $TRAVIS_BUILD_DIR/implementations/wasm
+    #     -  for pattern in ./*; do cd $pattern; wasm-pack test --firefox --headless; cd ..; done;
+    #     -  cd $TRAVIS_BUILD_DIR

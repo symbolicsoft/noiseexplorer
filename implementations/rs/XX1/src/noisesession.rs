@@ -25,7 +25,6 @@ use crate::{consts::{HASHLEN, MAC_LENGTH, MAX_MESSAGE},
 /// - `is_transport`: `bool` value that indicates whether a handshake has been
 ///   performed succesfully with a remote session and the session is in transport mode.
 
-#[derive(Clone)]
 pub struct NoiseSession {
 	hs:  HandshakeState,
 	h:   Hash,
@@ -40,6 +39,7 @@ impl NoiseSession {
 	pub fn is_transport(&self) -> bool {
 		self.is_transport
 	}
+
 	/// Clears `cs1`.
 	pub fn clear_local_cipherstate(&mut self) {
 		self.cs1.clear();

@@ -107,8 +107,7 @@ function init(module) {
     const imports = {};
     imports.wbg = {};
     imports.wbg.__wbindgen_throw = function(arg0, arg1) {
-        let varg0 = getStringFromWasm(arg0, arg1);
-        throw new Error(varg0);
+        throw new Error(getStringFromWasm(arg0, arg1));
     };
 
     if (module instanceof URL || typeof module === 'string' || module instanceof Request) {
