@@ -65,5 +65,7 @@ matrix:
       stage: Release
 stages: 
   - 
+    name: Test
+  - 
     if: "(branch = pre-release)"
     name: Release
