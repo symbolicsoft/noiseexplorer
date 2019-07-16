@@ -1,8 +1,4 @@
-stages:
-  - test
-  - prepare
-    if: branch = pre-release
-- stage: test
+if: branch = pre-release
   matrix:
     include:
       - language: rust
@@ -34,12 +30,7 @@ stages:
           -  sudo curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
           -  cd $TRAVIS_BUILD_DIR/implementations/wasm
           -  for pattern in ./*; do cd $pattern; wasm-pack test --firefox --headless; cd ..; done;
-- stage: prepare
-  - language: rust
-    rust:
-      -  stable
-    cache: cargo
-    script:
+  - after_success:
       -  NOISE_VER="x" 
       -  git config --global user.email "travis@travis-ci.org"
       -  git config --global user.name "Travis CI"
