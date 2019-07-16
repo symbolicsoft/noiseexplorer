@@ -1,3 +1,11 @@
+## Noise Explorer v1.0.1
+- Rust:
+	- _fix(rust): Removed the ability to clone traits (#37)_.
+
+- WebAssembly:
+	- _fix(wasm): Removed the ability to clone traits (#37)_.
+
+
 ## Noise Explorer v1.0.0
 - Miscelaneous:
 	- _Added initial automation scripts._

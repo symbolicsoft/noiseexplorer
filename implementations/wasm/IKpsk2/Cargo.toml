@@ -1,6 +1,6 @@
 [package]
 name = "noiseexplorer_ikpsk2_wasm"
-version = "1.0.0"
+version = "1.0.1"
 authors = ["Symbolic Software <georgio@symbolic.software>"]
 edition = "2018"
 

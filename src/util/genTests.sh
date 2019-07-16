@@ -21,4 +21,3 @@ for pattern in ./*; do
     wasm-pack test --release --headless --chrome
     cd ..
 done
-cd ../src
