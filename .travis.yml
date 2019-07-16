@@ -50,7 +50,6 @@ matrix:
         -  NOISE_VER="x" 
         -  git config --global user.email "travis@travis-ci.org"
         -  git config --global user.name "Travis CI"
-        -  sudo curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
         -  git checkout master > /dev/null 2>&1
         -  git merge --squash pre-release > /dev/null 2>&1
         -  cd $TRAVIS_BUILD_DIR/src
