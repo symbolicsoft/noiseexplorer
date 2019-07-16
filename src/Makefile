@@ -30,6 +30,12 @@ tests:
 html:
 	@cd util && bash genHtml.sh
 
+release:
+	@cd util && node prep.js
+	@git branch pre-release && git checkout pre-release
+	@make implementations
+	@cd ../ && git add * && git commit -m "Pre-Release" && git push origin pre-release
+
 clean:
 	@/bin/echo -n "[NoiseExplorer] Cleaning up... "
 	@rm -f parser/noiseParser.js

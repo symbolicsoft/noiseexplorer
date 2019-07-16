@@ -3,7 +3,7 @@
   "collaborators": [
     "Symbolic Software <georgio@symbolic.software>"
   ],
-  "version": "1.0.0",
+  "version": "1.0.1",
   "files": [
     "noiseexplorer_kkpsk2_wasm_bg.wasm",
     "noiseexplorer_kkpsk2_wasm.js",
