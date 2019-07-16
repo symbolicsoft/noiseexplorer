@@ -47,7 +47,7 @@ matrix:
         - "cd $TRAVIS_BUILD_DIR/implementations/wasm"
         - "for pattern in ./*; do cd $pattern; wasm-pack build --target web --release --scope noiseexplorer_$pattern; rm pkg/.gitignore; cd ..; done"
         - "cd $TRAVIS_BUILD_DIR"
-        - NOISE_VER="1.0.1"
+        - "NOISE_VER=\"1.0.1\""
         - "git config --global user.email \"georgio@symbolic.software\""
         - "git config --global user.name \"georgio\""
         - "git checkout master > /dev/null 2>&1"
