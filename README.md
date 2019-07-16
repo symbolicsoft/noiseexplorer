@@ -18,7 +18,7 @@ Noise Explorer can also render results from the ProVerif output into an elegant 
 
 ```
 $> node noiseExplorer --help
-Noise Explorer version 0.3 (specification revision 34)
+Noise Explorer version 1.0.1 (specification revision 34)
 Noise Explorer has three individual modes: generation, rendering and web interface.
 
 Generation:

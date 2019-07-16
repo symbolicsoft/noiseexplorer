@@ -32,10 +32,7 @@ html:
 
 release:
 	@cd util && node prep.js
-	@git branch pre-release && git checkout pre-release
-	@make implementations
-	@cd ../ && git add * && git commit -m "Pre-Release" && git push origin pre-release
-
+	@make implementations && git add -A && git branch pre-release && git checkout pre-release && git push origin pre-release
 clean:
 	@/bin/echo -n "[NoiseExplorer] Cleaning up... "
 	@rm -f parser/noiseParser.js

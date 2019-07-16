@@ -47,7 +47,7 @@ matrix:
         - "cd $TRAVIS_BUILD_DIR/implementations/wasm"
         - "for pattern in ./*; do cd $pattern; wasm-pack build --target web --release --scope noiseexplorer_$pattern; rm pkg/.gitignore; cd ..; done"
         - "cd $TRAVIS_BUILD_DIR"
-        - NOISE_VER="x"
+        - NOISE_VER="1.0.1"
         - "git config --global user.email \"georgio@symbolic.software\""
         - "git config --global user.name \"georgio\""
         - "git checkout master > /dev/null 2>&1"
@@ -64,6 +64,8 @@ matrix:
         - "git push --tags > /dev/null 2>&1  > /dev/null 2>&1"
       stage: Release
 stages: 
+  - 
+    name: Test
   - 
     if: "(branch = pre-release)"
     name: Release

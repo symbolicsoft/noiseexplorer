@@ -157,8 +157,7 @@ exec('git cherry -v master', function(error, stdout, stderr) {
         readme[20] = `Noise Explorer version ${ver['major_engine']}.${ver['minor_engine']}.${ver['patch_engine']} (specification revision 34)`;
         fs.writeFileSync('../../README.md', readme.join('\n'));
     
-        let travis = fs.readFileSync('../../.travis.yml').toString();
-        travis.replace(`NOISE_VER="x"`, `NOISE_VER="${ver['major_engine']}.${ver['minor_engine']}.${ver['patch_engine']}"`);
+        let travis = fs.readFileSync('../../.travis.yml').toString().replace(/NOISE_VER="(.*?)"/g, `NOISE_VER="${ver['major_engine']}.${ver['minor_engine']}.${ver['patch_engine']}"`);
         fs.writeFileSync('../../.travis.yml', travis);
 
         let crateCargo = fs.readFileSync('../../implementations/rs/Cargo.toml').toString().replace(/version = "(.*?)"/g, `version = "${ver['major_rust']}.${ver['minor_rust']}.${ver['patch_rust']}"`);
