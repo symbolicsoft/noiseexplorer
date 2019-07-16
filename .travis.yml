@@ -20,7 +20,6 @@ matrix:
       language: go
       script: 
         - "for pattern in ./*; do cd $pattern; go get -d ./...; go run *; cd ../; done"
-            - language: rust
     - 
       addons: 
         firefox: latest
@@ -31,10 +30,10 @@ matrix:
         - beta
         - nightly
       script: 
-        -  sudo curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
-        -  cd $TRAVIS_BUILD_DIR/implementations/wasm
-        -  for pattern in ./*; do cd $pattern; wasm-pack test --firefox --headless; cd ..; done;
-    -
+        - "sudo curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh"
+        - "cd $TRAVIS_BUILD_DIR/implementations/wasm"
+        - "for pattern in ./*; do cd $pattern; wasm-pack test --firefox --headless; cd ..; done;"
+    - 
       addons: 
         firefox: latest
       cache: cargo
