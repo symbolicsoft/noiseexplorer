@@ -49,4 +49,8 @@ matrix:
         - "git push origin master --quiet > /dev/null 2>&1"
         - "git tag -a v${NOISE_VER} -m \"Noise Explorer v${NOISE_VER}\"  > /dev/null 2>&1"
         - "git push --tags > /dev/null 2>&1  > /dev/null 2>&1"
-      stage: "Release"
+      stage: Release
+stages: 
+  - 
+    if: "(branch = pre-release)"
+    name: Release
