@@ -4,7 +4,7 @@
   "description": "Noise Pattern Formal Verification Model Generator.",
   "author": "Symbolic Software",
   "main": "noiseExplorer.js",
-  "repository": "https://github.com/symbolicsoft/noiseexplorer",
+  "repository": "https://source.symbolic.software/noiseexplorer/noiseexplorer",
   "license": "GPL-3.0",
   "dependencies": {
     "conventional-commits-parser": "^3.0.1",
