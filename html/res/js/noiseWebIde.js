@@ -12,7 +12,7 @@ let $ = (id) => { return document.getElementById(id) };
 
 let VER;
 
-fetch('res/js/versions.json').then(response => {
+fetch('/res/js/versions.json').then(response => {
 	if (!response.ok) {
 		throw new Error("HTTP error " + response.status);
 	}
