@@ -14,6 +14,7 @@
 	<script src="../../res/js/parser/noise2Pv.js"></script>
 	<script src="../../res/js/parser/noise2Go.js"></script>
 	<script src="../../res/js/parser/noise2Rs.js"></script>
+	<script src="../../res/js/parser/noise2Wasm.js"></script>
 	<script src="../../res/js/parser/noiseReader.js"></script>
 	<script src="../../res/js/jszip.js"></script>
 	<script src="../../res/js/noiseWebIde.js"></script>
@@ -23,6 +24,7 @@
 		pvGen(['X1X:','  -> e','  <- e, ee, s, es','  -> s','  <- se','  ->','  <-'].join('\n'), 'passive', 'pvPassiveLink', false);
 		goGen(['X1X:','  -> e','  <- e, ee, s, es','  -> s','  <- se','  ->','  <-'].join('\n'), 'goLink', false);
 		rsGen(['X1X:','  -> e','  <- e, ee, s, es','  -> s','  <- se','  ->','  <-'].join('\n'), 'rsLink', false);
+		wasmGen(['X1X:','  -> e','  <- e, ee, s, es','  -> s','  <- se','  ->','  <-'].join('\n'), 'wasmLink', false);
 	});
 	</script>
 </head>
@@ -118,6 +120,10 @@
 				</a>
 				<a href="#" id="rsLink">
 					Get Implementation
+					<span class="modelType">written in rust</span>
+				</a>
+				<a href="#" id="wasmLink">
+					Get Implementation and pre-compiled WASM binary
 					<span class="modelType">written in rust</span>
 				</a>
 			</p>
