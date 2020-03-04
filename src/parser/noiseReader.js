@@ -459,21 +459,22 @@ const NOISEREADER = {
 		let arrowSvg = [];
 		let analysisTxt = [];
 		let offset = 30;
+		let offsetIncrement = 160;
 		let totalHeight = 30;
 		if (pattern.preMessages.length) {
 			pattern.preMessages.forEach((preMessage) => {
 				arrowSvg.push(htmlTemplates[`${preMessage.dir}PreMessage`](
 					offset, preMessage.tokens
 				));
-				offset = offset + 130;
-				totalHeight = totalHeight + 130;
+				offset = offset + offsetIncrement;
+				totalHeight = totalHeight + offsetIncrement;
 				analysisTxt.push(htmlTemplates.analysisPreMessage(
 					preMessage.dir, preMessage.tokens
 				));
 			});
 			arrowSvg.push(htmlTemplates.ellipsis(offset));
-			offset = offset + 130;
-			totalHeight = totalHeight + 130;
+			offset = offset + offsetIncrement;
+			totalHeight = totalHeight + offsetIncrement;
 		}
 		pattern.messages.forEach((message, i) => {
 			let abc = util.abc[i];
@@ -508,8 +509,8 @@ const NOISEREADER = {
 				authentication,
 				confidentiality
 			));
-			offset = offset + 130;
-			totalHeight = totalHeight + 130;
+			offset = offset + offsetIncrement;
+			totalHeight = totalHeight + offsetIncrement;
 			totalHeight = totalHeight + (((authentication === 1) || (authentication === 2)) ? 50 : 0);
 			totalHeight = totalHeight + ((confidentiality > 2) ? 40 : 0);
 		});
