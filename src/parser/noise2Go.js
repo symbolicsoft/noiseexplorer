@@ -404,7 +404,6 @@ const NOISE2GO = {
 					`\t\tsession.hs = handshakestate{}`,
 					`\t}`
 				]);
-			} else {
 				sendMessage = sendMessage.concat([
 					`\tif session.mc > ${finalKex} {`,
 					`\t\tif session.i {`,
@@ -423,7 +422,6 @@ const NOISE2GO = {
 					`\t\t}`,
 					`\t}`
 				]);
-				break;
 			}
 		}
 		sendMessage = sendMessage.concat([

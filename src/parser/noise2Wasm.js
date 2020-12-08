@@ -491,7 +491,6 @@ const NOISE2WASM = {
 					`\t\t\tself.cs2 = ${isOneWayPattern? 'CipherState::new()' : 'temp.2'};`,
 					`\t\t\tself.hs.clear();`,
 				]);
-			} else {
 				sendMessage = sendMessage.concat([
 					`\t} else if self.i {`,
 					`\t\tself.cs1.write_message_regular(in_out)?;`,
@@ -510,7 +509,6 @@ const NOISE2WASM = {
 					`\tself.mc += 1;`,
 					`\tOk(())`
 				]);
-				break;
 			}
 		}
 		sendMessage = sendMessage.concat([
