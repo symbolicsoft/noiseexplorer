@@ -17,7 +17,7 @@ let getArrows = (parsedPattern) => {
 	return renderData.arrowSvg;
 };
 
-let pvRender = (patternInput, parsedPattern, passive, pv) => {
+let pvRender = (patternInput, parsedPattern, passive, pv, cb) => {
 	let parsedPv = NOISE2PV.parse(parsedPattern, passive);
 	pv[0] = pv[0].replace('(* $NOISE2PV_T$ *)', parsedPv.t)
 	pv[1] = pv[1].replace('(* $NOISE2PV_S$ *)', parsedPv.s);
@@ -32,7 +32,7 @@ let pvRender = (patternInput, parsedPattern, passive, pv) => {
 	pv[8] = pv[8].replace('(* $NOISE2PV_B$ *)', parsedPv.b);
 	pv[8] = pv[8].replace('(* $NOISE2PV_K$ *)', parsedPv.k);
 	pv[8] = pv[8].replace('(* $NOISE2PV_P$ *)', parsedPv.p);
-	return pv;
+	cb(pv.join('\n'));
 };
 
 let goRender = (patternInput, parsedPattern, go) => {
@@ -49,11 +49,11 @@ let goRender = (patternInput, parsedPattern, go) => {
 		go[5] = go[5].replace('/* $NOISE2GO_W$ */', parsedGo.w);
 		go[5] = go[5].replace('/* $NOISE2GO_R$ */', parsedGo.r);
 		go[6] = go[6].replace('/* $NOISE2GO_P$ */', parsedGo.p);
+		cb(go);
 	});
-	return go;
 };
 
-let rsRender = (patternInput, parsedPattern, rs) => {
+let rsRender = (patternInput, parsedPattern, rs, cb) => {
 	let parsedRs = NOISE2RS.parse(parsedPattern);
 	fetch('/res/js/versions.json').then(response => {
 		if (!response.ok) {
@@ -68,11 +68,11 @@ let rsRender = (patternInput, parsedPattern, rs) => {
 		rs[6] = rs[6].replace('/* $NOISE2RS_P$ */', parsedRs.p);
 		rs[9] = rs[9].replace(/\$NOISE2RS_N\$/g, parsedPattern.name.toLowerCase());
 		rs[9] = rs[9].replace(/\$NOISE2RS_V\$/g, `${json.major_rust}.${json.minor_rust}.${json.patch_rust}`);
+		cb(rs);
 	});
-	return rs;
 };
 
-let wasmRender = (patternInput, parsedPattern, wasm) => {
+let wasmRender = (patternInput, parsedPattern, wasm, cb) => {
 	let parsedWasm = NOISE2WASM.parse(parsedPattern);
 	fetch('/res/js/versions.json').then(response => {
 		if (!response.ok) {
@@ -90,8 +90,8 @@ let wasmRender = (patternInput, parsedPattern, wasm) => {
 		wasm[10] = wasm[10].replace(/\$NOISE2WASM_N\$/g, parsedPattern.name.toLowerCase());
 		wasm[11] = wasm[11].replace(/\$NOISE2WASM_N\$/g, parsedPattern.name.toLowerCase());
 		wasm[11] = wasm[11].replace(/\$NOISE2WASM_V\$/g, `${json.major_wasm}.${json.minor_wasm}.${json.patch_wasm}`);
+		cb(wasm);
 	});
-	return wasm;
 };
 
 let getPv = (patternInput, parsedPattern, passive, cb) => {
@@ -123,8 +123,7 @@ let getPv = (patternInput, parsedPattern, passive, cb) => {
 				slot.length? full++ : full;
 			});
 			if (full === pv.length) {
-				let output = pvRender(patternInput, parsedPattern, passive, pv); 
-				cb(output.join('\n'));
+				let output = pvRender(patternInput, parsedPattern, passive, pv, cb); 
 			}
 		};
 		xhr.send();
@@ -196,8 +195,7 @@ let getRs = (patternInput, parsedPattern, cb) => {
 				slot.length? full++ : full;
 			});
 			if (full === rs.length) {
-				let output = rsRender(patternInput, parsedPattern, rs);
-				cb(output);
+				rsRender(patternInput, parsedPattern, rs, cb);
 			}
 		};
 		xhr.send();
@@ -236,8 +234,7 @@ let getWasm = (patternInput, parsedPattern, cb) => {
 				slot.length? full++ : full;
 			});
 			if (full === wasm.length) {
-				let output = wasmRender(patternInput, parsedPattern, wasm);
-				cb(output);
+				let output = wasmRender(patternInput, parsedPattern, wasm, cb);
 			}
 		};
 		xhr.send();
