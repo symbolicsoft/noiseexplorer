@@ -62,6 +62,7 @@ let rsRender = (patternInput, parsedPattern, rs, cb) => {
 		return response.json();
 	}).then(json => {
 		rs[0] = rs[0].replace('/* $NOISE2RS_N$ */', `/*\n${patternInput}\n*/`);
+		rs[1] = rs[1].replace(/\$NOISE2RS_N\$/g, parsedPattern.name.toLowerCase());
 		rs[5] = rs[5].replace('/* $NOISE2RS_I$ */', parsedRs.i);
 		rs[5] = rs[5].replace('/* $NOISE2RS_W$ */', parsedRs.w);
 		rs[5] = rs[5].replace('/* $NOISE2RS_R$ */', parsedRs.r);
