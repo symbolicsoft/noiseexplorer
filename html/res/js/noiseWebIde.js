@@ -35,7 +35,7 @@ let pvRender = (patternInput, parsedPattern, passive, pv, cb) => {
 	cb(pv.join('\n'));
 };
 
-let goRender = (patternInput, parsedPattern, go) => {
+let goRender = (patternInput, parsedPattern, go, cb) => {
 	let parsedGo = NOISE2GO.parse(parsedPattern);
 	fetch('/res/js/versions.json').then(response => {
 		if (!response.ok) {
