@@ -124,7 +124,7 @@ let getPv = (patternInput, parsedPattern, passive, cb) => {
 				slot.length? full++ : full;
 			});
 			if (full === pv.length) {
-				let output = pvRender(patternInput, parsedPattern, passive, pv, cb); 
+				pvRender(patternInput, parsedPattern, passive, pv, cb); 
 			}
 		};
 		xhr.send();
@@ -158,8 +158,7 @@ let getGo = (patternInput, parsedPattern, cb) => {
 				slot.length? full++ : full;
 			});
 			if (full === go.length) {
-				let output = goRender(patternInput, parsedPattern, go);
-				cb(output.join('\n'));
+				goRender(patternInput, parsedPattern, go, cb);
 			}
 		};
 		xhr.send();
@@ -235,7 +234,7 @@ let getWasm = (patternInput, parsedPattern, cb) => {
 				slot.length? full++ : full;
 			});
 			if (full === wasm.length) {
-				let output = wasmRender(patternInput, parsedPattern, wasm, cb);
+				wasmRender(patternInput, parsedPattern, wasm, cb);
 			}
 		};
 		xhr.send();
