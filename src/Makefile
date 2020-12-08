@@ -34,8 +34,12 @@ html:
 clean:
 	@/bin/echo -n "[NoiseExplorer] Cleaning up... "
 	@rm -f parser/noiseParser.js
+	@rm -rf ../implementations/rs/target
 	@rm -rf ../implementations/rs/*/target
 	@rm -f ../implementations/rs/*/Cargo.lock
+	@rm -rf ../implementations/wasm/target
+	@rm -rf ../implementations/wasm/*/target
+	@rm -f ../implementations/wasm/*/Cargo.lock
 	@/bin/echo " OK."
 
 .PHONY: dependencies parser models implementations wasm tests html clean
