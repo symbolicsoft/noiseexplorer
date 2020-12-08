@@ -11,4 +11,5 @@ for pattern in ../patterns/*.noise; do
 done
 
 cd ../implementations/go
-go get -d ./...
+go mod init "noiseexplorer" &> /dev/null
+go get -d &> /dev/null

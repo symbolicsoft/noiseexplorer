@@ -8,6 +8,10 @@ noiseParser.js
 # macOS
 .DS_Store
 
+# Go
+go.mod
+go.sum
+
 # Rust
 Cargo.lock
 *.log

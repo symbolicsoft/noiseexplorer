@@ -1,9 +1,10 @@
 #!/bin/bash
 echo "[NoiseExplorer] Running Go Tests..."
 cd ../../implementations/go/tests
-for pattern in ./*; do
+for pattern in *; do
     cd $pattern
-    go get -d ./...
+    go mod init $pattern &> /dev/null
+    go get -d &> /dev/null
     go run *
     cd ../
 done

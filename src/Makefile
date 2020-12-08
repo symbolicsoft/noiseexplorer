@@ -3,7 +3,6 @@ dependencies:
 	@npm install --save pegjs conventional-commits-parser 
 	@npm install -g pegjs
 	@npm install
-	@curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
 	@/bin/echo " OK."
 
 parser:
@@ -23,6 +22,7 @@ implementations:
 	@cd util && bash genImplementations.sh
 
 wasm:
+	@cargo install wasm-pack
 	@cd util && bash genWasmBins.sh
 
 tests:
