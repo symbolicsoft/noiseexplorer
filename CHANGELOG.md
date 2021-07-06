@@ -1,3 +1,14 @@
+## Noise Explorer v1.0.3
+- Rust:
+	- _fix(rust): Updated Rust crate dependencies so that implementations compile automatically again_.
+
+- WebAssembly:
+	- _fix(wasm): Updated Rust crate dependencies so that implementations compile automatically again_.
+
+- Go:
+	- _fix(go): Nonces are now 64-bit instead of 32-bit._
+	- _fix(go): Top-level API now provides an error which can be checked to detect invalid nonce incrementation._
+
 ## Noise Explorer v1.0.2
 - Noise Explorer:
 	- _fix(ide): Fixed race conditions in Noise Explorer Web IDE_.
@@ -13,12 +24,14 @@
 
 - WebAssembly:
 	- _fix(wasm): Noise Handshake Patterns not explicitly containing post-handshake message will still generate functional WASM implementations_.
+
 ## Noise Explorer v1.0.1
 - Rust:
 	- _fix(rust): Removed the ability to clone traits (#37)_.
 
 - WebAssembly:
 	- _fix(wasm): Removed the ability to clone traits (#37)_.
+
 ## Noise Explorer v1.0.0
 - Miscelaneous:
 	- _Added initial automation scripts._
@@ -31,6 +44,7 @@
 	- _Generated new implementations._
 	- _Fixed README.md for WASM implementations._
 	- _Added script for automated changelog messages and version increments._
+
 ## Noise Explorer 0.3
 	- Now based on Noise Protocol Framework revision 34.
 	- Generate Go implementations and test-injected implementations.
