@@ -71,8 +71,8 @@ const gen = (
 		let recv = (i % 2 === 0) ? 'responderSession' : 'initiatorSession';
 		goTestCode.push([
 			`payload${abc[i]}, _ := hex.DecodeString("${messages[i].payload}")`,
-			`_, message${abc[i]} := SendMessage(&${send}, payload${abc[i]})`,
-			`_, _, valid${abc[i]} := RecvMessage(&${recv}, &message${abc[i]})`,
+			`_, message${abc[i]}, _ := SendMessage(&${send}, payload${abc[i]})`,
+			`_, _, valid${abc[i]}, _ := RecvMessage(&${recv}, &message${abc[i]})`,
 			`t${abc[i]} := "${messages[i].ciphertext}"`
 		].join('\n\t'));
 	}

@@ -175,14 +175,14 @@ const NOISE2GO = {
 			`mixKey(&hs.ss, dh(hs.s.private_key, hs.re))` : `mixKey(&hs.ss, dh(hs.e.private_key, hs.rs))`;
 		let finalFill = isFinal ? [
 			`cs1, cs2 := split(&hs.ss)`,
-			`return hs.ss.h, messageBuffer, cs1, cs2`
+			`return hs.ss.h, messageBuffer, cs1, cs2, err`
 		] : [
-			`return hs, messageBuffer`
+			`return hs, messageBuffer, err`
 		];
 		let isBeyondFinal = (message.tokens.length === 0);
 		let writeFunDeclaration = isBeyondFinal ?
-			`func writeMessageRegular(cs *cipherstate, payload []byte) (*cipherstate, messagebuffer) {` :
-			`func writeMessage${suffix}(hs *handshakestate, payload []byte) (${isFinal? `[32]byte, messagebuffer, cipherstate, cipherstate` : `*handshakestate, messagebuffer`}) {`;
+			`func writeMessageRegular(cs *cipherstate, payload []byte) (*cipherstate, messagebuffer, error) {` :
+			`func writeMessage${suffix}(hs *handshakestate, payload []byte) (${isFinal? `[32]byte, messagebuffer, cipherstate, cipherstate, error` : `*handshakestate, messagebuffer, error`}) {`;
 		let messageTokenParsers = {
 			e: [
 				`hs.e = generateKeypair()`,
@@ -193,7 +193,10 @@ const NOISE2GO = {
 			s: [
 				`spk := make([]byte, len(hs.s.public_key))`,
 				`copy(spk[:], hs.s.public_key[:])`,
-				`_, ns = encryptAndHash(&hs.ss, spk)`,
+				`_, ns, err = encryptAndHash(&hs.ss, spk)`,
+				`if err != nil {`,
+				`\t${isBeyondFinal ? `return cs, messageBuffer, err` : finalFill.join(`\n`)}`,
+				`}`
 			].join(`\n\t`),
 			ee: [
 				`mixKey(&hs.ss, dh(hs.e.private_key, hs.re))`
@@ -213,19 +216,27 @@ const NOISE2GO = {
 		};
 		let writeFun = [
 			writeFunDeclaration,
+			`var err error`,
+			`var messageBuffer messagebuffer`,
 			`ne, ns, ciphertext := emptyKey, []byte{}, []byte{}`
 		];
 		message.tokens.forEach((token) => {
 			writeFun.push(messageTokenParsers[token]);
 		});
 		writeFun = writeFun.concat(isBeyondFinal ? [
-			`cs, ciphertext = encryptWithAd(cs, []byte{}, payload)`,
-			`messageBuffer := messagebuffer{ne, ns, ciphertext}`
+			`cs, ciphertext, err = encryptWithAd(cs, []byte{}, payload)`,
+			`if err != nil {`,
+			`\treturn cs, messageBuffer, err`,
+			`}`,
+			`messageBuffer = messagebuffer{ne, ns, ciphertext}`
 		] : [
-			`_, ciphertext = encryptAndHash(&hs.ss, payload)`,
-			`messageBuffer := messagebuffer{ne, ns, ciphertext}`,
+			`_, ciphertext, err = encryptAndHash(&hs.ss, payload)`,
+			`if err != nil {`,
+			`\t${finalFill.join(`\n\t\t`)}`,
+			`}`,
+			`messageBuffer = messagebuffer{ne, ns, ciphertext}`,
 		]);
-		writeFun = writeFun.concat(isBeyondFinal ? `return cs, messageBuffer` : finalFill);
+		writeFun = writeFun.concat(isBeyondFinal ? `return cs, messageBuffer, err` : finalFill);
 		return `${writeFun.join('\n\t')}\n}`;
 	};
 
@@ -256,14 +267,14 @@ const NOISE2GO = {
 			`mixKey(&hs.ss, dh(hs.s.private_key, hs.re))` : `mixKey(&hs.ss, dh(hs.e.private_key, hs.rs))`;
 		let finalFill = isFinal ? [
 			`cs1, cs2 := split(&hs.ss)`,
-			`return hs.ss.h, plaintext, (valid1 && valid2), cs1, cs2`
+			`return hs.ss.h, plaintext, (valid1 && valid2), cs1, cs2, err`
 		] : [
-			`return hs, plaintext, (valid1 && valid2)`
+			`return hs, plaintext, (valid1 && valid2), err`
 		];
 		let isBeyondFinal = (message.tokens.length === 0);
 		let readFunDeclaration = isBeyondFinal ?
-			`func readMessageRegular(cs *cipherstate, message *messagebuffer) (*cipherstate, []byte, bool) {` :
-			`func readMessage${suffix}(hs *handshakestate, message *messagebuffer) (${isFinal? `[32]byte, []byte, bool, cipherstate, cipherstate` : `*handshakestate, []byte, bool`}) {`;
+			`func readMessageRegular(cs *cipherstate, message *messagebuffer) (*cipherstate, []byte, bool, error) {` :
+			`func readMessage${suffix}(hs *handshakestate, message *messagebuffer) (${isFinal? `[32]byte, []byte, bool, cipherstate, cipherstate, error` : `*handshakestate, []byte, bool, error`}) {`;
 		let messageTokenParsers = {
 			e: [
 				`if validatePublicKey(message.ne[:]) {`,
@@ -273,7 +284,10 @@ const NOISE2GO = {
 				ePskFill
 			].join(`\n\t`),
 			s: [
-				`_, ns, valid1 := decryptAndHash(&hs.ss, message.ns)`,
+				`_, ns, valid1, err := decryptAndHash(&hs.ss, message.ns)`,
+				`if err != nil {`,
+				`\t${isBeyondFinal? `return cs, plaintext, valid2, err` : finalFill.join(`\n`)}`,
+				`}`,
 				`if valid1 && len(ns) == 32 && validatePublicKey(message.ns[:]) {`,
 				`\tcopy(hs.rs[:], ns)`,
 				`}`,
@@ -296,16 +310,19 @@ const NOISE2GO = {
 		};
 		let readFun = [
 			readFunDeclaration,
-			isBeyondFinal ? `/* No encrypted keys */` : `valid1 := true`
+			`var err error`,
+			`var plaintext []byte`,
+			`var valid2 bool = false`,
+			isBeyondFinal ? `/* No encrypted keys */` : `var valid1 bool = true`
 		];
 		message.tokens.forEach((token) => {
 			readFun.push(messageTokenParsers[token]);
 		});
 		readFun = readFun.concat(isBeyondFinal ? [
-			`_, plaintext, valid2 := decryptWithAd(cs, []byte{}, message.ciphertext)`,
-			`return cs, plaintext, valid2`
+			`_, plaintext, valid2, err = decryptWithAd(cs, []byte{}, message.ciphertext)`,
+			`return cs, plaintext, valid2, err`
 		] : [
-			`_, plaintext, valid2 := decryptAndHash(&hs.ss, message.ciphertext)`,
+			`_, plaintext, valid2, err = decryptAndHash(&hs.ss, message.ciphertext)`,
 			`${finalFill.join('\n\t')}`
 		]);
 		return `${readFun.join('\n\t')}\n}`;
@@ -371,11 +388,13 @@ const NOISE2GO = {
 			`}`
 		];
 		let sendMessage = [
-			`\nfunc SendMessage(session *noisesession, message []byte) (*noisesession, messagebuffer) {`,
+			`\nfunc SendMessage(session *noisesession, message []byte) (*noisesession, messagebuffer, error) {`,
+			`\tvar err error`,
 			`\tvar messageBuffer messagebuffer`
 		];
 		let recvMessage = [
-			`\nfunc RecvMessage(session *noisesession, message *messagebuffer) (*noisesession, []byte, bool) {`,
+			`\nfunc RecvMessage(session *noisesession, message *messagebuffer) (*noisesession, []byte, bool, error) {`,
+			`\tvar err error`,
 			`\tvar plaintext []byte`,
 			`\tvar valid bool`
 		];
@@ -383,42 +402,42 @@ const NOISE2GO = {
 			if (i < finalKex) {
 				sendMessage = sendMessage.concat([
 					`\tif session.mc == ${i} {`,
-					`\t\t_, messageBuffer = writeMessage${util.abc[i]}(&session.hs, message)`,
+					`\t\t_, messageBuffer, err = writeMessage${util.abc[i]}(&session.hs, message)`,
 					`\t}`
 				]);
 				recvMessage = recvMessage.concat([
 					`\tif session.mc == ${i} {`,
-					`\t\t_, plaintext, valid = readMessage${util.abc[i]}(&session.hs, message)`,
+					`\t\t_, plaintext, valid, err = readMessage${util.abc[i]}(&session.hs, message)`,
 					`\t}`
 				]);
 			} else if (i == finalKex) {
 				sendMessage = sendMessage.concat([
 					`\tif session.mc == ${i} {`,
-					`\t\tsession.h, messageBuffer, session.cs1, ${isOneWayPattern? `_` : `session.cs2`} = writeMessage${util.abc[i]}(&session.hs, message)`,
+					`\t\tsession.h, messageBuffer, session.cs1, ${isOneWayPattern? `_, err` : `session.cs2, err`} = writeMessage${util.abc[i]}(&session.hs, message)`,
 					`\t\tsession.hs = handshakestate{}`,
 					`\t}`
 				]);
 				recvMessage = recvMessage.concat([
 					`\tif session.mc == ${i} {`,
-					`\t\tsession.h, plaintext, valid, session.cs1, ${isOneWayPattern? `_` : `session.cs2`} = readMessage${util.abc[i]}(&session.hs, message)`,
+					`\t\tsession.h, plaintext, valid, session.cs1, ${isOneWayPattern? `_, err` : `session.cs2, err`} = readMessage${util.abc[i]}(&session.hs, message)`,
 					`\t\tsession.hs = handshakestate{}`,
 					`\t}`
 				]);
 				sendMessage = sendMessage.concat([
 					`\tif session.mc > ${finalKex} {`,
 					`\t\tif session.i {`,
-					`\t\t\t_, messageBuffer = writeMessageRegular(&session.cs1, message)`,
+					`\t\t\t_, messageBuffer, err = writeMessageRegular(&session.cs1, message)`,
 					`\t\t} else {`,
-					`\t\t\t_, messageBuffer = writeMessageRegular(&session.${isOneWayPattern? `cs1` : `cs2`}, message)`,
+					`\t\t\t_, messageBuffer, err = writeMessageRegular(&session.${isOneWayPattern? `cs1` : `cs2`}, message)`,
 					`\t\t}`,
 					`\t}`
 				]);
 				recvMessage = recvMessage.concat([
 					`\tif session.mc > ${finalKex} {`,
 					`\t\tif session.i {`,
-					`\t\t\t_, plaintext, valid = readMessageRegular(&session.${isOneWayPattern? `cs1` : `cs2`}, message)`,
+					`\t\t\t_, plaintext, valid, err = readMessageRegular(&session.${isOneWayPattern? `cs1` : `cs2`}, message)`,
 					`\t\t} else {`,
-					`\t\t\t_, plaintext, valid = readMessageRegular(&session.cs1, message)`,
+					`\t\t\t_, plaintext, valid, err = readMessageRegular(&session.cs1, message)`,
 					`\t\t}`,
 					`\t}`
 				]);
@@ -426,12 +445,12 @@ const NOISE2GO = {
 		}
 		sendMessage = sendMessage.concat([
 			`\tsession.mc = session.mc + 1`,
-			`\treturn session, messageBuffer`,
+			`\treturn session, messageBuffer, err`,
 			`}`
 		]);
 		recvMessage = recvMessage.concat([
 			`\tsession.mc = session.mc + 1`,
-			`\treturn session, plaintext, valid`,
+			`\treturn session, plaintext, valid, err`,
 			`}`
 		]);
 		return initSession.concat(sendMessage).concat(recvMessage);
