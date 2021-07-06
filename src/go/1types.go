@@ -15,7 +15,7 @@ type messagebuffer struct {
 
 type cipherstate struct {
 	k [32]byte
-	n uint32
+	n uint64
 }
 
 type symmetricstate struct {

@@ -2,7 +2,7 @@
  * PRIMITIVES                                                       *
  * ---------------------------------------------------------------- */
 
-func incrementNonce(n uint32) uint32 {
+func incrementNonce(n uint64) uint64 {
 	return n + 1
 }
 
@@ -29,20 +29,20 @@ func generatePublicKey(private_key [32]byte) [32]byte {
 	return public_key
 }
 
-func encrypt(k [32]byte, n uint32, ad []byte, plaintext []byte) []byte {
+func encrypt(k [32]byte, n uint64, ad []byte, plaintext []byte) []byte {
 	var nonce [12]byte
 	var ciphertext []byte
 	enc, _ := chacha20poly1305.New(k[:])
-	binary.LittleEndian.PutUint32(nonce[4:], n)
+	binary.LittleEndian.PutUint64(nonce[4:], n)
 	ciphertext = enc.Seal(nil, nonce[:], plaintext, ad)
 	return ciphertext
 }
 
-func decrypt(k [32]byte, n uint32, ad []byte, ciphertext []byte) (bool, []byte, []byte) {
+func decrypt(k [32]byte, n uint64, ad []byte, ciphertext []byte) (bool, []byte, []byte) {
 	var nonce [12]byte
 	var plaintext []byte
 	enc, err := chacha20poly1305.New(k[:])
-	binary.LittleEndian.PutUint32(nonce[4:], n)
+	binary.LittleEndian.PutUint64(nonce[4:], n)
 	plaintext, err = enc.Open(nil, nonce[:], ciphertext, ad)
 	return (err == nil), ad, plaintext
 }
