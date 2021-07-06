@@ -7,7 +7,7 @@
   "repository": "https://source.symbolic.software/noiseexplorer/noiseexplorer",
   "license": "GPL-3.0",
   "dependencies": {
-    "conventional-commits-parser": "^3.2.0",
+    "conventional-commits-parser": "^3.2.1",
     "minimist": "latest",
     "pegjs": "^0.10.0"
   }
