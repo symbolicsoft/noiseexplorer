@@ -321,7 +321,7 @@ let goGen = (patternInput, aId, autoClick) => {
 	}
 	getGo(patternInput, parsedPattern, (go) => {
 		let goBlob = window.URL.createObjectURL(
-			new Blob([go], { type: 'text/plain' })
+			new Blob([go.join('\n')], { type: 'text/plain' })
 		);
 		genReady.go = true;
 		$(aId).href = goBlob;
