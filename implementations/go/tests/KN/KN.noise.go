@@ -242,7 +242,9 @@ func decryptWithAd(cs *cipherstate, ad []byte, ciphertext []byte) (*cipherstate,
 		return cs, []byte{}, false, err
 	}
 	valid, ad, plaintext := decrypt(cs.k, cs.n, ad, ciphertext)
-	cs = setNonce(cs, incrementNonce(cs.n))
+	if valid {
+		cs = setNonce(cs, incrementNonce(cs.n))
+	}
 	return cs, plaintext, valid, err
 }
 
