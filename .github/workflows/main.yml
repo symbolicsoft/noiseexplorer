@@ -1,0 +1,88 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  rust:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        rust-version: [stable, beta, nightly]
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Setup Rust
+      uses: actions-rs/toolchain@v1
+      with:
+        profile: minimal
+        toolchain: ${{ matrix.rust-version }}
+        override: true
+
+    - name: Cache dependencies
+      uses: actions/cache@v2
+      with:
+        path: ~/.cargo/registry
+        key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+
+    - name: Build
+      run: |
+        cd implementations/rs
+        cargo build --all
+
+    - name: Test
+      run: |
+        cd implementations/rs
+        cargo test --all
+
+  go:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Setup Go
+      uses: actions/setup-go@v2
+      with:
+        go-version: master
+
+    - name: Set GOBIN
+      run: echo "GOBIN=$HOME/gopath/src/bin" >> $GITHUB_ENV
+
+    - name: Run Go tests
+      run: |
+        cd implementations/go/tests
+        for pattern in ./*; do
+          cd $pattern
+          go get -d ./...
+          go run *
+          cd ../
+        done
+
+#  rust-wasm:
+#    runs-on: ubuntu-latest
+#    strategy:
+#      matrix:
+#        rust-version: [stable, beta, nightly]
+#    steps:
+#    - name: Checkout code
+#      uses: actions/checkout@v2
+#
+#    - name: Setup Rust
+#      uses: actions-rs/toolchain@v1
+#      with:
+#        profile: minimal
+#        toolchain: ${{ matrix.rust-version }}
+#        override: true
+#
+#    - name: Install wasm-pack
+#      run: curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
+#
+#    - name: Test with wasm-pack
+#      run: |
+#        cd implementations/wasm
+#        for pattern in ./*; do
+#          cd $pattern
+#          wasm-pack test --firefox --headless
+#          cd ..
+#        done
