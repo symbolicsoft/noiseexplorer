@@ -1,3 +1,8 @@
+## Noise Explorer v1.0.4
+- Go:
+	- _fix(go): Do not increment nonce on invalid message (https://github.com/symbolicsoft/noiseexplorer/pull/4)._
+
+
 ## Noise Explorer v1.0.3
 - Rust:
 	- _fix(rust): Updated Rust crate dependencies so that implementations compile automatically again_.
@@ -7,7 +12,7 @@
 
 - Go:
 	- _fix(go): Nonces are now 64-bit instead of 32-bit._
-	- _fix(go): Top-level API now provides an error which can be checked to detect invalid nonce incrementation._
+	- _fix(go): Top-level API now provides an error which can be checked to detect invalid nonce incrementation.
 
 ## Noise Explorer v1.0.2
 - Noise Explorer:

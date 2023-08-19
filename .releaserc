@@ -1,6 +1,6 @@
 {
     "branch": "next",
-    "repositoryUrl": "https://github.com/georgio/noiseexplorer",
+    "repositoryUrl": "https://github.com/symbolicsoft/noiseexplorer",
     "tagFormat": "v${version}",
     "plugins": [
         [

@@ -3,7 +3,7 @@
   "collaborators": [
     "Symbolic Software <georgio@symbolic.software>"
   ],
-  "version": "1.0.0",
+  "version": "1.0.4",
   "files": [
     "noiseexplorer_xk1_wasm_bg.wasm",
     "noiseexplorer_xk1_wasm.js",
@@ -11,5 +11,7 @@
   ],
   "module": "noiseexplorer_xk1_wasm.js",
   "types": "noiseexplorer_xk1_wasm.d.ts",
-  "sideEffects": "false"
+  "sideEffects": [
+    "./snippets/*"
+  ]
 }
