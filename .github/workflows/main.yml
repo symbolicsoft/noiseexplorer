@@ -44,9 +44,6 @@ jobs:
     - name: Setup Go
       uses: actions/setup-go@v2
 
-    - name: Set GOBIN
-      run: echo "GOBIN=$HOME/gopath/src/bin" >> $GITHUB_ENV
-
     - name: Run Go tests
       run: |
         cd implementations/go/tests
