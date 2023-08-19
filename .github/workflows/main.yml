@@ -47,7 +47,7 @@ jobs:
     - name: Run Go tests
       run: |
         cd implementations/go/tests
-        for pattern in ./*; do
+        for pattern in *; do
           cd $pattern
           go mod init $pattern
           go mod tidy
