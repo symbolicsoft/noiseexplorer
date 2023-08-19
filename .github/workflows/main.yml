@@ -43,8 +43,6 @@ jobs:
 
     - name: Setup Go
       uses: actions/setup-go@v2
-      with:
-        go-version: master
 
     - name: Set GOBIN
       run: echo "GOBIN=$HOME/gopath/src/bin" >> $GITHUB_ENV
