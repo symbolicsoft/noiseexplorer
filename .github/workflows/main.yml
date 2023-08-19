@@ -49,8 +49,10 @@ jobs:
         cd implementations/go/tests
         for pattern in ./*; do
           cd $pattern
-          go get -d ./...
-          go run *
+          go mod init $pattern
+          go mod tidy
+          go install
+          go run $pattern.noise.go
           cd ../
         done
 
