@@ -2,9 +2,6 @@
 node_modules
 package-lock.json
 
-# Noise Parser
-noiseParser.js
-
 # macOS
 .DS_Store
 
