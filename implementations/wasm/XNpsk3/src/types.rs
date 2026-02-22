@@ -7,7 +7,7 @@ use crate::{
     error::NoiseError,
 };
 use crypto::curve25519;
-use getrandom::getrandom;
+use getrandom::fill as getrandom;
 use zeroize::Zeroize;
 use wasm_bindgen::prelude::*;
 

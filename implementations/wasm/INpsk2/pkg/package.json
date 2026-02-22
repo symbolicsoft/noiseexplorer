@@ -1,5 +1,6 @@
 {
   "name": "@noiseexplorer_./INpsk2/noiseexplorer_inpsk2_wasm",
+  "type": "module",
   "collaborators": [
     "Symbolic Software <georgio@symbolic.software>"
   ],
@@ -9,7 +10,7 @@
     "noiseexplorer_inpsk2_wasm.js",
     "noiseexplorer_inpsk2_wasm.d.ts"
   ],
-  "module": "noiseexplorer_inpsk2_wasm.js",
+  "main": "noiseexplorer_inpsk2_wasm.js",
   "types": "noiseexplorer_inpsk2_wasm.d.ts",
   "sideEffects": [
     "./snippets/*"

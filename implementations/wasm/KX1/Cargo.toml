@@ -2,23 +2,23 @@
 name = "noiseexplorer_kx1_wasm"
 version = "1.0.4"
 authors = ["Symbolic Software <georgio@symbolic.software>"]
-edition = "2018"
+edition = "2024"
 
 [lib]
 crate-type = ["cdylib", "rlib"]
 
 [dependencies]
 blake2-rfc = "0.2.18"
-constant_time_eq = "0.1.5"
+constant_time_eq = "0.4.2"
 chacha20-poly1305-aead = {version = "0.1.2", git = "https://github.com/symbolicsoft/chacha20-poly1305-aead"}
-getrandom = "0.1.3"
+getrandom = { version = "0.4.1", features = ["wasm_js"] }
 hex = "0.4.3"
 rust-crypto-wasm = "0.3.1"
-zeroize = "1.3.0"
-wasm-bindgen = "0.2.46"
+zeroize = "1.8.2"
+wasm-bindgen = "0.2.111"
 
 [dev-dependencies]
-wasm-bindgen-test = "0.2"
+wasm-bindgen-test = "0.3.61"
 
 [package.metadata.wasm-pack.profile.dev.wasm-bindgen]
 debug-js-glue = true

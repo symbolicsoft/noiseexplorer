@@ -57,7 +57,7 @@ impl NoiseSession {
 
 	/// Calls the [Rekey](https://noiseprotocol.org/noise.html#rekey) method for `cs2`
 	pub fn rekey_remote_cipherstate(&mut self) {
-		self.cs1.rekey()
+		self.cs2.rekey()
 	}
 	
 	/// `NoiseSession` destructor function.

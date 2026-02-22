@@ -7,7 +7,7 @@ use crate::{
     error::NoiseError,
 };
 use hacl_star::curve25519;
-use rand;
+use rand::Rng;
 use zeroize::Zeroize;
 
 fn decode_str_32(s: &str) -> Result<[u8; DHLEN], NoiseError> {
@@ -324,12 +324,7 @@ impl PublicKey {
     pub(crate) fn clear(&mut self) {
         self.k.zeroize();
     }
-    pub(crate) fn from_hacl_public_key(hacl_public: curve25519::PublicKey) -> Self {
-        Self {
-            k: hacl_public.0,
-        }
-    }
-    pub fn as_bytes(&self) -> [u8; DHLEN] {
+pub fn as_bytes(&self) -> [u8; DHLEN] {
         self.k
     }
     /// Checks whether a `PublicKey` object is empty or not.
@@ -379,7 +374,7 @@ impl PublicKey {
     /// ```
     fn from_str(key: &str) -> Result<Self, NoiseError> {
         let pk = decode_str_32(key)?;
-        Ok(Self::from_hacl_public_key(curve25519::PublicKey(pk)))
+        Self::from_bytes(pk)
     }
 }
 
@@ -420,13 +415,18 @@ impl Keypair {
             public_key: PublicKey::empty(),
         }
     }
-    /// Instanciates a `Keypair` by generating a `PrivateKey` from random values using `thread_rng()`, then deriving the corresponding `PublicKey`
+    /// Instanciates a `Keypair` by generating a `PrivateKey` from random bytes, then deriving the corresponding `PublicKey`
     pub fn default() -> Self {
-        let hacl_keypair: (curve25519::SecretKey, curve25519::PublicKey) =
-            curve25519::keypair(rand::thread_rng());
-        Self {
-            private_key: PrivateKey::from_hacl_secret_key(hacl_keypair.0),
-            public_key: PublicKey::from_hacl_public_key(hacl_keypair.1),
+        let mut key = [0u8; DHLEN];
+        rand::rng().fill_bytes(&mut key);
+        let private_key = PrivateKey::from_bytes(key);
+        if let Ok(public_key) = private_key.generate_public_key() {
+            Self {
+                private_key,
+                public_key,
+            }
+        } else {
+            Keypair::default()
         }
     }
     pub(crate) fn dh(&self, public_key: &[u8; DHLEN]) -> [u8; DHLEN] {

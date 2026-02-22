@@ -1,14 +1,14 @@
 {
-  "name": "NoiseExplorer",
-  "version": "1.0.4",
-  "description": "Noise Pattern Formal Verification Model Generator.",
-  "author": "Symbolic Software",
-  "main": "noiseExplorer.js",
-  "repository": "https://github.com/symbolicsoft/noiseexplorer",
-  "license": "GPL-3.0",
-  "dependencies": {
-    "conventional-commits-parser": "^3.2.4",
-    "minimist": "latest",
-    "pegjs": "^0.10.0"
-  }
+	"name": "NoiseExplorer",
+	"version": "1.0.5",
+	"description": "Noise Pattern Formal Verification Model Generator.",
+	"author": "Symbolic Software",
+	"main": "noiseExplorer.js",
+	"repository": "https://github.com/symbolicsoft/noiseexplorer",
+	"license": "GPL-3.0",
+	"dependencies": {
+		"conventional-commits-parser": "^3.2.4",
+		"minimist": "latest",
+		"pegjs": "^0.10.0"
+	}
 }

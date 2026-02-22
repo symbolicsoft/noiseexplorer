@@ -1,5 +1,6 @@
 {
   "name": "@noiseexplorer_./XX1/noiseexplorer_xx1_wasm",
+  "type": "module",
   "collaborators": [
     "Symbolic Software <georgio@symbolic.software>"
   ],
@@ -9,7 +10,7 @@
     "noiseexplorer_xx1_wasm.js",
     "noiseexplorer_xx1_wasm.d.ts"
   ],
-  "module": "noiseexplorer_xx1_wasm.js",
+  "main": "noiseexplorer_xx1_wasm.js",
   "types": "noiseexplorer_xx1_wasm.d.ts",
   "sideEffects": [
     "./snippets/*"
