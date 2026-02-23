@@ -4,7 +4,7 @@
   "collaborators": [
     "Symbolic Software <georgio@symbolic.software>"
   ],
-  "version": "1.0.4",
+  "version": "1.0.6",
   "files": [
     "noiseexplorer_i1k_wasm_bg.wasm",
     "noiseexplorer_i1k_wasm.js",

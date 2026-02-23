@@ -97,9 +97,7 @@ impl Key {
     }
     /// Derives a `PublicKey` from the `Key` and returns it.
     pub fn generate_public_key(&self) -> PublicKey {
-        PublicKey {
-            k: curve25519::curve25519_base(&self.k[..]),
-        }
+        PublicKey::from_bytes(curve25519::curve25519_base(&self.k[..])).unwrap_or(PublicKey::empty())
     }
 }
 impl std::str::FromStr for Key {
@@ -407,18 +405,16 @@ impl Keypair {
     }
     /// Instanciates a `Keypair` by generating a `PrivateKey` from random values using `thread_rng()`, then deriving the corresponding `PublicKey`
     pub fn default() -> Self {
-       
-        let mut key = [0_u8; DHLEN];
-        let _ = getrandom(&mut key);
-        let private_key: PrivateKey = PrivateKey::from_bytes(key);
-        if let Ok(public_key) = private_key.generate_public_key() {
-            Self {
-                private_key,
-                public_key,
+        loop {
+            let mut key = [0_u8; DHLEN];
+            let _ = getrandom(&mut key);
+            let private_key: PrivateKey = PrivateKey::from_bytes(key);
+            if let Ok(public_key) = private_key.generate_public_key() {
+                return Self {
+                    private_key,
+                    public_key,
+                };
             }
-        }
-        else {
-            Keypair::default()
         }
     }
 

@@ -98,9 +98,7 @@ impl Key {
         let mut output: [u8; DHLEN] = EMPTY_KEY;
         output.copy_from_slice(private_key);
         let output = curve25519::SecretKey(output).get_public();
-        PublicKey {
-            k: output.0,
-        }
+        PublicKey::from_bytes(output.0).unwrap_or(PublicKey::empty())
     }
 }
 impl std::str::FromStr for Key {
@@ -205,9 +203,6 @@ impl std::str::FromStr for Psk {
     /// ```
     fn from_str(k: &str) -> Result<Self, NoiseError> {
         let psk = decode_str_32(k)?;
-        if psk.len() > 32 {
-            
-        }
         Ok(Self::from_bytes(psk))
     }
 }
@@ -417,16 +412,16 @@ impl Keypair {
     }
     /// Instanciates a `Keypair` by generating a `PrivateKey` from random bytes, then deriving the corresponding `PublicKey`
     pub fn default() -> Self {
-        let mut key = [0u8; DHLEN];
-        rand::rng().fill_bytes(&mut key);
-        let private_key = PrivateKey::from_bytes(key);
-        if let Ok(public_key) = private_key.generate_public_key() {
-            Self {
-                private_key,
-                public_key,
+        loop {
+            let mut key = [0u8; DHLEN];
+            rand::rng().fill_bytes(&mut key);
+            let private_key = PrivateKey::from_bytes(key);
+            if let Ok(public_key) = private_key.generate_public_key() {
+                return Self {
+                    private_key,
+                    public_key,
+                };
             }
-        } else {
-            Keypair::default()
         }
     }
     pub(crate) fn dh(&self, public_key: &[u8; DHLEN]) -> [u8; DHLEN] {

@@ -390,13 +390,19 @@ const NOISE2GO = {
 		let sendMessage = [
 			`\nfunc SendMessage(session *noisesession, message []byte) (*noisesession, messagebuffer, error) {`,
 			`\tvar err error`,
-			`\tvar messageBuffer messagebuffer`
+			`\tvar messageBuffer messagebuffer`,
+			`\tif len(message) > maxMessage {`,
+			`\t\treturn session, messageBuffer, errors.New("unsupported message length")`,
+			`\t}`
 		];
 		let recvMessage = [
 			`\nfunc RecvMessage(session *noisesession, message *messagebuffer) (*noisesession, []byte, bool, error) {`,
 			`\tvar err error`,
 			`\tvar plaintext []byte`,
-			`\tvar valid bool`
+			`\tvar valid bool`,
+			`\tif len(message.ciphertext) > maxMessage {`,
+			`\t\treturn session, plaintext, false, errors.New("unsupported message length")`,
+			`\t}`
 		];
 		for (let i = 0; i < pattern.messages.length; i++) {
 			if (i < finalKex) {
@@ -414,12 +420,18 @@ const NOISE2GO = {
 				sendMessage = sendMessage.concat([
 					`\tif session.mc == ${i} {`,
 					`\t\tsession.h, messageBuffer, session.cs1, ${isOneWayPattern? `_, err` : `session.cs2, err`} = writeMessage${util.abc[i]}(&session.hs, message)`,
+					`\t\tzeroizeKey(&session.hs.s.private_key)`,
+					`\t\tzeroizeKey(&session.hs.e.private_key)`,
+					`\t\tzeroizeKey(&session.hs.psk)`,
 					`\t\tsession.hs = handshakestate{}`,
 					`\t}`
 				]);
 				recvMessage = recvMessage.concat([
 					`\tif session.mc == ${i} {`,
 					`\t\tsession.h, plaintext, valid, session.cs1, ${isOneWayPattern? `_, err` : `session.cs2, err`} = readMessage${util.abc[i]}(&session.hs, message)`,
+					`\t\tzeroizeKey(&session.hs.s.private_key)`,
+					`\t\tzeroizeKey(&session.hs.e.private_key)`,
+					`\t\tzeroizeKey(&session.hs.psk)`,
 					`\t\tsession.hs = handshakestate{}`,
 					`\t}`
 				]);

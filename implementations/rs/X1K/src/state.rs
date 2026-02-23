@@ -123,7 +123,7 @@ impl SymmetricState {
 		self.ck.clear();
 	}
 
-	pub fn initialize_symmetric(protocol_name: &[u8]) -> Self {
+	pub(crate) fn initialize_symmetric(protocol_name: &[u8]) -> Self {
 		let h: Hash;
 		match protocol_name.len() {
 			0..=31 => {
@@ -181,9 +181,8 @@ impl SymmetricState {
 		);
 		self.ck = Hash::from_bytes(out0);
 		let temp_h: [u8; HASHLEN] = out1;
-		let mut temp_k: [u8; DHLEN] = out2;
+		let temp_k: [u8; DHLEN] = out2;
 		self.mix_hash(&temp_h[..]);
-		temp_k.copy_from_slice(&out2[..32]);
 		self.cs = CipherState::from_key(Key::from_bytes(temp_k));
 		out0.zeroize();
 		out1.zeroize();
@@ -205,13 +204,12 @@ impl SymmetricState {
 	}
 
 	pub(crate) fn decrypt_and_hash(&mut self, in_out: &mut [u8]) -> Result<(), NoiseError> {
-			let mut temp: [u8; 2048] = [0u8; 2048];
-			temp[..in_out.len()].copy_from_slice(in_out);
+			let temp: Vec<u8> = in_out.to_vec();
 			let (ciphertext, mac) = in_out.split_at_mut(in_out.len()-MAC_LENGTH);
 			let mut temp_mac: [u8; MAC_LENGTH] = [0u8;MAC_LENGTH];
 			temp_mac.copy_from_slice(mac);
 			self.cs.decrypt_with_ad(&self.h.as_bytes()[..], ciphertext, &mut temp_mac)?;
-			self.mix_hash(&temp[..in_out.len()]);
+			self.mix_hash(&temp);
 			Ok(())
 	}
 

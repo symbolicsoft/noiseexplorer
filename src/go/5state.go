@@ -18,7 +18,7 @@ func setNonce(cs *cipherstate, newNonce uint64) *cipherstate {
 
 func encryptWithAd(cs *cipherstate, ad []byte, plaintext []byte) (*cipherstate, []byte, error) {
 	var err error
-	if cs.n == math.MaxUint64-1 {
+	if cs.n == math.MaxUint64 {
 		err = errors.New("encryptWithAd: maximum nonce size reached")
 		return cs, []byte{}, err
 	}
@@ -29,7 +29,7 @@ func encryptWithAd(cs *cipherstate, ad []byte, plaintext []byte) (*cipherstate, 
 
 func decryptWithAd(cs *cipherstate, ad []byte, ciphertext []byte) (*cipherstate, []byte, bool, error) {
 	var err error
-	if cs.n == math.MaxUint64-1 {
+	if cs.n == math.MaxUint64 {
 		err = errors.New("decryptWithAd: maximum nonce size reached")
 		return cs, []byte{}, false, err
 	}

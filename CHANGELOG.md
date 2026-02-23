@@ -1,4 +1,4 @@
-## Noise Explorer v1.0.5
+## Noise Explorer v1.0.6
 - Go:
 	- _fix(go): Do not increment nonce on invalid message (https://github.com/symbolicsoft/noiseexplorer/pull/4)._
 

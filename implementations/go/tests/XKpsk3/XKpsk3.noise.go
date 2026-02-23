@@ -9,7 +9,7 @@ XKpsk3:
   ->
 */
 
-// Implementation Version: 1.0.4
+// Implementation Version: 1.0.6
 
 /* ---------------------------------------------------------------- *
  * PARAMETERS                                                       *
@@ -92,6 +92,7 @@ var emptyKey = [32]byte{
 }
 
 var minNonce = uint64(0)
+var maxMessage = 65535
 
 /* ---------------------------------------------------------------- *
  * UTILITY FUNCTIONS                                                *
@@ -118,15 +119,21 @@ func validatePublicKey(k []byte) bool {
 		{76, 156, 149, 188, 163, 80, 140, 36, 177, 208, 177, 85, 156, 131, 239, 91, 4, 68, 92, 196, 88, 28, 142, 134, 216, 34, 78, 221, 208, 159, 17, 215},
 		{217, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255},
 		{218, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255},
-		{219, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 25},
+		{219, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255, 255},
 	}
 
 	for _, testValue := range forbiddenCurveValues {
 		if subtle.ConstantTimeCompare(k[:], testValue[:]) == 1 {
-			panic("Invalid public key")
+			return false
 		}
 	}
 	return true
+}
+
+func zeroizeKey(k *[32]byte) {
+	for i := range k {
+		k[i] = 0
+	}
 }
 /* ---------------------------------------------------------------- *
  * PRIMITIVES                                                       *
@@ -227,7 +234,7 @@ func setNonce(cs *cipherstate, newNonce uint64) *cipherstate {
 
 func encryptWithAd(cs *cipherstate, ad []byte, plaintext []byte) (*cipherstate, []byte, error) {
 	var err error
-	if cs.n == math.MaxUint64-1 {
+	if cs.n == math.MaxUint64 {
 		err = errors.New("encryptWithAd: maximum nonce size reached")
 		return cs, []byte{}, err
 	}
@@ -238,7 +245,7 @@ func encryptWithAd(cs *cipherstate, ad []byte, plaintext []byte) (*cipherstate, 
 
 func decryptWithAd(cs *cipherstate, ad []byte, ciphertext []byte) (*cipherstate, []byte, bool, error) {
 	var err error
-	if cs.n == math.MaxUint64-1 {
+	if cs.n == math.MaxUint64 {
 		err = errors.New("decryptWithAd: maximum nonce size reached")
 		return cs, []byte{}, false, err
 	}
@@ -503,6 +510,9 @@ func InitSession(initiator bool, prologue []byte, s keypair, rs [32]byte, psk [3
 func SendMessage(session *noisesession, message []byte) (*noisesession, messagebuffer, error) {
 	var err error
 	var messageBuffer messagebuffer
+	if len(message) > maxMessage {
+		return session, messageBuffer, errors.New("unsupported message length")
+	}
 	if session.mc == 0 {
 		_, messageBuffer, err = writeMessageA(&session.hs, message)
 	}
@@ -511,6 +521,9 @@ func SendMessage(session *noisesession, message []byte) (*noisesession, messageb
 	}
 	if session.mc == 2 {
 		session.h, messageBuffer, session.cs1, session.cs2, err = writeMessageC(&session.hs, message)
+		zeroizeKey(&session.hs.s.private_key)
+		zeroizeKey(&session.hs.e.private_key)
+		zeroizeKey(&session.hs.psk)
 		session.hs = handshakestate{}
 	}
 	if session.mc > 2 {
@@ -528,6 +541,9 @@ func RecvMessage(session *noisesession, message *messagebuffer) (*noisesession, 
 	var err error
 	var plaintext []byte
 	var valid bool
+	if len(message.ciphertext) > maxMessage {
+		return session, plaintext, false, errors.New("unsupported message length")
+	}
 	if session.mc == 0 {
 		_, plaintext, valid, err = readMessageA(&session.hs, message)
 	}
@@ -536,6 +552,9 @@ func RecvMessage(session *noisesession, message *messagebuffer) (*noisesession, 
 	}
 	if session.mc == 2 {
 		session.h, plaintext, valid, session.cs1, session.cs2, err = readMessageC(&session.hs, message)
+		zeroizeKey(&session.hs.s.private_key)
+		zeroizeKey(&session.hs.e.private_key)
+		zeroizeKey(&session.hs.psk)
 		session.hs = handshakestate{}
 	}
 	if session.mc > 2 {

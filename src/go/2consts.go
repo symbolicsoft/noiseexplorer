@@ -14,3 +14,4 @@ var emptyKey = [32]byte{
 }
 
 var minNonce = uint64(0)
+var maxMessage = 65535
