@@ -13,6 +13,7 @@ go.sum
 Cargo.lock
 *.log
 target/
+implementations/wasm/*/pkg/
 
 # Visual Studio Code
 rust-test.code-workspace
