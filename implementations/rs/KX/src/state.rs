@@ -2,12 +2,11 @@
  * STATE MANAGEMENT                                                 *
  * ---------------------------------------------------------------- */
 
-use crate::{consts::{DHLEN, EMPTY_HASH, EMPTY_KEY, HASHLEN, MAC_LENGTH, NONCE_LENGTH, ZEROLEN},
+use crate::{consts::{DHLEN, EMPTY_HASH, EMPTY_KEY, HASHLEN, MAC_LENGTH, MAX_NONCE, ZEROLEN},
 			error::NoiseError,
 			prims::{decrypt, encrypt, hash, hash_with_context, hkdf},
 			types::{Hash, Key, Keypair, Nonce, Psk, PublicKey},
 			utils::from_slice_hashlen};
-use hacl_star::chacha20poly1305;
 use zeroize::Zeroize;
 
 pub(crate) struct CipherState {
@@ -79,7 +78,9 @@ impl CipherState {
 	#[allow(dead_code)]
 	pub(crate) fn rekey(&mut self) {
 		let mut in_out = EMPTY_KEY;
-		chacha20poly1305::key(&self.k.as_bytes()).nonce(&[0xFFu8; NONCE_LENGTH]).encrypt(
+		encrypt(
+			from_slice_hashlen(&self.k.as_bytes()[..]),
+			MAX_NONCE,
 			&ZEROLEN[..],
 			&mut in_out[..],
 			&mut [0u8; 16],

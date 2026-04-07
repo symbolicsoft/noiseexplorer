@@ -2,13 +2,11 @@
  * STATE MANAGEMENT                                                 *
  * ---------------------------------------------------------------- */
 
-use crate::{consts::{DHLEN, EMPTY_HASH, EMPTY_KEY, HASHLEN, MAC_LENGTH, NONCE_LENGTH, ZEROLEN},
+use crate::{consts::{DHLEN, EMPTY_HASH, EMPTY_KEY, HASHLEN, MAC_LENGTH, MAX_NONCE, ZEROLEN},
 			error::NoiseError,
 			prims::{decrypt, encrypt, hash, hash_with_context, hkdf},
 			types::{Hash, Key, Keypair, Nonce, Psk, PublicKey},
 			utils::from_slice_hashlen};
-use crypto::chacha20poly1305::ChaCha20Poly1305;
-use crypto::aead::AeadEncryptor;
 
 pub(crate) struct CipherState {
 	k: Key,
@@ -81,12 +79,17 @@ impl CipherState {
 
 	#[allow(dead_code)]
 	pub(crate) fn rekey(&mut self) {
-	let mut cipher = ChaCha20Poly1305::new(&self.k.as_bytes()[..], &[0xFFu8; NONCE_LENGTH][..], &ZEROLEN[..]);
-	let mut out: [u8; DHLEN] = [0_u8; DHLEN];
-	cipher.encrypt(&EMPTY_KEY[..], &mut out[..], &mut [0u8; 16][..]);
+		let mut out: [u8; DHLEN] = [0_u8; DHLEN];
+		encrypt(
+			from_slice_hashlen(&self.k.as_bytes()[..]),
+			MAX_NONCE,
+			&ZEROLEN[..],
+			&EMPTY_KEY[..],
+			&mut out[..],
+			&mut [0u8; 16],
+		);
 		self.k.clear();
 		self.k = Key::from_bytes(out);
-		//ZEROIZE
 		out.copy_from_slice(&EMPTY_KEY);
 	}
 

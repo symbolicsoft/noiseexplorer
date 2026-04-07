@@ -6,7 +6,7 @@ IX:
   <-
 */
 
-// Implementation Version: 1.0.6
+// Implementation Version: 1.0.7
 
 /* ---------------------------------------------------------------- *
  * PARAMETERS                                                       *
